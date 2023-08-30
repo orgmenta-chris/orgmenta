@@ -1,18 +1,30 @@
-
-
-import { StyleSheet, Text, View, Pressable } from 'react-native';
-import { userState } from '../../../states/navigation/userState'
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Pressable } from "react-native";
+// import { userState } from "../../../states/navigation/userState";
+import UserModal from "./modals/userModal";
 
 export default function UserWidget() {
-    const toggle:any = userState()
-    return (
-        <View style={{height:50, flexDirection:'row', gap:10}}>
-            <Pressable 
-                onPress={()=>{toggle.update(!toggle.active)}} 
-                // onPress={()=>{console.log(toggle)} }
-            >
-                <Text> user</Text>
-            </Pressable>
-        </View>
-    )
+  const [modalVisible, setModalVisible] = useState(false);
+  // const toggle: any = userState();
+  return (
+    <View>
+      <Pressable
+        // onPress={() => {
+        //   toggle.update(!toggle.active);
+        // }}
+        onPress={() => {
+          setModalVisible(true);
+        }}
+      >
+        <Text> user</Text>
+      </Pressable>
+
+      {/* user modal */}
+      <UserModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
+      {/* user modal */}
+    </View>
+  );
 }

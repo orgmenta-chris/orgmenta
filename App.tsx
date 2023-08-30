@@ -1,33 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Home from './pages/home'
-import Sidebar from './components/navigation/sidebar'
-import Header from './components/navigation/header'
-import User from './pages/user'
-import Space from './pages/space'
-import { BrowserRouter, Route, Routes} from 'react-router-dom';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import Home from "./pages/home";
+import Sidebar from "./components/navigation/sidebar";
+import Header from "./components/navigation/header";
+import User from "./pages/user";
+import Space from "./pages/space";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export default function App() {
   return (
     <BrowserRouter>
       <View style={styles.container}>
         <StatusBar style="auto" />
-        <Header/>
+        <Header />
         <View style={styles.content}>
-          <Sidebar/>
+          <Sidebar />
           <Routes>
-            <Route
-              path="/:division/:area/*"
-              element={<Home />}
-            />
-            <Route
-              path="/user/:userid"
-              element={<User />}
-            />
-            <Route
-              path="/space/:spaceid"
-              element={<Space />}
-            />
+            <Route path="/:division/:area/*" element={<Home />} />
+            <Route path="/user/:userid" element={<User />} />
+            <Route path="/space/:spaceid" element={<Space />} />
           </Routes>
         </View>
       </View>
@@ -38,19 +29,18 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     // alignItems: 'center',
     // justifyContent: 'center',
-    flexDirection: 'column'
+    flexDirection: "column",
   },
   content: {
     flex: 1,
-    flexDirection: 'row',
-    gap:10
+    flexDirection: "row",
+    gap: 10,
   },
   sidebar: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
 });
-

@@ -8,8 +8,8 @@ export default function UserPage() {
     return (
         <View style={{flexDirection:'column'}}>
             <Text style={{fontWeight:700}}>USER PAGE</Text>
-            <ViewAuthForm/>
-            <ViewAuthDetails/>
+            {/* <ViewAuthForm/> */}
+            {/* <ViewAuthDetails/> */}
         </View>
     )
 }

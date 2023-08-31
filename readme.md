@@ -6,7 +6,7 @@
 - `gh repo clone orgmenta-chris/orgmenta` (github cli) or `git clone https://github.com/orgmenta-chris/orgmenta.git` (git)
 
 ## Pull
-- `git pull origin master` 
+- `git pull origin main` 
 - `git branch development` 
 - `git checkout development`
 

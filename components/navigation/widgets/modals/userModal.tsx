@@ -7,11 +7,17 @@ import {
   View,
   TextInput,
 } from "react-native";
+import { useState } from 'react'
+import { useAuthSignin, useAuthSignout, useAuthSession} from '../../../../utils/auth'
 
 // @ts-ignore
-const UserModal = (props) => {
+export const UserModal = (props) => {
+  const [usernameState, usernameUpdate] = useState('');
+  const [passwordState, passwordUpdate] = useState('');
   const { modalVisible, setModalVisible } = props;
-
+  const session = useAuthSession()
+  const signin = useAuthSignin({email: usernameState, password: passwordState})
+  const signout = useAuthSignout()
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -29,12 +35,16 @@ const UserModal = (props) => {
               <Text style={{ paddingHorizontal: 10 }}>Email</Text>
               <TextInput
                 style={styles.input}
+                onChangeText={(value) => usernameUpdate(value)}
+                autoComplete='username'
                 placeholder="e.g. johndoe@email.com"
               />
               <Text style={{ paddingHorizontal: 10 }}>Password</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Enter your password"
+                secureTextEntry={true}
+                onChangeText={(value) => passwordUpdate(value)}
               />
             </View>
             <View style={styles.divider}></View>

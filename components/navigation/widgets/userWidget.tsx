@@ -1,4 +1,3 @@
-
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { userState } from '../../../states/navigation/userState'
 import { useAuthSession } from '../../../utils/auth'

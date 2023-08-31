@@ -1,5 +1,6 @@
 
 
+
 import { StyleSheet, Text, View } from 'react-native';
 import { ViewSpaceItem, ViewSpaceArray} from '../utils/space'
 import { ViewEntitySwitch, ViewEntityArray} from '../utils/entity'

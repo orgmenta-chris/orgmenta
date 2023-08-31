@@ -1,5 +1,6 @@
 
 
+
 import { StyleSheet, Text, View } from 'react-native';
 import { ViewAuthForm, ViewAuthDetails} from '../utils/auth'
 

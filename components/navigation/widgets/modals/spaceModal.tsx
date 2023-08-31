@@ -1,4 +1,5 @@
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import { Link } from "react-router-dom";
 
 // @ts-ignore
 const SpaceModal = (props) => {
@@ -17,12 +18,40 @@ const SpaceModal = (props) => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Space Modal</Text>
+            <View style={styles.avatarContainer}>
+              <View>
+                <Text style={styles.avatarText}>C</Text>
+              </View>
+              <View>
+                <Text style={styles.titleText}>Captain's Organization</Text>
+              </View>
+            </View>
+            <View style={styles.divider}></View>
+            <View style={styles.spaceLinks}>
+              <Link to="">Files</Link>
+              <Link to="">Settings</Link>
+              <Link to="">Subscription & Billing</Link>
+            </View>
+            <View style={styles.divider}></View>
+            <View style={styles.spaceLinks}>
+              <Link to="">Payroll</Link>
+              <Link to="">Projects</Link>
+              <Link to="">Workflow</Link>
+            </View>
+            <View style={styles.divider}></View>
+            <View style={styles.spaceLinks}>
+              <Pressable style={styles.organization}>
+                <Text>#1 - Dat Other Company</Text>
+              </Pressable>
+              <Pressable style={styles.organization}>
+                <Text>+ Add a new organization</Text>
+              </Pressable>
+            </View>
             <Pressable
-              style={[styles.button, styles.buttonClose]}
+              style={styles.button}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text style={styles.textStyle}>Close Modal</Text>
+              <Text>X</Text>
             </Pressable>
           </View>
         </View>
@@ -42,8 +71,7 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
+    padding: 30,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -52,26 +80,64 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+    minWidth: 500,
   },
   button: {
     borderRadius: 20,
     padding: 10,
     elevation: 2,
+    position: "absolute",
+    top: 10,
+    right: 10,
+    fontSize: 48,
   },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
+  avatarContainer: {
+    flex: 1,
+    flexDirection: "row",
+    gap: 20,
+    alignItems: "center",
   },
-  buttonClose: {
-    backgroundColor: "#2196F3",
+  avatarText: {
+    fontSize: 32,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: "yellow",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "black",
   },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+  titleText: {
+    fontSize: 20,
   },
-  modalText: {
+  divider: {
+    height: 0,
+    borderColor: "black",
+    borderWidth: 1,
+    marginVertical: 10,
+  },
+  spaceLinks: {
+    flex: 1,
+    flexDirection: "column",
+    gap: 10,
     marginBottom: 15,
-    textAlign: "center",
+  },
+  organization: {
+    flex: 1,
+    gap: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });
 

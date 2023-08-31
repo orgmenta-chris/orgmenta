@@ -1,8 +1,8 @@
 
-import {useState} from 'react'
-import {View, Pressable, Text} from 'react-native'
+import { useState } from 'react'
+import { View, Pressable, Text } from 'react-native'
 import { data } from '../utils/static'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export const Expandable = ( {item}:any ) => {
     const [expanded, expandedToggle] = useState(false);

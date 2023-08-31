@@ -6,31 +6,34 @@ import Header from './components/navigation/header'
 import User from './pages/user'
 import Space from './pages/space'
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
+import { ViewQueryerProvider } from './utils/queryer'
 
 export default function App() {
   return (
     <BrowserRouter>
-      <View style={styles.container}>
-        <StatusBar style="auto" />
-        <Header/>
-        <View style={styles.content}>
-          <Sidebar/>
-          <Routes>
-            <Route
-              path="/:division/:area/*"
-              element={<Home />}
-            />
-            <Route
-              path="/user/:userid"
-              element={<User />}
-            />
-            <Route
-              path="/space/:spaceid"
-              element={<Space />}
-            />
-          </Routes>
+      <ViewQueryerProvider>
+        <View style={styles.container}>
+          <StatusBar style="auto" />
+          <Header/>
+          <View style={styles.content}>
+            <Sidebar/>
+            <Routes>
+              <Route
+                path="/:division/:area/*"
+                element={<Home />}
+              />
+              <Route
+                path="/user/:userid"
+                element={<User />}
+              />
+              <Route
+                path="/space/:spaceid"
+                element={<Space />}
+              />
+            </Routes>
+          </View>
         </View>
-      </View>
+      </ViewQueryerProvider>
     </BrowserRouter>
   );
 }

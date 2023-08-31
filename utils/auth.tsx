@@ -130,7 +130,7 @@ export const useAuthSession = () => {
 export const ViewAuthForm = () => {
     const [usernameState, usernameUpdate] = useState('');
     const [passwordState, passwordUpdate] = useState('');
-    const session = useAuthSession({})
+    const session = useAuthSession()
     const signin = useAuthSignin({email: usernameState, password: passwordState})
     const signout = useAuthSignout()
     return (

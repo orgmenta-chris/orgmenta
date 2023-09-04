@@ -1,23 +1,32 @@
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  Pressable,
-  View,
-  TextInput,
-} from "react-native";
-import { useState } from 'react'
-import { useAuthSignin, useAuthSignout, useAuthSession} from '../../../../utils/auth'
+import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import { useAuthSession, useAuthSignout } from "../../../../utils/auth";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import SignIn from "../../../auth/signIn";
+import SignUp from "../../../auth/signUp";
+import React from "react";
 
 // @ts-ignore
-export const UserModal = (props) => {
-  const [usernameState, usernameUpdate] = useState('');
-  const [passwordState, passwordUpdate] = useState('');
+const UserModal = (props) => {
   const { modalVisible, setModalVisible } = props;
-  const session = useAuthSession()
-  const signin = useAuthSignin({email: usernameState, password: passwordState})
-  const signout = useAuthSignout()
+
+  const auth = useAuthSession();
+
+  const signout = useAuthSignout();
+
+  const native = useNavigate();
+
+  const [activeTab, setActiveTab] = useState(0);
+
+  const tabs = [
+    { tab: "Sign in", component: <SignIn /> },
+    { tab: "Sign up", component: <SignUp /> },
+  ];
+
+  const handleTabPress = (index: number) => {
+    setActiveTab(index);
+  };
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -31,39 +40,110 @@ export const UserModal = (props) => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <View>
-              <Text style={{ paddingHorizontal: 10 }}>Email</Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={(value) => usernameUpdate(value)}
-                autoComplete='username'
-                placeholder="e.g. johndoe@email.com"
-              />
-              <Text style={{ paddingHorizontal: 10 }}>Password</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Enter your password"
-                secureTextEntry={true}
-                onChangeText={(value) => passwordUpdate(value)}
-              />
-            </View>
+            <Text style={{ marginHorizontal: 12, color: "green" }}>
+              {auth?.data?.isSignedIn
+                ? "Signed in as " + auth.data.currentUser
+                : "Using guest account"}
+            </Text>
             <View style={styles.divider}></View>
-            <View style={styles.userLinks}>
-              <Pressable style={styles.links}>
-                <Text>View profile</Text>
-              </Pressable>
-              <Pressable style={styles.links}>
-                <Text>Account analytics</Text>
-              </Pressable>
-              <Pressable style={styles.links}>
-                <Text>Settings</Text>
-              </Pressable>
+            {/* tab buttons */}
+            <View
+              style={{
+                flexDirection: "row",
+                marginBottom: 10,
+                marginHorizontal: 12,
+              }}
+            >
+              {auth?.data?.session === null
+                ? tabs.map((content, index) => (
+                    <Pressable
+                      key={index}
+                      style={{
+                        padding: 10,
+                        borderTopWidth: 1,
+                        borderRightWidth: 1,
+                        borderLeftWidth: 1,
+                        borderTopRightRadius: 5,
+                        borderTopLeftRadius: 5,
+                        borderColor:
+                          activeTab === index ? "black" : "transparent",
+                        backgroundColor:
+                          activeTab === index ? "lightblue" : "transparent",
+                      }}
+                      onPress={() => handleTabPress(index)}
+                    >
+                      <Text style={{ fontWeight: "bold" }}>{content.tab}</Text>
+                    </Pressable>
+                  ))
+                : null}
             </View>
+            {/* tab buttons */}
+
+            {/* tab content */}
+            {auth?.data?.session === null ? (
+              <View>{tabs[activeTab].component}</View>
+            ) : (
+              <View style={styles.userLinks}>
+                <Pressable
+                  style={styles.links}
+                  onPress={() => {
+                    setModalVisible(false);
+                    native(`/user/${auth?.data?.session?.user?.id}`);
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "blue",
+                      textDecorationStyle: "solid",
+                      textAlign: "center",
+                    }}
+                  >
+                    View Profile
+                  </Text>
+                </Pressable>
+                <Pressable
+                  style={styles.links}
+                  onPress={() => {
+                    setModalVisible(false);
+                    native(`/user/settings/${auth?.data?.session?.user?.id}`);
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "blue",
+                      textDecorationStyle: "solid",
+                      textAlign: "center",
+                    }}
+                  >
+                    Settings
+                  </Text>
+                </Pressable>
+                <Pressable
+                  style={styles.links}
+                  onPress={() => {
+                    setModalVisible(false);
+                    signout.mutate();
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "blue",
+                      textDecorationStyle: "solid",
+                      textAlign: "center",
+                    }}
+                  >
+                    Log out
+                  </Text>
+                </Pressable>
+              </View>
+            )}
+            {/* tab content */}
+
             <Pressable
               style={styles.button}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text>X</Text>
+              <Text>❌</Text>
             </Pressable>
           </View>
         </View>
@@ -103,33 +183,25 @@ const styles = StyleSheet.create({
     right: 10,
     fontSize: 48,
   },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
+  userLinks: {
+    flex: 1,
+    flexDirection: "column",
+    gap: 10,
+    marginBottom: 15,
+    marginHorizontal: 12,
   },
   divider: {
     height: 0,
     borderColor: "black",
     borderWidth: 1,
     marginVertical: 10,
-  },
-  userLinks: {
-    flex: 1,
-    flexDirection: "column",
-    gap: 10,
-    marginBottom: 15,
+    marginHorizontal: 12,
   },
   links: {
-    flex: 1,
-    gap: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
+    borderWidth: 1,
     borderRadius: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -137,7 +209,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
   },
 });
 

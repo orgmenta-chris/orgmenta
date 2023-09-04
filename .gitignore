@@ -33,3 +33,8 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# # other 
+# static.js
+# /utils/static.js 
+# .env

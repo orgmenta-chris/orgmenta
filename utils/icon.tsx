@@ -1,3 +1,14 @@
+// The component 'ViewIconMain' allows you to use any of the icons available to expo (see the '@expo/vector-icons' import).
+// https://icons.expo.fyi/
+// Example usage:
+// <ViewIconMain 
+    // name={expanded?'caretup':'caretdown'}
+    // source={'AntDesign'}
+    // color={'gray'}
+    // size={10}
+// />
+
+
 import React, { memo } from 'react';
 import { ViewStyle } from 'react-native';
 import {

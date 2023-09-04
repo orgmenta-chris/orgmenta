@@ -38,3 +38,41 @@
 
 ## Linux
 - (Not planned)
+
+
+# Database 
+
+## Remote
+
+### Query Speed
+If queries start timing out / taking too long:
+- Ensure that caching is enabled for that query, if appropriate
+- Ensure appropriate indexing on the remote database table/view
+- If needed, a supabase function/trigger? can be used to copy information from the relationship table to the entities table (e.g. a countofactiveparents calculation). This is a last resort and should only be implemented after discussion.
+- If needed, a supabase function/trigger? can be used to copy information from the relationship / entities table to a unique table of its own. This is a last resort and should only be implemented after discussion.
+
+
+# Geneal
+
+## What is Orgmenta?
+- An Entity Relationship Management System 
+
+## What does Orgmenta aim to be?
+- An Enterprise Resource Planning (ERP) application
+- A Customer Relationship Manager (CRM)
+- A Sales and Quoting Tool
+- A business governance/executive decision making tool
+- A project management tool and task tracker
+- A timesheet/time entry/journalling/recording app
+- A payroll system
+- A payables and disbursement system
+- A receivables and reconciliation system
+- A full accounting package
+
+
+# Schemas
+
+## Entity
+{
+
+}

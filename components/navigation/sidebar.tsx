@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
-import { data } from "../../utils/static";
+import { StyleSheet, Text, ScrollView, View, useWindowDimensions } from "react-native";
+import { newData as data } from "../../utils/static";
 import { Expandable } from "../expandable";
 
 export default function Sidebar() {
+  const height = useWindowDimensions().height -50;
   return (
-    <View>
+    <ScrollView style={{height:height}}>
       {
         data // temporary array that contains all the navigation objects
           .filter(
@@ -14,6 +15,6 @@ export default function Sidebar() {
             <Expandable item={x} key={i} />
           )) // display the name only (temporary, to be replaced with link)
       }
-    </View>
+    </ScrollView>
   );
 }

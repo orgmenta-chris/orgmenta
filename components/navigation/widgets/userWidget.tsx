@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { userState } from '../../../states/navigation/userState'
 import { useAuthSession } from '../../../utils/auth'
 import { useState } from 'react'
-import {UserModal} from '../widgets/modals/userModal'
+import { UserModal } from '../widgets/modals/userModal'
 
 export default function UserWidget() {
     const auth = useAuthSession({})

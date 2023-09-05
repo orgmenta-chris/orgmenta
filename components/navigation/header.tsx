@@ -13,9 +13,6 @@ export default function Header() {
         flexDirection: "row",
         gap: 15,
         justifyContent: "center",
-        backgroundColor: "#c7ddd2",
-        borderBottomColor: "black",
-        borderBottomWidth: 1,
       }}
     >
       <Link to="" style={{ color: "black", textDecoration: "none" }}>

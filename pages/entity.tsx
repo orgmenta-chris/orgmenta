@@ -2,6 +2,7 @@
 import { View } from 'react-native';
 import { ViewProcessesTitle} from '../components/entity/processTabs'
 import { ViewDisplayMain, ViewDisplayActions, ViewDisplayTabs } from'../utils/display'
+import React from 'react';
   
 
 export default function Entity() { 

@@ -1,3 +1,4 @@
+import React from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import { Link } from "react-router-dom";
 
@@ -51,7 +52,7 @@ const SpaceModal = (props) => {
               style={styles.button}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text>X</Text>
+              <Text>❌</Text>
             </Pressable>
           </View>
         </View>

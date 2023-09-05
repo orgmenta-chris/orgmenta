@@ -1,22 +1,19 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Pressable } from "react-native";
-// import { spaceState } from "../../../states/navigation/spaceState";
+import { Text, View, Pressable, StyleSheet } from "react-native";
 import SpaceModal from "./modals/spaceModal";
 
 export default function SpaceWidget() {
   const [modalVisible, setModalVisible] = useState(false);
-  // const toggle: any = spaceState();
+
   return (
-    <View>
+    <View style={styles.navButton}>
       <Pressable
-        // onPress={() => {
-        //   toggle.update(!toggle.active);
-        // }}
+        style={styles.navButton}
         onPress={() => {
           setModalVisible(true);
         }}
       >
-        <Text> space</Text>
+        <Text style={styles.navButton}>Space</Text>
       </Pressable>
 
       {/* space modal */}
@@ -28,3 +25,10 @@ export default function SpaceWidget() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  navButton: {
+    padding: 0,
+    margin: 0,
+  },
+});

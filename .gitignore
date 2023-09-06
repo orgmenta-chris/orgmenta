@@ -37,4 +37,4 @@ yarn-error.*
 # # other 
 # static.js
 # /utils/static.js 
-# .env
+.env

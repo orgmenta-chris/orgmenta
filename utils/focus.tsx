@@ -1,46 +1,58 @@
-// Chris is working on this.
-// It is a form of display (alongside calendar, table etc.).
-// This display is resizable 'pods' that can be moved around on a grid, pinned etc.
-// E.g. on the 'invoicing' category entity, you could pin an 'unsent invoices count' widget to to this display.
+// A 'Focus' is the primary entity being studied.
 
-import { useState, useReducer, useEffect, useMemo} from "react"
+
+import React from 'react';
+import { View, Text } from 'react-native';
 import { Link, useLocation } from 'react-router-dom'
-import { ScrollView, TextInput, View, Text, Pressable } from 'react-native';
 import { data } from './static'
- 
+
+
 // Main
 
-export const ViewPodsMain = ({items,children}:any) => {
+export const ViewFocusMain = ({}:any) => {
+  return (
+    <View style={{flexDirection:'column'}}>
+      
+      <ViewFocusHeader/>
+      {/* <ViewFocusInfo/>
+      <ViewFocusTabs/> */}
+      
+    </View>
+  )
+}
+
+
+// Header
+
+// A header/title/breadcrumb section for the Entity Focus
+export const ViewFocusHeader=() => { 
+    // At the moment, this shows breadcrumbs for categories (e.g. governance > model > plan) from static.js
+    // But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
+    const path = useLocation()?.pathname?.split('/');
+    const process = data?.find(x=>x.nickname===path[2]);
+    const subprocesses = process && data.filter(x=>x.parent===process.id);
+    const parent = data?.find(y=>y.id===process?.parent);
+    const grandparent = data?.find(z=>z.id===parent?.parent);
     return (
-        <View>
-          {children}
-          {/* <Text>{JSON.stringify({items})}</Text> */}
+        <View style={{flexDirection:'column'}}>
+            
+            {/* Title of the current process (breadcrumbs) */}
+            <Text style={{fontSize:24, height: 30}}>
+                {grandparent?.id && grandparent?.id > 9  && <> <Link to={'/entity/'+grandparent.nickname}>{grandparent.display_singular}</Link>{' > '}</>}
+                {parent?.id && parent?.id > 9  && <> <Link to={'/entity/'+parent.nickname}>{parent.display_singular}</Link>{' > '}</>}
+                {process?.display_singular}
+            </Text>
+
         </View>
     )
 }
 
 
-/// Example
-
-// Temporary examplepod
-export const ViewPodExample=() => { 
-  return (
-      <View style={{flexDirection:'column', borderWidth:1, borderColor:'white', margin: 4}}>
-          <View style={{height: 40, backgroundColor:'lightgray'}}>
-              <Text style={{fontSize:16, fontStyle:'italic'}}>Another Example Pod</Text>
-              <Text style={{fontSize:12}}>To be replaced with dynamic pods using db data</Text>
-          </View>
-      </View>
-  )
-}
-
-
-
 // Title
 
-// A pod to show information on the currently selected entity
-// This is using static data for categories only at the moment (e.g. Accounts-Payables-Bills), but will eventually be a dynamic component using  db data.
-export const ViewPodInfo =() => { 
+// A temporary component to show information on the currently selected processs (e.g. Accounts-Payables-Bills)
+// This is using static data at the moment, but will eventually be a dynamic component using  db data.
+export const ViewFocusInfo =() => { 
     // At the moment, this shows static info for categories (e.g. governance > model > plan) from static.js
     // But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
     const path = useLocation()?.pathname?.split('/');
@@ -70,9 +82,9 @@ export const ViewPodInfo =() => {
 
 // Tabs
 
-// A component to show entity 'tabs' (e.g. Accounts > Payables > Bills/Payments/etc)
-// This is using static data for categories only at the moment, but will eventually be a dynamic component using  db data.
-export const ViewPodTabs =() => { 
+// A temporary component to show focus entity tabs (e.g. Accounts > Payables > Bills/Payments/etc)
+// This is using static data at the moment, but will eventually be a dynamic component using  db data.
+export const ViewFocusTabs =() => { 
     // At the moment, this shows breadcrumbs for categories (e.g. governance > model > plan) from static.js
     // But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
     const path = useLocation()?.pathname?.split('/');
@@ -99,6 +111,3 @@ export const ViewPodTabs =() => {
         </View>
     )
 }
-
-
-

@@ -1,8 +1,3 @@
-// This is a placeholder file.
-// Loisa: feel free to find a library (or roll your own solution if none exist) that works on web,ios and android that
-// takes json and makes it into a collapsible tree / collapsible nested list.
-// Something like this library (although this one looks unmaintained, so you might choose something else or consider forking/replicating it etc. with me): https://github.com/zaguiini/react-native-final-tree-view
-
 import React from "react";
 import { Text, View } from "react-native";
 
@@ -45,12 +40,8 @@ const family = [
   },
 ];
 
-export const ViewJsonMain = (Input: any) => {
-  const data = Input.schema.data;
-
+const CollapsibleJSONTree = () => {
   return (
-    // Placeholder. This will eventually allow for collapsing/expanding json nodes.
-    // {JSON.stringify(data, null, 2)}
     <TreeView
       data={family} // defined above
       renderNode={({ node, level, isExpanded, hasChildrenNodes }) => {
@@ -69,3 +60,5 @@ export const ViewJsonMain = (Input: any) => {
     />
   );
 };
+
+export default CollapsibleJSONTree;

@@ -1,20 +1,8 @@
 import React from "react";
-import Calendar from "react-calendar";
-import { View, Text } from "react-native";
-import "react-calendar/dist/Calendar.css";
+import { Calendar } from "react-native-big-calendar";
 
-const CalendarView = (props: { time: any; setTime: any }) => {
-  const { time, setTime } = props;
-
-  return (
-    <View style={{ paddingVertical: 50, paddingHorizontal: 400 }}>
-      <Text style={{ textAlign: "center", marginBottom: 10 }}>
-        {time.toUTCString()}
-      </Text>
-
-      <Calendar onChange={setTime} value={time} />
-    </View>
-  );
+const MyCalendar = (props: any) => {
+  return <Calendar events={props.myEventsList} height={600} />;
 };
 
-export default CalendarView;
+export default MyCalendar;

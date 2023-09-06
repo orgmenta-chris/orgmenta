@@ -1,26 +1,36 @@
-import { StyleSheet, Text, View, Pressable } from 'react-native';
-import { userState } from '../../../states/navigation/userState'
-import { useAuthSession } from '../../../utils/auth'
-import { useState } from 'react'
-import { UserModal } from '../widgets/modals/userModal'
+import { Text, View, Pressable, StyleSheet } from "react-native";
+import { useAuthSession } from "../../../utils/auth";
+import { useState } from "react";
+import UserModal from "./modals/userModal";
 
 export default function UserWidget() {
-    const auth = useAuthSession({})
-    const toggle:any = userState() 
-    const [modalVisible, setModalVisible] = useState(false);
-    return (
-        <View style={{height:50, flexDirection:'row', gap:10}}>
-            <Pressable 
-                onPress={() => {
-                    setModalVisible(true);
-                }}
-            >
-                <Text> user | {auth?.data?.session === null ? 'Guest' : 'logged in' }</Text>
-            </Pressable>
-            <UserModal
-                modalVisible={modalVisible}
-                setModalVisible={setModalVisible}
-            />
-        </View>
-    )
+  const auth = useAuthSession();
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  return (
+    <View style={{ flexDirection: "row", gap: 10, padding: 0, margin: 0 }}>
+      <Pressable
+        style={styles.navButton}
+        onPress={() => {
+          setModalVisible(true);
+        }}
+      >
+        <Text style={styles.navButton}>
+          User | {auth?.data?.session === null ? "Guest" : "logged in"}
+        </Text>
+      </Pressable>
+      <UserModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  navButton: {
+    padding: 0,
+    margin: 0,
+  },
+});

@@ -6,10 +6,11 @@ import Sidebar from './components/navigation/sidebar'
 import Header from './components/navigation/header'
 import User from './pages/user'
 import Entity from './pages/entity'
+import React from 'react';
 import Space from './pages/space'
 import Attribute from './pages/attribute'
-import { BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import { ViewQueryerProvider } from './utils/queryer'
+import { BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 
 export default function App() {
   return (
@@ -25,7 +26,7 @@ export default function App() {
               <Sidebar/>
             </View>
 
-            <View style={{flex: 4 }}>
+            <View style={{flex: 7 }}>
               <Routes>
 
                 {/* Home */}

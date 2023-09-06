@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Alert,
   Modal,
@@ -31,7 +32,7 @@ const BrowserModal = (props) => {
               style={styles.button}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text>X</Text>
+              <Text>❌</Text>
             </Pressable>
           </View>
         </View>

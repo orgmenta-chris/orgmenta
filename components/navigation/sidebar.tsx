@@ -1,5 +1,5 @@
 import { StyleSheet, Text, ScrollView, View, useWindowDimensions } from "react-native";
-import { newData as data } from "../../utils/static";
+import { data } from "../../utils/static";
 import { Expandable } from "../expandable";
 
 export default function Sidebar() {
@@ -13,7 +13,7 @@ export default function Sidebar() {
           ) // if in production, only show active modules
           .map((x, i) => (
             <Expandable item={x} key={i} />
-          )) // display the name only (temporary, to be replaced with link)
+          ))
       }
     </ScrollView>
   );

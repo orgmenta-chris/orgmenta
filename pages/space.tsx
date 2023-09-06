@@ -8,7 +8,10 @@ export default function SpacePage() {
     return (
         <View>
             <Text style={{fontSize:24}}>Spaces</Text>
+
             <ViewSpaceArray/>
+            
+            {/* <ViewSpaceInt/> */}
         </View>
     )
 }

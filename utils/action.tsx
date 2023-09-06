@@ -3,6 +3,9 @@
 import React from 'react';
 import { TextInput, View, Text, Pressable } from 'react-native';
 import { useState } from 'react'
+import { Link, useLocation, Route, Routes } from 'react-router-dom'
+import { ViewIconMain } from './icon'
+import { ViewEntityAdd, useEntityArray, useEntitySingle, useEntitySchema} from './entity'
 
 
 // Form
@@ -14,9 +17,6 @@ export const ViewActionModal = ({}:any) => {
     </View>
   )
 }
-
-
-// Form
 
 export const ViewActionAdd = ({}:any) => {
   const [titleState, titleSet] = useState('');
@@ -94,10 +94,50 @@ export const ViewActionAdd = ({}:any) => {
         <Text>Testing:</Text>
         <Text>{titleState}</Text>
         <Text>{typeState}</Text>
-        <Text>{classState}</Text>
+        <Text>{classState}</Text> 
         <Text>{statusState}</Text>
         <Text>{descriptionState}</Text>
       </View> */}
     </View>
   )
 }
+
+
+// Tabs
+
+export const optionsActionTabs = [
+  {title:'Inspect',iconName:'eye',iconSource:'Feather', description: "inspect an entity in a popup"},
+  {title:'Add',iconName:'plus',iconSource:'Feather', description: "create new entities/entity"},
+  {title:'Edit',iconName:'edit',iconSource:'Feather', description: "edit entities/entity"},
+  {title:'Sync',iconName:'sync',iconSource:'MaterialIcons', description: "sync and database storage status"},
+  {title:'Share',iconName:'share',iconSource:'Feather', description: "share, assign and manage access to entities"},
+  {title:'Templates',iconName:'repo-template',iconSource:'Octicons', description: "manage and run rules/templates"},
+  // {title:'Display',iconName:'eye',iconSource:'Feather', description: "change the display mode between Calendar, Table, List etc."},// in case we want to make the mode/display choices (calendar, table etc.) within these tabs instead of on their own
+]
+
+export const ViewActionTabs = ({}:any) => {
+  return (
+    <View style={{flexDirection:'row'}}>
+      <View style={{flexDirection:'row'}}>
+        {optionsActionTabs?.map((x,i)=>
+          <Link key={i} style={{padding:5, textDecoration:'none'}} to={x.title.toLowerCase()}>
+            {/* {x.title} */}
+            <ViewIconMain
+                name={x.iconName}
+                source={x.iconSource}
+                color={'black'}
+                size={24}
+            />
+          </Link>
+        )}
+      </View>
+      <Routes>
+        <Route
+          path="/add"
+          element={<ViewEntityAdd/>}
+        />
+      </Routes>
+    </View>
+  )
+}
+

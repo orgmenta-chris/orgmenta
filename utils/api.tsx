@@ -28,7 +28,7 @@ export const mapApiSource = {
                 'X-RapidAPI-Host': 'jobsearch4.p.rapidapi.com'
             }
         }
-    }
+    },
 }
 
 

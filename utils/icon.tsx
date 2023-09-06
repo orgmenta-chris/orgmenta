@@ -48,10 +48,11 @@ export interface interfaceIconMain {
   name: string;
   size?: number;
   color?: string;
+  padding?: number;
   style?: ViewStyle;
 }
 
-export const ViewIconMain: React.FC<interfaceIconMain> = memo(({ source, name, size = 22, color = 'white', style }) => {
+export const ViewIconMain: React.FC<interfaceIconMain> = memo(({ source, name, size = 22, color = 'white', padding, style }) => {
   const Icon = mapIconComponents[source] || mapIconComponents['Ionicons'];
-  return <Icon name={name} size={size} color={color} style={{ height: '100%', ...style }} />;
+  return <Icon name={name} size={size} color={color} style={{ height: '100%', padding, ...style }} />;
 });

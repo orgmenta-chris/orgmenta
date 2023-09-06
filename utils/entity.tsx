@@ -12,7 +12,6 @@ import { ViewPodsMain } from './pods'
 import { ViewFormMain } from './form'
 import { useState } from 'react'
 import { useAttributeUnioned} from './attribute'
-import { ViewProcessesTabs} from '../components/entity/processTabs'
 
 
 // Tabs
@@ -51,6 +50,8 @@ export const useEntityArray = ({filter_array}:any)=> { // todo: implement filter
           return instanceSupabaseClient
               .from("entities")
               .select()
+              // .contains('other', { test: 1 }) // Example of how we can add static fields in (e.g. event_start can be in here instead of having to create a new column which is only applicable to events)
+              // or we can store this sort of thing in side b of relationships (but that requires a join)
               // todo: implement filter_array here
               .limit(10) // temporary limit, feel free to remove this or make pagination dynamic if needed.
               .then(response=>response.data)
@@ -234,104 +235,3 @@ export const ViewEntitySchema = ({}:any) => {
     </View>
   )
 }
-
-
-// Modes
-
-export const ViewEntityList = (props:any) => {
-  const schema = props.schema;
-  const columns = useTableColumns(schema.data?.map(x=>x.focus_columns.name_singular));
-  const auxiliary = props.auxiliary;
-  return (
-    <View style={{flexDirection:'column'}}>
-      <ViewListMain 
-        columns={columns}
-        data={auxiliary.data}
-      />
-    </View>
-  )
-}
-
-export const ViewEntityPods = (props:any) => {
-  const schema = props.schema;
-  const auxiliary = props.auxiliary;
-  const focus = props.focus;
-  const data = 'make focus into an array and concat with aux'
-  return (
-    <View style={{flexDirection:'column'}}>
-      <ViewPodsMain 
-        items={auxiliary}
-        schema={schema.data}
-      >
-        <ViewProcessesTabs/>
-      </ViewPodsMain>
-    </View>
-  )
-}
-
-export const ViewEntityForm = (props:any) => {
-  const schema = props.schema;
-  const auxiliary = props.auxiliary;
-  const focus = props.focus;
-  const data = 'make focus into an array and concat with aux'
-  return (
-    <View style={{flexDirection:'column',maxHeight:500}}>
-      <ViewFormMain 
-        schema={schema.data}
-        data={data}
-      />
-    </View>
-  )
-}
-
-export const ViewEntityTable = (props:any) => {
-  const schema = props.schema;
-  const columns = useTableColumns(schema.data?.map(x=>x.focus_columns.name_singular));
-  const auxiliary = props.auxiliary;
-  return (
-    <View style={{flexDirection:'column'}}>
-      <ViewTableMain 
-        columns={columns}
-        data={auxiliary.data}
-      />
-    </View>
-  )
-}
-
-
-export const ViewEntityCalendar = (props:any) => {
-  const schema = props.schema;
-  const auxiliary = props.auxiliary;
-  const columns = useTableColumns(schema.data?.map(x=>x.focus_columns.name_singular));
-  return (
-    <View style={{flexDirection:'column'}}>
-      <Text>Calendar todo</Text>
-    </View>
-  )
-}
-
-
-export const ViewEntityJson = (props:any) => {
-  const schema = props.schema;
-  const auxiliary = props.auxiliary;
-  const columns = useTableColumns(schema.data?.map((x:any)=>x.focus_columns.name_singular));
-  return (
-    <View style={{flexDirection:'column'}}>
-      <ViewJsonMain schema={schema} auxiliary={auxiliary} columns={columns} />
-    </View>
-  )
-} 
-
-
-// Components
-
-export const mapEntityComponents:any= {
-  pods: ViewEntityPods,
-  form: ViewEntityForm,
-  table: ViewEntityTable,
-  list: ViewEntityList, 
-  json: ViewJsonMain,
-  calendar: ViewEntityCalendar,
-  // calendar: ViewCalendarMain,
-
-};

@@ -11,11 +11,10 @@ import { ViewListMain } from './list'
 import { ViewTableMain,useTableColumns } from './table'
 import { ViewJsonMain } from './json'
 import { ViewIconMain } from './icon'
-import { ViewPodsMain } from './pods'
+import { ViewPodsMain, ViewPodExample, ViewPodInfo, ViewPodTabs } from './pods'
 import { ViewFormMain } from './form'
-import { ViewEntityAdd, useEntityArray, useEntitySingle, useEntitySchema} from './entity'
-import { ViewProcessesTabs} from '../components/entity/processTabs'
-
+import { useEntityArray, useEntitySingle, useEntitySchema} from './entity'
+import { ViewWidgetMain } from './widget'
 
 // Main
 
@@ -25,7 +24,12 @@ export const ViewDisplayMain = memo(({component = 'table' }:any) => { // todo: a
   const auxiliary = useEntityArray({});
   const focus = useEntitySingle({});
   const schema = useEntitySchema();
-  return <Component auxiliary={auxiliary} schema={schema} focus={focus}/>;
+  return (
+    // temp view to constrain heights of children
+    <View style={{height:400}}>
+      <Component auxiliary={auxiliary} schema={schema} focus={focus}/>
+    </View>
+  )
 });
 
 
@@ -39,11 +43,21 @@ export const ViewDisplayList = (props:any) => {
   const columns = useTableColumns(schema.data?.map(x=>x.focus_columns.name_singular));
   const auxiliary = props.auxiliary;
   return (
+    
     <View style={{flexDirection:'column'}}>
+    {/* 
+      direction={'column'}
+      title={'List Display'}
+      summary={''}
+      collapsible={false}
+      help={'(todo)'}
+      backgroundColor={'lightgray'}
+    >*/}
       <ViewListMain 
         columns={columns}
         data={auxiliary.data}
       />
+     {/* </ViewWidgetMain> */}
     </View>
   )
 }
@@ -54,13 +68,27 @@ export const ViewDisplayPods = (props:any) => {
   const focus = props.focus;
   const data = 'make focus into an array and concat with aux'
   return (
+    
     <View style={{flexDirection:'column'}}>
+    {/* 
+      direction={'column'}
+      title={'Pods Display'}
+      summary={'Pin properties, charts and other useful widgets for this entity'}
+      collapsible={false}
+      help={'(todo)'}
+      backgroundColor={'lightgray'}
+    >*/}
       <ViewPodsMain 
         items={auxiliary}
         schema={schema.data}
       >
-        <ViewProcessesTabs/>
+          <ViewPodInfo/>
+          <ViewPodTabs/>
+          <ViewPodExample/>
+          <ViewPodExample/>
+          <ViewPodExample/>
       </ViewPodsMain>
+     {/* </ViewWidgetMain> */}
     </View>
   )
 }
@@ -99,10 +127,20 @@ export const ViewDisplayForm = (props:any) => { // Chris todo: auxiliary data do
   },[props.schema, props.focus.data, props.auxiliary])
 
   return (
-    <View style={{flexDirection:'column',maxHeight:500}}>
+    
+    <View style={{flexDirection:'column', height:"100%"}}>
+    {/* 
+      direction={'column'}
+      title={'Form Display'}
+      summary={''}
+      collapsible={false}
+      help={'(todo)'}
+      backgroundColor={'lightgray'}
+    >*/}
       <ViewFormMain 
         data={data}
       />
+     {/* </ViewWidgetMain> */}
     </View>
   )
 }
@@ -112,11 +150,21 @@ export const ViewDisplayTable = (props:any) => {
   const columns = useTableColumns(schema.data?.map(x=>x.focus_columns.name_singular));
   const auxiliary = props.auxiliary;
   return (
+    
     <View style={{flexDirection:'column'}}>
+    {/* 
+      direction={'column'}
+      title={'Table Display'}
+      summary={''}
+      collapsible={false}
+      help={'(todo)'}
+      backgroundColor={'lightgray'}
+    >*/}
       <ViewTableMain 
         columns={columns}
         data={auxiliary.data}
       />
+     {/* </ViewWidgetMain> */}
     </View>
   )
 }
@@ -125,8 +173,18 @@ export const ViewDisplayCalendar = (props:any) => {
   const schema = props.schema;
   const auxiliary = props.auxiliary;
   return (
+    
     <View style={{flexDirection:'column'}}>
+    {/* 
+      direction={'column'}
+      title={'Calendar Display'}
+      summary={''}
+      collapsible={false}
+      help={'(todo)'}
+      backgroundColor={'lightgray'}
+    >*/}
       <Text>Calendar todo</Text>
+     {/* </ViewWidgetMain> */}
     </View>
   )
 }
@@ -137,7 +195,16 @@ export const ViewDisplayJson = (props:any) => {
   const columns = useTableColumns(schema.data?.map((x:any)=>x.focus_columns.name_singular));
   return (
     <View style={{flexDirection:'column'}}>
+    {/* 
+      direction={'column'}
+      title={'JSON Display'} 
+      summary={''}
+      collapsible={false}
+      help={'(todo)'}
+      backgroundColor={'lightgray'}
+    >*/}
       <ViewJsonMain schema={schema} auxiliary={auxiliary} columns={columns} />
+    {/* </ViewWidgetMain> */}
     </View>
   )
 }
@@ -155,45 +222,6 @@ export const mapDisplayComponents:any= {
 };
 
 
-// Actions
-
-export const optionsDisplayActions = [
-  {title:'Inspect',iconName:'eye',iconSource:'Fether', description: "inspect an entity in a popup"},
-  {title:'Add',iconName:'plus',iconSource:'Feather', description: "create new entities/entity"},
-  {title:'Edit',iconName:'edit',iconSource:'Feather', description: "edit entities/entity"},
-  {title:'Sync',iconName:'sync',iconSource:'MaterialIcons', description: "sync and database storage status"},
-  {title:'Share',iconName:'share',iconSource:'Feather', description: "share, assign and manage access to entities"},
-  {title:'Templates',iconName:'repo-template',iconSource:'Octicons', description: "manage and run rules/templates"},
-  // {title:'Display',iconName:'eye',iconSource:'Feather', description: "change the display mode between Calendar, Table, List etc."},// in case we want to make the mode/display choices (calendar, table etc.) within these tabs instead of on their own
-]
-
-export const ViewDisplayActions = ({}:any) => {
-  return (
-    <View style={{flexDirection:'row'}}>
-      <View style={{flexDirection:'row'}}>
-        {optionsDisplayActions?.map((x,i)=>
-          <Link key={i} style={{padding:5}} to={x.title.toLowerCase()}>
-            {/* {x.title} */}
-            <ViewIconMain
-                name={x.iconName}
-                source={x.iconSource}
-                color={'black'}
-                size={24}
-            />
-          </Link>
-        )}
-      </View>
-      <Routes>
-        <Route
-          path="/add"
-          element={<ViewEntityAdd/>}
-        />
-      </Routes>
-    </View>
-  )
-}
-
-
 // Tabs
 
 // Contextual tabs (i.e. these will eventually grey out if not applicable to the current focused entity)
@@ -201,7 +229,7 @@ export const ViewDisplayTabs = ({id}:any) => {
   const path = useLocation().pathname?.split('/')
   return (
     <View style={{flexDirection:'row'}}>
-      <Link style={{padding:5, backgroundColor:(path[3]==='pods'&&'lightgray')}} to={`/entity/` +path[2]+'/pods'}>Pods</Link>{/* CG handling the pods component/module */}
+      <Link style={{padding :5, backgroundColor:(path[3]==='pods'&&'lightgray')}} to={`/entity/` +path[2]+'/pods'}>Pods</Link>{/* CG handling the pods component/module */}
       <Link style={{padding:5, backgroundColor:(path[3]==='form'&&'lightgray')}} to={`/entity/` +path[2]+'/form'}>Form</Link>{/* CG handling the form component/module*/}
       <Link style={{padding:5, backgroundColor:(path[3]==='list'&&'lightgray')}} to={`/entity/` +path[2]+'/list'}>List</Link>{/*Loisa Handling the list component/module */}
       <Link style={{padding:5, backgroundColor:(path[3]==='table'&&'lightgray')}} to={`/entity/` +path[2]+'/table'}>Table</Link>{/*Loisa Handling the table component/module */}

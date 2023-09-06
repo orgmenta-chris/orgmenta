@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { View, Pressable, Text } from 'react-native'
-import { newData as data } from '../utils/static'
+import { data } from '../utils/static'
 import { ViewIconMain } from '../utils/icon'
 import { Link } from 'react-router-dom'
 

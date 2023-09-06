@@ -1,5 +1,5 @@
 import { ScrollView, useWindowDimensions } from "react-native";
-import { data } from "../../utils/static";
+import { newData as data } from "../../utils/static";
 import { Expandable } from "../expandable";
 import React from "react";
 

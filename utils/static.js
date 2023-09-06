@@ -3998,3 +3998,5 @@ export const data = [
 //     console.log('relationshipsToCreate',relationshipsToCreate)
 // }
 // prepCategoriesForEntryIntoDatabase()
+const newData = data;
+export {newData}

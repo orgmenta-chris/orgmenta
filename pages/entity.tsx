@@ -1,7 +1,7 @@
+
 import { View } from 'react-native';
 import { ViewProcessesTitle} from '../components/entity/processTabs'
-import { ViewDisplayMain, ViewDisplayTabs } from'../utils/display'
-import { ViewActionTabs as ViewDisplayActions } from'../utils/action'
+import { ViewDisplayMain, ViewDisplayActions, ViewDisplayTabs } from'../utils/display'
 import React from 'react';
   
 

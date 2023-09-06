@@ -1,11 +1,13 @@
-import { StyleSheet, Text, ScrollView, View, useWindowDimensions } from "react-native";
+import { ScrollView, useWindowDimensions } from "react-native";
 import { data } from "../../utils/static";
 import { Expandable } from "../expandable";
+import React from "react";
 
 export default function Sidebar() {
-  const height = useWindowDimensions().height -50;
+  const height = useWindowDimensions().height - 50;
+  
   return (
-    <ScrollView style={{height:height}}>
+    <ScrollView style={{ height: height }}>
       {
         data // temporary array that contains all the navigation objects
           .filter(
@@ -13,7 +15,7 @@ export default function Sidebar() {
           ) // if in production, only show active modules
           .map((x, i) => (
             <Expandable item={x} key={i} />
-          ))
+          )) // display the name only (temporary, to be replaced with link)
       }
     </ScrollView>
   );

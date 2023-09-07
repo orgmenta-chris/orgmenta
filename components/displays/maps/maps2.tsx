@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Map, Marker, GeoJson } from "pigeon-maps";
 
-const PegionMaps = (props: any) => {
+const PigeonMaps = (props: any) => {
   const { customerAddress } = props; // this data could be geocoded into lat and long coordinates for them to be rendered on the map
 
   const [worldMapJSON, setWorldMapJSON] = useState(null);
@@ -52,4 +52,4 @@ const PegionMaps = (props: any) => {
   );
 };
 
-export default PegionMaps;
+export default PigeonMaps;

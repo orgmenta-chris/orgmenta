@@ -1,8 +1,8 @@
 import React from "react";
-import PegionMaps from "./maps2";
+import PigeonMaps from "./maps2";
 
 const ViewDisplayMaps = (props: any) => {
-  return <PegionMaps />;
+  return <PigeonMaps />;
 };
 
 export default ViewDisplayMaps;

@@ -4,8 +4,8 @@ import React from 'react';
 import { TextInput, View, Text, Pressable } from 'react-native';
 import { useState } from 'react'
 import { Link, useLocation, Route, Routes } from 'react-router-dom'
-import { ViewIconMain } from './icon'
 import { ViewEntityAdd, useEntityArray, useEntitySingle, useEntitySchema} from './entity'
+import ViewIconMain from '../components/displays/icons/ViewIconMain';
 
 
 // Form

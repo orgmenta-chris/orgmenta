@@ -7,7 +7,6 @@ import { Link, useLocation, Route, Routes } from 'react-router-dom'
 import { ViewListMain } from './list'
 import { ViewTableMain, useTableColumns } from '../components/displays/table/table'
 import { ViewJsonMain } from './json'
-import { ViewIconMain } from './icon'
 import { useState, useMemo, useEffect, useReducer} from 'react'
 import {
     createColumnHelper,

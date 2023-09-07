@@ -3,7 +3,8 @@
 import { useState, useReducer, useEffect, useMemo} from "react"
 import { Link, useLocation } from 'react-router-dom'
 import { ScrollView, TextInput, View, Text, Pressable } from 'react-native';
-import { ViewIconMain } from './icon'
+import React from "react";
+import ViewIconMain from "../components/displays/icons/ViewIconMain";
  
 // Main
 

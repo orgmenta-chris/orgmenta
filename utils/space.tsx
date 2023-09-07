@@ -6,7 +6,7 @@ import { v4 as uuid} from 'uuid' // note that we generate the id for tables here
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { ScrollView, View, Text, Pressable } from 'react-native';
-import { useTableColumns } from './table'
+import { useTableColumns } from '../components/displays/table/table'
 import { useState, useEffect} from 'react'
 import {
     createColumnHelper,

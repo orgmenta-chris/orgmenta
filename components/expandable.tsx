@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { View, Pressable, Text } from "react-native";
 import { newData as data } from "../utils/static";
-import { ViewIconMain } from "../utils/icon";
 import { Link } from "react-router-dom";
 import React from "react";
+import ViewIconMain from "./displays/icons/ViewIconMain";
 
 export const Expandable = ({ item }: any) => {
   const [expanded, expandedToggle] = useState(false);

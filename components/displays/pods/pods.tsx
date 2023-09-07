@@ -3,21 +3,10 @@
 // This display is resizable 'pods' that can be moved around on a grid, pinned etc.
 // E.g. on the 'invoicing' category entity, you could pin an 'unsent invoices count' widget to to this display.
 
-import { useState, useReducer, useEffect, useMemo} from "react"
 import { Link, useLocation } from 'react-router-dom'
-import { ScrollView, TextInput, View, Text, Pressable } from 'react-native';
-import { data } from './static'
- 
-// Main
-
-export const ViewPodsMain = ({items,children}:any) => {
-    return (
-        <View>
-          {children}
-          {/* <Text>{JSON.stringify({items})}</Text> */}
-        </View>
-    )
-}
+import { View, Text } from 'react-native';
+import { data } from '../../../utils/static'
+import React from 'react';
 
 
 /// Example
@@ -51,8 +40,8 @@ export const ViewPodInfo =() => {
     return (
         <View style={{flexDirection:'column', borderWidth:1, borderColor:'white', margin: 4}}>
             <View style={{height: 40, backgroundColor:'lightgray'}}>
-                <Text style={{fontSize:16, fontStyle:'italic'}}>{process.description}</Text>
-                <Text style={{fontSize:12}}>{process.summary}</Text>
+                <Text style={{fontSize:16, fontStyle:'italic'}}>{process?.description}</Text>
+                <Text style={{fontSize:12}}>{process?.summary}</Text>
             </View>
             {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
                 {process.subheading}

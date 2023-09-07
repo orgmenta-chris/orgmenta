@@ -5,7 +5,7 @@ import { useQuery, useMutation } from '@tanstack/react-query'
 import { TextInput,ScrollView, View, Text, Pressable } from 'react-native';
 import { Link, useLocation, Route, Routes } from 'react-router-dom'
 import { ViewListMain } from './list'
-import { ViewTableMain, useTableColumns } from './table'
+import { ViewTableMain, useTableColumns } from '../components/displays/table/table'
 import { ViewJsonMain } from './json'
 import { ViewIconMain } from './icon'
 import { useState, useMemo, useEffect, useReducer} from 'react'

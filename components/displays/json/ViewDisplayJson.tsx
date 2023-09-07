@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { useTableColumns } from "../../../utils/table";
+import { useTableColumns } from "../table/table";
 import ViewJsonMain from "./ViewJsonMain";
 
 const ViewDisplayJson = (props: any) => {

@@ -1,6 +1,6 @@
 import { ColumnResizeMode, useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 import React, { useState, useEffect, useReducer } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 
 const ViewTableMain = ({ ...Input }) => {
   const [columnResizeMode, setColumnResizeMode] =

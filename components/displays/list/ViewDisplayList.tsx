@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
-import { ViewListMain } from "../../../utils/list";
-import { useTableColumns } from "../../../utils/table";
+import { useTableColumns } from "../table/table";
+import ViewListMain from "./ViewListMain";
 
 const ViewDisplayList = (props: any) => {
   const schema = props.schema;

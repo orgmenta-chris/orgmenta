@@ -324,6 +324,56 @@ export const data = [
         "nickname": "governance-counsel"
     },
     {
+        "id": 1110,
+        "parent": 111,
+        "status": "5. Hold",
+        "name_singular": "legal",
+        "display_singular": "Legal",
+        "description": "",
+        "summary": "",
+        "nickname": "governance-counsel-legal"
+    },
+    {
+        "id": 1111,
+        "parent": 111,
+        "status": "5. Hold",
+        "name_singular": "finance",
+        "display_singular": "Finance",
+        "description": "",
+        "summary": "The CFO role (Chief Financial Officer)",
+        "nickname": "governance-counsel-finance"
+    },
+    {
+        "id": 1112,
+        "parent": 111,
+        "status": "5. Hold",
+        "name_singular": "technology",
+        "display_singular": "Technology",
+        "description": "",
+        "summary": "The CIO role (Chief Information Officer) / CTO (Chief Technology Officer)",
+        "nickname": "governance-counsel-technology"
+    },
+    {
+        "id": 1113,
+        "parent": 111,
+        "status": "5. Hold",
+        "name_singular": "domain",
+        "display_singular": "Domain",
+        "description": "Consultation with industry experts",
+        "summary": "Bring expert consultation in for specialist advice (e.g. data center employees for a server move project)",
+        "nickname": "governance-counsel-domain"
+    },
+    {
+        "id": 1114,
+        "parent": 111,
+        "status": "5. Hold",
+        "name_singular": "strategy",
+        "display_singular": "Strategy",
+        "description": "Industry, business and marketing experts",
+        "summary": "",
+        "nickname": "governance-counsel-strategy"
+    },
+    {
         "id": 112,
         "parent": 11,
         "status": "5. Hold",
@@ -1857,37 +1907,64 @@ export const data = [
         "id": 1300,
         "parent": 130,
         "status": "1. New",
+        "name_singular": "patterns",
+        "display_singular": "Patterns",
+        "summary": "Templating the catalog",
+        "nickname": "product-catalog-patterns"
+    },
+    {
+        "id": 13000,
+        "parent": 1300,
+        "status": "1. New",
         "name_singular": "classification",
         "display_singular": "Classification",
         "summary": "Product types, categories and classes",
-        "nickname": "product-catalog-classification"
+        "nickname": "product-catalog-patterns-classification"
+    },
+    {
+        "id": 13001,
+        "parent": 1300,
+        "status": "1. New",
+        "name_singular": "blueprints",
+        "display_singular": "Blueprints",
+        "summary": "Configuration of descriptions, serialisation, price, cost and other product fields",
+        "nickname": "product-catalog-patterns-blueprints"
+    },
+    {
+        "id": 13002,
+        "parent": 1300,
+        "status": "1. New",
+        "name_singular": "mapping",
+        "display_singular": "Mapping",
+        "description": "Link product categories to other modules (components to accounts>payable, produce to accounts>receivable etc.",
+        "nickname": "product-catalog-patterns-mapping"
     },
     {
         "id": 1301,
         "parent": 130,
         "status": "1. New",
-        "name_singular": "templates",
-        "display_singular": "Templates",
-        "summary": "Configuration of descriptions, serialisation, price, cost and other product fields",
-        "nickname": "product-catalog-templates"
+        "name_singular": "offerings",
+        "display_singular": "Offerings",
+        "summary": "The endproduct for the customer",
+        "nickname": "product-catalog-offerings"
     },
     {
         "id": 1302,
         "parent": 130,
         "status": "1. New",
-        "name_singular": "entries",
-        "display_singular": "Entries",
-        "summary": "Product added into the catalog and fields filled",
-        "nickname": "product-catalog-entries"
+        "name_singular": "components",
+        "display_singular": "Components",
+        "summary": "Items that comprise an offering",
+        "nickname": "product-catalog-components"
     },
     {
         "id": 1303,
         "parent": 130,
         "status": "1. New",
-        "name_singular": "mapping",
-        "display_singular": "Mapping",
-        "summary": "",
-        "nickname": "product-catalog-mapping"
+        "name_singular": "entries",
+        "display_singular": "Entries",
+        "description": "Products added into the catalog and fields filled",
+        "nickname": "product-catalog-entries"
     },
     {
         "id": 1304,
@@ -1895,7 +1972,8 @@ export const data = [
         "status": "1. New",
         "name_singular": "retirals",
         "display_singular": "Retirals",
-        "summary": "Product end of life, upgrade paths and deactivation. This may trigger the decomissioning procedure (e.g. retrievals of deployed customer equipment)",
+        "description": "Product end of life, upgrade paths and deactivation.",
+        "summary": "Track the need for catalog products to be cycled/changed (e.g. obsolescense or unavailability). This may trigger the procuct>decomissioning procedure (e.g. retrievals of deployed customer equipment)",
         "nickname": "product-catalog-retirals"
     },
     {
@@ -2297,7 +2375,7 @@ export const data = [
         "status": "1. New",
         "name_singular": "customer",
         "display_singular": "Customer",
-        "description": "Management of your clients and users",
+        "description": "Management of your clients / consumers / users",
         "nickname": "customer"
     },
     {
@@ -2439,6 +2517,8 @@ export const data = [
         "status": "1. New",
         "name_singular" : "agreements",
         "display_singular" : "Agreements",
+        "description": "Delivery, Support, Service, Disputes and Help",
+        "nickname": "customer-relationships"
     },
     {
         "id": 1421,
@@ -2481,6 +2561,15 @@ export const data = [
         "nickname": "customer-success"
     },
     {
+        "id": 1430,
+        "parent": 14,
+        "status": "5. Hold",
+        "name_singular": "reviews",
+        "display_singular": "Reviews",
+        "description": "QBRs (Quarterly business reviews), ",
+        "nickname": "customer-success"
+    },
+    {
         "id": 144,
         "parent": 14,
         "status": "5. Hold",
@@ -2502,13 +2591,22 @@ export const data = [
         "id": 150,
         "parent": 15,
         "status": "1. New",
+        "name_singular": "chain",
+        "display_singular": "Chain",
+        "description": "Map the supply chain",
+        "nickname": "supplier-chain"
+    },
+    {
+        "id": 151,
+        "parent": 15,
+        "status": "1. New",
         "name_singular": "affiliations",
         "display_singular": "Affiliations",
         "description": "Credit applications with vendors, supplier payment methods/verifications and portals/integrations",
         "nickname": "supplier-affiliations"
     },
     {
-        "id": 1500,
+        "id": 1510,
         "parent": 150,
         "status": "5. Hold",
         "name_singular": "partnership",
@@ -2567,7 +2665,7 @@ export const data = [
         "nickname": "supplier-affiliations-partnership"
     },
     {
-        "id": 151,
+        "id": 152,
         "parent": 15,
         "status": "1. New",
         "name_singular": "purchases",
@@ -2576,7 +2674,7 @@ export const data = [
         "nickname": "supplier-purchases"
     },
     {
-        "id": 152,
+        "id": 153,
         "parent": 15,
         "status": "5. Hold",
         "name_singular": "support",
@@ -2585,22 +2683,49 @@ export const data = [
         "nickname": "supplier-support"
     },
     {
-        "id": 153,
+        "id": 1530,
+        "parent": 153,
+        "status": "5. Hold",
+        "name_singular": "assistance",
+        "display_singular": "Assistance",
+        "description": "Partner programs & engagement initiatives, collaborations and other supplier alliances",
+        "nickname": "supplier-support-assistance"
+    },
+    {
+        "id": 1531,
+        "parent": 153,
+        "status": "5. Hold",
+        "name_singular": "warranty",
+        "display_singular": "Warranty",
+        "description": "",
+        "nickname": "supplier-support-warranty"
+    },
+    {
+        "id": 1532,
+        "parent": 153,
+        "status": "5. Hold",
+        "name_singular": "returns",
+        "display_singular": "Returns",
+        "description": "",
+        "nickname": "supplier-support-returns"
+    },
+    {
+        "id": 1533,
+        "parent": 153,
+        "status": "5. Hold",
+        "name_singular": "programs",
+        "display_singular": "Programs",
+        "description": "Partner programs & engagement initiatives, collaborations and other supplier alliances",
+        "nickname": "supplier-programs"
+    },
+    {
+        "id": 154,
         "parent": 15,
         "status": "5. Hold",
         "name_singular": "performance",
         "display_singular": "Performance",
         "description": "Supplier SLAs and analysis",
         "nickname": "supplier-performance"
-    },
-    {
-        "id": 154,
-        "parent": 15,
-        "status": "5. Hold",
-        "name_singular": "programs",
-        "display_singular": "Programs",
-        "description": "Partner programs & engagement initiatives, collaborations and other supplier alliances",
-        "nickname": "supplier-programs"
     },
     {
         "id": 16,
@@ -3212,7 +3337,7 @@ export const data = [
         "status": "1. New",
         "name_singular": "progress",
         "display_singular": "Progress",
-        "summary": "Project progress monitoring",
+        "summary": "Project progress monitoring, using data from project-planning-schedule and other modules",
         "description": "Project monitoring, progress & status management / plotting",
         "references": [
             "https://prince2.wiki/theme/progress/",
@@ -3342,26 +3467,29 @@ export const data = [
         "status": "1. New",
         "name_singular": "requirements",
         "display_singular": "Requirements",
-        "nickname": "project-response-requirements"
+        "description": "A list of requirements is maintained throughout the project lifespan, and stakeholders are consulted to ensure accuracy and alignment",
+        "summary": "Maintain a requirements list for use in Project > Planning and other modules",
+        "nickname": "project-response-requirements",
+
     },
     {
         "id": 18130,
         "parent": 1813,
         "status": "1. New",
-        "name_singular": "assign-processes",
+        "name_singular": "assignprocesses",
         "display_singular": "Assign Processes",
         "description": "Attach documentation to the ticket.",
         "notes": "Attach customer-specific documentation (this should be followed first) and general documentation (used as a fallback for tasks if there is no customer-specific process for a task",
-        "nickname": "response-requirements-assign-processes"
+        "nickname": "response-requirements-assignprocesses"
     },
     {
         "id": 18131,
         "parent": 1813,
         "status": "1. New",
-        "name_singular": "establish-requirements",
+        "name_singular": "establishrequirements",
         "display_singular": "Establish Requirements",
         "description": "List the necessary requirements",
-        "nickname": "response-requirements-establish-requirements"
+        "nickname": "response-requirements-establishrequirements"
     },
     {
         "id": 1814,
@@ -3393,35 +3521,37 @@ export const data = [
         "id": 1821,
         "parent": 182,
         "status": "1. New",
+        "name_singular": "features",
+        "display_singular": "Features",
+        "summary": "Lay out user stories / use cases / features",
+        "nickname": "project-planning-features"
+    },
+    {
+        "id": 1822,
+        "parent": 182,
+        "status": "1. New",
         "name_singular": "designs",
         "display_singular": "Designs",
         "summary": "proposals for a solution consisting of deliverables",
         "nickname": "project-planning-designs"
     },
     {
-        "id": 1821,
+        "id": 1823,
         "parent": 182,
         "status": "1. New",
         "name_singular": "resources",
         "display_singular": "Resources",
-        "summary": "allocate & request resources for the project/ticket",
+        "summary": "request & allocate resources for the project/ticket",
         "nickname": "project-planning-resources"
     },
     {
-        "id": 1822,
-        "parent": 182,
-        "status": "1. New",
-        "name_singular": "x",
-        "display_singular": "x",
-        "summary": "x",
-        "nickname": "project-planning-x"
-    },
-    {
-        "id": 1823,
+        "id": 1824,
         "parent": 182,
         "status": "1. New",
         "name_singular": "schedule",
         "display_singular": "Schedule",
+        "description": "Calendaring all resources (Plotting resources against time)",
+        "summary": "Allocate resources in order to schedule the Project>Execution",
         "nickname": "project-planning-schedule"
     },
     {
@@ -3464,7 +3594,8 @@ export const data = [
         "status": "1. New",
         "name_singular": "implementation",
         "display_singular": "Implementation",
-        "summary": "Implement the deliverable",
+        "description": "Implement the deliverable",
+        "summary": "With change approval where necessary (Project>Control>Change), undertake the installation/deployment of the product.", 
         "nickname": "project-execution-implementation"
     },
     {
@@ -3475,6 +3606,22 @@ export const data = [
         "display_singular": "Testing",
         "summary": "Tests and validation for the solution/deliverable, rollbacks for failed tests, monitoring periods to confirm fixes",
         "nickname": "project-execution-testing"
+    },
+    {
+        "id": 18340,
+        "parent": 1834,
+        "status": "1. New",
+        "name_singular": "tests",
+        "display_singular": "Tests",
+        "nickname": "project-execution-testing-tests"
+    },
+    {
+        "id": 18341,
+        "parent": 1834,
+        "status": "1. New",
+        "name_singular": "rollbacks",
+        "display_singular": "Rollbacks",
+        "nickname": "project-execution-testing-rollbacks"
     },
     {
         "id": 184,
@@ -3830,6 +3977,24 @@ export const data = [
         "nickname": "estate"
     },
     {
+        "id": 210,
+        "parent": 21,
+        "status": "3. Active",
+        "name_singular": "possessions",
+        "display_singular": "Possessions",
+        "description": "",
+        "nickname": "estate-possessions"
+    },
+    {
+        "id": 211,
+        "parent": 21,
+        "status": "3. Active",
+        "name_singular": "finance",
+        "display_singular": "Finance",
+        "description": "",
+        "nickname": "estate-finance"
+    },
+    {
         "id": 22,
         "parent": 2,
         "status": "3. Active",
@@ -3839,6 +4004,69 @@ export const data = [
         "nickname": "organisation"
     },
     {
+        "id": 220,
+        "parent": 22,
+        "status": "3. Active",
+        "name_singular": "system",
+        "display_singular": "System",
+        "description": "",
+        "nickname": "organisation-system"
+    },
+    {
+        "id": 221,
+        "parent": 22,
+        "status": "3. Active",
+        "name_singular": "tax",
+        "display_singular": "Tax",
+        "description": "",
+        "nickname": "organisation-tax"
+    },
+    {
+        "id": 222,
+        "parent": 22,
+        "status": "3. Active",
+        "name_singular": "livingadmin",
+        "display_singular": "livingadmin",
+        "description": "",
+        "nickname": "organisation-livingadmin"
+    },
+    {
+        "id": 2220,
+        "parent": 222,
+        "status": "3. Active",
+        "name_singular": "acommodation",
+        "display_singular": "Acommodation",
+        "description": "",
+        "nickname": "organisation-acommodation"
+    },
+    {
+        "id": 2221,
+        "parent": 222,
+        "status": "3. Active",
+        "name_singular": "travel",
+        "display_singular": "Travel",
+        "description": "",
+        "nickname": "organisation-travel"
+    },
+    {
+        "id": 223,
+        "parent": 22,
+        "status": "3. Active",
+        "name_singular": "admin",
+        "display_singular": "Admin",
+        "description": "",
+        "nickname": "organisation-admin"
+    },
+    {
+        "id": 224,
+        "parent": 22,
+        "status": "3. Active",
+        "name_singular": "journal",
+        "display_singular": "Journal",
+        "description": "",
+        "nickname": "organisation-journal"
+    },
+    {
         "id": 23,
         "parent": 2,
         "status": "3. Active",
@@ -3846,6 +4074,15 @@ export const data = [
         "display_singular": "Relationships",
         "description": "Social",
         "nickname": "relationships"
+    },
+    {
+        "id": 230,
+        "parent": 23,
+        "status": "3. Active",
+        "name_singular": "communications",
+        "display_singular": "Communications",
+        "description": "",
+        "nickname": "relationships-communications"
     },
     {
         "id": 24,
@@ -3900,6 +4137,96 @@ export const data = [
         "display_singular": "Work",
         "description": "Business & Income",
         "nickname": "work"
+    },
+    {
+        "id": 270,
+        "parent": 27,
+        "status": "3. Active",
+        "name_singular": "jobseeking",
+        "display_singular": "Jobseeking",
+        "description": "",
+        "nickname": "work-jobseeking"
+    },
+    {
+        "id": 2700,
+        "parent": 270,
+        "status": "3. Active",
+        "name_singular": "resume",
+        "display_singular": "Resume",
+        "description": "",
+        "nickname": "work-jobseeking-resume"
+    },
+    {
+        "id": 27000,
+        "parent": 2700,
+        "status": "3. Active",
+        "name_singular": "referees",
+        "display_singular": "Referees",
+        "description": "",
+        "nickname": "work-jobseeking-resume-referees"
+    },
+    {
+        "id": 2701,
+        "parent": 270,
+        "status": "3. Active",
+        "name_singular": "submissions",
+        "display_singular": "Submissions",
+        "description": "",
+        "nickname": "work-jobseeking-submissions"
+    },
+    {
+        "id": 2702,
+        "parent": 270,
+        "status": "3. Active",
+        "name_singular": "interviews",
+        "display_singular": "Interviews",
+        "description": "",
+        "nickname": "work-jobseeking-interviews"
+    },
+    {
+        "id": 2703,
+        "parent": 270,
+        "status": "3. Active",
+        "name_singular": "offers",
+        "display_singular": "Offers",
+        "description": "employment contract offered, reviewed and accepted/rejected/negotiated",
+        "nickname": "work-jobseeking-offers"
+    },
+    {
+        "id": 271,
+        "parent": 27,
+        "status": "3. Active",
+        "name_singular": "employers",
+        "display_singular": "Employers",
+        "description": "",
+        "nickname": "work-employers"
+    },
+    {
+        "id": 272,
+        "parent": 27,
+        "status": "3. Active",
+        "name_singular": "jobs",
+        "display_singular": "Jobs",
+        "description": "",
+        "nickname": "work-jobs"
+    },
+    {
+        "id": 273,
+        "parent": 27,
+        "status": "3. Active",
+        "name_singular": "income",
+        "display_singular": "Income",
+        "description": "",
+        "nickname": "work-income"
+    },
+    {
+        "id": 274,
+        "parent": 27,
+        "status": "3. Hold",
+        "name_singular": "progression",
+        "display_singular": "Progression",
+        "description": "career opportuniies and development",
+        "nickname": "work-progression"
     },
     {
         "id": 28,

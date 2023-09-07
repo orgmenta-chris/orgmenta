@@ -90,7 +90,6 @@ export const useAttributeUnioned = (class_array=[] as any)=> {
   return query
 }
 
-
 export const ViewAttributeUnioned = memo(() => {
     const array = useAttributeUnioned({attribute_class:'Entity'})
     const attributeColumnNames = ['id', 'class', 'side', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by', 'form_sort', 'focus_columns', 'auxiliary_columns'];

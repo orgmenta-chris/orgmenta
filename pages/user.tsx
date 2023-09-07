@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { useAuthSession } from "../utils/auth";
+import { ViewUserAttributes } from "../utils/user";
 
 export default function UserPage() {
   const session = useAuthSession();
@@ -14,6 +15,9 @@ export default function UserPage() {
           <Text>Logged in as: {session.data.session.user.email}</Text>
         )}
       </View>
+      <ViewUserAttributes/>
     </View>
   );
 }
+
+import { ViewFormMain } from "./form";

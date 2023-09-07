@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { TextInput, View, Text, Pressable } from 'react-native';
+import {ViewPresetOptions} from './presets'
+// 
 
 // Tabs
 
@@ -9,10 +11,17 @@ import { TextInput, View, Text, Pressable } from 'react-native';
 export const ViewControlMain = ({}:any) => {
   return (
     <View style={{flexDirection:'row', gap:10}}>
+
+      {/* Presets are saved views for filtering, sorting, grouping (etc.) entities. See presets.tsx. */}
+      <Text>Presets</Text>
+      <ViewPresetOptions/>
+        
       <Text>Group</Text>
+
       <Text>Sort</Text>
+
       <Text>Filter</Text>
-      <Text>View</Text>
+
     </View>
   )
 }

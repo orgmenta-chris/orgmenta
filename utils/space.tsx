@@ -4,7 +4,7 @@ import { useMemberCreate } from './members'
 import React, { memo } from 'react';
 import { v4 as uuid} from 'uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { useTableColumns } from './table'
 import { useState, useEffect} from 'react'
@@ -141,6 +141,35 @@ export const ViewSpaceItem = ({id}:interfaceSpaceItem) => {
         </View>
     )
 }
+
+
+// Active
+
+// This is a useQuery query that just returns a blank object (it doesn't query anything).
+// Then the user can switch active companies, which will update this query.
+export const useSpaceActive = ({...Input})=> {
+  const query = useQuery({
+      queryKey:['spaces',"active"],
+      queryFn:()=>{ return {} },
+      enabled: false,
+      initialData: {
+        id: null,
+        title:'No active space',
+      }
+      // ...props
+  });
+  return query
+}
+
+export const updateSpaceActive = ({space}:any)=> {
+  const client = useQueryClient();
+  client.setQueryData(
+    ['spaces',"active"],
+    space
+  )
+}
+
+
 
 
 // Table

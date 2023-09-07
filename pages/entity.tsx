@@ -22,7 +22,7 @@ export default function Entity() {
             <ViewDisplayTabs/>
 
             {/* Placholder (Chris is working on this) - A panel for filtering/grouping/sorting */}
-            {/* <ViewControlMain/> */}
+            <ViewControlMain/>
 
             {/* Show the actions tabs/links (e.g. add,edit,copy,delete,share etc.*/}
             <ViewActionTabs/>

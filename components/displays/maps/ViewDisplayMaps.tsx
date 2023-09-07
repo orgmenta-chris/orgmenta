@@ -1,12 +1,13 @@
 import React from "react";
 import MapChart from "./maps";
 import { Text } from "react-native";
+import PegionMaps from "./maps2";
 
 const ViewDisplayMaps = (props: any) => {
   return (
     <>
-      <Text>This is maps page</Text>
-      <MapChart />
+      {/* <MapChart /> */}
+      <PegionMaps />
     </>
   );
 };

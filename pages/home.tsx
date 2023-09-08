@@ -2,12 +2,19 @@
 // If logged in, then it should also show the user a dropdown asking them if they want to set a default page when logged in.
 
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
 import DocumentPicker from "../components/picker/DocumentPicker";
-import { ensureBucketExists } from "../utils/storage";
+import { bucketItems, ensureBucketExists, fileUpload } from "../utils/storage";
 
 export default function Home() {
   const [pickedDocument, setPickedDocument] = useState([]);
+
+  const my_bucket = bucketItems();
+
+  const upload = () =>
+    pickedDocument.map((document: any) => {
+      fileUpload({ name: document.name, file: document.uri });
+    });
 
   // useEffect(() => {
   //   const bucketName = "default";
@@ -43,6 +50,12 @@ export default function Home() {
           })}
         </View>
       )}
+
+      <View style={{ marginTop: 10 }}>
+        <Button title="Upload Document" onPress={upload} />
+      </View>
+
+      {my_bucket.isSuccess && <Text>I see the bucket</Text>}
     </View>
   );
 }

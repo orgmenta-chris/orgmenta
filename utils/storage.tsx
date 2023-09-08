@@ -1,6 +1,7 @@
 // I need this to be a module for interacting with the supabase storage api.
 // i.e. https://supabase.com/docs/guides/storage
 
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { instanceSupabaseClient } from "./supabase";
 import { decode } from "base64-arraybuffer-es6";
 
@@ -22,11 +23,13 @@ import { decode } from "base64-arraybuffer-es6";
 
 // For now let's just use a single 'default' bucket.
 
+const bucketName = "default";
+
 // Create a new bucket
 
-export const createNewBucket = async (name: string) => {
+export const createNewBucket = async () => {
   const { data, error } = await instanceSupabaseClient.storage.createBucket(
-    name,
+    bucketName,
     {
       public: true,
       allowedMimeTypes: [
@@ -45,8 +48,10 @@ export const createNewBucket = async (name: string) => {
 
 // Retrieve a bucket
 
-export const retrieveBucket = async (name: string) => {
-  const { data, error } = await instanceSupabaseClient.storage.getBucket(name);
+export const retrieveBucket = async () => {
+  const { data, error } = await instanceSupabaseClient.storage.getBucket(
+    bucketName
+  );
 
   if (error) {
     throw new Error(error.message);
@@ -56,38 +61,33 @@ export const retrieveBucket = async (name: string) => {
 };
 
 export interface documentToBeUploaded {
-  bucket: string;
   name: string;
   file: string;
 }
 
 // Check if a bucket exists
 
-export const ensureBucketExists = async (name: string) => {
+export const ensureBucketExists = async () => {
   try {
     // Try to retrieve the bucket
-    await retrieveBucket(name);
+    await retrieveBucket();
   } catch (error) {
     // If the bucket doesn't exist, create it
     if (error?.message.includes("was not found")) {
-      await createNewBucket(name);
+      await createNewBucket();
 
-      return
+      return;
     }
-    
+
     throw error;
   }
 };
 
 // Upload a document
 
-export const uploadDocument = async ({
-  bucket,
-  name,
-  file,
-}: documentToBeUploaded) => {
+export const uploadDocument = async ({ name, file }: documentToBeUploaded) => {
   const { data, error } = await instanceSupabaseClient.storage
-    .from(bucket)
+    .from(bucketName)
     .upload(`documents/${name}.pdf`, decode(file), {
       cacheControl: "3600",
       upsert: false,
@@ -100,20 +100,53 @@ export const uploadDocument = async ({
   return data;
 };
 
+export const fileUpload = ({ name, file }: documentToBeUploaded) => {
+  const queryClient = useQueryClient();
+
+  return (
+    useMutation(["bucket"], () => uploadDocument({ name, file })),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["bucket"]);
+      },
+    }
+  );
+};
+
 // List all documents in the bucket
 
-export const listAllDocumentsInBucket = async (name: string) => {
-  const { data, error } = await instanceSupabaseClient.storage
-    .from(name)
-    .list("public", {
-      limit: 100,
-      offset: 0,
-      sortBy: { column: "name", order: "asc" },
-    });
+export const listAllDocumentsInBucket = async () => {
+  try {
+    const { data, error } = await instanceSupabaseClient.storage
+      .from(bucketName)
+      .list("documents/", {
+        limit: 100,
+        offset: 0,
+        sortBy: { column: "name", order: "asc" },
+      });
 
     if (error) {
       throw new Error(error.message);
     }
 
-    return data;
+    return data || [];
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const bucketItems = () => {
+  const query = useQuery({
+    queryKey: ["bucket"],
+    queryFn: () =>
+      listAllDocumentsInBucket().then((response: any) => {
+        if (response && response !== undefined) {
+          return response.data;
+        } else {
+          return [];
+        }
+      }),
+  });
+
+  return query;
 };

@@ -7,7 +7,9 @@ import { useState, useReducer, useEffect, useMemo} from "react"
 import { Link, useLocation } from 'react-router-dom'
 import { ScrollView, TextInput, View, Text, Pressable } from 'react-native';
 import { data } from './static'
- 
+import { ViewListMain } from './list'
+
+
 // Main
 
 export const ViewPodsMain = ({items,children}:any) => {
@@ -49,7 +51,7 @@ export const ViewPodInfo =() => {
     const parent = data?.find(y=>y.id===process?.parent);
     const grandparent = data?.find(z=>z.id===parent?.parent);
     return (
-        <View style={{flexDirection:'column', borderWidth:1, borderColor:'white', margin: 4}}>
+        <View style={{flexDirection:'column', borderWidth:1, margin: 4}}>
             <View style={{height: 40, backgroundColor:'lightgray'}}>
                 <Text style={{fontSize:16, fontStyle:'italic'}}>{process?.description}</Text>
                 <Text style={{fontSize:12}}>{process?.summary}</Text>
@@ -81,7 +83,7 @@ export const ViewPodTabs =() => {
     const parent = data?.find(y=>y.id===process?.parent);
     const grandparent = data?.find(z=>z.id===parent?.parent);
     return (
-        <View style={{flexDirection:'column', borderWidth:1, borderColor:'white', margin: 4}}>            
+        <View style={{flexDirection:'column', borderWidth:1, margin: 4}}>            
             {/* Tabs for each subprocess */}
             <View style={{flexDirection:'row', height: 40}}>
                 {subprocesses?.map((x,i)=>
@@ -96,6 +98,21 @@ export const ViewPodTabs =() => {
                 {/* {JSON.stringify({division,department,process},null,2)} */}
             {/* </Text> */}
 
+        </View>
+    )
+}
+
+
+// List
+
+// A pod to show a list (e.g. of related entities)
+// This isn't manipulating the list yet, but it will eventually allow the user to have a pod that has a filtered/custom list in their pods view.
+// Example usage: an Invoice might have a 'line items' or 'payments' list that shows all the payments made against it in list form.
+export const ViewPodList =({columns,data,title}:any) => { 
+    return (
+        <View style={{flexDirection:'column', borderWidth:1, margin: 4}}>  
+            <Text>{title || 'ViewPodList'}</Text>
+            <ViewListMain columns={columns} data={data} />  
         </View>
     )
 }

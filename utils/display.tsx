@@ -9,15 +9,15 @@ import { ViewListMain } from "./list";
 import { ViewTableMain, useTableColumns } from "./table";
 import { ViewJsonMain } from "./json";
 import { ViewIconMain } from "./icon";
-import { ViewPodsMain } from "./pods";
-import { ViewFormMain } from "./form";
+import { ViewPodsMain, ViewPodInfo, ViewPodTabs, ViewPodList } from "./pods";
+import { ViewFormDynamic } from "./form";
 import {
   ViewEntityAdd,
   useEntityArray,
   useEntitySingle,
   useEntitySchema,
 } from "./entity";
-import { ViewProcessesTabs } from "../components/entity/processTabs";
+// import { ViewProcessesTabs } from "../components/entity/processTabs";//no longer needed, removing
 import MyCalendar from "../components/displays/calendar";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -25,17 +25,16 @@ import MapChart from "../components/displays/maps";
 
 // Main
 
-export const ViewDisplayMain = memo(({ component = "table" }: any) => {
+export const ViewDisplayMain = memo(({}) => {
+  const paths = useLocation().pathname?.split("/")
   // todo: auxiliary data doesn't have relationship ids yet
-  const path = useLocation().pathname?.split("/")?.[3]; // this should be passed as the component  prop instead of hardcoded here
-  const Component =
-    location && mapDisplayComponents[path]
-      ? mapDisplayComponents[path]
-      : mapDisplayComponents["list"]; // may need to memoize/useCallback this
-  const auxiliary = useEntityArray({});
-  const focus = useEntitySingle({});
+  const display = paths?.[3]; // this should be passed as the component  prop instead of hardcoded here
+  const id = paths?.[2]; // this should be passed as the component  prop instead of hardcoded here
+  const Component =  mapDisplayComponents[display||"list"]; // may need to memoize/useCallback this
+  const auxiliary = useEntityArray({category:id});
+  const focus = useEntitySingle({id:id});
   const schema = useEntitySchema();
-  return <Component auxiliary={auxiliary} schema={schema} focus={focus} />;
+  return<Component auxiliary={auxiliary} schema={schema} focus={focus} />;
 });
 
 // Displays
@@ -44,32 +43,26 @@ export const ViewDisplayMain = memo(({ component = "table" }: any) => {
 // Chris is owning the below components.
 
 export const ViewDisplayList = (props: any) => {
-  const schema = props.schema;
-  const columns = useTableColumns(
-    schema.data?.map(
-      (x: { focus_columns: { name_singular: any } }) =>
-        x.focus_columns.name_singular
-    )
-  );
   const auxiliary = props.auxiliary;
+  // const focus = props.focus;
   return (
     <View style={{ flexDirection: "column" }}>
-      <ViewListMain columns={columns} data={auxiliary.data} />
+      <ViewListMain data={auxiliary.data} />
     </View>
   );
 };
 
 export const ViewDisplayPods = (props: any) => {
-  const schema = props.schema;
+  const schema = props.schema; 
   const auxiliary = props.auxiliary;
   const focus = props.focus;
   const data = "make focus into an array and concat with aux";
   return (
-    <View style={{ flexDirection: "column" }}>
-      <ViewPodsMain items={auxiliary} schema={schema.data}>
-        <ViewProcessesTabs />
-      </ViewPodsMain>
-    </View>
+    <ViewPodsMain items={auxiliary} schema={schema.data}>
+      <ViewPodInfo/>
+      <ViewPodTabs/>
+      <ViewPodList title={"Example List Pod"} data={auxiliary.data}/>
+    </ViewPodsMain> 
   );
 };
 
@@ -82,7 +75,7 @@ export const ViewDisplayForm = (props: any) => {
 
     if (props.schema && props.focus.data && props.auxiliary) {
       props?.schema?.data?.forEach((oldItem: any) => {
-        let newItem = { ...oldItem, ...oldItem.focus_columns };
+        let newItem = { ...oldItem, ...oldItem.auxiliary_columns };
         // if the attribute is 'relationship' we know that it is in the relationship table instead of being a column on the entity table.
         if (oldItem.focus_columns.cell_field === "relationship") {
           newItem.table = "relationships";
@@ -100,11 +93,8 @@ export const ViewDisplayForm = (props: any) => {
       return items;
     }
   }, [props.schema, props.focus.data, props.auxiliary]);
-
   return (
-    <View style={{ flexDirection: "column", maxHeight: 500 }}>
-      <ViewFormMain data={data} />
-    </View>
+    <ViewFormDynamic data={data} />
   );
 };
 
@@ -117,10 +107,21 @@ export const ViewDisplayTable = (props: any) => {
     )
   );
   const auxiliary = props.auxiliary;
+
+  return (<>
+    <ViewTableTabs/>
+    <ViewTableMain columns={columns} data={auxiliary.data} />
+  </>);
+};
+
+// 'Table Tabs' will be a subcomponent of 'Table' (like 'Table Footer' and'Table Header' are table subcomponents )
+// To be moved into the table file (but added here since it is a placeholder and so as not to interfere with current works)
+// Or, since this might need to be used by List (and maybe others like timeline) as well, maybe it needs to be its own 'display tabs' module or else we just directly use a primitive 'tabs' module in ViewDisplayTable, ViewDisplayList etc. 
+// At the moment, it just has 'Types' hardcoded into it as the tabs.
+// But, it will be made dynamic (which will allow things like plugins and user interactions to hide this component, switch out the tabs to 'Status' or  other property groupings, etc.)
+export const ViewTableTabs = (props: any) => {
   return (
-    <View style={{ flexDirection: "column" }}>
-      <ViewTableMain columns={columns} data={auxiliary.data} />
-    </View>
+    <Text>["Area","Event","Contact","etc."]</Text>
   );
 };
 

@@ -77,9 +77,9 @@ export const ViewUserAttributes = () => {
     return (<>
         {/* <Text>{JSON.stringify(attributes.data?.[0],null,2)}</Text> */}
         {/* <Text>{JSON.stringify(keys,null,2)}</Text> */}
-        {attributes?.data?.map((x,i)=><>
-            <Text key={i}>{x.focus_columns.name_singular}</Text> 
+        {attributes?.data?.map((x,i)=><View key={i}>
+            <Text>{x.focus_columns.name_singular}</Text> 
             {/* <Text key={i}>{x.side}</Text>  */}
-        </>)}
+        </View>)}
     </>)
 }

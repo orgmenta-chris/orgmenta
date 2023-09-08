@@ -12,7 +12,7 @@ import { ViewPodsMain } from './pods'
 import { ViewFormMain } from './form'
 import { useState } from 'react'
 import { useAttributeUnioned} from './attribute'
-
+import { data } from './static'
 
 // Tabs
 
@@ -43,13 +43,17 @@ export const ViewEntityTabs = ({id}:any) => {
 
 // Array
 
-export const useEntityArray = ({filter_array}:any)=> { // todo: implement filter_array in query function
+export const useEntityArray = (filter_object:any)=> { // todo: implement filter_array in query function
   const query = useQuery({
-      queryKey:['entities','array',filter_array],
+      queryKey:['entities','array',filter_object],
       queryFn:()=>{
           return instanceSupabaseClient
               .from("entities")
               .select()
+              
+              // temp hardcoded filters:
+              .contains('categories', [filter_object.category]) 
+
               // .contains('other', { test: 1 }) // Example of how we can add static fields in (e.g. event_start can be in here instead of having to create a new column which is only applicable to events)
               // or we can store this sort of thing in side b of relationships (but that requires a join)
               // todo: implement filter_array here
@@ -64,19 +68,24 @@ export const useEntityArray = ({filter_array}:any)=> { // todo: implement filter
 
 // Single
 
-export const useEntitySingle = ({filter_array}:any)=> { // todo: implement filter_array in query function
-  const query = useQuery({
-      queryKey:['entities','single',filter_array],
-      queryFn:()=>{
-          return instanceSupabaseClient
-              .from("entities")
-              .select('*')
-              // todo: implement filter_array here
-              .limit(1)
-              .then(response=>response.data)
-      },
-      enabled: true
-  });
+export const useEntitySingle = (props:any)=> { // todo: implement filter_array in query function
+  // At the moment, this just uses the categories array (e.g. Accounts > Receivables > Invoices).
+  // But once the categories are in supabase (Chris is working on this), this will be changed to use the useQuery function.
+  const query = {
+    data: data.filter(x=>x.nickname===props.id)?.map(x=>x={...x,title:x.display_singular})
+  }
+  // const query = useQuery({
+  //     queryKey:['entities','single',filter_array],
+  //     queryFn:()=>{
+  //         return instanceSupabaseClient
+  //             .from("entities")
+  //             .select('*')
+  //             // todo: implement filter_array here
+  //             .limit(1)
+  //             .then(response=>response.data)
+  //     },
+  //     enabled: true
+  // });
   return query
 }
 
@@ -217,7 +226,7 @@ export const useEntityCreate = (props:interfaceEntityCreate) => {
 // E.g. if this hook is used by an Invoice entity, it will return only the attributes relevant to the invoice (like line_items and balance_due)
 // (to do: make dynamic - at the moment it isn't accepting props for the filter)
 export const useEntitySchema = () => {
-  const query = useAttributeUnioned(["Invoice","Entity"])
+  const query = useAttributeUnioned(["categories","Entity"])
   return query
 }
 

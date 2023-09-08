@@ -1,6 +1,7 @@
 
 import { v4 as uuid} from 'uuid'
 
+// console.log(uuid())
 // function processdatum (inputid){
 //     let datum = data.find(x=>x.id===inputid)
 //     let item = inputid+'//';delete datum?.id
@@ -1949,6 +1950,55 @@ export const data = [
         "nickname": "product-catalog-offerings"
     },
     {
+        "id": 13010,
+        "parent": 1301,
+        "status": "1. New",
+        "name_singular": "endproducts",
+        "display_singular": "endproducts",
+        "summary": "The endproduct for the customer",
+        "nickname": "product-catalog-offerings-endproducts"
+    },
+    {
+        "id": 13011,
+        "parent": 1301,
+        "status": "1. New",
+        "name_singular": "requirements",
+        "display_singular": "requirements",
+        "description": "What requirements/needs the end user has for the product",
+        "summary": "Requirements can be determined in a Project>Control>Requirements",
+        "nickname": "product-catalog-offerings-requirements"
+    },
+    {
+        "id": 13012,
+        "parent": 1301,
+        "status": "1. New",
+        "name_singular": "features",
+        "display_singular": "features",
+        "description": "What features the product has",
+        "summary": "features can be determined in a Project>Plan>Features",
+        "nickname": "product-catalog-offerings-features"
+    },
+    {
+        "id": 13013,
+        "parent": 1301,
+        "status": "1. New",
+        "name_singular": "constituents",
+        "display_singular": "Constituents",
+        "description": "Which components make up the product, and how",
+        "summary": "This maps the Product>Catalog>Components to the end product, i.e. 'how the parts fit together",
+        "nickname": "product-catalog-offerings-constituents"
+    },
+    {
+        "id": 13014,
+        "parent": 1301,
+        "status": "1. New",
+        "name_singular": "versions",
+        "display_singular": "Versions",
+        "description": "Versioning/roadmap/version control of the offering",
+        "summary": "This links Projects with Product>Catalog>Offerings>Features, i.e. what development and new versions/subfeatures are planned for this offering",
+        "nickname": "product-catalog-offerings-versions"
+    },
+    {
         "id": 1302,
         "parent": 130,
         "status": "1. New",
@@ -1956,6 +2006,46 @@ export const data = [
         "display_singular": "Components",
         "summary": "Items that comprise an offering",
         "nickname": "product-catalog-components"
+    },
+    {
+        "id": 13020,
+        "parent": 1302,
+        "status": "1. New",
+        "name_singular": "pieces",
+        "display_singular": "Pieces",
+        "description": "The consituent parts/components",
+        "summary": "",
+        "nickname": "product-catalog-components-pieces"
+    },
+    {
+        "id": 13021,
+        "parent": 1302,
+        "status": "1. New",
+        "name_singular": "materials",
+        "display_singular": "Materials",
+        "description": "What 'materials' is required of the component (physical or intangible)",
+        "summary": "Materials can be determined in a Project>Plan>Resources",
+        "nickname": "product-catalog-components-materials"
+    },
+    {
+        "id": 13022,
+        "parent": 1302,
+        "status": "1. New",
+        "name_singular": "qualities",
+        "display_singular": "Qualities",
+        "description": "What 'qualities' / 'attributes' are required of the component",
+        "summary": "Qualities can be determined in a Project>Plan>Designs",
+        "nickname": "product-catalog-components-qualities"
+    },
+    {
+        "id": 13023,
+        "parent": 1302,
+        "status": "1. New",
+        "name_singular": "couplings",
+        "display_singular": "Couplings",
+        "description": "Joins/interfaces that a component has, that allows it to interface or join another component",
+        "summary": "Qualities can be determined in a Project>Plan>Designs",
+        "nickname": "product-catalog-components-qualities"
     },
     {
         "id": 1303,
@@ -2749,10 +2839,11 @@ export const data = [
         "id": 1600,
         "parent": 160,
         "status": "1. New",
-        "name_singular": "appraisal",
-        "display_singular": "Appraisal",
-        "description": "forecast and plan for employment needs",
-        "nickname": "personnel-employment-appraisal"
+        "name_singular": "roles",
+        "display_singular": "Roles",
+        "description": "Forecast and plan for employment needs",
+        "summary": "Employment Appraisal: Determine all responsibilities and demand, and allocate them to roles",
+        "nickname": "personnel-employment-roles"
     },
     {
         "id": 16000,
@@ -2762,7 +2853,7 @@ export const data = [
         "display_singular": "Forecasting",
         "summary": "Personnel requirements forecasting",
         "description": "Forecasting labor needs and budgeting for personnel",
-        "nickname": "employment-appraisal-forecasting"
+        "nickname": "employment-roles-forecasting"
     },
     {
         "id": 16001,
@@ -2772,7 +2863,7 @@ export const data = [
         "display_singular": "Talent",
         "summary": "Talent Management",
         "description": "Identifying, developing, and retaining top talent in the organization. It includes processes such as talent acquisition, performance management and leadership development",
-        "nickname": "employment-appraisal-talent"
+        "nickname": "employment-roles-talent"
     },
     {
         "id": 16002,
@@ -2782,7 +2873,7 @@ export const data = [
         "display_singular": "Succession",
         "summary": "Succession Planning",
         "description": "Identifying and developing employees who have the potential to fill key leadership positions in the organization when the current leaders retire or move on.",
-        "nickname": "employment-appraisal-succession"
+        "nickname": "employment-roles-succession"
     },
     {
         "id": 16003,
@@ -2792,7 +2883,7 @@ export const data = [
         "display_singular": "Structure",
         "summary": "Organizational Structure",
         "description": "Company hierarchy / chain of command / report-to",
-        "nickname": "employment-appraisal-structure"
+        "nickname": "employment-roles-structure"
     },
     {
         "id": 1601,
@@ -2800,12 +2891,7 @@ export const data = [
         "status": "1. New",
         "name_singular": "recruitment",
         "display_singular": "Recruitment",
-        "description": "",
-        "interfaces": [
-            {
-                "id": ""
-            }
-        ],
+        "description": "Advertise, shortlist and hire for roles",
         "nickname": "personnel-employment-recruitment"
     },
     {
@@ -2814,7 +2900,7 @@ export const data = [
         "status": "1. New",
         "name_singular": "placements",
         "display_singular": "Placements",
-        "description": "Appoitments to positions: Promotions, transfers etc.",
+        "description": "Appointments to positions: Promotions, transfers etc.",
         "nickname": "personnel-employment-placements"
     },
     {
@@ -2845,6 +2931,44 @@ export const data = [
         "nickname": "employment-placements-secondments"
     },
     {
+        "id": 1603,
+        "parent": 160,
+        "status": "5. Hold",
+        "name_singular": "development",
+        "display_singular": "Development",
+        "description": "Employee training, development and progression opportunities",
+        "nickname": "personnel-development"
+    },
+    {
+        "id": 16030,
+        "parent": 1603,
+        "status": "5. Hold",
+        "name_singular": "performance",
+        "display_singular": "Performance",
+        "description": "Performance management",
+        "nickname": "personnel-development-performance"
+    },
+    {
+        "id": 16031,
+        "parent": 1603,
+        "status": "5. Hold",
+        "name_singular": "training",
+        "display_singular": "Training",
+        "summary": "Training & Development",
+        "description": "Setting goals, assessing performance, and providing feedback to employees to improve their productivity and contributions to the organization.",
+        "nickname": "personnel-development-training"
+    },
+    {
+        "id": 16032,
+        "parent": 1603,
+        "status": "5. Hold",
+        "name_singular": "engagement",
+        "display_singular": "Engagement",
+        "summary": "Training & Development",
+        "description": "Strategies and initiatives aimed at promoting a positive workplace culture and improving employee satisfaction, motivation, and commitment.",
+        "nickname": "personnel-development-engagement"
+    },
+    {
         "id": 1604,
         "parent": 160,
         "status": "1. New",
@@ -2859,7 +2983,7 @@ export const data = [
         "status": "1. New",
         "name_singular": "attendance",
         "display_singular": "Attendance",
-        "description": "Employee availability and timesheets",
+        "description": "Employee availability, attendance and timesheets",
         "features": [
             "Set up and maintain rosters",
             "Process and approve employee timesheets",
@@ -2873,7 +2997,8 @@ export const data = [
         "status": "1. New",
         "name_singular": "rosters",
         "display_singular": "Rosters",
-        "description": "Rotas / rosters / calendars / timetables / schedules / On-call rotations",
+        "description": "Calendar your rosters and shifts",
+        "summary" : "Shifts / Rotas / rosters / calendars / timetables / schedules / On-call rotations",
         "nickname": "personnel-attendance-rosters"
     },
     {
@@ -3060,6 +3185,52 @@ export const data = [
         "nickname": "personnel-welfare"
     },
     {
+        "id": 164,
+        "parent": 16,
+        "status": "5. Hold",
+        "name_singular": "assignments",
+        "display_singular": "Assignments",
+        "description": "",
+        "nickname": "personnel-assignments"
+    },
+    {
+        "id": 1640,
+        "parent": 164,
+        "status": "5. Hold",
+        "name_singular": "teams",
+        "display_singular": "Teams",
+        "description": "",
+        "nickname": "personnel-assignments-teams"
+    },
+    {
+        "id": 1641,
+        "parent": 164,
+        "status": "5. Hold",
+        "name_singular": "meetings",
+        "display_singular": "Meetings",
+        "description": "",
+        "nickname": "personnel-assignments-meetings"
+    },
+    {
+        "id": 1642,
+        "parent": 164,
+        "status": "5. Hold",
+        "name_singular": "deliverables",
+        "display_singular": "Deliverables",
+        "description": "events/tasks/deliverables/work",
+        "nickname": "personnel-assignments-deliverables"
+    },
+    {
+        "id": 1643,
+        "parent": 164,
+        "status": "5. Hold",
+        "name_singular": "functions",
+        "display_singular": "Functions",
+        "description": "responsibilities and jobs to fulfil",
+        "summary": "track and manage the things that make one successful in their role",
+        "nickname": "personnel-assignments-functions"
+    },
+    {
         "id": 1630,
         "parent": 163,
         "status": "5. Hold",
@@ -3107,44 +3278,6 @@ export const data = [
         "summary": "Conflict Resolution",
         "description": "Identifying and resolving conflicts in the workplace, such as mediation, conflict coaching, and conflict management training.",
         "nickname": "personnel-welfare-conflicts"
-    },
-    {
-        "id": 164,
-        "parent": 16,
-        "status": "5. Hold",
-        "name_singular": "development",
-        "display_singular": "Development",
-        "description": "Employee training, development and progression opportunities",
-        "nickname": "personnel-development"
-    },
-    {
-        "id": 1640,
-        "parent": 164,
-        "status": "5. Hold",
-        "name_singular": "performance",
-        "display_singular": "Performance",
-        "description": "Performance management",
-        "nickname": "personnel-development-performance"
-    },
-    {
-        "id": 1641,
-        "parent": 164,
-        "status": "5. Hold",
-        "name_singular": "training",
-        "display_singular": "Training",
-        "summary": "Training & Development",
-        "description": "Setting goals, assessing performance, and providing feedback to employees to improve their productivity and contributions to the organization.",
-        "nickname": "personnel-development-training"
-    },
-    {
-        "id": 1642,
-        "parent": 164,
-        "status": "5. Hold",
-        "name_singular": "engagement",
-        "display_singular": "Engagement",
-        "summary": "Training & Development",
-        "description": "Strategies and initiatives aimed at promoting a positive workplace culture and improving employee satisfaction, motivation, and commitment.",
-        "nickname": "personnel-development-engagement"
     },
     {
         "id": 17,
@@ -3301,7 +3434,7 @@ export const data = [
         "status": "1. New",
         "name_singular": "project",
         "display_singular": "Project",
-        "description": "The production (work - projects and tasks) that is undertaken in the business",
+        "description": "Management of all the production (all work/tasks) that is undertaken in the business",
         "nickname": "project"
     },
     {
@@ -3505,7 +3638,7 @@ export const data = [
         "status": "1. New",
         "name_singular": "planning",
         "display_singular": "Planning",
-        "description": "Project requirements analysis, resource allocation and scheduling",
+        "description": "Project designing, resource allocation and scheduling",
         "nickname": "project-planning"
     },
     {
@@ -3514,7 +3647,8 @@ export const data = [
         "status": "1. New",
         "name_singular": "investigations",
         "display_singular": "Investigations",
-        "summary": "Initial troubleshooting, first call resolution attempts, investigation into the problem",
+        "description": "Research into the problem and requirements",
+        "summary": "Initial troubleshooting, first call resolution attempts, investigation into the problem, verifying and deriving from requirements",
         "nickname": "project-planning-investigations"
     },
     {
@@ -3645,6 +3779,26 @@ export const data = [
         "nickname": "project-evaluation-handover"
     },
     {
+        "id": 18400,
+        "parent": 1840,
+        "status": "1. New",
+        "name_singular": "package",
+        "display_singular": "Package",
+        "summary": "Final pack of materials provided to the successor team",
+        "description": "All materials collated and handed over to the BAU team / end user / third party / other successor",
+        "nickname": "project-evaluation-handover-package"
+    },
+    {
+        "id": 18401,
+        "parent": 1840,
+        "status": "1. New",
+        "name_singular": "training",
+        "display_singular": "Training",
+        "summary": "",
+        "description": "",
+        "nickname": "project-evaluation-handover-training"
+    },
+    {
         "id": 1841,
         "parent": 184,
         "status": "1. New",
@@ -3677,6 +3831,55 @@ export const data = [
         "display_singular": "Closure",
         "description": "Acceptance and closure of the work done (by all stakeholders)",
         "nickname": "project-evaluation-closure"
+    },
+    {
+        "id": 18440,
+        "parent": 1844,
+        "status": "1. New",
+        "name_singular": "release",
+        "display_singular": "Release",
+        "description": "Release resources",
+        "description": "Formally release resources from the project, including suppliers, team members, tools and unused consumables.",
+        "nickname": "project-evaluation-closure-release"
+    },
+    {
+        "id": 18441,
+        "parent": 1844,
+        "status": "1. New",
+        "name_singular": "archiving",
+        "display_singular": "Archiving",
+        "description": "File away any completed entities",
+        "summary" : "Storing all project-related documents, codes, and other deliverables in a systematic manner for future reference.",
+        "nickname": "project-evaluation-closure-archiving"
+    },
+    {
+        "id": 18442,
+        "parent": 1844,
+        "status": "1. New",
+        "name_singular": "checklist",
+        "display_singular": "Checklist",
+        "description": "completion and compliance checklist",
+        "nickname": "project-evaluation-closure-checklist"
+    },
+    {
+        "id": 18443,
+        "parent": 1844,
+        "status": "1. New",
+        "name_singular": "signoff",
+        "display_singular": "Signoff",
+        "description": "Acceptance and signoff from all stakeholders", 
+        "summary": "",
+        "nickname": "project-evaluation-closure-signoff"
+    },
+    {
+        "id": 18444,
+        "parent": 1844,
+        "status": "1. New",
+        "name_singular": "completion",
+        "display_singular": "Completion",
+        "description": "Close remaining entities and move the project from Evaluate to Complete",
+        "summary": "Ensure all tickets, phases and the project itself are closed with no necessary followup",
+        "nickname": "project-evaluation-closure-completion"
     },
     {
         "id": 19,

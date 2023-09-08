@@ -82,7 +82,8 @@ export const useAttributeUnioned = (class_array=[] as any)=> {
           return instanceSupabaseClient
               .from("attributes_unioned")
               .select()
-              .or(`class.is.null, class.cd.{${searchArray}}`) // match at least one value from the search array (or if null, assume that it is a universal attribute )
+              .or(`class.cd.{${searchArray}}`) // match at least one value from the search array (or if null, assume that it is a universal attribute )
+              // .or(`class.is.null, class.cd.{${searchArray}}`) // match at least one value from the search array (or if null, assume that it is a universal attribute )
               .then(response=>response.data)
       },
       enabled: true

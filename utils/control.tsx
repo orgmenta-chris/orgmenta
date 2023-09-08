@@ -10,17 +10,18 @@ import {ViewPresetOptions} from './presets'
 // Placeholder component (Chris is working on this)
 export const ViewControlMain = ({}:any) => {
   return (
-    <View style={{flexDirection:'row', gap:10}}>
+    <View style={{flexDirection:'row', gap:10, borderWidth:1}}>
 
       {/* Presets are saved views for filtering, sorting, grouping (etc.) entities. See presets.tsx. */}
-      <Text>Presets</Text>
-      <ViewPresetOptions/>
+      <Text>CONTROLS PANEL</Text>
+      <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Presets<ViewPresetOptions/></Text>
+      
         
-      <Text>Group</Text>
+      <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Group</Text>
 
-      <Text>Sort</Text>
+      <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Sort</Text>
 
-      <Text>Filter</Text>
+      <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Filter</Text>
 
     </View>
   )

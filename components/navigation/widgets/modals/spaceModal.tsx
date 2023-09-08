@@ -8,7 +8,6 @@ const SpaceModal = (props) => {
   const space_array = useSpaceArray({}) // This will return all spaces that the user has access to
   const space_active = useSpaceActive({}) // Placeholder - need to add a useQuery cache query that holds the active space
   const { modalVisible, setModalVisible } = props;
-  // console.log('space_array',space_array)
   return (
     <View style={styles.centeredView}>
       <Modal

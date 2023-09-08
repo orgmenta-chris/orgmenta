@@ -11,22 +11,7 @@ import { ScrollView, TextInput, View, Text, Pressable } from 'react-native';
 
 // Main
 
-export const ViewListMain = ({...Input}) => {
-
-  const [data, setData] = useState([]);
-  useEffect(() => {
-      if (Input?.data) {
-          setData(Input.data);
-      }
-  }, [Input?.data]);
-
-  // When columns are provided, set the columns to state
-  const [columns, setColumns] = useState([]);
-  useEffect(() => {
-      if (Input?.columns) {
-        setColumns(Input.columns);
-      }
-  }, [Input?.data]);
+export const ViewListMain = ({data}:any) => {
 
   return (
     // PLACEHOLDER:

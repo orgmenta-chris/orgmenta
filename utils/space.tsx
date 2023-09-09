@@ -18,7 +18,7 @@ import {
 } from '@tanstack/react-table'
 
 
-// Create
+// Create (note: This just creates the space. You also need to set up tables and other space configurations - see the 'SpaceSetup' functions)
 
 export interface interfaceSpaceCreate {
     // todo
@@ -40,6 +40,29 @@ export const useSpaceCreate = (props:interfaceSpaceCreate) => {
 }
 
 
+// Setup (create the space and any necessary tables, load in any blueprint entities, run any necessary server functions, etc.)
+
+export interface interfaceSpaceSetup {
+  // todo
+}
+
+export async function requestSpaceSetup(
+      space:interfaceSpaceSetup,
+  ) {
+  //todo
+}
+
+export const useSpaceSetup = (props:interfaceSpaceSetup) => {
+  //todo
+  const newSpace = 'create the new space';
+  const newTables = 'create the new tables';
+  const newMembers = 'add the default (and any other specified) members';
+  const runFunctions = 'run the new space functions in order to set row level security policies, load in blueprint entities etc.';
+  //etc.
+  return 'todo'
+}
+
+
 // Update (todo)
 
 export interface interfaceSpaceUpdate { // todo
@@ -57,22 +80,45 @@ export const useSpaceUpdate = (props:interfaceSpaceUpdate) => {// todo
 }
 
 
-// Delete (todo)
+// Delete (todo) - note that these 'SpaceDelete' functions only remove the space, not the associated tables & data. See the 'SpaceDestroy' functions for that
 
 export interface interfaceSpaceDelete { // todo
-    // todo
+  // todo
 }
 
 export async function requestSpaceDelete(// todo
-        space:interfaceSpaceDelete,
+      space:interfaceSpaceDelete,
+  ) {
+  //todo
+}
+
+export const useSpaceDelete = (props:interfaceSpaceDelete) => {// todo
+  return useMutation(['space','delete'], () => requestSpaceDelete(props))
+  // also need to use useMemberDelete/Update or requestMemberDelete/Update here (imported from member) 
+  // so that we can remove or deactivate all members / clear them from the members table 
+}
+
+
+// Destroy (todo) - deletes the space, its members, its data and any other related data
+
+export interface interfaceSpaceDestroy { // todo
+    // todo
+}
+
+export async function requestSpaceDestroy(// todo
+        space:interfaceSpaceDestroy,
     ) {
     //todo
 }
 
-export const useSpaceDelete = (props:interfaceSpaceDelete) => {// todo
-    return useMutation(['space','delete'], () => requestSpaceDelete(props))
-    // also need to use useMemberDelete/Update or requestMemberDelete/Update here (imported from member) 
-    // so that we can remove or deactivate all members / clear them from the members table 
+export const useSpaceDestroy = (props:interfaceSpaceDestroy) => {
+  //todo
+  const removalConfirmation = 'get explicit approval from all/majority of the space administrators'
+  const oldSpace = 'delete the space';
+  const oldTables = 'delete the tables';
+  const runFunctions = 'run the destroy space functions in order to remove any other remnants'; 
+  //etc.
+  return 'todo'
 }
 
 
@@ -236,3 +282,19 @@ export const ViewSpaceTable = ({...Input}) => {
     )
 }  
   
+
+// Sync
+// Future feature: Spaces will be able to share entityrelationships between each other.
+// e.g. a user could see their tasks in both their work organisation, and their personal space (albeit heavily redacted in the personal space)
+
+// function+component to 'share entities to another space'
+
+// function+component to 'accept the share invite fromanother space'
+
+// function to periodically sync any 'shared entities'
+
+// function+component to edit the share configuration
+
+// functon+component to unlink the share.
+
+// component to see the status of the share

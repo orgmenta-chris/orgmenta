@@ -49,6 +49,17 @@ export const mapSupabaseTables = {
     },
 }
 
+// Get a list of tables (not yet used)
+// This may be needed in the future to show the user all the spaces that are available to them / get the names of the tables associated with their spaces.
+export async function requestSupabaseTables(
+    filters:any,
+) {
+return await instanceSupabaseClient
+    .from("tables_public")
+    .select()
+    .then(handleSupabaseResponse as any)
+}
+
 
 // Views
 

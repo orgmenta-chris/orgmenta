@@ -3,11 +3,7 @@ import { v4 as uuid} from 'uuid' // note that we generate the id for tables here
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { TextInput,ScrollView, View, Text, Pressable } from 'react-native';
-import { Link, useLocation, Route, Routes } from 'react-router-dom'
-import { ViewListMain } from './list'
 import { ViewTableMain, useTableColumns } from './table'
-import { ViewJsonMain } from './json'
-import { ViewIconMain } from './icon'
 import { useState, useMemo, useEffect, useReducer} from 'react'
 import {
     createColumnHelper,

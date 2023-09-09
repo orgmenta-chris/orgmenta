@@ -23,6 +23,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import MapChart from "../components/displays/maps";
 
+
 // Main
 
 export const ViewDisplayMain = memo(({}) => {
@@ -36,6 +37,7 @@ export const ViewDisplayMain = memo(({}) => {
   const schema = useEntitySchema();
   return<Component auxiliary={auxiliary} schema={schema} focus={focus} />;
 });
+
 
 // Displays
 // These components transform the entity/schema/relationships data then provide them to the relevant component

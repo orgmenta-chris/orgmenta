@@ -8,8 +8,7 @@
 // - devices (the windows/apps/devices they log in from)
 
 import { ScrollView, TextInput, View, Text, Pressable } from 'react-native';
-import {useAttributeUnioned} from './attribute'
-
+import { useAttributeUnioned } from './attribute'
 // Widget to just show a link to the main user page (user/[userid])
 export const ViewUserAll =() => { 
     
@@ -67,19 +66,21 @@ export const ViewUserDevice =() => {
 // Attributes 
 
 export const useUserAttributes = () => {
-    const attributes = useAttributeUnioned({attribute_class:'User'})
+    const attributes = useAttributeUnioned(['User'])
     return attributes
 }
 
 export const ViewUserAttributes = () => {
-    const attributes = useUserAttributes()
-    const keys = attributes?.data && Object.keys(attributes.data[0])
+    const attributes = useUserAttributes();
+    // console.log('attributes',attributes)
+    const keys = attributes?.data?.[0] && Object.keys(attributes.data[0])
     return (<>
         {/* <Text>{JSON.stringify(attributes.data?.[0],null,2)}</Text> */}
         {/* <Text>{JSON.stringify(keys,null,2)}</Text> */}
         {attributes?.data?.map((x,i)=><View key={i}>
-            <Text>{x.focus_columns.name_singular}</Text> 
+            <Text>{x?.focus_columns?.name_singular}</Text> 
             {/* <Text key={i}>{x.side}</Text>  */}
         </View>)}
+        <Text>-----</Text> 
     </>)
 }

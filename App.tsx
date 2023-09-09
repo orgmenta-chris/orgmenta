@@ -49,14 +49,18 @@ export default function App() {
                   element={<Entity/>}
                 />
 
-                {/* User */}
+                {/* Users */}
                 <Route
                   path="users/"
-                  element={<Navigate to="all" replace />}
+                  element={<Text>Path "users/" has no specified user - this will reroute somewhere (see App.tsx)</Text>}
                 />
                 <Route
-                  path="users/:userid"
-                  element={<User />}
+                  path="users/:user_id_or_nickname/" // 
+                  element={<Navigate to="pods" replace />}
+                />
+                <Route
+                  path="users/:user_id_or_nickname/:mode/*" // 
+                  element={<User/>}
                 />
                 
                 {/* Space */}

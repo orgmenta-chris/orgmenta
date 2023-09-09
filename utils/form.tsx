@@ -1,7 +1,5 @@
 
 
-import { useState, useReducer, useEffect, useMemo} from "react"
-import { Link, useLocation } from 'react-router-dom'
 import { ScrollView, TextInput, View, Text, Pressable } from 'react-native';
 import { ViewFieldMain, interfaceFieldMain} from './field'
  

@@ -3,7 +3,6 @@ import { v4 as uuid} from 'uuid'
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { TextInput, View, Text, Pressable } from 'react-native';
-import { Link, useLocation, Route, Routes } from 'react-router-dom'
 import { ViewListMain } from './list'
 import { ViewTableMain,useTableColumns } from './table'
 import { ViewJsonMain } from './json'

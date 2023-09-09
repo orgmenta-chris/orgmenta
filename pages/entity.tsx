@@ -6,9 +6,23 @@ import { ViewFocusMain } from'../utils/focus'
 import { ViewWidgetMain } from '../utils/widget'
 import { useApiItems,mapApiSource } from '../utils/api'
 import { ViewControlMain} from '../utils/control'
+import { Link, useLocation, Route, Routes } from "react-router-dom";
+import {
+  ViewEntityAdd,
+  useEntityArray,
+  useEntitySingle,
+  useEntitySchema,
+} from "../utils/entity"
 
 
 export default function Entity() {
+    const paths = useLocation().pathname?.split("/")
+    // todo: auxiliary data doesn't have relationship ids yet
+    const display = paths?.[3]; // this should be passed as the component  prop instead of hardcoded here
+    const id = paths?.[2]; // this should be passed as the component  prop instead of hardcoded here
+    const auxiliary = useEntityArray({category:id});
+    const focus = useEntitySingle({id:id});
+    const schema = useEntitySchema();
     return (
         <View style={{flexDirection:'column', height: "100%"}}>
 
@@ -17,7 +31,7 @@ export default function Entity() {
 
             {/* <View style={{flex:1,height:111,minHeight:"100%",flexGrow:999,backgroundColor:'blue'}}><Text>s</Text></View> */}
             {/* Show the auxiliary entities (in whichever mode is selected, e.g. Calendar, Table etc.) */}
-            <ViewDisplayMain/>
+            <ViewDisplayMain auxiliary={auxiliary} schema={schema} focus={focus} display={display} />
             
             {/* Placholder (Chris is working on this) - A panel for filtering/grouping/sorting */}
             <ViewControlMain/>

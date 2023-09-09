@@ -88,7 +88,7 @@ const UserModal = (props) => {
                   style={styles.links}
                   onPress={() => {
                     setModalVisible(false);
-                    native(`/user/${auth?.data?.session?.user?.id}`);
+                    native(`/users/${auth?.data?.session?.user?.id}/pods`);
                   }}
                 >
                   <Text
@@ -105,7 +105,7 @@ const UserModal = (props) => {
                   style={styles.links}
                   onPress={() => {
                     setModalVisible(false);
-                    native(`/user/settings/${auth?.data?.session?.user?.id}`);
+                    native(`/users/${auth?.data?.session?.user?.id}/settings`);
                   }}
                 >
                   <Text

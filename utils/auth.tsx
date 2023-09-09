@@ -151,3 +151,13 @@ export const useAuthSession = () => {
 
   return query;
 };
+
+
+// Options
+
+export const optionsAuthMain = [
+  {title:'Switch',iconName:'arrow-switch',iconSource:'Octicons',description:'Switch to another user/guest'},
+  {title:'Signin',iconName:'login',iconSource:'MaterialIcons',description:'Sign in/up'},
+  {title:'Signout',iconName:'logout',iconSource:'MaterialIcons',description:'Sign out'},
+  {title:'ForgotPassword',iconName:'questioncircleo',iconSource:'AntDesign',description:'Forgot Password/Username?'},
+]

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Text, View, Pressable, StyleSheet } from "react-native";
 import SpaceModal from "./modals/spaceModal";
+import { ViewIconMain } from "../../../utils/icon";
 
 export default function SpaceWidget() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -13,7 +14,12 @@ export default function SpaceWidget() {
           setModalVisible(true);
         }}
       >
-        <Text style={styles.navButton}>Space</Text>
+        <ViewIconMain
+          name={'box'}
+          source={'Feather'}
+          color={'white'}
+        />
+        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%", paddingLeft: 10}}>{`SpaceName`}</Text>
       </Pressable>
 
       {/* space modal */}
@@ -28,7 +34,9 @@ export default function SpaceWidget() {
 
 const styles = StyleSheet.create({
   navButton: {
+    flex:1,
     padding: 0,
     margin: 0,
+    flexDirection:'row',
   },
 });

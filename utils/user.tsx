@@ -9,6 +9,7 @@
 
 import { ScrollView, TextInput, View, Text, Pressable } from 'react-native';
 import { useAttributeUnioned } from './attribute'
+
 // Widget to just show a link to the main user page (user/[userid])
 export const ViewUserAll =() => { 
     
@@ -68,7 +69,7 @@ export const ViewUserDevice =() => {
 export const useUserAttributes = () => {
     const attributes = useAttributeUnioned(['User'])
     return attributes
-}
+} 
 
 export const ViewUserAttributes = () => {
     const attributes = useUserAttributes();

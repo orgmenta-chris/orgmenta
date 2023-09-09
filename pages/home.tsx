@@ -2,12 +2,21 @@
 // If logged in, then it should also show the user a dropdown asking them if they want to set a default page when logged in.
 
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, Image } from "react-native";
 
 export default function Home() {
   return (
     <View style={{ flexDirection: "column" }}>
       <Text>Orgmenta</Text>
+      <Image
+        style={{
+          width: "100%",
+          height: 500,
+        }}
+        source={{
+          uri: require('../assets/logo/full/color.png'),
+        }}
+      />
       <Text>(if logged in) Set home page: [options]</Text>
       <Text>Sales Pitch goes here</Text>
       <Text>Product Information goes here</Text>

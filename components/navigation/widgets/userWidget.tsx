@@ -2,6 +2,7 @@ import { Text, View, Pressable, StyleSheet } from "react-native";
 import { useAuthSession } from "../../../utils/auth";
 import { useState } from "react";
 import UserModal from "./modals/userModal";
+import { ViewIconMain } from "../../../utils/icon";
 
 export default function UserWidget() {
   const auth = useAuthSession();
@@ -9,16 +10,21 @@ export default function UserWidget() {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <View style={{ flexDirection: "row", gap: 10, padding: 0, margin: 0 }}>
+    <View style={styles.navButton}>
       <Pressable
         style={styles.navButton}
         onPress={() => {
           setModalVisible(true);
         }}
       >
-        <Text style={styles.navButton}>
-          User | {auth?.data?.session === null ? "Guest" : "logged in"}
+        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%",textAlign:'right', paddingRight: 10}}>
+          {`${auth?.data?.session === null ? "Guest" : "logged in"}`}
         </Text>
+        <ViewIconMain
+          name={'user'}
+          source={'Feather'}
+          color={'white'}
+        />
       </Pressable>
       <UserModal
         modalVisible={modalVisible}
@@ -30,7 +36,9 @@ export default function UserWidget() {
 
 const styles = StyleSheet.create({
   navButton: {
+    flex:1,
     padding: 0,
     margin: 0,
+    flexDirection:'row',
   },
 });

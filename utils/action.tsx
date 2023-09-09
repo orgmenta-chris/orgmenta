@@ -112,6 +112,7 @@ export const optionsActionTabs = [
   {title:'Sync',iconName:'sync',iconSource:'MaterialIcons', description: "sync and database storage status"},
   {title:'Share',iconName:'share',iconSource:'Feather', description: "share, assign and manage access to entities"},
   {title:'Templates',iconName:'repo-template',iconSource:'Octicons', description: "manage and run rules/templates"},
+  {title:'Link',iconName:'paperclip',iconSource:'Feather', description: "link/unlink/manage entity relationships"},
   // {title:'Display',iconName:'eye',iconSource:'Feather', description: "change the display mode between Calendar, Table, List etc."},// in case we want to make the mode/display choices (calendar, table etc.) within these tabs instead of on their own
 ]
 

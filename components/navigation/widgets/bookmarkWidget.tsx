@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Text, View, Pressable, StyleSheet } from "react-native";
-import BrowserModal from "./modals/browserModal";
+import BookmarkModal from "./modals/bookmarkModal";
 import { ViewIconMain } from "../../../utils/icon";
 
-export default function BrowseWidget() {
+export default function BookmarkWidget() {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -14,16 +14,16 @@ export default function BrowseWidget() {
           setModalVisible(true);
         }}
       >
-        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%",textAlign:'right', paddingRight: 10}}>{`Browse`}</Text>
         <ViewIconMain
-          name={'book-open'}
+          name={'bookmark'}
           source={'Feather'}
           color={'white'}
         />
+        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%", paddingLeft: 10}}>{`Bookmarks`}</Text>
       </Pressable>
 
       {/* browser modal */}
-      <BrowserModal
+      <BookmarkModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       />

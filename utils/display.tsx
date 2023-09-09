@@ -26,15 +26,15 @@ import MapChart from "../components/displays/maps";
 
 // Main
 
-export const ViewDisplayMain = memo(({}) => {
-  const paths = useLocation().pathname?.split("/")
-  // todo: auxiliary data doesn't have relationship ids yet
-  const display = paths?.[3]; // this should be passed as the component  prop instead of hardcoded here
-  const id = paths?.[2]; // this should be passed as the component  prop instead of hardcoded here
+export const ViewDisplayMain = memo(({auxiliary, schema, focus, display}) => {
+  // const paths = useLocation().pathname?.split("/")
+  // // todo: auxiliary data doesn't have relationship ids yet
+  // const display = paths?.[3]; // this should be passed as the component  prop instead of hardcoded here
+  // const id = paths?.[2]; // this should be passed as the component  prop instead of hardcoded here
+  // const auxiliary = useEntityArray({category:id});
+  // const focus = useEntitySingle({id:id});
+  // const schema = useEntitySchema();
   const Component =  mapDisplayComponents[display||"list"]; // may need to memoize/useCallback this
-  const auxiliary = useEntityArray({category:id});
-  const focus = useEntitySingle({id:id});
-  const schema = useEntitySchema();
   return<Component auxiliary={auxiliary} schema={schema} focus={focus} />;
 });
 
@@ -49,7 +49,7 @@ export const ViewDisplayList = (props: any) => {
   // const focus = props.focus;
   return (
     <View style={{ flexDirection: "column" }}>
-      <ViewListMain data={auxiliary.data} />
+      <ViewListMain data={auxiliary?.data} />
     </View>
   );
 };
@@ -261,7 +261,8 @@ export const ViewDisplayJson = (props: any) => {
   );
 };
 
-// Components
+
+// Components (maybe merge this map into the optionsDisplay array instead, if it's more efficient?)
 
 export const mapDisplayComponents: any = {
   list: ViewDisplayList,
@@ -273,70 +274,39 @@ export const mapDisplayComponents: any = {
   json: ViewJsonMain,
 };
 
-// Actions
 
-export const optionsDisplayActions = [
-  {
-    title: "Inspect",
-    iconName: "eye",
-    iconSource: "Fether",
-    description: "inspect an entity in a popup",
-  },
-  {
-    title: "Add",
-    iconName: "plus",
-    iconSource: "Feather",
-    description: "create new entities/entity",
-  },
-  {
-    title: "Edit",
-    iconName: "edit",
-    iconSource: "Feather",
-    description: "edit entities/entity",
-  },
-  {
-    title: "Sync",
-    iconName: "sync",
-    iconSource: "MaterialIcons",
-    description: "sync and database storage status",
-  },
-  {
-    title: "Share",
-    iconName: "share",
-    iconSource: "Feather",
-    description: "share, assign and manage access to entities",
-  },
-  {
-    title: "Templates",
-    iconName: "repo-template",
-    iconSource: "Octicons",
-    description: "manage and run rules/templates",
-  },
-  // {title:'Display',iconName:'eye',iconSource:'Feather', description: "change the display mode between Calendar, Table, List etc."},// in case we want to make the mode/display choices (calendar, table etc.) within these tabs instead of on their own
-];
+// Options (ViewDisplayTabs should use this instead of being statically written - Chris todo)
 
-export const ViewDisplayActions = ({}: any) => {
-  return (
-    <View style={{ flexDirection: "row" }}>
-      <View style={{ flexDirection: "row" }}>
-        {optionsDisplayActions?.map((x, i) => (
-          <Link key={i} style={{ padding: 5 }} to={x.title.toLowerCase()}>
-            {/* {x.title} */}
-            <ViewIconMain
-              name={x.iconName}
-              source={x.iconSource}
-              color={"black"}
-              size={24}
-            />
-          </Link>
-        ))}
-      </View>
-      <Routes>
-        <Route path="/add" element={<ViewEntityAdd />} />
-      </Routes>
-    </View>
-  );
-};
+export const optionsDisplayMain = [
+  {title:'Json',
+  iconName: 'sdadsasdsads',
+  iconSource: 'Feather',},
+  {title:'Pods',
+  iconName: 'view-quilt',
+  iconSource: 'MaterialIcons',},
+  {title:'Form',
+  iconName: 'form', // or view-list-outline MaterialCommunityIcons
+  iconSource: 'AntDesign',},
+  {title:'List',
+  iconName: 'list',
+  iconSource: 'Feather',},
+  {title:'Table',
+  iconName: 'table',
+  iconSource: 'AntDesign',},
+  {title:'Calendar',
+  iconName: 'calendar',
+  iconSource: 'Feather',},
+  {title:'Map',
+  iconName: 'map',
+  iconSource: 'Feather',},
+  {title:'Chart',
+  iconName: 'sdadsasdsads',
+  iconSource: 'Feather',},
+  {title:'Path',
+  iconName: 'sdadsasdsads',
+  iconSource: 'Feather',},
+]
+
 
 // Tabs
 

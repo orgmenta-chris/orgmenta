@@ -6,12 +6,11 @@ import { Text, View, Image } from "react-native";
 
 export default function Home() {
   return (
-    <View style={{ flexDirection: "column" }}>
-      <Text>Orgmenta</Text>
+    <View style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)',borderColor: 'rgba(0, 0, 0, 0.15)', borderWidth: 1, flexDirection: "column", width:"100%", alignItems:'center' }}>
       <Image
         style={{
-          width: "100%",
-          height: 500,
+          width: 500,
+          height: 200,
         }}
         source={{
           uri: require('../assets/logo/full/color.png'),

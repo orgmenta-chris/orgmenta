@@ -8,9 +8,9 @@ import {
   View,
   TextInput,
 } from "react-native";
-
+import {Link} from 'react-router-dom'
 // @ts-ignore
-const BrowserModal = (props) => {
+const OrgmentaModal = (props) => {
   const { modalVisible, setModalVisible } = props;
 
   return (
@@ -26,8 +26,8 @@ const BrowserModal = (props) => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={{ textAlign: "center" }}>Browse App</Text>
-            <TextInput style={styles.input} placeholder="Search..." />
+            <Text style={{ textAlign: "center" }}>Orgmenta modal (todo)</Text>
+            <Link to={'/'}>Home</Link>
             <Pressable
               style={styles.button}
               onPress={() => setModalVisible(!modalVisible)}
@@ -80,4 +80,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BrowserModal;
+export default OrgmentaModal;

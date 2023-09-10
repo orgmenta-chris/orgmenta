@@ -3,38 +3,49 @@
 // This display is resizable 'pods' that can be moved around on a grid, pinned etc.
 // E.g. on the 'invoicing' category entity, you could pin an 'unsent invoices count' widget to to this display.
 
-import { Link, useLocation } from 'react-router-dom'
-import { View, Text } from 'react-native';
-import { data } from './static'
 import { ViewListMain } from './list'
+import { Link, useLocation } from 'react-router-dom'
+import { View, Text, ScrollView } from 'react-native';
+
+import { data } from './static'
 
 
 // Main
 
-export const ViewPodsMain = ({items,children}:any) => {
+// A container for all of the pods
+export const ViewPodMain = ({items,children}:any) => {
     return (
-        <View>
+        <ScrollView style={{padding:4}}>
           {children}
           {/* <Text>{JSON.stringify({items})}</Text> */}
+        </ScrollView>
+    )
+}
+
+
+// Frame
+
+// A container for each pod
+export const ViewPodFrame = ({children, style}:any) => {
+    return (
+        <View style={{height:40, flexDirection:'column', borderWidth:1, backgroundColor:'lightgray', borderColor:'white', margin: 4,...style, }}>
+            {children}
         </View>
     )
 }
 
 
-/// Example
+// Example
 
 // Temporary examplepod
-export const ViewPodExample=() => { 
+export const ViewPodExample=({}:any) => { 
   return (
-      <View style={{flexDirection:'column', borderWidth:1, borderColor:'white', margin: 4}}>
-          <View style={{height: 40, backgroundColor:'lightgray'}}>
-              <Text style={{fontSize:16, fontStyle:'italic'}}>Another Example Pod</Text>
-              <Text style={{fontSize:12}}>To be replaced with dynamic pods using db data</Text>
-          </View>
-      </View>
+      <ViewPodFrame>
+        <Text style={{fontSize:16, fontStyle:'italic'}}>Another Example Pod</Text>
+        <Text style={{fontSize:12}}>To be replaced with dynamic pods using db data</Text>
+      </ViewPodFrame>
   )
 }
-
 
 
 // Title
@@ -50,21 +61,10 @@ export const ViewPodInfo =() => {
     const parent = data?.find(y=>y.id===process?.parent);
     const grandparent = data?.find(z=>z.id===parent?.parent);
     return (
-        <View style={{flexDirection:'column', borderWidth:1, margin: 4}}>
-            <View style={{height: 40, backgroundColor:'lightgray'}}>
-                <Text style={{fontSize:16, fontStyle:'italic'}}>{process?.description}</Text>
-                <Text style={{fontSize:12}}>{process?.summary}</Text>
-            </View>
-            {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
-                {process.subheading}
-            </Text> */}
-            {/* TESTING */}
-            {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
-                {JSON.stringify({grandparent,parent,process,subprocesses},null,2)}
-                {JSON.stringify({process},null,2)}
-            </Text> */}
-
-        </View>
+        <ViewPodFrame>
+            <Text style={{fontSize:16, fontStyle:'italic'}}>{process?.description}</Text>
+            <Text style={{fontSize:12}}>{process?.summary}</Text>
+        </ViewPodFrame>
     )
 }
 
@@ -82,22 +82,14 @@ export const ViewPodTabs =() => {
     const parent = data?.find(y=>y.id===process?.parent);
     const grandparent = data?.find(z=>z.id===parent?.parent);
     return (
-        <View style={{flexDirection:'column', borderWidth:1, margin: 4}}>            
+        <ViewPodFrame style={{flexDirection:'row'}}>            
             {/* Tabs for each subprocess */}
-            <View style={{flexDirection:'row', height: 40}}>
-                {subprocesses?.map((x,i)=>
-                    <Link style={{flex: 1}} key={i} to={`/entity/` +x.nickname}>
-                        <Text>{x.display_singular}</Text>
-                    </Link>
-                )}
-            </View>
-
-            {/* Info on the current process (move this into pods*/}
-            {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}> */}
-                {/* {JSON.stringify({division,department,process},null,2)} */}
-            {/* </Text> */}
-
-        </View>
+            {subprocesses?.map((x,i)=>
+                <Link style={{flex: 1}} key={i} to={`/entity/` +x.nickname}>
+                    <Text>{x.display_singular}</Text>
+                </Link>
+            )}
+        </ViewPodFrame>
     )
 }
 
@@ -109,10 +101,10 @@ export const ViewPodTabs =() => {
 // Example usage: an Invoice might have a 'line items' or 'payments' list that shows all the payments made against it in list form.
 export const ViewPodList =({columns,data,title}:any) => { 
     return (
-        <View style={{flexDirection:'column', borderWidth:1, margin: 4}}>  
+        <ViewPodFrame>  
             <Text>{title || 'ViewPodList'}</Text>
             <ViewListMain columns={columns} data={data} />  
-        </View>
+        </ViewPodFrame>
     )
 }
 

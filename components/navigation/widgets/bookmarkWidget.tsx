@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Text, View, Pressable, StyleSheet } from "react-native";
 import BookmarkModal from "./modals/bookmarkModal";
 import { ViewIconMain } from "../../../utils/icon";
+import { useModalVisibility } from "../../../utils/modal";
 
 export default function BookmarkWidget() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -10,16 +11,17 @@ export default function BookmarkWidget() {
     <View style={styles.navButton}>
       <Pressable
         style={styles.navButton}
-        onPress={() => {
-          setModalVisible(true);
-        }}
+        // onPress={() => {
+        //   setModalVisible(true);
+        // }}
+        onPress={useModalVisibility('bookmark')}
       >
         <ViewIconMain
           name={'bookmark'}
           source={'Feather'}
           color={'white'}
         />
-        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%", paddingLeft: 10}}>{`Bookmarks`}</Text>
+        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%", paddingLeft: 10, color:'white'}}>{`Bookmarks`}</Text>
       </Pressable>
 
       {/* browser modal */}
@@ -35,8 +37,7 @@ export default function BookmarkWidget() {
 const styles = StyleSheet.create({
   navButton: {
     flex:1,
-    padding: 0,
-    margin: 0,
     flexDirection:'row',
+    alignItems:'center',
   },
 });

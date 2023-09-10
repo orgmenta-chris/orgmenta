@@ -7,14 +7,17 @@
 // - permissions
 // - devices (the windows/apps/devices they log in from)
 
+import React from 'react';
 import { ScrollView, TextInput, View, Text, Pressable } from 'react-native';
 import { useAttributeUnioned } from './attribute'
+import { ViewModalMain } from './modal'
 
 // Widget to just show a link to the main user page (user/[userid])
 export const ViewUserAll =() => { 
     
     return (
         <View>
+            <Text>[Link to users/all]</Text> 
             <Text>[Link to users/userid]</Text> 
         </View>
     )
@@ -85,3 +88,19 @@ export const ViewUserAttributes = () => {
         <Text>-----</Text> 
     </>)
 }
+
+
+// Modal
+
+export const ViewUserModal = (props:any) => {
+    return (
+        <ViewModalMain modalName={'user'} backdrop pinnable top={60} >
+            <Text>Move auth form here</Text>
+            <ViewUserAll/>
+            <ViewUserActivity/>
+            <ViewUserAlerts/>
+            <ViewUserComms/>
+            <ViewUserDevice/>
+        </ViewModalMain>
+    );
+  };

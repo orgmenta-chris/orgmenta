@@ -14,7 +14,7 @@ export default function BrowseWidget() {
           setModalVisible(true);
         }}
       >
-        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%",textAlign:'right', paddingRight: 10}}>{`Browse`}</Text>
+        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%",textAlign:'right', paddingRight: 10, color:'white'}}>{`Browse`}</Text>
         <ViewIconMain
           name={'book-open'}
           source={'Feather'}
@@ -35,8 +35,7 @@ export default function BrowseWidget() {
 const styles = StyleSheet.create({
   navButton: {
     flex:1,
-    padding: 0,
-    margin: 0,
     flexDirection:'row',
+    alignItems:'center',
   },
 });

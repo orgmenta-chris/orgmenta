@@ -8,6 +8,7 @@ export default function SpaceWidget() {
 
   return (
     <View style={styles.navButton}>
+
       <Pressable
         style={styles.navButton}
         onPress={() => {
@@ -19,7 +20,7 @@ export default function SpaceWidget() {
           source={'Feather'}
           color={'white'}
         />
-        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%", paddingLeft: 10}}>{`SpaceName`}</Text>
+        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%", paddingLeft: 10, color:'white'}}>{`SpaceName`}</Text>
       </Pressable>
 
       {/* space modal */}
@@ -35,8 +36,7 @@ export default function SpaceWidget() {
 const styles = StyleSheet.create({
   navButton: {
     flex:1,
-    padding: 0,
-    margin: 0,
     flexDirection:'row',
+    alignItems:'center',
   },
 });

@@ -16,6 +16,7 @@
     "@tanstack/react-query": "^4.33.0",
     "@tanstack/react-query-persist-client": "^4.33.0",
     "@tanstack/react-table": "^8.9.3",
+    "@types/uuid": "^9.0.3",
     "expo": "~49.0.8",
     "expo-status-bar": "~1.6.0",
     "moment": "^2.29.4",

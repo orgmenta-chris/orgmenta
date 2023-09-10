@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { ViewDisplayMain, ViewDisplayTabs } from'../utils/display'
+import { ViewDisplayDynamic, ViewDisplayTabs } from'../utils/display'
 import { ViewActionTabs } from'../utils/action'
 import { ViewFocusMain } from'../utils/focus'
 import { ViewWidgetMain } from '../utils/widget'
@@ -8,7 +8,6 @@ import { useApiItems,mapApiSource } from '../utils/api'
 import { ViewControlMain} from '../utils/control'
 import { Link, useLocation, Route, Routes } from "react-router-dom";
 import {
-  ViewEntityAdd,
   useEntityArray,
   useEntitySingle,
   useEntitySchema,
@@ -31,14 +30,14 @@ export default function Entity() {
 
             {/* <View style={{flex:1,height:111,minHeight:"100%",flexGrow:999,backgroundColor:'blue'}}><Text>s</Text></View> */}
             {/* Show the auxiliary entities (in whichever mode is selected, e.g. Calendar, Table etc.) */}
-            <ViewDisplayMain auxiliary={auxiliary} schema={schema} focus={focus} display={display} />
+            <ViewDisplayDynamic auxiliary={auxiliary} schema={schema} focus={focus} display={display} />
             
             {/* Placholder (Chris is working on this) - A panel for filtering/grouping/sorting */}
             <ViewControlMain/>
 
 
             {/* Show links/tabs for Calendar, List, Table etc. */}
-            <ViewDisplayTabs/>
+            <ViewDisplayTabs display={display}/>
 
             {/* Show the actions tabs/links (e.g. add,edit,copy,delete,share etc.*/}
             <ViewActionTabs/>

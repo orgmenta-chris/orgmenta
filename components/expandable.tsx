@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { View, Pressable, Text } from "react-native";
-import { newData as data } from "../utils/static";
+import { data } from "../utils/static";
 import { ViewIconMain } from "../utils/icon";
 import { Link } from "react-router-dom";
 import React from "react";
@@ -23,11 +23,12 @@ export const Expandable = ({ item }: any) => {
         <Link
           style={{
             flex: 3,
-            // backgroundColor: 'blue'
+            textDecoration:'none',
           }}
           to={"entity/" + item.nickname}
         >
-          <Text selectable={false}>{item.display_singular}</Text>
+          <Text 
+            style={{color: '#176596', fontWeight:700, fontSize:17}} selectable={false}>{item.display_singular}</Text>
         </Link>
         <Pressable
           style={{}}
@@ -56,7 +57,7 @@ export const Expandable = ({ item }: any) => {
             // flexDirection: 'column',
             flex: 1,
             flexGrow: 1,
-            minHeight: 200,
+            // minHeight: 200,
             // backgroundColor: 'orange',
           }}
         >
@@ -66,8 +67,8 @@ export const Expandable = ({ item }: any) => {
                 (x.status === "3. Active" || __DEV__) && x.parent === item.id
             )
             .map((x, i) => (
-              <Link to={"entity/" + x.nickname} key={i}>
-                <Text selectable={false}>{x.display_singular}</Text>
+              <Link style={{textDecoration:'none', margin:10}} to={"entity/" + x.nickname} key={i}>
+                <Text style={{ fontWeight:500, fontSize:16,color: '#0c4a73'}} selectable={false}>{x.display_singular}</Text>
               </Link>
             ))}
         </View>

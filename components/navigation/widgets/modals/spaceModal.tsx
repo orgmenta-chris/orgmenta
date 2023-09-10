@@ -11,7 +11,7 @@ const SpaceModal = (props) => {
   return (
     <View style={styles.centeredView}>
       <Modal
-        animationType="slide"
+        animationType="none"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -31,8 +31,10 @@ const SpaceModal = (props) => {
             </View>
             <View style={styles.divider}></View>
             <View style={styles.spaceLinks}>
+              <Link to={`/spaces/${'SPACEIDHERE'}/pods`}>SPACE</Link>
+              <Link to={`/spaces/all/pods`}>ALL SPACES</Link>
               <Link to="">Files</Link>
-              <Link to="">Settings</Link>
+              <Link to="">Settings</Link> 
               <Link to="">Subscription & Billing</Link>
             </View>
             <View style={styles.divider}></View>

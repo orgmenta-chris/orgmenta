@@ -30,7 +30,7 @@ const UserModal = (props) => {
   return (
     <View style={styles.centeredView}>
       <Modal
-        animationType="slide"
+        animationType="none"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -116,6 +116,23 @@ const UserModal = (props) => {
                     }}
                   >
                     Settings
+                  </Text>
+                </Pressable>
+                <Pressable
+                  style={styles.links}
+                  onPress={() => {
+                    setModalVisible(false);
+                    native(`/users/${auth?.data?.session?.user?.id}/pods`);
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "blue",
+                      textDecorationStyle: "solid",
+                      textAlign: "center",
+                    }}
+                  >
+                    All Events
                   </Text>
                 </Pressable>
                 <Pressable

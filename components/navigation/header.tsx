@@ -11,13 +11,15 @@ export default function Header() {
   return (
     <View
       style={{
-        paddingTop: 15,
+        padding: 5,
+        paddingLeft:20,
         flexDirection: "row",
         gap: 5,
         justifyContent: "center",
-        backgroundColor: "#c7ddd2",
+        backgroundColor: "#0c4a73",
         borderBottomColor: "black",
         borderBottomWidth: 1,
+        maxHeight:60
       }}
     >
       <SpaceWidget />

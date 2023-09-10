@@ -13,7 +13,7 @@ export const ViewControlMain = ({}:any) => {
     <View style={{flexDirection:'row', gap:10, borderWidth:1}}>
 
       {/* Presets are saved views for filtering, sorting, grouping (etc.) entities. See presets.tsx. */}
-      <Text>CONTROLS PANEL</Text>
+      <Text>CONTROL</Text>
       <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Presets<ViewPresetOptions/></Text>
       
         

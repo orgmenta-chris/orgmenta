@@ -17,7 +17,7 @@ export default function UserWidget() {
           setModalVisible(true);
         }}
       >
-        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%",textAlign:'right', paddingRight: 10}}>
+        <Text selectable={false} numberOfLines={1} style={{flexGrow:1,textAlign:'right', paddingRight: 10, color:'white'}}>
           {`${auth?.data?.session === null ? "Guest" : "logged in"}`}
         </Text>
         <ViewIconMain
@@ -37,8 +37,7 @@ export default function UserWidget() {
 const styles = StyleSheet.create({
   navButton: {
     flex:1,
-    padding: 0,
-    margin: 0,
     flexDirection:'row',
+    alignItems:'center',
   },
 });

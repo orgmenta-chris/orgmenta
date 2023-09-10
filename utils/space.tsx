@@ -2,12 +2,13 @@
 
 import { useMemberCreate } from './members'
 import React, { memo } from 'react';
-import { v4 as uuid} from 'uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
+import { createUuid4, typeUuid4, validateUuidType } from './uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { useTableColumns } from './table'
 import { useState, useEffect} from 'react'
+import { Link } from "react-router-dom";
 import {
     createColumnHelper,
     flexRender,
@@ -16,9 +17,35 @@ import {
     ColumnResizeMode,
     ColumnDef,
 } from '@tanstack/react-table'
+import { ViewModalMain } from './modal'
 
 
-// Create (note: This just creates the space. You also need to set up tables and other space configurations - see the 'SpaceSetup' functions)
+// Meta
+
+export const metaSpaceInfo = {
+  description: 'A',
+  features: [
+    "Create",
+    "Setup",
+    "Update",
+    "Delete",
+    "Array",
+    "Item",
+    "Active",
+    "Table"
+  ]
+}
+
+
+// Create
+
+export const metaSpaceCreate = {
+  description: 'Create a space in the spaces table',
+  notes: 'This only creates a space table row - For full space setup, see the Setup feature',
+  type: "interfaceSpaceCreate",
+  request: "requestSpaceCreate",
+  hook: "useSpaceCreate",
+}
 
 export interface interfaceSpaceCreate {
     // todo
@@ -42,6 +69,14 @@ export const useSpaceCreate = (props:interfaceSpaceCreate) => {
 
 // Setup (create the space and any necessary tables, load in any blueprint entities, run any necessary server functions, etc.)
 
+export const metaSpaceSetup = {
+  description: 'Create a space, default members, relevant tables, entities, relationships, rules etc.',
+  notes: '',
+  type: "interfaceSpaceSetup",
+  request: "requestSpaceCSetup",
+  hook: "useSpaceSetup",
+}
+
 export interface interfaceSpaceSetup {
   // todo
 }
@@ -64,6 +99,14 @@ export const useSpaceSetup = (props:interfaceSpaceSetup) => {
 
 
 // Update (todo)
+
+export const metaSpaceUpdate = {
+  description: '',
+  notes: '',
+  type: "interfaceSpaceSetup",
+  request: "requestSpaceCSetup",
+  hook: "useSpaceSetup",
+}
 
 export interface interfaceSpaceUpdate { // todo
     // todo
@@ -298,3 +341,15 @@ export const ViewSpaceTable = ({...Input}) => {
 // functon+component to unlink the share.
 
 // component to see the status of the share
+
+
+// Modal
+
+export const ViewSpaceModal = (props:any) => {
+  return (
+      <ViewModalMain modalName={'space'} backdrop pinnable  bottom={60} >
+        <Link to={`/spaces/${'SPACEIDHERE'}/pods`}>SPACE</Link>
+        <Link to={`/spaces/all/pods`}>ALL SPACES</Link>
+      </ViewModalMain>
+  );
+};

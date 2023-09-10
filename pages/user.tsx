@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import { useAuthSession } from "../utils/auth";
 import { ViewUserAttributes } from "../utils/user";
-import { ViewDisplayMain, ViewDisplayTabs } from'../utils/display'
+import { ViewDisplayDynamic } from'../utils/display'
 
 export default function UserPage() {
   const session = useAuthSession();
@@ -17,7 +17,7 @@ export default function UserPage() {
         )}
       </View>
       <ViewUserAttributes/>
-      <ViewDisplayMain/>
+      <ViewDisplayDynamic/>
     </View>
   );
 }

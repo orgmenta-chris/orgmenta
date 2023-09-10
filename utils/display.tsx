@@ -9,14 +9,8 @@ import { ViewListMain } from "./list";
 import { ViewTableMain, useTableColumns } from "./table";
 import { ViewJsonMain } from "./json";
 import { ViewIconMain } from "./icon";
-import { ViewPodsMain, ViewPodInfo, ViewPodTabs, ViewPodList } from "./pods";
+import { ViewPodMain, ViewPodInfo, ViewPodTabs, ViewPodList, ViewPodExample } from "./pods";
 import { ViewFormDynamic } from "./form";
-import {
-  ViewEntityAdd,
-  useEntityArray,
-  useEntitySingle,
-  useEntitySchema,
-} from "./entity";
 // import { ViewProcessesTabs } from "../components/entity/processTabs";//no longer needed, removing
 import MyCalendar from "../components/displays/calendar";
 import Calendar from "react-calendar";
@@ -24,22 +18,21 @@ import "react-calendar/dist/Calendar.css";
 import MapChart from "../components/displays/maps";
 
 
-// Main
+// Dynamic
 
-export const ViewDisplayMain = memo(({auxiliary, schema, focus, display}) => {
-  // const paths = useLocation().pathname?.split("/")
-  // // todo: auxiliary data doesn't have relationship ids yet
-  // const display = paths?.[3]; // this should be passed as the component  prop instead of hardcoded here
-  // const id = paths?.[2]; // this should be passed as the component  prop instead of hardcoded here
-  // const auxiliary = useEntityArray({category:id});
-  // const focus = useEntitySingle({id:id});
-  // const schema = useEntitySchema();
+// This is the main display component that switches between different components
+export const ViewDisplayDynamic = memo(({auxiliary, schema, focus, display}:any) => {
   const Component =  mapDisplayComponents[display||"list"]; // may need to memoize/useCallback this
-  return<Component auxiliary={auxiliary} schema={schema} focus={focus} />;
+  return (
+    <View style={{ flexDirection: "column",flex:1}}>
+      <Component auxiliary={auxiliary} schema={schema} focus={focus} />
+    </View>
+  )
 });
 
 
 // Displays
+
 // These components transform the entity/schema/relationships data then provide them to the relevant component
 // (e.g. ViewDisplayTable transforms entities data, then provides them to the table component from table.js )
 // Chris is owning the below components.
@@ -48,9 +41,7 @@ export const ViewDisplayList = (props: any) => {
   const auxiliary = props.auxiliary;
   // const focus = props.focus;
   return (
-    <View style={{ flexDirection: "column" }}>
       <ViewListMain data={auxiliary?.data} />
-    </View>
   );
 };
 
@@ -60,11 +51,23 @@ export const ViewDisplayPods = (props: any) => {
   const focus = props.focus;
   const data = "make focus into an array and concat with aux";
   return (
-    <ViewPodsMain items={auxiliary} schema={schema.data}>
+    <ViewPodMain items={auxiliary} schema={schema.data}>
       <ViewPodInfo/>
       <ViewPodTabs/>
       <ViewPodList title={"Example List Pod"} data={auxiliary.data}/>
-    </ViewPodsMain> 
+      <ViewPodExample/>
+      <ViewPodExample/>
+      <ViewPodExample/>
+      {/* <ViewPodExample/>
+      <ViewPodExample/>
+      <ViewPodExample/>
+      <ViewPodExample/>
+      <ViewPodExample/>
+      <ViewPodExample/>
+      <ViewPodExample/>
+      <ViewPodExample/>
+      <ViewPodExample/> */}
+    </ViewPodMain> 
   );
 };
 
@@ -114,17 +117,6 @@ export const ViewDisplayTable = (props: any) => {
     <ViewTableTabs/>
     <ViewTableMain columns={columns} data={auxiliary.data} />
   </>);
-};
-
-// 'Table Tabs' will be a subcomponent of 'Table' (like 'Table Footer' and'Table Header' are table subcomponents )
-// To be moved into the table file (but added here since it is a placeholder and so as not to interfere with current works)
-// Or, since this might need to be used by List (and maybe others like timeline) as well, maybe it needs to be its own 'display tabs' module or else we just directly use a primitive 'tabs' module in ViewDisplayTable, ViewDisplayList etc. 
-// At the moment, it just has 'Types' hardcoded into it as the tabs.
-// But, it will be made dynamic (which will allow things like plugins and user interactions to hide this component, switch out the tabs to 'Status' or  other property groupings, etc.)
-export const ViewTableTabs = (props: any) => {
-  return (
-    <Text>["Area","Event","Contact","etc."]</Text>
-  );
 };
 
 export const ViewDisplayCalendar = (props: any) => {
@@ -204,7 +196,7 @@ export const ViewDisplayCalendar = (props: any) => {
   ];
 
   return (
-    <>
+    <View style={{maxHeight:400}}>
       <View
         style={{
           flexDirection: "row",
@@ -234,16 +226,15 @@ export const ViewDisplayCalendar = (props: any) => {
       </View>
 
       <View>{tabs[activeTab].component}</View>
-    </>
+    </View>
   );
 };
 
 export const ViewDisplayMaps = (props: any) => {
   return (
-    <>
-      <Text>This is maps page</Text>
+    <View style={{maxHeight:400}}>
       <MapChart />
-    </>
+    </View>
   );
 }
 
@@ -311,16 +302,16 @@ export const optionsDisplayMain = [
 // Tabs
 
 // Contextual tabs (i.e. these will eventually grey out if not applicable to the current focused entity)
-export const ViewDisplayTabs = ({ id }: any) => {
+export const ViewDisplayTabs = ({ id, display }: any) => {
   const path = useLocation().pathname?.split("/");
   return (
     <View style={{ flexDirection: "row" }}>
       <Link
         style={{
           padding: 5,
-          backgroundColor: path[3] === "pods" && "lightgray",
+          backgroundColor: display === "pods" ? "lightgray" : "transparent",
         }}
-        to={`/entity/` + path[2] + "/pods"}
+        to={"entity/../../pods"}
       >
         Pods
       </Link>
@@ -328,9 +319,9 @@ export const ViewDisplayTabs = ({ id }: any) => {
       <Link
         style={{
           padding: 5,
-          backgroundColor: path[3] === "form" && "lightgray",
+          backgroundColor: display === "form" ? "lightgray" : "transparent",
         }}
-        to={`/entity/` + path[2] + "/form"}
+        to={"entity/../../form"}
       >
         Form
       </Link>
@@ -338,9 +329,9 @@ export const ViewDisplayTabs = ({ id }: any) => {
       <Link
         style={{
           padding: 5,
-          backgroundColor: path[3] === "list" && "lightgray",
+          backgroundColor: display === "list" ? "lightgray" : "transparent",
         }}
-        to={`/entity/` + path[2] + "/list"}
+        to={"entity/../../list"}
       >
         List
       </Link>
@@ -348,9 +339,9 @@ export const ViewDisplayTabs = ({ id }: any) => {
       <Link
         style={{
           padding: 5,
-          backgroundColor: path[3] === "table" && "lightgray",
+          backgroundColor: display === "table" ? "lightgray" : "transparent",
         }}
-        to={`/entity/` + path[2] + "/table"}
+        to={"entity/../../table"}
       >
         Table
       </Link>
@@ -358,9 +349,9 @@ export const ViewDisplayTabs = ({ id }: any) => {
       <Link
         style={{
           padding: 5,
-          backgroundColor: path[3] === "calendar" && "lightgray",
+          backgroundColor: display === "calendar" ? "lightgray" : "transparent",
         }}
-        to={`/entity/` + path[2] + "/calendar"}
+        to={"entity/../../calendar"}
       >
         Calendar
       </Link>
@@ -368,9 +359,9 @@ export const ViewDisplayTabs = ({ id }: any) => {
       <Link
         style={{
           padding: 5,
-          backgroundColor: path[3] === "maps" && "lightgray",
+          backgroundColor: display === "maps" ? "lightgray" : "transparent",
         }}
-        to={`/entity/` + path[2] + "/maps"}
+        to={"entity/../../maps"}
       >
         Maps
       </Link>
@@ -378,9 +369,9 @@ export const ViewDisplayTabs = ({ id }: any) => {
       <Link
         style={{
           padding: 5,
-          backgroundColor: path[3] === "json" && "lightgray",
+          backgroundColor: display === "json" ? "lightgray" : "transparent",
         }}
-        to={`/entity/` + path[2] + "/json"}
+        to={"entity/../../json"}
       >
         JSON
       </Link>
@@ -402,5 +393,19 @@ export const ViewDisplayTabs = ({ id }: any) => {
       {/* <Link style={{padding:5, backgroundColor:(path[3]==='spacial'&&'lightgray')}} to={`/entity/` +path[2]+'/spacial'}>Spacial</Link> */}
       {/* On hold */}
     </View>
+  );
+};
+
+
+// TypeTabs
+
+// 'Table Tabs' will be a subcomponent of 'Table' (like 'Table Footer' and'Table Header' are table subcomponents )
+// To be moved into the table file (but added here since it is a placeholder and so as not to interfere with current works)
+// Or, since this might need to be used by List (and maybe others like timeline) as well, maybe it needs to be its own 'display tabs' module or else we just directly use a primitive 'tabs' module in ViewDisplayTable, ViewDisplayList etc. 
+// At the moment, it just has 'Types' hardcoded into it as the tabs.
+// But, it will be made dynamic (which will allow things like plugins and user interactions to hide this component, switch out the tabs to 'Status' or  other property groupings, etc.)
+export const ViewTableTabs = (props: any) => {
+  return (
+    <Text>["Area","Event","Contact","etc."]</Text>
   );
 };

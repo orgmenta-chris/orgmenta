@@ -1,7 +1,7 @@
 
-import { v4 as uuid} from 'uuid'
+// import { createUuid4, typeUuid4, validateUuid4 } from './uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
 
-// console.log(uuid())
+// console.log(createUuid4())
 // function processdatum (inputid){
 //     let datum = data.find(x=>x.id===inputid)
 //     let item = inputid+'//';delete datum?.id
@@ -4506,7 +4506,7 @@ export const data = [
 //         item.oldid = x.id;
 //         item.oldparent = x.parent;
 //         delete item.parent; delete item.id;
-//         item.id = uuid();
+//         item.id = createUuid4();
 //         dataWithNewIds.push(item)
 //     })
 //     let dataWithNewParents = []
@@ -4528,5 +4528,6 @@ export const data = [
 //     console.log('relationshipsToCreate',relationshipsToCreate)
 // }
 // prepCategoriesForEntryIntoDatabase()
-const newData = data;
-export {newData}
+
+// const newData = data;
+// export {newData}

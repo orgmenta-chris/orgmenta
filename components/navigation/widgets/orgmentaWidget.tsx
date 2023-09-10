@@ -1,26 +1,47 @@
 import React, { useState } from "react";
 import { Text, View, Pressable, StyleSheet, Image } from "react-native";
-
+import OrgmentaModal from "./modals/orgmentaModal";
 import { Link } from "react-router-dom";
+import { useModalVisibility } from "../../../utils/modal";
 
 export default function OrgmentaWidget() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [widgetHover, setWidgetHover] = useState(false);
+
   return (
-    <View style={styles.navButton}>
-      <Link
-        to='./'
+    <View style={{flex:1}}>
+
+      <Pressable
+        style={styles.navButton}
+        // onPress={() => {
+        //   setWidgetHover(false)
+        //   setModalVisible(true);
+        // }}
+        
+        onPress={useModalVisibility('orgmenta')}
+
+        onHoverIn={()=>!modalVisible && setWidgetHover(true)}
+        onHoverOut={()=>setWidgetHover(false)}
       >
         <Image
           style={{
-            width: 50,
+            // overflow:'',
+            width: widgetHover ? 150 : 50,
             height: 50,
-            top:-10
+            // top:-5
           }}
           source={{
-            uri: require('../../../assets/logo/symbol/white.png'),
+            uri: widgetHover ? require('../../../assets/logo/full/white.png') : require('../../../assets/logo/symbol/white.png'),
           }}
         />
-      </Link>
+      </Pressable>
+      
+      {/* orgmenta modal */}
+      <OrgmentaModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
+      {/* orgmenta modal */}
 
     </View>
   );
@@ -28,10 +49,8 @@ export default function OrgmentaWidget() {
 
 const styles = StyleSheet.create({
   navButton: {
-    flex:1,
-    padding: 0,
-    margin: 0,
+    flexGrow:1,
     flexDirection:'row',
-    justifyContent:'center'
+    justifyContent:'center',
   },
 });

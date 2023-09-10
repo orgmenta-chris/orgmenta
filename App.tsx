@@ -1,8 +1,8 @@
 
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Pressable} from 'react-native';
 import Home from './pages/home'
-import Sidebar from './components/navigation/sidebar'
+// import Sidebar from './components/navigation/sidebar'
 import Header from './components/navigation/header'
 import User from './pages/user'
 import Entity from './pages/entity'
@@ -10,12 +10,18 @@ import React from 'react';
 import Space from './pages/space'
 import Attribute from './pages/attribute'
 import { ViewQueryerProvider } from './utils/queryer'
+import { ViewBookmarkModal } from './utils/bookmark'
+import { ViewOrgmentaModal } from './utils/orgmenta'
+import { ViewBrowseModal } from './utils/browse'
+import { ViewSpaceModal } from './utils/space'
+import { ViewUserModal } from './utils/user'
 import { BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 
 export default function App() {
   return (
     <BrowserRouter>
       <ViewQueryerProvider>
+
         <View style={styles.container}>
           <StatusBar style="auto" />
           <Header/>
@@ -23,10 +29,10 @@ export default function App() {
 
             {/* Navigation */}
             <View style={{flex:1}}>
-              <Sidebar/>
+              {/* <Sidebar/> */}
             </View>
 
-            <View style={{flex: 7 }}>
+            <View style={{flex: 6,padding:10 }}>
               <Routes>
 
                 {/* Home */}
@@ -38,7 +44,7 @@ export default function App() {
                 {/* Entities */}
                 <Route
                   path="entity/"
-                  element={<Text>Path "entity/" has no specified entity - this will reroute somewhere (see App.tsx)</Text>}
+                  element={<Navigate to="all/pods" replace />}
                 />
                 <Route
                   path="entity/:entity_id_or_nickname" // 
@@ -69,8 +75,12 @@ export default function App() {
                   element={<Navigate to="all" replace />}
                 />
                 <Route
-                  path="/spaces/:spaceid"
-                  element={<Space />}
+                  path="spaces/:space_id_or_nickname/" // 
+                  element={<Navigate to="pods" replace />}
+                />
+                <Route
+                  path="spaces/:space_id_or_nickname/:mode/*" // 
+                  element={<Space/>}
                 />
                 
                 {/* Attributes */}
@@ -86,8 +96,20 @@ export default function App() {
 
               </Routes>
             </View>
+            
+            <View style={{flex:1}}>
+            </View>
+            
+            <ViewSpaceModal />
+            <ViewBookmarkModal />
+            <ViewOrgmentaModal/>
+            <ViewBrowseModal />
+            <ViewUserModal />
+
           </View>
         </View>
+
+
       </ViewQueryerProvider>
     </BrowserRouter>
   );

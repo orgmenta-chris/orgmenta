@@ -2,7 +2,7 @@
 // A 'member' is a contact (group or individual) that is a member of a space. 
 // It has its own table (rather than being part of the entities table) so that we can use this for row level security.
 
-import { v4 as uuid} from 'uuid'
+import { createUuid4, typeUuid4, validateUuid4 } from './uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { TextInput, View, Text, Pressable } from 'react-native';

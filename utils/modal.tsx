@@ -4,41 +4,21 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { ViewIconMain } from './icon'
 
-  
-export const useModalVisibility = (modalName:string) => {
-    const queryClient = useQueryClient();
-    return () => {
-        queryClient.setQueryData(['modal', modalName], (oldData: any) => {
-          return {...oldData, visible: !oldData?.visible};
-        });
-      };
-}
 
-export const useModalPinned = (modalName:string) => {
-    const queryClient = useQueryClient();
-    return () => {
-        queryClient.setQueryData(['modal', modalName], (oldData: any) => {
-          return {...oldData, pinned: !oldData?.pinned};
-        });
-      };
-}
+// Meta
 
-export const useModalState = (modalName:string) => {
-    const queryClient = useQueryClient();
-    const query = useQuery({
-            queryKey: ['modal',modalName], 
-            queryFn: ()=>null,
-            // initialData: () => queryClient.getQueryData(['modal', modalName]) || null,
-            // staleTime: Infinity // This means the data will never become stale automatically
-            refetchOnWindowFocus:false
-    });
-    return query;
+const metaModalInfo = {
+    description: "A UI widget to appear floating on a different surface to other components",
+    notes: "This modal is an alternative to React Native's own modal component, which has limitations to it that this module solves",
+    todo: [
+        "When pinned, embed the modal (switch off modal mode) into the parent view (i.e. switch off position: absolute)",
+        "Positioning and sizing: Allow for the modal to be rendered in specific sizes and locations via props passed through"
+    ]
 }
 
 
-// Main
+// Main (the main modal view - use this comprehensive component to get all of the available modal features)
 
-// Main Modal View
 export const ViewModalMain = ({height, margin, padding, pinnable, children, modalName, backdrop, top, bottom, left, right, width}:any) => {
     const modalState = useModalState(modalName);
     if(modalState?.data?.visible) { return (<>
@@ -53,8 +33,48 @@ export const ViewModalMain = ({height, margin, padding, pinnable, children, moda
 }
 
 
+// Visibility (whether or not a modal is being shown on screen)
 
-// The modal controls that appear in the modal
+export const useModalVisibility = (modalName:string) => {
+    const queryClient = useQueryClient();
+    return () => {
+        queryClient.setQueryData(['modal', modalName], (oldData: any) => {
+          return {...oldData, visible: !oldData?.visible};
+        });
+      };
+}
+
+
+// Pinned (whether or not a modal is embedded into the page, or floating above it on another surface)
+
+export const useModalPinned = (modalName:string) => {
+    const queryClient = useQueryClient();
+    return () => {
+        queryClient.setQueryData(['modal', modalName], (oldData: any) => {
+          return {...oldData, pinned: !oldData?.pinned};
+        });
+      };
+}
+
+
+// State (get the modal state - which has 'pinned', 'visibility' and other properties)
+
+export const useModalState = (modalName:string) => {
+    const queryClient = useQueryClient();
+    const query = useQuery({
+            queryKey: ['modal',modalName], 
+            queryFn: ()=>null,
+            // initialData: () => queryClient.getQueryData(['modal', modalName]) || null,
+            // staleTime: Infinity // This means the data will never become stale automatically
+            refetchOnWindowFocus:false
+    });
+    return query;
+}
+
+
+
+// Controls (The modal controls that appear in the modal to pin/unpin, show/hide etc.)
+
 export const ViewModalControls = ({modalName, pinnable,top,bottom,left,right}:any) => {
     // const test = useModalVisibility(modalName)
     return (
@@ -77,7 +97,9 @@ export const ViewModalControls = ({modalName, pinnable,top,bottom,left,right}:an
     )
 }
 
-// The modal content container
+
+// Body (The modal content container, i.e. the visible part of the modal)
+
 export const ViewModalBody = ({height,margin, padding,modalName, pinnable, children, top,bottom,left,right, width}:any) => {
     return (
         <View
@@ -107,7 +129,9 @@ export const ViewModalBody = ({height,margin, padding,modalName, pinnable, child
     )
 }
 
-// Backdrop for Modal View (if enabled)
+
+// Backdrop (if the modal isn't pinned and 'backdrop' is enabled, then this overlay behind the modal body will appear and when clicked will close the modal)
+
 export const ViewModalBackdrop = ({modalName}:any) => {
     return (
         <Pressable 
@@ -124,9 +148,9 @@ export const ViewModalBackdrop = ({modalName}:any) => {
 }
 
 
-// Example
+// Examples
 
-// Example view to show the modal state toggle functionality
+// (Example component to show the modal state toggle functionality)
 export const ViewModalState = ({modalName}:any) => {
     const modalState = useModalState(modalName);
     return (<>
@@ -135,7 +159,7 @@ export const ViewModalState = ({modalName}:any) => {
     </>)
 }
 
-// Example button to toggle the modal state value
+// (Example button to toggle the modal state value)
 export const ViewModalToggle = ({modalName}:any) => {
     return (
         <Pressable onPress={useModalVisibility(modalName)}><Text>Toggle</Text></Pressable>

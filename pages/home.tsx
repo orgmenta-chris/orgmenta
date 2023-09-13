@@ -4,29 +4,38 @@
 import React, { useEffect, useState } from "react";
 import { Button, Text, View } from "react-native";
 import DocumentPicker from "../components/picker/DocumentPicker";
-import { bucketItems, ensureBucketExists, fileUpload } from "../utils/storage";
+import { useMsal, useAccount } from "@azure/msal-react";
+import MSAL from "../components/auth/msal";
+import { callMsGraph } from "../utils/graph";
 
 export default function Home() {
   const [pickedDocument, setPickedDocument] = useState([]);
 
-  const my_bucket = bucketItems();
+  const upload = (name: any, file: any) => {
+    return;
+  };
 
-  const upload = () =>
-    pickedDocument.map((document: any) => {
-      fileUpload({ name: document.name, file: document.uri });
-    });
+  const { instance, accounts, inProgress } = useMsal();
+  const account = useAccount(accounts[0] || {});
+  const [apiData, setApiData] = useState(null);
 
-  // useEffect(() => {
-  //   const bucketName = "default";
-
-  //   ensureBucketExists(bucketName)
-  //     .then((bucket) => {
-  //       console.log(`Bucket "${bucket.name}" exists or has been created.`);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error:", error.message);
-  //     });
-  // })
+  useEffect(() => {
+    if (account) {
+      instance
+        .acquireTokenSilent({
+          scopes: ["User.Read"],
+          account: account,
+        })
+        .then((response) => {
+          if (response) {
+            console.log(response);
+            callMsGraph(response.accessToken, "me").then((result: any) =>
+              setApiData(result)
+            );
+          }
+        });
+    }
+  }, [account, instance]);
 
   return (
     <View style={{ flexDirection: "column" }}>
@@ -34,6 +43,9 @@ export default function Home() {
       <Text>(if logged in) Set home page: [options]</Text>
       <Text>Sales Pitch goes here</Text>
       <Text>Product Information goes here</Text>
+
+      <br />
+      <br />
 
       <DocumentPicker setPickedDocument={setPickedDocument} />
 
@@ -52,10 +64,27 @@ export default function Home() {
       )}
 
       <View style={{ marginTop: 10 }}>
-        <Button title="Upload Document" onPress={upload} />
+        <Button
+          title="Upload Document"
+          onPress={upload(pickedDocument[0]?.name, pickedDocument[0]?.uri)}
+        />
       </View>
 
-      {my_bucket.isSuccess && <Text>I see the bucket</Text>}
+      <br />
+      <br />
+
+      <View>
+        <MSAL />
+      </View>
+
+      <br />
+      <br />
+
+      <View>
+        {/* {inProgress && <Text>Fetching Data!</Text>} */}
+
+        {apiData && <Text>{JSON.stringify(apiData)}</Text>}
+      </View>
     </View>
   );
 }

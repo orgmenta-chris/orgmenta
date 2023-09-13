@@ -103,14 +103,13 @@ export const uploadDocument = async ({ name, file }: documentToBeUploaded) => {
 export const fileUpload = ({ name, file }: documentToBeUploaded) => {
   const queryClient = useQueryClient();
 
-  return (
-    useMutation(["bucket"], () => uploadDocument({ name, file })),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["bucket"]);
-      },
-    }
-  );
+  const mutation = useMutation(uploadDocument, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["bucket"]);
+    },
+  });
+
+  return mutation;
 };
 
 // List all documents in the bucket

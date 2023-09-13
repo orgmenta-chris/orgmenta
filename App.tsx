@@ -1,21 +1,21 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import Home from "./pages/home";
-import Sidebar from "./components/navigation/sidebar";
-import Header from "./components/navigation/header";
-import User from "./pages/user";
-import Entity from "./pages/entity";
 import React from "react";
+import User from "./pages/user";
 import Space from "./pages/space";
+import Entity from "./pages/entity";
 import Attribute from "./pages/attribute";
-import { ViewQueryerProvider } from "./utils/queryer";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { StatusBar } from "expo-status-bar";
+import { msalInstance } from "./api/authConfig";
 import { MsalProvider } from "@azure/msal-react";
-import { pca } from "./utils/graph";
+import Header from "./components/navigation/header";
+import Sidebar from "./components/navigation/sidebar";
+import { ViewQueryerProvider } from "./utils/queryer";
+import { StyleSheet, Text, View } from "react-native";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 export default function App() {
   return (
-    <MsalProvider instance={pca}>
+    <MsalProvider instance={msalInstance}>
       <BrowserRouter>
         <ViewQueryerProvider>
           <View style={styles.container}>

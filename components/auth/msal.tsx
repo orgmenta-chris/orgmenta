@@ -24,7 +24,11 @@ const MSAL = () => {
       </>
     );
   } else if (inProgress === "login") {
-    return <Text>Login is currently in progress!</Text>;
+    return (
+      <Text style={{ textAlign: "center" }}>
+        Login is currently in progress!
+      </Text>
+    );
   } else {
     return (
       <Pressable style={styles.links} onPress={() => instance.loginPopup()}>

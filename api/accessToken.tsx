@@ -1,12 +1,14 @@
 import { Text } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useMsal, useAccount } from "@azure/msal-react";
 import { loginRequest } from "./authConfig";
+import useTokenStore from "../states/api/storeToken";
 
 const AccessToken = () => {
   const { instance, accounts, inProgress } = useMsal();
   const account = useAccount(accounts[0] || {});
-  const [token, setToken] = useState("");
+
+  const setToken = useTokenStore((state: any) => state.setToken);
 
   useEffect(() => {
     if (account) {
@@ -21,7 +23,6 @@ const AccessToken = () => {
           }
         });
     }
-
   }, [account, instance]);
 
   if (inProgress === "login") {

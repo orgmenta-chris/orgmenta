@@ -16,7 +16,7 @@ const DocumentPicker = (props: any) => {
         type: [
           "application/pdf", // PDF documents
         ],
-        multiple: true,
+        multiple: false,
       });
 
       if (!result.canceled) {

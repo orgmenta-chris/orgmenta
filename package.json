@@ -9,7 +9,13 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@azure/identity": "^3.3.0",
+    "@azure/msal-browser": "^3.1.0",
+    "@azure/msal-react": "^2.0.3",
     "@expo/webpack-config": "^19.0.0",
+    "@microsoft/microsoft-graph-client": "^3.0.6",
+    "@microsoft/microsoft-graph-types": "^2.38.0",
+    "@microsoft/msgraph-sdk-javascript": "^1.0.0-preview.4",
     "@react-native-async-storage/async-storage": "^1.19.3",
     "@supabase/supabase-js": "^2.33.1",
     "@tanstack/query-async-storage-persister": "^4.33.0",

@@ -5,6 +5,7 @@ import { useState } from "react";
 import SignIn from "../../../auth/signIn";
 import SignUp from "../../../auth/signUp";
 import React from "react";
+import MSAL from "../../../auth/msal";
 
 // @ts-ignore
 const UserModal = (props) => {
@@ -135,6 +136,7 @@ const UserModal = (props) => {
                     Log out
                   </Text>
                 </Pressable>
+                <MSAL />
               </View>
             )}
             {/* tab content */}

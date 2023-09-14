@@ -1,41 +1,31 @@
 // The home page will ideally just show a demo space + product information/ sales pitch, and a guest user if not logged in.
 // If logged in, then it should also show the user a dropdown asking them if they want to set a default page when logged in.
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Text, View } from "react-native";
 import DocumentPicker from "../components/picker/DocumentPicker";
-import { useMsal, useAccount } from "@azure/msal-react";
-import MSAL from "../components/auth/msal";
-import { callMsGraph } from "../utils/graph";
+import useTokenStore from "../states/api/storeToken";
+import { callMsGraph } from "../api/graphApiCall";
 
 export default function Home() {
   const [pickedDocument, setPickedDocument] = useState([]);
 
+  const token = useTokenStore((state: any) => state.token);
+
   const upload = (name: any, file: any) => {
+    /*
+    NOTE: If you are wondering why this function is void, 
+    it is because after testing the upload function, 
+    I decided to remove it again as I tried implementing the function using a react-query mutation.
+    */
     return;
   };
 
-  const { instance, accounts, inProgress } = useMsal();
-  const account = useAccount(accounts[0] || {});
-  const [apiData, setApiData] = useState(null);
+  const fetchData = async (token: string) => {
+    const data = await callMsGraph(token);
 
-  useEffect(() => {
-    if (account) {
-      instance
-        .acquireTokenSilent({
-          scopes: ["User.Read"],
-          account: account,
-        })
-        .then((response) => {
-          if (response) {
-            console.log(response);
-            callMsGraph(response.accessToken, "me").then((result: any) =>
-              setApiData(result)
-            );
-          }
-        });
-    }
-  }, [account, instance]);
+    console.log(data);
+  };
 
   return (
     <View style={{ flexDirection: "column" }}>
@@ -66,24 +56,16 @@ export default function Home() {
       <View style={{ marginTop: 10 }}>
         <Button
           title="Upload Document"
-          onPress={upload(pickedDocument[0]?.name, pickedDocument[0]?.uri)}
+          onPress={() =>
+            upload(pickedDocument[0]?.name, pickedDocument[0]?.uri)
+          }
         />
       </View>
 
       <br />
-      <br />
 
       <View>
-        <MSAL />
-      </View>
-
-      <br />
-      <br />
-
-      <View>
-        {/* {inProgress && <Text>Fetching Data!</Text>} */}
-
-        {apiData && <Text>{JSON.stringify(apiData)}</Text>}
+        <Button title="Test Fetch Data" onPress={() => fetchData(token)} />
       </View>
     </View>
   );

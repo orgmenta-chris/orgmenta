@@ -8,7 +8,7 @@ import { StatusBar } from "expo-status-bar";
 import { msalInstance } from "./api/authConfig";
 import { MsalProvider } from "@azure/msal-react";
 import Header from "./components/navigation/header";
-import Sidebar from "./components/navigation/sidebar";
+// import Sidebar from "./components/navigation/sidebar";
 import { ViewQueryerProvider } from "./utils/queryer";
 import { StyleSheet, Text, View } from "react-native";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
@@ -24,7 +24,7 @@ export default function App() {
             <View style={styles.content}>
               {/* Navigation */}
               <View style={{ flex: 1 }}>
-                <Sidebar />
+                {/* <Sidebar /> */}
               </View>
 
               <View style={{ flex: 7 }}>

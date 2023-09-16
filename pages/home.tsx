@@ -2,7 +2,7 @@
 // If logged in, then it should also show the user a dropdown asking them if they want to set a default page when logged in.
 
 import React, { useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Text, View,Image } from "react-native";
 import DocumentPicker from "../components/picker/DocumentPicker";
 import useTokenStore from "../states/api/storeToken";
 import { callMsGraph } from "../api/graphApiCall";

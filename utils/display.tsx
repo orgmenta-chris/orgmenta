@@ -2,35 +2,33 @@
 // It is a 'perspective into the graph'.
 // You can view entities and their relationships in different displays (e.g. Table, list, calendar) and filters.
 
-import React, { memo} from "react";
-import { View} from "react-native";
-import { Link, useLocation } from "react-router-dom";
 import {
   useEntityArray,
   useEntitySingle,
   useEntitySchema,
 } from "./entity";
-import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
-import ViewDisplayForm from "../components/displays/forms/ViewDisplayForm";
-import ViewDisplayList from "../components/displays/list/ViewDisplayList";
-import ViewDisplayMaps from "../components/displays/maps/ViewDisplayMaps";
-import ViewDisplayPods from "../components/displays/pods/ViewDisplayPods";
-import ViewDisplayTable from "../components/displays/table/ViewDisplayTable";
-import ViewJsonMain from "../components/displays/json/ViewJsonMain";
+// import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
+// import ViewDisplayForm from "../components/displays/forms/ViewDisplayForm";
+// import ViewDisplayList from "../components/displays/list/ViewDisplayList";
+// import ViewDisplayMaps from "../components/displays/maps/ViewDisplayMaps";
+// import ViewDisplayPods from "../components/displays/pods/ViewDisplayPods";
+// import ViewDisplayTable from "../components/displays/table/ViewDisplayTable";
+// import ViewJsonMain from "../components/displays/json/ViewJsonMain";
+
 import React, { ReactElement, memo, useMemo, useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import { Link, useLocation, Route, Routes } from "react-router-dom";
 import { ViewListMain } from "./list";
-import { ViewTableMain, useTableColumns } from "./table";
-import { ViewJsonMain } from "./json";
-import { ViewIconMain } from "./icon";
-import { ViewPodMain, ViewPodInfo, ViewPodTabs, ViewPodList, ViewPodExample } from "./pods";
+// import { ViewTableMain, useTableColumns } from "./table";
+// import { ViewJsonMain } from "./json";
+// import { ViewIconMain } from "./icon";
+// import { ViewPodMain, ViewPodInfo, ViewPodTabs, ViewPodList, ViewPodExample } from "./pods";
 import { ViewFormDynamic } from "./form";
 // import { ViewProcessesTabs } from "../components/entity/processTabs";//no longer needed, removing
-import MyCalendar from "../components/displays/calendar";
+// import MyCalendar from "../components/displays/calendar";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import MapChart from "../components/displays/maps";
+// import MapChart from "../components/displays/maps";
 
 
 // Dynamic
@@ -203,7 +201,7 @@ export const ViewDisplayCalendar = (props: any) => {
   ];
 
   const tabs = [
-    { tab: "View Calendar", component: <MyCalendar myEventsList={events} /> },
+    // { tab: "View Calendar", component: <MyCalendar myEventsList={events} /> },
     {
       tab: "Add events",
       component: <Calendar onChange={onChange} value={value} />,
@@ -245,13 +243,13 @@ export const ViewDisplayCalendar = (props: any) => {
   );
 };
 
-export const ViewDisplayMaps = (props: any) => {
-  return (
-    <View style={{maxHeight:400}}>
-      <MapChart />
-    </View>
-  );
-}
+// export const ViewDisplayMaps = (props: any) => {
+//   return (
+//     <View style={{maxHeight:400}}>
+//       <MapChart />
+//     </View>
+//   );
+// }
 
 export const ViewDisplayJson = (props: any) => {
   const schema = props.schema;
@@ -277,8 +275,8 @@ export const mapDisplayComponents: any = {
   form: ViewDisplayForm,
   table: ViewDisplayTable,
   calendar: ViewDisplayCalendar,
-  maps: ViewDisplayMaps,
-  json: ViewJsonMain,
+  // maps: ViewDisplayMaps,
+  // json: ViewJsonMain,
 };
 
 

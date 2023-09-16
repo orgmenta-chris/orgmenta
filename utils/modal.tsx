@@ -60,7 +60,7 @@ export const useModalPinned = (modalName:string) => {
 // State (get the modal state - which has 'pinned', 'visibility' and other properties)
 
 export const useModalState = (modalName:string) => {
-    const queryClient = useQueryClient();
+    // const queryClient = useQueryClient();
     const query = useQuery({
             queryKey: ['modal',modalName], 
             queryFn: ()=>null,
@@ -123,8 +123,8 @@ export const ViewModalBody = ({height,margin, padding,modalName, pinnable, child
                 elevation: 5,
             }}
         >
-            <ViewModalControls modalName={modalName} pinnable={pinnable}/>
             {children}
+            <ViewModalControls modalName={modalName} pinnable={pinnable}/>
         </View>
     )
 }

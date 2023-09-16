@@ -18,7 +18,7 @@ export default function OrgmentaWidget() {
         //   setModalVisible(true);
         // }}
         
-        onPress={useModalVisibility('orgmenta')}
+        onPress={useModalVisibility('orgmenta')} 
 
         onHoverIn={()=>!modalVisible && setWidgetHover(true)}
         onHoverOut={()=>setWidgetHover(false)}

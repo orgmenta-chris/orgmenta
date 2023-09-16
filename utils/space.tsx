@@ -1,4 +1,3 @@
-// A 'space' is an organisation, business department, division, territory or other company subdivision.
 
 import { useMemberCreate } from './members'
 import React, { memo } from 'react';
@@ -23,7 +22,7 @@ import { ViewModalMain } from './modal'
 // Meta
 
 export const metaSpaceInfo = {
-  description: 'A',
+  description: `A 'space' is an environment for an organisation, business department, division, territory or other company subdivision.`,
   features: [
     "Create",
     "Setup",
@@ -326,6 +325,120 @@ export const ViewSpaceTable = ({...Input}) => {
 }  
   
 
+// Modal (to appear when SpaceWidget is clicked on)
+
+export const ViewSpaceModal = (props:any) => {
+  return (
+      <ViewModalMain modalName={'space'} backdrop pinnable  bottom={60} >
+        <Link to={`/spaces/${'SPACEIDHERE'}/pods`}>SPACE</Link>
+        <Link to={`/spaces/all/pods`}>ALL SPACES</Link>
+      </ViewModalMain>
+  );
+};
+
+
+// State (save a space's data to state. E.g. 'Selected' uses this to save the current/active space.)
+
+export const useSpaceState = (id:string) => {
+  // const queryClient = useQueryClient();
+  const query = useQuery({
+          queryKey: ['state',id], 
+          queryFn: ()=>null,
+          staleTime: Infinity, // This means the data will never become stale automatically
+          refetchOnWindowFocus:false
+  });
+  return query;
+}
+
+
+// Set (set values to a space's state)
+
+export const useSpaceSet = (id:string, newData:any) => {
+  const queryClient = useQueryClient();
+  return () => {
+      queryClient.setQueryData(['space',id], (oldData: any) => {
+        // This just does a shallow merge with newData properties overwriting any presceding properties.
+        // future versions should utilise underscore.js + any custom merge functionality if needed.
+        const data =  { ...oldData, ...newData }; 
+        return data
+      });
+    };
+}
+
+export const useModalPinned = (modalName:string) => {
+  const queryClient = useQueryClient();
+  return () => {
+      queryClient.setQueryData(['space', modalName], (oldData: any) => {
+        return {...oldData, pinned: !oldData?.pinned};
+      });
+    };
+}
+export const useModalState = (modalName:string) => {
+    // const queryClient = useQueryClient();
+    const query = useQuery({
+            queryKey: ['space',modalName], 
+            queryFn: ()=>null,
+            // initialData: () => queryClient.getQueryData(['modal', modalName]) || null,
+            // staleTime: Infinity // This means the data will never become stale automatically
+            refetchOnWindowFocus:false
+    });
+    return query;
+}
+export const ViewModalState = ({modalName}:any) => {
+  const modalState = useModalState(modalName);
+  return (<>
+      <ViewModalToggle/>
+      <Text>{JSON.stringify(modalState?.data,null,2)}</Text>
+  </>)
+}
+// (Example button to toggle the modal state value)
+export const ViewModalToggle = ({modalName}:any) => {
+    return (
+        <Pressable onPress={useModalPinned(modalName)}><Text>Toggle</Text></Pressable>
+    )
+}
+
+
+
+
+// Pinned (whether or not a modal is embedded into the page, or floating above it on another surface)
+
+// export const useSpaceSelected = (id:string, newData:any) => {
+//   const selected = useSpaceState('selected');
+//   const select = (id:string)=>{useSpaceSet('selected',id)};
+//   return {
+//     selected, select
+//   }
+// }
+
+// Switch (a widget to switch between spaces / make a different space active)
+export const ViewSpaceSwitch = (props: any) => {
+  const array = useSpaceArray({});
+  const selected = useSpaceState(['space','selected']);
+  
+  // Call the hook at the top level and get the updater function
+  const updateSelected = useSpaceSet('selected', '1');
+
+  const select = (id: string) => {
+    // console.log(1)
+    updateSelected();  // Use the updater function here
+  };
+
+  return (
+    <View style={{}}>
+      <Text>array{JSON.stringify(array?.data, null, 2)}</Text>
+      <Text>selected{JSON.stringify(selected, null, 2)}</Text>
+      <Pressable onPress={useSpaceSet('selected','test')}>
+        <Text>select</Text>
+      </Pressable>
+      <ViewModalState modalName={'selected'}/>
+    </View>
+  );
+};
+
+
+
+
 // Sync
 // Future feature: Spaces will be able to share entityrelationships between each other.
 // e.g. a user could see their tasks in both their work organisation, and their personal space (albeit heavily redacted in the personal space)
@@ -341,15 +454,3 @@ export const ViewSpaceTable = ({...Input}) => {
 // functon+component to unlink the share.
 
 // component to see the status of the share
-
-
-// Modal
-
-export const ViewSpaceModal = (props:any) => {
-  return (
-      <ViewModalMain modalName={'space'} backdrop pinnable  bottom={60} >
-        <Link to={`/spaces/${'SPACEIDHERE'}/pods`}>SPACE</Link>
-        <Link to={`/spaces/all/pods`}>ALL SPACES</Link>
-      </ViewModalMain>
-  );
-};

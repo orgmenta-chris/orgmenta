@@ -24,9 +24,9 @@ import MapChart from "../components/displays/maps";
 export const ViewDisplayDynamic = memo(({auxiliary, schema, focus, display}:any) => {
   const Component =  mapDisplayComponents[display||"list"]; // may need to memoize/useCallback this
   return (
-    <View style={{ flexDirection: "column",flex:1}}>
+    // <View style={{ flexDirection: "column",flex:1}}>
       <Component auxiliary={auxiliary} schema={schema} focus={focus} />
-    </View>
+    // </View>
   )
 });
 
@@ -305,7 +305,8 @@ export const optionsDisplayMain = [
 export const ViewDisplayTabs = ({ id, display }: any) => {
   const path = useLocation().pathname?.split("/");
   return (
-    <View style={{ flexDirection: "row" }}>
+    <View style={{flexDirection:'column', position:'absolute', right:0, top:100, backgroundColor:'gray'}}>
+    {/* <View style={{flexDirection:'column', position:'absolute', right:0, top:100, backgroundColor:'gray'}}> */}
       <Link
         style={{
           padding: 5,

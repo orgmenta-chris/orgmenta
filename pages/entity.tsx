@@ -32,15 +32,12 @@ export default function Entity() {
             {/* Show the auxiliary entities (in whichever mode is selected, e.g. Calendar, Table etc.) */}
             <ViewDisplayDynamic auxiliary={auxiliary} schema={schema} focus={focus} display={display} />
             
-            {/* Placholder (Chris is working on this) - A panel for filtering/grouping/sorting */}
-            <ViewControlMain/>
+            {/* Show the actions tabs/links (e.g. add,edit,copy,delete,share etc.*/}
+            <ViewActionTabs  auxiliary={auxiliary} schema={schema} focus={focus}/>
 
 
             {/* Show links/tabs for Calendar, List, Table etc. */}
             <ViewDisplayTabs display={display}/>
-
-            {/* Show the actions tabs/links (e.g. add,edit,copy,delete,share etc.*/}
-            <ViewActionTabs/>
             
         </View>
     )

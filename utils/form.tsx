@@ -31,6 +31,7 @@ export const ViewFormDynamic = ({data, title}:any) => {
   // console.log('data',data)
   return (
       <ViewFormMain>
+        {!data && <Text>-- No data has been passed to this form component --</Text>}
         {/* <Text>{data && JSON.stringify(data)}</Text> */}
         {/* {data?.map((x,i)=><View key={i}>
           <Text>{x.display_singular}</Text>d

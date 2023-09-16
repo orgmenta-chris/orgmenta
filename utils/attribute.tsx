@@ -3,7 +3,10 @@ import { createUuid4, typeUuid4, validateUuid4 } from './uuid' // note that we g
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { TextInput,ScrollView, View, Text, Pressable } from 'react-native';
-import { ViewTableMain, useTableColumns } from './table'
+import { Link, useLocation, Route, Routes } from 'react-router-dom'
+import { ViewListMain } from './list'
+import { ViewTableMain, useTableColumns } from '../components/displays/table/table'
+import { ViewJsonMain } from './json'
 import { useState, useMemo, useEffect, useReducer} from 'react'
 import {
     createColumnHelper,

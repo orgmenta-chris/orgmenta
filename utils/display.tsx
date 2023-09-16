@@ -2,6 +2,21 @@
 // It is a 'perspective into the graph'.
 // You can view entities and their relationships in different displays (e.g. Table, list, calendar) and filters.
 
+import React, { memo} from "react";
+import { View} from "react-native";
+import { Link, useLocation } from "react-router-dom";
+import {
+  useEntityArray,
+  useEntitySingle,
+  useEntitySchema,
+} from "./entity";
+import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
+import ViewDisplayForm from "../components/displays/forms/ViewDisplayForm";
+import ViewDisplayList from "../components/displays/list/ViewDisplayList";
+import ViewDisplayMaps from "../components/displays/maps/ViewDisplayMaps";
+import ViewDisplayPods from "../components/displays/pods/ViewDisplayPods";
+import ViewDisplayTable from "../components/displays/table/ViewDisplayTable";
+import ViewJsonMain from "../components/displays/json/ViewJsonMain";
 import React, { ReactElement, memo, useMemo, useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import { Link, useLocation, Route, Routes } from "react-router-dom";
@@ -253,7 +268,8 @@ export const ViewDisplayJson = (props: any) => {
 };
 
 
-// Components (maybe merge this map into the optionsDisplay array instead, if it's more efficient?)
+
+// Components
 
 export const mapDisplayComponents: any = {
   list: ViewDisplayList,

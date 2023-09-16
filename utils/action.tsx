@@ -3,17 +3,9 @@
 import React, {useMemo} from 'react';
 import { TextInput, View, Text, Pressable } from 'react-native';
 import { useState } from 'react'
-import { Link, Route, Routes, useLocation } from 'react-router-dom'
-import { ViewIconMain } from './icon'
-import { ViewControlMain } from './control';
-import { useAttributeMain } from './attribute';
-import { useEntitySingle } from './entity';
-import { ViewFormDynamic } from './form';
-
-
-export type TypeActionMain = {
-  entity_id: string;
-}
+import { Link, useLocation, Route, Routes } from 'react-router-dom'
+import { ViewEntityAdd, useEntityArray, useEntitySingle, useEntitySchema} from './entity'
+import ViewIconMain from '../components/displays/icons/ViewIconMain';
 
 
 // Form

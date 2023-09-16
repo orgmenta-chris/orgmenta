@@ -5,7 +5,7 @@ import { createUuid4, typeUuid4, validateUuidType } from './uuid' // note that w
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { ScrollView, View, Text, Pressable } from 'react-native';
-import { useTableColumns } from './table'
+import { useTableColumns } from '../components/displays/table/table'
 import { useState, useEffect} from 'react'
 import { Link } from "react-router-dom";
 import {

@@ -134,7 +134,8 @@ export const ViewModalBody = ({height,margin, padding,modalName, pinnable, child
 
 export const ViewModalBackdrop = ({modalName}:any) => {
     return (
-        <Pressable 
+            <Pressable 
+            // onPress={()=>console.log('s')}
             onPress={useModalVisibility(modalName)}
             style={{
                 // backgroundColor:'red',

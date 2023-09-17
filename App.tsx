@@ -13,6 +13,13 @@ import { ViewQueryerProvider } from "./utils/queryer";
 import { StyleSheet, Text, View } from "react-native";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
+
+import { ViewBookmarkModal } from './utils/bookmark'
+import { ViewOrgmentaModal } from './utils/orgmenta'
+import { ViewBrowseModal } from './utils/browse'
+import { ViewSpaceModal } from './utils/space'
+import { ViewUserModal } from './utils/user'
+
 export default function App() {
   return (
     <MsalProvider instance={msalInstance}>
@@ -21,13 +28,15 @@ export default function App() {
           <View style={styles.container}>
             <StatusBar style="auto" />
             <Header />
+
+            
             <View style={styles.content}>
               {/* Navigation */}
               <View style={{ flex: 1 }}>
                 {/* <Sidebar /> */}
               </View>
 
-              <View style={{ flex: 7 }}>
+              <View style={{ flex: 6 }}>
                 <Routes>
                   {/* Home */}
                   <Route path="/" element={<Home />} />
@@ -76,7 +85,19 @@ export default function App() {
                     element={<Attribute />}
                   />
                 </Routes>
+
               </View>
+
+              <View style={{ flex: 1 }}>
+                {/* Temp spacer */}
+              </View>
+
+              <ViewSpaceModal/>
+              <ViewBookmarkModal/>
+              <ViewOrgmentaModal/>
+              <ViewBrowseModal/>
+              <ViewUserModal/>
+
             </View>
           </View>
         </ViewQueryerProvider>

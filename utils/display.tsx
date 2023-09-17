@@ -30,7 +30,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 // import MapChart from "../components/displays/maps";
 
-
+import {ViewPodMain,ViewPodInfo,ViewPodList,ViewPodTabs,ViewPodExample } from "./pod"
 // Dynamic
 
 // This is the main display component that switches between different components
@@ -58,7 +58,7 @@ export const ViewDisplayList = (props: any) => {
   );
 };
 
-export const ViewDisplayPods = (props: any) => {
+export const ViewDisplayPod = (props: any) => {
   const schema = props.schema; 
   const auxiliary = props.auxiliary;
   const focus = props.focus;
@@ -271,7 +271,7 @@ export const ViewDisplayJson = (props: any) => {
 
 export const mapDisplayComponents: any = {
   list: ViewDisplayList,
-  pods: ViewDisplayPods,
+  Pod: ViewDisplayPod,
   form: ViewDisplayForm,
   table: ViewDisplayTable,
   calendar: ViewDisplayCalendar,
@@ -286,7 +286,7 @@ export const optionsDisplayMain = [
   {title:'Json',
   iconName: 'sdadsasdsads',
   iconSource: 'Feather',},
-  {title:'Pods',
+  {title:'Pod',
   iconName: 'view-quilt',
   iconSource: 'MaterialIcons',},
   {title:'Form',
@@ -324,11 +324,11 @@ export const ViewDisplayTabs = ({ id, display }: any) => {
       <Link
         style={{
           padding: 5,
-          backgroundColor: display === "pods" ? "lightgray" : "transparent",
+          backgroundColor: display === "pod" ? "lightgray" : "transparent",
         }}
-        to={"entity/../../pods"}
+        to={"entity/../../pod"}
       >
-        Pods
+        Pod
       </Link>
       {/* CG handling the pods component/module */}
       <Link

@@ -329,7 +329,7 @@ export const ViewSpaceTable = ({...Input}) => {
 
 export const ViewSpaceModal = (props:any) => {
   return (
-      <ViewModalMain modalName={'space'} backdrop pinnable  bottom={60} >
+      <ViewModalMain modalName={'space'} backdrop pinnable bottom={60} >
         <Link to={`/spaces/${'SPACEIDHERE'}/pods`}>SPACE</Link>
         <Link to={`/spaces/all/pods`}>ALL SPACES</Link>
       </ViewModalMain>

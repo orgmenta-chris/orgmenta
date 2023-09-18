@@ -33,7 +33,7 @@ export const createNewBucket = async () => {
     {
       public: true,
       allowedMimeTypes: [
-        "application/pdf", // PDF documents
+        "*", // PDF documents
       ],
       fileSizeLimit: 1024,
     }

@@ -4,32 +4,9 @@
 import React, { useState } from "react";
 import { Button, Text, View } from "react-native";
 import DocumentPicker from "../components/picker/DocumentPicker";
-import useTokenStore from "../states/api/storeToken";
-import { callMsGraph } from "../api/graphApiCall";
-import { url } from "../api/authConfig";
-import { GraphManager } from "../api/graphManager";
 
 export default function Home() {
   const [pickedDocument, setPickedDocument] = useState([]);
-
-  const token = useTokenStore((state: any) => state.token);
-
-  const upload = (name: any, file: any) => {
-    
-    /*
-    NOTE: If you are wondering why this function is void, 
-    it is because after testing the upload function, 
-    I decided to remove it again as I tried implementing the function using a react-query mutation.
-    */
-    return;
-  };
-
-  const fetchData = async (token: string) => {
-    const data = await callMsGraph(token, `${url}/me/calendar`, "GET");
-    // const data = await GraphManager.getUserAsync();
-
-    console.log(data);
-  };
 
   return (
     <View style={{ flexDirection: "column" }}>
@@ -64,12 +41,6 @@ export default function Home() {
             upload(pickedDocument[0]?.name, pickedDocument[0]?.uri)
           }
         />
-      </View>
-
-      <br />
-
-      <View>
-        <Button title="Test Fetch Data" onPress={() => fetchData(token)} />
       </View>
     </View>
   );

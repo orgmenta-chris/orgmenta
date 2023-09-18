@@ -1,6 +1,10 @@
-import { msalInstance, loginRequest, graphConfig } from "./authConfig";
+import { msalInstance, loginRequest } from "./authConfig";
 
-export const callMsGraph = async (accessToken: string) => {
+export const callMsGraph = async (
+  accessToken: string,
+  endpoint: string,
+  method: string
+) => {
   if (!accessToken) {
     const account = msalInstance.getActiveAccount();
     if (!account) {
@@ -22,11 +26,11 @@ export const callMsGraph = async (accessToken: string) => {
   headers.append("Authorization", bearer);
 
   const options = {
-    method: "GET",
+    method: method,
     headers: headers,
   };
 
-  return fetch(graphConfig.graphMeEndpoint, options)
+  return fetch(endpoint, options)
     .then((response) => response.json())
     .catch((error) => console.log(error));
 };

@@ -43,12 +43,16 @@ const msalConfig: Configuration = {
 };
 
 export const loginRequest = {
-  scopes: ["User.Read"],
+  scopes: [
+    "User.ReadWrite.All",
+    "Mail.ReadWrite",
+    "Mail.ReadWrite.Shared",
+    "Calendars.ReadWrite",
+    "Calendars.ReadWrite.Shared",
+  ],
 };
 
-export const graphConfig = {
-  graphMeEndpoint: "https://graph.microsoft.com/v1.0/me",
-};
+export const url = "https://graph.microsoft.com/v1.0";
 
 // Public Client Application Instance
 

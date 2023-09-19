@@ -126,6 +126,8 @@ export default function Home() {
     </View>
 
     <View style={{backgroundColor: 'rgba(0, 0, 0, 0.1)',borderColor: 'rgba(0, 0, 0, 0.15)', borderWidth: 1, flexDirection: "column", width:"100%"}}>
+      <Text style={{fontWeight:800, color: "#0c4a73" }}>Contact Form</Text>
+      <Text>xyz</Text>
       <Text style={{fontWeight:800, color: "#0c4a73" }}>Pricing</Text>
       <Text>Clear, transparent pricing</Text>
       <Text>No mandatory demo or sales pressure, just sign up and use it</Text>
@@ -176,6 +178,8 @@ export default function Home() {
       <Text>- Xlsx</Text>
       <Text>- xml / RSS</Text>
       <Text>- Postgres/SQLite.</Text>
+      <Text style={{fontWeight:800, color: "#0c4a73" }}>Contact Form</Text>
+      <Text>xyz</Text>
     </View> 
         
     <View style={{position: "absolute", padding: 10 ,backgroundColor: "yellow", right: 0, bottom: 0}}>

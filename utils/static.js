@@ -3461,6 +3461,7 @@ export const data = [
         "name_singular": "project",
         "display_singular": "Project",
         "description": "Management of all the production (all work/tasks) that is undertaken in the business",
+        "summary": "Track all of your projects & service tickets, with optional best practice libraries (ITIL, PMBOK, Prince2, ISO:9001, etc.)",
         "nickname": "project"
     },
     {

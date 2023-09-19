@@ -6,23 +6,24 @@ import { Button, Text, View,Image, ScrollView } from "react-native";
 import DocumentPicker from "../components/picker/DocumentPicker";
 import useTokenStore from "../states/api/storeToken";
 import { callMsGraph } from "../api/graphApiCall";
+import { fileUpload } from "../utils/storage";
 
 import Svg, { Path, G } from 'react-native-svg';
 
 
 export default function Home() {
   const [pickedDocument, setPickedDocument] = useState([]);
-
+  console.log(pickedDocument);
   const token = useTokenStore((state: any) => state.token);
-
-  const upload = (name: any, file: any) => {
-    /*
-    NOTE: If you are wondering why this function is void, 
-    it is because after testing the upload function, 
-    I decided to remove it again as I tried implementing the function using a react-query mutation.
-    */
-    return;
-  };
+  const upload = fileUpload('exampledocument', pickedDocument[0]);
+  // const upload = (name: any, file: any) => {
+  //   /*
+  //   NOTE: If you are wondering why this function is void, 
+  //   it is because after testing the upload function, 
+  //   I decided to remove it again as I tried implementing the function using a react-query mutation.
+  //   */
+  //   return;
+  // };
 
   const fetchData = async (token: string) => {
     const data = await callMsGraph(token);
@@ -201,8 +202,11 @@ export default function Home() {
         <View style={{ marginTop: 10 }}>
           <Button
             title="Upload Document"
+            disabled={pickedDocument.length===0}
+            style={{color: pickedDocument.length===0 && 'gray'}}
             onPress={() =>
-              upload(pickedDocument[0]?.name, pickedDocument[0]?.uri)
+              upload.mutate()
+              // upload(pickedDocument[0]?.name, pickedDocument[0]?.uri)
             }
           />
         </View>

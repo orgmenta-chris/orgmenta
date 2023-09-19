@@ -86,30 +86,35 @@ export const ensureBucketExists = async () => {
 // Upload a document
 
 export const uploadDocument = async ({ name, file }: documentToBeUploaded) => {
-  const { data, error } = await instanceSupabaseClient.storage
-    .from(bucketName)
-    .upload(`documents/${name}.pdf`, decode(file), {
-      cacheControl: "3600",
-      upsert: false,
-    });
+  console.log({ name, file })
+  // const { data, error } = await instanceSupabaseClient.storage
+  //   .from(bucketName)
+  //   .upload(`documents/${name}.pdf`, decode(file), {
+  //     cacheControl: "3600",
+  //     upsert: false,
+  //   });
 
-  if (error) {
-    throw new Error(error.message);
-  }
+  // if (error) {
+  //   throw new Error(error.message);
+  // }
 
-  return data;
+  // return data;
 };
 
 export const fileUpload = ({ name, file }: documentToBeUploaded) => {
-  console.log('fileUpload')
+  console.log('fileUpload', name, file)
   const queryClient = useQueryClient();
-
-  const mutation = useMutation(uploadDocument, {
+  const mutation = useMutation(
+    ["files", "create"],
+    ()=> uploadDocument({name, file}),
+    { 
     onSuccess: () => {
-      queryClient.invalidateQueries(["bucket"]);
+      queryClient.invalidateQueries([
+        ["bucket"],
+        ["files","array"]
+      ]);
     },
   });
-
   return mutation;
 };
 

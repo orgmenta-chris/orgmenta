@@ -27,8 +27,8 @@ export default function Home() {
             }}
             source={require('../assets/logo/full/color_cropped.png')}
           />
-          <Text style={{textAlign:'center', fontSize:24, padding:10}}>Build and manage your business from a single pane of glass</Text>
-          <Text style={{textAlign:'center', fontSize:18,  fontStyle:'italic'}}>{`Automate and manage your \n`}<Text style={{fontWeight:'500', color: "#0c4a73" }}>IT Company / MSP / VAR / TSP / OED</Text></Text>
+          <Text style={{textAlign:'center', fontSize:24, padding:10}}>The Business Operating System</Text>
+          <Text style={{textAlign:'center', fontSize:18,  fontStyle:'italic'}}>{`Build, automate and manage your \n`}<Text style={{fontWeight:'500', color: "#0c4a73" }}>IT Company / MSP / VAR / TSP / OED</Text> from a single pane of glass</Text>
         </View>
         <Text style={{textAlign:'center', marginTop:75}}>{`Scroll down for more information`}</Text>
       </View>
@@ -116,7 +116,7 @@ export default function Home() {
       <Text>xyz</Text>
       <Text style={{fontWeight:'800', color: "#0c4a73" }}>Entity Types</Text>
       <Text>All your entities and their relationships brought into the hub</Text>
-      <Text style={{fontStyle: "italic"}}>{mapTypeMain.map(x=>x.display_plural).join(', ')}</Text>
+      <Text style={{fontStyle: "italic"}}>{mapTypeMain.map(x=>x.display_plural).join(' <--> ')}</Text>
       <Text style={{fontWeight:'800', color: "#0c4a73" }}>Features</Text>
       <Text>Business Management</Text>
       <Text>Projects & Service Tickets</Text>

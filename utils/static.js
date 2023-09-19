@@ -670,10 +670,6 @@ export const data = [
             "Budgeting and KPI management",
             "Monthly Reports: P&L, Balance Sheet, Cash Flow Statement"
         ],
-        "process": [],
-        "industries": [],
-        "pricing": [],
-        "platforms": [],
         "guides": [
             "Chart of Accounts Setup: COGs & Revenue P&L Accounts",
             "Chart of Accounts Setup: Prepayments, Downpayments and Deposit Balance Sheet accounts, and triggers+transactions to move them to the P&L",
@@ -704,6 +700,33 @@ export const data = [
             }
         ],
         "nickname": "accounts-ledger-chart"
+    },
+    {
+        "id": 12000,
+        "parent": 1200,
+        "status": "0. New",
+        "name_singular": "accounts",
+        "display_singular": "Accounts",
+        "description": "Individual accounts in the Chart of Accounts",
+        "nickname": "accounts-ledger-budgets-accounts"
+    },
+    {
+        "id": 12001,
+        "parent": 1200,
+        "status": "0. New",
+        "name_singular": "groupings",
+        "display_singular": "Grouping",
+        "description": "Buckets for your chart of accounts",
+        "nickname": "accounts-ledger-budgets-groupings"
+    },
+    {
+        "id": 12002,
+        "parent": 1200,
+        "status": "0. New",
+        "name_singular": "schedules",
+        "display_singular": "Schedules",
+        "description": "depreciation and amortization schedules",
+        "nickname": "accounts-ledger-budgets-schedules"
     },
     {
         "id": 1201,

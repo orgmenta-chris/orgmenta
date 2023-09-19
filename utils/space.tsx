@@ -294,7 +294,7 @@ export const ViewSpaceTable = ({...Input}) => {
                 <View key={headerGroup.id} style={{flexDirection:'row'}}>
                   {headerGroup.headers.map((header, headerIndex) => (<View key={headerIndex}>
                     <Text key={header.id} 
-                      style={{ fontWeight:"bold",minWidth:"200px", borderWidth:1}}>
+                      style={{ fontWeight:"bold",minWidth:200, borderWidth:1}}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -307,9 +307,9 @@ export const ViewSpaceTable = ({...Input}) => {
               ))}
             </View>
               {table.getRowModel().rows.map(row => (
-                <View key={row.id}  style={{flexDirection:'row', width:"100px"}}>
+                <View key={row.id}  style={{flexDirection:'row', width:100}}>
                   {row.getVisibleCells().map((cell,cellIndex) => (
-                    <Text key={cell.id} style={{  minWidth:"200px", borderWidth:1}}>
+                    <Text key={cell.id} style={{  minWidth:200, borderWidth:1}}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </Text>
                   ))}
@@ -337,7 +337,7 @@ export const ViewSpaceModal = (props:any) => {
 
 // State (save a space's data to state. E.g. 'Selected' uses this to save the current/active space.)
 
-export const useSpaceState = (id:string) => {
+export const useSpaceState = (id:any) => {
   // const queryClient = useQueryClient();
   const query = useQuery({
           queryKey: ['state',id], 

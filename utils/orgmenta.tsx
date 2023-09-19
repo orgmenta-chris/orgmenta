@@ -15,7 +15,7 @@ export const ViewOrgmentaModal = (props:any) => {
                     <Link to={'app/roadmap'} style={{textDecoration:'none', color:'black'}}>Roadmap</Link>
                     <Link to={'app/compare'} style={{textDecoration:'none', color:'black'}}>Compare to Competitors</Link>
                     <Link to={'app/industries'} style={{textDecoration:'none', color:'black'}}>Use cases per industry</Link>
-                    <Link to={'app/frameworks'} style={{textDecoration:'none', color:'black'}}>Use cases per industry</Link>
+                    <Link to={'app/frameworks'} style={{textDecoration:'none', color:'black'}}>Standards, Libraries, Frameworks and Methodologies</Link>
                 </View>
                 <View style={{flex:1, alignItems:'center'}}>
                     <Text style={{fontWeight:'800', fontSize: 18, color: "#0c4a73", padding: 5}}>Company</Text>

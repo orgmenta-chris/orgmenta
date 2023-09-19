@@ -68,7 +68,26 @@ export default function App() {
                     path="app/compare"
                     element={
                       <Text>
-                        Compare to other products
+                        {`Compare to other products
+                        ServiceNow
+                        ConnectWise Manage/PSA
+                        Autotask
+                        SAP
+                        Salesforce
+                        Halo PSA
+                        Ninja RMM / NinjaOne
+                        FreshWorks / FreshDesk / FreshService
+                        Jira Service Management
+                        Synchro MSP
+                        RepairShoppr
+                        Ivanti Service Manager
+                        ManageEngine ServiceDesk Plus
+                        SysAid
+                        Cherwell ITSM
+                        BMC Remedy ITSM
+                        Odoo
+                        
+                        `}
                       </Text>
                     }
                   />
@@ -77,6 +96,24 @@ export default function App() {
                     element={
                       <Text>
                         {`Use case by industry (just show entities from Orgmenta>Product>Catalog>Offerings>UseCases)`}
+                      </Text>
+                    }
+                  />
+                  <Route 
+                    path="app/frameworks"
+                    element={
+                      <Text>
+                        {`Standards, Libraries, Frameworks and Methodologies
+                        ITIL
+                        PRINCE2
+                        PMBOK
+                        ISO:9001
+                        Lean
+                        Six Sigma
+                        Kanban
+                        Agile, agile, Scrum & SAFe
+                        Waterfall
+                        `}
                       </Text>
                     }
                   />

@@ -83,26 +83,28 @@ export const ensureBucketExists = async () => {
   }
 };
 
+
 // Upload a document
 
 export const uploadDocument = async ({ name, file }: documentToBeUploaded) => {
-  console.log({ name, file })
-  // const { data, error } = await instanceSupabaseClient.storage
-  //   .from(bucketName)
-  //   .upload(`documents/${name}.pdf`, decode(file), {
-  //     cacheControl: "3600",
-  //     upsert: false,
-  //   });
-
-  // if (error) {
-  //   throw new Error(error.message);
-  // }
-
-  // return data;
+  const { data, error } = await instanceSupabaseClient.storage
+    .from(bucketName)
+    .upload(
+      `documents/${file.name}`, // at the moment, this just uses the default file name (including file extension), not the 'name' passed through as a prop.
+      decode(file.uri), // base64 into ArrayBuffer
+      {
+        cacheControl: "3600",
+        upsert: false,
+      }
+    );
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
 };
 
 export const fileUpload = ({ name, file }: documentToBeUploaded) => {
-  console.log('fileUpload', name, file)
+  // console.log('fileUpload', name, file)
   const queryClient = useQueryClient();
   const mutation = useMutation(
     ["files", "create"],

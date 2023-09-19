@@ -15,19 +15,10 @@ export default function Home() {
   const [pickedDocument, setPickedDocument] = useState([]);
   console.log(pickedDocument);
   const token = useTokenStore((state: any) => state.token);
-  const upload = fileUpload('exampledocument', pickedDocument[0]);
-  // const upload = (name: any, file: any) => {
-  //   /*
-  //   NOTE: If you are wondering why this function is void, 
-  //   it is because after testing the upload function, 
-  //   I decided to remove it again as I tried implementing the function using a react-query mutation.
-  //   */
-  //   return;
-  // };
+  const upload = fileUpload({name: 'exampledocument', file: pickedDocument[0]});
 
   const fetchData = async (token: string) => {
     const data = await callMsGraph(token);
-
     console.log(data);
   };
 

@@ -7,28 +7,21 @@ import DocumentPicker from "../components/picker/DocumentPicker";
 import useTokenStore from "../states/api/storeToken";
 import { callMsGraphGET } from "../api/graphApiCall";
 import { fileUpload } from "../utils/storage";
+import { arrayTypeMain } from "../utils/type";
+import { ViewStorageUpload } from "../utils/storage";
 
 import Svg, { Path, G } from 'react-native-svg';
 
 
 export default function Home() {
-  const [pickedDocument, setPickedDocument] = useState([]);
-  // console.log(pickedDocument);
-  const token = useTokenStore((state: any) => state.token);
-  const upload = fileUpload({name: 'exampledocument', file: pickedDocument[0]});
-
-  const fetchData = async (token: string) => {
-    const data = await callMsGraphGET(token);
-    // console.log(data);
-  };
-
+  const types = arrayTypeMain;
   return (<>
     <View style={{padding: 10,flexDirection: "row", width:"100%"}}>
 
       {/* Left Column */}
       <View style={{alignItems: 'center', left: -50,height: 300,marginTop: 75, flex: 1, flexDirection: "column", justifyContent: "space-between" }}>
-        <Text>{`Navigate to your business\nmodules with `}<Text style={{fontWeight:800, color: "#0c4a73" }}>Bookmarks</Text></Text>
-        <Text style={{left: -50}}>{`Manage your organisations and\nmembers with `}<Text style={{fontWeight:800, color: "#0c4a73"}}>Spaces</Text></Text>
+        <Text>{`Navigate to your business\nmodules with `}<Text style={{fontWeight:'800', color: "#0c4a73" }}>Bookmarks</Text></Text>
+        <Text style={{left: -50}}>{`Manage your organisations and\nmembers with `}<Text style={{fontWeight:'800', color: "#0c4a73"}}>Spaces</Text></Text>
       </View>
 
       {/* Middle Column */}
@@ -50,8 +43,8 @@ export default function Home() {
 
       {/* Right Column */}
       <View style={{alignItems: 'center', right: -50, height: 300, marginTop: 75, flex: 1, flexDirection: "column", justifyContent: "space-between" }}>
-        <Text>{`Universal search and \nquick-add with `}<Text style={{fontWeight:800, color: "#0c4a73" }}>Browse </Text></Text>
-        <Text>{`Manage your account\nand activity with `}<Text style={{fontWeight:800, color: "#0c4a73" }}>User </Text></Text>
+        <Text>{`Universal search and \nquick-add with `}<Text style={{fontWeight:'800', color: "#0c4a73" }}>Browse </Text></Text>
+        <Text>{`Manage your account\nand activity with `}<Text style={{fontWeight:'800', color: "#0c4a73" }}>User </Text></Text>
       </View>
       
       {/* Bookmark Arrow */}
@@ -118,28 +111,31 @@ export default function Home() {
     </View>
 
     <View style={{backgroundColor: 'rgba(0, 0, 0, 0.1)',borderColor: 'rgba(0, 0, 0, 0.15)', borderWidth: 1, flexDirection: "column", width:"100%"}}>
-      <Text style={{fontWeight:800, color: "#0c4a73" }}>Contact Form</Text>
+      <Text style={{fontWeight:'800', color: "#0c4a73" }}>Contact Form</Text>
       <Text>xyz</Text>
-      <Text style={{fontWeight:800, color: "#0c4a73" }}>Pricing</Text>
+      <Text style={{fontWeight:'800', color: "#0c4a73" }}>Overview</Text>
       <Text>Clear, transparent pricing</Text>
       <Text>No mandatory demo or sales pressure, just sign up and use it</Text>
       <Text>(But sign up for a demo here if you want one [link])</Text>
       <Text>Dedicated Account Manager who will never abandon you or charge for their time</Text>
       <Text>24/7 Support</Text>
       <Text>Consulting packages available for bespoke requests</Text>
-      <Text style={{fontWeight:800, color: "#0c4a73" }}>Overview</Text>
+      <Text style={{fontWeight:'800', color: "#0c4a73" }}>Pricing</Text>
+      <Text>xyz</Text>
+      <Text style={{fontWeight:'800', color: "#0c4a73" }}>Entity Types</Text>
+      <Text>Bring all entity types into the Hub</Text>
+      <Text>{types.join(', ')}</Text>
+      <Text style={{fontWeight:'800', color: "#0c4a73" }}>Features</Text>
       <Text>Business Management</Text>
       <Text>Projects & Service Tickets</Text>
       <Text>Accounting & Finance</Text>
       <Text>Procurement and stock management</Text>
       <Text>Invoice your agreements and sales to your customers</Text>
       <Text>Employee management and productivity</Text>
-      <Text style={{fontWeight:800, color: "#0c4a73" }}>Benefits</Text>
+      <Text style={{fontWeight:'800', color: "#0c4a73" }}>Benefits</Text>
       <Text>Integrated Services (outsource your work to on-demand technical experts)</Text>
       <Text>MSP Community (peer/expert discussions and groups)</Text>
-      <Text style={{fontWeight:800, color: "#0c4a73" }}>Features</Text>
-      <Text>xyz</Text>
-      <Text style={{fontWeight:800, color: "#0c4a73" }}>Integrations</Text>
+      <Text style={{fontWeight:'800', color: "#0c4a73" }}>Integrations</Text>
       <Text>Productivity</Text>
       <Text>- Microsoft</Text>
       <Text>- Google Workspace / Gsuite</Text>
@@ -170,41 +166,12 @@ export default function Home() {
       <Text>- Xlsx</Text>
       <Text>- xml / RSS</Text>
       <Text>- Postgres/SQLite.</Text>
-      <Text style={{fontWeight:800, color: "#0c4a73" }}>Contact Form</Text>
+      <Text style={{fontWeight:'800', color: "#0c4a73" }}>Contact Form</Text>
       <Text>xyz</Text>
     </View> 
-        
-    <View style={{position: "absolute", padding: 10 ,backgroundColor: "yellow", right: 0, bottom: 0}}>
-        <Text>Testing area</Text>
-        <DocumentPicker setPickedDocument={setPickedDocument} />
-        {pickedDocument && (
-          <View>
-            {pickedDocument.map((document: any, index: number) => {
-              return (
-                <View key={index}>
-                  <Text>Selected Document:</Text>
-                  <Text>Name: {document.name}</Text>
-                  <Text>Type: {document.mimeType}</Text>
-                </View>
-              );
-            })}
-          </View>
-        )}
-        <View style={{ marginTop: 10 }}>
-          <Button
-            title="Upload Document"
-            disabled={pickedDocument.length===0}
-            style={{color: pickedDocument.length===0 && 'gray'}}
-            onPress={() =>
-              upload.mutate()
-              // upload(pickedDocument[0]?.name, pickedDocument[0]?.uri)
-            }
-          />
-        </View>
-        <View>
-          <Button title="Test Fetch Data" onPress={() => fetchData(token)} />
-        </View>
-      </View>
+            
+    {/* Storage upload example (working) */}
+    <ViewStorageUpload/>
 
   </>);
 }

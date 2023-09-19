@@ -13,13 +13,13 @@ import Svg, { Path, G } from 'react-native-svg';
 
 export default function Home() {
   const [pickedDocument, setPickedDocument] = useState([]);
-  console.log(pickedDocument);
+  // console.log(pickedDocument);
   const token = useTokenStore((state: any) => state.token);
   const upload = fileUpload({name: 'exampledocument', file: pickedDocument[0]});
 
   const fetchData = async (token: string) => {
     const data = await callMsGraphGET(token);
-    console.log(data);
+    // console.log(data);
   };
 
   return (<>

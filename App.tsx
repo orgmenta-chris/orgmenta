@@ -31,8 +31,131 @@ export default function App() {
 
               <View style={{ flex: 6, margin: 20, paddingLeft: "10%", paddingRight:"10%", }}>
                 <Routes>
+
                   {/* Home */}
                   <Route path="/" element={<Home />} />
+
+                  {/* App Pages */}
+                  <Route
+                    path="app/"
+                    element={<Navigate to="app/" replace />}
+                  />
+                  <Route
+                    path="app/pricing"
+                    element={
+                      <Text>
+                        Pricing
+                      </Text>
+                    }
+                  />
+                  <Route
+                    path="app/product"
+                    element={
+                      <Text>
+                      Use case by industry (just show entities from Orgmenta>Product>Catalog>Offerings>Features)
+                      </Text>
+                    }
+                  />
+                  <Route
+                    path="app/roadmap"
+                    element={
+                      <Text>
+                        Roadmap (backlog) (just show entities from Orgmenta>Product>Catalog>Offerings)
+                      </Text>
+                    }
+                  />
+                  <Route 
+                    path="app/compare"
+                    element={
+                      <Text>
+                        Compare to other products
+                      </Text>
+                    }
+                  />
+                  <Route 
+                    path="app/industries"
+                    element={
+                      <Text>
+                        Use case by industry (just show entities from Orgmenta>Product>Catalog>Offerings>UseCases)
+                      </Text>
+                    }
+                  />
+
+                  {/* Company Pages */}
+                  <Route
+                    path="company/"
+                    element={<Navigate to="company/about" replace />}
+                  />
+                  <Route
+                    path="company/about"
+                    element={
+                      <Text>
+                        About
+                      </Text>
+                    }
+                  />
+                  <Route
+                    path="company/privacy"
+                    element={
+                      <Text>
+                        Privacy
+                      </Text>
+                    }
+                  />
+                  <Route
+                    path="company/terms"
+                    element={
+                      <Text>
+                        Terms
+                      </Text>
+                    }
+                  />
+                  <Route 
+                    path="company/contact"
+                    element={
+                      <Text>
+                        Contact
+                      </Text>
+                    }
+                  />
+                  <Route 
+                    path="company/partners"
+                    element={
+                      <Text>
+                        Partner
+                      </Text>
+                    }
+                  />
+
+                  {/* Community Pages */}
+                  <Route
+                    path="community/"
+                    element={<Navigate to="community/forums" replace />}
+                  />
+                  <Route
+                    path="community/forums"
+                    element={
+                      <Text>
+                        Forums
+                      </Text>
+                    }
+                  />
+                  <Route
+                    path="community/guides"
+                    element={
+                      <Text>
+                        Guides
+                      </Text>
+                    }
+                  />
+                  <Route 
+                    path="community/enhancements"
+                    element={
+                      <Text>
+                        Enhancements
+                      </Text>
+                    }
+                  />
 
                   {/* Entities */}
                   <Route
@@ -45,11 +168,11 @@ export default function App() {
                     }
                   />
                   <Route
-                    path="entity/:entity_id_or_nickname" //
+                    path="entity/:entity_id_or_nickname"
                     element={<Navigate to="pods" replace />}
                   />
                   <Route
-                    path="entity/:entity_id_or_nickname/:mode/*" //
+                    path="entity/:entity_id_or_nickname/:mode/*"
                     element={<Entity />}
                   />
 

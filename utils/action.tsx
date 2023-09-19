@@ -33,7 +33,7 @@ export const ViewActionControl = ({}:any) => {
 export const ViewActionAdd = ({auxiliary, schema, focus}:any) => {
   const paths = useLocation()?.pathname?.split('/');
   const category = paths[2];
-  const [ state, set ] = paths && useState({id: createUuid4() , type:'Event',status:'0. New', categories:  [category] });
+  const [ state, set ] = paths && useState({id: createUuid4() , type:'Event',status:'0. New', categories:  [category], description: ''});
   const create = useEntityCreate(state);
   return (
     <View style={{flexDirection:'column'}}>
@@ -55,6 +55,10 @@ export const ViewActionAdd = ({auxiliary, schema, focus}:any) => {
       <View style={{flexDirection:'row'}}>
         <Text style={{fontWeight:700}}>Categories:</Text>
         <TextInput defaultValue={category} onChangeText={(text)=>set(old=>({ ...old, categories: text?.split(',')}))}/>
+      </View>
+      <View style={{flexDirection:'row'}}>
+        <Text style={{fontWeight:700}}>Description:</Text>
+        <TextInput onChangeText={(text)=>set(old=>({ ...old, description: text }))}/>
       </View>
 
       {/* <ViewFormDynamic data={data} /> */}

@@ -51,7 +51,7 @@ export const useEntityArray = (filter_object?:any)=> { // todo: implement filter
               .select()
               
               // temp hardcoded filters:
-              .contains('categories', [filter_object.category]) 
+              .contains('categories', [filter_object?.category || 'all']) 
 
               // .contains('other', { test: 1 }) // Example of how we can add static fields in (e.g. event_start can be in here instead of having to create a new column which is only applicable to events)
               // or we can store this sort of thing in side b of relationships (but that requires a join)

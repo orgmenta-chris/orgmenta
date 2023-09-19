@@ -1955,7 +1955,7 @@ export const data = [
         "parent": 1301,
         "status": "0. New",
         "name_singular": "usecases",
-        "display_singular": "Usecases",
+        "display_singular": "Use Cases",
         "description":"Description of how users will perform tasks",
         "summary": "Specific situations in which a product or service can be used",
         "nickname": "product-catalog-solutions-usecases"
@@ -1987,7 +1987,7 @@ export const data = [
         "name_singular": "features",
         "display_singular": "Features",
         "description": "What features the product has",
-        "summary": "features can be determined in a Project>Plan>Features",
+        "summary": "features can be determined in a Project>Planning>Functionality",
         "nickname": "product-catalog-solutions-features"
     },
     {
@@ -3679,12 +3679,22 @@ export const data = [
         "nickname": "project-planning-investigations"
     },
     {
+        "id": 18201,
+        "parent": 1820,
+        "status": "0. New",
+        "name_singular": "scope",
+        "display_singular": "Scope",
+        "description": "Define the scope of the project",
+        "summary": "Analygous to PMBOK scope management",
+        "nickname": "project-planning-investigations-scope"
+    },
+    {
         "id": 1821,
         "parent": 182,
         "status": "0. New",
-        "name_singular": "features",
-        "display_singular": "Features",
-        "summary": "Lay out user stories / use cases / features",
+        "name_singular": "funcionality",
+        "display_singular": "Functionality",
+        "summary": "Lay out the necessary user stories / use cases / features",
         "nickname": "project-planning-features"
     },
     {

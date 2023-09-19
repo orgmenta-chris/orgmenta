@@ -52,7 +52,7 @@ export default function App() {
                     path="app/product"
                     element={
                       <Text>
-                      Use case by industry (just show entities from Orgmenta>Product>Catalog>Offerings>Features)
+                      {`Use case by industry (just show entities from Orgmenta>Product>Catalog>Offerings>Features)`}
                       </Text>
                     }
                   />
@@ -60,7 +60,7 @@ export default function App() {
                     path="app/roadmap"
                     element={
                       <Text>
-                        Roadmap (backlog) (just show entities from Orgmenta>Product>Catalog>Offerings)
+                        {`Roadmap (backlog) (just show entities from Orgmenta>Product>Catalog>Offerings)`}
                       </Text>
                     }
                   />
@@ -76,7 +76,7 @@ export default function App() {
                     path="app/industries"
                     element={
                       <Text>
-                        Use case by industry (just show entities from Orgmenta>Product>Catalog>Offerings>UseCases)
+                        {`Use case by industry (just show entities from Orgmenta>Product>Catalog>Offerings>UseCases)`}
                       </Text>
                     }
                   />

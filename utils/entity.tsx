@@ -115,7 +115,7 @@ export interface interfaceEntityCreate {
   id: string,
   title: string,
   type: string,
-  class: string,
+  categories: string[],
   status: string,
   description?: string,
   [key: string]: any

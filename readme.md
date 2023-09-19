@@ -76,3 +76,15 @@ If queries start timing out / taking too long:
 {
 
 }
+
+
+# Guidelines
+
+## Components
+
+### Values
+Values that are being updated must register this in the UI. For example, if a row is being deleted from a table, that row must be shown to be in an updating state while being deleted.
+If a form field is being updated, it must show a spinner/indicator.
+Updating values must be changed in the UI as an 'optimistic update' w
+The values must then automatically update on the page when confirmed.
+I.e. do the opposte of what MS azure does.

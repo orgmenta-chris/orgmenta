@@ -1,7 +1,7 @@
 
 import React from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Pressable, useWindowDimensions } from 'react-native';
 import { ViewIconMain } from './icon'
 
 
@@ -20,12 +20,13 @@ const metaModalInfo = {
 // Main (the main modal view - use this comprehensive component to get all of the available modal features)
 
 export const ViewModalMain = ({height, margin, padding, pinnable, children, modalName, backdrop, top, bottom, left, right, width}:any) => {
+    const heightCalc = height  || useWindowDimensions()?.height - 60;
     const modalState = useModalState(modalName);
     if(modalState?.data?.visible) { return (<>
         {backdrop && !modalState?.data?.pinned && 
             <ViewModalBackdrop modalName={modalName}/>
         }
-        <ViewModalBody modalName={modalName} height={height} margin={margin} padding={padding} pinnable={pinnable} top={top} bottom={bottom} left={left} right={right} width={width} children={children}/>
+        <ViewModalBody modalName={modalName} height={heightCalc} margin={margin} padding={padding} pinnable={pinnable} top={top} bottom={bottom} left={left} right={right} width={width} children={children}/>
     </>)
     }else{
         return <></>
@@ -108,8 +109,8 @@ export const ViewModalBody = ({height,margin, padding,modalName, pinnable, child
                 backgroundColor:'white',
                 flex:1,
                 flexDirection:'column',
-                minWidth:width||'12.5%',
-                width:width||'12.5%',
+                minWidth:width||180,
+                width:width||180,
                 height:height||"100%",
                 top:top||0,bottom:bottom||0,left:left||0,right:right||0,
                 position:'absolute',

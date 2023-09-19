@@ -1,14 +1,11 @@
 import React, { memo } from 'react';
-import { createUuid4, typeUuid4, validateUuid4 } from './uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
+import { createUuid4, typeUuid4, validateUuidType } from './uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { TextInput, View, Text, Pressable } from 'react-native';
 import { ViewListMain } from './list'
-import { ViewTableMain,useTableColumns } from './table'
-import { ViewJsonMain } from './json'
-import { ViewIconMain } from './icon'
-import { ViewPodMain } from './pod'
-import { ViewFormMain } from './form'
+// import { ViewTableMain,useTableColumns } from './table'
+// import { ViewJsonMain } from './json'
 import { useState } from 'react'
 import { useAttributeUnioned} from './attribute'
 
@@ -29,20 +26,17 @@ export const requestAuxiliaryArray = (filter_array:any)=> { // todo: implement f
     return query
   }
 
-  
-export const useAuxiliaryArray = ({filter_array}:any)=> { 
-    const query = useQuery({
-        queryKey:['auxiliary','array',filter_array],
-        queryFn:()=>{
-            return instanceSupabaseClient
-                .from("auxiliary")
-                .select('id')
-                .limit(10)
-                .then(response=>response.data)
-        },
-        enabled: true
-    });
-    return query
+export const useAuxiliaryArray = ({filter_array}: { filter_array: string | number }) => {
+    const queryKey: (string | number)[] = ['auxiliary', 'array', filter_array];
+    const queryFn = async () => {
+      const response = await instanceSupabaseClient
+        .from("auxiliary")
+        .select('id')
+        .limit(10);
+      return response.data;
+    };
+    const query = useQuery<any, Error>(queryKey, queryFn, { enabled: true });
+    return query;
 }
 
 

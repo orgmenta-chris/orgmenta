@@ -101,6 +101,7 @@ export const uploadDocument = async ({ name, file }: documentToBeUploaded) => {
 };
 
 export const fileUpload = ({ name, file }: documentToBeUploaded) => {
+  console.log('fileUpload')
   const queryClient = useQueryClient();
 
   const mutation = useMutation(uploadDocument, {

@@ -1,12 +1,17 @@
 // An 'Action' is something that can be done to an 'Entity'.
 
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import { TextInput, View, Text, Pressable } from 'react-native';
 import { useState } from 'react'
 import { Link, useLocation, Route, Routes } from 'react-router-dom'
-import { ViewEntityAdd, useEntityArray, useEntitySingle, useEntitySchema} from './entity'
 import ViewIconMain from '../components/displays/icons/ViewIconMain';
-
+import { ViewControlMain } from '../utils/control'
+import { useEntityCreate } from '../utils/entity'
+import { ViewFormDynamic } from '../utils/form'
+import { arrayTypeMain } from '../utils/type'
+import { arrayStatusMain } from '../utils/status'
+import { data } from '../utils/static'
+import { createUuid4 } from './uuid'
 
 // Form
 
@@ -26,42 +31,45 @@ export const ViewActionControl = ({}:any) => {
   ) 
 }
 
-export const ViewActionAdd = ({auxiliary, schema, focus}:any) => { 
-  let data: any = useMemo(() => {
-    let items: any = [];
-    if (schema.data && focus.data && auxiliary.data) {
-      schema?.data?.forEach((oldItem: any) => {
-        let newItem = { ...oldItem, ...oldItem.auxiliary_columns };
-        // if the attribute is 'relationship' we know that it is in the relationship table instead of being a column on the entity table.
-        if (oldItem.focus_columns.cell_field === "relationship") {
-          newItem.table = "relationships";
-          newItem.value = "(relationships)"; //'auxiliary.data to be filtered here (todo)'
-        } else {
-          newItem.table = "entities";
-          newItem.value = focus.data?.[0]?.[newItem.name_singular];
-        }
-
-        delete newItem.focus_columns;
-        delete newItem.auxiliary_columns;
-        items.push(newItem);
-      });
-
-      return items;
-    }
-  }, [schema.data, focus.data, auxiliary.data]);
+export const ViewActionAdd = ({auxiliary, schema, focus}:any) => {
+  const paths = useLocation()?.pathname?.split('/');
+  const category = paths[2];
+  const [ state, set ] = paths && useState({id: createUuid4() , type:'Event',status:'0. New', categories:  [category] });
+  const create = useEntityCreate(state);
   return (
     <View style={{flexDirection:'column'}}>
-      <Text>Add an entity</Text> 
-      <ViewFormDynamic data={data} />
+    <Text style={{fontWeight:800}}>Add an entity</Text> 
+      <Text style={{fontStyle:'italic'}}>{JSON.stringify(state)}</Text> 
+      
+      <View style={{flexDirection:'row'}}>
+        <Text style={{fontWeight:700}}>Title:</Text>
+        <TextInput onChangeText={(text)=>set(old=>({ ...old, title: text }))}/>
+      </View>
+      <View style={{flexDirection:'row'}}>
+        <Text style={{fontWeight:700}}>Type:</Text>
+        {arrayTypeMain?.map((x,i)=> <Pressable key={i} style={{backgroundColor:'lightblue',margin:1}} onPress={()=>set(old=>({ ...old, type: x }))}><Text>{x}</Text></Pressable>) }
+      </View>
+      <View style={{flexDirection:'row'}}>
+        <Text style={{fontWeight:700}}>Status:</Text>
+        {arrayStatusMain?.map((x,i)=> <Pressable key={i} style={{backgroundColor:'lightblue',margin:1}} onPress={()=>set(old=>({ ...old, status: x }))}><Text>{x}</Text></Pressable>) }
+      </View>
+      <View style={{flexDirection:'row'}}>
+        <Text style={{fontWeight:700}}>Categories:</Text>
+        <TextInput defaultValue={category} onChangeText={(text)=>set(old=>({ ...old, categories: text?.split(',')}))}/>
+      </View>
+
+      {/* <ViewFormDynamic data={data} /> */}
       <View style={{flexDirection:'row'}}>
         <Pressable 
-          style={{backgroundColor:'lightblue'}}
-          onPress={()=>{}}
+          disabled={!state.title && true}
+          style={{backgroundColor:state.title?'lightblue':'gray'}}
+          onPress={()=>{create.mutate();set(old=>({ ...old,id:createUuid4()}))}}
         ><Text>Create</Text></Pressable>
       </View>
     </View>
   )
 }
+
 export const ViewActionEdit = ({}:any) => {
   const [titleState, titleSet] = useState('');
   const [typeState, typeSet] = useState('');

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View, Pressable, Text } from "react-native";
 import { data } from "../utils/static";
 import { ViewIconMain } from "../utils/icon";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import React from "react";
 // import ViewIconMain from "./displays/icons/ViewIconMain";
 
@@ -68,7 +68,7 @@ export const Expandable = ({ item }: any) => {
                 (x.status === "3. Active" || __DEV__) && x.parent === item.id
             )
             .map((x, i) => (
-              <Link style={{textDecoration:'none', margin:10}} to={"entity/" + x.nickname} key={i}>
+              <Link style={{textDecoration:'none', margin:10}} to={"entity/" + x.nickname} key={i}>             
                 <Text style={{ fontWeight:500, fontSize:16,color: '#0c4a73'}} selectable={false}>{x.display_singular}</Text>
               </Link>
             ))}

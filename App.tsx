@@ -1,5 +1,4 @@
 import Home from "./pages/home";
-import React from "react";
 import User from "./pages/user";
 import Space from "./pages/space";
 import Entity from "./pages/entity";
@@ -12,7 +11,6 @@ import Header from "./components/navigation/header";
 import { ViewQueryerProvider } from "./utils/queryer";
 import { StyleSheet, Text, View } from "react-native";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-
 
 import { ViewBookmarkModal } from './utils/bookmark'
 import { ViewOrgmentaModal } from './utils/orgmenta'
@@ -29,14 +27,9 @@ export default function App() {
             <StatusBar style="auto" />
             <Header />
 
-            
             <View style={styles.content}>
-              {/* Navigation */}
-              <View style={{ flex: 1 }}>
-                {/* <Sidebar /> */}
-              </View>
 
-              <View style={{ flex: 6 }}>
+              <View style={{ flex: 6, margin: 20, paddingLeft: "10%", paddingRight:"10%", }}>
                 <Routes>
                   {/* Home */}
                   <Route path="/" element={<Home />} />
@@ -88,10 +81,6 @@ export default function App() {
 
               </View>
 
-              <View style={{ flex: 1 }}>
-                {/* Temp spacer */}
-              </View>
-
               <ViewSpaceModal/>
               <ViewBookmarkModal/>
               <ViewOrgmentaModal/>
@@ -110,13 +99,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    flexDirection: "column",
+    position:'absolute',
+    height:"100%",
+    width:"100%",
+    overflow:'hidden'
   },
   content: {
     flex: 1,
     flexDirection: "row",
     gap: 10,
+    overflowX:'hidden',
+    overflowY:'scroll'
   },
 });

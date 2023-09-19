@@ -7,7 +7,7 @@ import { Expandable } from '../components/expandable'
 
 export const ViewBookmarkModal = (props:any) => {
     return (
-        <ViewModalMain modalName={'bookmark'}  backdrop pinnable  height={'100%' /*temp hack by Chris*/} >
+        <ViewModalMain modalName={'bookmark'}  backdrop pinnable >
             <ScrollView style={{height:'80%'}}
             >
                 {

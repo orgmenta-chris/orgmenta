@@ -22,6 +22,7 @@ export interface interfaceSupabaseResponse {
 }
 
 export function handleSupabaseResponse(response:interfaceSupabaseResponse['response'],function_name:interfaceSupabaseResponse['function_name']) {
+    // console.log('handleSupabaseResponse',response)
     // todo: use function_name prop for logging purposes if useful
     if (response.error) throw response.error;
     return response.data;

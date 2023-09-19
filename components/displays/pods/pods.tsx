@@ -3,12 +3,11 @@
 // This display is resizable 'pods' that can be moved around on a grid, pinned etc.
 // E.g. on the 'invoicing' category entity, you could pin an 'unsent invoices count' widget to to this display.
 
-<<<<<<< HEAD:utils/pods.tsx
-import { ViewListMain } from './list'
+import { ViewListMain } from '../../../utils/list'
 import { Link, useLocation } from 'react-router-dom'
 import { View, Text, ScrollView } from 'react-native';
 
-import { data } from './static'
+import { data } from '../../../utils/static'
 
 
 // Main
@@ -34,12 +33,6 @@ export const ViewPodFrame = ({children, style}:any) => {
         </View>
     )
 }
-=======
-import { Link, useLocation } from 'react-router-dom'
-import { View, Text } from 'react-native';
-import { data } from '../../../utils/static'
-import React from 'react';
->>>>>>> 96113b7d4086dd43787f1adb83df26870375442c:components/displays/pods/pods.tsx
 
 
 // Example
@@ -68,28 +61,10 @@ export const ViewPodInfo =() => {
     const parent = data?.find(y=>y.id===process?.parent);
     const grandparent = data?.find(z=>z.id===parent?.parent);
     return (
-<<<<<<< HEAD:utils/pods.tsx
         <ViewPodFrame>
             <Text style={{fontSize:16, fontStyle:'italic'}}>{process?.description}</Text>
             <Text style={{fontSize:12}}>{process?.summary}</Text>
         </ViewPodFrame>
-=======
-        <View style={{flexDirection:'column', borderWidth:1, borderColor:'white', margin: 4}}>
-            <View style={{height: 40, backgroundColor:'lightgray'}}>
-                <Text style={{fontSize:16, fontStyle:'italic'}}>{process?.description}</Text>
-                <Text style={{fontSize:12}}>{process?.summary}</Text>
-            </View>
-            {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
-                {process.subheading}
-            </Text> */}
-            {/* TESTING */}
-            {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
-                {JSON.stringify({grandparent,parent,process,subprocesses},null,2)}
-                {JSON.stringify({process},null,2)}
-            </Text> */}
-
-        </View>
->>>>>>> 96113b7d4086dd43787f1adb83df26870375442c:components/displays/pods/pods.tsx
     )
 }
 

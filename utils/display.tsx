@@ -266,12 +266,11 @@ export const ViewDisplayJson = (props: any) => {
 };
 
 
-
 // Components
 
 export const mapDisplayComponents: any = {
   list: ViewDisplayList,
-  Pod: ViewDisplayPod,
+  pods: ViewDisplayPod,
   form: ViewDisplayForm,
   table: ViewDisplayTable,
   calendar: ViewDisplayCalendar,
@@ -286,7 +285,7 @@ export const optionsDisplayMain = [
   {title:'Json',
   iconName: 'sdadsasdsads',
   iconSource: 'Feather',},
-  {title:'Pod',
+  {title:'Pods',
   iconName: 'view-quilt',
   iconSource: 'MaterialIcons',},
   {title:'Form',
@@ -324,9 +323,9 @@ export const ViewDisplayTabs = ({ id, display }: any) => {
       <Link
         style={{
           padding: 5,
-          backgroundColor: display === "pod" ? "lightgray" : "transparent",
+          backgroundColor: display === "pods" ? "lightgray" : "transparent",
         }}
-        to={"entity/../../pod"}
+        to={"entity/../../pods"}
       >
         Pod
       </Link>

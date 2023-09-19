@@ -34,12 +34,14 @@ export interface interfaceFieldMain {
 // A component that displays the correct field component dynamically.
 // If the field type is known, then use that component module directly instead of using this one to dynamically select it.
 export const ViewFieldMain = ({item}:{item:interfaceFieldMain}) => {
-  // console.log('field item',item)
-  const Component = mapFieldComponents[item?.component || 'Missing']; // this may benefit from usecallback or memoization of some sort?
+  const Component = mapFieldComponents[item?.form_field ? 'textinput' : 'text']; // this may benefit from usecallback or memoization of some sort?
   return (
     <View style={{flexDirection:'row'}}>
       <Text style={{flex:1, fontWeight: 500}}>{item?.label || '[No label found]'}: </Text>
-      <View  style={{flex:1}}><Component>{item.value}</Component></View>
+
+      {/* <View  style={{flex:1}}><Component>{item.value}</Component></View> */}
+      <View  style={{flex:1}}><Component defaultValue={item.value}/></View>
+      
       {/* <Text style={{flex:1, fontWeight: 500}}>{item?.form_sort}: </Text>   */}
     </View>
   )
@@ -59,9 +61,9 @@ export const ViewFieldMissing = () => {
 // Components
 
 export const mapFieldComponents:any= {
-  Missing:ViewFieldMissing,
-  Text,
-  TextInput,
-  DropdownExample,
-  TogglesExample
+  missing:ViewFieldMissing,
+  text: Text,
+  textinput: TextInput,
+  dropdown: DropdownExample,
+  toggles: TogglesExample
 };

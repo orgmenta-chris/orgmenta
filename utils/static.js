@@ -642,7 +642,7 @@ export const data = [
     {
         "id": 12,
         "parent": 1,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "accounts",
         "display_singular": "Accounts",
         "description": "Organise your business finances",
@@ -661,7 +661,7 @@ export const data = [
     {
         "id": 1200,
         "parent": 120,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "chart",
         "display_singular": "Chart",
         "description": "Chart of Accounts, Budgets and other layouts, including the P&L and balance sheet",
@@ -708,7 +708,7 @@ export const data = [
     {
         "id": 1201,
         "parent": 120,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "budgets",
         "display_singular": "Budgets",
         "description": "",
@@ -723,7 +723,7 @@ export const data = [
     {
         "id": 1202,
         "parent": 120,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "bookkeeping",
         "display_singular": "Bookkeeping",
         "description": "Daily accural based bookkeeping",
@@ -740,7 +740,7 @@ export const data = [
     {
         "id": 12030,
         "parent": 1202,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "mapping",
         "display_singular": "Mapping",
         "description": "Map your products, revenue streams, expenditure types, inventory categories and payroll items to the correct places in your Chart of Accounts",
@@ -755,7 +755,7 @@ export const data = [
     {
         "id": 12031,
         "parent": 1202,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "bank-reconciliation",
         "display_singular": "Bank Reconciliation",
         "notes": "match/code transactions to bank statement lines",
@@ -764,7 +764,7 @@ export const data = [
     {
         "id": 12031,
         "parent": 1202,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "adjustments",
         "display_singular": "Adjustments",
         "notes": "Acrruals, deferrals, depreciation, amortisation.",
@@ -776,7 +776,7 @@ export const data = [
     {
         "id": 1203,
         "parent": 120,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "statements",
         "display_singular": "Statements",
         "description": "Financial modelling: P&L, balance sheet, CFF and other ledger reporting",
@@ -813,7 +813,7 @@ export const data = [
     {
         "id": 121,
         "parent": 12,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "receivables",
         "display_singular": "Receivables",
         "tagline": "Get your invoices issued and paid on time.",
@@ -903,7 +903,7 @@ export const data = [
     {
         "id": 1210,
         "parent": 121,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "debtors",
         "display_singular": "Debtors",
         "tagline": "Monitor and manage debtors, billing setups, payment plans and customer credit risk",
@@ -980,7 +980,7 @@ export const data = [
     {
         "id": 12100,
         "parent": 1210,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "debtor_setup",
         "display_singular": "Debtor Setup",
         "summary": "",
@@ -998,7 +998,7 @@ export const data = [
     {
         "id": 121000,
         "parent": 12100,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "debtor_details",
         "display_singular": "Debtor Details",
         "description": "Ensure all debtors are entered. Reconcile debtors between your platforms to ensure all exist & match",
@@ -1007,7 +1007,7 @@ export const data = [
     {
         "id": 121001,
         "parent": 12100,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "debtor_status",
         "display_singular": "Debtor Status",
         "description": "Move the debtor to 'Approved' status to allow items to be billed to it / add items to the approved billings list",
@@ -1016,7 +1016,7 @@ export const data = [
     {
         "id": 121002,
         "parent": 12100,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "debtor_approvals",
         "display_singular": "Debtor Approvals",
         "description": "",
@@ -1025,7 +1025,7 @@ export const data = [
     {
         "id": 12101,
         "parent": 1210,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "terms",
         "display_singular": "Terms",
         "summary": "Organise and maintain payment terms (including short term payment plans) with debtors",
@@ -1035,7 +1035,7 @@ export const data = [
     {
         "id": 12102,
         "parent": 1210,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "risk",
         "display_singular": "Risk",
         "summary": "",
@@ -1045,7 +1045,7 @@ export const data = [
     {
         "id": 121024,
         "parent": 12102,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "payment-plans",
         "display_singular": "Payment Plans",
         "summary": "",
@@ -1055,7 +1055,7 @@ export const data = [
     {
         "id": 12103,
         "parent": 1210,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "billing_setup",
         "display_singular": "Billing Setup",
         "description": "Set up / maintain billing methods for the debtor",
@@ -1064,7 +1064,7 @@ export const data = [
     {
         "id": 121030,
         "parent": 12103,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "billing_methods",
         "display_singular": "Billing Methods",
         "description": "Make payment methods available to the customer (with use of Systems>Applications)",
@@ -1073,7 +1073,7 @@ export const data = [
     {
         "id": 121031,
         "parent": 12103,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "billing_authority",
         "display_singular": "Billing Authority",
         "description": "Getting direct debit / payment authority signoff from debtors if needed",
@@ -1082,7 +1082,7 @@ export const data = [
     {
         "id": 121032,
         "parent": 12103,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "billing_automation",
         "display_singular": "Billing Automation",
         "description": "If approved by the debtor, configure auto debit for invoice types/conditions",
@@ -1091,7 +1091,7 @@ export const data = [
     {
         "id": 12104,
         "parent": 1210,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "queries",
         "display_singular": "Queries",
         "summary": "Sent statements to debtors with current balance, monies owed and recent transactions",
@@ -1101,7 +1101,7 @@ export const data = [
     {
         "id": 1211,
         "parent": 121,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "charges",
         "display_singular": "Charges",
         "description": "Contracts and recurring billables, ad hoc labour/charges and other products/expenses to bill",
@@ -1110,7 +1110,7 @@ export const data = [
     {
         "id": 12120,
         "parent": 1211,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "pipeline",
         "display_singular": "Pipeline",
         "price_unit": "line item",
@@ -1134,7 +1134,7 @@ export const data = [
     {
         "id": 1212,
         "parent": 121,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "invoicing",
         "display_singular": "Invoicing",
         "tagline": "Bill your customers on time and with comprehensive, correct line items",
@@ -1172,7 +1172,7 @@ export const data = [
     {
         "id": 12121,
         "parent": 1212,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "template",
         "display_singular": "Template",
         "description": "Template recurring / expected invoices",
@@ -1182,7 +1182,7 @@ export const data = [
     {
         "id": 12122,
         "parent": 1212,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "generate",
         "display_singular": "Generate",
         "description": "Generate invoices",
@@ -1191,7 +1191,7 @@ export const data = [
     {
         "id": 12123,
         "parent": 1212,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "verify",
         "display_singular": "Verify",
         "description": "Match the invoice against quotes etc. to validate it as correct. Get approval on it.",
@@ -1200,7 +1200,7 @@ export const data = [
     {
         "id": 12124,
         "parent": 1212,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "ammendment",
         "display_singular": "Ammendment",
         "name_plural": "ammendments",
@@ -1213,7 +1213,7 @@ export const data = [
     {
         "id": 12125,
         "parent": 1212,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "issue",
         "display_singular": "Issue",
         "description": "Issue the invoice by sending it to the 'attention to' contact / bill-to organisation",
@@ -1222,7 +1222,7 @@ export const data = [
     {
         "id": 1213,
         "parent": 121,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "collections",
         "display_singular": "Collections",
         "tagline": "Management and collection of owed revenue",
@@ -1306,7 +1306,7 @@ export const data = [
     {
         "id": 12130,
         "parent": 1213,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "statements-or-debtor-balances",
         "display_singular": "Statements",
         "summary": "Sent statements to debtors with current balance, monies owed and recent transactions",
@@ -1316,7 +1316,7 @@ export const data = [
     {
         "id": 121300,
         "parent": 12130,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "statement-preferences",
         "display_singular": "Statement Preferences",
         "description": "Confirmed statement preference (whether and when to send, what statement template and branding to use, cover letter, etc.) for debtors/ a specific debtor - this might be automated / blanket rule anyway",
@@ -1325,7 +1325,7 @@ export const data = [
     {
         "id": 121301,
         "parent": 12130,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "statement-enable",
         "display_singular": "Statement Enable",
         "description": "Enable/disable statements for debtors or a specific debtor",
@@ -1334,7 +1334,7 @@ export const data = [
     {
         "id": 121302,
         "parent": 12130,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "statements-issue",
         "display_singular": "Statements Issue",
         "description": "Send statements at the prescribed time",
@@ -1343,7 +1343,7 @@ export const data = [
     {
         "id": 1214,
         "parent": 121,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "settlements",
         "display_singular": "Settlements",
         "description": "",
@@ -1362,7 +1362,7 @@ export const data = [
     {
         "id": 12140,
         "parent": 1214,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "overpayments",
         "display_singular": "Overpayments",
         "process": [
@@ -1375,7 +1375,7 @@ export const data = [
     {
         "id": 122,
         "parent": 12,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "payables",
         "display_singular": "Payables",
         "description": "Bills from your suppliers",
@@ -1478,7 +1478,7 @@ export const data = [
     {
         "id": 1220,
         "parent": 122,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "creditors",
         "display_singular": "Creditors",
         "description": "Creditor setup and management",
@@ -1503,7 +1503,7 @@ export const data = [
     {
         "id": 12200,
         "parent": 1220,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "repository-management",
         "display_singular": "Repository Management",
         "description": "Configure and maintain your creditor information repository (e.g. Xero as the 'source of truth'). Takes vendor information from the Supplier Vendor list.",
@@ -1512,7 +1512,7 @@ export const data = [
     {
         "id": 12201,
         "parent": 1220,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "payment-methods",
         "display_singular": "Payment Methods",
         "description": "Assign all suppliers to payment method groups and bill approval requirements",
@@ -1521,7 +1521,7 @@ export const data = [
     {
         "id": 12202,
         "parent": 1220,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "credit-lines",
         "display_singular": "Credit Lines",
         "description": "",
@@ -1530,7 +1530,7 @@ export const data = [
     {
         "id": 12203,
         "parent": 1220,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "integrations",
         "display_singular": "Integrations",
         "description": "Liaise with vendors to set up supplier billing portals, bill recipients, remittance recipients, direct debit etc.",
@@ -1539,7 +1539,7 @@ export const data = [
     {
         "id": 12204,
         "parent": 1220,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "reconciliations",
         "display_singular": "Reconciliations",
         "description": "(Monthly/[timeframe]) reconciliation of supplier statements",
@@ -1548,7 +1548,7 @@ export const data = [
     {
         "id": 1221,
         "parent": 122,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "forecast",
         "display_singular": "Forecast",
         "description": "Payables templating, repeating bills and planning",
@@ -1563,7 +1563,7 @@ export const data = [
     {
         "id": 1222,
         "parent": 122,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "bills",
         "display_singular": "Bills",
         "description": "Verifying and entering supplier charges",
@@ -1625,7 +1625,7 @@ export const data = [
     {
         "id": 12220,
         "parent": 1222,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "template",
         "display_singular": "Template",
         "description": "Template recurring / expected bills, e.g. from a purchase order or recurring subscription",
@@ -1634,7 +1634,7 @@ export const data = [
     {
         "id": 12221,
         "parent": 1222,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "obtain",
         "display_singular": "Obtain",
         "description": "Obtain a bill from a supplier",
@@ -1644,7 +1644,7 @@ export const data = [
     {
         "id": 12222,
         "parent": 1222,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "enter",
         "display_singular": "Enter",
         "description": "Enter bill into the system",
@@ -1654,7 +1654,7 @@ export const data = [
     {
         "id": 12223,
         "parent": 1222,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "verify",
         "display_singular": "Verify",
         "description": "Validate the bill and its attributes",
@@ -1664,7 +1664,7 @@ export const data = [
     {
         "id": 1223,
         "parent": 122,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "payments",
         "display_singular": "Payments",
         "description": "Obtaining approval for bills, and maintaining a payment timetable, make payments",
@@ -1728,7 +1728,7 @@ export const data = [
     {
         "id": 1224,
         "parent": 122,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "receipt",
         "display_singular": "Receipt",
         "description": "Reconcile the payment (bank statement line) against the transaction (bill line item) and close off the bill if paid",
@@ -1888,7 +1888,7 @@ export const data = [
     {
         "id": 13,
         "parent": 1,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "product",
         "display_singular": "Product",
         "description": "Procure components, assemble them and deliver them to your customer",
@@ -1898,7 +1898,7 @@ export const data = [
     {
         "id": 130,
         "parent": 13,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "catalog",
         "display_singular": "Catalog",
         "description": "Maintaining and categorising the Product Catalog",
@@ -1907,7 +1907,7 @@ export const data = [
     {
         "id": 1300,
         "parent": 130,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "patterns",
         "display_singular": "Patterns",
         "summary": "Templating the catalog",
@@ -1916,7 +1916,7 @@ export const data = [
     {
         "id": 13000,
         "parent": 1300,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "classification",
         "display_singular": "Classification",
         "summary": "Product types, categories and classes",
@@ -1925,7 +1925,7 @@ export const data = [
     {
         "id": 13001,
         "parent": 1300,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "blueprints",
         "display_singular": "Blueprints",
         "summary": "Configuration of descriptions, serialisation, price, cost and other product fields",
@@ -1934,7 +1934,7 @@ export const data = [
     {
         "id": 13002,
         "parent": 1300,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "mapping",
         "display_singular": "Mapping",
         "description": "Link product categories to other modules (components to accounts>payable, produce to accounts>receivable etc.",
@@ -1943,123 +1943,135 @@ export const data = [
     {
         "id": 1301,
         "parent": 130,
-        "status": "1. New",
-        "name_singular": "offerings",
-        "display_singular": "Offerings",
-        "summary": "The endproduct for the customer",
-        "nickname": "product-catalog-offerings"
+        "status": "0. New",
+        "name_singular": "solutions",
+        "display_singular": "Solutions",
+        "summary": "The endproduct for the customer or internal use",
+        "summary": "An assembly of components",
+        "nickname": "product-catalog-solutions"
     },
     {
         "id": 13010,
         "parent": 1301,
-        "status": "1. New",
-        "name_singular": "endproducts",
-        "display_singular": "endproducts",
-        "summary": "The endproduct for the customer",
-        "nickname": "product-catalog-offerings-endproducts"
+        "status": "0. New",
+        "name_singular": "usecases",
+        "display_singular": "Usecases",
+        "description":"Description of how users will perform tasks",
+        "summary": "Specific situations in which a product or service can be used",
+        "nickname": "product-catalog-solutions-usecases"
+    },
+    {
+        "id": 130101,
+        "parent": 13010,
+        "status": "0. New",
+        "name_singular": "userstories",
+        "display_singular": "User Stories",
+        "description":"General explanations of feature written from the perspective of the end user",
+        "summary": "List what the user/system intends to do, at a high level (manual or automatic steps)",
+        "nickname": "product-catalog-solutions-usecases-userstories"
     },
     {
         "id": 13011,
         "parent": 1301,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "requirements",
-        "display_singular": "requirements",
+        "display_singular": "Requirements",
         "description": "What requirements/needs the end user has for the product",
         "summary": "Requirements can be determined in a Project>Control>Requirements",
-        "nickname": "product-catalog-offerings-requirements"
+        "nickname": "product-catalog-solutions-requirements"
     },
     {
         "id": 13012,
         "parent": 1301,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "features",
-        "display_singular": "features",
+        "display_singular": "Features",
         "description": "What features the product has",
         "summary": "features can be determined in a Project>Plan>Features",
-        "nickname": "product-catalog-offerings-features"
+        "nickname": "product-catalog-solutions-features"
     },
     {
         "id": 13013,
         "parent": 1301,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "constituents",
         "display_singular": "Constituents",
         "description": "Which components make up the product, and how",
         "summary": "This maps the Product>Catalog>Components to the end product, i.e. 'how the parts fit together",
-        "nickname": "product-catalog-offerings-constituents"
+        "nickname": "product-catalog-solutions-constituents"
     },
     {
         "id": 13014,
         "parent": 1301,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "versions",
         "display_singular": "Versions",
         "description": "Versioning/roadmap/version control of the offering",
-        "summary": "This links Projects with Product>Catalog>Offerings>Features, i.e. what development and new versions/subfeatures are planned for this offering",
-        "nickname": "product-catalog-offerings-versions"
+        "summary": "This links Projects with Product>Catalog>Solutions>Features, i.e. what development and new versions/subfeatures are planned for this offering",
+        "nickname": "product-catalog-solutions-versions"
     },
     {
         "id": 1302,
         "parent": 130,
-        "status": "1. New",
-        "name_singular": "components",
-        "display_singular": "Components",
-        "summary": "Items that comprise an offering",
-        "nickname": "product-catalog-components"
+        "status": "0. New",
+        "name_singular": "parts",
+        "display_singular": "Parts",
+        "description": "Atomic components",
+        "summary": "Parts that comprise a product's solution",
+        "nickname": "product-catalog-parts"
     },
     {
         "id": 13020,
         "parent": 1302,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "pieces",
         "display_singular": "Pieces",
         "description": "The consituent parts/components",
         "summary": "",
-        "nickname": "product-catalog-components-pieces"
+        "nickname": "product-catalog-parts-pieces"
     },
     {
         "id": 13021,
         "parent": 1302,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "materials",
         "display_singular": "Materials",
         "description": "What 'materials' is required of the component (physical or intangible)",
         "summary": "Materials can be determined in a Project>Plan>Resources",
-        "nickname": "product-catalog-components-materials"
+        "nickname": "product-catalog-parts-materials"
     },
     {
         "id": 13022,
         "parent": 1302,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "qualities",
         "display_singular": "Qualities",
         "description": "What 'qualities' / 'attributes' are required of the component",
         "summary": "Qualities can be determined in a Project>Plan>Designs",
-        "nickname": "product-catalog-components-qualities"
+        "nickname": "product-catalog-parts-qualities"
     },
     {
         "id": 13023,
         "parent": 1302,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "couplings",
         "display_singular": "Couplings",
         "description": "Joins/interfaces that a component has, that allows it to interface or join another component",
-        "summary": "Qualities can be determined in a Project>Plan>Designs",
-        "nickname": "product-catalog-components-qualities"
+        "nickname": "product-catalog-parts-couplings"
     },
     {
         "id": 1303,
         "parent": 130,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "entries",
         "display_singular": "Entries",
-        "description": "Products added into the catalog and fields filled",
+        "description": "Instances of products added into the catalog and fields filled",
         "nickname": "product-catalog-entries"
     },
     {
         "id": 1304,
         "parent": 130,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "retirals",
         "display_singular": "Retirals",
         "description": "Product end of life, upgrade paths and deactivation.",
@@ -2069,7 +2081,7 @@ export const data = [
     {
         "id": 131,
         "parent": 13,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "procurement",
         "display_singular": "Procurement",
         "description": "Purchase requests & Purchase orders",
@@ -2079,7 +2091,7 @@ export const data = [
     {
         "id": 1310,
         "parent": 131,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "requests",
         "display_singular": "Requests",
         "tagline": "Purchasing request management and approvals",
@@ -2097,7 +2109,7 @@ export const data = [
     {
         "id": 13100,
         "parent": 1310,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "recognition",
         "display_singular": "Recognition",
         "description": "Product Needs Recognition",
@@ -2106,7 +2118,7 @@ export const data = [
     {
         "id": 13101,
         "parent": 1310,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "requisition",
         "display_singular": "Requisition",
         "description": "Purchase Requisition",
@@ -2115,7 +2127,7 @@ export const data = [
     {
         "id": 13102,
         "parent": 1310,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "review",
         "display_singular": "Review",
         "description": "Inspect request and approve or deny as necessary",
@@ -2125,7 +2137,7 @@ export const data = [
     {
         "id": 13103,
         "parent": 1310,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "tenders",
         "display_singular": "Tenders",
         "description": "Requests for quotes from suppliers, or selection from the suppliers that you already have terms with.",
@@ -2134,7 +2146,7 @@ export const data = [
     {
         "id": 1311,
         "parent": 131,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "purchase",
         "display_singular": "Purchase",
         "description": "Price/Product matching between vendors, placing orders",
@@ -2151,7 +2163,7 @@ export const data = [
     {
         "id": 13110,
         "parent": 1311,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "orders",
         "display_singular": "Orders",
         "description": "Creation of the Product Purchase Order (PO). This is converted from the approved Product Requests Requisition (with the vendor that had their Request for Quote - RFQ - chosen.",
@@ -2161,7 +2173,7 @@ export const data = [
     {
         "id": 13111,
         "parent": 1311,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "placement",
         "display_singular": "Placement",
         "description": "Submit the PO to the vendor, bid on an auction, etc., i.e. officially request/submit the purchase to go ahead.",
@@ -2171,7 +2183,7 @@ export const data = [
     {
         "id": 13112,
         "parent": 1311,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "confirmation",
         "display_singular": "Confirmation",
         "description": "Vendor acceptance / rejection / suggested changes to the purchase order",
@@ -2181,7 +2193,7 @@ export const data = [
     {
         "id": 13113,
         "parent": 1311,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "backorders",
         "display_singular": "Backorders",
         "description": "The items that have not been dispatched",
@@ -2190,7 +2202,7 @@ export const data = [
     {
         "id": 13114,
         "parent": 1311,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "transit",
         "display_singular": "Transit",
         "description": "The items that have been dispatched and are in transit, i.e. on board for delivery. This should be tracked (on a digital map, with audit logs, etc.)",
@@ -2199,7 +2211,7 @@ export const data = [
     {
         "id": 1313,
         "parent": 131,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "receiving",
         "display_singular": "Receiving",
         "description": "Verify and accept delivery of stock, and trigger supplier bills for payment and onbilling to customers",
@@ -2213,7 +2225,7 @@ export const data = [
     {
         "id": 13130,
         "parent": 1313,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "collect",
         "display_singular": "Collect",
         "description": "Meet the package. If a physical delivery, then the courier (mailworker, transit company etc.) may or may not need to be in attendance of the package at the same time as the receiver.",
@@ -2222,7 +2234,7 @@ export const data = [
     {
         "id": 13131,
         "parent": 1313,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "inspect",
         "display_singular": "Inspect",
         "description": "The delivery must match the delivery docket (packing slip). and the items on the order. They must also match the standards / quality expected. If the delivery doesn't pass the inspection, they can be refused (do not accept) or accepted but with return to supplier queued.",
@@ -2231,7 +2243,7 @@ export const data = [
     {
         "id": 13132,
         "parent": 1313,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "accept",
         "display_singular": "Accept",
         "description": "Sign for and take posession of the delivery",
@@ -2240,16 +2252,27 @@ export const data = [
     {
         "id": 13133,
         "parent": 1313,
-        "status": "1. New",
-        "name_singular": "log",
-        "display_singular": "Log",
-        "description": "Log/Chronicle/File the delivery details in the system (",
-        "nickname": "procurement-receiving-log"
+        "status": "0. New",
+        "name_singular": "stow",
+        "display_singular": "Stow",
+        "description": "Log/Chronicle/File the delivery details and add the stock to the warehouse",
+        "summary": "The quantity is added to the warehouse inventory",
+        "nickname": "procurement-receiving-stow"
+    },
+    {
+        "id": 13134,
+        "parent": 1313,
+        "status": "0. New",
+        "name_singular": "stocking",
+        "display_singular": "Stocking",
+        "description": "(Automatically or manually) Make the products available for use",
+        "summary": "Stock physically or metaphorically 'placed on shop shelves'",
+        "nickname": "procurement-receiving-stocking"
     },
     {
         "id": 132,
         "parent": 13,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "warehousing",
         "display_singular": "Warehousing",
         "description": "Inventory Management",
@@ -2258,16 +2281,17 @@ export const data = [
     {
         "id": 1320,
         "parent": 132,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "warehouses",
         "display_singular": "Warehouses",
-        "description": "Warehouses, warehouse bins and virtual buckets",
+        "description": "Manage stock locations",
+        "summary": "Warehouses, warehouse bins, shelves and virtual buckets",
         "nickname": "product-warehousing-warehouses"
     },
     {
         "id": 1321,
         "parent": 132,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "inventory",
         "display_singular": "Inventory",
         "description": "Management of held stock",
@@ -2276,7 +2300,7 @@ export const data = [
     {
         "id": 1322,
         "parent": 132,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "transfers",
         "display_singular": "Transfers",
         "description": "Transfer items in, out and between warehouse areas",
@@ -2285,7 +2309,7 @@ export const data = [
     {
         "id": 1323,
         "parent": 132,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "stocktake",
         "display_singular": "Stocktake",
         "description": "Inventory count and reconciliation management",
@@ -2294,7 +2318,7 @@ export const data = [
     {
         "id": 13230,
         "parent": 1323,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "counts",
         "display_singular": "Counts",
         "description": "Undertake a reconciliation of held stock (compare database against actuals)",
@@ -2303,7 +2327,7 @@ export const data = [
     {
         "id": 1324,
         "parent": 132,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "adjustments",
         "display_singular": "Adjustments",
         "description": "Inventory count and reconciliation management",
@@ -2321,7 +2345,7 @@ export const data = [
     {
         "id": 1330,
         "parent": 133,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "picking",
         "display_singular": "Picking",
         "description": "taking items from inventory (picking or adjusting stock)",
@@ -2330,7 +2354,7 @@ export const data = [
     {
         "id": 13301,
         "parent": 1330,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "withdraw",
         "display_singular": "Withdraw",
         "description": "physically pick the item (if physical) from the warehouse and mark it as picked/taken from the digital warehouse.",
@@ -2339,7 +2363,7 @@ export const data = [
     {
         "id": 1331,
         "parent": 133,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "assembly",
         "display_singular": "Assembly",
         "description": "assembling and configuring components / preparation of the product before being provided to the consumer",
@@ -2348,7 +2372,7 @@ export const data = [
     {
         "id": 1332,
         "parent": 133,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "shipping",
         "display_singular": "Shipping",
         "description": "transfering the item (physically, virtually and in terms of ownership) to the consumer",
@@ -2357,25 +2381,27 @@ export const data = [
     {
         "id": 1333,
         "parent": 133,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "installation",
         "display_singular": "Installation",
-        "description": "Go live of the product, recording/activating the configuration, transfer of product ownership",
+        "description": "Go-live of the product",
+        "summary": "Recording/activating the configuration, transfer of product ownership and responsibility",
         "nickname": "product-deployment-installation"
     },
     {
         "id": 1334,
         "parent": 133,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "usage",
         "display_singular": "Usage",
-        "description": "Management and monitoring of the product while it's in an active deployed state being used by the customer",
+        "description": "Deployed, in-use products ('configurations')",
+        "summary": "Management and monitoring of the product while it's in an active deployed state being used by the customer",
         "nickname": "product-deployment-usage"
     },
     {
         "id": 13340,
         "parent": 1334,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "function",
         "display_singular": "Function",
         "description": "Intended usage of the product by the consumer, and any necessary support for it",
@@ -2384,7 +2410,7 @@ export const data = [
     {
         "id": 13341,
         "parent": 1334,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "monitoring",
         "display_singular": "Monitoring",
         "description": "monitoring deployed products",
@@ -2393,7 +2419,7 @@ export const data = [
     {
         "id": 13342,
         "parent": 1334,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "maintenance",
         "display_singular": "Maintenance",
         "description": "Performing maintenance (at schedule times, upon request of the user, or when there is a product alert",
@@ -2402,7 +2428,7 @@ export const data = [
     {
         "id": 13343,
         "parent": 1334,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "faults",
         "display_singular": "Faults",
         "description": "Assisting with / resolving any unintended issues with the product",
@@ -2420,7 +2446,7 @@ export const data = [
     {
         "id": 1340,
         "parent": 134,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "deactivations",
         "display_singular": "Deactivations",
         "summary": "announcing product end of life, turning off functionality",
@@ -2429,7 +2455,7 @@ export const data = [
     {
         "id": 1342,
         "parent": 134,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "replacements",
         "display_singular": "Replacements",
         "summary": "Organising an upgrade path for the old product",
@@ -2438,7 +2464,7 @@ export const data = [
     {
         "id": 1343,
         "parent": 134,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "retrievals",
         "display_singular": "Retrievals",
         "summary": "Getting products back from the customer where necessary",
@@ -2447,7 +2473,7 @@ export const data = [
     {
         "id": 1344,
         "parent": 134,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "disposals",
         "display_singular": "Disposals",
         "summary": "Purging/archiving old products, and organising physical disposal/destruction where necessary",
@@ -2462,7 +2488,7 @@ export const data = [
     {
         "id": 14,
         "parent": 1,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "customer",
         "display_singular": "Customer",
         "description": "Management of your clients / consumers / users",
@@ -2471,7 +2497,7 @@ export const data = [
     {
         "id": 140,
         "parent": 14,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "lifecycle",
         "display_singular": "Lifecycle",
         "description": "Prospective, Onboarding, Active, Watchlist and Offboarding client relationships",
@@ -2480,7 +2506,7 @@ export const data = [
     {
         "id": 1400,
         "parent": 140,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "prospects",
         "display_singular": "Prospects",
         "summary": "",
@@ -2494,7 +2520,7 @@ export const data = [
     {
         "id": 1401,
         "parent": 140,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "onboarding",
         "display_singular": "Onboarding",
         "summary": "",
@@ -2509,7 +2535,7 @@ export const data = [
     {
         "id": 1402,
         "parent": 140,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "retention",
         "display_singular": "Retention",
         "summary": "Management of your active customers",
@@ -2522,7 +2548,7 @@ export const data = [
     {
         "id": 1403,
         "parent": 140,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "watchlist",
         "display_singular": "Watchlist",
         "summary": "",
@@ -2537,7 +2563,7 @@ export const data = [
     {
         "id": 1404,
         "parent": 140,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "offboarding",
         "display_singular": "Offboarding",
         "summary": "",
@@ -2554,7 +2580,7 @@ export const data = [
     {
         "id": 141,
         "parent": 14,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "sales",
         "display_singular": "Sales",
         "description": "Leads, Quoting, Propsals and Commitment",
@@ -2563,7 +2589,7 @@ export const data = [
     {
         "id": 1410,
         "parent": 141,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "leads",
         "display_singular": "Leads",
         "nickname": "customer-sales-leads"
@@ -2571,7 +2597,7 @@ export const data = [
     {
         "id": 1411,
         "parent": 141,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "quotes",
         "display_singular": "Quotes",
         "nickname": "customer-sales-quotes"
@@ -2579,7 +2605,7 @@ export const data = [
     {
         "id": 1412,
         "parent": 141,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "proposals",
         "display_singular": "Proposals",
         "nickname": "customer-sales-proposals"
@@ -2587,7 +2613,7 @@ export const data = [
     {
         "id": 1413,
         "parent": 141,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "commitment",
         "display_singular": "Commitment",
         "nickname": "customer-sales-commitment"
@@ -2595,7 +2621,7 @@ export const data = [
     {
         "id": 142,
         "parent": 14,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "relationships",
         "display_singular": "Relationships",
         "description": "Delivery, Support, Service, Disputes and Help",
@@ -2604,7 +2630,7 @@ export const data = [
     {
         "id": 1420,
         "parent" : 142,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular" : "agreements",
         "display_singular" : "Agreements",
         "description": "Delivery, Support, Service, Disputes and Help",
@@ -2613,7 +2639,7 @@ export const data = [
     {
         "id": 1421,
         "parent": 142,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "support",
         "display_singular": "Support",
         "nickname": "customer-relationships-support"
@@ -2621,7 +2647,7 @@ export const data = [
     {
         "id": 1422,
         "parent": 142,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "information",
         "display_singular": "Information",
         "included": [
@@ -2635,7 +2661,7 @@ export const data = [
     {
         "id": 1423,
         "parent": 142,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "disputes",
         "display_singular": "Disputes",
         "description": "managing customer queries and issues. This may trigger the customer being moved to the 'watchlist' queue.",
@@ -2652,7 +2678,7 @@ export const data = [
     },
     {
         "id": 1430,
-        "parent": 14,
+        "parent": 143,
         "status": "5. Hold",
         "name_singular": "reviews",
         "display_singular": "Reviews",
@@ -2671,7 +2697,7 @@ export const data = [
     {
         "id": 15,
         "parent": 1,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "supplier",
         "display_singular": "Supplier",
         "description": "Management of partners / suppliers / vendors / manufacturers",
@@ -2680,7 +2706,7 @@ export const data = [
     {
         "id": 150,
         "parent": 15,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "chain",
         "display_singular": "Chain",
         "description": "Map the supply chain",
@@ -2689,7 +2715,7 @@ export const data = [
     {
         "id": 151,
         "parent": 15,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "affiliations",
         "display_singular": "Affiliations",
         "description": "Credit applications with vendors, supplier payment methods/verifications and portals/integrations",
@@ -2757,7 +2783,7 @@ export const data = [
     {
         "id": 152,
         "parent": 15,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "purchases",
         "display_singular": "Purchases",
         "description": "Purchasing products/services/subscriptions/licenses from vendors",
@@ -2820,7 +2846,7 @@ export const data = [
     {
         "id": 16,
         "parent": 1,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "personnel",
         "display_singular": "Personnel",
         "description": "Employee tools & Human Resources",
@@ -2829,7 +2855,7 @@ export const data = [
     {
         "id": 160,
         "parent": 16,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "employment",
         "display_singular": "Employment",
         "description": "Human Resource Planning and recruitment",
@@ -2838,7 +2864,7 @@ export const data = [
     {
         "id": 1600,
         "parent": 160,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "roles",
         "display_singular": "Roles",
         "description": "Forecast and plan for employment needs",
@@ -2848,7 +2874,7 @@ export const data = [
     {
         "id": 16000,
         "parent": 1600,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "forecasting",
         "display_singular": "Forecasting",
         "summary": "Personnel requirements forecasting",
@@ -2858,7 +2884,7 @@ export const data = [
     {
         "id": 16001,
         "parent": 1600,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "talent",
         "display_singular": "Talent",
         "summary": "Talent Management",
@@ -2868,7 +2894,7 @@ export const data = [
     {
         "id": 16002,
         "parent": 1600,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "succession",
         "display_singular": "Succession",
         "summary": "Succession Planning",
@@ -2878,7 +2904,7 @@ export const data = [
     {
         "id": 16003,
         "parent": 1600,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "structure",
         "display_singular": "Structure",
         "summary": "Organizational Structure",
@@ -2888,7 +2914,7 @@ export const data = [
     {
         "id": 1601,
         "parent": 160,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "recruitment",
         "display_singular": "Recruitment",
         "description": "Advertise, shortlist and hire for roles",
@@ -2897,7 +2923,7 @@ export const data = [
     {
         "id": 1602,
         "parent": 160,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "placements",
         "display_singular": "Placements",
         "description": "Appointments to positions: Promotions, transfers etc.",
@@ -2906,7 +2932,7 @@ export const data = [
     {
         "id": 16020,
         "parent": 1602,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "preferments",
         "display_singular": "Preferments",
         "description": "Promotions and appointments to positions",
@@ -2915,7 +2941,7 @@ export const data = [
     {
         "id": 16021,
         "parent": 1602,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "transfers",
         "display_singular": "Transfers",
         "description": "Location/responsibility transfers, changes to responsibilities",
@@ -2924,7 +2950,7 @@ export const data = [
     {
         "id": 16022,
         "parent": 1602,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "secondments",
         "display_singular": "Secondments",
         "description": "Temporary changes to responsibilities",
@@ -2971,7 +2997,7 @@ export const data = [
     {
         "id": 1604,
         "parent": 160,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "retirements",
         "display_singular": "Retirements",
         "description": "Firing, resignations, redundancies, layoffs and other classes of employee termination",
@@ -2980,7 +3006,7 @@ export const data = [
     {
         "id": 161,
         "parent": 16,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "attendance",
         "display_singular": "Attendance",
         "description": "Employee availability, attendance and timesheets",
@@ -2994,7 +3020,7 @@ export const data = [
     {
         "id": 1610,
         "parent": 161,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "rosters",
         "display_singular": "Rosters",
         "description": "Calendar your rosters and shifts",
@@ -3004,7 +3030,7 @@ export const data = [
     {
         "id": 1611,
         "parent": 161,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "leave",
         "display_singular": "Leave",
         "description": "Time off in Lieu (TOIL), Bank/Public Holidays, Personal/Sick, Annual, Carers, Compassionate, Gardening Leave, Parental, Unpaid, Sabbatical, Suspensions and other types of Leave",
@@ -3013,7 +3039,7 @@ export const data = [
     {
         "id": 1612,
         "parent": 161,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "overtime",
         "display_singular": "Overtime",
         "description": "overtime and on-call",
@@ -3022,7 +3048,7 @@ export const data = [
     {
         "id": 1613,
         "parent": 161,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "timesheets",
         "display_singular": "Timesheets",
         "description": "",
@@ -3031,7 +3057,7 @@ export const data = [
     {
         "id": 162,
         "parent": 16,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "payroll",
         "display_singular": "Payroll",
         "description": "Payroll, commissions, incentive schemes, salary packaging, bonuses, backpays, expenses, pensions/superannuation/401ks, reimbursements, allowances and other forms of compensation",
@@ -3076,7 +3102,7 @@ export const data = [
     {
         "id": 1624,
         "parent": 162,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "payrun",
         "display_singular": "Payrun",
         "price_unit": "employee",
@@ -3282,7 +3308,7 @@ export const data = [
     {
         "id": 17,
         "parent": 1,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "market",
         "display_singular": "Market",
         "description": "Marketing, branding and community engagement",
@@ -3291,7 +3317,7 @@ export const data = [
     {
         "id": 170,
         "parent": 17,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "brands",
         "display_singular": "Brands",
         "description": "Your company brand, USP, image, logo and design guidelines",
@@ -3349,7 +3375,7 @@ export const data = [
     {
         "id": 174,
         "parent": 17,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "engagement",
         "display_singular": "Engagement",
         "description": "Content Marketing: Media, event management and community engagement",
@@ -3375,7 +3401,7 @@ export const data = [
     {
         "id": 1740,
         "parent": 174,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "channels",
         "display_singular": "Channels",
         "tagline": "TAGLINE",
@@ -3389,7 +3415,7 @@ export const data = [
     {
         "id": 1741,
         "parent": 174,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "posts",
         "display_singular": "Posts",
         "tagline": "TAGLINE",
@@ -3403,7 +3429,7 @@ export const data = [
     {
         "id": 1742,
         "parent": 174,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "calendar",
         "display_singular": "Calendar",
         "tagline": "TAGLINE",
@@ -3417,7 +3443,7 @@ export const data = [
     {
         "id": 1743,
         "parent": 174,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "engagement",
         "display_singular": "Engagement",
         "description": "Engaging with the community, replying to posts comments etc.",
@@ -3431,7 +3457,7 @@ export const data = [
     {
         "id": 18,
         "parent": 1,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "project",
         "display_singular": "Project",
         "description": "Management of all the production (all work/tasks) that is undertaken in the business",
@@ -3440,7 +3466,7 @@ export const data = [
     {
         "id": 180,
         "parent": 18,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "control",
         "display_singular": "Control",
         "description": "Project control, quality and change management",
@@ -3449,7 +3475,7 @@ export const data = [
     {
         "id": 1800,
         "parent": 180,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "quality",
         "display_singular": "Quality",
         "description": "Quality Assurance and Control",
@@ -3458,7 +3484,7 @@ export const data = [
     {
         "id": 1801,
         "parent": 180,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "changes",
         "display_singular": "Changes",
         "description": "Change Requests and Management",
@@ -3467,7 +3493,7 @@ export const data = [
     {
         "id": 1802,
         "parent": 180,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "progress",
         "display_singular": "Progress",
         "summary": "Project progress monitoring, using data from project-planning-schedule and other modules",
@@ -3481,7 +3507,7 @@ export const data = [
     {
         "id": 1803,
         "parent": 180,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "projection",
         "display_singular": "Projection",
         "summary": "Project forecasting",
@@ -3490,7 +3516,7 @@ export const data = [
     {
         "id": 1804,
         "parent": 180,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "risk",
         "display_singular": "Risk",
         "nickname": "project-control-risk"
@@ -3498,7 +3524,7 @@ export const data = [
     {
         "id": 181,
         "parent": 18,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "response",
         "display_singular": "Response",
         "description": "Project stakeholder management, requirements analysis and communications",
@@ -3515,7 +3541,7 @@ export const data = [
     {
         "id": 1810,
         "parent": 181,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "initiation",
         "display_singular": "Initiation",
         "summary": "project/ticket initialisation (auto or manual)",
@@ -3527,7 +3553,7 @@ export const data = [
     {
         "id": 18101,
         "parent": 1810,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "templating",
         "display_singular": "Templating",
         "summary": "Templates for recurring tickets or pattern matching",
@@ -3537,7 +3563,7 @@ export const data = [
     {
         "id": 1811,
         "parent": 181,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "triage",
         "display_singular": "Triage",
         "summary": "urgency and impact evaluation + queuing",
@@ -3552,7 +3578,7 @@ export const data = [
     {
         "id": 18110,
         "parent": 1811,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "ticket-companies",
         "display_singular": "Companies",
         "summary": "select relevant groups/organisations/companies. Create them if they don't exist",
@@ -3562,7 +3588,7 @@ export const data = [
     {
         "id": 18111,
         "parent": 1811,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "ticket-categorisation",
         "display_singular": "Categorisation",
         "summary": "Categorise the issue with types (request, incident, change, problem), subtypes etc.",
@@ -3571,7 +3597,7 @@ export const data = [
     {
         "id": 18112,
         "parent": 1811,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "ticket-prioritization",
         "display_singular": "Prioritization",
         "summary": "Set the impact and urgency. The SLA/SLO (Service Level Agreement / Objectives - Response times) should ideally be set automatically from the prioritization, else set manually.",
@@ -3580,7 +3606,7 @@ export const data = [
     {
         "id": 1812,
         "parent": 181,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "stakeholders",
         "display_singular": "Stakeholders",
         "nickname": "project-response-stakeholders"
@@ -3588,7 +3614,7 @@ export const data = [
     {
         "id": 18120,
         "parent": 1812,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "stakeholder-identify",
         "display_singular": "Identify",
         "summary": "Add any relevant stakeholders to the ticket",
@@ -3597,7 +3623,7 @@ export const data = [
     {
         "id": 1813,
         "parent": 181,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "requirements",
         "display_singular": "Requirements",
         "description": "A list of requirements is maintained throughout the project lifespan, and stakeholders are consulted to ensure accuracy and alignment",
@@ -3608,7 +3634,7 @@ export const data = [
     {
         "id": 18130,
         "parent": 1813,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "assignprocesses",
         "display_singular": "Assign Processes",
         "description": "Attach documentation to the ticket.",
@@ -3618,7 +3644,7 @@ export const data = [
     {
         "id": 18131,
         "parent": 1813,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "establishrequirements",
         "display_singular": "Establish Requirements",
         "description": "List the necessary requirements",
@@ -3627,7 +3653,7 @@ export const data = [
     {
         "id": 1814,
         "parent": 181,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "communications",
         "display_singular": "Communications",
         "nickname": "project-response-communications"
@@ -3635,7 +3661,7 @@ export const data = [
     {
         "id": 182,
         "parent": 18,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "planning",
         "display_singular": "Planning",
         "description": "Project designing, resource allocation and scheduling",
@@ -3644,7 +3670,7 @@ export const data = [
     {
         "id": 1820,
         "parent": 182,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "investigations",
         "display_singular": "Investigations",
         "description": "Research into the problem and requirements",
@@ -3654,7 +3680,7 @@ export const data = [
     {
         "id": 1821,
         "parent": 182,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "features",
         "display_singular": "Features",
         "summary": "Lay out user stories / use cases / features",
@@ -3663,7 +3689,7 @@ export const data = [
     {
         "id": 1822,
         "parent": 182,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "designs",
         "display_singular": "Designs",
         "summary": "proposals for a solution consisting of deliverables",
@@ -3672,7 +3698,7 @@ export const data = [
     {
         "id": 1823,
         "parent": 182,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "resources",
         "display_singular": "Resources",
         "summary": "request & allocate resources for the project/ticket",
@@ -3681,7 +3707,7 @@ export const data = [
     {
         "id": 1824,
         "parent": 182,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "schedule",
         "display_singular": "Schedule",
         "description": "Calendaring all resources (Plotting resources against time)",
@@ -3691,7 +3717,7 @@ export const data = [
     {
         "id": 183,
         "parent": 18,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "execution",
         "display_singular": "Execution",
         "description": "Project implementation & installations",
@@ -3700,7 +3726,7 @@ export const data = [
     {
         "id": 1830,
         "parent": 183,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "fulfilment",
         "display_singular": "Fulfilment",
         "summary": "delivering the resources as stated in the design phase",
@@ -3709,7 +3735,7 @@ export const data = [
     {
         "id": 1831,
         "parent": 183,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "",
         "display_singular": "",
         "nickname": "project-execution-"
@@ -3717,7 +3743,7 @@ export const data = [
     {
         "id": 1832,
         "parent": 183,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "documentation",
         "display_singular": "Documentation",
         "nickname": "project-execution-documentation"
@@ -3725,7 +3751,7 @@ export const data = [
     {
         "id": 1833,
         "parent": 183,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "implementation",
         "display_singular": "Implementation",
         "description": "Implement the deliverable",
@@ -3735,7 +3761,7 @@ export const data = [
     {
         "id": 1834,
         "parent": 183,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "testing",
         "display_singular": "Testing",
         "summary": "Tests and validation for the solution/deliverable, rollbacks for failed tests, monitoring periods to confirm fixes",
@@ -3744,7 +3770,7 @@ export const data = [
     {
         "id": 18340,
         "parent": 1834,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "tests",
         "display_singular": "Tests",
         "nickname": "project-execution-testing-tests"
@@ -3752,7 +3778,7 @@ export const data = [
     {
         "id": 18341,
         "parent": 1834,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "rollbacks",
         "display_singular": "Rollbacks",
         "nickname": "project-execution-testing-rollbacks"
@@ -3760,7 +3786,7 @@ export const data = [
     {
         "id": 184,
         "parent": 18,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "evaluation",
         "display_singular": "Evaluation",
         "description": "Reporting, Analysis, Handover, Documentation, Training",
@@ -3772,7 +3798,7 @@ export const data = [
     {
         "id": 1840,
         "parent": 184,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "handover",
         "display_singular": "Handover",
         "description": "Project documentation, training, handover, acceptance, evaluation and closure",
@@ -3781,7 +3807,7 @@ export const data = [
     {
         "id": 18400,
         "parent": 1840,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "package",
         "display_singular": "Package",
         "summary": "Final pack of materials provided to the successor team",
@@ -3791,7 +3817,7 @@ export const data = [
     {
         "id": 18401,
         "parent": 1840,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "training",
         "display_singular": "Training",
         "summary": "",
@@ -3801,7 +3827,7 @@ export const data = [
     {
         "id": 1841,
         "parent": 184,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "analysis",
         "display_singular": "Analysis",
         "description": "Reporting and analysis of work done, including lessons learned",
@@ -3810,7 +3836,7 @@ export const data = [
     {
         "id": 1842,
         "parent": 184,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "x",
         "display_singular": "x",
         "nickname": "project-evaluation-x"
@@ -3818,7 +3844,7 @@ export const data = [
     {
         "id": 1843,
         "parent": 184,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "y",
         "display_singular": "y",
         "nickname": "project-evaluation-y"
@@ -3826,7 +3852,7 @@ export const data = [
     {
         "id": 1844,
         "parent": 184,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "closure",
         "display_singular": "Closure",
         "description": "Acceptance and closure of the work done (by all stakeholders)",
@@ -3835,7 +3861,7 @@ export const data = [
     {
         "id": 18440,
         "parent": 1844,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "release",
         "display_singular": "Release",
         "description": "Release resources",
@@ -3845,7 +3871,7 @@ export const data = [
     {
         "id": 18441,
         "parent": 1844,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "archiving",
         "display_singular": "Archiving",
         "description": "File away any completed entities",
@@ -3855,7 +3881,7 @@ export const data = [
     {
         "id": 18442,
         "parent": 1844,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "checklist",
         "display_singular": "Checklist",
         "description": "completion and compliance checklist",
@@ -3864,7 +3890,7 @@ export const data = [
     {
         "id": 18443,
         "parent": 1844,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "signoff",
         "display_singular": "Signoff",
         "description": "Acceptance and signoff from all stakeholders", 
@@ -3874,7 +3900,7 @@ export const data = [
     {
         "id": 18444,
         "parent": 1844,
-        "status": "1. New",
+        "status": "0. New",
         "name_singular": "completion",
         "display_singular": "Completion",
         "description": "Close remaining entities and move the project from Evaluate to Complete",
@@ -4531,3 +4557,5 @@ export const data = [
 
 // const newData = data;
 // export {newData}
+
+// console.log(data.filter(x=>x.id>99999))?.length();

@@ -23,7 +23,7 @@ export const ViewPodMain = ({items,children}:any) => {
 export const ViewPodList = ({items,children}:any) => {
     return (
         <Text>
-        ViewPodList todo
+        ViewPodList (todo)
         </Text>
     )
 }

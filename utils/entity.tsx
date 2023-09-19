@@ -1,14 +1,13 @@
 import React, { memo } from 'react';
 import { createUuid4, typeUuid4, validateUuid4 } from './uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { TextInput, View, Text, Pressable } from 'react-native';
 import { Link, useLocation } from 'react-router-dom'
 import { ViewListMain } from './list'
 import { ViewTableMain,useTableColumns } from '../components/displays/table/table'
 import { ViewJsonMain } from './json'
 import { ViewPodsMain } from '../components/displays/pods/pods'
-import { ViewFormMain } from './form'
 import { useState } from 'react'
 import { useAttributeUnioned} from './attribute'
 import { data } from './static'
@@ -42,12 +41,13 @@ export const ViewEntityTabs = ({id}:any) => {
 
 // Array
 
-export const useEntityArray = (filter_object:any)=> { // todo: implement filter_array in query function
+export const useEntityArray = (filter_object?:any)=> { // todo: implement filter_array in query function
   const query = useQuery({
       queryKey:['entities','array',filter_object],
       queryFn:()=>{
           return instanceSupabaseClient
-              .from("entities")
+              .from("entities_orgmenta")
+              // .from("entities")
               .select()
               
               // temp hardcoded filters:
@@ -59,7 +59,8 @@ export const useEntityArray = (filter_object:any)=> { // todo: implement filter_
               .limit(10) // temporary limit, feel free to remove this or make pagination dynamic if needed.
               .then(response=>response.data)
       },
-      enabled: true
+      enabled: true,
+      refetchOnMount: true,
   });
   return query
 }
@@ -96,7 +97,8 @@ export const useEntityCount = ({filter_array}:any)=> { // todo: implement filter
       queryKey:['entities','count',filter_array],
       queryFn:()=>{
           return instanceSupabaseClient
-              .from("entities")
+              // .from("entities")
+              .from("entities_orgmenta")
               .select('*', { count: 'exact', head: true })
                // todo: implement filter_array here
               .then(response=>response)
@@ -119,17 +121,56 @@ export interface interfaceEntityCreate {
   [key: string]: any
 }
 
+export async function validateEntityCreate(
+    entity:interfaceEntityCreate,
+  ) {
+  console.log('todo')
+}
+
 export async function requestEntityCreate(
     entity:interfaceEntityCreate,
   ) {
+  // console.log('useEntityCreate',entity)
   return await instanceSupabaseClient
-    .from("entities")
+    // .from("entities")
+    .from("entities_orgmenta")
     .insert(entity)
     .then(handleSupabaseResponse as any)
 }
 
 export const useEntityCreate = (props:interfaceEntityCreate) => {
-  return useMutation(['entity','create'], () => requestEntityCreate(props))
+  const queryClient = useQueryClient();
+  const { refetch } = useEntityArray()
+  return useMutation(
+    ["entity", "create"],
+    () => requestEntityCreate(props),
+    // Future enhancement: Optimistic updates to client side cache. 
+    // This will need us to determine which of the queries need to be updated - so we need to find 'filter_object' (see useEntityArray query key)
+    // {
+    //   onMutate: (newData) => {
+    //       // Backup the current cache data
+    //       const previousData = queryClient.getQueryData(['entities', 'array']);
+    //       // Optimistically update the cache with the new data
+    //       queryClient.setQueryData(['entities', 'array'], (oldData:any) => [...oldData, newData]);
+    //       // Return the backup to rollback in case of error
+    //       return { previousData };
+    //   },
+    //   onError: (error, newData, context) => {
+    //       // Rollback the cache update on error
+    //       queryClient.setQueryData(['entities', 'array', filter_object], context.previousData);
+    //   },
+    //   onSettled: () => {
+    //       // Invalidate the query to refetch
+    //       queryClient.invalidateQueries(['entities', 'array', filter_object]);
+    //   }
+    // }
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["entity", "create"]);
+        // refetch(); 
+      },
+    }
+  );
 }
 
 

@@ -38,7 +38,7 @@ export const ViewFormDynamic = ({data, title}:any) => {
         </View>)} */}
         {data?.map((item,key)=>
           // replace with dynamic field component from field.tsx
-          <ViewFieldMain key={key} item={{...item, label: item.display_singular, value: item.value, component: 'Text'}}/>
+          <ViewFieldMain key={key} item={{...item, label: item.display_singular, value: item.value, component: item.form_field || 'Text'}}/>
           // <View key={i} style={{margin:4, flexDirection:'row'}}>
           //   <Text style={{flex: 1, fontWeight:'600'}}>{x?.display_singular}</Text>
           //   <Text style={{flex: 1}}>{x?.value}</Text>

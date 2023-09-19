@@ -11,10 +11,10 @@ export default function Header() {
   return (
     <View
       style={{
-        padding: 5,
-        paddingLeft:20,
+        // padding: 5,
+        // paddingLeft:20,
         flexDirection: "row",
-        gap: 5,
+        // gap: 5,
         justifyContent: "center",
         backgroundColor: "#0c4a73",
         borderBottomColor: "black",

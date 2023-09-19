@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { View } from "react-native";
-import ViewFormMain from "./ViewFormMain";
+import { ViewFormMain } from "./ViewFormMain";
 
 const ViewDisplayForm = (props: any) => {
   // Chris todo: auxiliary data doesn't have relationship ids yet, so 'if(oldItem.focus_columns.cell_field==='relationship'){' does nothing yet

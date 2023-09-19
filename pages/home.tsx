@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { Button, Text, View,Image, ScrollView } from "react-native";
 import DocumentPicker from "../components/picker/DocumentPicker";
 import useTokenStore from "../states/api/storeToken";
-import { callMsGraph } from "../api/graphApiCall";
+import { callMsGraphGET } from "../api/graphApiCall";
 import { fileUpload } from "../utils/storage";
 
 import Svg, { Path, G } from 'react-native-svg';
@@ -18,7 +18,7 @@ export default function Home() {
   const upload = fileUpload({name: 'exampledocument', file: pickedDocument[0]});
 
   const fetchData = async (token: string) => {
-    const data = await callMsGraph(token);
+    const data = await callMsGraphGET(token);
     console.log(data);
   };
 

@@ -1,6 +1,6 @@
 import { msalInstance, loginRequest } from "./authConfig";
 
-export const callMsGraphGET = async (accessToken: string, endpoint: string) => {
+export const callMsGraphGET = async (accessToken: string, endpoint?: string) => {
   if (!accessToken) {
     const account = msalInstance.getActiveAccount();
     if (!account) {

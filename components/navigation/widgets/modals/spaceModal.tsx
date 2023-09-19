@@ -1,15 +1,17 @@
 import React from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import { Link } from "react-router-dom";
+import { useSpaceArray, useSpaceActive } from "../../../../utils/space"
 
 // @ts-ignore
 const SpaceModal = (props) => {
+  const space_array = useSpaceArray({}) // This will return all spaces that the user has access to
+  const space_active = useSpaceActive({}) // Placeholder - need to add a useQuery cache query that holds the active space
   const { modalVisible, setModalVisible } = props;
-
   return (
     <View style={styles.centeredView}>
       <Modal
-        animationType="slide"
+        animationType="none"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -24,13 +26,15 @@ const SpaceModal = (props) => {
                 <Text style={styles.avatarText}>C</Text>
               </View>
               <View>
-                <Text style={styles.titleText}>Captain's Organization</Text>
+                <Text style={styles.titleText}>{space_active?.data?.title}</Text>
               </View>
             </View>
             <View style={styles.divider}></View>
             <View style={styles.spaceLinks}>
+              <Link to={`/spaces/${'SPACEIDHERE'}/pods`}>SPACE</Link>
+              <Link to={`/spaces/all/pods`}>ALL SPACES</Link>
               <Link to="">Files</Link>
-              <Link to="">Settings</Link>
+              <Link to="">Settings</Link> 
               <Link to="">Subscription & Billing</Link>
             </View>
             <View style={styles.divider}></View>

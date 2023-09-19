@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { v4 as uuid} from 'uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
+import { createUuid4, typeUuid4, validateUuid4 } from './uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { TextInput,ScrollView, View, Text, Pressable } from 'react-native';
@@ -81,14 +81,14 @@ export const useAttributeUnioned = (class_array=[] as any)=> {
           return instanceSupabaseClient
               .from("attributes_unioned")
               .select()
-              .or(`class.is.null, class.cd.{${searchArray}}`) // match at least one value from the search array (or if null, assume that it is a universal attribute )
+              .or(`class.cd.{${searchArray}}`) // match at least one value from the search array (or if null, assume that it is a universal attribute )
+              // .or(`class.is.null, class.cd.{${searchArray}}`) // match at least one value from the search array (or if null, assume that it is a universal attribute )
               .then(response=>response.data)
       },
       enabled: true
   });
   return query
 }
-
 
 export const ViewAttributeUnioned = memo(() => {
     const array = useAttributeUnioned({attribute_class:'Entity'})

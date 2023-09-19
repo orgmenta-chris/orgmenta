@@ -1,7 +1,7 @@
 import React from "react";
 import { ScrollView, View, Text } from "react-native";
 
-const ViewFormMain = ({ data }: any) => {
+export const ViewFormMain = ({ data }: any) => {
   return (
     <ScrollView>
       {/* <Text>{data && JSON.stringify(data)}</Text> */}
@@ -18,6 +18,4 @@ const ViewFormMain = ({ data }: any) => {
       ))}
     </ScrollView>
   );
-};
-
-export default ViewFormMain;
+};\

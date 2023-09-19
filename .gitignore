@@ -38,3 +38,4 @@ yarn-error.*
 # static.js
 # /utils/static.js 
 .env
+z_proposed_library

@@ -22,6 +22,7 @@ export interface interfaceSupabaseResponse {
 }
 
 export function handleSupabaseResponse(response:interfaceSupabaseResponse['response'],function_name:interfaceSupabaseResponse['function_name']) {
+    // console.log('handleSupabaseResponse',response)
     // todo: use function_name prop for logging purposes if useful
     if (response.error) throw response.error;
     return response.data;
@@ -47,6 +48,17 @@ export const mapSupabaseTables = {
     members: {
         description: "This describes the permissions/memberships a user has with a space"
     },
+}
+
+// Get a list of tables (not yet used)
+// This may be needed in the future to show the user all the spaces that are available to them / get the names of the tables associated with their spaces.
+export async function requestSupabaseTables(
+    filters:any,
+) {
+return await instanceSupabaseClient
+    .from("tables_public")
+    .select()
+    .then(handleSupabaseResponse as any)
 }
 
 

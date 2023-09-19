@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { ViewSpaceArray } from "../utils/space";
+import { ViewSpaceArray, ViewSpaceSwitch } from "../utils/space";
 import React from "react";
 
 export default function SpacePage() {
@@ -7,6 +7,7 @@ export default function SpacePage() {
     <View>
       <Text style={{ fontSize: 24 }}>Spaces</Text>
       <ViewSpaceArray />
+      <ViewSpaceSwitch/>
     </View>
   );
 }

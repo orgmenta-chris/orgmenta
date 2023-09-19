@@ -7,14 +7,6 @@
 import { View, Text,  TextInput,  Text as DropdownExample, Text as TogglesExample } from 'react-native';
 
 
-// Components
-
-export const mapFieldComponents:any= {
-    TextInput,
-    DropdownExample,
-    TogglesExample
-};
-
 
 // Tabs
 
@@ -29,12 +21,49 @@ export const ViewFieldTabs = ({id}:any) => { // todo
 
 // Main
 
-// A component that displays the correct field component dynamically.
-export const ViewFieldMain = ({component='TextInput'}:any) => {
-    const Component = mapFieldComponents[component]; // this may benefit from usecallback or memoization of some sort?
-    return (
-      <View style={{flexDirection:'row'}}>
-        <Component default='test'/>
-      </View>
-    )
+export interface interfaceFieldMain {
+  label:string,
+  value?:any,
+  defaultValue?:any,
+  placeholder?:any,
+  options?:any[],
+  component?:any // type of field, e.g. TextInput
 }
+
+
+// A component that displays the correct field component dynamically.
+// If the field type is known, then use that component module directly instead of using this one to dynamically select it.
+export const ViewFieldMain = ({item}:{item:interfaceFieldMain}) => {
+  const Component = mapFieldComponents[item?.form_field ? 'textinput' : 'text']; // this may benefit from usecallback or memoization of some sort?
+  return (
+    <View style={{flexDirection:'row'}}>
+      <Text style={{flex:1, fontWeight: 500}}>{item?.label || '[No label found]'}: </Text>
+
+      {/* <View  style={{flex:1}}><Component>{item.value}</Component></View> */}
+      <View  style={{flex:1}}><Component defaultValue={item.value}/></View>
+      
+      {/* <Text style={{flex:1, fontWeight: 500}}>{item?.form_sort}: </Text>   */}
+    </View>
+  )
+}
+
+
+// A default component if a 'field' wasn't specified for a field
+export const ViewFieldMissing = () => {
+  return (
+    <Text style={{}}>
+      ['component' property missing]
+    </Text>
+  )
+}
+
+
+// Components
+
+export const mapFieldComponents:any= {
+  missing:ViewFieldMissing,
+  text: Text,
+  textinput: TextInput,
+  dropdown: DropdownExample,
+  toggles: TogglesExample
+};

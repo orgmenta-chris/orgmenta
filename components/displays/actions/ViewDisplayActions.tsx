@@ -1,15 +1,14 @@
 import React from "react";
 import { View } from "react-native";
 import { Link, Routes, Route } from "react-router-dom";
-import { optionsDisplayActions } from "../../../utils/display";
-import { ViewEntityAdd } from "../../../utils/entity";
+import { optionsDisplayMain } from "../../../utils/display";
 import ViewIconMain from "../icons/ViewIconMain";
 
 const ViewDisplayActions = ({}: any) => {
   return (
     <View style={{ flexDirection: "row" }}>
       <View style={{ flexDirection: "row" }}>
-        {optionsDisplayActions?.map((x, i) => (
+        {optionsDisplayMain?.map((x, i) => (
           <Link key={i} style={{ padding: 5 }} to={x.title.toLowerCase()}>
             {/* {x.title} */}
             <ViewIconMain
@@ -21,9 +20,6 @@ const ViewDisplayActions = ({}: any) => {
           </Link>
         ))}
       </View>
-      <Routes>
-        <Route path="/add" element={<ViewEntityAdd />} />
-      </Routes>
     </View>
   );
 };

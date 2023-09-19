@@ -1,10 +1,12 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { useAuthSession } from "../utils/auth";
+import { ViewUserAttributes } from "../utils/user";
+import { ViewDisplayDynamic } from'../utils/display'
 
 export default function UserPage() {
   const session = useAuthSession();
-
+  
   return (
     <View style={{ flexDirection: "column" }}>
       <Text style={{ fontWeight: 700, marginBottom: 10 }}>USER PAGE</Text>
@@ -14,6 +16,10 @@ export default function UserPage() {
           <Text>Logged in as: {session.data.session.user.email}</Text>
         )}
       </View>
+      <ViewUserAttributes/>
+      <ViewDisplayDynamic/>
     </View>
   );
 }
+
+import { ViewFormMain } from "./form";

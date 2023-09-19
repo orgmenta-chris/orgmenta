@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Text, View, Pressable, StyleSheet } from "react-native";
 import BrowserModal from "./modals/browserModal";
+import { ViewIconMain } from "../../../utils/icon";
 
 export default function BrowseWidget() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -13,7 +14,12 @@ export default function BrowseWidget() {
           setModalVisible(true);
         }}
       >
-        <Text style={styles.navButton}>Browse</Text>
+        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%",textAlign:'right', paddingRight: 10, color:'white'}}>{`Browse`}</Text>
+        <ViewIconMain
+          name={'book-open'}
+          source={'Feather'}
+          color={'white'}
+        />
       </Pressable>
 
       {/* browser modal */}
@@ -28,7 +34,8 @@ export default function BrowseWidget() {
 
 const styles = StyleSheet.create({
   navButton: {
-    padding: 0,
-    margin: 0,
+    flex:1,
+    flexDirection:'row',
+    alignItems:'center',
   },
 });

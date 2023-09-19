@@ -1,17 +1,16 @@
 import React, { memo } from 'react';
-import { v4 as uuid} from 'uuid'
+import { createUuid4, typeUuid4, validateUuid4 } from './uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { TextInput, View, Text, Pressable } from 'react-native';
-import { Link, useLocation, Route, Routes } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { ViewListMain } from './list'
 import { ViewTableMain,useTableColumns } from '../components/displays/table/table'
 import { ViewJsonMain } from './json'
 import { ViewPodsMain } from '../components/displays/pods/pods'
-import { ViewFormMain } from './form'
 import { useState } from 'react'
 import { useAttributeUnioned} from './attribute'
-
+import { data } from './static'
 
 // Tabs
 
@@ -42,20 +41,26 @@ export const ViewEntityTabs = ({id}:any) => {
 
 // Array
 
-export const useEntityArray = ({filter_array}:any)=> { // todo: implement filter_array in query function
+export const useEntityArray = (filter_object?:any)=> { // todo: implement filter_array in query function
   const query = useQuery({
-      queryKey:['entities','array',filter_array],
+      queryKey:['entities','array',filter_object],
       queryFn:()=>{
           return instanceSupabaseClient
-              .from("entities")
+              .from("entities_orgmenta")
+              // .from("entities")
               .select()
+              
+              // temp hardcoded filters:
+              .contains('categories', [filter_object?.category || 'all']) 
+
               // .contains('other', { test: 1 }) // Example of how we can add static fields in (e.g. event_start can be in here instead of having to create a new column which is only applicable to events)
               // or we can store this sort of thing in side b of relationships (but that requires a join)
               // todo: implement filter_array here
               .limit(10) // temporary limit, feel free to remove this or make pagination dynamic if needed.
               .then(response=>response.data)
       },
-      enabled: true
+      enabled: true,
+      refetchOnMount: true,
   });
   return query
 }
@@ -63,19 +68,24 @@ export const useEntityArray = ({filter_array}:any)=> { // todo: implement filter
 
 // Single
 
-export const useEntitySingle = ({filter_array}:any)=> { // todo: implement filter_array in query function
-  const query = useQuery({
-      queryKey:['entities','single',filter_array],
-      queryFn:()=>{
-          return instanceSupabaseClient
-              .from("entities")
-              .select('*')
-              // todo: implement filter_array here
-              .limit(1)
-              .then(response=>response.data)
-      },
-      enabled: true
-  });
+export const useEntitySingle = (props:any)=> { // todo: implement filter_array in query function
+  // At the moment, this just uses the categories array (e.g. Accounts > Receivables > Invoices).
+  // But once the categories are in supabase (Chris is working on this), this will be changed to use the useQuery function.
+  const query = {
+    data: data.filter(x=>x.nickname===props.id)?.map(x=>x={...x,title:x.display_singular})
+  }
+  // const query = useQuery({
+  //     queryKey:['entities','single',filter_array],
+  //     queryFn:()=>{
+  //         return instanceSupabaseClient
+  //             .from("entities")
+  //             .select('*')
+  //             // todo: implement filter_array here
+  //             .limit(1)
+  //             .then(response=>response.data)
+  //     },
+  //     enabled: true
+  // });
   return query
 }
 
@@ -87,7 +97,8 @@ export const useEntityCount = ({filter_array}:any)=> { // todo: implement filter
       queryKey:['entities','count',filter_array],
       queryFn:()=>{
           return instanceSupabaseClient
-              .from("entities")
+              // .from("entities")
+              .from("entities_orgmenta")
               .select('*', { count: 'exact', head: true })
                // todo: implement filter_array here
               .then(response=>response)
@@ -98,115 +109,68 @@ export const useEntityCount = ({filter_array}:any)=> { // todo: implement filter
 }
 
 
-// Form
-
-export const ViewEntityAdd = ({}:any) => {
-  const [titleState, titleSet] = useState('');
-  const [typeState, typeSet] = useState('');
-  const [classState, classSet] = useState('');
-  const [statusState, statusSet] = useState('');
-  const [descriptionState, descriptionSet] = useState('');
-  return (
-    <View style={{flexDirection:'column'}}>
-      <View style={{flexDirection:'row'}}>
-        <Text>Title</Text>
-        <TextInput onChangeText={(value)=>titleSet(value)}></TextInput>
-      </View>
-      <View style={{flexDirection:'row'}}>
-        <Text>Type</Text>
-        <TextInput onChangeText={(value)=>typeSet(value)}></TextInput>
-      </View>
-      <View style={{flexDirection:'row'}}>
-        <Text>Class</Text>
-        <TextInput onChangeText={(value)=>classSet(value)}></TextInput>
-      </View>
-      <View style={{flexDirection:'row'}}>
-        <Text>Status</Text>
-        <Pressable 
-          style={{backgroundColor:statusState==='0. New'? 'gray' : 'lightblue', margin: 2, padding: 4}}
-          onPress={()=>statusSet('0. New')}
-        ><Text>0. New</Text></Pressable>
-        <Pressable 
-          style={{backgroundColor:statusState==='1. Respond'? 'gray' : 'lightblue', margin: 2, padding: 4}}
-          onPress={()=>statusSet('1. Respond')}
-        ><Text>1. Respond</Text></Pressable>
-        <Pressable 
-          style={{backgroundColor:statusState==='2. Active'? 'gray' : 'lightblue', margin: 2, padding: 4}}
-          onPress={()=>statusSet('2. Active')}
-        ><Text>2. Active</Text></Pressable>
-        <Pressable 
-          style={{backgroundColor:statusState==='3. Waiting'? 'gray' : 'lightblue', margin: 2, padding: 4}}
-          onPress={()=>statusSet('3. Waiting')}
-        ><Text>3. Waiting</Text></Pressable>
-        <Pressable 
-          style={{backgroundColor:statusState==='4. Hold'? 'gray' : 'lightblue', margin: 2, padding: 4}}
-          onPress={()=>statusSet('4. Hold')}
-        ><Text>4. Hold</Text></Pressable>
-        <Pressable 
-          style={{backgroundColor:statusState==='5. Evaluate'? 'gray' : 'lightblue', margin: 2, padding: 4}}
-          onPress={()=>statusSet('5. Evaluate')}
-        ><Text>5. Evaluate</Text></Pressable>
-        <Pressable 
-          style={{backgroundColor:statusState==='6. Cancelled'? 'gray' : 'lightblue', margin: 2, padding: 4}}
-          onPress={()=>statusSet('6. Cancelled')}
-        ><Text>6. Cancelled</Text></Pressable>
-        <Pressable 
-          style={{backgroundColor:statusState==='7. Complete'? 'gray' : 'lightblue', margin: 2, padding: 4}}
-          onPress={()=>statusSet('7. Complete')}
-        ><Text>7. Complete</Text></Pressable>
-      </View>
-      <View style={{flexDirection:'row'}}>
-        <Text>Description</Text>
-        <TextInput onChangeText={(value)=>descriptionSet(value)}></TextInput>
-      </View>
-      <View style={{flexDirection:'row'}}>
-        <Pressable 
-          style={{backgroundColor:'lightblue'}}
-          onPress={()=>console.log({
-            title: titleState,
-            type: typeState,
-            class: classState,
-            status:statusState,
-            description: descriptionState
-          })}
-        ><Text>Create</Text></Pressable>
-      </View>
-      {/* <View style={{flexDirection:'row'}}>
-        <Text>Testing:</Text>
-        <Text>{titleState}</Text>
-        <Text>{typeState}</Text>
-        <Text>{classState}</Text>
-        <Text>{statusState}</Text>
-        <Text>{descriptionState}</Text>
-      </View> */}
-    </View>
-  )
-}
-
-
 // Create
 
 export interface interfaceEntityCreate {
   id: string,
   title: string,
   type: string,
-  class: string,
+  categories: string[],
   status: string,
   description?: string,
   [key: string]: any
 }
 
+export async function validateEntityCreate(
+    entity:interfaceEntityCreate,
+  ) {
+  console.log('todo')
+}
+
 export async function requestEntityCreate(
     entity:interfaceEntityCreate,
   ) {
+  // console.log('useEntityCreate',entity)
   return await instanceSupabaseClient
-    .from("entities")
+    // .from("entities")
+    .from("entities_orgmenta")
     .insert(entity)
     .then(handleSupabaseResponse as any)
 }
 
 export const useEntityCreate = (props:interfaceEntityCreate) => {
-  return useMutation(['entity','create'], () => requestEntityCreate(props))
+  const queryClient = useQueryClient();
+  const { refetch } = useEntityArray()
+  return useMutation(
+    ["entity", "create"],
+    () => requestEntityCreate(props),
+    // Future enhancement: Optimistic updates to client side cache. 
+    // This will need us to determine which of the queries need to be updated - so we need to find 'filter_object' (see useEntityArray query key)
+    // {
+    //   onMutate: (newData) => {
+    //       // Backup the current cache data
+    //       const previousData = queryClient.getQueryData(['entities', 'array']);
+    //       // Optimistically update the cache with the new data
+    //       queryClient.setQueryData(['entities', 'array'], (oldData:any) => [...oldData, newData]);
+    //       // Return the backup to rollback in case of error
+    //       return { previousData };
+    //   },
+    //   onError: (error, newData, context) => {
+    //       // Rollback the cache update on error
+    //       queryClient.setQueryData(['entities', 'array', filter_object], context.previousData);
+    //   },
+    //   onSettled: () => {
+    //       // Invalidate the query to refetch
+    //       queryClient.invalidateQueries(['entities', 'array', filter_object]);
+    //   }
+    // }
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["entity", "create"]);
+        // refetch(); 
+      },
+    }
+  );
 }
 
 
@@ -216,7 +180,7 @@ export const useEntityCreate = (props:interfaceEntityCreate) => {
 // E.g. if this hook is used by an Invoice entity, it will return only the attributes relevant to the invoice (like line_items and balance_due)
 // (to do: make dynamic - at the moment it isn't accepting props for the filter)
 export const useEntitySchema = () => {
-  const query = useAttributeUnioned(["Invoice","Entity"])
+  const query = useAttributeUnioned(["categories","Entity"])
   return query
 }
 

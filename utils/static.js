@@ -2060,7 +2060,7 @@ export const data = [
         "name_singular": "materials",
         "display_singular": "Materials",
         "description": "What 'materials' is required of the component (physical or intangible)",
-        "summary": "Materials can be determined in a Project>Plan>Resources",
+        "summary": "Materials can be determined in a Project>Plan>Resourcing",
         "nickname": "product-catalog-parts-materials"
     },
     {
@@ -3733,10 +3733,10 @@ export const data = [
         "id": 1823,
         "parent": 182,
         "status": "0. New",
-        "name_singular": "resources",
-        "display_singular": "Resources",
+        "name_singular": "resourcing",
+        "display_singular": "Resourcing",
         "summary": "request & allocate resources for the project/ticket",
-        "nickname": "project-planning-resources"
+        "nickname": "project-planning-resourcing"
     },
     {
         "id": 1824,
@@ -3970,8 +3970,8 @@ export const data = [
         "id": 191,
         "parent": 19,
         "status": "5. Hold",
-        "name_singular": "processes",
-        "display_singular": "Processes",
+        "name_singular": "process",
+        "display_singular": "Process",
         "description": "Your business manual and official source of truth for all operations",
         "summary": [
             "Create and maintain a company manual, compiling all business processes into a single source of truth",
@@ -3984,30 +3984,24 @@ export const data = [
             "changes",
             "training"
         ],
-        "nickname": "system-processes"
+        "nickname": "system-process"
     },
     {
         "id": 1910,
         "parent": 191,
         "status": "5. Hold",
-        "name_singular": "data",
-        "display_singular": "Data",
-        "process": [
-            "sync (ensure data is synchronising between applications / repositories)",
-            "audit (data should be reviewed annually - Items not used in the last FY can be archived. Items not used within 7/10/as-per-legislation years can be destroyed)",
-            "maintenance (BAU process of updating items as the need becomes known. includes tagging/categorising where useful"
-        ],
-        "nickname": "system-processes-data"
+        "name_singular": "instructions",
+        "display_singular": "Instructions",
+        "description": "work instructions for step by step guides",
+        "nickname": "system-process-instructions"
     },
     {
         "id": 1911,
         "parent": 191,
         "status": "5. Hold",
-        "name_singular": "instructions",
-        "display_singular": "Instructions",
-        "description": "work instructions for step by step guides",
-        "process": [],
-        "nickname": "system-processes-instructions"
+        "name_singular": "procedures",
+        "display_singular": "Procedures",
+        "nickname": "system-process-procedures"
     },
     {
         "id": 1912,
@@ -4015,8 +4009,7 @@ export const data = [
         "status": "5. Hold",
         "name_singular": "procedures",
         "display_singular": "Procedures",
-        "process": [],
-        "nickname": "system-processes-procedures"
+        "nickname": "system-process-processes"
     },
     {
         "id": 1913,
@@ -4025,7 +4018,7 @@ export const data = [
         "name_singular": "policies",
         "display_singular": "Policies",
         "process": [],
-        "nickname": "system-processes-policies"
+        "nickname": "system-process-policies"
     },
     {
         "id": 1914,
@@ -4033,53 +4026,179 @@ export const data = [
         "status": "5. Hold",
         "name_singular": "manual",
         "display_singular": "Manual",
-        "description": "the collation of all procedures into a single reference point for all stakeholders (stakeholder types are authorised to view specific docs or parts of docs)",
+        "description": "the collation of all processes into a single reference point for all stakeholders (stakeholder types are authorised to view specific docs or parts of docs)",
         "process": [],
-        "nickname": "system-processes-manual"
+        "nickname": "system-process-manual"
     },
     {
         "id": 192,
         "parent": 19,
         "status": "5. Hold",
-        "name_singular": "applications",
-        "display_singular": "Applications",
-        "description": "Your business software stack",
-        "nickname": "system-applications"
+        "name_singular": "technology",
+        "display_singular": "Technology",
+        "description": "Your business software, hardware and infrastructure stack",
+        "nickname": "system-technology"
     },
     {
         "id": 1920,
         "parent": 192,
         "status": "5. Hold",
-        "name_singular": "interfaces",
-        "display_singular": "Interfaces",
-        "nickname": "system-applications-interfaces"
+        "name_singular": "applications",
+        "display_singular": "Applications",
+        "nickname": "system-technology-applications"
+    },
+    {
+        "id": 19200,
+        "parent": 1920,
+        "status": "5. Hold",
+        "name_singular": "productivity",
+        "display_singular": "Productivity",
+        "nickname": "system-technology-applications-productivity",
+        'description': 'Office software',
+        'summary': 'Word Processors, Spreadsheets, etc.',
+    },
+    {
+        "id": 19201,
+        "parent": 1920,
+        "status": "5. Hold",
+        "name_singular": "utility",
+        "display_singular": "Utility",
+        "nickname": "system-technology-applications-utility",
+        'description': 'System and Performance Tools',
+        'summary':'',
+    },
+    {
+        "id": 19202,
+        "parent": 1920,
+        "status": "5. Hold",
+        "name_singular": "collaboration",
+        "display_singular": "Collaboration",
+        "nickname": "system-technology-applications-collaboration",
+        'description': 'Communication Tools',
+        'summary':'Messaging, Meetings and other comms tools',
+    },
+    {
+        "id": 19204,
+        "parent": 1920,
+        "status": "5. Hold",
+        "name_singular": "lineofbusiness",
+        "display_singular": "Line Of Business",
+        "nickname": "system-technology-applications-lineofbusiness",
+        'description': 'LOB & industry specific software',
     },
     {
         "id": 1921,
         "parent": 192,
         "status": "5. Hold",
+        "name_singular": "hosting",
+        "display_singular": "Hosting",
+        "nickname": "system-technology-hosting"
+    },
+    {
+        "id": 19210,
+        "parent": 1921,
+        "status": "5. Hold",
         "name_singular": "storage",
         "display_singular": "Storage",
-        "nickname": "system-applications-storage"
+        "nickname": "system-technology-hosting-storage"
+    },
+    {
+        "id": 19211,
+        "parent": 1921,
+        "status": "5. Hold",
+        "name_singular": "websites",
+        "display_singular": "Websites",
+        "nickname": "system-technology-hosting-websites"
+    },
+    {
+        "id": 19212,
+        "parent": 1921,
+        "status": "5. Hold",
+        "name_singular": "access",
+        "display_singular": "Access",
+        "description": "",
+        "summary": "",
+        "nickname": "system-technology-hosting-access"
+    },
+    {
+        "id": 192120,
+        "parent": 19212,
+        "status": "5. Hold",
+        "name_singular": "authentication",
+        "display_singular": "Authentication",
+        "nickname": "system-technology-hosting-access-authentication"
     },
     {
         "id": 1922,
         "parent": 192,
         "status": "5. Hold",
-        "name_singular": "authentication",
-        "display_singular": "Authentication",
-        "nickname": "system-applications-authentication"
+        "name_singular": "network",
+        "display_singular": "Network",
+        "nickname": "system-technology-network"
+    },
+    {
+        "id": 19220,
+        "parent": 1922,
+        "status": "5. Hold",
+        "name_singular": "servers",
+        "display_singular": "Servers",
+        "nickname": "system-technology-network-servers",
+        "summary":"onsite, remote or co-lo servers"
+    },
+    {
+        "id": 19221,
+        "parent": 1922,
+        "status": "5. Hold",
+        "name_singular": "lan",
+        "display_singular": "LAN",
+        "nickname": "system-technology-network-lan",
+        "summary":"local area networks"
+    },
+    {
+        "id": 19222,
+        "parent": 1922,
+        "status": "5. Hold",
+        "name_singular": "wan",
+        "display_singular": "WAN",
+        "nickname": "system-technology-network-wan",
+        "summary":"wide area network access, routers, internet links, 5G failovers"
+    },
+    {
+        "id": 19223,
+        "parent": 1922,
+        "status": "5. Hold",
+        "name_singular": "cabling&wireless&switching",
+        "display_singular": "Cabling & Wireless & Switching",
+        "nickname": "system-technology-network-cabling&wireless&switching",
     },
     {
         "id": 1923,
         "parent": 192,
         "status": "5. Hold",
-        "name_singular": "backups",
-        "display_singular": "Backups",
+        "name_singular": "continuation",
+        "display_singular": "Continuation",
+        "description": "Disaster Recovery and preventuion of interruptions to operations",
+        "summary": "Disaster prevention, fire protection, backups, test restores, live recovery, snapshots and file retrieval",
         "notes": [
             "Accounting package backup: Xero/Control C (https://www.control-c.com/), Quickbooks (https://quickbooks.intuit.com/ca/resources/finance-accounting/how-to-back-up-quickbooks-for-your-small-business/), myob (https://help.myob.com/wiki/display/ar/Back+up+your+company+file) etc."
         ],
-        "nickname": "system-applications-backups"
+        "nickname": "system-technology-continuation"
+    },
+    {
+        "id": 19230,
+        "parent": 1923,
+        "status": "5. Hold",
+        "name_singular": "backups",
+        "display_singular": "Backups",
+        "nickname": "system-technology-continuation-backups"
+    },
+    {
+        "id": 19231,
+        "parent": 1923,
+        "status": "5. Hold",
+        "name_singular": "recovery",
+        "display_singular": "Recovery",
+        "nickname": "system-technology-continuation-recovery"
     },
     {
         "id": 1924,
@@ -4087,43 +4206,130 @@ export const data = [
         "status": "5. Hold",
         "name_singular": "protection",
         "display_singular": "Protection",
-        "nickname": "system-applications-protection"
+        "nickname": "system-technology-protection",
+        "description": "Protection, Privacy and Security",
+        "summary": "Firewalling, security policies, SPAM/scam/phishing protection, employee & user awareness, Antivirus and anti-malware",
     },
     {
         "id": 193,
         "parent": 19,
         "status": "5. Hold",
-        "name_singular": "facilities",
-        "display_singular": "Facilities",
-        "description": "Management of all sites, infrastructure and internal tools",
-        "nickname": "system-facilities"
+        "name_singular": "resources",
+        "display_singular": "Resources",
+        "description": "Facilities, consumables, roles and other resources",
+        "nickname": "system-resources"
     },
     {
         "id": 1930,
         "parent": 193,
         "status": "5. Hold",
+        "name_singular": "facilities",
+        "display_singular": "Facilities",
+        "description": "Management of all sites, infrastructure and internal tools",
+        "nickname": "system-resources-facilities"
+    },
+    {
+        "id": 19300,
+        "parent": 1930,
+        "status": "5. Hold",
         "name_singular": "sites",
         "display_singular": "Sites",
         "description": "Manage all of your sites/addresses",
-        "nickname": "system-facilities-sites"
+        "nickname": "system-resources-facilities-sites"
+    },
+    {
+        "id": 19301,
+        "parent": 1930,
+        "status": "5. Hold",
+        "name_singular": "furnishings",
+        "display_singular": "Furnishings",
+        "description": "",
+        "nickname": "system-resources-facilities-furnishings"
+    },
+    {
+        "id": 19302,
+        "parent": 1930,
+        "status": "5. Hold",
+        "name_singular": "features",
+        "display_singular": "Features",
+        "description": "Manage the features available to your sites (e.g conference rooms)",
+        "nickname": "system-resources-facilities-features"
     },
     {
         "id": 1931,
         "parent": 193,
         "status": "5. Hold",
-        "name_singular": "features",
-        "display_singular": "Features",
-        "description": "Manage the features available to your sites (e.g conference rooms)",
-        "nickname": "system-facilities-features"
+        "name_singular": "consumables",
+        "display_singular": "Consumables",
+        "description": "",
+        "nickname": "system-resources-consumables"
+    },
+    {
+        "id": 1932,
+        "parent": 193,
+        "status": "5. Hold",
+        "name_singular": "tools",
+        "display_singular": "Tools",
+        "description": "tools & equipment",
+        "summary": "hardware",
+        "nickname": "system-resources-consumables"
+    },
+    {
+        "id": 1933,
+        "parent": 193,
+        "status": "5. Hold",
+        "name_singular": "functions",
+        "display_singular": "Functions",
+        "description": "Management of all the jobs/roles that your business requires",
+        "summary": "The skills and roles that you have at your disposal",
+        "nickname": "system-functions"
     },
     {
         "id": 194,
         "parent": 19,
         "status": "5. Hold",
-        "name_singular": "functions",
-        "display_singular": "Functions",
-        "description": "Management of all the jobs/roles that your business requires",
-        "nickname": "system-functions"
+        "name_singular": "data",
+        "display_singular": "Data",
+        "description": "",
+        "summary": "",
+        "nickname": "system-data",
+        "process": [
+            "sync (ensure data is synchronising between applications / repositories)",
+            "audit (data should be reviewed annually - Items not used in the last FY can be archived. Items not used within 7/10/as-per-legislation years can be destroyed)",
+            "maintenance (BAU process of updating items as the need becomes known. includes tagging/categorising where useful"
+        ],
+    },
+    {
+        "id": 1940,
+        "parent": 194,
+        "status": "5. Hold",
+        "name_singular": "data",
+        "display_singular": "Data",
+        "nickname": "system-data-data"
+    },
+    {
+        "id": 1941,
+        "parent": 194,
+        "status": "5. Hold",
+        "name_singular": "information",
+        "display_singular": "Information",
+        "nickname": "system-data-information"
+    },
+    {
+        "id": 1942,
+        "parent": 194,
+        "status": "5. Hold",
+        "name_singular": "knowledge",
+        "display_singular": "Knowledge",
+        "nickname": "system-data-knowledge"
+    },
+    {
+        "id": 1943,
+        "parent": 194,
+        "status": "5. Hold",
+        "name_singular": "wisdom",
+        "display_singular": "Wisdom",
+        "nickname": "system-data-wisdom"
     },
     {
         "id": 2,

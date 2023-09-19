@@ -2,9 +2,7 @@ import { useState } from "react";
 import { View, Pressable, Text } from "react-native";
 import { data } from "../utils/static";
 import { ViewIconMain } from "../utils/icon";
-import { Link, useLocation } from "react-router-dom";
-import React from "react";
-// import ViewIconMain from "./displays/icons/ViewIconMain";
+import { Link } from "react-router-dom";
 
 export const Expandable = ({ item }: any) => {
   const [expanded, expandedToggle] = useState(false);
@@ -29,10 +27,9 @@ export const Expandable = ({ item }: any) => {
           to={"entity/" + item.nickname}
         >
           <Text 
-            style={{color: '#176596', fontWeight:700, fontSize:17}} selectable={false}>{item.display_singular}</Text>
+            style={{color: '#176596', fontWeight:'700', fontSize:17}} selectable={false}>{item.display_singular}</Text>
         </Link>
         <Pressable
-          style={{}}
           onPress={() => expandedToggle((oldValue) => !oldValue)}
           style={{
             minHeight: 40,
@@ -69,7 +66,7 @@ export const Expandable = ({ item }: any) => {
             )
             .map((x, i) => (
               <Link style={{textDecoration:'none', margin:10}} to={"entity/" + x.nickname} key={i}>             
-                <Text style={{ fontWeight:500, fontSize:16,color: '#0c4a73'}} selectable={false}>{x.display_singular}</Text>
+                <Text style={{ fontWeight:'500', fontSize:16,color: '#0c4a73'}} selectable={false}>{x.display_singular}</Text>
               </Link>
             ))}
         </View>

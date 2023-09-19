@@ -84,7 +84,7 @@ export const ViewMemberArray = () => {
     const array = useMemberArray({});
     return (
         <View>
-            <Text style={{fontWeight:700}}>ViewMemberArray</Text>
+            <Text style={{fontWeight:'700'}}>ViewMemberArray</Text>
             <Text></Text>
             {/* Testing */}
             <Text>{JSON.stringify(array,null,2)}</Text>
@@ -120,7 +120,7 @@ export const ViewMemberItem = ({id}:interfaceMemberItem) => {
     const item = useMemberItem({id});
     return (
         <View>
-            <Text style={{fontWeight:700}}>ViewMemberItem</Text>
+            <Text style={{fontWeight:'700'}}>ViewMemberItem</Text>
             <Text></Text>
             {/* Testing */}
             <Text>{JSON.stringify(item,null,2)}</Text>

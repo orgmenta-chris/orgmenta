@@ -3,7 +3,7 @@ import { useMemberCreate } from './members'
 import React, { memo } from 'react';
 import { createUuid4, typeUuid4, validateUuidType } from './uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient, UseQueryOptions } from '@tanstack/react-query'
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { useTableColumns } from '../components/displays/table/table'
 import { useState, useEffect} from 'react'
@@ -165,21 +165,19 @@ export const useSpaceDestroy = (props:interfaceSpaceDestroy) => {
 
 
 // Array
-
-export const useSpaceArray = ({...Input})=> {
+export const useSpaceArray = ({...Input}) => {
     const query = useQuery({
-        queryKey:['spaces','array','add_relevant_props_here'],
-        queryFn:()=>{
-            return instanceSupabaseClient
-                .from("spaces")
-                .select()
-                .limit(10) // temporary limit, feel free to remove this or make pagination dynamic if needed.
-                .then(response=>response.data)
+        queryKey: ['spaces', 'array', 'add_relevant_props_here'],
+        queryFn: async () => {
+            const response = await instanceSupabaseClient
+            .from("spaces")
+            .select()
+            .limit(10);
+          return response.data;
         },
         enabled: true
-        // ...props
-    });
-    return query
+    } as UseQueryOptions<any[], unknown>); // Specify the expected types for data and error.
+    return query;
 }
 
 export const ViewSpaceArray = () => {
@@ -188,7 +186,7 @@ export const ViewSpaceArray = () => {
     const columns = useTableColumns(attributeColumnNames);
     return (
         <View>
-        <Text style={{fontWeight:700}}>ViewSpaceArray</Text>
+        <Text style={{fontWeight:'700'}}>ViewSpaceArray</Text>
             <ViewSpaceTable data={array.data} columns={columns}/>
         </View>
     )
@@ -204,25 +202,25 @@ export interface interfaceSpaceItem {
 export const useSpaceItem = ({id}:interfaceSpaceItem)=> {
     const query = useQuery({
         queryKey:['spaces',id],
-        queryFn:()=>{
-            return instanceSupabaseClient
-                .from("spaces")
-                .select()
-                .eq('id', id)
-                .single()
-                .then(response=>response.data)
+        queryFn:async ()=>{
+            const response = await instanceSupabaseClient
+            .from("spaces")
+            .select()
+            .eq('id', id)
+            .single();
+          return response.data;
         },
         enabled: id && true,
         // ...props
-    });
-    return query
+    } as UseQueryOptions<any[], unknown>); // Specify the expected types for data and error.
+    return query;
 }
 
 export const ViewSpaceItem = ({id}:interfaceSpaceItem) => {
     const item = useSpaceItem({id});
     return (
         <View>
-            <Text style={{fontWeight:700}}>ViewSpaceItem</Text>
+            <Text style={{fontWeight:'700'}}>ViewSpaceItem</Text>
             <Text></Text>
             {/* Testing */}
             <Text>{JSON.stringify(item,null,2)}</Text>

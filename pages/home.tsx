@@ -7,7 +7,6 @@ import { ViewStorageUpload } from "../utils/storage";
 import Svg, { Path, G } from 'react-native-svg';
 
 export default function Home() {
-  const types = mapTypeMain;
   return (<>
     <View style={{padding: 10,flexDirection: "row", width:"100%"}}>
 
@@ -117,7 +116,7 @@ export default function Home() {
       <Text>xyz</Text>
       <Text style={{fontWeight:'800', color: "#0c4a73" }}>Entity Types</Text>
       <Text>All your entities and their relationships brought into the hub</Text>
-      <Text style={{fontStyle: "italic"}}>{types.map(x=>x.display_plural).join(', ')}</Text>
+      <Text style={{fontStyle: "italic"}}>{mapTypeMain.map(x=>x.display_plural).join(', ')}</Text>
       <Text style={{fontWeight:'800', color: "#0c4a73" }}>Features</Text>
       <Text>Business Management</Text>
       <Text>Projects & Service Tickets</Text>

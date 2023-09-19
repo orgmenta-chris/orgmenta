@@ -1,20 +1,13 @@
 // The home page will ideally just show a demo space + product information/ sales pitch, and a guest user if not logged in.
 // If logged in, then it should also show the user a dropdown asking them if they want to set a default page when logged in.
 
-import React, { useState } from "react";
-import { Button, Text, View,Image, ScrollView } from "react-native";
-import DocumentPicker from "../components/picker/DocumentPicker";
-import useTokenStore from "../states/api/storeToken";
-import { callMsGraphGET } from "../api/graphApiCall";
-import { fileUpload } from "../utils/storage";
-import { arrayTypeMain } from "../utils/type";
+import { Text, View, Image } from "react-native";
+import { mapTypeMain } from "../utils/type";
 import { ViewStorageUpload } from "../utils/storage";
-
 import Svg, { Path, G } from 'react-native-svg';
 
-
 export default function Home() {
-  const types = arrayTypeMain;
+  const types = mapTypeMain;
   return (<>
     <View style={{padding: 10,flexDirection: "row", width:"100%"}}>
 
@@ -36,7 +29,7 @@ export default function Home() {
             source={require('../assets/logo/full/color_cropped.png')}
           />
           <Text style={{textAlign:'center', fontSize:24, padding:10}}>Build and manage your business from a single pane of glass</Text>
-          <Text style={{textAlign:'center', fontSize:18,  fontStyle:'italic'}}>{`Automate and manage your \n`}<Text style={{fontWeight:500, color: "#0c4a73" }}>IT Company / MSP / VAR / TSP / OED</Text></Text>
+          <Text style={{textAlign:'center', fontSize:18,  fontStyle:'italic'}}>{`Automate and manage your \n`}<Text style={{fontWeight:'500', color: "#0c4a73" }}>IT Company / MSP / VAR / TSP / OED</Text></Text>
         </View>
         <Text style={{textAlign:'center', marginTop:75}}>{`Scroll down for more information`}</Text>
       </View>
@@ -123,8 +116,8 @@ export default function Home() {
       <Text style={{fontWeight:'800', color: "#0c4a73" }}>Pricing</Text>
       <Text>xyz</Text>
       <Text style={{fontWeight:'800', color: "#0c4a73" }}>Entity Types</Text>
-      <Text>Bring all entity types into the Hub</Text>
-      <Text>{types.join(', ')}</Text>
+      <Text>All your entities and their relationships brought into the hub</Text>
+      <Text style={{fontStyle: "italic"}}>{types.map(x=>x.display_plural).join(', ')}</Text>
       <Text style={{fontWeight:'800', color: "#0c4a73" }}>Features</Text>
       <Text>Business Management</Text>
       <Text>Projects & Service Tickets</Text>

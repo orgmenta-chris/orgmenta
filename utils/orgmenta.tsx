@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 export const ViewOrgmentaModal = (props:any) => {
     return (
-        <ViewModalMain modalName={'orgmenta'} backdrop height={'25%'} width={'100%'}>
+        <ViewModalMain modalName={'orgmenta'} backdrop height={190} width={'100%'}>
             <View style={{flexDirection:'row'}}>
                 <View style={{flex:1, alignItems:'center'}}>
                     <Text style={{fontWeight:800, fontSize: 18, color: "#0c4a73", padding: 5}}>App</Text>
@@ -18,6 +18,7 @@ export const ViewOrgmentaModal = (props:any) => {
                     <Link to={'app/roadmap'} style={{textDecoration:'none', color:'black'}}>Roadmap</Link>
                     <Link to={'app/compare'} style={{textDecoration:'none', color:'black'}}>Compare to Competitors</Link>
                     <Link to={'app/industries'} style={{textDecoration:'none', color:'black'}}>Use cases per industry</Link>
+                    <Link to={'app/frameworks'} style={{textDecoration:'none', color:'black'}}>Use cases per industry</Link>
                 </View>
                 <View style={{flex:1, alignItems:'center'}}>
                     <Text style={{fontWeight:800, fontSize: 18, color: "#0c4a73", padding: 5}}>Company</Text>

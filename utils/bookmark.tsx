@@ -1,9 +1,12 @@
-import React from 'react'
+// 'Bookmarks' are links to categories, pinned or other saved entity views.
+
 import { ScrollView } from 'react-native'
 import { ViewModalMain } from './modal'
-import { data } from "./static";
 import { Expandable } from '../components/expandable'
+import { data } from "./static";
 
+
+// Modal
 
 export const ViewBookmarkModal = (props:any) => {
     return (

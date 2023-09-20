@@ -60,7 +60,7 @@ export const ViewAttributeMain = memo(() => { // Chris is going to enhance this 
 
 export const useAttributeUnioned = (class_array=[] as any) => { // get all of the attributes from both the A and B sides of attributes
   const searchArray = ["All"].concat(class_array).join(',') // make this dynamic and accept props
-  const queryKey: (string | number)[] = ['attributes','unioned',searchArray],
+  const queryKey: (string | number)[] = ['attributes','unioned',searchArray];
   const queryFn = async () => {
     const response = await instanceSupabaseClient
     .from("attributes_unioned")

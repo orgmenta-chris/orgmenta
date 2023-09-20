@@ -3,7 +3,9 @@ import { ViewModalMain } from './modal'
 import { Link } from 'react-router-dom'
 
 
-export const ViewOrgmentaModal = (props:any) => {
+// Modal
+
+export const ViewOrgmentaModal = (props:any) => { // Modal for the header of Orgmenta site
     return (
         <ViewModalMain modalName={'orgmenta'} backdrop height={190} width={'100%'}>
             <View style={{flexDirection:'row'}}>

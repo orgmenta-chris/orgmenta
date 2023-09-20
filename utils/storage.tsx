@@ -172,7 +172,7 @@ export const ViewStorageUpload = ({}:any) => {
   const upload = fileUpload({name: 'exampledocument', file: pickedDocument[0]});
 
   const fetchData = async (token: string) => {
-    const data = await callMsGraphGET(token);
+    const data = await callMsGraphGET(token, 'endpoint goes here');
     // console.log(data);
   };
 

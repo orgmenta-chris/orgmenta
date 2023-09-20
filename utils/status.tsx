@@ -1,7 +1,7 @@
-// A 'type' is a classification of entity.
+// A 'status' is a state/stage that an entity can be in.
 
 
-import React from 'react'
+// Main 
 
 export const arrayStatusMain = [
     '0. New',

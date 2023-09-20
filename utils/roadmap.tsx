@@ -1,3 +1,6 @@
+// Placeholder - will have a roadmap module for displaying a product roadmap.
+// This will be used by OrgmentaRoadmap.
+
 // Roadmap
 const checklist = [
   {

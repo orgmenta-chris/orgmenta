@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { View, Text, ActivityIndicator} from 'react-native';
 
 
-// Sources
+// Source
 
 export interface interfaceApiSource {
     url: string,
@@ -17,8 +17,7 @@ export interface interfaceApiSource {
     },
 }
   
-
-export const mapApiSource = {
+export const mapApiSource = { // an object containing API properties
     example: {
         url: 'https://jobsearch4.p.rapidapi.com/api/v2/Jobs/Latest',
         options: {
@@ -38,7 +37,6 @@ export interface interfaceApiItems {
     source: interfaceApiSource
 }
 
-// fetch data via api
 export const requestApiItems = async (props:interfaceApiSource) => {
     if(!props.url){ throw new Error('requestApiItems: No url provided')} // replace this with a proper validation function
     if(!props.options){ throw new Error('requestApiItems: No options provided')} // replace this with a proper validation function
@@ -47,16 +45,14 @@ export const requestApiItems = async (props:interfaceApiSource) => {
     return result
 }
 
-// A hook to wrap requestApiItems
-export const useApiItems = (props:any) => {
+export const useApiItems = (props:any) => { // a hook to wrap requestApiItems
     if(!props?.url){ throw new Error('useApiItems: No url provided')}
     if(!props?.options){ throw new Error('useApiItems: No options provided')}
     const query = useQuery(['api',props.name||'default'], ()=>requestApiItems(props));
     return query
 };
 
-// A simple component to display the items (or roll your own using useApiItems or requestApiItems)
-export const ViewApiItems = ({source}:interfaceApiItems) => {
+export const ViewApiItems = ({source}:interfaceApiItems) => { // A simple component to display the items (or roll your own using useApiItems or requestApiItems)
     const items = useApiItems(source);
     if (items.isLoading) return <ActivityIndicator />;
     if (items.data) return (
@@ -70,7 +66,6 @@ export const ViewApiItems = ({source}:interfaceApiItems) => {
     return <Text>An unknown problem occurred. {JSON.stringify(items)}</Text>;
 };
 
-// Example usage
-export const ExampleApiItems = () => {
+export const ExampleApiItems = () => { // Example usage of ViewApiItems, useApiItems and requestApiItems
     return <ViewApiItems source={mapApiSource['example']} />
 };

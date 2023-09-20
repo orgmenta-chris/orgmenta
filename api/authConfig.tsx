@@ -1,8 +1,4 @@
-import {
-  Configuration,
-  LogLevel,
-  PublicClientApplication,
-} from "@azure/msal-browser";
+import { Configuration, PublicClientApplication } from "@azure/msal-browser";
 
 // Microsoft Authentication Library configuration
 

@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { ActivityIndicator, Text } from "react-native";
 import React, { useEffect } from "react";
 import { useMsal, useAccount } from "@azure/msal-react";
 import { loginRequest } from "./authConfig";
@@ -24,9 +24,10 @@ const AccessToken = () => {
           if (response) {
             setToken(response.accessToken);
           } else {
-            console.log("something went wrong")
+            console.log("something went wrong");
           }
-        }).catch(async (error) => {
+        })
+        .catch(async (error) => {
           if (error instanceof InteractionRequiredAuthError) {
             // fallback to interaction when silent call fails
             return instance.acquireTokenPopup(loginRequest);
@@ -38,7 +39,11 @@ const AccessToken = () => {
   }, [account, instance]);
 
   if (inProgress === "login") {
-    return <Text>Login is currently in progress!</Text>;
+    return (
+      <Text style={{ textAlign: "center" }}>
+        <ActivityIndicator />
+      </Text>
+    );
   }
 
   // return (

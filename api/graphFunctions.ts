@@ -277,10 +277,7 @@ export const getEvent = async (token: string, id: string) => {
   // Do something with the data
 };
 
-export const createEvent = async (
-  token: string,
-  requestBody: any
-) => {
+export const createEvent = async (token: string, requestBody: any) => {
   const endpoint = `${url}/me/calender/events`;
   const data = await callMsGraphPOST(token, endpoint, requestBody);
 

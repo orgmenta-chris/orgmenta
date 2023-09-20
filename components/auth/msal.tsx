@@ -1,6 +1,6 @@
 import React from "react";
 import { useMsal } from "@azure/msal-react";
-import { Pressable, Text, StyleSheet } from "react-native";
+import { Pressable, Text, StyleSheet, ActivityIndicator } from "react-native";
 import AccessToken from "../../api/accessToken";
 
 const MSAL = () => {
@@ -26,7 +26,7 @@ const MSAL = () => {
   } else if (inProgress === "login") {
     return (
       <Text style={{ textAlign: "center" }}>
-        Login is currently in progress!
+        <ActivityIndicator />
       </Text>
     );
   } else {

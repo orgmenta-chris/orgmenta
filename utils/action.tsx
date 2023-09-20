@@ -6,13 +6,12 @@ import { Link, useLocation, Route, Routes } from 'react-router-dom'
 import ViewIconMain from '../components/displays/icons/ViewIconMain';
 import { ViewControlMain } from '../utils/control'
 import { useEntityCreate } from '../utils/entity'
-import { ViewFormDynamic } from '../utils/form'
 import { arrayTypeMain } from '../utils/type'
 import { arrayStatusMain } from '../utils/status'
-import { data } from '../utils/static'
 import { createUuid4 } from './uuid'
 
-// Form
+
+// Modal
 
 export const ViewActionModal = ({}:any) => {
   return (
@@ -22,6 +21,9 @@ export const ViewActionModal = ({}:any) => {
   )
 }
 
+
+// Control
+
 export const ViewActionControl = ({}:any) => {
   return (
     <View style={{flexDirection:'column'}}>
@@ -29,6 +31,9 @@ export const ViewActionControl = ({}:any) => {
     </View>
   ) 
 }
+
+
+// Add
 
 export const ViewActionAdd = ({auxiliary, schema, focus}:any) => {
   const paths = useLocation()?.pathname?.split('/');
@@ -72,6 +77,9 @@ export const ViewActionAdd = ({auxiliary, schema, focus}:any) => {
     </View>
   )
 }
+
+
+// Edit
 
 export const ViewActionEdit = ({}:any) => {
   const [titleState, titleSet] = useState('');
@@ -158,6 +166,9 @@ export const ViewActionEdit = ({}:any) => {
   )
 }
 
+
+// Sync
+
 export const ViewActionSync = ({}:any) => {
   return (
     <View style={{flexDirection:'column'}}>
@@ -165,6 +176,10 @@ export const ViewActionSync = ({}:any) => {
     </View>
   )
 }
+
+
+// Share
+
 export const ViewActionShare = ({}:any) => {
   return (
     <View style={{flexDirection:'column'}}>
@@ -172,6 +187,10 @@ export const ViewActionShare = ({}:any) => {
     </View>
   )
 }
+
+
+// Template
+
 export const ViewActionTemplate= ({}:any) => {
   return (
     <View style={{flexDirection:'column'}}>
@@ -179,6 +198,10 @@ export const ViewActionTemplate= ({}:any) => {
     </View>
   )
 }
+
+
+// Link
+
 export const ViewActionLink = ({}:any) => {
   return (
     <View style={{flexDirection:'column'}}>

@@ -23,13 +23,15 @@ export const ViewOrgmentaModal = (props:any) => {
                     <Link to={'company/privacy'} style={{textDecoration:'none', color:'black'}}>Privacy</Link>
                     <Link to={'company/terms'} style={{textDecoration:'none', color:'black'}}>Terms</Link>
                     <Link to={'company/contact'} style={{textDecoration:'none', color:'black'}}>Contact</Link>
-                    <Link to={'company/partners'} style={{textDecoration:'none', color:'black'}}>Partner with us</Link>
+                    <Link to={'company/socials'} style={{textDecoration:'none', color:'black'}}>Socials</Link>
                 </View>
                 <View style={{flex:1, alignItems:'center'}}>
                     <Text style={{fontWeight:'800', fontSize: 18, color: "#0c4a73", padding: 5}}>Community</Text>
+                    <Link to={'community/news'} style={{textDecoration:'none', color:'black'}}>News</Link>
                     <Link to={'community/forums'} style={{textDecoration:'none', color:'black'}}>Forums</Link>
                     <Link to={'community/guides'} style={{textDecoration:'none', color:'black'}}>Guides</Link>
                     <Link to={'community/enhancements'} style={{textDecoration:'none', color:'black'}}>Enhancement Requests</Link>
+                    <Link to={'community/partners'} style={{textDecoration:'none', color:'black'}}>Partner with us</Link>
                 </View>
             </View>
         </ViewModalMain>

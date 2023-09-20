@@ -1,9 +1,10 @@
 // A 'Control' is a filtering, sorting, grouping, or viewing of entity display data.
 
-import React from 'react';
-import { TextInput, View, Text, Pressable } from 'react-native';
-import {ViewPresetOptions} from './presets'
+import { View } from 'react-native';
+import { ViewPresetOptions } from './presets'
 
+
+// Main
 
 export const ViewControlMain = ({}:any) => {
   return (

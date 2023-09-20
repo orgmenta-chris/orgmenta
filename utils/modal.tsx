@@ -21,7 +21,7 @@ const metaModalInfo = {
 
 export const ViewModalMain = ({height, margin, padding, pinnable, children, modalName, backdrop, top, bottom, left, right, width}:any) => {
     const heightCalc = height  || useWindowDimensions()?.height - 60;
-    const modalState = useModalState(modalName);
+    const modalState:any = useModalState(modalName);
     if(modalState?.data?.visible) { return (<>
         {backdrop && !modalState?.data?.pinned && 
             <ViewModalBackdrop modalName={modalName}/>

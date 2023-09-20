@@ -14,7 +14,7 @@ export const ViewListMain = ({data}:any) => {
   return (
     // PLACEHOLDER:
     <View >
-      {data?.map((x:any,i:string)=><View key={i} style={{flex:1, margin:5,backgroundColor:'gray', minHeight:50}}>
+      {data?.map((x:any,i:number)=><View key={i} style={{flex:1, margin:5,backgroundColor:'gray', minHeight:50}}>
         <Text style={{color:'white'}}>{x.title}</Text>
       </View>)}
     </View>

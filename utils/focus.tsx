@@ -1,7 +1,5 @@
-// A 'Focus' is the primary entity being studied.
+// A 'Focus' is the primary entity being studied / viewed
 
-
-import React from 'react';
 import { View, Text } from 'react-native';
 import { Link, useLocation } from 'react-router-dom'
 import { data } from './static'
@@ -63,8 +61,8 @@ export const ViewFocusInfo =() => {
     return (
         <View style={{flexDirection:'column', borderWidth:1, borderColor:'white', margin: 4}}>
             <View style={{height: 40, backgroundColor:'lightgray'}}>
-                <Text style={{fontSize:16, fontStyle:'italic'}}>{process.description}</Text>
-                <Text style={{fontSize:12}}>{process.summary}</Text>
+                <Text style={{fontSize:16, fontStyle:'italic'}}>{process?.description}</Text>
+                <Text style={{fontSize:12}}>{process?.summary}</Text>
             </View>
             {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
                 {process.subheading}

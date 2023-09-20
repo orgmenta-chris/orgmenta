@@ -1,14 +1,14 @@
-import React from 'react'
-import { ScrollView } from 'react-native'
-import { ViewModalMain } from './modal'
-import { data } from "./static";
-import { Expandable } from '../components/expandable'
+// 'Browse' is search functionality, with optional 'quick-add' to convert the search term to a new entity.
 
+import { ViewModalMain } from './modal'
+
+
+// Modal
 
 export const ViewBrowseModal = (props:any) => {
     return (
         <ViewModalMain modalName={'browse'} backdrop pinnable top={60}>
-            
+            {/* todo */}
         </ViewModalMain>
     );
   };

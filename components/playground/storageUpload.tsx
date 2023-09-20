@@ -3,15 +3,8 @@ import { View, Button, Text } from "react-native";
 import { url } from "../../api/authConfig";
 import { callMsGraphGET } from "../../api/graphApiCall";
 import useTokenStore from "../../states/api/storeToken";
-import { ParseCSV, fileUpload } from "../../utils/storage";
+import { ParseCSV, fileUpload, parseCSV } from "../../utils/storage";
 import DocumentPicker from "../picker/DocumentPicker";
-import Papa from "papaparse";
-import { decode } from "base64-arraybuffer-es6";
-
-const testCSVData = `Name,Age,Location
-John,30,New York
-Alice,25,Los Angeles
-Bob,35,San Francisco`;
 
 // A document picker and uploader to supabase storage (proof of concept)
 export const ViewStorageUpload = ({}: any) => {
@@ -41,48 +34,31 @@ export const ViewStorageUpload = ({}: any) => {
     // console.log(data);
   };
 
-  const parseCSV = async (data: any[], config: ParseCSV) => {
-    data.map(async (document: any) => {
-      try {
-        console.log(document);
+  const config: ParseCSV = {
+    header: true,
+    skipEmptyLines: true,
+    complete: (result: any) => {
+      console.log(result);
 
-        const base64Data = document.uri.replace("data:text/csv;base64,", "");
+      const myArray = {
+        name: pickedDocument[0]?.name,
+        data: result.data,
+      };
 
-        // Decode base64 to a text CSV string
-        const csvText = atob(base64Data);
+      const newData = [...parsedCSV, myArray];
 
-        Papa.parse(csvText, config);
-      } catch (error) {
-        throw new Error(error);
+      setParsedCSV(newData);
+
+      if (parsedCSV) {
+        console.log(JSON.stringify(parsedCSV));
       }
-    });
+    },
+    error: (error: any) => {
+      throw new Error(error);
+    },
   };
 
   useEffect(() => {
-    const config: ParseCSV = {
-      header: true,
-      skipEmptyLines: true,
-      complete: (result: any) => {
-        console.log(result);
-
-        const myArray = {
-          name: pickedDocument[0]?.name,
-          data: result.data,
-        };
-
-        const newData = [...parsedCSV, myArray];
-
-        setParsedCSV(newData);
-
-        if (parsedCSV) {
-          console.log(JSON.stringify(parsedCSV));
-        }
-      },
-      error: (error: any) => {
-        throw new Error(error);
-      },
-    };
-
     parseCSV(pickedDocument, config);
   }, [pickedDocument]);
 

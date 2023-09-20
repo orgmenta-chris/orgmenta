@@ -4,6 +4,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { instanceSupabaseClient } from "./supabase";
 import { decode } from "base64-arraybuffer-es6";
+import Papa from 'papaparse'
 
 // https://supabase.com/docs/reference/javascript/storage-from-list
 
@@ -161,3 +162,20 @@ export interface ParseCSV {
   complete: Function;
   error: Function;
 }
+
+export const parseCSV = async (data: any[], config: ParseCSV) => {
+  data.map(async (document: any) => {
+    try {
+      console.log(document);
+
+      const base64Data = document.uri.replace("data:text/csv;base64,", "");
+
+      // Decode base64 to a text CSV string
+      const csvText = atob(base64Data);
+
+      Papa.parse(csvText, config);
+    } catch (error) {
+      throw new Error(error);
+    }
+  });
+};

@@ -8,7 +8,7 @@
     // size={10}
 // />
 
-
+import * as Font from 'expo-font';
 import React, { memo } from 'react';
 import { ViewStyle } from 'react-native';
 import {
@@ -24,6 +24,24 @@ import {
   Entypo,
 } from '@expo/vector-icons';
 
+
+// Preload
+
+async function PreloadIconsMain() {
+  await Font.loadAsync({
+    ...AntDesign.font,
+    ...Fontisto.font,
+    ...MaterialIcons.font,
+    ...MaterialCommunityIcons.font,
+    ...Ionicons.font,
+    ...FontAwesome.font,
+    ...FontAwesome5.font,
+    ...Feather.font,
+    ...Octicons.font,
+    ...Entypo.font,
+  });
+}
+PreloadIconsMain() // run immediately upon app running so as to preload all of the icons. Note that this isn't holding up the rendering of anything (function over form) so icons may still be shown before this is completed.
 
 // Components
 

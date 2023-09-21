@@ -9,7 +9,6 @@ import DocumentPicker from "../picker/DocumentPicker";
 // A document picker and uploader to supabase storage (proof of concept)
 export const ViewStorageUpload = ({}: any) => {
   const [pickedDocument, setPickedDocument] = useState([]);
-  const [parsedCSV, setParsedCSV] = useState([]);
 
   const token = useTokenStore((state: any) => state.token);
 
@@ -38,20 +37,13 @@ export const ViewStorageUpload = ({}: any) => {
     header: true,
     skipEmptyLines: true,
     complete: (result: any) => {
-      console.log(result);
-
       const myArray = {
+        // @ts-ignore
         name: pickedDocument[0]?.name,
         data: result.data,
       };
-
-      const newData = [...parsedCSV, myArray];
-
-      setParsedCSV(newData);
-
-      if (parsedCSV) {
-        console.log(JSON.stringify(parsedCSV));
-      }
+      
+      console.log(myArray);
     },
     error: (error: any) => {
       throw new Error(error);

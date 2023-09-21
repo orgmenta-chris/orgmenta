@@ -2,6 +2,11 @@
 // It is a 'perspective into the graph'.
 // You can view entities and their relationships in different displays (e.g. Table, list, calendar) and filters.
 
+import {
+  useEntityArray,
+  useEntitySingle,
+  useEntitySchema,
+} from "./entity";
 import { ReactElement, memo, useMemo, useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import { Link, useLocation } from "react-router-dom";
@@ -15,7 +20,7 @@ import { ViewPodMain, ViewPodInfo, ViewPodList, ViewPodTabs, ViewPodExample } fr
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 // import MapChart from "../components/displays/maps";
-// import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
+import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
 // import ViewDisplayForm from "../components/displays/forms/ViewDisplayForm";
 // import ViewDisplayList from "../components/displays/list/ViewDisplayList";
 // import ViewDisplayMaps from "../components/displays/maps/ViewDisplayMaps";

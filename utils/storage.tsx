@@ -1,14 +1,11 @@
 // I need this to be a module for interacting with the supabase storage api.
 // i.e. https://supabase.com/docs/guides/storage
 
-import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { instanceSupabaseClient } from "./supabase";
 import { decode } from "base64-arraybuffer-es6";
-import { Button, Text, View,Image, ScrollView } from "react-native";
-import DocumentPicker from "../components/picker/DocumentPicker";
-import useTokenStore from "../states/api/storeToken";
-import { callMsGraphGET } from "../api/graphApiCall";
+// @ts-ignore
+import Papa from 'papaparse'
 
 // https://supabase.com/docs/reference/javascript/storage-from-list
 
@@ -67,7 +64,7 @@ export const retrieveBucket = async () => {
 
 export interface documentToBeUploaded {
   name: string;
-  file: {[key:string]: any};
+  file: { [key: string]: any };
 }
 
 // Check if a bucket exists
@@ -76,7 +73,7 @@ export const ensureBucketExists = async () => {
   try {
     // Try to retrieve the bucket
     await retrieveBucket();
-  } catch (error:any) {
+  } catch (error: any) {
     // If the bucket doesn't exist, create it
     if (error?.message.includes("was not found")) {
       await createNewBucket();
@@ -87,7 +84,6 @@ export const ensureBucketExists = async () => {
     throw error;
   }
 };
-
 
 // Upload a document
 
@@ -113,15 +109,13 @@ export const fileUpload = ({ name, file }: documentToBeUploaded) => {
   const queryClient = useQueryClient();
   const mutation = useMutation(
     ["files", "create"],
-    ()=> uploadDocument({name, file}),
-    { 
-    onSuccess: () => {
-      queryClient.invalidateQueries([
-        ["bucket"],
-        ["files","array"]
-      ]);
-    },
-  });
+    () => uploadDocument({ name, file }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([["bucket"], ["files", "array"]]);
+      },
+    }
+  );
   return mutation;
 };
 
@@ -163,48 +157,24 @@ export const bucketItems = () => {
   return query;
 };
 
-
-// A document picker and uploader to supabase storage (proof of concept)
-export const ViewStorageUpload = ({}:any) => {
-  const [pickedDocument, setPickedDocument] = useState([]);
-  // console.log(pickedDocument);
-  const token = useTokenStore((state: any) => state.token);
-  const upload = fileUpload({name: 'exampledocument', file: pickedDocument[0]});
-
-  const fetchData = async (token: string) => {
-    const data = await callMsGraphGET(token, 'endpoint goes here');
-    // console.log(data);
-  };
-
-  return (
-    <View style={{position: "absolute", padding: 10 ,backgroundColor: "yellow", right: 0, bottom: 0}}>
-        <Text>Testing area</Text>
-        <DocumentPicker setPickedDocument={setPickedDocument} />
-        {pickedDocument && (
-          <View>
-            {pickedDocument.map((document: any, index: number) => {
-              return (
-                <View key={index}>
-                  <Text>Selected Document:</Text>
-                  <Text>Name: {document.name}</Text>
-                  <Text>Type: {document.mimeType}</Text>
-                </View>
-              );
-            })}
-          </View>
-        )}
-        <View style={{ marginTop: 10 }}>
-          <Button
-            title="Upload Document"
-            disabled={pickedDocument.length===0}
-            onPress={() =>
-              upload.mutate()
-            }
-          />
-        </View>
-        <View>
-          <Button title="Test Fetch Data" onPress={() => fetchData(token)} />
-        </View>
-      </View>
-  )
+export interface ParseCSV {
+  header: boolean;
+  skipEmptyLines: boolean;
+  complete: Function;
+  error: Function;
 }
+
+export const parseCSV = async (data: any[], config: ParseCSV) => {
+  data.map(async (document: any) => {
+    try {
+      const base64Data = document.uri.replace("data:text/csv;base64,", "");
+
+      // Decode base64 to a text CSV string
+      const csvText = atob(base64Data);
+
+      Papa.parse(csvText, config);
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  });
+};

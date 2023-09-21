@@ -8,15 +8,13 @@ import { View, Button } from "react-native";
 // Component takes the following props: setPickedDocument() - setter function to get the uploaded documents, ref useState()
 
 const DocumentPicker = (props: any) => {
-  const { setPickedDocument } = props;
+  const { setPickedDocument, type, multiple } = props;
 
   const pickDocument = async () => {
     try {
       const result = await DocPicker.getDocumentAsync({
-        type: [
-          "application/pdf", // PDF documents
-        ],
-        multiple: false,
+        ...type,
+        multiple,
       });
 
       if (!result.canceled) {

@@ -3,7 +3,7 @@
 
 import { Text, View, Image } from "react-native";
 import { mapTypeMain } from "../utils/type";
-import { ViewStorageUpload } from "../utils/storage";
+import { ViewStorageUpload } from "../components/playground/storageUpload";
 import Svg, { Path, G } from 'react-native-svg';
 
 export default function Home() {

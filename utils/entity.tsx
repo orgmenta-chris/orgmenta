@@ -20,12 +20,12 @@ export const ViewEntityTabs = ({id}:any) => {
     <View style={{flexDirection:'row'}}>
       {/* 
       <Link style={{padding:5}} to='list'>Form</Link> */}
-      <Link style={{padding:5, backgroundColor:(path[3]==='pods'&&'lightgray')}} to={`/entity/` +path[2]+'/pods'}>Pods</Link>
-      <Link style={{padding:5, backgroundColor:(path[3]==='form'&&'lightgray')}} to={`/entity/` +path[2]+'/form'}>Form</Link>
-      <Link style={{padding:5, backgroundColor:(path[3]==='list'&&'lightgray')}} to={`/entity/` +path[2]+'/list'}>List</Link>
-      <Link style={{padding:5, backgroundColor:(path[3]==='table'&&'lightgray')}} to={`/entity/` +path[2]+'/table'}>Table</Link>
-      <Link style={{padding:5, backgroundColor:(path[3]==='calendar'&&'lightgray')}} to={`/entity/` +path[2]+'/calendar'}>Calendar</Link>
-      <Link style={{padding:5, backgroundColor:(path[3]==='json'&&'lightgray')}} to={`/entity/` +path[2]+'/json'}>JSON</Link>
+      <Link style={{padding:5, backgroundColor:(path[3]==='pods'?'lightgray':'transparent')}} to={`/entity/` +path[2]+'/pods'}>Pods</Link>
+      <Link style={{padding:5, backgroundColor:(path[3]==='form'?'lightgray':'transparent')}} to={`/entity/` +path[2]+'/form'}>Form</Link>
+      <Link style={{padding:5, backgroundColor:(path[3]==='list'?'lightgray':'transparent')}} to={`/entity/` +path[2]+'/list'}>List</Link>
+      <Link style={{padding:5, backgroundColor:(path[3]==='table'?'lightgray':'transparent')}} to={`/entity/` +path[2]+'/table'}>Table</Link>
+      <Link style={{padding:5, backgroundColor:(path[3]==='calendar'?'lightgray':'transparent')}} to={`/entity/` +path[2]+'/calendar'}>Calendar</Link>
+      <Link style={{padding:5, backgroundColor:(path[3]==='json'?'lightgray':'transparent')}} to={`/entity/` +path[2]+'/json'}>JSON</Link>
       {/* <Link style={{padding:5}} to={`/entity/` +path[2]+'/kanban'}>Kanban</Link> */}
       {/* <Link style={{padding:5}} to={`/entity/` +path[2]+'/timeline'}>Timeline</Link> */}
       {/* <Link style={{padding:5}} to={`/entity/` +path[2]+'/threads'}>Threads</Link> */}
@@ -185,12 +185,12 @@ export const useEntitySchema = () => {
 }
 
 // An example component to show how we can use useEntitySchema
-export const ViewEntitySchema = ({}:any) => {
+export const ViewEntitySchema = (props:any) => {
   const schema = props.schema;
   return (
     <View style={{flexDirection:'column'}}>
       <Text>ViewEntitySchema</Text>
-      {schema?.data?.map((x,i)=><View key={i} style={{margin:4}}>
+      {schema?.data?.map((x:any,i:number)=><View key={i} style={{margin:4}}>
         {/* <Text style={{margin:4}}>{Object.keys(x)}</Text> */}
         <Text>{x.focus_columns.display_singular}</Text>
         {/* <Text>{x.auxiliary_columns.display_singular}</Text> */}

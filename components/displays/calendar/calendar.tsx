@@ -2,8 +2,15 @@ import React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
+interface Event {
+  id: number;
+  title: string;
+  start: Date;
+  end: Date;
+}
+
 const MyCalendar = (props: any) => {
-  const events = [
+  const events: Event[] = [
     {
       id: 1,
       title: "Team Meeting",

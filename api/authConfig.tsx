@@ -1,12 +1,30 @@
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
+import {
+  STAGING_CLIENT_ID,
+  STAGING_TENANT_ID,
+  PRODUCTION_CLIENT_ID,
+  PRODUCTION_TENANT_ID,
+} from "@env";
 
 // Microsoft Authentication Library configuration
 
+let clientIdVar: any;
+let tenantIdVar: any;
+
+if (__DEV__) {
+  // You are in development mode
+  clientIdVar = `${STAGING_CLIENT_ID}`;
+  tenantIdVar = `${STAGING_TENANT_ID}`;
+} else {
+  // You are in production mode
+  clientIdVar = `${PRODUCTION_CLIENT_ID}`;
+  tenantIdVar = `${PRODUCTION_TENANT_ID}`;
+}
+
 const msalConfig: Configuration = {
   auth: {
-    clientId: "7b43912a-2a3a-460d-bcd0-eecec5e32c75",
-    authority:
-      "https://login.microsoftonline.com/3d165eb2-cf10-49d6-8947-87ae972e04aa",
+    clientId: `${clientIdVar}`,
+    authority: `https://login.microsoftonline.com/${tenantIdVar}`,
     redirectUri: "/",
     postLogoutRedirectUri: "/",
   },

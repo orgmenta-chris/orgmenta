@@ -47,12 +47,8 @@ const MyCalendar = (props: any) => {
   const renderEventContent = (eventInfo: any) => {
     return (
       <>
-        <p>
-          <b>{eventInfo.timeText}</b>
-        </p>
-        <p>
-          <i>{eventInfo.event.title}</i>
-        </p>
+        <b>{eventInfo.timeText}</b>
+        <i>{eventInfo.event.title}</i>
       </>
     );
   };

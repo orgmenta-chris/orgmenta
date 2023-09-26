@@ -3,9 +3,7 @@ import { ViewActionTabs } from'../utils/action'
 import { ViewFocusMain } from'../utils/focus'
 import { useEntityArray, useEntitySingle, useEntitySchema } from "../utils/entity"
 import { useRouterLocation } from "./../utils/router";
-
-import { View } from 'react-native';
-
+import { ViewPageMain } from '../utils/page'
 
 export default function Entity() {
     const paths = useRouterLocation()?.paths
@@ -16,22 +14,16 @@ export default function Entity() {
     const focus = useEntitySingle({id:id});
     const schema = useEntitySchema();
     return (
-        <View style={{flexDirection:'column', height: "100%"}}>
-
+        <ViewPageMain>
             {/* Show the entity focus (the primary record being viewed) */}
             <ViewFocusMain/>
-
             {/* <View style={{flex:1,height:111,minHeight:"100%",flexGrow:999,backgroundColor:'blue'}}><Text>s</Text></View> */}
             {/* Show the auxiliary entities (in whichever mode is selected, e.g. Calendar, Table etc.) */}
             <ViewDisplayDynamic auxiliary={auxiliary} schema={schema} focus={focus} display={display} />
-            
             {/* Show the actions tabs/links (e.g. add,edit,copy,delete,share etc.*/}
             <ViewActionTabs  auxiliary={auxiliary} schema={schema} focus={focus}/>
-
-
             {/* Show links/tabs for Calendar, List, Table etc. */}
             <ViewDisplayTabs display={display}/>
-            
-        </View>
+        </ViewPageMain>
     )
 }

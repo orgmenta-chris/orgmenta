@@ -49,7 +49,6 @@ export const Expandable = ({ item }: any) => {
         <View
           style={{
             flex: 1,
-            flexGrow: 1,
           }}
         >
           {data

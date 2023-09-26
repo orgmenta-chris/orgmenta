@@ -22,6 +22,7 @@ import { ViewSpaceModal } from './utils/space'
 import { ViewUserModal } from './utils/user'
 import { usePlatformCssweb } from './utils/platform';
 
+import { Text } from 'react-native'
  
 export default function App() {
   usePlatformCssweb(); // shim to add css to web
@@ -74,6 +75,7 @@ export default function App() {
                 {/* Attributes Page */}
                 <ViewRouterRoute path="attributes/" element={<ExecuteRouterNavigate to="all" replace />} />
                 <ViewRouterRoute path="attributes/:mode/:attributeid/*" element={<Attribute />} />
+                <ViewRouterRoute path="/*" element={<Text>404todo</Text>} />
               </ViewRouterRoutes>
               {/* Modals */}
               <ViewSpaceModal/>

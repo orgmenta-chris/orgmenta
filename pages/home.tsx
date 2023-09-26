@@ -10,7 +10,7 @@ import VaultFunctions from "../components/playground/vaultFunctions";
 
 export default function Home() {
   const windowDimensions = useWindowDimensions();
-  return (<>
+  return (
     <ImageBackground
       style={{width:'100%', height:'100%'}}
       source={require('../assets/background2.jpg')}
@@ -44,7 +44,7 @@ export default function Home() {
       </View>
       <ScrollView style={{padding: 10,flexDirection: "column",flex: 1, width:"100%",height:"100%"}}>
 
-        {/* <View key={'test'} style={{height:windowDimensions.height-80, backgroundColor:'green'}}></View> */}
+        <View key={'test'} style={{height:windowDimensions.height-80, backgroundColor:'green'}}></View>
 
         <View key={'product_overview'}>
 
@@ -195,7 +195,7 @@ export default function Home() {
       </ScrollView>
         
   </ImageBackground>
-  </>);
+  );
 }
 
 

@@ -119,7 +119,6 @@ const GetComponent = () => {
 
 const VaultFunctions = () => {
   const [operations, setOperations] = useState("insert");
-  console.log('operations',operations)
   return (
     <View style={{margin:10, minHeight:300, backgroundColor:'orange'}}>
       <View style={{ flexDirection: "row", gap: 5, backgroundColor:'red',

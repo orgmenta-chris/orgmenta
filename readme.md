@@ -199,6 +199,25 @@ todo
 
 - `yarn start`
 - press `w`
+- You can use 'Equivalent Screen Size' + zoom in your browser to approximate different screen sizes. The formula is (Original Screen Size×100)/Zoom Level. E.g. for a 13.3" screen:
+| Zoom Level (%) | Equivalent Screen Size (inches) |
+|----------------|---------------------------------|
+| 200            | 6.65                            |
+| 175            | 7.61                            |
+| 150            | 8.87                            |
+| 125            | 10.64                           |
+| 110            | 12.09                           |
+| 100            | 13.3                            |
+| 90             | 14.78                           |
+| 80             | 16.63                           |
+| 75             | 17.73                           |
+| 67             | 19.85                           |
+| 50             | 26.6                            |
+| 33             | 40.3                            |
+| 25             | 53.2                            |
+
+
+
 
 
 <!-- ----------------- -->

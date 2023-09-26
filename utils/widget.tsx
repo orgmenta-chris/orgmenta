@@ -34,7 +34,7 @@ export const ViewWidgetMain = ({children, title,summary, collapsible, help, dire
             <View style={{position: 'absolute', flexDirection:'row',top:0, width:"100%"}}>
 
               {/* Divider */}
-              <View style={{flexGrow:1}}></View>
+              <View style={{width:"100%"}}></View>
 
               {/* Info */}
               { ( title || summary) && 

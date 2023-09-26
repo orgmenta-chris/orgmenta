@@ -1,4 +1,6 @@
+// The 'supabase' module is the client that handles Supabase auth, db, vault etc.
 // https://supabase.com/docs/guides/getting-started/tutorials/with-expo
+// Vault, Storage etc. are in their own modules to due complexity and being their own defined entity.
 
 import * as SecureStore from 'expo-secure-store'
 import 'react-native-url-polyfill/auto';
@@ -19,13 +21,14 @@ export const ExpoSecureStoreAdapter = {
     removeItem: (key: string) => {
       SecureStore.deleteItemAsync(key)
     },
-  }
+}
+
 
 // Instance
 
 export const instanceSupabaseClient = createSupabaseClient( // create an instance of the supabase client class
-    "https://qfiulevnnvsptiwtwvuz.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmaXVsZXZubnZzcHRpd3R3dnV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ4MjQ1MzcsImV4cCI6MTk4MDQwMDUzN30.D2lskLMTLfvucKbs3eqxxu0uygwyvd-krOFQN-T0APM",
+    process.env.STAGING_SUPABASE_URL!, //The ! asserts that the variable is not undefined.
+    process.env.STAGING_SUPABASE_PUBLIC_KEY!, //The ! asserts that the variable is not undefined.
     {
         auth: {
             storage: UtilityPlatformMain.OS !== 'web' && ExpoSecureStoreAdapter as any,
@@ -35,11 +38,6 @@ export const instanceSupabaseClient = createSupabaseClient( // create an instanc
         },
     }
 );
-
-// export const instanceSupabaseClient = createClient( // expo variables not yet working
-//     process.env.STAGING_REACT_APP_SUPABASE_URL,
-//     process.env.STAGING_REACT_APP_SUPABASE_PUBLIC_KEY
-// );
 
 
 // Response

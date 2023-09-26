@@ -7,6 +7,8 @@ import Space from "./pages/space";
 import Entity from "./pages/entity";
 import Browse from "./pages/browse";
 import Attribute from "./pages/attribute";
+import { ViewRouterLostpage } from './utils/router';
+import { usePlatformCssweb } from './utils/platform';
 import { ViewWindowMain } from "./utils/window"
 import { ViewQueryerProvider } from "./utils/queryer"
 import { ViewRouterProvider, ViewRouterRoutes, ViewRouterRoute, ExecuteRouterNavigate } from "./utils/router"
@@ -20,9 +22,6 @@ import { ViewOrgmentaModal } from './utils/orgmenta'
 import { ViewBrowseModal } from './utils/browse'
 import { ViewSpaceModal } from './utils/space'
 import { ViewUserModal } from './utils/user'
-import { usePlatformCssweb } from './utils/platform';
-
-import { Text } from 'react-native'
  
 export default function App() {
   usePlatformCssweb(); // shim to add css to web
@@ -73,9 +72,10 @@ export default function App() {
                 <ViewRouterRoute path="browse/" element={<ExecuteRouterNavigate to="all/all" replace />} />
                 <ViewRouterRoute path="browse/:browsemode/:searchterm" element={<Browse />} />
                 {/* Attributes Page */}
-                <ViewRouterRoute path="attributes/" element={<ExecuteRouterNavigate to="all" replace />} />
+                <ViewRouterRoute path="attributes/" element={<ExecuteRouterNavigate to="all/all" replace />} />
                 <ViewRouterRoute path="attributes/:mode/:attributeid/*" element={<Attribute />} />
-                <ViewRouterRoute path="/*" element={<Text>404todo</Text>} />
+                {/* 404 / Not found / Lost */}
+                <ViewRouterRoute path="/*" element={<ViewRouterLostpage/>} />
               </ViewRouterRoutes>
               {/* Modals */}
               <ViewSpaceModal/>

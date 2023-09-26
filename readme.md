@@ -173,7 +173,7 @@ And see https://github.com/search?q=repo%3Afacebook%2Freact-native+platform&type
 - In Vscode/IDE/CLI, `yarn start` or `yarn start --tunnel`
 - If no qr code is shown in the CLI, press w to start web (which will generate the qr code)
 - It's a good idea to screenshot the qr code and have it up in a tab ready for reuse if necessary (as the expo app crashes often)
-- G to your camera app and scan the qr code.
+- G to your camera app and scan the qr code (note that it's best to use the camera app instead of the expo app to scan the qr code if possible, as the expo app seems to sometimes not load it correctly for some reason?)
 - Fast refresh will be turned on by default (but note that this sometimes does not work on --tunnel)
 - You can also manually refresh by shaking the device (pops up the expo menu) and clicking reload.
 - If the expo app says 'Something went wrong' then force stop & clear data, and restart yarn start / yarn start --tunnel

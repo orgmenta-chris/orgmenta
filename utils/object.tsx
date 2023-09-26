@@ -2,7 +2,11 @@ import _ from 'underscore';
 
 
 // Validate (object helper functions)
-
+export const validateObjectIsobject = <T extends any>(value: T): boolean => {
+    // return true if value is an object (note this INCLUDES arrays and functions)
+    return typeof value === 'object' && !Array.isArray(value);
+};
+  
 export const validateObjectIsliteral = (value: any): boolean => {
     // return true if value is an object (note this FILTERS OUT arrays and functions)
     return _.isObject(value) && !_.isArray(value) && !_.isFunction(value);

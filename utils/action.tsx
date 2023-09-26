@@ -1,15 +1,15 @@
 // An 'Action' is something that can be done to an 'Entity'.
 
-import { TextInput, View, Text, Pressable } from 'react-native';
-import { useState } from 'react'
-import { Link, useLocation, Route, Routes } from 'react-router-dom'
-import ViewIconMain from '../components/displays/icons/ViewIconMain';
-import { ViewControlMain } from '../utils/control'
-import { useEntityCreate } from '../utils/entity'
-import { arrayTypeMain } from '../utils/type'
-import { arrayStatusMain } from '../utils/status'
+import { ViewRouterLink, ViewRouterRoutes, ViewRouterRoute, useRouterLocation } from './router'
+import { ViewControlMain } from './control'
+import { useEntityCreate } from './entity'
+import { arrayTypeMain } from './type'
+import { arrayStatusMain } from './status'
 import { createUuid4 } from './uuid'
 
+import ViewIconMain from '../components/displays/icons/ViewIconMain';
+import { TextInput, View, Text, Pressable } from 'react-native';
+import { useState } from 'react'
 
 // Modal
 
@@ -36,7 +36,7 @@ export const ViewActionControl = ({}:any) => {
 // Add
 
 export const ViewActionAdd = ({auxiliary, schema, focus}:any) => {
-  const paths = useLocation()?.pathname?.split('/');
+  const paths = useRouterLocation()?.paths
   const category = paths[2];
   const [ state, set ] = paths && useState({id: createUuid4() , title:'',type:'Event',status:'0. New', categories:  [category], description: ''});
   const create = useEntityCreate(state);
@@ -227,44 +227,44 @@ export const optionsActionTabs = [
 ]
 
 export const ViewActionTabs = ({auxiliary, schema, focus, display}:any) => {
-  const paths = useLocation().pathname?.split("/")
+  const paths = useRouterLocation().paths
   return (
     <View style={{flexDirection:'column'}}>
       <View style={{borderWidth:1}}>
-        <Routes>
-          <Route
+        <ViewRouterRoutes>
+          <ViewRouterRoute
             path="/control"
             element={<ViewActionControl/>}
           />
-          <Route
+          <ViewRouterRoute
             path="/add"
             element={<ViewActionAdd auxiliary={auxiliary} schema={schema} focus={focus} />}
           />
-          <Route
+          <ViewRouterRoute
             path="/edit"
             element={<ViewActionEdit/>}
           />
-          <Route
+          <ViewRouterRoute
             path="/sync"
             element={<ViewActionSync/>}
           />
-          <Route
+          <ViewRouterRoute
             path="/share"
             element={<ViewActionShare/>}
           />
-          <Route
+          <ViewRouterRoute
             path="/template"
             element={<ViewActionTemplate/>}
           />
-          <Route
+          <ViewRouterRoute
             path="/link"
             element={<ViewActionLink/>}
           />
-        </Routes>
+        </ViewRouterRoutes>
       </View>
       <View style={{flexDirection:'row', borderWidth:1}}>
         {optionsActionTabs?.map((x,i)=>
-          <Link key={i} style={{padding:5, textDecoration:'none', backgroundColor:paths[4]===x.title.toLocaleLowerCase() ? 'lightgrey':'transparent'}} to={x.title.toLowerCase()}>
+          <ViewRouterLink key={i} style={{padding:5, textDecoration:'none', backgroundColor:paths[4]===x.title.toLocaleLowerCase() ? 'lightgrey':'transparent'}} to={x.title.toLowerCase()}>
             {/* {x.title} */}
             <ViewIconMain
                 name={x.iconName}
@@ -272,7 +272,7 @@ export const ViewActionTabs = ({auxiliary, schema, focus, display}:any) => {
                 color={'black'}
                 size={24}
             />
-          </Link>
+          </ViewRouterLink>
         )}
       </View>
     </View>

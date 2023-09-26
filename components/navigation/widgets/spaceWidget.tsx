@@ -1,42 +1,34 @@
-import React, { useState } from "react";
-import { Text, View, Pressable, StyleSheet } from "react-native";
-import SpaceModal from "./modals/spaceModal";
+
 import { ViewIconMain } from "../../../utils/icon";
+import { useWindowDimensions } from  "../../../utils/window";
+import { useModalVisibility } from "../../../utils/modal";
+import { useSpaceActive, TypeSpaceActive } from "../../../utils/space";
+import { Text, Pressable } from "react-native";
 
 export default function SpaceWidget() {
-  const [modalVisible, setModalVisible] = useState(false);
-
+  const window = useWindowDimensions();
+  const spaceActive = useSpaceActive({}) as TypeSpaceActive;
   return (
-    <View style={styles.navButton}>
-
-      <Pressable
-        style={styles.navButton}
-        onPress={() => {
-          setModalVisible(true);
+    <Pressable
+      onPress={useModalVisibility('space')}
+      style={{
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        flex: 1,
+        flexDirection: 'row'
+      }}
+    >
+      <ViewIconMain
+        name={'box'}
+        source={'Feather'}
+        color={'white'}
+        size={30}
+        style={{
+          alignItems: 'center', 
+          justifyContent: 'center',
         }}
-      >
-        <ViewIconMain
-          name={'box'}
-          source={'Feather'}
-          color={'white'}
-        />
-        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%", paddingLeft: 10, color:'white'}}>{`SpaceName`}</Text>
-      </Pressable>
-
-      {/* space modal */}
-      <SpaceModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
       />
-      {/* space modal */}
-    </View>
+      {window?.width > 600 && <Text selectable={false} numberOfLines={1} style={{ paddingLeft: 10, color: 'white' }}>{spaceActive?.data?.title}</Text>}
+    </Pressable>  
   );
 }
-
-const styles = StyleSheet.create({
-  navButton: {
-    flex:1,
-    flexDirection:'row',
-    alignItems:'center',
-  },
-});

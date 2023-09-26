@@ -1,41 +1,33 @@
-import React, { useState } from "react";
-import { Text, View, Pressable, StyleSheet } from "react-native";
-import BrowserModal from "./modals/browserModal";
 import { ViewIconMain } from "../../../utils/icon";
+import { useWindowDimensions } from  "../../../utils/window";
+import { useModalVisibility } from "../../../utils/modal";
+import { useBrowseActive, TypeBrowseActive } from "../../../utils/browse";
+import { Text, Pressable } from "react-native";
 
 export default function BrowseWidget() {
-  const [modalVisible, setModalVisible] = useState(false);
-
+  const window = useWindowDimensions();
+  const browseActive = useBrowseActive({}) as TypeBrowseActive;
   return (
-    <View style={styles.navButton}>
-      <Pressable
-        style={styles.navButton}
-        onPress={() => {
-          setModalVisible(true);
+    <Pressable
+      onPress={useModalVisibility('browse')}
+      style={{
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        flex: 1,
+        flexDirection: 'row'
+      }}
+    >
+      {window?.width > 600 && <Text selectable={false} numberOfLines={1} style={{ paddingRight: 10, color: 'white' }}>{browseActive?.data?.title}</Text>}
+      <ViewIconMain
+        name={'book-open'}
+        source={'Feather'}
+        color={'white'}
+        size={30}
+        style={{
+          alignItems: 'center', 
+          justifyContent: 'center',
         }}
-      >
-        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%",textAlign:'right', paddingRight: 10, color:'white'}}>{`Browse`}</Text>
-        <ViewIconMain
-          name={'book-open'}
-          source={'Feather'}
-          color={'white'}
-        />
-      </Pressable>
-
-      {/* browser modal */}
-      <BrowserModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
       />
-      {/* browser modal */}
-    </View>
+    </Pressable>  
   );
 }
-
-const styles = StyleSheet.create({
-  navButton: {
-    flex:1,
-    flexDirection:'row',
-    alignItems:'center',
-  },
-});

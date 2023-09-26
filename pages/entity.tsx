@@ -1,21 +1,14 @@
-import React from 'react';
-import { View, Text } from 'react-native';
 import { ViewDisplayDynamic, ViewDisplayTabs } from'../utils/display'
 import { ViewActionTabs } from'../utils/action'
 import { ViewFocusMain } from'../utils/focus'
-import { ViewWidgetMain } from '../utils/widget'
-import { useApiItems,mapApiSource } from '../utils/api'
-import { ViewControlMain} from '../utils/control'
-import { Link, useLocation, Route, Routes } from "react-router-dom";
-import {
-  useEntityArray,
-  useEntitySingle,
-  useEntitySchema,
-} from "../utils/entity"
+import { useEntityArray, useEntitySingle, useEntitySchema } from "../utils/entity"
+import { useRouterLocation } from "./../utils/router";
+
+import { View } from 'react-native';
 
 
 export default function Entity() {
-    const paths = useLocation().pathname?.split("/")
+    const paths = useRouterLocation()?.paths
     // todo: auxiliary data doesn't have relationship ids yet
     const display = paths?.[3]; // this should be passed as the component  prop instead of hardcoded here
     const id = paths?.[2]; // this should be passed as the component  prop instead of hardcoded here

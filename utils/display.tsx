@@ -2,23 +2,19 @@
 // It is a 'perspective into the graph'.
 // You can view entities and their relationships in different displays (e.g. Table, list, calendar) and filters.
 
-import {
-  useEntityArray,
-  useEntitySingle,
-  useEntitySchema,
-} from "./entity";
-import { ReactElement, memo, useMemo, useState } from "react";
-import { View, Text, Pressable } from "react-native";
-import { Link, useLocation } from "react-router-dom";
-import { ViewListMain } from "./list";
+import { ViewRouterLink, useRouterLocation } from "./router";
 import { ViewFormDynamic } from "./form";
+import { ViewListMain } from "./list";
 import { ViewPodMain, ViewPodInfo, ViewPodList, ViewPodTabs, ViewPodExample } from "./pod"
 // import { ViewTableMain, useTableColumns } from "./table";
 // import { ViewJsonMain } from "./json";
 // import { ViewIconMain } from "./icon";
+
+import { memo, useMemo } from "react";
+import { View, Text } from "react-native";
 // import MyCalendar from "../components/displays/calendar";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+// import "react-calendar/dist/Calendar.css";
 // import MapChart from "../components/displays/maps";
 import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
 // import ViewDisplayForm from "../components/displays/forms/ViewDisplayForm";
@@ -109,132 +105,132 @@ export const ViewDisplayForm = (props: any) => {
 
 export const ViewDisplayTable = (props: any) => {
   const schema = props.schema;
-  const columns = useTableColumns(
-    schema.data?.map(
-      (x: { focus_columns: { name_singular: any } }) =>
-        x.focus_columns.name_singular
-    )
-  );
+  // const columns = useTableColumns(
+  //   schema.data?.map(
+  //     (x: { focus_columns: { name_singular: any } }) =>
+  //       x.focus_columns.name_singular
+  //   )
+  // );
   const auxiliary = props.auxiliary;
   return (<>
     <ViewTableTabs/>
-    <ViewTableMain columns={columns} data={auxiliary.data} />
+    {/* <ViewTableMain columns={columns} data={auxiliary.data} /> */}
   </>);
 };
 
 
 // Calendar
 
-export const ViewDisplayCalendar = (props: any) => {
-  const schema = props.schema;
-  const auxiliary = props.auxiliary;
+// export const ViewDisplayCalendar = (props: any) => {
+//   const schema = props.schema;
+//   const auxiliary = props.auxiliary;
 
-  const [activeTab, setActiveTab] = useState(0);
-  const [value, onChange] = useState(new Date());
+//   const [activeTab, setActiveTab] = useState(0);
+//   const [value, onChange] = useState(new Date());
 
-  const handleTabPress = (index: number) => {
-    setActiveTab(index);
-  };
+//   const handleTabPress = (index: number) => {
+//     setActiveTab(index);
+//   };
 
-  interface ICalendarEventBase {
-    start: Date;
-    end: Date;
-    title: string;
-    children?: ReactElement | null;
-  }
+//   interface ICalendarEventBase {
+//     start: Date;
+//     end: Date;
+//     title: string;
+//     children?: ReactElement | null;
+//   }
 
-  const eventNotes = useMemo(
-    () => (
-      <View style={{ marginTop: 3 }}>
-        <Text style={{ fontSize: 10, color: "white" }}>
-          {" "}
-          Phone number: 555-123-4567{" "}
-        </Text>
-        <Text style={{ fontSize: 10, color: "white" }}>
-          {" "}
-          Arrive 15 minutes early{" "}
-        </Text>
-      </View>
-    ),
-    []
-  );
+//   const eventNotes = useMemo(
+//     () => (
+//       <View style={{ marginTop: 3 }}>
+//         <Text style={{ fontSize: 10, color: "white" }}>
+//           {" "}
+//           Phone number: 555-123-4567{" "}
+//         </Text>
+//         <Text style={{ fontSize: 10, color: "white" }}>
+//           {" "}
+//           Arrive 15 minutes early{" "}
+//         </Text>
+//       </View>
+//     ),
+//     []
+//   );
 
-  const events: Array<ICalendarEventBase & { color?: string }> = [
-    {
-      title: "Team Meeting",
-      start: new Date(2023, 2, 15, 10, 0), // March 15, 2023, 10:00 AM
-      end: new Date(2023, 2, 15, 11, 0), // March 15, 2023, 11:00 AM
-      children: eventNotes,
-    },
-    {
-      title: "Project Review",
-      start: new Date(2023, 2, 17, 14, 30), // March 17, 2023, 2:30 PM
-      end: new Date(2023, 2, 17, 16, 0), // March 17, 2023, 4:00 PM
-      children: eventNotes,
-    },
-    {
-      title: "Conference Call",
-      start: new Date(2023, 2, 20, 11, 0), // March 20, 2023, 11:00 AM
-      end: new Date(2023, 2, 20, 12, 0), // March 20, 2023, 12:00 PM
-      children: eventNotes,
-    },
-    {
-      title: "Team Building Workshop",
-      start: new Date(2023, 2, 22, 9, 30), // March 22, 2023, 9:30 AM
-      end: new Date(2023, 2, 22, 12, 30), // March 22, 2023, 12:30 PM
-      children: eventNotes,
-    },
-    {
-      title: "Product Demo",
-      start: new Date(2023, 2, 25, 15, 0), // March 25, 2023, 3:00 PM
-      end: new Date(2023, 2, 25, 16, 0), // March 25, 2023, 4:00 PM
-      children: eventNotes,
-    },
-    // Add more random events as needed
-  ];
+//   const events: Array<ICalendarEventBase & { color?: string }> = [
+//     {
+//       title: "Team Meeting",
+//       start: new Date(2023, 2, 15, 10, 0), // March 15, 2023, 10:00 AM
+//       end: new Date(2023, 2, 15, 11, 0), // March 15, 2023, 11:00 AM
+//       children: eventNotes,
+//     },
+//     {
+//       title: "Project Review",
+//       start: new Date(2023, 2, 17, 14, 30), // March 17, 2023, 2:30 PM
+//       end: new Date(2023, 2, 17, 16, 0), // March 17, 2023, 4:00 PM
+//       children: eventNotes,
+//     },
+//     {
+//       title: "Conference Call",
+//       start: new Date(2023, 2, 20, 11, 0), // March 20, 2023, 11:00 AM
+//       end: new Date(2023, 2, 20, 12, 0), // March 20, 2023, 12:00 PM
+//       children: eventNotes,
+//     },
+//     {
+//       title: "Team Building Workshop",
+//       start: new Date(2023, 2, 22, 9, 30), // March 22, 2023, 9:30 AM
+//       end: new Date(2023, 2, 22, 12, 30), // March 22, 2023, 12:30 PM
+//       children: eventNotes,
+//     },
+//     {
+//       title: "Product Demo",
+//       start: new Date(2023, 2, 25, 15, 0), // March 25, 2023, 3:00 PM
+//       end: new Date(2023, 2, 25, 16, 0), // March 25, 2023, 4:00 PM
+//       children: eventNotes,
+//     },
+//     // Add more random events as needed
+//   ];
 
-  const tabs = [
-    // { tab: "View Calendar", component: <MyCalendar myEventsList={events} /> },
-    {
-      tab: "Add events",
-      component: <Calendar onChange={onChange} value={value} />,
-    },
-  ];
+//   const tabs = [
+//     // { tab: "View Calendar", component: <MyCalendar myEventsList={events} /> },
+//     {
+//       tab: "Add events",
+//       component: <Calendar onChange={onChange} value={value} />,
+//     },
+//   ];
 
-  return (
-    <View style={{maxHeight:400}}>
-      <View
-        style={{
-          flexDirection: "row",
-          marginBottom: 10,
-          marginHorizontal: 12,
-        }}
-      >
-        {tabs.map((content, index) => (
-          <Pressable
-            key={index}
-            style={{
-              padding: 10,
-              borderTopWidth: 1,
-              borderRightWidth: 1,
-              borderLeftWidth: 1,
-              borderTopRightRadius: 5,
-              borderTopLeftRadius: 5,
-              borderColor: activeTab === index ? "black" : "transparent",
-              backgroundColor:
-                activeTab === index ? "lightblue" : "transparent",
-            }}
-            onPress={() => handleTabPress(index)}
-          >
-            <Text style={{ fontWeight: "bold" }}>{content.tab}</Text>
-          </Pressable>
-        ))}
-      </View>
+//   return (
+//     <View style={{maxHeight:400}}>
+//       <View
+//         style={{
+//           flexDirection: "row",
+//           marginBottom: 10,
+//           marginHorizontal: 12,
+//         }}
+//       >
+//         {tabs.map((content, index) => (
+//           <Pressable
+//             key={index}
+//             style={{
+//               padding: 10,
+//               borderTopWidth: 1,
+//               borderRightWidth: 1,
+//               borderLeftWidth: 1,
+//               borderTopRightRadius: 5,
+//               borderTopLeftRadius: 5,
+//               borderColor: activeTab === index ? "black" : "transparent",
+//               backgroundColor:
+//                 activeTab === index ? "lightblue" : "transparent",
+//             }}
+//             onPress={() => handleTabPress(index)}
+//           >
+//             <Text style={{ fontWeight: "bold" }}>{content.tab}</Text>
+//           </Pressable>
+//         ))}
+//       </View>
 
-      <View>{tabs[activeTab].component}</View>
-    </View>
-  );
-};
+//       <View>{tabs[activeTab].component}</View>
+//     </View>
+//   );
+// };
 
 
 // Maps
@@ -254,9 +250,9 @@ export const ViewDisplayMaps = (props: any) => {
 export const ViewDisplayJson = (props: any) => {
   const schema = props.schema;
   const auxiliary = props.auxiliary;
-  const columns = useTableColumns(
-    schema.data?.map((x: any) => x.focus_columns.name_singular)
-  );
+  // const columns = useTableColumns(
+  //   schema.data?.map((x: any) => x.focus_columns.name_singular)
+  // );
   return (
     <View style={{ flexDirection: "column" }}>
       {/* <ViewJsonMain schema={schema} auxiliary={auxiliary} columns={columns} /> */}
@@ -274,8 +270,8 @@ export const mapDisplayComponents: any = {
   form: ViewDisplayForm,
   table: ViewDisplayTable,
   calendar: ViewDisplayCalendar,
-  // maps: ViewDisplayMaps,
-  // json: ViewJsonMain,
+  maps: ViewDisplayMaps,
+  json: ViewDisplayJson,
 };
 
 
@@ -315,10 +311,10 @@ export const optionsDisplayMain = [ // ViewDisplayTabs should use this instead o
 // Tabs
 
 export const ViewDisplayTabs = ({ id, display }: any) => { // Contextual tabs (i.e. these will eventually grey out if not applicable to the current focused entity)
-  const path = useLocation().pathname?.split("/");
+  const path = useRouterLocation()?.paths
   return (
     <View style={{flexDirection:'column', position:'absolute', right:0, top:100, backgroundColor:'gray'}}>
-      <Link
+      <ViewRouterLink
         style={{
           padding: 5,
           backgroundColor: display === "pods" ? "lightgray" : "transparent",
@@ -326,9 +322,9 @@ export const ViewDisplayTabs = ({ id, display }: any) => { // Contextual tabs (i
         to={"entity/../../pods"}
       >
         Pod
-      </Link>
+      </ViewRouterLink>
       {/* CG handling the pods component/module */}
-      <Link
+      <ViewRouterLink
         style={{
           padding: 5,
           backgroundColor: display === "form" ? "lightgray" : "transparent",
@@ -336,9 +332,9 @@ export const ViewDisplayTabs = ({ id, display }: any) => { // Contextual tabs (i
         to={"entity/../../form"}
       >
         Form
-      </Link>
+      </ViewRouterLink>
       {/* CG handling the form component/module*/}
-      <Link
+      <ViewRouterLink
         style={{
           padding: 5,
           backgroundColor: display === "list" ? "lightgray" : "transparent",
@@ -346,9 +342,9 @@ export const ViewDisplayTabs = ({ id, display }: any) => { // Contextual tabs (i
         to={"entity/../../list"}
       >
         List
-      </Link>
+      </ViewRouterLink>
       {/*Loisa Handling the list component/module */}
-      <Link
+      <ViewRouterLink
         style={{
           padding: 5,
           backgroundColor: display === "table" ? "lightgray" : "transparent",
@@ -356,9 +352,9 @@ export const ViewDisplayTabs = ({ id, display }: any) => { // Contextual tabs (i
         to={"entity/../../table"}
       >
         Table
-      </Link>
+      </ViewRouterLink>
       {/*Loisa Handling the table component/module */}
-      <Link
+      <ViewRouterLink
         style={{
           padding: 5,
           backgroundColor: display === "calendar" ? "lightgray" : "transparent",
@@ -366,9 +362,9 @@ export const ViewDisplayTabs = ({ id, display }: any) => { // Contextual tabs (i
         to={"entity/../../calendar"}
       >
         Calendar
-      </Link>
+      </ViewRouterLink>
       {/*Loisa Handling the calendar component/module */}
-      <Link
+      <ViewRouterLink
         style={{
           padding: 5,
           backgroundColor: display === "maps" ? "lightgray" : "transparent",
@@ -376,9 +372,9 @@ export const ViewDisplayTabs = ({ id, display }: any) => { // Contextual tabs (i
         to={"entity/../../maps"}
       >
         Maps
-      </Link>
+      </ViewRouterLink>
       {/*Loisa Handling the maps component/module */}
-      <Link
+      <ViewRouterLink
         style={{
           padding: 5,
           backgroundColor: display === "json" ? "lightgray" : "transparent",
@@ -386,23 +382,23 @@ export const ViewDisplayTabs = ({ id, display }: any) => { // Contextual tabs (i
         to={"entity/../../json"}
       >
         JSON
-      </Link>
+      </ViewRouterLink>
       {/*Loisa Handling the json component/module */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='kanban'&&'lightgray')}} to={`/entity/` +path[2]+'/kanban'}>Kanban</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='kanban'&&'lightgray')}} to={`/entity/` +path[2]+'/kanban'}>Kanban</ViewRouterLink> */}
       {/* On hold */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='gantt'&&'lightgray')}} to={`/entity/` +path[2]+'/gantt'}>Gantt</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='gantt'&&'lightgray')}} to={`/entity/` +path[2]+'/gantt'}>Gantt</ViewRouterLink> */}
       {/* On hold */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='timeline'&&'lightgray')}} to={`/entity/` +path[2]+'/timeline'}>Timeline</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='timeline'&&'lightgray')}} to={`/entity/` +path[2]+'/timeline'}>Timeline</ViewRouterLink> */}
       {/* On hold */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='threads'&&'lightgray')}} to={`/entity/` +path[2]+'/threads'}>Threads</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='threads'&&'lightgray')}} to={`/entity/` +path[2]+'/threads'}>Threads</ViewRouterLink> */}
       {/* On hold */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='chart'&&'lightgray')}} to={`/entity/` +path[2]+'/chart'}>Chart/Statistics</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='chart'&&'lightgray')}} to={`/entity/` +path[2]+'/chart'}>Chart/Statistics</ViewRouterLink> */}
       {/* On hold */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='path'&&'lightgray')}} to={`/entity/` +path[2]+'/path'}>Path</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='path'&&'lightgray')}} to={`/entity/` +path[2]+'/path'}>Path</ViewRouterLink> */}
       {/* On hold */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='nodes'&&'lightgray')}} to={`/entity/` +path[2]+'/nodes'}>Nodes</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='nodes'&&'lightgray')}} to={`/entity/` +path[2]+'/nodes'}>Nodes</ViewRouterLink> */}
       {/* On hold */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='spacial'&&'lightgray')}} to={`/entity/` +path[2]+'/spacial'}>Spacial</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='spacial'&&'lightgray')}} to={`/entity/` +path[2]+'/spacial'}>Spacial</ViewRouterLink> */}
       {/* On hold */}
     </View>
   );

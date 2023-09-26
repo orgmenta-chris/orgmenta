@@ -1,9 +1,9 @@
 // A widget is a container component that has options that appear on hover/click.
 
-import { useState, useReducer, useEffect, useMemo} from "react"
-import { Link } from 'react-router-dom'
-import { ScrollView, TextInput, View, Text, Pressable } from 'react-native';
-import React from "react";
+import { ViewRouterLink } from './router';
+
+import { useState } from "react"
+import { View, Text, Pressable } from 'react-native';
 import ViewIconMain from "../components/displays/icons/ViewIconMain";
  
 // Main
@@ -59,14 +59,14 @@ export const ViewWidgetMain = ({children, title,summary, collapsible, help, dire
                   onHoverIn={()=>{setOptions((oldValue)=>true);}}
                   style={{padding: 5, backgroundColor:'gray'}}
                 >
-                  <Link to="documentation_url_goes_here" style={{textDecoration: 'none'}}>
+                  <ViewRouterLink to="documentation_url_goes_here" style={{textDecoration: 'none'}}>
                     <ViewIconMain 
                         name={'help'}
                         source={'Entypto'}
                         color={'white'}
                         size={15}
                     />
-                  </Link>
+                  </ViewRouterLink>
                 </Pressable>
               }
 

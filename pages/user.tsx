@@ -1,4 +1,3 @@
-import React from "react";
 import { Text, View } from "react-native";
 import { useAuthSession } from "../utils/auth";
 import { ViewUserAttributes } from "../utils/user";
@@ -9,7 +8,7 @@ export default function UserPage() {
   
   return (
     <View style={{ flexDirection: "column" }}>
-      <Text style={{ fontWeight: 700, marginBottom: 10 }}>USER PAGE</Text>
+      <Text style={{ fontWeight: '700', marginBottom: 10 }}>USER PAGE</Text>
       <View style={{ maxWidth: 500 }}>
         <Text style={{ marginBottom: 10 }}>ViewAuthDetails</Text>
         {session.data && (
@@ -21,5 +20,3 @@ export default function UserPage() {
     </View>
   );
 }
-
-import { ViewFormMain } from "./form";

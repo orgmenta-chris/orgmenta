@@ -1,11 +1,12 @@
 // A 'space' is a bucket to hold an organisation, group, non-profit, department or personal space.
 
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
-import { useQuery, useMutation, useQueryClient, UseQueryOptions } from '@tanstack/react-query'
-import { ScrollView, View, Text, Pressable } from 'react-native';
-import { useTableColumns } from '../components/displays/table/table'
+import { ViewModalMain } from './modal'
+import { ViewRouterLink } from './router'
 import { useState, useEffect} from 'react'
-import { Link } from "react-router-dom";
+import { StyleSheet, ScrollView, View, Text, Pressable } from 'react-native';
+import { useQuery, useMutation, useQueryClient, UseQueryOptions } from '@tanstack/react-query'
+import { useTableColumns } from '../components/displays/table/table'
 import {
     createColumnHelper,
     flexRender,
@@ -14,7 +15,6 @@ import {
     ColumnResizeMode,
     ColumnDef,
 } from '@tanstack/react-table'
-import { ViewModalMain } from './modal'
 
 
 // Meta
@@ -34,7 +34,7 @@ export const metaSpaceInfo = {
 }
 
 
-// Create
+// Create (Create a space. Note that this does not set up all of the other related assets like tables, load in any blueprint entities, run any necessary server functions, etc (see useSpaceSetup for that)
 
 export const metaSpaceCreate = {
   description: 'Create a space in the spaces table',
@@ -44,7 +44,7 @@ export const metaSpaceCreate = {
   hook: "useSpaceCreate",
 }
 
-export interface interfaceSpaceCreate {
+export interface interfaceSpaceCreate { 
     // todo
 }
 
@@ -186,7 +186,7 @@ export const ViewSpaceArray = () => {
     return (
         <View>
         <Text style={{fontWeight:'700'}}>ViewSpaceArray</Text>
-            <ViewSpaceTable data={array.data} columns={columns}/>
+            {/* <ViewSpaceTable data={array.data} columns={columns}/> */}
         </View>
     )
 }
@@ -231,21 +231,23 @@ export const ViewSpaceItem = ({id}:interfaceSpaceItem) => {
 
 // This is a useQuery query that just returns a blank object (it doesn't query anything).
 // Then the user can switch active companies, which will update this query.
-export const useSpaceActive = ({...Input})=> {
+export const useSpaceActive = ({...Input}:TypeSpaceActive)=> {
   const query = useQuery({
       queryKey:['spaces',"active"],
       queryFn:()=>{ return {} },
       enabled: false,
       initialData: {
         id: null,
-        title:'No active space',
+        title:'Select a Space',
       }
-      // ...props
   });
   return query
 }
 
-export const updateSpaceActive = ({space}:any)=> {
+export type TypeSpaceActive = any; // placeholder
+
+
+export const updateSpaceActive = ({space}:TypeSpaceActive)=> {
   const client = useQueryClient();
   client.setQueryData(
     ['spaces',"active"],
@@ -323,13 +325,22 @@ export const ViewSpaceTable = ({...Input}) => { // This is currently a hardocded
 
 export const ViewSpaceModal = (props:any) => {
   return (
-      <ViewModalMain modalName={'space'} backdrop pinnable bottom={60} >
-        <Link to={`/spaces/${'SPACEIDHERE'}/pods`}>SPACE</Link>
-        <Link to={`/spaces/all/pods`}>ALL SPACES</Link>
-      </ViewModalMain>
+    <ViewModalMain modalName={'space'} snapto={'left'} backdrop pinnable collapsible >
+      <ViewRouterLink to={`/spaces/${'SPACEIDHERE'}/pods`}>SPACE</ViewRouterLink>
+      <ViewRouterLink to={`/spaces/all/pods`}>ALL SPACES</ViewRouterLink>
+      <ViewRouterLink to={`/spaces/${'SPACEIDHERE'}/pods`}>SPACE</ViewRouterLink>
+      <ViewRouterLink to={`/spaces/all/pods`}>ALL SPACES</ViewRouterLink>
+      <ViewRouterLink to="">Files</ViewRouterLink>
+      <ViewRouterLink to="">Settings</ViewRouterLink> 
+      <ViewRouterLink to="">Subscription & Billing</ViewRouterLink>
+            
+      <Text>(list of spaces here)</Text>
+      <Pressable>
+        <Text>+ Add a new organization</Text>
+      </Pressable>
+    </ViewModalMain>
   );
 };
-
 
 // State (save a space's data to state. E.g. 'Selected' uses this to save the current/active space.)
 

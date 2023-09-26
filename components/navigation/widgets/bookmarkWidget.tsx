@@ -1,43 +1,33 @@
-import React, { useState } from "react";
-import { Text, View, Pressable, StyleSheet } from "react-native";
-import BookmarkModal from "./modals/bookmarkModal";
 import { ViewIconMain } from "../../../utils/icon";
+import { useWindowDimensions } from  "../../../utils/window";
 import { useModalVisibility } from "../../../utils/modal";
+import { useBookmarkActive, TypeBookmarkActive } from "../../../utils/bookmark";
+import { Text, Pressable } from "react-native";
 
 export default function BookmarkWidget() {
-  const [modalVisible, setModalVisible] = useState(false);
-
+  const window = useWindowDimensions();
+  const bookmarksActive = useBookmarkActive({}) as TypeBookmarkActive;
   return (
-    <View style={styles.navButton}>
-      <Pressable
-        style={styles.navButton}
-        // onPress={() => {
-        //   setModalVisible(true);
-        // }}
-        onPress={useModalVisibility('bookmark')}
-      >
-        <ViewIconMain
-          name={'bookmark'}
-          source={'Feather'}
-          color={'white'}
-        />
-        <Text selectable={false} numberOfLines={1} style={{minWidth:"100%", paddingLeft: 10, color:'white'}}>{`Bookmarks`}</Text>
-      </Pressable>
-
-      {/* browser modal */}
-      <BookmarkModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
+    <Pressable
+      onPress={useModalVisibility('bookmark')}
+      style={{
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        flex: 1,
+        flexDirection: 'row'
+      }}
+    >
+      <ViewIconMain
+        name={'bookmark'}
+        source={'Feather'}
+        color={'white'}
+        size={30}
+        style={{
+          alignItems: 'center', 
+          justifyContent: 'center',
+        }}
       />
-      {/* browser modal */}
-    </View>
+        {window?.width > 600 && <Text selectable={false} numberOfLines={1} style={{minWidth:"100%", paddingLeft: 10, color:'white'}}>{bookmarksActive?.data?.title}</Text>}
+    </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  navButton: {
-    flex:1,
-    flexDirection:'row',
-    alignItems:'center',
-  },
-});

@@ -7,10 +7,16 @@
 // - permissions
 // - devices (the windows/apps/devices they log in from)
 
-import React from 'react';
-import { ScrollView, TextInput, View, Text, Pressable } from 'react-native';
+import { useState } from "react";
+import { ScrollView, View, Text, Pressable } from 'react-native';
 import { useAttributeUnioned } from './attribute'
 import { ViewModalMain } from './modal'
+import { useQuery } from '@tanstack/react-query'
+import { useAuthSession, useAuthSignout } from "./auth";
+import { useNavigate } from "react-router-dom";
+import SignIn from "../components/auth/signIn";
+import SignUp from "../components/auth/signUp"; 
+// import MSAL from "../../../auth/msal";
 
 // Widget to just show a link to the main user page (user/[userid])
 export const ViewUserAll =() => { 
@@ -93,14 +99,149 @@ export const ViewUserAttributes = () => {
 // Modal
 
 export const ViewUserModal = (props:any) => {
+    const auth = useAuthSession();
+    const signout = useAuthSignout();
+    const native = useNavigate();
+    const [activeTab, setActiveTab] = useState(0);
+    const tabs = [
+      { tab: "Sign in", component: <SignIn /> },
+      { tab: "Sign up", component: <SignUp /> },
+    ];
+    const handleTabPress = (index: number) => {
+      setActiveTab(index);
+    };
+  
     return (
-        <ViewModalMain modalName={'user'} backdrop pinnable top={60} >
-            <Text>Move auth form here</Text>
-            <ViewUserAll/>
-            <ViewUserActivity/>
-            <ViewUserAlerts/>
-            <ViewUserComms/>
-            <ViewUserDevice/>
+        <ViewModalMain modalName={'user'} snapto={'right'} backdrop pinnable collapsible >
+            <ScrollView style={{height:'80%'}}
+            >
+                {/* <Text>{JSON.stringify(auth)}</Text> */}
+                <View
+                    style={{
+                        flexDirection: "row",
+                        marginBottom: 10,
+                        marginHorizontal: 12,
+                    }}
+                    >
+                    {auth?.data?.session === null
+                        ? tabs.map((content, index) => (
+                            <Pressable
+                            key={index}
+                            style={{
+                                padding: 10,
+                                borderTopWidth: 1,
+                                borderRightWidth: 1,
+                                borderLeftWidth: 1,
+                                borderTopRightRadius: 5,
+                                borderTopLeftRadius: 5,
+                                borderColor:
+                                activeTab === index ? "black" : "transparent",
+                                backgroundColor:
+                                activeTab === index ? "lightblue" : "transparent",
+                            }}
+                            onPress={() => handleTabPress(index)}
+                            >
+                            <Text style={{ fontWeight: "bold" }}>{content.tab}</Text>
+                            </Pressable>
+                        ))
+                        : null}
+                    </View>
+                                {auth?.data?.session === null ? (
+              <View>{tabs[activeTab].component}</View>
+            ) : (
+              <View>
+                <Pressable
+                  onPress={() => {
+                    native(`/users/${auth?.data?.session?.user?.id}/pods`);
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "blue",
+                      textDecorationStyle: "solid",
+                      textAlign: "center",
+                    }}
+                  >
+                    View Profile
+                  </Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => {
+                    native(`/users/${auth?.data?.session?.user?.id}/settings`);
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "blue",
+                      textDecorationStyle: "solid",
+                      textAlign: "center",
+                    }}
+                  >
+                    Settings
+                  </Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => {
+                    native(`/users/${auth?.data?.session?.user?.id}/pods`);
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "blue",
+                      textDecorationStyle: "solid",
+                      textAlign: "center",
+                    }}
+                  >
+                    All Events
+                  </Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => {
+                    signout.mutate();
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "blue",
+                      textDecorationStyle: "solid",
+                      textAlign: "center",
+                    }}
+                  >
+                    Log out
+                  </Text>
+                </Pressable>
+                {/* <MSAL /> */}
+              </View>
+            )}
+                <ViewUserAll/>
+                <ViewUserActivity/>
+                <ViewUserAlerts/>
+                <ViewUserComms/>
+                <ViewUserDevice/>
+            </ScrollView>
         </ViewModalMain>
     );
-  };
+};
+
+  
+// Active
+
+// This is a useQuery query that just returns a blank object (it doesn't query anything).
+// Then you can switch between active users/uservariables, which will update this query.
+// Actual usage/structure not yet confirmed, this is a proof of concept.
+export const useUserActive = ({...Input}:TypeUserActive)=> {
+    const session = useAuthSession();
+    const query = useQuery({
+        queryKey:['user',"active"],
+        queryFn:()=>{ return {} },
+        enabled: false,
+        initialData: {
+          id: null,
+          title:'User',
+          session
+        }
+    });
+    return query
+}
+  
+export type TypeUserActive = any; // placeholder

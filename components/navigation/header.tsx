@@ -1,32 +1,33 @@
-import { View } from "react-native";
-import { Link } from "react-router-dom";
+// DECOMMISSIONED (this file will be deleted)
+// This component is now in utils/orgmenta.tsx to reduce fragmented views.
+
+import { ViewHeaderMain, ViewHeaderSection } from "./../../utils/header";
 import SpaceWidget from "./widgets/spaceWidget";
 import UserWidget from "./widgets/userWidget";
 import BrowseWidget from "./widgets/browseWidget";
 import OrgmentaWidget from "./widgets/orgmentaWidget";
 import BookmarkWidget from "./widgets/bookmarkWidget";
-import React from "react";
 
+
+// Full Header component
 export default function Header() {
   return (
-    <View
-      style={{
-        // padding: 5,
-        // paddingLeft:20,
-        flexDirection: "row",
-        // gap: 5,
-        justifyContent: "center",
-        backgroundColor: "#0c4a73",
-        borderBottomColor: "black",
-        borderBottomWidth: 1,
-        maxHeight:60
-      }}
-    >
-      <SpaceWidget />
-      <BookmarkWidget/>
-      <OrgmentaWidget/>
-      <BrowseWidget />
-      <UserWidget />
-    </View>
+    <ViewHeaderMain>
+      <ViewHeaderSection flex={1}>
+        <SpaceWidget />
+      </ViewHeaderSection>
+      <ViewHeaderSection flex={1}>
+        <BookmarkWidget/>
+      </ViewHeaderSection>
+      <ViewHeaderSection flex={1.5}>
+        <OrgmentaWidget/>
+      </ViewHeaderSection>
+      <ViewHeaderSection flex={1}>
+        <BrowseWidget />
+      </ViewHeaderSection>
+      <ViewHeaderSection flex={1}>
+        <UserWidget />
+      </ViewHeaderSection>
+    </ViewHeaderMain>
   );
 }

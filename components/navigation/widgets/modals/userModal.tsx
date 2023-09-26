@@ -1,3 +1,6 @@
+// TO BE DECOMMISSIONED (this file will be deleted when migrated)
+// This component will be moved to utils/user.tsx to reduce fragmented views.
+
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import { useAuthSession, useAuthSignout } from "../../../../utils/auth";
 import { useNavigate } from "react-router-dom";
@@ -5,7 +8,7 @@ import { useState } from "react";
 import SignIn from "../../../auth/signIn";
 import SignUp from "../../../auth/signUp";
 import React from "react";
-import MSAL from "../../../auth/msal";
+// import MSAL from "../../../auth/msal";
 
 // @ts-ignore
 const UserModal = (props) => {
@@ -153,7 +156,7 @@ const UserModal = (props) => {
                     Log out
                   </Text>
                 </Pressable>
-                <MSAL />
+                {/* <MSAL /> */}
               </View>
             )}
             {/* tab content */}

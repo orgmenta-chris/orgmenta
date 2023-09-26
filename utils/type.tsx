@@ -8,7 +8,7 @@ export const arrayTypeMain = [
     'Item',
     'Reference',
     'Location',
-    'Template',
+    'Template', // OR BLUEPRINT (with 'template' and 'rule' as sub types/classes)? - this would actually mean we had a different starting character for each type (e.g. B for Blueprints) which could help with shortcuts.
     'Log',
 ]
 export const arrayTypeIcons = [

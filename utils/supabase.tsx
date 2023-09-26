@@ -1,13 +1,41 @@
+// https://supabase.com/docs/guides/getting-started/tutorials/with-expo
 
+import * as SecureStore from 'expo-secure-store'
+import 'react-native-url-polyfill/auto';
+import { UtilityPlatformMain } from './platform';
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 
+
+// (Mobile Only) Secure Store.
+// If this is used elsewhere in the project, it will be split out into its own module / migrated to 'storage' (storage>local/clients).
+// We will use useQuery+asyncstorage+encryption instead (to work on web) once the encryption for it is confirmed as secure.
+export const ExpoSecureStoreAdapter = {
+    getItem: (key: string) => {
+      return SecureStore.getItemAsync(key)
+    },
+    setItem: (key: string, value: string) => {
+      SecureStore.setItemAsync(key, value)
+    },
+    removeItem: (key: string) => {
+      SecureStore.deleteItemAsync(key)
+    },
+  }
 
 // Instance
 
 export const instanceSupabaseClient = createSupabaseClient( // create an instance of the supabase client class
     "https://qfiulevnnvsptiwtwvuz.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmaXVsZXZubnZzcHRpd3R3dnV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ4MjQ1MzcsImV4cCI6MTk4MDQwMDUzN30.D2lskLMTLfvucKbs3eqxxu0uygwyvd-krOFQN-T0APM"
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmaXVsZXZubnZzcHRpd3R3dnV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ4MjQ1MzcsImV4cCI6MTk4MDQwMDUzN30.D2lskLMTLfvucKbs3eqxxu0uygwyvd-krOFQN-T0APM",
+    {
+        auth: {
+            storage: UtilityPlatformMain.OS !== 'web' && ExpoSecureStoreAdapter as any,
+            autoRefreshToken: true,
+            persistSession: true,
+            detectSessionInUrl: false,
+        },
+    }
 );
+
 // export const instanceSupabaseClient = createClient( // expo variables not yet working
 //     process.env.STAGING_REACT_APP_SUPABASE_URL,
 //     process.env.STAGING_REACT_APP_SUPABASE_PUBLIC_KEY
@@ -53,12 +81,12 @@ export const mapSupabaseTables = {
 // Get a list of tables (not yet used)
 // This may be needed in the future to show the user all the spaces that are available to them / get the names of the tables associated with their spaces.
 export async function requestSupabaseTables(
-    filters:any,
-) {
-return await instanceSupabaseClient
-    .from("tables_public")
-    .select()
-    .then(handleSupabaseResponse as any)
+        filters:any,
+    ) {
+    return await instanceSupabaseClient
+        .from("tables_public")
+        .select()
+        .then(handleSupabaseResponse as any)
 }
 
 

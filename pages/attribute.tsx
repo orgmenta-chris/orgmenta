@@ -1,24 +1,23 @@
 import { Text, View } from "react-native";
 import { ViewAttributeMain, ViewAttributeUnioned } from "../utils/attribute";
-import { Route, Routes, Link } from "react-router-dom";
-import React from "react";
+import { ViewRouterLink, ViewRouterRoutes, ViewRouterRoute } from "../utils/router";
 
 export default function UserPage() {
   return (
     <View>
       <Text style={{ fontSize: 24 }}>Attributes</Text>
       <View style={{ flexDirection: "row" }}>
-        <Link to={"main"} style={{ margin: 5 }}>
+        <ViewRouterLink to={"main"} style={{ margin: 5 }}>
           Main
-        </Link>
-        <Link to={"unioned"} style={{ margin: 5 }}>
+        </ViewRouterLink>
+        <ViewRouterLink to={"unioned"} style={{ margin: 5 }}>
           Unioned
-        </Link>
+        </ViewRouterLink>
       </View>
-      <Routes>
-        <Route path="main" element={<ViewAttributeMain />} />
-        <Route path="unioned" element={<ViewAttributeUnioned />} />
-      </Routes>
+      <ViewRouterRoutes>
+        <ViewRouterRoute path="main" element={<ViewAttributeMain />} />
+        <ViewRouterRoute path="unioned" element={<ViewAttributeUnioned />} />
+      </ViewRouterRoutes>
       {/* <ViewAttributeMain/> */}
     </View>
   );

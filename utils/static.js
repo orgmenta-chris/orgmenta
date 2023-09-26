@@ -3702,6 +3702,16 @@ export const data = [
         "nickname": "project-planning-investigations"
     },
     {
+        "id": 18200,
+        "parent": 1820,
+        "status": "0. New",
+        "name_singular": "gather",
+        "display_singular": "Gather",
+        "description": "Collect all needs/requirements/information",
+        "summary": "Collate all of the things that need to be solved",
+        "nickname": "project-planning-investigations-gather"
+    },
+    {
         "id": 18201,
         "parent": 1820,
         "status": "0. New",
@@ -3710,6 +3720,75 @@ export const data = [
         "description": "Define the scope of the project",
         "summary": "Analygous to PMBOK scope management",
         "nickname": "project-planning-investigations-scope"
+    },
+    {
+        "id": 18202,
+        "parent": 1820,
+        "status": "0. New",
+        "name_singular": "logic",
+        "display_singular": "Logic",
+        "description": "Use cognitive tools to clarify, verify or validate requirements",
+        "summary": "Elements of Critical Thinking / Concepts in Argumentation and Reasoning.",
+        "nickname": "project-planning-investigations-logic"
+    },
+    {
+        "id": 182020,
+        "parent": 18202,
+        "status": "0. New",
+        "name_singular": "heuristics",
+        "display_singular": "Heuristics ",
+        "description": "Guiding principles intended to simplify reasoning",
+        "summary": "Anchoring, Representativeness, Availability and other heuristics",
+        "nickname": "project-planning-investigations-logic-heuristics",
+        "notes": [
+            "Anchoring: The tendency to rely too heavily on the first piece of information encountered when making decisions. Often seen in negotiations, where the first offer sets the stage for the rest of the discussion. ",
+            "Reciprocity Norm: A social heuristic that encourages people to respond to a positive action with another positive action, encouraging mutual benefit. Often used in social engineering and sales tactics.",
+            "Representativeness Heuristic: Judges probabilities based on how similar an outcome is to a known stereotype or representative case, often ignoring base rates or statistical information.",
+            "Availability Heuristic: Relies on immediate examples that come to mind when evaluating a specific topic, concept, or decision. Leads to overestimation of the likelihood of events based on their availability in memory. e.g.After hearing multiple news stories about car thefts in your city, you might estimate that the likelihood of your own car being stolen is higher than it actually is",
+            "Axioms",
+            "Laws (e.g., Law of Non-Contradiction, Law of Excluded Middle)",
+            "etc."
+        ]
+    },
+    {
+        "id": 182021,
+        "parent": 18202,
+        "status": "0. New",
+        "name_singular": "axioms",
+        "display_singular": "Axioms",
+        "description": "Rules",
+        "summary": "",
+        "nickname": "project-planning-investigations-logic-axioms"
+    },
+    {
+        "id": 182022,
+        "parent": 18202,
+        "status": "0. New",
+        "name_singular": "fallacies",
+        "display_singular": "Fallacies",
+        "description": "Fallacies, biases and other errors in reasoning, misleading or deceptive arguments.",
+        "summary": "Also includes paradoxes, tautologies, Dilemmas, Conundrums, Antinomies, Anomalies, Enigmas",
+        "nickname": "project-planning-investigations-logic-fallacies"
+    },
+    {
+        "id": 182023,
+        "parent": 18202,
+        "status": "0. New",
+        "name_singular": "inferrences",
+        "display_singular": "Inferrences",
+        "description": "Conclusions reached on the basis of evidence and reasoning",
+        "summary": "Formal Systems, Rules of Inferrence, syllogisms etc.",
+        "nickname": "project-planning-investigations-logic-inferrences"
+    },
+    {
+        "id": 182024,
+        "parent": 18202,
+        "status": "0. New",
+        "name_singular": "proofs",
+        "display_singular": "Proofs",
+        "description": "Proof techniques, Arguments and other justifications/validations",
+        "summary": "",
+        "nickname": "project-planning-investigations-logic-proofs"
     },
     {
         "id": 1821,
@@ -3956,7 +4035,7 @@ export const data = [
         "status": "5. Hold",
         "name_singular": "offerings",
         "display_singular": "Offerings",
-        "description": "Management of your company offerings (products / services)",
+        "description": "MOVE THIS TO GOVERNANCE>MODEL? Management of your company offerings (products / services)",
         "summary": [
             "Work with you to establish and maintain core offerings (products & services)",
             "Set and maintain rates, and schedule pricing reviews annually or more frequently",
@@ -4109,6 +4188,51 @@ export const data = [
         "name_singular": "websites",
         "display_singular": "Websites",
         "nickname": "system-technology-hosting-websites"
+    },
+    {
+        "id": 192110,
+        "parent": 19211,
+        "status": "5. Hold",
+        "name_singular": "ecommerce",
+        "display_singular": "Ecommerce",
+        "nickname": "system-technology-hosting-websites-ecommerce",
+        'description': 'Online stores',
+    },
+    {
+        "id": 192111,
+        "parent": 19211,
+        "status": "5. Hold",
+        "name_singular": "corporate",
+        "display_singular": "Corporate",
+        "nickname": "system-technology-hosting-websites-corporate",
+        'description': 'Landing pages, company information and general online presence',
+    },
+    {
+        "id": 1921112,
+        "parent": 19211,
+        "status": "5. Hold",
+        "name_singular": "blog",
+        "display_singular": "Blog",
+        "nickname": "system-technology-hosting-websites-blog",
+        'description': 'Posts, news, magazines and other content',
+    },
+    {
+        "id": 1921113,
+        "parent": 19211,
+        "status": "5. Hold",
+        "name_singular": "forum",
+        "display_singular": "Forum",
+        "nickname": "system-technology-hosting-websites-forum",
+        'description': 'discussions, user generated content and other community engagement',
+    },
+    {
+        "id": 1921114,
+        "parent": 19211,
+        "status": "5. Hold",
+        "name_singular": "repository",
+        "display_singular": "Repository",
+        "nickname": "system-technology-hosting-websites-repository",
+        'description': 'media, data and other accessible content storage',
     },
     {
         "id": 19212,

@@ -1,39 +1,36 @@
-import React, { memo } from 'react';
-import { createUuid4, typeUuid4, validateUuid4 } from './uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { TextInput, View, Text, Pressable } from 'react-native';
-import { Link, useLocation } from 'react-router-dom'
-import { ViewListMain } from './list'
-import { ViewTableMain,useTableColumns } from '../components/displays/table/table'
-import { ViewJsonMain } from './json'
-import { ViewPodsMain } from '../components/displays/pods/pods'
-import { useState } from 'react'
+import { ViewRouterLink, useRouterLocation } from './router';
+// import { ViewListMain } from './list'
+// import { ViewTableMain,useTableColumns } from '../components/displays/table/table'
+// import { ViewJsonMain } from './json'
+// import { ViewPodsMain } from '../components/displays/pods/pods'
 import { useAttributeUnioned} from './attribute'
 import { data } from './static'
+import { View, Text } from 'react-native';
 
 // Tabs
 
 export const ViewEntityTabs = ({id}:any) => {
-  const path = useLocation().pathname?.split('/')
+  const path = useRouterLocation()?.paths
   return (
     <View style={{flexDirection:'row'}}>
       {/* 
-      <Link style={{padding:5}} to='list'>Form</Link> */}
-      <Link style={{padding:5, backgroundColor:(path[3]==='pods'&&'lightgray')}} to={`/entity/` +path[2]+'/pods'}>Pods</Link>
-      <Link style={{padding:5, backgroundColor:(path[3]==='form'&&'lightgray')}} to={`/entity/` +path[2]+'/form'}>Form</Link>
-      <Link style={{padding:5, backgroundColor:(path[3]==='list'&&'lightgray')}} to={`/entity/` +path[2]+'/list'}>List</Link>
-      <Link style={{padding:5, backgroundColor:(path[3]==='table'&&'lightgray')}} to={`/entity/` +path[2]+'/table'}>Table</Link>
-      <Link style={{padding:5, backgroundColor:(path[3]==='calendar'&&'lightgray')}} to={`/entity/` +path[2]+'/calendar'}>Calendar</Link>
-      <Link style={{padding:5, backgroundColor:(path[3]==='json'&&'lightgray')}} to={`/entity/` +path[2]+'/json'}>JSON</Link>
-      {/* <Link style={{padding:5}} to={`/entity/` +path[2]+'/kanban'}>Kanban</Link> */}
-      {/* <Link style={{padding:5}} to={`/entity/` +path[2]+'/timeline'}>Timeline</Link> */}
-      {/* <Link style={{padding:5}} to={`/entity/` +path[2]+'/threads'}>Threads</Link> */}
-      {/* <Link style={{padding:5}} to={`/entity/` +path[2]+'/path'}>Path</Link> */}
-      {/* <Link style={{padding:5}} to={`/entity/` +path[2]+'/nodes'}>Nodes</Link> */}
-      {/* <Link style={{padding:5}} to={`/entity/` +path[2]+'/spacial'}>Spacial</Link> */}
-      {/* <Link style={{padding:5}} to={`/entity/` +path[2]+'/map'}>Map</Link> */}
-      {/* <Link style={{padding:5}} to={`/entity/` +path[2]+'/chart'}>Chart</Link> */}
+      <ViewRouterLink style={{padding:5}} to='list'>Form</ViewRouterLink> */}
+      <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='pods'?'lightgray':'transparent')}} to={`/entity/` +path[2]+'/pods'}>Pods</ViewRouterLink>
+      <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='form'?'lightgray':'transparent')}} to={`/entity/` +path[2]+'/form'}>Form</ViewRouterLink>
+      <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='list'?'lightgray':'transparent')}} to={`/entity/` +path[2]+'/list'}>List</ViewRouterLink>
+      <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='table'?'lightgray':'transparent')}} to={`/entity/` +path[2]+'/table'}>Table</ViewRouterLink>
+      <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='calendar'?'lightgray':'transparent')}} to={`/entity/` +path[2]+'/calendar'}>Calendar</ViewRouterLink>
+      <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='json'?'lightgray':'transparent')}} to={`/entity/` +path[2]+'/json'}>JSON</ViewRouterLink>
+      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/kanban'}>Kanban</ViewRouterLink> */}
+      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/timeline'}>Timeline</ViewRouterLink> */}
+      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/threads'}>Threads</ViewRouterLink> */}
+      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/path'}>Path</ViewRouterLink> */}
+      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/nodes'}>Nodes</ViewRouterLink> */}
+      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/spacial'}>Spacial</ViewRouterLink> */}
+      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/map'}>Map</ViewRouterLink> */}
+      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/chart'}>Chart</ViewRouterLink> */}
     </View>
   )
 }
@@ -185,12 +182,12 @@ export const useEntitySchema = () => {
 }
 
 // An example component to show how we can use useEntitySchema
-export const ViewEntitySchema = ({}:any) => {
+export const ViewEntitySchema = (props:any) => {
   const schema = props.schema;
   return (
     <View style={{flexDirection:'column'}}>
       <Text>ViewEntitySchema</Text>
-      {schema?.data?.map((x,i)=><View key={i} style={{margin:4}}>
+      {schema?.data?.map((x:any,i:number)=><View key={i} style={{margin:4}}>
         {/* <Text style={{margin:4}}>{Object.keys(x)}</Text> */}
         <Text>{x.focus_columns.display_singular}</Text>
         {/* <Text>{x.auxiliary_columns.display_singular}</Text> */}

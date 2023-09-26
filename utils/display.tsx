@@ -2,11 +2,20 @@
 // It is a 'perspective into the graph'.
 // You can view entities and their relationships in different displays (e.g. Table, list, calendar) and filters.
 
-import {
-  useEntityArray,
-  useEntitySingle,
-  useEntitySchema,
-} from "./entity";
+import { ViewRouterLink, useRouterLocation } from "./router";
+import { ViewFormDynamic } from "./form";
+import { ViewListMain } from "./list";
+import { ViewPodMain, ViewPodInfo, ViewPodList, ViewPodTabs, ViewPodExample } from "./pod"
+// import { ViewTableMain, useTableColumns } from "./table";
+// import { ViewJsonMain } from "./json";
+// import { ViewIconMain } from "./icon";
+
+import { memo, useMemo } from "react";
+import { View, Text } from "react-native";
+// import MyCalendar from "../components/displays/calendar";
+import Calendar from "react-calendar";
+// import "react-calendar/dist/Calendar.css";
+// import MapChart from "../components/displays/maps";
 import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
 // import ViewDisplayForm from "../components/displays/forms/ViewDisplayForm";
 // import ViewDisplayList from "../components/displays/list/ViewDisplayList";
@@ -15,31 +24,13 @@ import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCale
 // import ViewDisplayTable from "../components/displays/table/ViewDisplayTable";
 // import ViewJsonMain from "../components/displays/json/ViewJsonMain";
 
-import React, { ReactElement, memo, useMemo, useState } from "react";
-import { View, Text, Pressable } from "react-native";
-import { Link, useLocation, Route, Routes } from "react-router-dom";
-import { ViewListMain } from "./list";
-// import { ViewTableMain, useTableColumns } from "./table";
-// import { ViewJsonMain } from "./json";
-// import { ViewIconMain } from "./icon";
-// import { ViewPodMain, ViewPodInfo, ViewPodTabs, ViewPodList, ViewPodExample } from "./pods";
-import { ViewFormDynamic } from "./form";
-// import { ViewProcessesTabs } from "../components/entity/processTabs";//no longer needed, removing
-// import MyCalendar from "../components/displays/calendar";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-// import MapChart from "../components/displays/maps";
 
-import {ViewPodMain,ViewPodInfo,ViewPodList,ViewPodTabs,ViewPodExample } from "./pod"
 // Dynamic
 
-// This is the main display component that switches between different components
-export const ViewDisplayDynamic = memo(({auxiliary, schema, focus, display}:any) => {
+export const ViewDisplayDynamic = memo(({auxiliary, schema, focus, display}:any) => { // The main display component that switches between different components
   const Component =  mapDisplayComponents[display||"list"]; // may need to memoize/useCallback this
   return (
-    // <View style={{ flexDirection: "column",flex:1}}>
       <Component auxiliary={auxiliary} schema={schema} focus={focus} />
-    // </View>
   )
 });
 
@@ -71,22 +62,15 @@ export const ViewDisplayPod = (props: any) => {
       <ViewPodExample/>
       <ViewPodExample/>
       <ViewPodExample/>
-      {/* <ViewPodExample/>
-      <ViewPodExample/>
-      <ViewPodExample/>
-      <ViewPodExample/>
-      <ViewPodExample/>
-      <ViewPodExample/>
-      <ViewPodExample/>
-      <ViewPodExample/>
-      <ViewPodExample/> */}
     </ViewPodMain> 
   );
 };
 
-export const ViewDisplayForm = (props: any) => {
-  // Chris todo: auxiliary data doesn't have relationship ids yet, so 'if(oldItem.focus_columns.cell_field==='relationship'){' does nothing yet
 
+// Form
+
+export const ViewDisplayForm = (props: any) => { 
+  // Chris todo: auxiliary data doesn't have relationship ids yet, so 'if(oldItem.focus_columns.cell_field==='relationship'){' does nothing yet
   // create the appropriate schema for the form
   let data: any = useMemo(() => {
     let items: any = [];
@@ -116,21 +100,26 @@ export const ViewDisplayForm = (props: any) => {
   );
 };
 
+
+// Table
+
 export const ViewDisplayTable = (props: any) => {
   const schema = props.schema;
-  const columns = useTableColumns(
-    schema.data?.map(
-      (x: { focus_columns: { name_singular: any } }) =>
-        x.focus_columns.name_singular
-    )
-  );
+  // const columns = useTableColumns(
+  //   schema.data?.map(
+  //     (x: { focus_columns: { name_singular: any } }) =>
+  //       x.focus_columns.name_singular
+  //   )
+  // );
   const auxiliary = props.auxiliary;
-
   return (<>
     <ViewTableTabs/>
-    <ViewTableMain columns={columns} data={auxiliary.data} />
+    {/* <ViewTableMain columns={columns} data={auxiliary.data} /> */}
   </>);
 };
+
+
+// Calendar
 
 // export const ViewDisplayCalendar = (props: any) => {
 //   const schema = props.schema;
@@ -243,24 +232,31 @@ export const ViewDisplayTable = (props: any) => {
 //   );
 // };
 
-// export const ViewDisplayMaps = (props: any) => {
-//   return (
-//     <View style={{maxHeight:400}}>
-//       <MapChart />
-//     </View>
-//   );
-// }
+
+// Maps
+
+export const ViewDisplayMaps = (props: any) => {
+  return (
+    <View style={{maxHeight:400}}>
+      {/* <MapChart /> */}
+      {/* todo */}
+    </View>
+  );
+}
+
+
+// Json
 
 export const ViewDisplayJson = (props: any) => {
   const schema = props.schema;
   const auxiliary = props.auxiliary;
-  const columns = useTableColumns(
-    schema.data?.map((x: any) => x.focus_columns.name_singular)
-  );
-
+  // const columns = useTableColumns(
+  //   schema.data?.map((x: any) => x.focus_columns.name_singular)
+  // );
   return (
     <View style={{ flexDirection: "column" }}>
-      <ViewJsonMain schema={schema} auxiliary={auxiliary} columns={columns} />
+      {/* <ViewJsonMain schema={schema} auxiliary={auxiliary} columns={columns} /> */}
+      {/* todo */}
     </View>
   );
 };
@@ -274,14 +270,14 @@ export const mapDisplayComponents: any = {
   form: ViewDisplayForm,
   table: ViewDisplayTable,
   calendar: ViewDisplayCalendar,
-  // maps: ViewDisplayMaps,
-  // json: ViewJsonMain,
+  maps: ViewDisplayMaps,
+  json: ViewDisplayJson,
 };
 
 
-// Options (ViewDisplayTabs should use this instead of being statically written - Chris todo)
+// Options
 
-export const optionsDisplayMain = [
+export const optionsDisplayMain = [ // ViewDisplayTabs should use this instead of being statically written - Chris todo
   {title:'Json',
   iconName: 'sdadsasdsads',
   iconSource: 'Feather',},
@@ -314,13 +310,11 @@ export const optionsDisplayMain = [
 
 // Tabs
 
-// Contextual tabs (i.e. these will eventually grey out if not applicable to the current focused entity)
-export const ViewDisplayTabs = ({ id, display }: any) => {
-  const path = useLocation().pathname?.split("/");
+export const ViewDisplayTabs = ({ id, display }: any) => { // Contextual tabs (i.e. these will eventually grey out if not applicable to the current focused entity)
+  const path = useRouterLocation()?.paths
   return (
     <View style={{flexDirection:'column', position:'absolute', right:0, top:100, backgroundColor:'gray'}}>
-    {/* <View style={{flexDirection:'column', position:'absolute', right:0, top:100, backgroundColor:'gray'}}> */}
-      <Link
+      <ViewRouterLink
         style={{
           padding: 5,
           backgroundColor: display === "pods" ? "lightgray" : "transparent",
@@ -328,9 +322,9 @@ export const ViewDisplayTabs = ({ id, display }: any) => {
         to={"entity/../../pods"}
       >
         Pod
-      </Link>
+      </ViewRouterLink>
       {/* CG handling the pods component/module */}
-      <Link
+      <ViewRouterLink
         style={{
           padding: 5,
           backgroundColor: display === "form" ? "lightgray" : "transparent",
@@ -338,9 +332,9 @@ export const ViewDisplayTabs = ({ id, display }: any) => {
         to={"entity/../../form"}
       >
         Form
-      </Link>
+      </ViewRouterLink>
       {/* CG handling the form component/module*/}
-      <Link
+      <ViewRouterLink
         style={{
           padding: 5,
           backgroundColor: display === "list" ? "lightgray" : "transparent",
@@ -348,9 +342,9 @@ export const ViewDisplayTabs = ({ id, display }: any) => {
         to={"entity/../../list"}
       >
         List
-      </Link>
+      </ViewRouterLink>
       {/*Loisa Handling the list component/module */}
-      <Link
+      <ViewRouterLink
         style={{
           padding: 5,
           backgroundColor: display === "table" ? "lightgray" : "transparent",
@@ -358,9 +352,9 @@ export const ViewDisplayTabs = ({ id, display }: any) => {
         to={"entity/../../table"}
       >
         Table
-      </Link>
+      </ViewRouterLink>
       {/*Loisa Handling the table component/module */}
-      <Link
+      <ViewRouterLink
         style={{
           padding: 5,
           backgroundColor: display === "calendar" ? "lightgray" : "transparent",
@@ -368,9 +362,9 @@ export const ViewDisplayTabs = ({ id, display }: any) => {
         to={"entity/../../calendar"}
       >
         Calendar
-      </Link>
+      </ViewRouterLink>
       {/*Loisa Handling the calendar component/module */}
-      <Link
+      <ViewRouterLink
         style={{
           padding: 5,
           backgroundColor: display === "maps" ? "lightgray" : "transparent",
@@ -378,9 +372,9 @@ export const ViewDisplayTabs = ({ id, display }: any) => {
         to={"entity/../../maps"}
       >
         Maps
-      </Link>
+      </ViewRouterLink>
       {/*Loisa Handling the maps component/module */}
-      <Link
+      <ViewRouterLink
         style={{
           padding: 5,
           backgroundColor: display === "json" ? "lightgray" : "transparent",
@@ -388,30 +382,30 @@ export const ViewDisplayTabs = ({ id, display }: any) => {
         to={"entity/../../json"}
       >
         JSON
-      </Link>
+      </ViewRouterLink>
       {/*Loisa Handling the json component/module */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='kanban'&&'lightgray')}} to={`/entity/` +path[2]+'/kanban'}>Kanban</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='kanban'&&'lightgray')}} to={`/entity/` +path[2]+'/kanban'}>Kanban</ViewRouterLink> */}
       {/* On hold */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='gantt'&&'lightgray')}} to={`/entity/` +path[2]+'/gantt'}>Gantt</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='gantt'&&'lightgray')}} to={`/entity/` +path[2]+'/gantt'}>Gantt</ViewRouterLink> */}
       {/* On hold */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='timeline'&&'lightgray')}} to={`/entity/` +path[2]+'/timeline'}>Timeline</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='timeline'&&'lightgray')}} to={`/entity/` +path[2]+'/timeline'}>Timeline</ViewRouterLink> */}
       {/* On hold */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='threads'&&'lightgray')}} to={`/entity/` +path[2]+'/threads'}>Threads</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='threads'&&'lightgray')}} to={`/entity/` +path[2]+'/threads'}>Threads</ViewRouterLink> */}
       {/* On hold */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='chart'&&'lightgray')}} to={`/entity/` +path[2]+'/chart'}>Chart/Statistics</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='chart'&&'lightgray')}} to={`/entity/` +path[2]+'/chart'}>Chart/Statistics</ViewRouterLink> */}
       {/* On hold */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='path'&&'lightgray')}} to={`/entity/` +path[2]+'/path'}>Path</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='path'&&'lightgray')}} to={`/entity/` +path[2]+'/path'}>Path</ViewRouterLink> */}
       {/* On hold */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='nodes'&&'lightgray')}} to={`/entity/` +path[2]+'/nodes'}>Nodes</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='nodes'&&'lightgray')}} to={`/entity/` +path[2]+'/nodes'}>Nodes</ViewRouterLink> */}
       {/* On hold */}
-      {/* <Link style={{padding:5, backgroundColor:(path[3]==='spacial'&&'lightgray')}} to={`/entity/` +path[2]+'/spacial'}>Spacial</Link> */}
+      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='spacial'&&'lightgray')}} to={`/entity/` +path[2]+'/spacial'}>Spacial</ViewRouterLink> */}
       {/* On hold */}
     </View>
   );
 };
 
 
-// TypeTabs
+// TableTabs (Temp)
 
 // 'Table Tabs' will be a subcomponent of 'Table' (like 'Table Footer' and'Table Header' are table subcomponents )
 // To be moved into the table file (but added here since it is a placeholder and so as not to interfere with current works)

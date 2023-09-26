@@ -2,12 +2,12 @@
 // e.g. you might have a saved preset called 'My new messages' that was a view to show incoming messages to that user, sorted by date_received.
 // Chris is handling this for now.
 
-import { TextInput, View, Text, Pressable } from 'react-native';
+import { View, Text } from 'react-native';
 
 
 // Placeholder component (Chris is working on this)
-// A select/dropdown component to allow a user to switch presets.
-export const ViewPresetOptions = ({}:any) => {
+
+export const ViewPresetOptions = ({}:any) => { // A select/dropdown component to allow a user to switch presets.
     return (
       <View style={{flexDirection:'column', gap:10}}>
   

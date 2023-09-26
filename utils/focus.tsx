@@ -1,9 +1,7 @@
-// A 'Focus' is the primary entity being studied.
+// A 'Focus' is the primary entity being studied / viewed
 
-
-import React from 'react';
 import { View, Text } from 'react-native';
-import { Link, useLocation } from 'react-router-dom'
+import { ViewRouterLink, useRouterLocation } from "./router";
 import { data } from './static'
 
 
@@ -28,7 +26,7 @@ export const ViewFocusMain = ({}:any) => {
 export const ViewFocusHeader=() => { 
     // At the moment, this shows breadcrumbs for categories (e.g. governance > model > plan) from static.js
     // But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
-    const path = useLocation()?.pathname?.split('/');
+    const path = useRouterLocation()?.paths
     const process = data?.find(x=>x.nickname===path[2]);
     const subprocesses = process && data.filter(x=>x.parent===process.id);
     const parent = data?.find(y=>y.id===process?.parent);
@@ -38,8 +36,8 @@ export const ViewFocusHeader=() => {
             
             {/* Title of the current process (breadcrumbs) */}
             <Text style={{fontSize:24, height: 30}}>
-                {grandparent?.id && grandparent?.id > 9  && <> <Link to={'/entity/'+grandparent.nickname}>{grandparent.display_singular}</Link>{' > '}</>}
-                {parent?.id && parent?.id > 9  && <> <Link to={'/entity/'+parent.nickname}>{parent.display_singular}</Link>{' > '}</>}
+                {grandparent?.id && grandparent?.id > 9  && <> <ViewRouterLink to={'/entity/'+grandparent.nickname}>{grandparent.display_singular}</ViewRouterLink>{' > '}</>}
+                {parent?.id && parent?.id > 9  && <> <ViewRouterLink to={'/entity/'+parent.nickname}>{parent.display_singular}</ViewRouterLink>{' > '}</>}
                 {process?.display_singular}
             </Text>
 
@@ -55,7 +53,7 @@ export const ViewFocusHeader=() => {
 export const ViewFocusInfo =() => { 
     // At the moment, this shows static info for categories (e.g. governance > model > plan) from static.js
     // But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
-    const path = useLocation()?.pathname?.split('/');
+    const path = useRouterLocation()?.paths
     const process = data?.find(x=>x.nickname===path[2]);
     const subprocesses = process && data.filter(x=>x.parent===process.id);
     const parent = data?.find(y=>y.id===process?.parent);
@@ -63,8 +61,8 @@ export const ViewFocusInfo =() => {
     return (
         <View style={{flexDirection:'column', borderWidth:1, borderColor:'white', margin: 4}}>
             <View style={{height: 40, backgroundColor:'lightgray'}}>
-                <Text style={{fontSize:16, fontStyle:'italic'}}>{process.description}</Text>
-                <Text style={{fontSize:12}}>{process.summary}</Text>
+                <Text style={{fontSize:16, fontStyle:'italic'}}>{process?.description}</Text>
+                <Text style={{fontSize:12}}>{process?.summary}</Text>
             </View>
             {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
                 {process.subheading}
@@ -87,7 +85,7 @@ export const ViewFocusInfo =() => {
 export const ViewFocusTabs =() => { 
     // At the moment, this shows breadcrumbs for categories (e.g. governance > model > plan) from static.js
     // But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
-    const path = useLocation()?.pathname?.split('/');
+    const path = useRouterLocation()?.paths
     const process = data?.find(x=>x.nickname===path[2]);
     const subprocesses = process && data.filter(x=>x.parent===process.id);
     const parent = data?.find(y=>y.id===process?.parent);
@@ -97,9 +95,9 @@ export const ViewFocusTabs =() => {
             {/* Tabs for each subprocess */}
             <View style={{flexDirection:'row', height: 40}}>
                 {subprocesses?.map((x,i)=>
-                    <Link style={{flex: 1}} key={i} to={`/entity/` +x.nickname}>
-                        <Text>{x.display_singular}</Text>
-                    </Link>
+                    <ViewRouterLink style={{flex: 1}} key={i} to={`/entity/` +x.nickname}>
+                        {x.display_singular}
+                    </ViewRouterLink>
                 )}
             </View>
 

@@ -1,43 +1,35 @@
-import { Text, View, Pressable, StyleSheet } from "react-native";
-import { useAuthSession } from "../../../utils/auth";
-import { useState } from "react";
-import UserModal from "./modals/userModal";
 import { ViewIconMain } from "../../../utils/icon";
-
-export default function UserWidget() {
+import { useWindowDimensions } from  "../../../utils/window";
+import { useModalVisibility } from "../../../utils/modal";
+import { useUserActive, TypeUserActive } from "../../../utils/user";
+import { useAuthSession } from "../../../utils/auth";
+import { Text, Pressable } from "react-native";
+  
+export default function BrowseWidget() {
   const auth = useAuthSession();
-
-  const [modalVisible, setModalVisible] = useState(false);
-
+  const window = useWindowDimensions();
+  const userActive = useUserActive({}) as TypeUserActive;
   return (
-    <View style={styles.navButton}>
-      <Pressable
-        style={styles.navButton}
-        onPress={() => {
-          setModalVisible(true);
+    <Pressable
+      onPress={useModalVisibility('user')}
+      style={{
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        flex: 1,
+        flexDirection: 'row'
+      }}
+    >
+      {window?.width > 600 && <Text selectable={false} numberOfLines={1} style={{ paddingRight: 10, color: 'white' }}>{`${auth?.data?.currentUser}`}</Text>}
+      <ViewIconMain
+        name={'user'}
+        source={'Feather'}
+        color={'white'}
+        size={30}
+        style={{
+          alignItems: 'center', 
+          justifyContent: 'center',
         }}
-      >
-        <Text selectable={false} numberOfLines={1} style={{flexGrow:1,textAlign:'right', paddingRight: 10, color:'white'}}>
-          {`${auth?.data?.session === null ? "Guest" : "logged in"}`}
-        </Text>
-        <ViewIconMain
-          name={'user'}
-          source={'Feather'}
-          color={'white'}
-        />
-      </Pressable>
-      <UserModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
       />
-    </View>
+    </Pressable>  
   );
 }
-
-const styles = StyleSheet.create({
-  navButton: {
-    flex:1,
-    flexDirection:'row',
-    alignItems:'center',
-  },
-});

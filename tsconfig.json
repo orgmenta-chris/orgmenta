@@ -3,6 +3,8 @@
   "compilerOptions": {
     "module": "esnext",
     "jsx": "react-jsx",
-    "strict": true
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node"
   }
 }

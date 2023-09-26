@@ -4,10 +4,10 @@
 // E.g. on the 'invoicing' category entity, you could pin an 'unsent invoices count' widget to to this display.
 
 import { ViewListMain } from '../../../utils/list'
-import { Link, useLocation } from 'react-router-dom'
-import { View, Text, ScrollView } from 'react-native';
-
+import { ViewRouterLink, useRouterLocation } from '../../../utils/router'
 import { data } from '../../../utils/static'
+
+import { View, Text, ScrollView } from 'react-native';
 
 
 // Main
@@ -55,7 +55,7 @@ export const ViewPodExample=({}:any) => {
 export const ViewPodInfo =() => { 
     // At the moment, this shows static info for categories (e.g. governance > model > plan) from static.js
     // But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
-    const path = useLocation()?.pathname?.split('/');
+    const path = useRouterLocation()?.paths;
     const process = data?.find(x=>x.nickname===path[2]);
     const subprocesses = process && data.filter(x=>x.parent===process.id);
     const parent = data?.find(y=>y.id===process?.parent);
@@ -76,7 +76,7 @@ export const ViewPodInfo =() => {
 export const ViewPodTabs =() => { 
     // At the moment, this shows breadcrumbs for categories (e.g. governance > model > plan) from static.js
     // But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
-    const path = useLocation()?.pathname?.split('/');
+    const path = useRouterLocation()?.paths;
     const process = data?.find(x=>x.nickname===path[2]);
     const subprocesses = process && data.filter(x=>x.parent===process.id);
     const parent = data?.find(y=>y.id===process?.parent);
@@ -85,9 +85,9 @@ export const ViewPodTabs =() => {
         <ViewPodFrame style={{flexDirection:'row'}}>            
             {/* Tabs for each subprocess */}
             {subprocesses?.map((x,i)=>
-                <Link style={{flex: 1}} key={i} to={`/entity/` +x.nickname}>
+                <ViewRouterLink style={{flex: 1}} key={i} to={`/entity/` +x.nickname}>
                     <Text>{x.display_singular}</Text>
-                </Link>
+                </ViewRouterLink>
             )}
         </ViewPodFrame>
     )

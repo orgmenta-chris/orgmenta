@@ -1,11 +1,9 @@
-// Chris is working on this.
 // A 'member' is a contact (group or individual) that is a member of a space. 
-// It has its own table (rather than being part of the entities table) so that we can use this for row level security.
+// It has its own table (rather than being part of the entities table) so that we can use this for row level security on other tables.
 
-import { createUuid4, typeUuid4, validateUuid4 } from './uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
 import { useQuery, useMutation } from '@tanstack/react-query'
-import { TextInput, View, Text, Pressable } from 'react-native';
+import { View, Text } from 'react-native';
 
 
 // Create
@@ -65,19 +63,16 @@ export const useMemberDelete = (props:interfaceMemberDelete) => {// todo
 // Array
 
 export const useMemberArray = ({...Input})=> {
-    const query = useQuery({
-        queryKey:['members','array','add_relevant_props_here'],
-        queryFn:()=>{
-            return instanceSupabaseClient
-                .from("members")
-                .select()
-                .limit(10) // temporary limit, feel free to remove this or make pagination dynamic if needed.
-                .then(response=>response.data)
-        },
-        enabled: true
-        // ...props
-    });
-    return query
+    const queryKey: (string | number)[] = ['members','array','add_relevant_props_here'];
+    const queryFn = async () => {
+      const response = await instanceSupabaseClient
+        .from("members")
+        .select()
+        .limit(10) // temporary limit, feel free to remove this or make pagination dynamic if needed.
+      return response.data;
+    };
+    const query = useQuery<any, Error>(queryKey, queryFn, { enabled: true });
+    return query;
 }
 
 export const ViewMemberArray = () => {
@@ -99,21 +94,18 @@ export interface interfaceMemberItem {
     id: string
 }
 
-export const useMemberItem = ({id}:interfaceMemberItem)=> {
-    const query = useQuery({
-        queryKey:['members',id],
-        queryFn:()=>{
-            return instanceSupabaseClient
-                .from("members")
-                .select()
-                .eq('id', id)
-                .single()
-                .then(response=>response.data)
-        },
-        enabled: id && true,
-        // ...props
-    });
-    return query
+export const useMemberItem = ({id}:interfaceMemberItem)=> { // get a single row from the members table
+    const queryKey: (string | number)[] = ['members',id];
+    const queryFn = async () => {
+      const response = await instanceSupabaseClient
+        .from("members")
+        .select()
+        .eq('id', id)
+        .single()
+      return response.data;
+    };
+    const query = useQuery<any, Error>(queryKey, queryFn, { enabled: !!id });
+    return query;
 }
 
 export const ViewMemberItem = ({id}:interfaceMemberItem) => {

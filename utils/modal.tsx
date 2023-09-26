@@ -1,8 +1,11 @@
 
 import React from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { StyleSheet, Text, View, Pressable, useWindowDimensions } from 'react-native';
+import { Text, View, Pressable } from 'react-native';
 import { ViewIconMain } from './icon'
+import { getHeaderDimensions } from './header'
+import { getStatusbarDimensions } from './statusbar'
+import { useWindowDimensions } from './window'
 
 
 // Meta
@@ -19,14 +22,25 @@ const metaModalInfo = {
 
 // Main (the main modal view - use this comprehensive component to get all of the available modal features)
 
-export const ViewModalMain = ({height, margin, padding, pinnable, children, modalName, backdrop, top, bottom, left, right, width}:any) => {
-    const heightCalc = height  || useWindowDimensions()?.height - 60;
-    const modalState = useModalState(modalName);
+export type TypeModalMain = {
+    height?: number,
+    margin?: number,
+    padding?: number,
+    pinnable?: boolean,
+    backdrop?: boolean,
+    children: React.ReactNode,
+    [key:string]: any
+}
+
+export const ViewModalMain = ({height, pinnable, collapsible, children, modalName, backdrop, ...rest}:TypeModalMain) => {
+    const modalState:any = useModalState(modalName);
     if(modalState?.data?.visible) { return (<>
         {backdrop && !modalState?.data?.pinned && 
             <ViewModalBackdrop modalName={modalName}/>
         }
-        <ViewModalBody modalName={modalName} height={heightCalc} margin={margin} padding={padding} pinnable={pinnable} top={top} bottom={bottom} left={left} right={right} width={width} children={children}/>
+        <ViewModalBody modalName={modalName} height={height} pinnable={pinnable} collapsible={collapsible} {...rest}>
+            {children}
+        </ViewModalBody>
     </>)
     }else{
         return <></>
@@ -76,21 +90,16 @@ export const useModalState = (modalName:string) => {
 
 // Controls (The modal controls that appear in the modal to pin/unpin, show/hide etc.)
 
-export const ViewModalControls = ({modalName, pinnable,top,bottom,left,right}:any) => {
-    // const test = useModalVisibility(modalName)
+export const ViewModalControls = ({modalName, pinButton, collapseButton}:any) => {
     return (
-        <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
-            
-            {/* <Pressable onPress={test}><Text>Toggle</Text></Pressable> */}
-            <Pressable
-                onPress={useModalVisibility(modalName)}
-            >
-                <ViewIconMain name={'caretup'} source={'AntDesign'} color='black'/>
-            </Pressable>
-            {pinnable &&  
-                <Pressable
-                    onPress={useModalPinned(modalName)}
-                >
+        <View style={{ margin:5, gap: 5, right: 0, flexDirection:'row', justifyContent:'flex-end'}}>
+            {pinButton && 
+                <Pressable onPress={useModalVisibility(modalName)}>
+                    <ViewIconMain name={'caretup'} source={'AntDesign'} color='black'/>
+                </Pressable>
+            }
+            {collapseButton &&  
+                <Pressable onPress={useModalPinned(modalName)} >
                     <ViewIconMain name={'pin'} source={'MaterialCommunityIcons'} color='black'/>
                 </Pressable>
             }
@@ -101,31 +110,36 @@ export const ViewModalControls = ({modalName, pinnable,top,bottom,left,right}:an
 
 // Body (The modal content container, i.e. the visible part of the modal)
 
-export const ViewModalBody = ({height,margin, padding,modalName, pinnable, children, top,bottom,left,right, width}:any) => {
+export const ViewModalBody = ({height, modalName, pinnable, collapsible, children, top, bottom, width, snapto }:TypeModalMain) => {
+    const headerDimensions = getHeaderDimensions()
+    const topBuffer = top || headerDimensions.height
     return (
         <View
             style={{
                 alignSelf:'center',
                 backgroundColor:'white',
-                flex:1,
                 flexDirection:'column',
+                flex: 1,
+                height: height,
                 minWidth:width||180,
                 width:width||180,
-                height:height||"100%",
-                top:top||0,bottom:bottom||0,left:left||0,right:right||0,
+                top:topBuffer||0,
+                bottom:bottom||0,
+                left: snapto==='left' ? 0 : 'auto',
+                right: snapto==='right' ? 0 : 'auto',
                 position:'absolute',
                 shadowColor: "#000",
                 shadowOffset: {
-                  width: 0,
-                  height: 2,
+                    width: 0,
+                    height: 2,
                 },
                 shadowOpacity: 0.25,
                 shadowRadius: 4,
                 elevation: 5,
             }}
         >
-            {children}
-            <ViewModalControls modalName={modalName} pinnable={pinnable}/>
+            <View style={{flex:1}}>{children}</View>
+            <ViewModalControls modalName={modalName} pinButton={pinnable} collapseButton={collapsible}/>
         </View>
     )
 }
@@ -135,7 +149,7 @@ export const ViewModalBody = ({height,margin, padding,modalName, pinnable, child
 
 export const ViewModalBackdrop = ({modalName}:any) => {
     return (
-            <Pressable 
+        <Pressable 
             // onPress={()=>console.log('s')}
             onPress={useModalVisibility(modalName)}
             style={{

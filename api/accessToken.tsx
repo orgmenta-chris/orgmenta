@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useMsal, useAccount } from "@azure/msal-react";
 import { loginRequest } from "./authConfig";
 import useTokenStore from "../states/api/storeToken";
-import { InteractionRequiredAuthError } from "@azure/msal-browser";
+// import { InteractionRequiredAuthError } from "@azure/msal-browser";
 
 const AccessToken = () => {
   const { instance, accounts, inProgress } = useMsal();
@@ -28,10 +28,10 @@ const AccessToken = () => {
           }
         })
         .catch(async (error) => {
-          if (error instanceof InteractionRequiredAuthError) {
-            // fallback to interaction when silent call fails
-            return instance.acquireTokenPopup(loginRequest);
-          }
+          // if (error instanceof InteractionRequiredAuthError) {
+          //   // fallback to interaction when silent call fails
+          //   return instance.acquireTokenPopup(loginRequest);
+          // }
           // handle other errors
           throw new Error(error);
         });

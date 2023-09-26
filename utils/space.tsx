@@ -1,13 +1,12 @@
+// A 'space' is a bucket to hold an organisation, group, non-profit, department or personal space.
 
-import { useMemberCreate } from './members'
-import React, { memo } from 'react';
-import { createUuid4, typeUuid4, validateUuidType } from './uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
 import { instanceSupabaseClient, handleSupabaseResponse } from './supabase'
-import { useQuery, useMutation, useQueryClient, UseQueryOptions } from '@tanstack/react-query'
-import { ScrollView, View, Text, Pressable } from 'react-native';
-import { useTableColumns } from '../components/displays/table/table'
+import { ViewModalMain } from './modal'
+import { ViewRouterLink } from './router'
 import { useState, useEffect} from 'react'
-import { Link } from "react-router-dom";
+import { StyleSheet, ScrollView, View, Text, Pressable } from 'react-native';
+import { useQuery, useMutation, useQueryClient, UseQueryOptions } from '@tanstack/react-query'
+import { useTableColumns } from '../components/displays/table/table'
 import {
     createColumnHelper,
     flexRender,
@@ -16,7 +15,6 @@ import {
     ColumnResizeMode,
     ColumnDef,
 } from '@tanstack/react-table'
-import { ViewModalMain } from './modal'
 
 
 // Meta
@@ -36,7 +34,7 @@ export const metaSpaceInfo = {
 }
 
 
-// Create
+// Create (Create a space. Note that this does not set up all of the other related assets like tables, load in any blueprint entities, run any necessary server functions, etc (see useSpaceSetup for that)
 
 export const metaSpaceCreate = {
   description: 'Create a space in the spaces table',
@@ -46,17 +44,17 @@ export const metaSpaceCreate = {
   hook: "useSpaceCreate",
 }
 
-export interface interfaceSpaceCreate {
+export interface interfaceSpaceCreate { 
     // todo
 }
 
 export async function requestSpaceCreate(
-        space:interfaceSpaceCreate,
-    ) {
-    return await instanceSupabaseClient
-        .from("spaces")
-        .insert(space)
-        .then(handleSupabaseResponse as any)
+      space:interfaceSpaceCreate,
+  ) {
+  return await instanceSupabaseClient
+      .from("spaces")
+      .insert(space)
+      .then(handleSupabaseResponse as any)
 }
 
 export const useSpaceCreate = (props:interfaceSpaceCreate) => {
@@ -93,7 +91,7 @@ export const useSpaceSetup = (props:interfaceSpaceSetup) => {
   const newMembers = 'add the default (and any other specified) members';
   const runFunctions = 'run the new space functions in order to set row level security policies, load in blueprint entities etc.';
   //etc.
-  return 'todo'
+  return ['todo',newSpace,newTables,newMembers,runFunctions] // todo (doesn't do anything currently)
 }
 
 
@@ -112,9 +110,9 @@ export interface interfaceSpaceUpdate { // todo
 }
 
 export async function requestSpaceUpdate(// todo
-        space:interfaceSpaceUpdate,
-    ) {
-    //todo
+      space:interfaceSpaceUpdate,
+  ) {
+  //todo
 }
 
 export const useSpaceUpdate = (props:interfaceSpaceUpdate) => {// todo
@@ -122,7 +120,7 @@ export const useSpaceUpdate = (props:interfaceSpaceUpdate) => {// todo
 }
 
 
-// Delete (todo) - note that these 'SpaceDelete' functions only remove the space, not the associated tables & data. See the 'SpaceDestroy' functions for that
+// Delete (todo) - note that these 'SpaceDelete' functions only remove the space, not its associated tables & data. See the 'SpaceDestroy' functions for full purge of space & related data.
 
 export interface interfaceSpaceDelete { // todo
   // todo
@@ -160,11 +158,12 @@ export const useSpaceDestroy = (props:interfaceSpaceDestroy) => {
   const oldTables = 'delete the tables';
   const runFunctions = 'run the destroy space functions in order to remove any other remnants'; 
   //etc.
-  return 'todo'
+  return ['todo',removalConfirmation,oldSpace,oldTables,runFunctions] // todo (doesn't do anything currently)
 }
 
 
 // Array
+
 export const useSpaceArray = ({...Input}) => {
     const query = useQuery({
         queryKey: ['spaces', 'array', 'add_relevant_props_here'],
@@ -187,7 +186,7 @@ export const ViewSpaceArray = () => {
     return (
         <View>
         <Text style={{fontWeight:'700'}}>ViewSpaceArray</Text>
-            <ViewSpaceTable data={array.data} columns={columns}/>
+            {/* <ViewSpaceTable data={array.data} columns={columns}/> */}
         </View>
     )
 }
@@ -221,7 +220,6 @@ export const ViewSpaceItem = ({id}:interfaceSpaceItem) => {
     return (
         <View>
             <Text style={{fontWeight:'700'}}>ViewSpaceItem</Text>
-            <Text></Text>
             {/* Testing */}
             <Text>{JSON.stringify(item,null,2)}</Text>
         </View>
@@ -233,21 +231,23 @@ export const ViewSpaceItem = ({id}:interfaceSpaceItem) => {
 
 // This is a useQuery query that just returns a blank object (it doesn't query anything).
 // Then the user can switch active companies, which will update this query.
-export const useSpaceActive = ({...Input})=> {
+export const useSpaceActive = ({...Input}:TypeSpaceActive)=> {
   const query = useQuery({
       queryKey:['spaces',"active"],
       queryFn:()=>{ return {} },
       enabled: false,
       initialData: {
         id: null,
-        title:'No active space',
+        title:'Select a Space',
       }
-      // ...props
   });
   return query
 }
 
-export const updateSpaceActive = ({space}:any)=> {
+export type TypeSpaceActive = any; // placeholder
+
+
+export const updateSpaceActive = ({space}:TypeSpaceActive)=> {
   const client = useQueryClient();
   client.setQueryData(
     ['spaces',"active"],
@@ -256,11 +256,9 @@ export const updateSpaceActive = ({space}:any)=> {
 }
 
 
-
-
 // Table
-// This is currently a hardocded basic table, but will use the proper modular table component built by Loisa
-export const ViewSpaceTable = ({...Input}) => {
+
+export const ViewSpaceTable = ({...Input}) => { // This is currently a hardocded basic table, but will use the proper modular table component built by Loisa
     const columns = Input.columns;
   
     const [columnResizeMode, setColumnResizeMode] = useState<ColumnResizeMode>('onChange')
@@ -327,13 +325,22 @@ export const ViewSpaceTable = ({...Input}) => {
 
 export const ViewSpaceModal = (props:any) => {
   return (
-      <ViewModalMain modalName={'space'} backdrop pinnable bottom={60} >
-        <Link to={`/spaces/${'SPACEIDHERE'}/pods`}>SPACE</Link>
-        <Link to={`/spaces/all/pods`}>ALL SPACES</Link>
-      </ViewModalMain>
+    <ViewModalMain modalName={'space'} snapto={'left'} backdrop pinnable collapsible >
+      <ViewRouterLink to={`/spaces/${'SPACEIDHERE'}/pods`}>SPACE</ViewRouterLink>
+      <ViewRouterLink to={`/spaces/all/pods`}>ALL SPACES</ViewRouterLink>
+      <ViewRouterLink to={`/spaces/${'SPACEIDHERE'}/pods`}>SPACE</ViewRouterLink>
+      <ViewRouterLink to={`/spaces/all/pods`}>ALL SPACES</ViewRouterLink>
+      <ViewRouterLink to="">Files</ViewRouterLink>
+      <ViewRouterLink to="">Settings</ViewRouterLink> 
+      <ViewRouterLink to="">Subscription & Billing</ViewRouterLink>
+            
+      <Text>(list of spaces here)</Text>
+      <Pressable>
+        <Text>+ Add a new organization</Text>
+      </Pressable>
+    </ViewModalMain>
   );
 };
-
 
 // State (save a space's data to state. E.g. 'Selected' uses this to save the current/active space.)
 
@@ -363,6 +370,20 @@ export const useSpaceSet = (id:string, newData:any) => {
     };
 }
 
+
+// // Selected
+
+// export const useSpaceSelected = (id:string, newData:any) => {
+//   const selected = useSpaceState('selected');
+//   const select = (id:string)=>{useSpaceSet('selected',id)};
+//   return {
+//     selected, select
+//   }
+// }
+
+
+// Pinned
+
 export const useModalPinned = (modalName:string) => {
   const queryClient = useQueryClient();
   return () => {
@@ -371,6 +392,19 @@ export const useModalPinned = (modalName:string) => {
       });
     };
 }
+
+
+// Toggle
+
+export const ViewModalToggle = ({modalName}:any) => { // Example button to toggle the modal state value
+    return (
+        <Pressable onPress={useModalPinned(modalName)}><Text>Toggle</Text></Pressable>
+    )
+}
+
+
+// State
+
 export const useModalState = (modalName:string) => {
     // const queryClient = useQueryClient();
     const query = useQuery({
@@ -382,6 +416,7 @@ export const useModalState = (modalName:string) => {
     });
     return query;
 }
+
 export const ViewModalState = ({modalName}:any) => {
   const modalState = useModalState(modalName);
   return (<>
@@ -389,28 +424,11 @@ export const ViewModalState = ({modalName}:any) => {
       <Text>{JSON.stringify(modalState?.data,null,2)}</Text>
   </>)
 }
-// (Example button to toggle the modal state value)
-export const ViewModalToggle = ({modalName}:any) => {
-    return (
-        <Pressable onPress={useModalPinned(modalName)}><Text>Toggle</Text></Pressable>
-    )
-}
 
 
+// Switch 
 
-
-// Pinned (whether or not a modal is embedded into the page, or floating above it on another surface)
-
-// export const useSpaceSelected = (id:string, newData:any) => {
-//   const selected = useSpaceState('selected');
-//   const select = (id:string)=>{useSpaceSet('selected',id)};
-//   return {
-//     selected, select
-//   }
-// }
-
-// Switch (a widget to switch between spaces / make a different space active)
-export const ViewSpaceSwitch = (props: any) => {
+export const ViewSpaceSwitch = (props: any) => { // A widget to switch between spaces / make a different space active
   const array = useSpaceArray({});
   const selected = useSpaceState(['space','selected']);
   
@@ -433,8 +451,6 @@ export const ViewSpaceSwitch = (props: any) => {
     </View>
   );
 };
-
-
 
 
 // Sync

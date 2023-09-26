@@ -3,9 +3,7 @@
 // This module will offer a dynamic field component (will display the correct comonents based on the )
 // It can also offer a static field component as a wrapper for input components (tbc, depending on performance of the dynamic component)
 
-
 import { View, Text,  TextInput,  Text as DropdownExample, Text as TogglesExample } from 'react-native';
-
 
 
 // Tabs
@@ -22,6 +20,7 @@ export const ViewFieldTabs = ({id}:any) => { // todo
 // Main
 
 export interface interfaceFieldMain {
+  [x: string]: any; // catch-all (fields are dynamic)
   label:string,
   value?:any,
   defaultValue?:any,
@@ -37,7 +36,7 @@ export const ViewFieldMain = ({item}:{item:interfaceFieldMain}) => {
   const Component = mapFieldComponents[item?.form_field ? 'textinput' : 'text']; // this may benefit from usecallback or memoization of some sort?
   return (
     <View style={{flexDirection:'row'}}>
-      <Text style={{flex:1, fontWeight: 500}}>{item?.label || '[No label found]'}: </Text>
+      <Text style={{flex:1, fontWeight: '500'}}>{item?.label || '[No label found]'}: </Text>
 
       {/* <View  style={{flex:1}}><Component>{item.value}</Component></View> */}
       <View  style={{flex:1}}><Component defaultValue={item.value}/></View>

@@ -12,13 +12,11 @@
 // - show/hide column (low priority, on hold)
 
 
-import { View, Text } from 'react-native';
-import { Link } from 'react-router-dom';
+import { ViewRouterLink } from '../../../utils/router';
+
 import { useMemo } from 'react'; 
-import {
-    createColumnHelper,
-} from '@tanstack/react-table'
-import React from 'react';
+import { View, Text } from 'react-native';
+import { createColumnHelper } from '@tanstack/react-table'
   
 
 // Columns
@@ -34,8 +32,8 @@ export const useTableColumns = (columnNames: string[]) => {
                     <View>
                         <Text style={{}}>{JSON.stringify(info.getValue())}</Text>  
                         {columnName==='id' && <>
-                            <Link to={location.pathname+'/'+info.getValue()}><Text style={{}}>Open</Text></Link>
-                            <Link to={location.pathname+'/'+info.getValue()}><Text style={{}}>PopOut</Text></Link>
+                            <ViewRouterLink to={location.pathname+'/'+info.getValue()}>Open</ViewRouterLink>
+                            <ViewRouterLink to={location.pathname+'/'+info.getValue()}>PopOut</ViewRouterLink>
                         </>}
                     </View>,
                 footer: info => info.column.id + '1',

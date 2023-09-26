@@ -323,11 +323,23 @@ export const data = [
         "id": 11004,
         "parent": 1100,
         "status": "5. Hold",
-        "name_singular": "investment",
-        "display_singular": "Justification",
-        "description": "Summary of market research and other proofs of viability/reasons for operating",
-        "summary": "",
-        "nickname": "governance-model-plan-justification"
+        "name_singular": "capital",
+        "display_singular": "Capital",
+        "description": "Summary of Accounts/Finance and other resources",
+        "summary": "Financial resources or assets employed to start, operate, and grow your business.",
+        "nickname": "governance-model-plan-justification",
+        "notes":`
+            Financial Capital: Money used to fund a business, including initial capital, working capital, and growth capital.
+            Human Capital: The skills, knowledge, experience, and abilities of employees.
+            Social Capital: The value derived from an individual's or business's network of relationships, which can be used to gain resources or advantages.
+            Intellectual Capital: Intangible assets like patents, trademarks, and copyrights that contribute to a business's competitive advantage.
+            Natural Capital: Natural resources that can be used to produce goods or services.
+            Physical Capital: Tangible assets like machinery, buildings, and infrastructure used in the production of goods or services.
+            Venture Capital: Funding provided by investors to startups and small businesses expected to have long-term growth potential.
+            Debt Capital: Money borrowed through various means, including loans and bonds, to run the business.
+            Equity Capital: Funds raised by a business in exchange for shares of ownership in the company.
+            Working Capital: Short-term assets minus short-term liabilities, used for day-to-day operations.
+        `
     },
     {
         "id": 1101,
@@ -387,7 +399,7 @@ export const data = [
         "status": "5. Hold",
         "name_singular": "roadmap",
         "display_singular": "Roadmap",
-        "description": "",
+        "description": "Your company roadmap and timeline",
         "nickname": "governance-model-roadmap"
     },
     {
@@ -651,10 +663,20 @@ export const data = [
         "id": 113,
         "parent": 11,
         "status": "5. Hold",
-        "name_singular": "roadmap",
-        "display_singular": "Roadmap",
+        "name_singular": "metrics",
+        "display_singular": "Metrics",
         "description": "Your company roadmap and timeline",
-        "nickname": "governance-roadmap"
+        "nickname": "governance-metrics"
+    },
+    {
+        "id": 1130,
+        "parent": 113,
+        "status": "5. Hold",
+        "name_singular": "scorecards",
+        "display_singular": "Scorecards",
+        "description": "Scorecards from different areas of the business",
+        "summary" : "",
+        "nickname": "governance-metrics"
     },
     {
         "id": 114,
@@ -688,40 +710,31 @@ export const data = [
         "nickname": "governance-executive-management"
     },
     {
-        "id": 11410,
-        "parent": 1141,
-        "status": "5. Hold",
-        "name_singular": "Report Analysis",
-        "display_singular": "Management",
-        "description": "",
-        "nickname": "executive-management-Report Analysis"
-    },
-    {
         "id": 1142,
         "parent": 114,
         "status": "5. Hold",
-        "name_singular": "",
-        "display_singular": "",
-        "description": "",
-        "nickname": "governance-executive-"
+        "name_singular": "accountability",
+        "display_singular": "Accountability",
+        "description": "Mechanisms for assigning and tracking responsibilities",
+        "nickname": "governance-executive-accountability"
     },
     {
         "id": 1143,
         "parent": 114,
         "status": "5. Hold",
-        "name_singular": "",
-        "display_singular": "",
-        "description": "",
-        "nickname": "governance-executive-"
+        "name_singular": "reports",
+        "display_singular": "Reports",
+        "description": "Report creations for the business's decision making",
+        "nickname": "governance-executive-reports"
     },
     {
         "id": 1144,
         "parent": 114,
         "status": "5. Hold",
-        "name_singular": "",
-        "display_singular": "",
-        "description": "",
-        "nickname": "governance-executive-"
+        "name_singular": "decisions",
+        "display_singular": "Decisions",
+        "description": "Decision Making",
+        "nickname": "governance-executive-decisions"
     },
     {
         "id": 12,
@@ -1951,6 +1964,16 @@ export const data = [
         "nickname": "accounts-compliance"
     },
     {
+        "id": 124,
+        "parent": 12,
+        "status": "5. Hold",
+        "name_singular": "conformance",
+        "display_singular": "Conformance",
+        "description": "Accounts & Finance Compliance (legally, to GAAP priciples, tax compliance, etc.)",
+        "summary": "End of month/year closures, P&L, Balance Sheet, Accounting compliance, tax submissions",
+        "nickname": "accounts-conformance"
+    },
+    {
         "id": 1240,
         "parent": 124,
         "status": "5. Hold",
@@ -3079,7 +3102,54 @@ export const data = [
         "name_singular": "performance",
         "display_singular": "Performance",
         "description": "Performance management",
+        "summary": "performance tracking, management and reviews (both ways, not just employer->employee",
         "nickname": "personnel-development-performance"
+    },
+    {
+        "id": 160300,
+        "parent": 16030,
+        "status": "5. Hold",
+        "name_singular": "tracking",
+        "display_singular": "Tracking",
+        "description": "Performance tracking",
+        "nickname": "personnel-development-performance-tracking"
+    },
+    {
+        "id": 160301,
+        "parent": 16030,
+        "status": "5. Hold",
+        "name_singular": "management",
+        "display_singular": "Management",
+        "description": "Performance management",
+        "nickname": "personnel-development-performance-management"
+    },
+    {
+        "id": 160302,
+        "parent": 16030,
+        "status": "5. Hold",
+        "name_singular": "reviews",
+        "display_singular": "Reviews",
+        "description": "Performance reviews",
+        "nickname": "personnel-development-performance-reviews"
+    },
+    {
+        "id": 160303,
+        "parent": 16030,
+        "status": "5. Hold",
+        "name_singular": "feedback",
+        "display_singular": "Feedback",
+        "description": "Two way feedback (the employee should also be able to openly provide feedback to the company",
+        "summary": "To be ethical, there must be an option for the feedback to be anonymous - Else data should be considered inaccurate and compromised.",
+        "nickname": "personnel-development-performance-x"
+    },
+    {
+        "id": 160304,
+        "parent": 16030,
+        "status": "5. Hold",
+        "name_singular": "y",
+        "display_singular": "y",
+        "description": "",
+        "nickname": "personnel-development-performance-y"
     },
     {
         "id": 16031,
@@ -3097,9 +3167,28 @@ export const data = [
         "status": "5. Hold",
         "name_singular": "engagement",
         "display_singular": "Engagement",
-        "summary": "Training & Development",
-        "description": "Strategies and initiatives aimed at promoting a positive workplace culture and improving employee satisfaction, motivation, and commitment.",
+        "description": "Employee engagement",
+        "summary": "Strategies and initiatives aimed at promoting a positive workplace culture and improving employee satisfaction, motivation, and commitment.",
         "nickname": "personnel-development-engagement"
+    },
+    {
+        "id": 16030,
+        "parent": 1603,
+        "status": "5. Hold",
+        "name_singular": "skills",
+        "display_singular": "Skills",
+        "description": "Career Pathways",
+        "summary": "A module to explore and outline potential career progressions.",
+        "nickname": "personnel-development-skills"
+    },
+    {
+        "id": 16030,
+        "parent": 1603,
+        "status": "5. Hold",
+        "name_singular": "pathways",
+        "display_singular": "Pathways",
+        "description": "Skills & Certifications",
+        "nickname": "personnel-development-skills"
     },
     {
         "id": 1604,
@@ -3370,7 +3459,54 @@ export const data = [
         "name_singular": "safety",
         "display_singular": "Safety",
         "description": "Health & Safety",
-        "nickname": "personnel-welfare-safety"
+        "nickname": "personnel-welfare-safety",
+        "notes": "also referred to as OHS, OH&S, OSH, H&S and other formats depending on the country",
+        "ISSUE":"scope is an issue here, because it's not just Personnel that is affected - Other stakeholders are too. This would make more sense in Systems."
+    },
+    {
+        "id": 16300,
+        "parent": 1630,
+        "status": "5. Hold",
+        "name_singular": "emergencies",
+        "display_singular": "Emergencies",
+        "description": "Emergency procedures",
+        "nickname": "personnel-welfare-safety-emergencies",
+    },
+    {
+        "id": 16301,
+        "parent": 1630,
+        "status": "5. Hold",
+        "name_singular": "checks",
+        "display_singular": "Checks",
+        "description": "Routine inspections and OHS checklists",
+        "nickname": "personnel-welfare-safety-checks",
+    },
+    {
+        "id": 16302,
+        "parent": 1630,
+        "status": "5. Hold",
+        "name_singular": "incidents",
+        "display_singular": "Incidents",
+        "description": "Incident reporting",
+        "nickname": "personnel-welfare-safety-incidents",
+    },
+    {
+        "id": 16303,
+        "parent": 1630,
+        "status": "5. Hold",
+        "name_singular": "x",
+        "display_singular": "x",
+        "description": "",
+        "nickname": "personnel-welfare-safety-x",
+    },
+    {
+        "id": 16304,
+        "parent": 1630,
+        "status": "5. Hold",
+        "name_singular": "y",
+        "display_singular": "y",
+        "description": "",
+        "nickname": "personnel-welfare-safety-y",
     },
     {
         "id": 1631,
@@ -4015,10 +4151,10 @@ export const data = [
         "id": 18401,
         "parent": 1840,
         "status": "0. New",
-        "name_singular": "training",
-        "display_singular": "Training",
-        "summary": "",
+        "name_singular": "induction",
+        "display_singular": "Induction",
         "description": "",
+        "summary": "Training users/teams that are inheriting or using the project deliverables",
         "nickname": "project-evaluation-handover-training"
     },
     {

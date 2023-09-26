@@ -256,6 +256,11 @@ If queries start timing out / taking too long:
 - A receivables and reconciliation system
 - A full accounting package
 
+# Company Values
+- Ethics
+- Trust
+- Empowerment
+- Simplifying
 
 <!-- ----------------- -->
 

@@ -252,7 +252,7 @@ export const data = [
         "name_singular": "governance",
         "display_singular": "Governance",
         "description": "Overarching command and decision making for the business",
-        "nickname": "governance"
+        "nickname": "governance",
     },
     {
         "id": 110,

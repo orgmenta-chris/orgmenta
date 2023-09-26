@@ -20,6 +20,7 @@ export const ViewStatusbarMain = (props:TypeStatusbarMain) => {
     )
 }
 
+
 // Height
 
 // Provide a buffer component to prevent other elements from overlapping the statusbar

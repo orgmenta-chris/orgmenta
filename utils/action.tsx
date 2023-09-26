@@ -13,11 +13,19 @@ import { arrayStatusMain } from "./status";
 import { createUuid4 } from "./uuid";
 
 import ViewIconMain from "../components/displays/icons/ViewIconMain";
-import { TextInput, View, Text, Pressable, Button, useWindowDimensions } from "react-native";
+import {
+  TextInput,
+  View,
+  Text,
+  Pressable,
+  Button,
+  useWindowDimensions,
+} from "react-native";
 import { useState } from "react";
 import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
 import RenderHtml from "react-native-render-html";
+import { UtilityPlatformMain } from "./platform";
 
 // Modal
 
@@ -330,10 +338,14 @@ export const ViewActionPDF = ({}: any) => {
   };
 
   const printToFile = async () => {
-    // On iOS/android prints the given html. On web prints the HTML from the current page.
-    const { uri } = await Print.printToFileAsync(source);
-    // console.log("File has been saved to:", uri);
-    await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
+    if (UtilityPlatformMain.OS === "web") {
+      
+    } else {
+      // On iOS/android prints the given html. On web prints the HTML from the current page.
+      const { uri } = await Print.printToFileAsync(source);
+      // console.log("File has been saved to:", uri);
+      await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
+    }
   };
 
   const { width } = useWindowDimensions();
@@ -342,7 +354,7 @@ export const ViewActionPDF = ({}: any) => {
     <View style={{ flexDirection: "column" }}>
       <Text>PDF</Text>
       <Text>render/display and allow for downloading of PDF files</Text>
-      <RenderHtml contentWidth={width} source={source} />
+      {/* <RenderHtml contentWidth={width} source={source} /> */}
       <Button title="Print to PDF file" onPress={printToFile} />
     </View>
   );

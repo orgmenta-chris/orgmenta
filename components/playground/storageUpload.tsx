@@ -59,7 +59,7 @@ export const ViewStorageUpload = ({}: any) => {
       style={{
         position: "absolute",
         padding: 10,
-        backgroundColor: "yellow",
+        backgroundColor: "blue",
         right: 0,
         bottom: 0,
       }}

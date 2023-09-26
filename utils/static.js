@@ -276,8 +276,58 @@ export const data = [
         "status": "5. Hold",
         "name_singular": "plan",
         "display_singular": "Plan",
-        "description": "",
+        "description": "Business Plan",
         "nickname": "governance-model-plan"
+    },
+    {
+        "id": 11001,
+        "parent": 1100,
+        "status": "5. Hold",
+        "name_singular": "mission",
+        "display_singular": "Mission",
+        "description": "Mission statement / a clear summary of the purpose of the business",
+        "summary": "Analygous to a peer reviewed scientific paper having an 'abstract'",
+        "nickname": "governance-model-plan-mission"
+    },
+    {
+        "id": 11001,
+        "parent": 1100,
+        "status": "5. Hold",
+        "name_singular": "values",
+        "display_singular": "Values",
+        "description": "Company/Organizational Values",
+        "summary": "What are your Brand values? Consider these to be products, as you are essentially selling 'trust' or other company values to all of your stakeholders.",
+        "nickname": "governance-model-plan-values"
+    },
+    {
+        "id": 11002,
+        "parent": 1100,
+        "status": "5. Hold",
+        "name_singular": "goals",
+        "display_singular": "Goals",
+        "description": "Company/Organizational Goals",
+        "summary": "Top level objectives / goals",
+        "nickname": "governance-model-plan-goals"
+    },
+    {
+        "id": 11003,
+        "parent": 1100,
+        "status": "5. Hold",
+        "name_singular": "justification",
+        "display_singular": "Justification",
+        "description": "Summary of market research and other proofs of viability/reasons for operating",
+        "summary": "",
+        "nickname": "governance-model-plan-justification"
+    },
+    {
+        "id": 11004,
+        "parent": 1100,
+        "status": "5. Hold",
+        "name_singular": "investment",
+        "display_singular": "Justification",
+        "description": "Summary of market research and other proofs of viability/reasons for operating",
+        "summary": "",
+        "nickname": "governance-model-plan-justification"
     },
     {
         "id": 1101,
@@ -285,8 +335,41 @@ export const data = [
         "status": "5. Hold",
         "name_singular": "structure",
         "display_singular": "Structure",
-        "description": "",
+        "description": "Business structure / hierarchy",
         "nickname": "governance-model-structure"
+    },
+    {
+        "id": 11010,
+        "parent": 1101,
+        "status": "5. Hold",
+        "name_singular": "ownership",
+        "display_singular": "ownership",
+        "description": "Business ownership structures",
+        "summary": "C-Corp / LLC / Sole Trader or Proprietorship / Partnership Cooperative / Umbrella & holding corps / Franchise / Non-profit / Charity / etc.",
+        "nickname": "governance-model-structure-ownership",
+        "types": [
+            'LLC',
+            'S-Corp',
+            'C-Corp',
+            'Sole Trader / Proprietorship',
+            'Umbrella',
+            'Holding',
+            'Franchise',
+            'Unlimited Company - UK, ROI and others',
+            'Società a responsabilità limitata (SRL) - Italy',
+            'Proprietary Limited Company (Pty Ltd) - Australia',
+            'Aktiebolag (AB) - Sweden',
+            'Kabushiki Kaisha (KK) - Japan',
+            'Société Anonyme (SA) - France',
+            'Gesellschaft mit beschränkter Haftung (GmbH) - Germany',
+            'Public Limited Company (PLC) - UK',
+            'Joint Venture',
+            'Professional LLC (PLLC)',
+            'Professional Corporation (PC)',
+            'B-Corporation',
+            'Non Profit',
+            'Charity',
+        ]
     },
     {
         "id": 1102,
@@ -295,6 +378,7 @@ export const data = [
         "name_singular": "jurisdictions",
         "display_singular": "Jurisdictions",
         "description": "Where you are operating (unions, countries, states, counties, markets)",
+        "summary": "",
         "nickname": "governance-model-jurisdictions"
     },
     {

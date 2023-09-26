@@ -1,46 +1,63 @@
 // A 'statusbar' is a mobile-only top bar (ios, android, apple TV etc.). It is not present on web.
 
 import { StatusBarProps, StatusBar } from "expo-status-bar";
-import { UtilityPlatformMain } from './platform'
+import { UtilityPlatformMain } from "./platform";
 import { StatusBar as StatusbarRN, Dimensions, View } from "react-native";
 
 // Main
 
-export type TypeStatusbarMain = StatusBarProps & { 
-    buffer?: boolean // whether to push the content down (true) or let content overlap the statusbar (false - default)
-}
+export type TypeStatusbarMain = StatusBarProps & {
+    buffer?: boolean; // whether to push the content down (true) or let content overlap the statusbar (false - default)
+};
 
 // The actual statusbar component
-export const ViewStatusbarMain = (props:TypeStatusbarMain) => {
+export const ViewStatusbarMain = (props: TypeStatusbarMain) => {
     return (
-        <StatusBar 
-            style={'light'}
-            // backgroundColor="#0c4a73" 
+        <StatusBar
+            style={"light"}
+            // backgroundColor="#0c4a73"
         />
-    )
-}
-
+    );
+};
 
 // Height
 
 // Provide a buffer component to prevent other elements from overlapping the statusbar
-export const ViewStatusbarDimensions = (props:TypeStatusbarMain) => {
+export const ViewStatusbarDimensions = (props: TypeStatusbarMain) => {
     const statusbarDimensions = getStatusbarDimensions();
-    return (<>
-        {props.buffer && UtilityPlatformMain.OS !=='web' && <View style={{height:statusbarDimensions.height, paddingTop: statusbarDimensions.padding, width:"100%"}}/> }
-    </>)
-}
+    return (
+        <>
+            {props.buffer && UtilityPlatformMain.OS !== "web" && (
+                <View
+                    style={{
+                        height: statusbarDimensions.height,
+                        paddingTop: statusbarDimensions.padding,
+                        width: "100%",
+                    }}
+                />
+            )}
+        </>
+    );
+};
 
 // Or just use this helper function if you want to do it with padding or margin, instead of using the above component
-export const getStatusbarDimensions = () => {    
+export const getStatusbarDimensions = () => {
     const platform_os = UtilityPlatformMain.OS;
-    if (platform_os === 'web') { return { height: 0, padding: 0 } }
-    if (platform_os === 'ios') { return { height: 0, padding: 5 } } // iOS uses safeAreaView instead (so we just need padding, no actual statusbar height needed)
-    if (platform_os === 'android') { return { height: StatusbarRN.currentHeight||24, padding:5 }  } // this is a hack to ensure that it doesn't cover the statusbar on android. This may not cover some custom roms. (statusbar height + padding needed)
-    else { return { height: 50, padding: 5 } } // Unknown as to whether this fallback would ever be used (depends on future changes to react-native Platform)
-}
+    if (platform_os === "web") {
+        return { height: 0, padding: 0 };
+    }
+    if (platform_os === "ios") {
+        return { height: 0, padding: 5 };
+    } // iOS uses safeAreaView instead (so we just need padding, no actual statusbar height needed)
+    if (platform_os === "android") {
+        return { height: StatusbarRN.currentHeight || 24, padding: 5 };
+    } // this is a hack to ensure that it doesn't cover the statusbar on android. This may not cover some custom roms. (statusbar height + padding needed)
+    else {
+        return { height: 50, padding: 5 };
+    } // Unknown as to whether this fallback would ever be used (depends on future changes to react-native Platform)
+};
 
-// Constants 
+// Constants
 
 // const STATUSBAR_DEFAULT_HEIGHT = 20;
 // const STATUSBAR_X_HEIGHT = 44;

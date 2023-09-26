@@ -22,7 +22,7 @@ export const useBrowseActive = ({...Input}:TypeBrowseActive)=> {
     });
     return query
 }
-  
+
 export type TypeBrowseActive = any; // placeholder
 
 

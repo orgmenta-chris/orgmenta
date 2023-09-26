@@ -64,7 +64,7 @@ export const ViewStorageUpload = ({}: any) => {
         bottom: 0,
       }}
     >
-      <Text>Testing area</Text>
+      <Text>Testing Area</Text>
       <DocumentPicker
         setPickedDocument={setPickedDocument}
         type={fileTypes}

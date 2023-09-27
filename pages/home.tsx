@@ -248,7 +248,7 @@ export default function Home() {
                                     fontSize: 14,
                                 }}
                             >
-                                {`Universal search and \nquick-add\nwith `}
+                                {`Universal search\nand quick-add\nwith `}
                                 <Text
                                     style={{
                                         fontWeight: "800",

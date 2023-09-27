@@ -1,11 +1,11 @@
 import { Text, View } from "react-native";
 import { ViewAttributeMain, ViewAttributeUnioned } from "../utils/attribute";
+import { ViewPageMain } from "../utils/page";
 import {
     ViewRouterLink,
     ViewRouterRoutes,
     ViewRouterRoute,
 } from "../utils/router";
-import { ViewPageMain } from "../utils/page";
 
 export default function AttributePage() {
     return (

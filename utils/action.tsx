@@ -1,7 +1,7 @@
 // An 'Action' is something that can be done to an 'Entity'.
 
 import {
-    ViewRouterLink,
+    ViewRouterLinkthemed,
     ViewRouterRoutes,
     ViewRouterRoute,
     useRouterLocation,
@@ -273,14 +273,6 @@ export const ViewActionEdit = ({}: any) => {
                     <Text>Create</Text>
                 </Pressable>
             </View>
-            {/* <View style={{flexDirection:'row'}}>
-        <Text>Testing:</Text>
-        <Text>{titleState}</Text>
-        <Text>{typeState}</Text>
-        <Text>{classState}</Text> 
-        <Text>{statusState}</Text>
-        <Text>{descriptionState}</Text>
-      </View> */}
         </View>
     );
 };
@@ -378,7 +370,7 @@ export const optionsActionTabs = [
 export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
     const paths = useRouterLocation().paths;
     return (
-        <View style={{ flexDirection: "column" }}>
+        <View style={{ flexDirection: "column", backgroundColor: "lightgray" }}>
             <View style={{ borderWidth: 1 }}>
                 <ViewRouterRoutes>
                     <ViewRouterRoute
@@ -419,26 +411,33 @@ export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
             </View>
             <View style={{ flexDirection: "row", borderWidth: 1 }}>
                 {optionsActionTabs?.map((x, i) => (
-                    <ViewRouterLink
-                        key={i}
-                        style={{
-                            padding: 5,
-                            textDecoration: "none",
-                            backgroundColor:
-                                paths[4] === x.title.toLocaleLowerCase()
-                                    ? "lightgrey"
-                                    : "transparent",
-                        }}
+                    <ViewRouterLinkthemed
                         to={x.title.toLowerCase()}
+                        style={{
+                            flex: 1,
+                        }}
+                        key={i}
                     >
-                        {/* {x.title} */}
-                        <ViewIconMain
-                            name={x.iconName}
-                            source={x.iconSource}
-                            color={"black"}
-                            size={24}
-                        />
-                    </ViewRouterLink>
+                        <View
+                            style={{
+                                flex: 1,
+                                padding:5,
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor:
+                                    paths[4] === x.title.toLocaleLowerCase()
+                                        ? "gray"
+                                        : "transparent",
+                            }}
+                        >
+                            <ViewIconMain
+                                name={x.iconName}
+                                source={x.iconSource}
+                                color={"black"}
+                                size={24}
+                            />
+                        </View>
+                    </ViewRouterLinkthemed>
                 ))}
             </View>
         </View>

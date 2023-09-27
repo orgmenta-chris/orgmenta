@@ -1,7 +1,7 @@
 // A 'router' manages navigation and routing in a React application, directing the display of content based on the current URL or route
 // NOTE THAT BACK BUTTON FUNCTIONALITY ON MOBILE MAY NOT YET BE WORKING.
 
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { UtilityPlatformMain } from "./platform";
 import { useThemeToken, TypeThemeMain } from "./theme";
 import { validateObjectIsobject } from "./object";
@@ -70,14 +70,13 @@ export type TypeRouterRoute = RouteProps;
 // Link
 
 export type TypeRouterLink = NLinkProps | DLinkProps;
-import { View } from "react-native";
 
 export const ViewRouterLink: React.FC<any> = ({ children, ...rest }) => {
     const LinkComponent = UtilityPlatformMain.OS === "web" ? DLink : NLink;
     const isString = typeof children === "string";
     return (
         <LinkComponent {...rest}>
-            <View>{isString ? <Text>{children}</Text> : children}</View>
+            {isString ? <Text>{children}</Text> : children}
         </LinkComponent>
     );
 };
@@ -131,11 +130,13 @@ export const ViewRouterLostpage = () => {
                 404 Not Found
             </Text>
             <ViewRouterLinkthemed to={"/"}>
-                <ViewTypographyTextthemed
-                    style={{ fontSize: 24, flex: 1, alignSelf: "center" }}
-                >
-                    Home
-                </ViewTypographyTextthemed>
+                <View style={{flex:1}}>
+                    <ViewTypographyTextthemed
+                        style={{ fontSize: 24, flex: 1, alignSelf: "center" }}
+                    >
+                        Home
+                    </ViewTypographyTextthemed>
+                </View>
             </ViewRouterLinkthemed>
         </ViewPageMain>
     );

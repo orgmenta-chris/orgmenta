@@ -339,11 +339,18 @@ export const ViewActionPDF = ({}: any) => {
 
   const printToFile = async () => {
     if (UtilityPlatformMain.OS === "web") {
-      // todo: implement method to print to file on web
+      const newWindow: any = window.open("", "_blank");
+      newWindow.document.open();
+      newWindow.document.write(source.html);
+      newWindow.document.close();
+
+      newWindow.addEventListener("load", () => {
+        newWindow.print();
+        newWindow.close();
+      });
     } else {
       // On iOS/android prints the given html. On web prints the HTML from the current page.
       const { uri } = await Print.printToFileAsync(source);
-      // console.log("File has been saved to:", uri);
       await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
     }
   };

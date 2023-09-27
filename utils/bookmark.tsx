@@ -4,10 +4,6 @@ import { ViewModalMain } from "./modal";
 import { Expandable } from "../components/expandable";
 import { ScrollView } from "react-native";
 import { useQuery } from "@tanstack/react-query";
-import { ViewModalMain } from "./modal";
-import { Expandable } from "../components/expandable";
-import { ScrollView } from "react-native";
-import { useQuery } from "@tanstack/react-query";
 import { data } from "./static";
 
 // Modal

@@ -5,11 +5,6 @@ import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { ScrollView, View, Text } from "react-native";
 import { useTableColumns } from "../components/displays/table/table";
-import { useState, memo, useEffect, useReducer } from "react";
-import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { ScrollView, View, Text } from "react-native";
-import { useTableColumns } from "../components/displays/table/table";
 import {
     createColumnHelper,
     flexRender,

@@ -5,8 +5,6 @@
 // Once that's done, then we can discuss how best to render items correctly (i.e. how&what attributes to render in the header and in the collapsible body)
 
 import { View, Text } from "react-native";
-import { View, Text } from "react-native";
-
 // Main
 
 export const ViewListMain = ({ data }: any) => {

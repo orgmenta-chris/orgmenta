@@ -14,10 +14,6 @@ export const metaThemeInfo = {
 export type TypeThemeMain = Record<string, any>;
 // Record<K, T> is a utility type that constructs an object type with keys of type K and values of type T.
 // Useful for describing objects that have a set of properties where the property names are not fixed but the type of each value is known.
-export type TypeThemeMain = Record<string, any>;
-// Record<K, T> is a utility type that constructs an object type with keys of type K and values of type T.
-// Useful for describing objects that have a set of properties where the property names are not fixed but the type of each value is known.
-//
 
 // Token
 

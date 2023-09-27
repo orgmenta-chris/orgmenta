@@ -2,7 +2,6 @@
 
 import { StatusBarProps, StatusBar } from "expo-status-bar";
 import { UtilityPlatformMain } from "./platform";
-import { UtilityPlatformMain } from "./platform";
 import { StatusBar as StatusbarRN, Dimensions, View } from "react-native";
 
 // Main

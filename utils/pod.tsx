@@ -6,9 +6,6 @@
 import { ViewRouterLink, useRouterLocation } from "./router";
 import { View, Text } from "react-native";
 import { data } from "./static";
-import { ViewRouterLink, useRouterLocation } from "./router";
-import { View, Text } from "react-native";
-import { data } from "./static";
 
 // Main
 
@@ -35,9 +32,7 @@ export const ViewPodExample = () => {
     <View
       style={{
         flexDirection: "column",
-        borderWidth: 1,
-        borderColor: "white",
-        margin: 4,
+        margin: 5,
       }}
     >
       <View style={{ height: 40, backgroundColor: "lightgray" }}>
@@ -61,32 +56,20 @@ export const ViewPodInfo = () => {
   // But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
   const path = useRouterLocation()?.paths;
   const process = data?.find((x) => x.nickname === path[2]);
-  const subprocesses = process && data.filter((x) => x.parent === process.id);
   const parent = data?.find((y) => y.id === process?.parent);
-  const grandparent = data?.find((z) => z.id === parent?.parent);
   return (
     <View
       style={{
         flexDirection: "column",
-        borderWidth: 1,
-        borderColor: "white",
-        margin: 4,
+        margin: 5,
       }}
     >
-      <View style={{ height: 40, backgroundColor: "lightgray" }}>
-        <Text style={{ fontSize: 16, fontStyle: "italic" }}>
+      <View style={{ backgroundColor: "lightgray" }}>
+        <Text style={{ fontSize: 14, fontStyle: "italic" }}>
           {process?.description}
         </Text>
         <Text style={{ fontSize: 12 }}>{process?.summary}</Text>
       </View>
-      {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
-                {process.subheading}
-            </Text> */}
-      {/* TESTING */}
-      {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
-                {JSON.stringify({grandparent,parent,process,subprocesses},null,2)}
-                {JSON.stringify({process},null,2)}
-            </Text> */}
     </View>
   );
 };
@@ -102,14 +85,11 @@ export const ViewPodTabs = () => {
   const process = data?.find((x) => x.nickname === path[2]);
   const subprocesses = process && data.filter((x) => x.parent === process.id);
   const parent = data?.find((y) => y.id === process?.parent);
-  const grandparent = data?.find((z) => z.id === parent?.parent);
   return (
     <View
       style={{
         flexDirection: "column",
-        borderWidth: 1,
-        borderColor: "white",
-        margin: 4,
+        margin: 5,
       }}
     >
       {/* Tabs for each subprocess */}
@@ -124,11 +104,6 @@ export const ViewPodTabs = () => {
           </ViewRouterLink>
         ))}
       </View>
-
-      {/* Info on the current process (move this into pods*/}
-      {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}> */}
-      {/* {JSON.stringify({division,department,process},null,2)} */}
-      {/* </Text> */}
     </View>
   );
 };

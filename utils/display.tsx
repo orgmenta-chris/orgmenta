@@ -2,16 +2,19 @@
 // It is a 'perspective into the graph'.
 // You can view entities and their relationships in different displays (e.g. Table, list, calendar) and filters.
 
-import { ViewRouterLink, useRouterLocation } from "./router";
+import { ViewRouterLink, ViewRouterLinkthemed, useRouterLocation } from "./router";
 import { ViewFormDynamic } from "./form";
 import { ViewListMain } from "./list";
+import { ViewChartMain } from "./chart";
+import { ViewPathMain } from "./path";
 import {
-    ViewPodMain,
-    ViewPodInfo,
-    ViewPodList,
-    ViewPodTabs,
-    ViewPodExample,
+  ViewPodMain,
+  ViewPodInfo,
+  ViewPodList,
+  ViewPodTabs,
+  ViewPodExample,
 } from "./pod";
+import { ViewIconMain } from "./icon";
 // import { ViewTableMain, useTableColumns } from "./table";
 // import { ViewJsonMain } from "./json";
 // import { ViewIconMain } from "./icon";
@@ -76,23 +79,22 @@ export const ViewDisplayForm = (props: any) => {
   let data: any = useMemo(() => {
     let items: any = [];
 
-        if (props.schema && props.focus.data && props.auxiliary) {
-            props?.schema?.data?.forEach((oldItem: any) => {
-                let newItem = { ...oldItem, ...oldItem.auxiliary_columns };
-                // if the attribute is 'relationship' we know that it is in the relationship table instead of being a column on the entity table.
-                if (oldItem.focus_columns.cell_field === "relationship") {
-                    newItem.table = "relationships";
-                    newItem.value = "(relationships)"; //'props.auxiliary.data to be filtered here (todo)'
-                } else {
-                    newItem.table = "entities";
-                    newItem.value =
-                        props.focus.data?.[0]?.[newItem.name_singular];
-                }
+    if (props.schema && props.focus.data && props.auxiliary) {
+      props?.schema?.data?.forEach((oldItem: any) => {
+        let newItem = { ...oldItem, ...oldItem.auxiliary_columns };
+        // if the attribute is 'relationship' we know that it is in the relationship table instead of being a column on the entity table.
+        if (oldItem.focus_columns.cell_field === "relationship") {
+          newItem.table = "relationships";
+          newItem.value = "(relationships)"; //'props.auxiliary.data to be filtered here (todo)'
+        } else {
+          newItem.table = "entities";
+          newItem.value = props.focus.data?.[0]?.[newItem.name_singular];
+        }
 
-                delete newItem.focus_columns;
-                delete newItem.auxiliary_columns;
-                items.push(newItem);
-            });
+        delete newItem.focus_columns;
+        delete newItem.auxiliary_columns;
+        items.push(newItem);
+      });
 
       return items;
     }
@@ -140,7 +142,7 @@ export const ViewDisplayCalendar = (props: any) => {
   ];
 
   // Dynamically generate marked dates from the events array
-  const marked = events.reduce((markedDates, event) => {
+  const marked = events.reduce((markedDates: any, event) => {
     const { date } = event;
     markedDates[date] = { marked: true };
     return markedDates;
@@ -251,57 +253,57 @@ export const ViewDisplayMaps = (props: any) => {
 // Json
 
 export const ViewDisplayJson = (props: any) => {
-    const schema = props.schema;
-    const auxiliary = props.auxiliary;
-    // const columns = useTableColumns(
-    //   schema.data?.map((x: any) => x.focus_columns.name_singular)
-    // );
-    return (
-        <View style={{ flexDirection: "column" }}>
-            {/* <ViewJsonMain schema={schema} auxiliary={auxiliary} columns={columns} /> */}
-            {/* todo */}
-        </View>
-    );
+  const schema = props.schema;
+  const auxiliary = props.auxiliary;
+  // const columns = useTableColumns(
+  //   schema.data?.map((x: any) => x.focus_columns.name_singular)
+  // );
+  return (
+    <View style={{ flexDirection: "column" }}>
+      {/* <ViewJsonMain schema={schema} auxiliary={auxiliary} columns={columns} /> */}
+      {/* todo */}
+    </View>
+  );
 };
 
 // Components
 
 export const mapDisplayComponents: any = {
-  list: ViewDisplayList,
   pods: ViewDisplayPod,
   form: ViewDisplayForm,
+  list: ViewDisplayList,
   table: ViewDisplayTable,
   calendar: ViewDisplayCalendar,
   timeline: ViewDisplayTimeline,
   maps: ViewDisplayMaps,
+  chart: ViewDisplayJson,
+  path: ViewDisplayJson,
   json: ViewDisplayJson,
 };
 
 // Options
 
 export const optionsDisplayMain = [
-  // ViewDisplayTabs should use this instead of being statically written - Chris todo
-  { title: "Json", iconName: "sdadsasdsads", iconSource: "Feather" },
   { title: "Pods", iconName: "view-quilt", iconSource: "MaterialIcons" },
-  {
-    title: "Form",
-    iconName: "form", // or view-list-outline MaterialCommunityIcons
-    iconSource: "AntDesign",
-  },
+  { title: "Form", iconName: "view-list-outline", iconSource: "MaterialCommunityIcons" },
   { title: "List", iconName: "list", iconSource: "Feather" },
   { title: "Table", iconName: "table", iconSource: "AntDesign" },
-  { title: "Calendar", iconName: "calendar", iconSource: "Feather" },
-  { title: "Timeline", iconName: "timeline", iconSource: "Feather" },
-  { title: "Map", iconName: "map", iconSource: "Feather" },
-  { title: "Chart", iconName: "sdadsasdsads", iconSource: "Feather" },
-  { title: "Path", iconName: "sdadsasdsads", iconSource: "Feather" },
+  { title: "Calendar", iconName: "calendar", iconSource: "Feather", },
+  { title: "Timeline", iconName: "timeline", iconSource: "MaterialIcons", },
+  { title: "Maps", iconName: "map", iconSource: "Feather", },
+  { title: "Chart", iconName: "piechart", iconSource: "AntDesign", },
+  // { title: "Path", iconName: "share", iconSource: "Foundation", },
+  // { title: "Json", iconName: "code-json", iconSource: "MaterialCommunityIcons"},
+  // { title: "Kanban", iconName: "view-column", iconSource: "MaterialIcons"},
+  // { title: "Gantt", iconName: "chart-gantt", iconSource: "MaterialCommunityIcons"},
+  // { title: "Threads", iconName: "wechat", iconSource: "AntDesign"},
+  // { title: "Nodes", iconName: "map-marker-path", iconSource: "MaterialCommunityIcons"},
+  // { title: "Spacial", iconName: "printer-3d", iconSource: "MaterialCommunityIcons"},
 ];
 
 // Tabs
 
 export const ViewDisplayTabs = ({ id, display }: any) => {
-  // Contextual tabs (i.e. these will eventually grey out if not applicable to the current focused entity)
-  const path = useRouterLocation()?.paths;
   return (
     <View
       style={{
@@ -312,101 +314,18 @@ export const ViewDisplayTabs = ({ id, display }: any) => {
         backgroundColor: "gray",
       }}
     >
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "pods" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../pods"}
-      >
-        Pod
-      </ViewRouterLink>
-      {/* CG handling the pods component/module */}
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "form" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../form"}
-      >
-        Form
-      </ViewRouterLink>
-      {/* CG handling the form component/module*/}
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "list" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../list"}
-      >
-        List
-      </ViewRouterLink>
-      {/*Loisa Handling the list component/module */}
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "table" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../table"}
-      >
-        Table
-      </ViewRouterLink>
-      {/*Loisa Handling the table component/module */}
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "calendar" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../calendar"}
-      >
-        Calendar
-      </ViewRouterLink>
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "timeline" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../timeline"}
-      >
-        Timeline
-      </ViewRouterLink>
-      {/*Loisa Handling the calendar component/module */}
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "maps" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../maps"}
-      >
-        Maps
-      </ViewRouterLink>
-      {/*Loisa Handling the maps component/module */}
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "json" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../json"}
-      >
-        JSON
-      </ViewRouterLink>
-      {/*Loisa Handling the json component/module */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='kanban'&&'lightgray')}} to={`/entity/` +path[2]+'/kanban'}>Kanban</ViewRouterLink> */}
-      {/* On hold */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='gantt'&&'lightgray')}} to={`/entity/` +path[2]+'/gantt'}>Gantt</ViewRouterLink> */}
-      {/* On hold */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='timeline'&&'lightgray')}} to={`/entity/` +path[2]+'/timeline'}>Timeline</ViewRouterLink> */}
-      {/* On hold */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='threads'&&'lightgray')}} to={`/entity/` +path[2]+'/threads'}>Threads</ViewRouterLink> */}
-      {/* On hold */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='chart'&&'lightgray')}} to={`/entity/` +path[2]+'/chart'}>Chart/Statistics</ViewRouterLink> */}
-      {/* On hold */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='path'&&'lightgray')}} to={`/entity/` +path[2]+'/path'}>Path</ViewRouterLink> */}
-      {/* On hold */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='nodes'&&'lightgray')}} to={`/entity/` +path[2]+'/nodes'}>Nodes</ViewRouterLink> */}
-      {/* On hold */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='spacial'&&'lightgray')}} to={`/entity/` +path[2]+'/spacial'}>Spacial</ViewRouterLink> */}
-      {/* On hold */}
+      {optionsDisplayMain?.map((x, i) => (
+        <ViewRouterLinkthemed key={i}
+          style={{
+            padding: 5,
+            backgroundColor: display === x.title.toLowerCase() ? "gray" : "lightgray",
+          }}
+          to={`entity/../../${x.title.toLowerCase()}`}
+        >
+          <ViewIconMain name={x.iconName} source={x.iconSource} color={"white"} />
+          {/* <Text>{display}{x.title.toLowerCase()}</Text> */}
+        </ViewRouterLinkthemed>
+      ))}
     </View>
   );
 };

@@ -13,9 +13,6 @@
 import { useEffect } from "react";
 import { Platform, PlatformStatic } from "react-native";
 import "react-native-url-polyfill/auto"; // https://www.npmjs.com/package/react-native-url-polyfill (needed for react-native to work with supabase and possibly other packages.). This solves any 'URL.hostname is not implemented' issues.
-import { useEffect } from "react";
-import { Platform, PlatformStatic } from "react-native";
-import "react-native-url-polyfill/auto"; // https://www.npmjs.com/package/react-native-url-polyfill (needed for react-native to work with supabase and possibly other packages.). This solves any 'URL.hostname is not implemented' issues.
 
 export const UtilityPlatformMain = Platform;
 

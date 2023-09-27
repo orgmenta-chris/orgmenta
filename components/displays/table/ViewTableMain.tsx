@@ -51,7 +51,7 @@ const ViewTableMain = ({ ...Input }) => {
                         key={header.id}
                         style={{
                           fontWeight: "bold",
-                          minWidth: "200px",
+                          minWidth: 200,
                           borderWidth: 1,
                         }}
                       >
@@ -72,7 +72,7 @@ const ViewTableMain = ({ ...Input }) => {
               {row.getVisibleCells().map((cell, cellIndex) => (
                 <Text
                   key={cell.id}
-                  style={{ minWidth: "200px", borderWidth: 1 }}
+                  style={{ minWidth: 200, borderWidth: 1 }}
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </Text>

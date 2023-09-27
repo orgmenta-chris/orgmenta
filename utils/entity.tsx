@@ -1,16 +1,10 @@
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { ViewRouterLink, useRouterLocation } from "./router";
-import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { ViewRouterLink, useRouterLocation } from "./router";
 // import { ViewListMain } from './list'
 // import { ViewTableMain,useTableColumns } from '../components/displays/table/table'
 // import { ViewJsonMain } from './json'
 // import { ViewPodsMain } from '../components/displays/pods/pods'
-import { useAttributeUnioned } from "./attribute";
-import { data } from "./static";
-import { View, Text } from "react-native";
 import { useAttributeUnioned } from "./attribute";
 import { data } from "./static";
 import { View, Text } from "react-native";
@@ -242,7 +236,7 @@ export const ViewEntitySchema = (props: any) => {
     <View style={{ flexDirection: "column" }}>
       <Text>ViewEntitySchema</Text>
       {schema?.data?.map((x: any, i: number) => (
-        <View key={i} style={{ margin: 4 }}>
+        <View key={i} style={{ margin: 5 }}>
           {/* <Text style={{margin:4}}>{Object.keys(x)}</Text> */}
           <Text>{x.focus_columns.display_singular}</Text>
           {/* <Text>{x.auxiliary_columns.display_singular}</Text> */}

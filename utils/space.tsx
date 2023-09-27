@@ -450,15 +450,6 @@ export const ViewModalState = ({ modalName }: any) => {
 };
 
 // Switch
-// Switch
-
-export const ViewSpaceSwitch = (props: any) => {
-  // A widget to switch between spaces / make a different space active
-  const array = useSpaceArray({});
-  const selected = useSpaceState(["space", "selected"]);
-
-  // Call the hook at the top level and get the updater function
-  const updateSelected = useSpaceSet("selected", "1");
 export const ViewSpaceSwitch = (props: any) => {
     // A widget to switch between spaces / make a different space active
     const array = useSpaceArray({});
@@ -467,10 +458,6 @@ export const ViewSpaceSwitch = (props: any) => {
     // Call the hook at the top level and get the updater function
     const updateSelected = useSpaceSet("selected", "1");
 
-  const select = (id: string) => {
-    // console.log(1)
-    updateSelected(); // Use the updater function here
-  };
     const select = (id: string) => {
         // console.log(1)
         updateSelected(); // Use the updater function here

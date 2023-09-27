@@ -1,17 +1,17 @@
 // An 'Action' is something that can be done to an 'Entity'.
 
 import {
-  ViewRouterLink,
+ViewRouterLinkthemed,
+ViewRouterLink,
   ViewRouterRoutes,
   ViewRouterRoute,
-  useRouterLocation,
+	useRouterLocation,
 } from "./router";
 import { ViewControlMain } from "./control";
 import { useEntityCreate } from "./entity";
 import { arrayTypeMain } from "./type";
 import { arrayStatusMain } from "./status";
 import { createUuid4 } from "./uuid";
-
 import ViewIconMain from "../components/displays/icons/ViewIconMain";
 import {
   TextInput,
@@ -426,7 +426,7 @@ export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
     const paths = useRouterLocation().paths;
     return (
         <View style={{ flexDirection: "column", backgroundColor: "lightgray" }}>
-            <View style={{ borderWidth: 1 }}>
+            <View style={{ /*borderWidth: 1*/ }}>
                 <ViewRouterRoutes>
                     <ViewRouterRoute
                         path="/control"
@@ -464,7 +464,7 @@ export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
                     />
                 </ViewRouterRoutes>
             </View>
-            <View style={{ flexDirection: "row", borderWidth: 1 }}>
+            <View style={{ flexDirection: "row",  /*borderWidth: 1*/ }}>
                 {optionsActionTabs?.map((x, i) => (
                     <ViewRouterLinkthemed
                         to={x.title.toLowerCase()}

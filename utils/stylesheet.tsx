@@ -1,5 +1,4 @@
 import { StyleProp } from "react-native";
-import { StyleProp } from "react-native";
 
 export type TypeStylesheetMain = StyleProp<Record<string, any>> & {
   [key: string]: any;

@@ -2,17 +2,10 @@ import { useThemeToken, TypeThemeMain } from "./theme";
 import { validateObjectIsobject } from "./object";
 import { mergeStylesheetMain } from "./stylesheet";
 import { Text, TextProps, TextStyle, StyleProp } from "react-native";
-import { useThemeToken, TypeThemeMain } from "./theme";
-import { validateObjectIsobject } from "./object";
-import { mergeStylesheetMain } from "./stylesheet";
-import { Text, TextProps, TextStyle, StyleProp } from "react-native";
-
 // Main
 
 export type TypeTypographyText = TextProps;
-export type TypeTypographyText = TextProps;
 
-export const ViewTypographyText = Text;
 export const ViewTypographyText = Text;
 
 // Themed

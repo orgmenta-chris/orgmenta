@@ -3,9 +3,7 @@
 // Vault, Storage etc. are in their own modules to due complexity and being their own defined entity.
 
 import * as SecureStore from "expo-secure-store";
-import "react-native-url-polyfill/auto";
-import { UtilityPlatformMain } from "./platform";
-import * as SecureStore from "expo-secure-store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import "react-native-url-polyfill/auto";
 import { UtilityPlatformMain } from "./platform";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
@@ -14,17 +12,27 @@ import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 // If this is used elsewhere in the project, it will be split out into its own module / migrated to 'storage' (storage>local/clients).
 // We will use useQuery+asyncstorage+encryption instead (to work on web) once the encryption for it is confirmed as secure.
 export const ExpoSecureStoreAdapter = {
-    getItem: (key: string) => {
-        return SecureStore.getItemAsync(key);
-    },
-    setItem: (key: string, value: string) => {
-        SecureStore.setItemAsync(key, value);
-    },
-    removeItem: (key: string) => {
-        SecureStore.deleteItemAsync(key);
-    },
+  getItem: (key: string) => {
+      return SecureStore.getItemAsync(key);
+  },
+  setItem: (key: string, value: string) => {
+      SecureStore.setItemAsync(key, value);
+  },
+  removeItem: (key: string) => {
+      SecureStore.deleteItemAsync(key);
+  },
 };
-
+export const TempUnencryptedWebWorkaround = {
+  getItem: (key: string) => {
+      return AsyncStorage.getItem(key);
+  },
+  setItem: (key: string, value: string) => {
+    AsyncStorage.setItem(key, value);
+  },
+  removeItem: (key: string) => {
+    AsyncStorage.removeItem(key);
+  },
+};
 // Instance
 
 export const instanceSupabaseClient = createSupabaseClient(
@@ -34,8 +42,8 @@ export const instanceSupabaseClient = createSupabaseClient(
     {
         auth: {
             storage:
-                UtilityPlatformMain.OS !== "web" &&
-                (ExpoSecureStoreAdapter as any),
+                UtilityPlatformMain.OS !== "web" ?
+                (ExpoSecureStoreAdapter as any) : TempUnencryptedWebWorkaround,
             autoRefreshToken: true,
             persistSession: true,
             detectSessionInUrl: false,

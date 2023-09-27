@@ -1,5 +1,4 @@
 import _ from "underscore";
-import _ from "underscore";
 
 // Validate (object helper functions)
 export const validateObjectIsobject = <T extends any>(value: T): boolean => {

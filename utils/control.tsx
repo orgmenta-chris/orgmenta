@@ -2,8 +2,6 @@
 
 import { View } from "react-native";
 import { ViewPresetOptions } from "./presets";
-import { View } from "react-native";
-import { ViewPresetOptions } from "./presets";
 
 // Main
 

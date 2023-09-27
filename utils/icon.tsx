@@ -16,9 +16,6 @@
 import * as Font from "expo-font";
 import React, { memo } from "react";
 import { ViewStyle } from "react-native";
-import * as Font from "expo-font";
-import React, { memo } from "react";
-import { ViewStyle } from "react-native";
 import {
   AntDesign,
   Fontisto,
@@ -30,6 +27,7 @@ import {
   Feather,
   Octicons,
   Entypo,
+  Foundation
 } from "@expo/vector-icons";
 
 // Preload
@@ -63,6 +61,7 @@ export const mapIconComponents: any = {
     Feather,
     Octicons,
     Entypo,
+    Foundation,
 };
 
 // Main

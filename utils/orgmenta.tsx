@@ -5,13 +5,6 @@ import { useThemeToken } from "./theme";
 import { ViewTypographyTextheading } from "./typography";
 import { useQuery } from "@tanstack/react-query";
 import { Text, View, ScrollView } from "react-native";
-import { ViewCardExpandable } from "./card";
-import { ViewModalMain } from "./modal";
-import { ViewRouterLink } from "./router";
-import { useThemeToken } from "./theme";
-import { ViewTypographyTextheading } from "./typography";
-import { useQuery } from "@tanstack/react-query";
-import { Text, View, ScrollView } from "react-native";
 import { ViewHeaderMain, ViewHeaderSection } from "./header";
 import { ViewPageMain } from "../utils/page";
 import SpaceWidget from "../components/navigation/widgets/spaceWidget";
@@ -380,69 +373,6 @@ export const ViewOrgmentaPricing = ({}: any) => {
   );
 };
 
-export const ViewOrgmentaPricing = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>Pricing</ViewTypographyTextheading>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-                <Text>ViewOrgmentaPricing placeholder</Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
-};
-
 export const ViewOrgmentaRoadmap = ({}: any) => {
   return (
     <ScrollView>
@@ -456,22 +386,6 @@ export const ViewOrgmentaRoadmap = ({}: any) => {
       </Text>
     </ScrollView>
   );
-};
-export const ViewOrgmentaRoadmap = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>Roadmap</ViewTypographyTextheading>
-                <ViewCardExpandable />
-                <Text>
-                    {`
-                    Roadmap timeline (Title, summary + priorities, dates etc.) here
-                    (Info comes from Orgmenta's space > System/Governance? > Offerings > Roadmap
-                    `}
-                </Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
 };
 
 export const ViewOrgmentaCompare = ({}: any) => {

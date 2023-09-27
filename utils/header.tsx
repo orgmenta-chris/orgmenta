@@ -1,7 +1,5 @@
 import { ReactNode } from "react";
-import { ReactNode } from "react";
 import { getStatusbarDimensions } from "./statusbar";
-import { UtilityPlatformMain } from "./platform";
 import { UtilityPlatformMain } from "./platform";
 import { View } from "react-native";
 

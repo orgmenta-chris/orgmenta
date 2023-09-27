@@ -12,14 +12,9 @@ import { ScrollView, View, Text, Pressable } from "react-native";
 import { useAttributeUnioned } from "./attribute";
 import { ViewModalMain } from "./modal";
 import { useQuery } from "@tanstack/react-query";
-import { ScrollView, View, Text, Pressable } from "react-native";
-import { useAttributeUnioned } from "./attribute";
-import { ViewModalMain } from "./modal";
-import { useQuery } from "@tanstack/react-query";
 import { useAuthSession, useAuthSignout } from "./auth";
 import { useNavigate } from "react-router-dom";
 import SignIn from "../components/auth/signIn";
-import SignUp from "../components/auth/signUp";
 import SignUp from "../components/auth/signUp";
 // import MSAL from "../../../auth/msal";
 
@@ -59,7 +54,7 @@ export const ViewUserComms = () => {
     <View>
       {/* Presets button so that the user can change the view of what comes through in this widget */}
       <Text>[Recent messages]</Text>
-      <Text>[Link to all messages (user/userid/messages)</Text>
+      <Text>[Link to all messages (user/userid/messages)]</Text>
     </View>
   );
 };
@@ -68,8 +63,8 @@ export const ViewUserComms = () => {
 export const ViewUserDevice = () => {
   return (
     <View>
-      <Text>[Current Device Info (e.g. sync status)</Text>
-      <Text>[Link to all devices (user/userid/devices)</Text>
+      <Text>[Current Device Info (e.g. sync status)]</Text>
+      <Text>[Link to all devices (user/userid/devices)]</Text>
     </View>
   );
 };
@@ -89,7 +84,7 @@ export const ViewUserAttributes = () => {
     <>
       {/* <Text>{JSON.stringify(attributes.data?.[0],null,2)}</Text> */}
       {/* <Text>{JSON.stringify(keys,null,2)}</Text> */}
-      {attributes?.data?.map((x, i) => (
+      {attributes?.data?.map((x:any, i:string) => (
         <View key={i}>
           <Text>{x?.focus_columns?.name_singular}</Text>
           {/* <Text key={i}>{x.side}</Text>  */}
@@ -160,7 +155,7 @@ export const ViewUserModal = (props: any) => {
           <View>
             <Pressable
               onPress={() => {
-                native(`/users/${auth?.data?.session?.user?.id}/pods`);
+                native(`/users/${auth?.data?.session?.user?.id || 'guest'}/pods`);
               }}
             >
               <Text
@@ -175,7 +170,22 @@ export const ViewUserModal = (props: any) => {
             </Pressable>
             <Pressable
               onPress={() => {
-                native(`/users/${auth?.data?.session?.user?.id}/settings`);
+                native(`/users/${auth?.data?.session?.user?.id || 'guest'}/devices`);
+              }}
+            >
+              <Text
+                style={{
+                  color: "blue",
+                  textDecorationStyle: "solid",
+                  textAlign: "center",
+                }}
+              >
+                Devices
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={() => {
+                native(`/users/${auth?.data?.session?.user?.id || 'guest'}/settings`);
               }}
             >
               <Text
@@ -190,7 +200,7 @@ export const ViewUserModal = (props: any) => {
             </Pressable>
             <Pressable
               onPress={() => {
-                native(`/users/${auth?.data?.session?.user?.id}/pods`);
+                native(`/users/${auth?.data?.session?.user?.id || 'guest'}/pods`);
               }}
             >
               <Text

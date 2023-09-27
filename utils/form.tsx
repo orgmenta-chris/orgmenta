@@ -1,8 +1,5 @@
 import { ScrollView, Text } from "react-native";
 import { ViewFieldMain, interfaceFieldMain } from "./field";
-import { ScrollView, Text } from "react-native";
-import { ViewFieldMain, interfaceFieldMain } from "./field";
-
 // Main
 
 export interface interfaceFormMain {

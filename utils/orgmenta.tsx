@@ -1,17 +1,16 @@
-import { ViewCardExpandable } from './card'
-import { ViewModalMain } from './modal'
-import { ViewRouterLink } from './router'
-import { useThemeToken } from './theme'
-import { ViewTypographyTextheading } from './typography'
-import { useQuery } from '@tanstack/react-query'
-import { Text, View, ScrollView } from 'react-native'
+import { ViewCardExpandable } from "./card";
+import { ViewModalMain } from "./modal";
+import { ViewRouterLink } from "./router";
+import { useThemeToken } from "./theme";
+import { ViewTypographyTextheading } from "./typography";
+import { useQuery } from "@tanstack/react-query";
+import { Text, View, ScrollView } from "react-native";
 import { ViewHeaderMain, ViewHeaderSection } from "./header";
-import SpaceWidget from '../components/navigation/widgets/spaceWidget'
+import SpaceWidget from "../components/navigation/widgets/spaceWidget";
 import UserWidget from "../components/navigation/widgets/userWidget";
 import BrowseWidget from "../components/navigation/widgets/browseWidget";
 import OrgmentaWidget from "../components/navigation/widgets/orgmentaWidget";
 import BookmarkWidget from "../components/navigation/widgets/bookmarkWidget";
-
 
 // Full Header component
 export const ViewOrgmentaHeader = () => {
@@ -21,10 +20,10 @@ export const ViewOrgmentaHeader = () => {
         <SpaceWidget />
       </ViewHeaderSection>
       <ViewHeaderSection flex={1}>
-        <BookmarkWidget/>
+        <BookmarkWidget />
       </ViewHeaderSection>
       <ViewHeaderSection flex={1.5}>
-        <OrgmentaWidget/>
+        <OrgmentaWidget />
       </ViewHeaderSection>
       <ViewHeaderSection flex={1}>
         <BrowseWidget />
@@ -34,195 +33,366 @@ export const ViewOrgmentaHeader = () => {
       </ViewHeaderSection>
     </ViewHeaderMain>
   );
-}
+};
 
 // Active
 
 // This is a useQuery query that just returns a blank object (it doesn't query anything).
 // Then the user can switch active bookmarks, which will update this query.
-export const useOrgmentaActive = ({...Input}:TypeOrgmentaActive)=> {
-    const query = useQuery({
-        queryKey:['bookmark',"active"],
-        queryFn:()=>{ return {} },
-        enabled: false,
-        initialData: {
-          id: null,
-          title:'Bookmarks',
-        }
-    });
-    return query
-}
-  
-export type TypeOrgmentaActive = any; // placeholder
+export const useOrgmentaActive = ({ ...Input }: TypeOrgmentaActive) => {
+  const query = useQuery({
+    queryKey: ["bookmark", "active"],
+    queryFn: () => {
+      return {};
+    },
+    enabled: false,
+    initialData: {
+      id: null,
+      title: "Bookmarks",
+    },
+  });
+  return query;
+};
 
+export type TypeOrgmentaActive = any; // placeholder
 
 // Modal
 
-export const ViewOrgmentaModal = (props:any) => { // Modal for the header of Orgmenta site
-    return (
-        <ViewModalMain modalName={'orgmenta'} backdrop height={200} width={'100%'}>
-            <View style={{flexDirection:'row'}} >
-                {/* App Links Column */}
-                <View style={{flex:1, alignItems:'center'}}>
-                    <Text style={{fontWeight:'800', fontSize: 18, color: "#0c4a73", padding: 5}}>App</Text>
-                    {/* These links might be best merged into larger scope pages (with a contents menu/anchors) if it gets too cluttered here */}
-                    <ViewRouterLink to={'app/pricing'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Pricing
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'app/product'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Product{/*Features */}
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'app/roadmap'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Roadmap{/* App roadmap of future features */}
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'app/compare'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Compare{/* Compare to Competitors */}
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'app/industries'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Industries{/* Use cases per industry */}
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'app/frameworks'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Methodologies{/* Standards, Libraries, Frameworks and methodologies */}
-                    </ViewRouterLink>
-                </View>
-                {/* App Links Column */}
-                <View style={{flex:1, alignItems:'center'}}>
-                    {/* These links might be best merged into larger scope pages (with a contents menu/anchors) if it gets too cluttered here */}
-                    <Text style={{fontWeight:'800', fontSize: 18, color: "#0c4a73", padding: 5}}>Company</Text>
-                    <ViewRouterLink to={'company/about'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        About
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'company/privacy'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Privacy
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'company/terms'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Terms
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'company/contact'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Contact
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'company/socials'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Socials
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'/'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        <Text style={{fontWeight:'bold'}}>Home</Text>
-                    </ViewRouterLink>
-                </View>
-                {/* App Links Column */}
-                <View style={{flex:1, alignItems:'center'}}>
-                    {/* These links might be best merged into larger scope pages (with a contents menu/anchors) if it gets too cluttered here */}
-                    <Text style={{fontWeight:'800', fontSize: 18, color: "#0c4a73", padding: 5}}>
-                        Community
-                    </Text>
-                    <ViewRouterLink to={'community/news'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        News
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'community/forums'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Forums
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'community/guides'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Guides
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'community/whitepapers'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Whitepapers
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'community/enhancements'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Enhancements{/* Enhancement Requests */}
-                    </ViewRouterLink>
-                    <ViewRouterLink to={'community/partners'} style={{ justifyContent: 'center', textDecoration: 'none', color: 'black', padding: 3 }}>
-                        Partners{/* Partner with us */}
-                    </ViewRouterLink>
-                </View>
-            </View>
-        </ViewModalMain>
-    );
+export const ViewOrgmentaModal = (props: any) => {
+  // Modal for the header of Orgmenta site
+  return (
+    <ViewModalMain modalName={"orgmenta"} backdrop height={200} width={"100%"}>
+      <View style={{ flexDirection: "row" }}>
+        {/* App Links Column */}
+        <View style={{ flex: 1, alignItems: "center" }}>
+          <Text
+            style={{
+              fontWeight: "800",
+              fontSize: 18,
+              color: "#0c4a73",
+              padding: 5,
+            }}
+          >
+            App
+          </Text>
+          {/* These links might be best merged into larger scope pages (with a contents menu/anchors) if it gets too cluttered here */}
+          <ViewRouterLink
+            to={"app/pricing"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Pricing
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"app/product"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Product{/*Features */}
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"app/roadmap"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Roadmap{/* App roadmap of future features */}
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"app/compare"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Compare{/* Compare to Competitors */}
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"app/industries"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Industries{/* Use cases per industry */}
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"app/frameworks"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Methodologies
+            {/* Standards, Libraries, Frameworks and methodologies */}
+          </ViewRouterLink>
+        </View>
+        {/* App Links Column */}
+        <View style={{ flex: 1, alignItems: "center" }}>
+          {/* These links might be best merged into larger scope pages (with a contents menu/anchors) if it gets too cluttered here */}
+          <Text
+            style={{
+              fontWeight: "800",
+              fontSize: 18,
+              color: "#0c4a73",
+              padding: 5,
+            }}
+          >
+            Company
+          </Text>
+          <ViewRouterLink
+            to={"company/about"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            About
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"company/privacy"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Privacy
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"company/terms"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Terms
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"company/contact"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Contact
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"company/socials"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Socials
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"/"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            <Text style={{ fontWeight: "bold" }}>Home</Text>
+          </ViewRouterLink>
+        </View>
+        {/* App Links Column */}
+        <View style={{ flex: 1, alignItems: "center" }}>
+          {/* These links might be best merged into larger scope pages (with a contents menu/anchors) if it gets too cluttered here */}
+          <Text
+            style={{
+              fontWeight: "800",
+              fontSize: 18,
+              color: "#0c4a73",
+              padding: 5,
+            }}
+          >
+            Community
+          </Text>
+          <ViewRouterLink
+            to={"community/news"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            News
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"community/forums"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Forums
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"community/guides"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Guides
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"community/whitepapers"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Whitepapers
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"community/enhancements"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Enhancements{/* Enhancement Requests */}
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"community/partners"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Partners{/* Partner with us */}
+          </ViewRouterLink>
+        </View>
+      </View>
+    </ViewModalMain>
+  );
 };
 
-
 // App Pages
-  
-export const ViewOrgmentaPricing = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>Pricing</ViewTypographyTextheading>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-            <Text>ViewOrgmentaPricing placeholder</Text>
-        </ScrollView>
-    )
-}
 
-export const ViewOrgmentaRoadmap = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>Roadmap</ViewTypographyTextheading>
-            <ViewCardExpandable/>
-            <Text>
-                {`
+export const ViewOrgmentaPricing = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>Pricing</ViewTypographyTextheading>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+      <Text>ViewOrgmentaPricing placeholder</Text>
+    </ScrollView>
+  );
+};
+
+export const ViewOrgmentaRoadmap = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>Roadmap</ViewTypographyTextheading>
+      <ViewCardExpandable />
+      <Text>
+        {`
                 Roadmap timeline (Title, summary + priorities, dates etc.) here
                 (Info comes from Orgmenta's space > System/Governance? > Offerings > Roadmap
                 `}
-            </Text>
-        </ScrollView>
-    )
-}
+      </Text>
+    </ScrollView>
+  );
+};
 
-export const ViewOrgmentaCompare = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>Compare</ViewTypographyTextheading>
-            <Text>
-                {`Compare to other products
+export const ViewOrgmentaCompare = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>Compare</ViewTypographyTextheading>
+      <Text>
+        {`Compare to other products
                 ServiceNow
                 ConnectWise Manage/PSA
                 Autotask
@@ -243,28 +413,28 @@ export const ViewOrgmentaCompare = ({}:any) => {
                 Thread (https://www.getthread.com/)
                 Microsoft Dynamics
                 `}
-            </Text>
-        </ScrollView>
-    )
-}
+      </Text>
+    </ScrollView>
+  );
+};
 
-export const ViewOrgmentaIndustries = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>Industries</ViewTypographyTextheading>
-            <Text>
-                {`Use case by industry (just show entities from Orgmenta>Product>Catalog>Offerings>UseCases)`}
-            </Text>
-         </ScrollView>
-    )
-}
+export const ViewOrgmentaIndustries = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>Industries</ViewTypographyTextheading>
+      <Text>
+        {`Use case by industry (just show entities from Orgmenta>Product>Catalog>Offerings>UseCases)`}
+      </Text>
+    </ScrollView>
+  );
+};
 
-export const ViewOrgmentaFrameworks = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>Methodologies</ViewTypographyTextheading>
-            <Text>
-            {`
+export const ViewOrgmentaFrameworks = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>Methodologies</ViewTypographyTextheading>
+      <Text>
+        {`
             Standards, Libraries, Frameworks and Methodologies (how to use Orgmenta with these libraries goes here)
             ITIL
             PRINCE2
@@ -276,18 +446,18 @@ export const ViewOrgmentaFrameworks = ({}:any) => {
             Agile, agile, Scrum & SAFe
             Waterfall
             `}
-            </Text>
-        </ScrollView>
-    )
-}
+      </Text>
+    </ScrollView>
+  );
+};
 
-export const ViewOrgmentaProduct = ({}:any) => {
-    const theme = useThemeToken('orgmentaproduct');
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>Product</ViewTypographyTextheading>
-            <Text style={theme}>
-                {`//////////////////////
+export const ViewOrgmentaProduct = ({}: any) => {
+  const theme = useThemeToken("orgmentaproduct");
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>Product</ViewTypographyTextheading>
+      <Text style={theme}>
+        {`//////////////////////
                 FEATURES (AND USE CASES)
                 
                 (this static data will be replaced with data from Orgmenta's space > product > catalog)
@@ -554,155 +724,141 @@ export const ViewOrgmentaProduct = ({}:any) => {
                 - 'ViewRouterLink anything to anything' (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)
                 - Custom attributes/properties on entities (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)
                 `}
-            </Text>
-        </ScrollView>
-    )
-}
-
+      </Text>
+    </ScrollView>
+  );
+};
 
 // Company Pages
 
-export const ViewOrgmentaAbout = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>About</ViewTypographyTextheading>
-            <Text>
-                {`Company information goes here`}
-            </Text>
-        </ScrollView>
-    )
-}
+export const ViewOrgmentaAbout = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>About</ViewTypographyTextheading>
+      <Text>{`Company information goes here`}</Text>
+    </ScrollView>
+  );
+};
 
-export const ViewOrgmentaPrivacy = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>Privacy</ViewTypographyTextheading>
-            <Text>
-                {`Privacy policy goes here`}
-            </Text>
-        </ScrollView>
-    )
-}
+export const ViewOrgmentaPrivacy = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>Privacy</ViewTypographyTextheading>
+      <Text>{`Privacy policy goes here`}</Text>
+    </ScrollView>
+  );
+};
 
-export const ViewOrgmentaTerms = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>Terms</ViewTypographyTextheading>
-            <Text>
-                {`Terms & Conditions go here`}
-            </Text>
-        </ScrollView>
-    )
-}
+export const ViewOrgmentaTerms = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>Terms</ViewTypographyTextheading>
+      <Text>{`Terms & Conditions go here`}</Text>
+    </ScrollView>
+  );
+};
 
-export const ViewOrgmentaSocials = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>Socials</ViewTypographyTextheading>
-            <Text>
-                {`
+export const ViewOrgmentaSocials = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>Socials</ViewTypographyTextheading>
+      <Text>
+        {`
                 LINKS
                 Social media related here.
 
                 FEED
                 Feed of social media posts here 
                 `}
-            </Text>
-        </ScrollView>
-    )
-}
+      </Text>
+    </ScrollView>
+  );
+};
 
-export const ViewOrgmentaContact = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>Contact</ViewTypographyTextheading>
-            <Text>
-                {`Contact Us
+export const ViewOrgmentaContact = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>Contact</ViewTypographyTextheading>
+      <Text>
+        {`Contact Us
                 Contact form goes here`}
-            </Text>
-        </ScrollView>
-    )
-}
+      </Text>
+    </ScrollView>
+  );
+};
 
-export const ViewOrgmentaPartner = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>Partners</ViewTypographyTextheading>
-            <Text>
-                {`
+export const ViewOrgmentaPartner = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>Partners</ViewTypographyTextheading>
+      <Text>
+        {`
                 Partner With Us
                 Contact form goes here
 
                 Our Partners
                 List of partners goes here
                 `}
-            </Text>
-        </ScrollView>
-    )
-}
-
+      </Text>
+    </ScrollView>
+  );
+};
 
 // Community Pages
 
-export const ViewOrgmentaNews = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>News</ViewTypographyTextheading>
-            <Text>
-                {`
+export const ViewOrgmentaNews = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>News</ViewTypographyTextheading>
+      <Text>
+        {`
                 NEWS
                 `}
-            </Text>
-        </ScrollView>
-    )
-}
+      </Text>
+    </ScrollView>
+  );
+};
 
-export const ViewOrgmentaForums = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>Forums</ViewTypographyTextheading>
-            <Text>
-                {`Community forums / discussion boards go here`}
-            </Text>
-        </ScrollView>
-    )
-}
+export const ViewOrgmentaForums = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>Forums</ViewTypographyTextheading>
+      <Text>{`Community forums / discussion boards go here`}</Text>
+    </ScrollView>
+  );
+};
 
-export const ViewOrgmentaGuides = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>Guides</ViewTypographyTextheading>
-            <Text>
-                {`Guides, tutorials, instructions, how-tos etc. go here`}
-            </Text>
-        </ScrollView>
-    )
-}
+export const ViewOrgmentaGuides = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>Guides</ViewTypographyTextheading>
+      <Text>{`Guides, tutorials, instructions, how-tos etc. go here`}</Text>
+    </ScrollView>
+  );
+};
 
-export const ViewOrgmentaWhitepapers = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>White Papers</ViewTypographyTextheading>
-            <Text>
-                {`White papers, justifications etc. go here`}
-            </Text>
-        </ScrollView>
-    )
-}
+export const ViewOrgmentaWhitepapers = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>White Papers</ViewTypographyTextheading>
+      <Text>{`White papers, justifications etc. go here`}</Text>
+    </ScrollView>
+  );
+};
 
-export const ViewOrgmentaEnhancements = ({}:any) => {
-    return (
-        <ScrollView>
-            <ViewTypographyTextheading>Enhancements</ViewTypographyTextheading>
-            <Text>
-                {`
+export const ViewOrgmentaEnhancements = ({}: any) => {
+  return (
+    <ScrollView>
+      <ViewTypographyTextheading>Enhancements</ViewTypographyTextheading>
+      <Text>
+        {`
                 Request a feature or other enhancement
                 Enhacement request form goes here
 
                 Enhancement Requests
                 Enhacement request list goes here, showing status (whether reviewed, addded to roadmap etc.)
                 `}
-            </Text>
-        </ScrollView>
-    )
-}
+      </Text>
+    </ScrollView>
+  );
+};

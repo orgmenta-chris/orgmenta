@@ -1,16 +1,16 @@
 // The component 'ViewIconMain' allows you to use any of the icons available to expo (see the '@expo/vector-icons' import).
 // https://icons.expo.fyi/
 // Example usage:
-// <ViewIconMain 
-    // name={expanded?'caretup':'caretdown'}
-    // source={'AntDesign'}
-    // color={'gray'}
-    // size={10}
+// <ViewIconMain
+// name={expanded?'caretup':'caretdown'}
+// source={'AntDesign'}
+// color={'gray'}
+// size={10}
 // />
 
-import * as Font from 'expo-font';
-import React, { memo } from 'react';
-import { ViewStyle } from 'react-native';
+import * as Font from "expo-font";
+import React, { memo } from "react";
+import { ViewStyle } from "react-native";
 import {
   AntDesign,
   Fontisto,
@@ -22,8 +22,7 @@ import {
   Feather,
   Octicons,
   Entypo,
-} from '@expo/vector-icons';
-
+} from "@expo/vector-icons";
 
 // Preload
 
@@ -41,7 +40,7 @@ async function PreloadIconsMain() {
     ...Entypo.font,
   });
 }
-PreloadIconsMain() // run immediately upon app running so as to preload all of the icons. Note that this isn't holding up the rendering of anything (function over form) so icons may still be shown before this is completed.
+PreloadIconsMain(); // run immediately upon app running so as to preload all of the icons. Note that this isn't holding up the rendering of anything (function over form) so icons may still be shown before this is completed.
 
 // Components
 
@@ -58,7 +57,6 @@ export const mapIconComponents: any = {
   Entypo,
 };
 
-
 // Main
 
 export interface interfaceIconMain {
@@ -70,7 +68,16 @@ export interface interfaceIconMain {
   style?: ViewStyle;
 }
 
-export const ViewIconMain: React.FC<interfaceIconMain> = memo(({ source, name, size = 22, color = 'white', padding, style }) => {
-  const Icon = mapIconComponents[source] || mapIconComponents['Ionicons'];
-  return <Icon name={name} size={size} color={color} style={{ padding, ...style }} />;
-});
+export const ViewIconMain: React.FC<interfaceIconMain> = memo(
+  ({ source, name, size = 22, color = "white", padding, style }) => {
+    const Icon = mapIconComponents[source] || mapIconComponents["Ionicons"];
+    return (
+      <Icon
+        name={name}
+        size={size}
+        color={color}
+        style={{ padding, ...style }}
+      />
+    );
+  }
+);

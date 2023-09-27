@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { instanceSupabaseClient } from "./supabase";
 import { decode } from "base64-arraybuffer-es6";
 // @ts-ignore
-import Papa from 'papaparse'
+import Papa from "papaparse";
 
 // https://supabase.com/docs/reference/javascript/storage-from-list
 

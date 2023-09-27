@@ -5,35 +5,39 @@
 import { ViewRouterLink, useRouterLocation } from "./router";
 import { ViewFormDynamic } from "./form";
 import { ViewListMain } from "./list";
-import { ViewPodMain, ViewPodInfo, ViewPodList, ViewPodTabs, ViewPodExample } from "./pod"
+import {
+  ViewPodMain,
+  ViewPodInfo,
+  ViewPodList,
+  ViewPodTabs,
+  ViewPodExample,
+} from "./pod";
 // import { ViewTableMain, useTableColumns } from "./table";
 // import { ViewJsonMain } from "./json";
 // import { ViewIconMain } from "./icon";
 
-import { memo, useMemo } from "react";
-import { View, Text } from "react-native";
-// import MyCalendar from "../components/displays/calendar";
-import Calendar from "react-calendar";
-// import "react-calendar/dist/Calendar.css";
+import { memo, useMemo, useState } from "react";
+import { View, Text, TouchableOpacity, Modal } from "react-native";
 // import MapChart from "../components/displays/maps";
-import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
+// import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
 // import ViewDisplayForm from "../components/displays/forms/ViewDisplayForm";
 // import ViewDisplayList from "../components/displays/list/ViewDisplayList";
 // import ViewDisplayMaps from "../components/displays/maps/ViewDisplayMaps";
 // import ViewDisplayPods from "../components/displays/pods/ViewDisplayPods";
 // import ViewDisplayTable from "../components/displays/table/ViewDisplayTable";
 // import ViewJsonMain from "../components/displays/json/ViewJsonMain";
-
+import Timeline from "react-native-timeline-flatlist";
+import { Calendar } from "react-native-calendars";
 
 // Dynamic
 
-export const ViewDisplayDynamic = memo(({auxiliary, schema, focus, display}:any) => { // The main display component that switches between different components
-  const Component =  mapDisplayComponents[display||"list"]; // may need to memoize/useCallback this
-  return (
-      <Component auxiliary={auxiliary} schema={schema} focus={focus} />
-  )
-});
-
+export const ViewDisplayDynamic = memo(
+  ({ auxiliary, schema, focus, display }: any) => {
+    // The main display component that switches between different components
+    const Component = mapDisplayComponents[display || "list"]; // may need to memoize/useCallback this
+    return <Component auxiliary={auxiliary} schema={schema} focus={focus} />;
+  }
+);
 
 // Displays
 
@@ -44,32 +48,29 @@ export const ViewDisplayDynamic = memo(({auxiliary, schema, focus, display}:any)
 export const ViewDisplayList = (props: any) => {
   const auxiliary = props.auxiliary;
   // const focus = props.focus;
-  return (
-      <ViewListMain data={auxiliary?.data} />
-  );
+  return <ViewListMain data={auxiliary?.data} />;
 };
 
 export const ViewDisplayPod = (props: any) => {
-  const schema = props.schema; 
+  const schema = props.schema;
   const auxiliary = props.auxiliary;
   const focus = props.focus;
   const data = "make focus into an array and concat with aux";
   return (
     <ViewPodMain items={auxiliary} schema={schema.data}>
-      <ViewPodInfo/>
-      <ViewPodTabs/>
-      <ViewPodList title={"Example List Pod"} data={auxiliary.data}/>
-      <ViewPodExample/>
-      <ViewPodExample/>
-      <ViewPodExample/>
-    </ViewPodMain> 
+      <ViewPodInfo />
+      <ViewPodTabs />
+      <ViewPodList title={"Example List Pod"} data={auxiliary.data} />
+      <ViewPodExample />
+      <ViewPodExample />
+      <ViewPodExample />
+    </ViewPodMain>
   );
 };
 
-
 // Form
 
-export const ViewDisplayForm = (props: any) => { 
+export const ViewDisplayForm = (props: any) => {
   // Chris todo: auxiliary data doesn't have relationship ids yet, so 'if(oldItem.focus_columns.cell_field==='relationship'){' does nothing yet
   // create the appropriate schema for the form
   let data: any = useMemo(() => {
@@ -95,11 +96,8 @@ export const ViewDisplayForm = (props: any) => {
       return items;
     }
   }, [props.schema, props.focus.data, props.auxiliary]);
-  return (
-    <ViewFormDynamic data={data} />
-  );
+  return <ViewFormDynamic data={data} />;
 };
-
 
 // Table
 
@@ -112,138 +110,142 @@ export const ViewDisplayTable = (props: any) => {
   //   )
   // );
   const auxiliary = props.auxiliary;
-  return (<>
-    <ViewTableTabs/>
-    {/* <ViewTableMain columns={columns} data={auxiliary.data} /> */}
-  </>);
+  return (
+    <>
+      <ViewTableTabs />
+      {/* <ViewTableMain columns={columns} data={auxiliary.data} /> */}
+    </>
+  );
 };
-
 
 // Calendar
 
-// export const ViewDisplayCalendar = (props: any) => {
-//   const schema = props.schema;
-//   const auxiliary = props.auxiliary;
+export const ViewDisplayCalendar = (props: any) => {
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [eventModalVisible, setEventModalVisible] = useState(false);
 
-//   const [activeTab, setActiveTab] = useState(0);
-//   const [value, onChange] = useState(new Date());
+  const events = [
+    {
+      date: "2023-09-27",
+      title: "Meeting with Client",
+      description: "Discuss project details",
+    },
+    {
+      date: "2023-09-28",
+      title: "Meeting with another Client",
+      description: "Discuss another project details",
+    },
+    // Add more events as needed
+  ];
 
-//   const handleTabPress = (index: number) => {
-//     setActiveTab(index);
-//   };
+  // Dynamically generate marked dates from the events array
+  const marked = events.reduce((markedDates, event) => {
+    const { date } = event;
+    markedDates[date] = { marked: true };
+    return markedDates;
+  }, {});
 
-//   interface ICalendarEventBase {
-//     start: Date;
-//     end: Date;
-//     title: string;
-//     children?: ReactElement | null;
-//   }
+  const onDayPress = (day: any) => {
+    const dateString = day.dateString;
+    setSelectedDate(dateString);
 
-//   const eventNotes = useMemo(
-//     () => (
-//       <View style={{ marginTop: 3 }}>
-//         <Text style={{ fontSize: 10, color: "white" }}>
-//           {" "}
-//           Phone number: 555-123-4567{" "}
-//         </Text>
-//         <Text style={{ fontSize: 10, color: "white" }}>
-//           {" "}
-//           Arrive 15 minutes early{" "}
-//         </Text>
-//       </View>
-//     ),
-//     []
-//   );
+    // Check if there are events for the selected date
+    if (events.find((event) => event.date === dateString)) {
+      setEventModalVisible(true);
+    }
+  };
 
-//   const events: Array<ICalendarEventBase & { color?: string }> = [
-//     {
-//       title: "Team Meeting",
-//       start: new Date(2023, 2, 15, 10, 0), // March 15, 2023, 10:00 AM
-//       end: new Date(2023, 2, 15, 11, 0), // March 15, 2023, 11:00 AM
-//       children: eventNotes,
-//     },
-//     {
-//       title: "Project Review",
-//       start: new Date(2023, 2, 17, 14, 30), // March 17, 2023, 2:30 PM
-//       end: new Date(2023, 2, 17, 16, 0), // March 17, 2023, 4:00 PM
-//       children: eventNotes,
-//     },
-//     {
-//       title: "Conference Call",
-//       start: new Date(2023, 2, 20, 11, 0), // March 20, 2023, 11:00 AM
-//       end: new Date(2023, 2, 20, 12, 0), // March 20, 2023, 12:00 PM
-//       children: eventNotes,
-//     },
-//     {
-//       title: "Team Building Workshop",
-//       start: new Date(2023, 2, 22, 9, 30), // March 22, 2023, 9:30 AM
-//       end: new Date(2023, 2, 22, 12, 30), // March 22, 2023, 12:30 PM
-//       children: eventNotes,
-//     },
-//     {
-//       title: "Product Demo",
-//       start: new Date(2023, 2, 25, 15, 0), // March 25, 2023, 3:00 PM
-//       end: new Date(2023, 2, 25, 16, 0), // March 25, 2023, 4:00 PM
-//       children: eventNotes,
-//     },
-//     // Add more random events as needed
-//   ];
+  return (
+    <View style={{ maxHeight: 400 }}>
+      <Calendar
+        hideArrows={false}
+        // showWeekNumbers={true}
+        markedDates={marked}
+        onDayPress={onDayPress}
+        onDayLongPress={(day) => console.log("onDayLongPress", day)}
+        onMonthChange={(date) => console.log("onMonthChange", date)}
+        onPressArrowLeft={(goToPreviousMonth) => {
+          console.log("onPressArrowLeft");
+          goToPreviousMonth();
+        }}
+        onPressArrowRight={(goToNextMonth) => {
+          console.log("onPressArrowRight");
+          goToNextMonth();
+        }}
+      />
 
-//   const tabs = [
-//     // { tab: "View Calendar", component: <MyCalendar myEventsList={events} /> },
-//     {
-//       tab: "Add events",
-//       component: <Calendar onChange={onChange} value={value} />,
-//     },
-//   ];
+      {/* Event Modal */}
+      <Modal
+        visible={eventModalVisible}
+        animationType="slide"
+        transparent={true}
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "white",
+              borderRadius: 10,
+              padding: 20,
+              width: "80%",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => setEventModalVisible(false)}
+              style={{ alignSelf: "flex-end" }}
+            >
+              <Text style={{ color: "blue" }}>Close</Text>
+            </TouchableOpacity>
+            <Text>Events on {selectedDate}:</Text>
+            {events
+              .filter((event) => event.date === selectedDate)
+              .map((event, index) => (
+                <View key={index} style={{ marginTop: 10 }}>
+                  <Text>{event.title}</Text>
+                  <Text>{event.description}</Text>
+                </View>
+              ))}
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
+};
 
-//   return (
-//     <View style={{maxHeight:400}}>
-//       <View
-//         style={{
-//           flexDirection: "row",
-//           marginBottom: 10,
-//           marginHorizontal: 12,
-//         }}
-//       >
-//         {tabs.map((content, index) => (
-//           <Pressable
-//             key={index}
-//             style={{
-//               padding: 10,
-//               borderTopWidth: 1,
-//               borderRightWidth: 1,
-//               borderLeftWidth: 1,
-//               borderTopRightRadius: 5,
-//               borderTopLeftRadius: 5,
-//               borderColor: activeTab === index ? "black" : "transparent",
-//               backgroundColor:
-//                 activeTab === index ? "lightblue" : "transparent",
-//             }}
-//             onPress={() => handleTabPress(index)}
-//           >
-//             <Text style={{ fontWeight: "bold" }}>{content.tab}</Text>
-//           </Pressable>
-//         ))}
-//       </View>
+// Timeline
+export const ViewDisplayTimeline = (props: any) => {
+  const data = [
+    { time: "09:00", title: "Event 1", description: "Event 1 Description" },
+    { time: "10:45", title: "Event 2", description: "Event 2 Description" },
+    { time: "12:00", title: "Event 3", description: "Event 3 Description" },
+    { time: "14:00", title: "Event 4", description: "Event 4 Description" },
+    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+  ];
 
-//       <View>{tabs[activeTab].component}</View>
-//     </View>
-//   );
-// };
-
+  return (
+    <View style={{ maxHeight: 400 }}>
+      <Text style={{ fontSize: 25, marginBottom: 10 }}>Timeline</Text>
+      <Timeline data={data} />
+    </View>
+  );
+};
 
 // Maps
 
 export const ViewDisplayMaps = (props: any) => {
   return (
-    <View style={{maxHeight:400}}>
+    <View style={{ maxHeight: 400 }}>
       {/* <MapChart /> */}
       {/* todo */}
     </View>
   );
-}
-
+};
 
 // Json
 
@@ -261,7 +263,6 @@ export const ViewDisplayJson = (props: any) => {
   );
 };
 
-
 // Components
 
 export const mapDisplayComponents: any = {
@@ -270,50 +271,46 @@ export const mapDisplayComponents: any = {
   form: ViewDisplayForm,
   table: ViewDisplayTable,
   calendar: ViewDisplayCalendar,
+  timeline: ViewDisplayTimeline,
   maps: ViewDisplayMaps,
   json: ViewDisplayJson,
 };
 
-
 // Options
 
-export const optionsDisplayMain = [ // ViewDisplayTabs should use this instead of being statically written - Chris todo
-  {title:'Json',
-  iconName: 'sdadsasdsads',
-  iconSource: 'Feather',},
-  {title:'Pods',
-  iconName: 'view-quilt',
-  iconSource: 'MaterialIcons',},
-  {title:'Form',
-  iconName: 'form', // or view-list-outline MaterialCommunityIcons
-  iconSource: 'AntDesign',},
-  {title:'List',
-  iconName: 'list',
-  iconSource: 'Feather',},
-  {title:'Table',
-  iconName: 'table',
-  iconSource: 'AntDesign',},
-  {title:'Calendar',
-  iconName: 'calendar',
-  iconSource: 'Feather',},
-  {title:'Map',
-  iconName: 'map',
-  iconSource: 'Feather',},
-  {title:'Chart',
-  iconName: 'sdadsasdsads',
-  iconSource: 'Feather',},
-  {title:'Path',
-  iconName: 'sdadsasdsads',
-  iconSource: 'Feather',},
-]
-
+export const optionsDisplayMain = [
+  // ViewDisplayTabs should use this instead of being statically written - Chris todo
+  { title: "Json", iconName: "sdadsasdsads", iconSource: "Feather" },
+  { title: "Pods", iconName: "view-quilt", iconSource: "MaterialIcons" },
+  {
+    title: "Form",
+    iconName: "form", // or view-list-outline MaterialCommunityIcons
+    iconSource: "AntDesign",
+  },
+  { title: "List", iconName: "list", iconSource: "Feather" },
+  { title: "Table", iconName: "table", iconSource: "AntDesign" },
+  { title: "Calendar", iconName: "calendar", iconSource: "Feather" },
+  { title: "Timeline", iconName: "timeline", iconSource: "Feather" },
+  { title: "Map", iconName: "map", iconSource: "Feather" },
+  { title: "Chart", iconName: "sdadsasdsads", iconSource: "Feather" },
+  { title: "Path", iconName: "sdadsasdsads", iconSource: "Feather" },
+];
 
 // Tabs
 
-export const ViewDisplayTabs = ({ id, display }: any) => { // Contextual tabs (i.e. these will eventually grey out if not applicable to the current focused entity)
-  const path = useRouterLocation()?.paths
+export const ViewDisplayTabs = ({ id, display }: any) => {
+  // Contextual tabs (i.e. these will eventually grey out if not applicable to the current focused entity)
+  const path = useRouterLocation()?.paths;
   return (
-    <View style={{flexDirection:'column', position:'absolute', right:0, top:100, backgroundColor:'gray'}}>
+    <View
+      style={{
+        flexDirection: "column",
+        position: "absolute",
+        right: 0,
+        top: 100,
+        backgroundColor: "gray",
+      }}
+    >
       <ViewRouterLink
         style={{
           padding: 5,
@@ -363,6 +360,15 @@ export const ViewDisplayTabs = ({ id, display }: any) => { // Contextual tabs (i
       >
         Calendar
       </ViewRouterLink>
+      <ViewRouterLink
+        style={{
+          padding: 5,
+          backgroundColor: display === "timeline" ? "lightgray" : "transparent",
+        }}
+        to={"entity/../../timeline"}
+      >
+        Timeline
+      </ViewRouterLink>
       {/*Loisa Handling the calendar component/module */}
       <ViewRouterLink
         style={{
@@ -404,16 +410,13 @@ export const ViewDisplayTabs = ({ id, display }: any) => { // Contextual tabs (i
   );
 };
 
-
 // TableTabs (Temp)
 
 // 'Table Tabs' will be a subcomponent of 'Table' (like 'Table Footer' and'Table Header' are table subcomponents )
 // To be moved into the table file (but added here since it is a placeholder and so as not to interfere with current works)
-// Or, since this might need to be used by List (and maybe others like timeline) as well, maybe it needs to be its own 'display tabs' module or else we just directly use a primitive 'tabs' module in ViewDisplayTable, ViewDisplayList etc. 
+// Or, since this might need to be used by List (and maybe others like timeline) as well, maybe it needs to be its own 'display tabs' module or else we just directly use a primitive 'tabs' module in ViewDisplayTable, ViewDisplayList etc.
 // At the moment, it just has 'Types' hardcoded into it as the tabs.
 // But, it will be made dynamic (which will allow things like plugins and user interactions to hide this component, switch out the tabs to 'Status' or  other property groupings, etc.)
 export const ViewTableTabs = (props: any) => {
-  return (
-    <Text>["Area","Event","Contact","etc."]</Text>
-  );
+  return <Text>["Area","Event","Contact","etc."]</Text>;
 };

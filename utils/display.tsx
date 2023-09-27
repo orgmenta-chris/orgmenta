@@ -28,6 +28,7 @@ import { View, Text, TouchableOpacity, Modal } from "react-native";
 // import ViewJsonMain from "../components/displays/json/ViewJsonMain";
 import Timeline from "react-native-timeline-flatlist";
 import { Map, Marker, GeoJson } from "pigeon-maps";
+import { Calendar } from "react-native-big-calendar";
 
 // Dynamic
 
@@ -121,11 +122,38 @@ export const ViewDisplayTable = (props: any) => {
 // Calendar
 
 export const ViewDisplayCalendar = (props: any) => {
-  
+  const today = new Date(); // Get the current date and time
+  const tomorrow = new Date(today); // Create a copy of the current date
+  tomorrow.setDate(today.getDate() + 1); // Set the copy to tomorrow
+
+  const events = [
+    {
+      title: "Meeting today",
+      start: today, // Use the current date for the start time
+      end: new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate(),
+        11,
+        0
+      ), // Set the end time to 11:00 AM today
+    },
+    {
+      title: "Coffee break tomorrow",
+      start: tomorrow, // Use tomorrow's date for the start time
+      end: new Date(
+        tomorrow.getFullYear(),
+        tomorrow.getMonth(),
+        tomorrow.getDate(),
+        15,
+        30
+      ), // Set the end time to 3:30 PM tomorrow
+    },
+  ];
 
   return (
     <View style={{ maxHeight: 400 }}>
-      
+      <Calendar events={events} height={600} />
     </View>
   );
 };

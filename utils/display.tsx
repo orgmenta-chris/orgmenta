@@ -16,8 +16,8 @@ import {
 // import { ViewJsonMain } from "./json";
 // import { ViewIconMain } from "./icon";
 
-import { memo, useEffect, useMemo, useState } from "react";
-import { View, Text, TouchableOpacity, Modal } from "react-native";
+import { ReactElement, memo, useEffect, useMemo, useState } from "react";
+import { View, Text, TouchableOpacity, Modal, ViewStyle } from "react-native";
 // import MapChart from "../components/displays/maps";
 // import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
 // import ViewDisplayForm from "../components/displays/forms/ViewDisplayForm";
@@ -28,7 +28,17 @@ import { View, Text, TouchableOpacity, Modal } from "react-native";
 // import ViewJsonMain from "../components/displays/json/ViewJsonMain";
 import Timeline from "react-native-timeline-flatlist";
 import { Map, Marker, GeoJson } from "pigeon-maps";
-import { Calendar } from "react-native-big-calendar";
+import {
+  Calendar,
+  CalendarHeaderForMonthViewProps,
+  CalendarHeaderProps,
+  CalendarTouchableOpacityProps,
+  DateRangeHandler,
+  EventCellStyle,
+  ICalendarEventBase,
+  Mode,
+  WeekNum,
+} from "react-native-big-calendar";
 
 // Dynamic
 
@@ -126,6 +136,42 @@ export const ViewDisplayCalendar = (props: any) => {
   const tomorrow = new Date(today); // Create a copy of the current date
   tomorrow.setDate(today.getDate() + 1); // Set the copy to tomorrow
 
+  interface CalendarProps<T extends ICalendarEventBase> {
+    events: T;
+    height: number;
+    overlapOffset?: number;
+    hourRowHeight?: number;
+    ampm?: boolean;
+    date?: Date;
+    eventCellStyle?: EventCellStyle<T>;
+    calendarContainerStyle?: ViewStyle;
+    headerContainerStyle?: ViewStyle;
+    bodyContainerStyle?: ViewStyle;
+    renderEvent?: (
+      event: T,
+      touchableOpacityProps: CalendarTouchableOpacityProps
+    ) => ReactElement | null;
+    renderHeader?: React.ComponentType<CalendarHeaderProps<T> & { mode: Mode }>;
+    renderHeaderForMonthView?: React.ComponentType<CalendarHeaderForMonthViewProps>;
+    locale?: string;
+    hideNowIndicator?: boolean;
+    mode?: Mode;
+    scrollOffsetMinutes?: number;
+    showTime?: boolean;
+    swipeEnabled?: boolean;
+    weekStartsOn?: WeekNum;
+    weekEndsOn?: WeekNum;
+    onChangeDate?: DateRangeHandler;
+    onPressCell?: (date: Date) => void;
+    onPressDateHeader?: (date: Date) => void;
+    onPressEvent?: (event: any) => void;
+    eventMinHeightForMonthView?: number;
+    activeDate?: Date;
+    moreLabel?: string;
+    showAdjacentMonths?: boolean;
+    sortedMonthView?: boolean;
+  }
+
   const events = [
     {
       title: "Meeting today",
@@ -137,6 +183,7 @@ export const ViewDisplayCalendar = (props: any) => {
         11,
         0
       ), // Set the end time to 11:00 AM today
+      hideNowIndicator: false,
     },
     {
       title: "Coffee break tomorrow",
@@ -148,6 +195,7 @@ export const ViewDisplayCalendar = (props: any) => {
         15,
         30
       ), // Set the end time to 3:30 PM tomorrow
+      hideNowIndicator: false,
     },
   ];
 
@@ -206,7 +254,7 @@ export const ViewDisplayMaps = (props: any) => {
   useEffect(() => {
     fetchWorldMap();
   }, []);
-  
+
   return (
     <View style={{ maxHeight: 400 }}>
       <Map height={600} defaultZoom={2.5}>
@@ -226,7 +274,7 @@ export const ViewDisplayMaps = (props: any) => {
         />
         <Marker width={50} anchor={[13.75396, 100.50224]} color="gray" />
         <Marker width={50} anchor={[-1.292066, 36.821945]} color="gray" />
-      </Map>  
+      </Map>
     </View>
   );
 };

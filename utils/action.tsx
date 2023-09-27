@@ -348,8 +348,16 @@ export const ViewActionPDF = ({}: any) => {
 
   const DisplayFileModal = () => {
     const printPDFWeb = async (source: any) => {
-      await Print.printAsync(source);
-      // await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
+      const newWindow: any = window.open("", "_blank");
+      newWindow.document.open();
+      newWindow.document.write(source.html);
+      newWindow.document.close();
+
+      // Wait for all assets to load
+      newWindow.onload = () => {
+        // Trigger the print dialog
+        newWindow.print();
+      };
     };
 
     const printPDFMobile = async (source: any) => {
@@ -400,7 +408,7 @@ export const ViewActionPDF = ({}: any) => {
               }
             />
             <Pressable onPress={toggleModal}>
-              <Text style={{ color: "blue", marginTop: 10 }}>Close</Text>
+              <Text style={{ color: "white", marginTop: 10 }}>Close</Text>
             </Pressable>
           </View>
         </View>

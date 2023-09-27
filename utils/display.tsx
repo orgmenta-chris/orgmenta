@@ -27,7 +27,6 @@ import { View, Text, TouchableOpacity, Modal } from "react-native";
 // import ViewDisplayTable from "../components/displays/table/ViewDisplayTable";
 // import ViewJsonMain from "../components/displays/json/ViewJsonMain";
 import Timeline from "react-native-timeline-flatlist";
-import { Calendar } from "react-native-calendars";
 import { Map, Marker, GeoJson } from "pigeon-maps";
 
 // Dynamic
@@ -122,99 +121,11 @@ export const ViewDisplayTable = (props: any) => {
 // Calendar
 
 export const ViewDisplayCalendar = (props: any) => {
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [eventModalVisible, setEventModalVisible] = useState(false);
-
-  const events = [
-    {
-      date: "2023-09-27",
-      title: "Meeting with Client",
-      description: "Discuss project details",
-    },
-    {
-      date: "2023-09-28",
-      title: "Meeting with another Client",
-      description: "Discuss another project details",
-    },
-    // Add more events as needed
-  ];
-
-  // Dynamically generate marked dates from the events array
-  const marked = events.reduce((markedDates, event) => {
-    const { date } = event;
-    markedDates[date] = { marked: true };
-    return markedDates;
-  }, {});
-
-  const onDayPress = (day: any) => {
-    const dateString = day.dateString;
-    setSelectedDate(dateString);
-
-    // Check if there are events for the selected date
-    if (events.find((event) => event.date === dateString)) {
-      setEventModalVisible(true);
-    }
-  };
+  
 
   return (
     <View style={{ maxHeight: 400 }}>
-      <Calendar
-        hideArrows={false}
-        // showWeekNumbers={true}
-        markedDates={marked}
-        onDayPress={onDayPress}
-        onDayLongPress={(day) => console.log("onDayLongPress", day)}
-        onMonthChange={(date) => console.log("onMonthChange", date)}
-        onPressArrowLeft={(goToPreviousMonth) => {
-          console.log("onPressArrowLeft");
-          goToPreviousMonth();
-        }}
-        onPressArrowRight={(goToNextMonth) => {
-          console.log("onPressArrowRight");
-          goToNextMonth();
-        }}
-      />
-
-      {/* Event Modal */}
-      <Modal
-        visible={eventModalVisible}
-        animationType="slide"
-        transparent={true}
-      >
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: "white",
-              borderRadius: 10,
-              padding: 20,
-              width: "80%",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => setEventModalVisible(false)}
-              style={{ alignSelf: "flex-end" }}
-            >
-              <Text style={{ color: "blue" }}>Close</Text>
-            </TouchableOpacity>
-            <Text>Events on {selectedDate}:</Text>
-            {events
-              .filter((event) => event.date === selectedDate)
-              .map((event, index) => (
-                <View key={index} style={{ marginTop: 10 }}>
-                  <Text>{event.title}</Text>
-                  <Text>{event.description}</Text>
-                </View>
-              ))}
-          </View>
-        </View>
-      </Modal>
+      
     </View>
   );
 };

@@ -20,6 +20,7 @@ import {
   Pressable,
   Button,
   useWindowDimensions,
+  Modal,
 } from "react-native";
 import { useState } from "react";
 import * as Print from "expo-print";
@@ -321,48 +322,98 @@ export const ViewActionLink = ({}: any) => {
 export const ViewActionPDF = ({}: any) => {
   const source = {
     html: `
-      <html>
-        <head>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-        </head>
-        <body style="text-align: center;">
-          <h1 style="font-size: 50px; font-family: Helvetica Neue; font-weight: normal;">
-            Hello Expo!
-          </h1>
-          <img
-            src="https://d30j33t1r58ioz.cloudfront.net/static/guides/sdk.png"
-            style="width: 90vw;" />
-        </body>
-      </html>
-    `,
-  };
-
-  const printToFile = async () => {
-    if (UtilityPlatformMain.OS === "web") {
-      const newWindow: any = window.open("", "_blank");
-      newWindow.document.open();
-      newWindow.document.write(source.html);
-      newWindow.document.close();
-
-      newWindow.addEventListener("load", () => {
-        newWindow.print();
-        newWindow.close();
-      });
-    } else {
-      // On iOS/android prints the given html. On web prints the HTML from the current page.
-      const { uri } = await Print.printToFileAsync(source);
-      await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
-    }
+        <html>
+          <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+          </head>
+          <body style="text-align: center;">
+            <h1 style="font-size: 50px; font-family: Helvetica Neue; font-weight: normal;">
+              Hello Expo!
+            </h1>
+            <img
+              src="https://d30j33t1r58ioz.cloudfront.net/static/guides/sdk.png"
+              style="width: 90vw;" />
+          </body>
+        </html>
+      `,
   };
 
   const { width } = useWindowDimensions();
+
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  const DisplayFileModal = () => {
+    const printPDFWeb = async (source: any) => {
+      await Print.printAsync(source);
+      // await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
+    };
+
+    const printPDFMobile = async (source: any) => {
+      const { uri } = await Print.printToFileAsync(source);
+      await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
+    };
+
+    return (
+      <Modal
+        animationType="slide" // You can use 'slide', 'fade', or 'none'
+        transparent={true} // Make the modal background transparent
+        visible={isModalVisible}
+        onRequestClose={toggleModal} // Android back button behavior
+      >
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: "white",
+                padding: 10,
+                marginBottom: 10,
+              }}
+            >
+              {
+                // @ts-ignore
+                <RenderHtml contentWidth={width} source={source} />
+              }
+            </View>
+            <Button
+              onPress={() => {
+                UtilityPlatformMain.OS === "web"
+                  ? printPDFWeb(source)
+                  : printPDFMobile(source);
+              }}
+              title={
+                UtilityPlatformMain.OS === "web"
+                  ? "Save Document"
+                  : "Share Document"
+              }
+            />
+            <Pressable onPress={toggleModal}>
+              <Text style={{ color: "blue", marginTop: 10 }}>Close</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+    );
+  };
 
   return (
     <View style={{ flexDirection: "column" }}>
       <Text>PDF</Text>
       <Text>render/display and allow for downloading of PDF files</Text>
-      {/* <RenderHtml contentWidth={width} source={source} /> */}
-      <Button title="Print to PDF file" onPress={printToFile} />
+      <DisplayFileModal />
+      <Button title="Show File" onPress={toggleModal} />
     </View>
   );
 };

@@ -339,7 +339,7 @@ export const ViewActionPDF = ({}: any) => {
 
   const printToFile = async () => {
     if (UtilityPlatformMain.OS === "web") {
-      
+      // todo: implement method to print to file on web
     } else {
       // On iOS/android prints the given html. On web prints the HTML from the current page.
       const { uri } = await Print.printToFileAsync(source);

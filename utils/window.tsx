@@ -3,30 +3,29 @@
 // USED TO INCLUDE: a (mobile-only) status bar. <-- MOVED TO STATUSBAR.TSX
 
 import {
-    View,
-    Dimensions,
-    useWindowDimensions as originalUseWindowDimensions,
-    SafeAreaView,
+  View,
+  Dimensions,
+  useWindowDimensions as originalUseWindowDimensions,
+  SafeAreaView,
 } from "react-native";
 import { getStatusbarDimensions } from "./statusbar";
 
 export const ViewWindowMain = (props: any) => {
-    const windowDimensions = useWindowDimensions();
-    const statusbarDimensions = getStatusbarDimensions();
-    return (
-        <ViewWindowSafearea style={{ flex: 1, backgroundColor: "gray" }}>
-            <View
-                style={{
-                    height:
-                        windowDimensions.height + statusbarDimensions.height,
-                    width: "100%",
-                    overflow: "hidden",
-                }}
-            >
-                {props.children}
-            </View>
-        </ViewWindowSafearea>
-    );
+  const windowDimensions = useWindowDimensions();
+  const statusbarDimensions = getStatusbarDimensions();
+  return (
+    <ViewWindowSafearea style={{ flex: 1, backgroundColor: "gray" }}>
+      <View
+        style={{
+          height: windowDimensions.height + statusbarDimensions.height,
+          width: "100%",
+          overflow: "hidden",
+        }}
+      >
+        {props.children}
+      </View>
+    </ViewWindowSafearea>
+  );
 };
 
 // DIMENSIONS

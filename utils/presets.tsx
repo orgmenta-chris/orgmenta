@@ -7,15 +7,15 @@ import { View, Text } from "react-native";
 // Placeholder component (Chris is working on this)
 
 export const ViewPresetOptions = ({}: any) => {
-    // A select/dropdown component to allow a user to switch presets.
-    return (
-        <View style={{ flexDirection: "column", gap: 10 }}>
-            {/* Presets are saved views for filtering, sorting, grouping (etc.) entities. See presets.tsx. */}
-            <Text>Preset1</Text>
+  // A select/dropdown component to allow a user to switch presets.
+  return (
+    <View style={{ flexDirection: "column", gap: 10 }}>
+      {/* Presets are saved views for filtering, sorting, grouping (etc.) entities. See presets.tsx. */}
+      <Text>Preset1</Text>
 
-            <Text>Preset2</Text>
+      <Text>Preset2</Text>
 
-            <Text>New Preset</Text>
-        </View>
-    );
+      <Text>New Preset</Text>
+    </View>
+  );
 };

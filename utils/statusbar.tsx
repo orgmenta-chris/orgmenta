@@ -2,22 +2,23 @@
 
 import { StatusBarProps, StatusBar } from "expo-status-bar";
 import { UtilityPlatformMain } from "./platform";
+import { UtilityPlatformMain } from "./platform";
 import { StatusBar as StatusbarRN, Dimensions, View } from "react-native";
 
 // Main
 
 export type TypeStatusbarMain = StatusBarProps & {
-    buffer?: boolean; // whether to push the content down (true) or let content overlap the statusbar (false - default)
+  buffer?: boolean; // whether to push the content down (true) or let content overlap the statusbar (false - default)
 };
 
 // The actual statusbar component
 export const ViewStatusbarMain = (props: TypeStatusbarMain) => {
-    return (
-        <StatusBar
-            style={"light"}
-            // backgroundColor="#0c4a73"
-        />
-    );
+  return (
+    <StatusBar
+      style={"light"}
+      // backgroundColor="#0c4a73"
+    />
+  );
 };
 
 // Height

@@ -32,17 +32,18 @@ import { ViewTypographyTextthemed } from "../utils/typography";
 // Location
 
 export const useRouterLocation = () => {
-    const location = useLocation();
-    const paths = location?.pathname?.split("/");
-    return { ...location, paths };
+  const location = useLocation();
+  const paths = location?.pathname?.split("/");
+  return { ...location, paths };
 };
 
+export const useRouterNavigate = useNavigate;
 export const useRouterNavigate = useNavigate;
 
 // Provider
 
 export const ViewRouterProvider =
-    UtilityPlatformMain.OS === "web" ? BrowserRouter : NativeRouter;
+  UtilityPlatformMain.OS === "web" ? BrowserRouter : NativeRouter;
 // Note that we could instead have utilised the Platform.select method to achieve this (not needed at this time), like so:
 // const ViewRouterProvider = UtilityPlatformMain.select({
 //     ios: () => require('NativeRouter'),
@@ -54,21 +55,27 @@ export const ViewRouterProvider =
 //
 
 export type TypeRouterProvider = BrowserRouterProps | NativeRouterProps;
+export type TypeRouterProvider = BrowserRouterProps | NativeRouterProps;
 
 // Routes
 
 export const ViewRouterRoutes = Routes;
+export const ViewRouterRoutes = Routes;
 
+export type TypeRouterRoutes = RoutesProps;
 export type TypeRouterRoutes = RoutesProps;
 
 // Route
 
 export const ViewRouterRoute = Route;
+export const ViewRouterRoute = Route;
 
+export type TypeRouterRoute = RouteProps;
 export type TypeRouterRoute = RouteProps;
 
 // Link
 
+export type TypeRouterLink = NLinkProps | DLinkProps;
 export type TypeRouterLink = NLinkProps | DLinkProps;
 
 export const ViewRouterLink: React.FC<any> = ({ children, ...rest }) => {
@@ -111,6 +118,7 @@ export const ViewRouterLinkthemed = ({
 
 // Navigate
 
+export const ExecuteRouterNavigate = Navigate;
 export const ExecuteRouterNavigate = Navigate;
 
 export type TypeRouterNavigate = NavigateProps;

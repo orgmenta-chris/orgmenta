@@ -6,22 +6,30 @@
 // source={'AntDesign'}
 // color={'gray'}
 // size={10}
+// <ViewIconMain
+// name={expanded?'caretup':'caretdown'}
+// source={'AntDesign'}
+// color={'gray'}
+// size={10}
 // />
 
 import * as Font from "expo-font";
 import React, { memo } from "react";
 import { ViewStyle } from "react-native";
+import * as Font from "expo-font";
+import React, { memo } from "react";
+import { ViewStyle } from "react-native";
 import {
-    AntDesign,
-    Fontisto,
-    MaterialIcons,
-    MaterialCommunityIcons,
-    Ionicons,
-    FontAwesome,
-    FontAwesome5,
-    Feather,
-    Octicons,
-    Entypo,
+  AntDesign,
+  Fontisto,
+  MaterialIcons,
+  MaterialCommunityIcons,
+  Ionicons,
+  FontAwesome,
+  FontAwesome5,
+  Feather,
+  Octicons,
+  Entypo,
 } from "@expo/vector-icons";
 
 // Preload
@@ -69,15 +77,15 @@ export interface interfaceIconMain {
 }
 
 export const ViewIconMain: React.FC<interfaceIconMain> = memo(
-    ({ source, name, size = 22, color = "white", padding, style }) => {
-        const Icon = mapIconComponents[source] || mapIconComponents["Ionicons"];
-        return (
-            <Icon
-                name={name}
-                size={size}
-                color={color}
-                style={{ padding, ...style }}
-            />
-        );
-    }
+  ({ source, name, size = 22, color = "white", padding, style }) => {
+    const Icon = mapIconComponents[source] || mapIconComponents["Ionicons"];
+    return (
+      <Icon
+        name={name}
+        size={size}
+        color={color}
+        style={{ padding, ...style }}
+      />
+    );
+  }
 );

@@ -17,30 +17,30 @@ export interface interfaceSuperBaseSignup {
 }
 
 export const requestAuthSignup = async ({
+  email,
+  password,
+}: interfaceSuperBaseSignup) => {
+  const { data, error } = await instanceSupabaseClient.auth.signUp({
     email,
     password,
-}: interfaceSuperBaseSignup) => {
-    const { data, error } = await instanceSupabaseClient.auth.signUp({
-        email,
-        password,
-    });
-    if (error) {
-        throw new Error(error.message);
-    }
-    return data;
+  });
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
 };
 
 export const useAuthSignup = ({
-    // hook to wrap requestAuthSignup
-    email,
-    password,
-    confirmPassword,
+  // hook to wrap requestAuthSignup
+  email,
+  password,
+  confirmPassword,
 }: interfaceAuthSignup) => {
-    const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-    if (password !== confirmPassword) {
-        console.log("Passwords do not match");
-    }
+  if (password !== confirmPassword) {
+    console.log("Passwords do not match");
+  }
 
     return useMutation(
         ["auth", "signup"],
@@ -77,18 +77,17 @@ export interface interfaceAuthSignin {
 }
 
 export const requestAuthSignin = async ({
+  email,
+  password,
+}: interfaceAuthSignin) => {
+  // at the moment, only 'signInWithPassword' is supported. Other signin options will be added in the future.
+  const { data, error } = await instanceSupabaseClient.auth.signInWithPassword({
     email,
     password,
-}: interfaceAuthSignin) => {
-    // at the moment, only 'signInWithPassword' is supported. Other signin options will be added in the future.
-    const { data, error } =
-        await instanceSupabaseClient.auth.signInWithPassword({
-            email,
-            password,
-        });
-    if (error) {
-        throw new Error(error.message);
-    }
+  });
+  if (error) {
+    throw new Error(error.message);
+  }
 
     return data;
 };
@@ -159,29 +158,29 @@ export const useAuthSession = () => {
 // Options
 
 export const optionsAuthMain = [
-    // list of available options to the user regarding their session
-    {
-        title: "Switch",
-        iconName: "arrow-switch",
-        iconSource: "Octicons",
-        description: "Switch to another user/guest",
-    },
-    {
-        title: "Signin",
-        iconName: "login",
-        iconSource: "MaterialIcons",
-        description: "Sign in/up",
-    },
-    {
-        title: "Signout",
-        iconName: "logout",
-        iconSource: "MaterialIcons",
-        description: "Sign out",
-    },
-    {
-        title: "ForgotPassword",
-        iconName: "questioncircleo",
-        iconSource: "AntDesign",
-        description: "Forgot Password/Username?",
-    },
+  // list of available options to the user regarding their session
+  {
+    title: "Switch",
+    iconName: "arrow-switch",
+    iconSource: "Octicons",
+    description: "Switch to another user/guest",
+  },
+  {
+    title: "Signin",
+    iconName: "login",
+    iconSource: "MaterialIcons",
+    description: "Sign in/up",
+  },
+  {
+    title: "Signout",
+    iconName: "logout",
+    iconSource: "MaterialIcons",
+    description: "Sign out",
+  },
+  {
+    title: "ForgotPassword",
+    iconName: "questioncircleo",
+    iconSource: "AntDesign",
+    description: "Forgot Password/Username?",
+  },
 ];

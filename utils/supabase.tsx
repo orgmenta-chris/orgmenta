@@ -5,6 +5,9 @@
 import * as SecureStore from "expo-secure-store";
 import "react-native-url-polyfill/auto";
 import { UtilityPlatformMain } from "./platform";
+import * as SecureStore from "expo-secure-store";
+import "react-native-url-polyfill/auto";
+import { UtilityPlatformMain } from "./platform";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 
 // (Mobile Only) Secure Store.
@@ -61,45 +64,45 @@ export function handleSupabaseResponse(
 
 // This is just a useful reference of tables
 export const mapSupabaseTables = {
-    attributes: {
-        description:
-            "This describes the fields/properties that a class of entity can have",
-    },
-    entities: {
-        description: "This describes the entities themselves",
-    },
-    relationships: {
-        description: "This describes the relationships between entities",
-    },
-    spaces: {
-        description:
-            "This describes the organisation/business/workspace that holds all of this data",
-    },
-    members: {
-        description:
-            "This describes the permissions/memberships a user has with a space",
-    },
+  attributes: {
+    description:
+      "This describes the fields/properties that a class of entity can have",
+  },
+  entities: {
+    description: "This describes the entities themselves",
+  },
+  relationships: {
+    description: "This describes the relationships between entities",
+  },
+  spaces: {
+    description:
+      "This describes the organisation/business/workspace that holds all of this data",
+  },
+  members: {
+    description:
+      "This describes the permissions/memberships a user has with a space",
+  },
 };
 
 // Get a list of tables (not yet used)
 // This may be needed in the future to show the user all the spaces that are available to them / get the names of the tables associated with their spaces.
 export async function requestSupabaseTables(filters: any) {
-    return await instanceSupabaseClient
-        .from("tables_public")
-        .select()
-        .then(handleSupabaseResponse as any);
+  return await instanceSupabaseClient
+    .from("tables_public")
+    .select()
+    .then(handleSupabaseResponse as any);
 }
 
 // Views
 
 // This is just a useful reference of views
 const mapSupabaseViews = {
-    attributes_unioned: {
-        description:
-            "This joins attributes with side 1 as the focus, to attributes with side 2 as the focus. This allows you to see all attributes in one column.",
-    },
-    relationships_unioned: {
-        description:
-            "This joins relationships with side 1 as the focus, to relationships with side 2 as the focus. This allows you to see all entities in one column.",
-    },
+  attributes_unioned: {
+    description:
+      "This joins attributes with side 1 as the focus, to attributes with side 2 as the focus. This allows you to see all attributes in one column.",
+  },
+  relationships_unioned: {
+    description:
+      "This joins relationships with side 1 as the focus, to relationships with side 2 as the focus. This allows you to see all entities in one column.",
+  },
 };

@@ -42,7 +42,7 @@ import ViewMapWeb from "../components/displays/maps/ViewDisplayMaps";
 // import ViewDisplayPods from "../components/displays/pods/ViewDisplayPods";
 // import ViewDisplayTable from "../components/displays/table/ViewDisplayTable";
 // import ViewJsonMain from "../components/displays/json/ViewJsonMain";
-import { ViewTimelineMain, TypeimelineMain } from "react-native-timeline-flatlist";
+import { ViewTimelineMain, TypeTimelineMain } from "./timeline";
 import { Map, Marker, GeoJson } from "pigeon-maps";
 import {
   Calendar,

@@ -21,8 +21,15 @@ import { ViewIconMain } from "./icon";
 // import { ViewJsonMain } from "./json";
 // import { ViewIconMain } from "./icon";
 
-import { memo, useMemo, useState } from "react";
-import { View, Text, TouchableOpacity, Modal } from "react-native";
+import { ReactElement, memo, useEffect, useMemo, useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  ViewStyle,
+  Button,
+} from "react-native";
 import ViewMapWeb from "../components/displays/maps/ViewDisplayMaps";
 // import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
 // import ViewDisplayForm from "../components/displays/forms/ViewDisplayForm";
@@ -32,7 +39,18 @@ import ViewMapWeb from "../components/displays/maps/ViewDisplayMaps";
 // import ViewDisplayTable from "../components/displays/table/ViewDisplayTable";
 // import ViewJsonMain from "../components/displays/json/ViewJsonMain";
 import Timeline from "react-native-timeline-flatlist";
-import { Calendar } from "react-native-calendars";
+import { Map, Marker, GeoJson } from "pigeon-maps";
+import {
+  Calendar,
+  CalendarHeaderForMonthViewProps,
+  CalendarHeaderProps,
+  CalendarTouchableOpacityProps,
+  DateRangeHandler,
+  EventCellStyle,
+  ICalendarEventBase,
+  Mode,
+  WeekNum,
+} from "react-native-big-calendar";
 
 // Dynamic
 
@@ -126,99 +144,221 @@ export const ViewDisplayTable = (props: any) => {
 // Calendar
 
 export const ViewDisplayCalendar = (props: any) => {
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [eventModalVisible, setEventModalVisible] = useState(false);
+  interface CalendarProps<T extends ICalendarEventBase> {
+    events: T[];
+    height: number;
+    overlapOffset?: number;
+    hourRowHeight?: number;
+    ampm?: boolean;
+    date?: Date;
+    eventCellStyle?: EventCellStyle<T>;
+    calendarContainerStyle?: ViewStyle;
+    headerContainerStyle?: ViewStyle;
+    bodyContainerStyle?: ViewStyle;
+    renderEvent?: (
+      event: T,
+      touchableOpacityProps: CalendarTouchableOpacityProps
+    ) => ReactElement | null;
+    renderHeader?: React.ComponentType<CalendarHeaderProps<T> & { mode: Mode }>;
+    renderHeaderForMonthView?: React.ComponentType<CalendarHeaderForMonthViewProps>;
+    locale?: string;
+    hideNowIndicator?: boolean;
+    mode?: Mode;
+    scrollOffsetMinutes?: number;
+    showTime?: boolean;
+    swipeEnabled?: boolean;
+    weekStartsOn?: WeekNum;
+    weekEndsOn?: WeekNum;
+    onChangeDate?: DateRangeHandler;
+    onPressCell?: (date: Date) => void;
+    onPressDateHeader?: (date: Date) => void;
+    onPressEvent?: (event: T) => void;
+    eventMinHeightForMonthView?: number;
+    activeDate?: Date;
+    moreLabel?: string;
+    showAdjacentMonths?: boolean;
+    sortedMonthView?: boolean;
+  }
 
-  const events = [
+  interface ICalendarEvent extends ICalendarEventBase {}
+
+  const [mode, setMode] = useState("month");
+
+  const events: ICalendarEvent[] = [
     {
-      date: "2023-09-27",
-      title: "Meeting with Client",
-      description: "Discuss project details",
+      title: "Meeting 1",
+      start: new Date(2023, 8, 1, 10, 0), // September 1st, 10:00 AM
+      end: new Date(2023, 8, 1, 11, 0), // September 1st, 11:00 AM
     },
     {
-      date: "2023-09-28",
-      title: "Meeting with another Client",
-      description: "Discuss another project details",
+      title: "Conference",
+      start: new Date(2023, 8, 5, 14, 30), // September 5th, 2:30 PM
+      end: new Date(2023, 8, 5, 17, 0), // September 5th, 5:00 PM
     },
-    // Add more events as needed
+    {
+      title: "Lunch",
+      start: new Date(2023, 8, 10, 12, 0), // September 10th, 12:00 PM
+      end: new Date(2023, 8, 10, 13, 0), // September 10th, 1:00 PM
+    },
+    {
+      title: "Team Meeting",
+      start: new Date(2023, 8, 15, 9, 30), // September 15th, 9:30 AM
+      end: new Date(2023, 8, 15, 10, 30), // September 15th, 10:30 AM
+    },
+    {
+      title: "Workshop",
+      start: new Date(2023, 8, 20, 14, 0), // September 20th, 2:00 PM
+      end: new Date(2023, 8, 20, 17, 0), // September 20th, 5:00 PM
+    },
+    {
+      title: "Coffee Break",
+      start: new Date(2023, 8, 25, 15, 0), // September 25th, 3:00 PM
+      end: new Date(2023, 8, 25, 15, 30), // September 25th, 3:30 PM
+    },
+    {
+      title: "Training",
+      start: new Date(2023, 8, 3, 9, 0), // September 3rd, 9:00 AM
+      end: new Date(2023, 8, 3, 12, 0), // September 3rd, 12:00 PM
+    },
+    {
+      title: "Project Review",
+      start: new Date(2023, 8, 8, 13, 0), // September 8th, 1:00 PM
+      end: new Date(2023, 8, 8, 14, 30), // September 8th, 2:30 PM
+    },
+    {
+      title: "Client Meeting",
+      start: new Date(2023, 8, 12, 11, 0), // September 12th, 11:00 AM
+      end: new Date(2023, 8, 12, 12, 0), // September 12th, 12:00 PM
+    },
+    {
+      title: "Team Building",
+      start: new Date(2023, 8, 17, 10, 0), // September 17th, 10:00 AM
+      end: new Date(2023, 8, 17, 16, 0), // September 17th, 4:00 PM
+    },
+    {
+      title: "Lunch Meeting",
+      start: new Date(2023, 8, 22, 12, 30), // September 22nd, 12:30 PM
+      end: new Date(2023, 8, 22, 13, 30), // September 22nd, 1:30 PM
+    },
+    {
+      title: "Training Session",
+      start: new Date(2023, 8, 6, 15, 0), // September 6th, 3:00 PM
+      end: new Date(2023, 8, 6, 17, 0), // September 6th, 5:00 PM
+    },
+    {
+      title: "Client Presentation",
+      start: new Date(2023, 8, 13, 14, 0), // September 13th, 2:00 PM
+      end: new Date(2023, 8, 13, 16, 0), // September 13th, 4:00 PM
+    },
+    {
+      title: "Project Kickoff",
+      start: new Date(2023, 8, 27, 9, 0), // September 27th, 9:00 AM
+      end: new Date(2023, 8, 27, 10, 0), // September 27th, 10:00 AM
+    },
+    {
+      title: "Team Lunch",
+      start: new Date(2023, 8, 30, 12, 0), // September 30th, 12:00 PM
+      end: new Date(2023, 8, 30, 13, 0), // September 30th, 1:00 PM
+    },
   ];
 
-  // Dynamically generate marked dates from the events array
-  const marked = events.reduce((markedDates: any, event) => {
-    const { date } = event;
-    markedDates[date] = { marked: true };
-    return markedDates;
-  }, {});
-
-  const onDayPress = (day: any) => {
-    const dateString = day.dateString;
-    setSelectedDate(dateString);
-
-    // Check if there are events for the selected date
-    if (events.find((event) => event.date === dateString)) {
-      setEventModalVisible(true);
-    }
+  const calendarProps: CalendarProps<ICalendarEventBase> = {
+    events,
+    height: 600,
+    overlapOffset: 10, // Set overlap offset to 10 pixels
+    hourRowHeight: 60, // Set hour row height to 60 pixels
+    ampm: true, // Display time in AM/PM format
+    // date: new Date(2023, 8, 1), // Set the initial date to September 1st, 2023
+    eventCellStyle: () => {
+      // Custom event cell style function
+      return {
+        backgroundColor: "cyan",
+        borderColor: "black",
+      };
+    },
+    calendarContainerStyle: {
+      // Custom styles for the calendar container
+      backgroundColor: "lightgray",
+    },
+    headerContainerStyle: {
+      // Custom styles for the header container
+      backgroundColor: "white",
+    },
+    bodyContainerStyle: {
+      // Custom styles for the body container
+      backgroundColor: "white",
+    },
+    renderEvent: (event, touchableOpacityProps) => {
+      // Custom render for events
+      return (
+        <TouchableOpacity {...touchableOpacityProps}>
+          <Text>{event.title}</Text>
+          <Text>{`${event.start.toLocaleTimeString()} - ${event.end.toLocaleTimeString()}`}</Text>
+        </TouchableOpacity>
+      );
+    },
+    // renderHeader: (props) => {
+    //   // Custom render for header
+    //   return <CalendarHeader {...props} />;
+    // },
+    // renderHeaderForMonthView: (props) => {
+    //   // Custom render for month view header
+    //   return <CalendarHeaderForMonthView {...props} />;
+    // },
+    locale: "en-US", // Set the locale to English (United States)
+    hideNowIndicator: false, // Show the "now" indicator
+    // @ts-ignore
+    mode: mode, // Set the initial mode to month view
+    scrollOffsetMinutes: 30, // Scroll calendar by 30 minutes
+    showTime: true, // Show time on events
+    swipeEnabled: true, // Enable swipe navigation
+    weekStartsOn: 0, // Start the week on Sunday
+    weekEndsOn: 6, // End the week on Saturday
+    onChangeDate: (dateRange) => {
+      // Handle date range change
+      console.log("Date range changed:", dateRange);
+    },
+    onPressCell: (date) => {
+      // Handle cell press
+      console.log("Cell pressed:", date);
+    },
+    onPressDateHeader: (date) => {
+      // Handle date header press
+      console.log("Date header pressed:", date);
+    },
+    onPressEvent: (event) => {
+      // Handle event click
+      console.log("Event clicked:", event);
+    },
+    eventMinHeightForMonthView: 40, // Set the minimum event height for month view
+    activeDate: new Date(), // Set the active date to September 15th, 2023
+    moreLabel: "More", // Customize the "more" label for overlapping events
+    showAdjacentMonths: true, // Show adjacent months in month view
+    sortedMonthView: false, // Disable sorted month view
   };
 
   return (
-    <View style={{ maxHeight: 400 }}>
-      <Calendar
-        hideArrows={false}
-        // showWeekNumbers={true}
-        markedDates={marked}
-        onDayPress={onDayPress}
-        onDayLongPress={(day) => console.log("onDayLongPress", day)}
-        onMonthChange={(date) => console.log("onMonthChange", date)}
-        onPressArrowLeft={(goToPreviousMonth) => {
-          console.log("onPressArrowLeft");
-          goToPreviousMonth();
+    <View style={{ minHeight: 400 }}>
+      <View style={{ marginVertical: 10 }}>
+        {
+          // @ts-ignore
+          <Calendar {...calendarProps} />
+        }
+      </View>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "center",
+          gap: 5,
+          marginBottom: 10,
         }}
-        onPressArrowRight={(goToNextMonth) => {
-          console.log("onPressArrowRight");
-          goToNextMonth();
-        }}
-      />
-
-      {/* Event Modal */}
-      <Modal
-        visible={eventModalVisible}
-        animationType="slide"
-        transparent={true}
       >
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: "white",
-              borderRadius: 10,
-              padding: 20,
-              width: "80%",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => setEventModalVisible(false)}
-              style={{ alignSelf: "flex-end" }}
-            >
-              <Text style={{ color: "blue" }}>Close</Text>
-            </TouchableOpacity>
-            <Text>Events on {selectedDate}:</Text>
-            {events
-              .filter((event) => event.date === selectedDate)
-              .map((event, index) => (
-                <View key={index} style={{ marginTop: 10 }}>
-                  <Text>{event.title}</Text>
-                  <Text>{event.description}</Text>
-                </View>
-              ))}
-          </View>
-        </View>
-      </Modal>
+        <Button onPress={() => setMode("month")} title="Month" />
+        <Button onPress={() => setMode("week")} title="Week" />
+        <Button onPress={() => setMode("3days")} title="3 Days" />
+        <Button onPress={() => setMode("day")} title="Day" />
+      </View>
     </View>
   );
 };
@@ -245,13 +385,54 @@ export const ViewDisplayTimeline = (props: any) => {
 // Bring PigeonMaps (from components..../ViewDisplayMaps etc.) into a maps.tsx. 
 // Also add the data into a useQuery so that it caches everything (including the image if possible?)
 export const ViewDisplayMaps = (props: any) => {
+  const { customerAddress } = props; // this data could be geocoded into lat and long coordinates for them to be rendered on the map
+
+  const [worldMapJSON, setWorldMapJSON] = useState(null);
+
+  const fetchWorldMap = async () => {
+    try {
+      const response = await fetch(
+        "https://ik.imagekit.io/vg0ett8n6/custom.geo.json?updatedAt=1693968485445"
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setWorldMapJSON(data);
+    } catch (error) {
+      console.error("Error fetching world map data:", error);
+    }
+  };
+
+  // this function essentially converts the user addresses into coordinates that can be used to render markers on the map.
+  const goeCodeAddresses = () => {
+    // todo
+  };
+
+  useEffect(() => {
+    fetchWorldMap();
+  }, []);
+
   return (
     <View style={{ maxHeight: 400 }}>
-      {UtilityPlatformMain.OS === 'web' ?
-        <ViewMapWeb />
-        :
-        <ViewMapMobile/>
-      }
+      <Map height={600} defaultZoom={2.5}>
+        <GeoJson
+          data={worldMapJSON}
+          styleCallback={(feature: any, hover: any) => {
+            if (feature.geometry.type === "LineString") {
+              return { strokeWidth: "1", stroke: "black" };
+            }
+            return {
+              fill: "#d4e6ec99",
+              strokeWidth: "1",
+              stroke: "white",
+              r: "20",
+            };
+          }}
+        />
+        <Marker width={50} anchor={[13.75396, 100.50224]} color="gray" />
+        <Marker width={50} anchor={[-1.292066, 36.821945]} color="gray" />
+      </Map>
     </View>
   );
 };

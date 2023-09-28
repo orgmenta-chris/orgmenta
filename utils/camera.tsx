@@ -71,27 +71,6 @@ export const CameraComponent = ({}: any) => {
     );
   };
 
-  const CameraPreview = ({ photo }: any) => {
-    console.log("photo", photo);
-    return (
-      <View
-        style={{
-          backgroundColor: "transparent",
-          flex: 1,
-          width: "100%",
-          height: "100%",
-        }}
-      >
-        <Image
-          source={{ uri: photo && photo.uri }}
-          style={{
-            flex: 1,
-          }}
-        />
-      </View>
-    );
-  };
-
   return (
     <View style={styles.container}>
       {startCamera && (

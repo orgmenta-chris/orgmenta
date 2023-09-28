@@ -1,5 +1,5 @@
 import { ColumnResizeMode, useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
-import React, { useState, useEffect, useReducer } from "react";
+import  { useState, useEffect, useReducer } from "react";
 import { View, ScrollView, Text } from "react-native";
 
 const ViewTableMain = ({ ...Input }) => {

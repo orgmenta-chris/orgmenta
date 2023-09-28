@@ -1,7 +1,7 @@
 // A 'router' manages navigation and routing in a React application, directing the display of content based on the current URL or route
 // NOTE THAT BACK BUTTON FUNCTIONALITY ON MOBILE MAY NOT YET BE WORKING.
 
-import { Text, View } from "react-native";
+import { Text, View, Pressable} from "react-native";
 import { UtilityPlatformMain } from "./platform";
 import { useThemeToken, TypeThemeMain } from "./theme";
 import { validateObjectIsobject } from "./object";
@@ -74,10 +74,21 @@ export type TypeRouterLink = NLinkProps | DLinkProps;
 export const ViewRouterLink: React.FC<any> = ({ children, ...rest }) => {
     const LinkComponent = UtilityPlatformMain.OS === "web" ? DLink : NLink;
     const isString = typeof children === "string";
+    const navigate = useRouterNavigate()
     return (
+        UtilityPlatformMain.OS === "web" ? 
         <LinkComponent {...rest}>
             {isString ? <Text>{children}</Text> : children}
         </LinkComponent>
+        :
+        <Pressable
+            style={{minHeight:40}}
+            onPress={() => {
+                navigate(`${rest.to}`);
+            }}
+        >
+            {isString ? <Text>{children}</Text> : children}
+        </Pressable>
     );
 };
 

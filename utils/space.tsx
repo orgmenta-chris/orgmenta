@@ -4,7 +4,7 @@ import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { ViewModalMain } from "./modal";
 import { ViewRouterLink } from "./router";
 import { useState, useEffect } from "react";
-import { StyleSheet, ScrollView, View, Text, Pressable } from "react-native";
+import { ScrollView, View, Text, Pressable } from "react-native";
 import {
   useQuery,
   useMutation,

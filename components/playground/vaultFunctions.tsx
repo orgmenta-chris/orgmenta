@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { View, StyleSheet, TextInput, Button, Text } from "react-native";
 import { addSecret, getSecret, /* deleteSecret */ } from "../../utils/vault";
 

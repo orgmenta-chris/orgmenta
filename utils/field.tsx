@@ -40,16 +40,15 @@ export const ViewFieldMain = ({ item }: { item: interfaceFieldMain }) => {
   const Component = mapFieldComponents[item?.form_field ? "textinput" : "text"]; // this may benefit from usecallback or memoization of some sort?
   return (
     <View style={{ flexDirection: "row" }}>
-      <Text style={{ flex: 1, fontWeight: "500" }}>
+      <Text
+        numberOfLines={2}
+        style={{ flex: 1, fontWeight: "500", minHeight: 30 }}
+      >
         {item?.label || "[No label found]"}:{" "}
       </Text>
-
-      {/* <View  style={{flex:1}}><Component>{item.value}</Component></View> */}
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 2 }}>
         <Component defaultValue={item.value} />
       </View>
-
-      {/* <Text style={{flex:1, fontWeight: 500}}>{item?.form_sort}: </Text>   */}
     </View>
   );
 };

@@ -7,6 +7,8 @@ import { ViewFormDynamic } from "./form";
 import { ViewListMain } from "./list";
 import { ViewChartMain } from "./chart";
 import { ViewPathMain } from "./path";
+import { ViewMapMobile } from "./map";
+import { UtilityPlatformMain } from "./platform";
 import {
   ViewPodMain,
   ViewPodInfo,
@@ -21,7 +23,7 @@ import { ViewIconMain } from "./icon";
 
 import { memo, useMemo, useState } from "react";
 import { View, Text, TouchableOpacity, Modal } from "react-native";
-// import MapChart from "../components/displays/maps";
+import ViewMapWeb from "../components/displays/maps/ViewDisplayMaps";
 // import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
 // import ViewDisplayForm from "../components/displays/forms/ViewDisplayForm";
 // import ViewDisplayList from "../components/displays/list/ViewDisplayList";
@@ -240,12 +242,16 @@ export const ViewDisplayTimeline = (props: any) => {
 };
 
 // Maps
-
+// Bring PigeonMaps (from components..../ViewDisplayMaps etc.) into a maps.tsx. 
+// Also add the data into a useQuery so that it caches everything (including the image if possible?)
 export const ViewDisplayMaps = (props: any) => {
   return (
     <View style={{ maxHeight: 400 }}>
-      {/* <MapChart /> */}
-      {/* todo */}
+      {UtilityPlatformMain.OS === 'web' ?
+        <ViewMapWeb />
+        :
+        <ViewMapMobile/>
+      }
     </View>
   );
 };
@@ -303,28 +309,30 @@ export const optionsDisplayMain = [
 
 // Tabs
 
-export const ViewDisplayTabs = ({ id, display }: any) => {
+export const ViewDisplayTabs = ({ id }: any) => {
+  const display = useRouterLocation()?.paths[3]
   return (
     <View
       style={{
-        flexDirection: "column",
-        position: "absolute",
-        right: 0,
-        top: 100,
-        backgroundColor: "gray",
+        width: "100%",
+        flexDirection: "row",
       }}
     >
       {optionsDisplayMain?.map((x, i) => (
-        <ViewRouterLinkthemed key={i}
-          style={{
-            padding: 5,
-            backgroundColor: display === x.title.toLowerCase() ? "gray" : "lightgray",
-          }}
-          to={`entity/../../${x.title.toLowerCase()}`}
-        >
-          <ViewIconMain name={x.iconName} source={x.iconSource} color={"white"} />
-          {/* <Text>{display}{x.title.toLowerCase()}</Text> */}
-        </ViewRouterLinkthemed>
+        <View key={i} style={{flex: 1}}>
+          <ViewRouterLinkthemed 
+            style={{
+              padding: 5,
+              backgroundColor: display === x.title.toLowerCase() ? "gray" : "lightgray",
+            }}
+            to={`entity/../../../${x.title.toLowerCase()}/display`}
+          >
+            <View style={{alignItems:'center', flex: 1}}>
+              <ViewIconMain name={x.iconName} source={x.iconSource} color={"white"} />
+              <Text>{x.title}</Text>
+            </View>
+          </ViewRouterLinkthemed>
+        </View>
       ))}
     </View>
   );

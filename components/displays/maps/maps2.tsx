@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Map, Marker, GeoJson } from "pigeon-maps";
 
 const PigeonMaps = (props: any) => {

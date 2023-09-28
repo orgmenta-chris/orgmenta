@@ -14,7 +14,7 @@
 // />
 
 import * as Font from "expo-font";
-import React, { memo } from "react";
+import  { memo } from "react";
 import { ViewStyle } from "react-native";
 import {
   AntDesign,
@@ -83,7 +83,7 @@ export const ViewIconMain: React.FC<interfaceIconMain> = memo(
         name={name}
         size={size}
         color={color}
-        style={{ padding, ...style }}
+        style={{ padding, flex: 1,...style }}
       />
     );
   }

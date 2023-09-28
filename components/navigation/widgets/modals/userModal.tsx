@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SignIn from "../../../auth/signIn";
 import SignUp from "../../../auth/signUp";
-import React from "react";
 // import MSAL from "../../../auth/msal";
 
 // @ts-ignore

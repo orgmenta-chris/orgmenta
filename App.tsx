@@ -157,7 +157,13 @@ export default function App() {
                             }
                         />
                         <ViewRouterRoute
-                            path="entity/:entityid/:mode/*"
+                            path="entity/:entityid/:display"
+                            element={
+                                <ExecuteRouterNavigate to="display" replace />
+                            }
+                        />
+                        <ViewRouterRoute
+                            path="entity/:entityid/:display/*"
                             element={<Entity />}
                         />
                         {/* User Page */}

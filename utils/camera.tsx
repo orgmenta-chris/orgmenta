@@ -61,6 +61,8 @@ export const CameraComponent = ({}: any) => {
     if (!camera) return;
     const photo = await camera.takePictureAsync();
     alert("Photo taken! The uri is: \n\n" + photo.uri);
+
+    // NOTE: In this function we have not done anything with the photo (photo uri) - we are only showing that the photo has been taken.
   };
 
   const toggleCameraType = () => {

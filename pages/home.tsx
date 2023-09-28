@@ -503,10 +503,10 @@ export default function Home() {
                 </Text>
                 <Text>xyz</Text>
                 {/* Barcode Scanner (working) */}
-                {/* <BarCodeReaderComponent /> */}
+                <BarCodeReaderComponent />
 
                 {/* Camera (working) */}
-                <CameraComponent />
+                {/* <CameraComponent /> */}
               </View>
             </View>
             {/* temp spacer */}

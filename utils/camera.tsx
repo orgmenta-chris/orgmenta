@@ -4,16 +4,27 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { Camera, CameraType } from "expo-camera";
 
 export const BarCodeReaderComponent = ({}: any) => {
-  const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [hasPermission, setHasPermission] = useState(null);
+  const [startCamera, setStartCamera] = React.useState(false);
+
+  const __startCamera = async () => {
+    const { status } = await Camera.getCameraPermissionsAsync();
+    if (status === "granted") {
+      setStartCamera(true);
+    } else {
+      alert("Access denied");
+    }
+  };
+
+  const getBarCodeScannerPermissions = async () => {
+    const { status } = await BarCodeScanner.requestPermissionsAsync();
+    // @ts-ignore
+    setHasPermission(status === "granted");
+  };
 
   useEffect(() => {
-    const getBarCodeScannerPermissions = async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      // @ts-ignore
-      setHasPermission(status === "granted");
-    };
-
+    __startCamera();
     getBarCodeScannerPermissions();
   }, []);
 
@@ -31,12 +42,26 @@ export const BarCodeReaderComponent = ({}: any) => {
 
   return (
     <View style={styles.container}>
+      {startCamera && (
+        <Camera
+          style={styles.camera}
+          type={CameraType.back}
+          barCodeScannerSettings={{
+            barCodeTypes: [BarCodeScanner.Constants.BarCodeType.qr],
+          }}
+        />
+      )}
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && (
+      {scanned ? (
         <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
+      ) : (
+        <Button
+          title="Scan Bar Code / QR Code"
+          disabled={true}
+        />
       )}
     </View>
   );

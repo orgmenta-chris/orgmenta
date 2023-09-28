@@ -43,6 +43,7 @@ import { ViewOrgmentaModal } from "./utils/orgmenta";
 import { ViewBrowseModal } from "./utils/browse";
 import { ViewSpaceModal } from "./utils/space";
 import { ViewUserModal } from "./utils/user";
+import { ViewLandingPage } from "./utils/landing";
 
 export default function App() {
     usePlatformCssweb(); // shim to add css to web
@@ -54,6 +55,11 @@ export default function App() {
                 <ViewWindowMain>
                     <ViewOrgmentaHeader />
                     <ViewRouterRoutes>
+                        {/* Temp page for deployed website (landing page only, stips all other functionality out) */}
+                        {!__DEV__ &&
+                            <ViewRouterRoute path="/*" element={<ViewLandingPage />} />
+                        }
+                        {__DEV__ && <>
                         {/* Home Page */}
                         <ViewRouterRoute path="/" element={<Home />} />
                         {/* App Pages */}
@@ -211,6 +217,7 @@ export default function App() {
                             path="/*"
                             element={<ViewRouterLostpage />}
                         />
+                    </>}
                     </ViewRouterRoutes>
                     {/* Modals */}
                     <ViewSpaceModal />

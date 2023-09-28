@@ -1,3 +1,6 @@
+// This file may be split out into separate modules: 
+// Orgmentacompany, Orgmentaproduct, Orgmentacommunity.
+
 import { ViewCardExpandable } from "./card";
 import { ViewModalMain } from "./modal";
 import { ViewRouterLink } from "./router";

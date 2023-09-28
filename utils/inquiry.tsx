@@ -15,35 +15,35 @@ export const ViewInquiryMain = () => {
   const [state, set] = useState<TypeInquiryMain>({});
   const create = useInquiryCreate(state);
   return (
-    <ScrollView style={{ flexDirection: "column" }}>
+    <ScrollView style={{ flexDirection: "column"}}>
       {/* <Text>{JSON.stringify(state, null, 2)}</Text> */}
-      <View style={{ flexDirection: "row" }}>
-        <Text style={{height: 40, textAlignVertical:'center', flex: 1}}>Name: </Text>
+      <View style={{ flexDirection: "row", margin:5,   }}>
+        <Text style={{height: 30, textAlignVertical:'center', flex: 1}}>Name: </Text>
         <TextInput 
           value={state.name || ''}
-          style={{height: 40, textAlignVertical:'center', flex: 3, borderWidth:1}}
+          style={{height: 30, textAlignVertical:'center', flex: 3, borderWidth:1}}
           onChangeText={(newData)=>set({...state,name:newData})}
         />
       </View>
-      <View style={{ flexDirection: "row" }}>
-        <Text style={{height: 40, textAlignVertical:'center', flex: 1}}>Email*: </Text>
+      <View style={{ flexDirection: "row", margin:5,   }}>
+        <Text style={{height: 30, textAlignVertical:'center', flex: 1}}>Email*: </Text>
         <TextInput
           value={state.email || ''} 
-          style={{height: 40, textAlignVertical:'center', flex: 3, borderWidth:1}}
+          style={{height: 30, textAlignVertical:'center', flex: 3, borderWidth:1}}
           onChangeText={(newData)=>set({...state,email:newData})}
         />
       </View>
-      <View style={{ flexDirection: "row" }}>
-        <Text style={{height: 40, textAlignVertical:'center', flex: 1}}>Message*: </Text>
+      <View style={{ flexDirection: "row", margin:5,   }}>
+        <Text style={{height: 30, textAlignVertical:'center', flex: 1}}>Message*: </Text>
         <TextInput 
           value={state.message || ''}
-          style={{height: 40, textAlignVertical:'center', flex: 3, borderWidth:1}}
+          style={{height: 30, textAlignVertical:'center', flex: 3, borderWidth:1}}
           onChangeText={(newData)=>set({...state,message:newData})}
         />
       </View>
       <Pressable
           disabled={!state?.email || !state?.message}
-          style={{ backgroundColor: (state?.name && state?.message ) ? "lightblue" : "gray" }}
+          style={{ borderRadius:5, padding: 10, margin:5,  backgroundColor: (state?.email && state?.message ) ? "lightblue" : "gray" }}
           onPress={() => {
             create.mutate();
             set((old) => ({}));

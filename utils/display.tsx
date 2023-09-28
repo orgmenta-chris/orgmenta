@@ -2,7 +2,11 @@
 // It is a 'perspective into the graph'.
 // You can view entities and their relationships in different displays (e.g. Table, list, calendar) and filters.
 
-import { ViewRouterLink, ViewRouterLinkthemed, useRouterLocation } from "./router";
+import {
+  ViewRouterLink,
+  ViewRouterLinkthemed,
+  useRouterLocation,
+} from "./router";
 import { ViewFormDynamic } from "./form";
 import { ViewListMain } from "./list";
 import { ViewChartMain } from "./chart";
@@ -38,7 +42,7 @@ import ViewMapWeb from "../components/displays/maps/ViewDisplayMaps";
 // import ViewDisplayPods from "../components/displays/pods/ViewDisplayPods";
 // import ViewDisplayTable from "../components/displays/table/ViewDisplayTable";
 // import ViewJsonMain from "../components/displays/json/ViewJsonMain";
-import Timeline from "react-native-timeline-flatlist";
+import { ViewTimelineMain, TypeimelineMain } from "react-native-timeline-flatlist";
 import { Map, Marker, GeoJson } from "pigeon-maps";
 import {
   Calendar,
@@ -314,7 +318,7 @@ export const ViewDisplayCalendar = (props: any) => {
     swipeEnabled: true, // Enable swipe navigation
     weekStartsOn: 0, // Start the week on Sunday
     weekEndsOn: 6, // End the week on Saturday
-    onChangeDate: (dateRange) => {
+    onChangeDate: (dateRange:any) => {
       // Handle date range change
       console.log("Date range changed:", dateRange);
     },
@@ -371,18 +375,39 @@ export const ViewDisplayTimeline = (props: any) => {
     { time: "12:00", title: "Event 3", description: "Event 3 Description" },
     { time: "14:00", title: "Event 4", description: "Event 4 Description" },
     { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
   ];
 
   return (
-    <View style={{ maxHeight: 400 }}>
-      <Text style={{ fontSize: 25, marginBottom: 10 }}>Timeline</Text>
-      <Timeline data={data} />
+    <View style={{ height: "100%" }}>
+      <ViewTimelineMain
+        data={data}
+        style={{}}
+        descriptionStyle={{ color: "white" }}
+        // isUsingFlatlist={true}
+        // circleSize={20}
+        // circleColor='rgb(45,156,219)'
+        // lineColor='rgb(45,156,219)'
+        // timeContainerStyle={{minWidth:52, marginTop: -5}}
+        // timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
+      />
     </View>
   );
 };
 
 // Maps
-// Bring PigeonMaps (from components..../ViewDisplayMaps etc.) into a maps.tsx. 
+// Bring PigeonMaps (from components..../ViewDisplayMaps etc.) into a maps.tsx.
 // Also add the data into a useQuery so that it caches everything (including the image if possible?)
 export const ViewDisplayMaps = (props: any) => {
   const { customerAddress } = props; // this data could be geocoded into lat and long coordinates for them to be rendered on the map
@@ -472,13 +497,17 @@ export const mapDisplayComponents: any = {
 
 export const optionsDisplayMain = [
   { title: "Pods", iconName: "view-quilt", iconSource: "MaterialIcons" },
-  { title: "Form", iconName: "view-list-outline", iconSource: "MaterialCommunityIcons" },
+  {
+    title: "Form",
+    iconName: "view-list-outline",
+    iconSource: "MaterialCommunityIcons",
+  },
   { title: "List", iconName: "list", iconSource: "Feather" },
   { title: "Table", iconName: "table", iconSource: "AntDesign" },
-  { title: "Calendar", iconName: "calendar", iconSource: "Feather", },
-  { title: "Timeline", iconName: "timeline", iconSource: "MaterialIcons", },
-  { title: "Maps", iconName: "map", iconSource: "Feather", },
-  { title: "Chart", iconName: "piechart", iconSource: "AntDesign", },
+  { title: "Calendar", iconName: "calendar", iconSource: "Feather" },
+  { title: "Timeline", iconName: "timeline", iconSource: "MaterialIcons" },
+  { title: "Maps", iconName: "map", iconSource: "Feather" },
+  { title: "Chart", iconName: "piechart", iconSource: "AntDesign" },
   // { title: "Path", iconName: "share", iconSource: "Foundation", },
   // { title: "Json", iconName: "code-json", iconSource: "MaterialCommunityIcons"},
   // { title: "Kanban", iconName: "view-column", iconSource: "MaterialIcons"},
@@ -491,7 +520,7 @@ export const optionsDisplayMain = [
 // Tabs
 
 export const ViewDisplayTabs = ({ id }: any) => {
-  const display = useRouterLocation()?.paths[3]
+  const display = useRouterLocation()?.paths[3];
   return (
     <View
       style={{
@@ -500,16 +529,21 @@ export const ViewDisplayTabs = ({ id }: any) => {
       }}
     >
       {optionsDisplayMain?.map((x, i) => (
-        <View key={i} style={{flex: 1}}>
-          <ViewRouterLinkthemed 
+        <View key={i} style={{ flex: 1 }}>
+          <ViewRouterLinkthemed
             style={{
               padding: 5,
-              backgroundColor: display === x.title.toLowerCase() ? "gray" : "lightgray",
+              backgroundColor:
+                display === x.title.toLowerCase() ? "gray" : "lightgray",
             }}
             to={`entity/../../../${x.title.toLowerCase()}/display`}
           >
-            <View style={{alignItems:'center', flex: 1}}>
-              <ViewIconMain name={x.iconName} source={x.iconSource} color={"white"} />
+            <View style={{ alignItems: "center", flex: 1 }}>
+              <ViewIconMain
+                name={x.iconName}
+                source={x.iconSource}
+                color={"white"}
+              />
               <Text>{x.title}</Text>
             </View>
           </ViewRouterLinkthemed>

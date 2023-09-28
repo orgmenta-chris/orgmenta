@@ -188,6 +188,13 @@ And see https://github.com/search?q=repo%3Afacebook%2Freact-native+platform&type
 
 # Testing
 
+## In Development
+
+When you are coding, the following things may help to test / mock quicker.
+
+- Components sometimes need a parent with bounded height (for flex dimesnions), so if a component is not rendering, it is worth putting it in a `<View style={{height:400, width: 400}}>[component]</View>` to see if it then renders.
+- If you aren't sure whether Fast Refresh is working on Expo Go, it's easiest just to add a `<Text>test</Text>` component to the page you are looking at.
+
 ## Android Native
 
 - Install the Expo Go (https://expo.dev/client) app: https://play.google.com/store/apps/details?id=host.exp.exponent

@@ -85,6 +85,7 @@
 ## Files
 
 - We just use .tsx instead of any .ts or .js files (just for ease, standardisation, and to make it easier to add components to it later if needed)
+- We don't need to import react (i.e. don't worry about doing `import React from 'react`) - It's not needed in React v17 onwards ( the new JSX Transform allows you to use JSX without importing the React object).
 
 ## Naming conventions
 
@@ -194,6 +195,9 @@ When you are coding, the following things may help to test / mock quicker.
 
 - Components sometimes need a parent with bounded height (for flex dimesnions), so if a component is not rendering, it is worth putting it in a `<View style={{height:400, width: 400}}>[component]</View>` to see if it then renders.
 - If you aren't sure whether Fast Refresh is working on Expo Go, it's easiest just to add a `<Text>test</Text>` component to the page you are looking at.
+- `<Text>{JSON.stringify(data, null, 2)}</Text>` is very useful, especially for useQuery.
+- As is `console.log('data',data)`
+- Adding `style={{backgroundColor:'red'}}` is a quick way to check sizing etc.
 
 ## Android Native
 

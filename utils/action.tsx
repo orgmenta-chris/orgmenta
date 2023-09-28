@@ -131,7 +131,7 @@ export const ViewActionAdd = ({ auxiliary, schema, focus }: any) => {
       {/* <ViewFormDynamic data={data} /> */}
       <View style={{ flexDirection: "row" }}>
         <Pressable
-          disabled={!state?.title && true}
+          disabled={!state?.title}
           style={{ backgroundColor: state?.title ? "lightblue" : "gray" }}
           onPress={() => {
             create.mutate();

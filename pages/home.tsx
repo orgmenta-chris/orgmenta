@@ -5,12 +5,83 @@ import { Text, ScrollView, View, Image, ImageBackground } from "react-native";
 import { mapTypeMain } from "../utils/type";
 import Svg, { Path, G } from "react-native-svg";
 import { useWindowDimensions } from "../utils/window";
+import { ViewInquiryMain } from "../utils/contact";
 import { ViewStorageUpload } from "../components/playground/storageUpload";
 import VaultFunctions from "../components/playground/vaultFunctions";
+import { ViewTypographyTextthemed, ViewTypographyTextheading } from "../utils/typography";
 
 export default function Home() {
     const windowDimensions = useWindowDimensions();
-    return (
+    if(true){ return(
+        <ImageBackground
+            style={{ width: "100%", height: "100%" }}
+            source={require("../assets/background2.jpg")}
+            resizeMode="cover"
+        >
+            <View
+                style={{
+                    margin: 90,
+                    backgroundColor: "rgba(255, 255, 255, 0.9)",
+                    borderRadius: 5,
+                    position: "absolute",
+                    aspectRatio: 13 / 2,
+                    width: windowDimensions.width / 2 + 40,
+                    padding: 10,
+                    height: 250,
+                    alignSelf: "center",
+                    justifyContent: "center",
+                    top: windowDimensions.height / 2 - 400,
+                }}
+            >
+                <Image
+                    style={{
+                        resizeMode: "contain",
+                        width: "100%",
+                        height: 80,
+                    }}
+                    source={require("../assets/logo/full/color_cropped.png")}
+                />
+                <ViewTypographyTextthemed style={{color:'black', textAlign: "center", fontSize: 20 }}>
+                    The Business Operating System
+                </ViewTypographyTextthemed>
+                <Text
+                    style={{
+                        textAlign: "center",
+                        fontSize: 13,
+                        paddingTop: 10,
+                        fontStyle: "italic",
+                    }}
+                >
+                    {`Build, automate and manage your \n`}
+                    <Text style={{ fontWeight: "500", color: "#0c4a73" }}>
+                        <TextSwitcher />
+                    </Text>
+                    {`\nfrom a single pane of glass`}
+                </Text>
+            </View>
+            
+            <View
+                style={{
+                    margin: 90,
+                    backgroundColor: "rgba(255, 255, 255, 0.9)",
+                    borderRadius: 5,
+                    position: "absolute",
+                    aspectRatio: 13 / 2,
+                    width: windowDimensions.width / 2 + 40,
+                    padding: 10,
+                    height: 250,
+                    alignSelf: "center",
+                    // justifyContent: "center",
+                    top: windowDimensions.height / 2 - 100,
+                }}
+            >
+                <ViewTypographyTextheading style={{color:'black'}}>Coming Soon</ViewTypographyTextheading>
+                <ViewTypographyTextthemed>Register your interest:</ViewTypographyTextthemed>
+                <ViewInquiryMain/>
+            </View>    
+        </ImageBackground>
+    )}
+    else return (
         <ImageBackground
             style={{ width: "100%", height: "100%" }}
             source={require("../assets/background2.jpg")}
@@ -72,7 +143,8 @@ export default function Home() {
                         height: windowDimensions.height - 80,
                         backgroundColor: "green",
                     }}
-                ></View>
+                >
+                </View>
 
                 <View key={"product_overview"}>
                     <View

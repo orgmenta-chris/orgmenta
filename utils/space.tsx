@@ -217,7 +217,7 @@ export const useSpaceItem = ({ id }: interfaceSpaceItem) => {
         .single();
       return response.data;
     },
-    enabled: id && true,
+    enabled: !!id,
     // ...props
   } as UseQueryOptions<any[], unknown>); // Specify the expected types for data and error.
   return query;

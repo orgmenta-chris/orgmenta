@@ -7,6 +7,11 @@ import Svg, { Path, G } from "react-native-svg";
 import { useWindowDimensions } from "../utils/window";
 import { BarCodeReaderComponent, CameraComponent } from "../utils/camera";
 import { ClipboardCopy } from "../utils/clipboard";
+import { Notification, NotificationBody } from "../utils/notification";
+
+// const notificationBody: NotificationBody = {
+//   testMode: true,
+// };
 
 export default function Home() {
   const windowDimensions = useWindowDimensions();
@@ -511,6 +516,9 @@ export default function Home() {
 
                 {/* Clipboard copy (working) */}
                 {/* <ClipboardCopy /> */}
+
+                {/* Notification component (working) */}
+                {/* <Notification {...notificationBody} /> */}
               </View>
             </View>
             {/* temp spacer */}

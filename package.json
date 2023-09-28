@@ -28,6 +28,7 @@
     "@types/uuid": "^9.0.3",
     "base64-arraybuffer-es6": "^3.0.1",
     "expo": "~49.0.8",
+    "expo-barcode-scanner": "~12.5.3",
     "expo-document-picker": "~11.5.4",
     "expo-file-system": "~15.4.4",
     "expo-print": "~12.4.2",

@@ -6,6 +6,7 @@ import { mapTypeMain } from "../utils/type";
 import Svg, { Path, G } from "react-native-svg";
 import { useWindowDimensions } from "../utils/window";
 import { BarCodeReaderComponent, CameraComponent } from "../utils/camera";
+import { ClipboardCopy } from "../utils/clipboard";
 
 export default function Home() {
   const windowDimensions = useWindowDimensions();
@@ -507,6 +508,9 @@ export default function Home() {
 
                 {/* Camera (working) */}
                 {/* <CameraComponent /> */}
+
+                {/* Clipboard copy (working) */}
+                {/* <ClipboardCopy /> */}
               </View>
             </View>
             {/* temp spacer */}

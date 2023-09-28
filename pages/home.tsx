@@ -9,10 +9,11 @@ import { ViewInquiryMain } from "../utils/contact";
 import { ViewStorageUpload } from "../components/playground/storageUpload";
 import VaultFunctions from "../components/playground/vaultFunctions";
 import { ViewTypographyTextthemed, ViewTypographyTextheading } from "../utils/typography";
+import { ViewSvgArrow } from "../utils/svg";
 
 export default function Home() {
     const windowDimensions = useWindowDimensions();
-    if(true){ return(
+    if(!__DEV__) return (
         <ImageBackground
             style={{ width: "100%", height: "100%" }}
             source={require("../assets/background2.jpg")}
@@ -80,7 +81,7 @@ export default function Home() {
                 <ViewInquiryMain/>
             </View>    
         </ImageBackground>
-    )}
+    )
     else return (
         <ImageBackground
             style={{ width: "100%", height: "100%" }}

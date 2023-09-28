@@ -8,6 +8,7 @@ import { useWindowDimensions } from "../utils/window";
 import { BarCodeReaderComponent, CameraComponent } from "../utils/camera";
 import { ClipboardCopy } from "../utils/clipboard";
 import { Notification, NotificationBody } from "../utils/notification";
+import { PlaySoundComponent, PlayVideoComponent, RecordSoundComponent } from "../utils/av";
 
 // const notificationBody: NotificationBody = {
 //   testMode: true,
@@ -519,6 +520,17 @@ export default function Home() {
 
                 {/* Notification component (working) */}
                 {/* <Notification {...notificationBody} /> */}
+
+                {/* Play sound (working) */}
+                {/* <PlaySoundComponent /> */}
+
+
+                {/* Record sound (working) */}
+                {/* <RecordSoundComponent /> */}
+                
+                
+                {/* Play video (working) */}
+                {/* <PlayVideoComponent /> */}
               </View>
             </View>
             {/* temp spacer */}

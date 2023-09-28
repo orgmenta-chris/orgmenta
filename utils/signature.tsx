@@ -1,4 +1,6 @@
 //https://www.npmjs.com/package/react-native-signature-canvas
+// https://github.com/YanYuanFE/react-native-signature-canvas/issues/203 (update issue to resolve)
+
 
 import { useRef } from "react";
 import SignatureScreen from "react-native-signature-canvas";

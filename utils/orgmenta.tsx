@@ -587,8 +587,10 @@ export const ViewOrgmentaProduct = ({}: any) => {
                     As an employee, I want to be able to see a timeline of what I and my colleagues have done.
                     
                     
-                    
                     --- MEDIUM PRIORITY ----
+
+                    Keyboard shortcuts
+                    As a general user, I want to be able to use keyboard shortcuts to navigate the app.
                     
                     Natural Language Notes with Links
                     As a user, I want to be able to write notes/descriptions in the entities, and include references/relationships (to other entities, with their attribute/relationship type) in them.

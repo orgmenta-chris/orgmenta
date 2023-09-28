@@ -30,6 +30,7 @@
     "base64-arraybuffer-es6": "^3.0.1",
     "expo": "~49.0.8",
     "expo-crypto": "^12.6.0",
+    "expo-dev-client": "~2.4.11",
     "expo-document-picker": "~11.5.4",
     "expo-file-system": "~15.4.4",
     "expo-print": "^12.6.0",

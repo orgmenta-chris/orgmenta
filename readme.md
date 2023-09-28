@@ -254,13 +254,21 @@ todo
 
 ## Web
 
+### Github-to-Netlify (active)
+
+- The main branch on github automatically deploys to Netlify.
+
+### Manual (not in use)
+
 - `expo build:web` then
 - Copy redirect file into web-build folder (Ctrl + drag the `_redirects` file into the web-build build folder)
 - `netlify deploy --prod`
 
 ## Android
 
-- (TODO)
+### Eas remote
+
+- `eas build -p android --profile [name of profile in eas.json that you want to build]`
 
 ## iOS
 
@@ -268,15 +276,20 @@ todo
 
 ## MS Windows
 
-- (TODO) - run an expo prebuild first then use the react-native-windows package.
+- (TODO) - Use the react-native-windows package.
 
 ## MacOS
 
-- (TODO) - run an expo prebuild first then use the react-native-windows package.
+- (TODO) -Use the react-native-windows package.
 
 ## Linux
 
-- (Not planned)
+- (Not planned at this stage, unless we ever deploy server side apps for clients e.g. for hosting phoning home etc.)
+
+## Other
+
+- If we need to write native modules (android/apple), then we may need to run an expo prebuild first (note that 'prebuild' is now used instead of 'eject' that older expo versions used)
+- But, prebuild/eject is not needed as much these days, so this might never be needed.
 
 # Database
 
@@ -328,3 +341,8 @@ If queries start timing out / taking too long:
 {
 
 }
+
+# General Learning References
+
+- https://github.com/hayanisaid/React-Native-developer-roadmap
+- https://roadmap.sh/react-native

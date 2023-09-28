@@ -5,7 +5,6 @@ import { Text, ScrollView, View, Image, ImageBackground } from "react-native";
 import { mapTypeMain } from "../utils/type";
 import Svg, { Path, G } from "react-native-svg";
 import { useWindowDimensions } from "../utils/window";
-import { ViewInquiryMain } from "../utils/inquiry";
 import { ViewStorageUpload } from "../components/playground/storageUpload";
 import VaultFunctions from "../components/playground/vaultFunctions";
 import {

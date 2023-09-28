@@ -30,3 +30,4 @@ export const ViewMapMobile = () => {
 // const apikey = process.env.GOOGLE_MAPS_API_KEY
 // Integrate API key into the map.
 // NOTDONE: https://github.com/react-native-web-community/react-native-web-maps
+// https://github.com/react-native-maps/react-native-maps/blob/master/docs/installation.md

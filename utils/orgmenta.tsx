@@ -593,6 +593,12 @@ export const ViewOrgmentaProduct = ({}: any) => {
                     
                     Inventory Management
                     As a procurement manager, I want real-time inventory tracking within the PSA for hardware and software assets.
+
+                    Stock Take
+                    As a procurement manager, I want barcode scanning and other features to make stock take easy
+                    
+                    Signatures/Signoff
+                    As an account manager, I want the client to be able to sign off on a proposal.
                     
                     Client Portal
                     As a client, I want to log into my MSPs portal and see all open tickets, discussions, configurations, proposals etc.

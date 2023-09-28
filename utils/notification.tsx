@@ -52,18 +52,27 @@ const registerForPushNotificationsAsync = async () => {
   return token;
 };
 
-const schedulePushNotification = async () => {
+export const schedulePushNotification = async (props: any) => {
+  const { title, body, data } = props;
+
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: "You've got mail! 📬",
-      body: "Here is the notification body",
-      data: { data: "goes here" },
+      title,
+      body,
+      data,
     },
     trigger: { seconds: 2 },
   });
 };
 
-export const Notification = () => {
+export interface NotificationBody {
+  testMode: boolean;
+  CustomNotificationBody?: React.ComponentType<any>;
+}
+
+export const Notification = (props: NotificationBody) => {
+  const { testMode, CustomNotificationBody } = props;
+
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
@@ -96,42 +105,52 @@ export const Notification = () => {
     };
   }, []);
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Push Notification Example</Text>
-      <Text>Your expo push token:</Text>
-      <Text style={styles.token}>{expoPushToken}</Text>
-      <View style={styles.notificationContainer}>
-        <Text style={styles.notificationTitle}>
-          Title:{" "}
-          {
-            // @ts-ignore
-            notification && notification.request.content.title
-          }
-        </Text>
-        <Text style={styles.notificationBody}>
-          Body:{" "}
-          {
-            // @ts-ignore
-            notification && notification.request.content.body
-          }
-        </Text>
-        <Text style={styles.notificationData}>
-          Data:{" "}
-          {
-            // @ts-ignore
-            notification && JSON.stringify(notification.request.content.data)
-          }
-        </Text>
+  if (testMode === true && !CustomNotificationBody) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.header}>Push Notification Example</Text>
+        <Text>Your expo push token:</Text>
+        <Text style={styles.token}>{expoPushToken}</Text>
+        <View style={styles.notificationContainer}>
+          <Text style={styles.notificationTitle}>
+            Title:{" "}
+            {
+              // @ts-ignore
+              notification && notification.request.content.title
+            }
+          </Text>
+          <Text style={styles.notificationBody}>
+            Body:{" "}
+            {
+              // @ts-ignore
+              notification && notification.request.content.body
+            }
+          </Text>
+          <Text style={styles.notificationData}>
+            Data:{" "}
+            {
+              // @ts-ignore
+              notification && JSON.stringify(notification.request.content.data)
+            }
+          </Text>
+        </View>
+        <Button
+          title="Press to schedule a notification"
+          onPress={async () => {
+            await schedulePushNotification({
+              title: "You've got mail! 📬",
+              body: "Here is the notification body",
+              data: { data: "goes here" },
+            });
+          }}
+        />
       </View>
-      <Button
-        title="Press to schedule a notification"
-        onPress={async () => {
-          await schedulePushNotification();
-        }}
-      />
-    </View>
-  );
+    );
+  }
+
+  if (testMode === false && CustomNotificationBody) {
+    return <CustomNotificationBody />;
+  }
 };
 
 const styles = StyleSheet.create({

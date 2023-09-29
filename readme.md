@@ -106,6 +106,8 @@
 - types must start with 'Type' (uppercase T)
 - react-specific utility functions that perform an action must start with 'Execute' (uppercase E)
 - react-specific utility objects that have a method must start with 'Utility' (uppercase U)
+- General syncronous functions must start with 'do' (lowercase). See crypto.tsx for examples.
+- General async functions must start with 'async' (lowercase). See crypto.tsx for examples.
 
 ## Module Structure
 
@@ -303,6 +305,7 @@ If queries start timing out / taking too long:
 - Ensure appropriate indexing on the remote database table/view
 - If needed, a supabase function/trigger? can be used to copy information from the relationship table to the entities table (e.g. a countofactiveparents calculation). This is a last resort and should only be implemented after discussion.
 - If needed, a supabase function/trigger? can be used to copy information from the relationship / entities table to a unique table of its own. This is a last resort and should only be implemented after discussion.
+- We can archive 'cancelled' and 'completed' entities&relationships into their own table (not wanted - last resort only.). Or, we can create an 'archived' status which triggers the entity/rel's migration into the archive tables (again, last resort only)
 
 <!-- ----------------- -->
 

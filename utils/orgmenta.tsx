@@ -1,4 +1,4 @@
-// This file may be split out into separate modules: 
+// This file may be split out into separate modules:
 // Orgmentacompany, Orgmentaproduct, Orgmentacommunity.
 
 import { ViewCardExpandable } from "./card";
@@ -392,12 +392,12 @@ export const ViewOrgmentaRoadmap = ({}: any) => {
 };
 
 export const ViewOrgmentaCompare = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>Compare</ViewTypographyTextheading>
-                <Text>
-                    {`Compare to other products
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Compare</ViewTypographyTextheading>
+        <Text>
+          {`Compare to other products
                     ServiceNow
                     ConnectWise Manage/PSA
                     Autotask
@@ -418,36 +418,32 @@ export const ViewOrgmentaCompare = ({}: any) => {
                     Thread (https://www.getthread.com/)
                     Microsoft Dynamics
                     `}
-                </Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+        </Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };
 
 export const ViewOrgmentaIndustries = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>
-                    Industries
-                </ViewTypographyTextheading>
-                <Text>
-                    {`Use case by industry (just show entities from Orgmenta>Product>Catalog>Offerings>UseCases)`}
-                </Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Industries</ViewTypographyTextheading>
+        <Text>
+          {`Use case by industry (just show entities from Orgmenta>Product>Catalog>Offerings>UseCases)`}
+        </Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };
 
 export const ViewOrgmentaFrameworks = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>
-                    Methodologies
-                </ViewTypographyTextheading>
-                <Text>
-                    {`
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Methodologies</ViewTypographyTextheading>
+        <Text>
+          {`
                     Standards, Libraries, Frameworks and Methodologies (how to use Orgmenta with these libraries goes here)
                     ITIL
                     PRINCE2
@@ -459,30 +455,102 @@ export const ViewOrgmentaFrameworks = ({}: any) => {
                     Agile, agile, Scrum & SAFe
                     Waterfall
                     `}
-                </Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+        </Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };
 
 export const ViewOrgmentaProduct = ({}: any) => {
-    const theme = useThemeToken("orgmentaproduct");
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>Product</ViewTypographyTextheading>
-                <Text style={theme}>
-                    {`//////////////////////
+  const theme = useThemeToken("orgmentaproduct");
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Product</ViewTypographyTextheading>
+        <Text style={theme}>
+          {`//////////////////////
+                    NEEDS/REQUIREMENTS
+                    
+                    --- HIGH PRIORITY ----
+                    
+                    Data Loss
+                    - Never lose information. Time entries shouldn't lose or jumble text. As an employee I want to feel secure in typing directly into the app, such that if I lost internet or accidentally closed it, it would still be there upon return.
+                    - Feedback on changes - If I make a change, I want to see that change immediately with its status (indicators/spinners, loading messages etc.)
+                    - An intuitive interface where buttons and other components are where I expect them to be, and not bounce around on the screen.
+                    
+                    Support from Orgmenta
+                    - An available account manager and support system that is responsive and valuable.
+                    - No bargaining with account managers or sales. No unrequested sales calls. no spam messages.
+                    
+                    Relationship w/ Orgmenta /Orgmenta Ethics
+                    - No theft of my clients by my PSA company.
+                    - I want to believe in my PSA company, and not feel weird about their behavior or ethics.
+                    - No chance of the PSA company being compromised or selling out to VCs that have 'pump n dump' priorities. <-- Add canaries to promises/features/roadmaps, to burn chances of this happening without compromising investment possibilities?
+                    
+                    Community 
+                    - Get advice - 'what do other MSPs do?". PSA companies are in a good position for a high level view of the industry.
+                    
+                    Uptime
+                    As a user, I want as close to 100% uptime as is reasonably possible.
+                    
+                    Speed
+                    As a user, I want as close to instant data retrieval as is reasonably possible. (and instant UI changes).
+                    Immediate Response: 0-100 milliseconds - Perceived as instant, maintaining a feeling of direct manipulation.
+                    Fast Response: 100-300 milliseconds - Still perceived as reactive, but not as instantaneous.
+                    Noticeable Delay: 300-1000 milliseconds - Users notice a delay and may become slightly annoyed.
+                    Task Interruption: 1000+ milliseconds - The user's flow is interrupted, and they become increasingly frustrated.
+                    - A quick application that loads within 3 seconds, and each page in under a second.
+
+                    Transparency and Honesty
+                    As a client purchaser/billing approver, I want to see the Orgmenta roadmap and business plan.
+                    As a customer of a client, I want to see that Orgmenta is a trustworthy platform.
+
+                    Orgmenta Pricing& Billing: Clear, Transparent, Cheap Billing
+                    - Simple transparent billing with no unexpected charges
+                    - Simple licensing - by adding a user, automatically add a license. 
+                    - No multi-year lock in, tricksy contracts, unethical fine print, unanncounced contract renewals.
+
+                    Dependable, intuitive UI
+                    As a user, I want buttons where I expect them to be. I don't want marketing popups from Orgmenta. I don't want nag screens. I don't want buttons or other UI elements to jump around the page.
+                    - No popups or other forced overlays/components that prevent my usual flow. No cluttered interfaces with information that I don't need.
+
+                    API and Integrations
+                    As an administrator, I want a well-documented API to integrate third-party solutions.
+                    As a manager, I want to integrate with existing CRM, ERP, and other systems to centralize data.
+                    
+                    Value /ROI / Enable me / Be an exoskeleton
+                    As a user, the app should empower me to do my job better than with any other tool or if I was not using a tool. 
+
+
+                    ////////////////
+                    PARADIGMS
+                    The following are paradigms that the app is using. These are eposed to the client side to some extent. 
+                    If trials indicate that this does not work for the UX, then these paradigms can be made backend only (i.e. not expose the user to them as necessary).
+                    - Data structure: Node-Edge, 2-table paradigm instead of statically defined tables 
+                    - Displays: Data displays that the user can toggle between at will (to be restricted as necessary if users say they have 'TOO MUCH choice'/causes confusion)
+                    - Category/Modules/Business Framework
+                    - Dynamic attributes
+                    - TechStack - react native stack 
+                    - 'ViewRouterLink anything to anything' (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)
+                    - Custom attributes/properties on entities (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)
+                    
+                    ////////////////
                     FEATURES (AND USE CASES)
                     
                     (this static data will be replaced with data from Orgmenta's space > product > catalog)
                     
                     --- HIGH PRIORITY ----
-                    
                     Email (and other media) Connectors
                     As a dispatcher, I want client enquiries to automatically create a ticket or update a relevant existing ticket.
                     As a client, I want to be able to submit tickets through multiple channels (email, chat, phone) efficiently and minimise the time for it to be triaged, assigned and resolved.
                     
+                    URL Parameters
+                    The user should be able to use a url with 'action' parameters in it, in order to prepopulate an action form.
+                    For example, add/title=example&type=Event should prepopulate a 
+                    This means that the action tabs must be accessible via url.
+                    As a user, I want to streamline my workflow, add bookmarks etc.
+                    As an Orgmenta employee, I want to be able to guide users to a specific screen/display/state very easily.
+
                     Ticket Management
                     As an administrator, I want to automatically categorize incoming tickets based on keywords, so they can be triaged effectively.
                     As a technician, I want to view all my tickets on a single dashboard, so I can prioritize them based on SLA.
@@ -533,7 +601,7 @@ export const ViewOrgmentaProduct = ({}: any) => {
                     As a technician, I want notifications for approaching SLA deadlines.
                     As a client, I want a report on SLA compliance for the services rendered.
                     
-                    Compliance & Security
+                    Compliance & Security Management
                     As an administrator, I want robust security features like 2FA and data encryption.
                     As a manager, I want compliance reports to adhere to standards such as GDPR, HIPAA, etc.
                     As a client, I want assurance that my data is being handled securely.
@@ -554,10 +622,6 @@ export const ViewOrgmentaProduct = ({}: any) => {
                     As a sales executive, I want to manage and renew client contracts within the PSA.
                     As a manager, I want to set automated reminders for upcoming contract renewals.
                     
-                    API and Integrations
-                    As an administrator, I want a well-documented API to integrate third-party solutions.
-                    As a manager, I want to integrate with existing CRM, ERP, and other systems to centralize data.
-                    
                     Mobile Accessibility
                     As a technician, I want a mobile-friendly interface or app to update tickets while in the field.
                     As a client, I want to access ticket status and updates via a mobile application.
@@ -566,7 +630,7 @@ export const ViewOrgmentaProduct = ({}: any) => {
                     As a manager, I want to automatically send CSAT surveys upon ticket resolution.
                     As an executive, I want to see customer satisfaction metrics in my KPI dashboard.
                     
-                    Internal Communication
+                    Internal Communications Tool
                     As a technician, I want an internal chat function to collaborate with team members.
                     As a manager, I want a communication log to track internal discussions related to tickets.
                     
@@ -670,7 +734,7 @@ export const ViewOrgmentaProduct = ({}: any) => {
                     
                     Gamification
                     As a manager, I want to incorporate gamification elements to motivate and engage technicians.
-                    As a technician, I want [THE OPTION] to earn rewards or recognition for achieving performance milestones [THAT IS NON-MANDATORY AND DOES NOT AFFECT PERFORMANCE ASSESSMENTS]. <-- CONTENTIOUS.
+                    As a technician, I [MAY] want [THE OPTION] to earn rewards or recognition for achieving performance milestones [THAT IS NON-MANDATORY AND DOES NOT AFFECT PERFORMANCE ASSESSMENTS]. <-- CONTENTIOUS.
                     (Or just make it a pleasant app to use.)
                     
                     Payment Processing
@@ -698,7 +762,7 @@ export const ViewOrgmentaProduct = ({}: any) => {
                     As a client, I want to be able to see the status of all our services in a single pane.
                     (like statuspage or updown.io)
                     
-                    ViewRouterLink Page
+                    Link Page
                     As an employee or business, I want to have a collated contact page or landing page.
                     (like link tree or leaf page)
                     
@@ -706,211 +770,169 @@ export const ViewOrgmentaProduct = ({}: any) => {
                     As an MSP, we want to be able to single-click publish our corporate website and not worry about hosting, domains or pricing.
                     As an MSP, we want to be able to make entities 'published' and public facing, and automatically go onto the correct page of our website (e.g. news, roadmap)
                     
-                    ViewRouterLink shortener
+                    Link shortener
                     As an MSP, we want a bespoke url shortener that we and our clients can use.
                     
-                    //////////////////////
-                    NEEDS/REQUIREMENTS
                     
-                    --- HIGH PRIORITY ----
-                    
-                    - Never lose information. Time entries shouldn't lose or jumble text. As an employee I want to feel secure in typing directly into the app, such that if I lost internet or accidentally closed it, it would still be there upon return.
-                    - No popups or other forced overlays/components that prevent my usual flow. No cluttered interfaces with information that I don't need.
-                    - A quick application that loads within 3 seconds, and each page in under a second.
-                    - Feedback on changes - If I make a change, I want to see that change immediately with its status (indicators/spinners, loading messages etc.)
-                    - An intuitive interface where buttons and other components are where I expect them to be, and not bounce around on the screen.
-                    - Simple transparent billing with no unexpected charges
-                    - An available account manager and support system that is responsive and valuable.
-                    - Simple licensing - by adding a user, automatically add a license. 
-                    - No bargaining with account managers or sales. No unrequested sales calls. no spam messages.
-                    - No theft of my clients by my PSA company.
-                    - No multi-year lock in, tricksy contracts, unethical fine print, unanncounced contract renewals.
-                    - I want to believe in my PSA company, and not feel weird about their behavior or ethics.
-                    - No chance of the PSA company being compromised or selling out to VCs that have 'pump n dump' priorities. <-- Add canaries to promises/features/roadmaps, to burn chances of this happening without compromising investment possibilities?
-                    
-                    
-                    --- MEDIUM PRIORITY ----
-                    
-                    - Get advice - 'what do other MSPs do?". PSA companies are in a good position for a high level view of the industry.
-                    
-                    --- LOW PRIORITY ----
-                    
-                    ////////////////
-                    PARADIGMS
-                    The following are paradigms that the app is using. These are eposed to the client side to some extent. 
-                    If trials indicate that this does not work for the UX, then these paradigms can be made backend only (i.e. not expose the user to them as necessary).
-                    - Data structure: Node-Edge, 2-table paradigm instead of statically defined tables 
-                    - Displays: Data displays that the user can toggle between at will (to be restricted as necessary if users say they have 'TOO MUCH choice'/causes confusion)
-                    - Category/Modules/Business Framework
-                    - Dynamic attributes
-                    - TechStack - react native stack 
-                    - 'ViewRouterLink anything to anything' (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)
-                    - Custom attributes/properties on entities (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)
                     `}
-                </Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+        </Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };
 
 // Company Pages
 
 export const ViewOrgmentaAbout = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>About</ViewTypographyTextheading>
-                <Text>{`Company information goes here`}</Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>About</ViewTypographyTextheading>
+        <Text>{`Company information goes here`}</Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };
 
 export const ViewOrgmentaPrivacy = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>Privacy</ViewTypographyTextheading>
-                <Text>{`Privacy policy goes here`}</Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Privacy</ViewTypographyTextheading>
+        <Text>{`Privacy policy goes here`}</Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };
 
 export const ViewOrgmentaTerms = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>Terms</ViewTypographyTextheading>
-                <Text>{`Terms & Conditions go here`}</Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Terms</ViewTypographyTextheading>
+        <Text>{`Terms & Conditions go here`}</Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };
 
 export const ViewOrgmentaSocials = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>Socials</ViewTypographyTextheading>
-                <Text>
-                    {`
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Socials</ViewTypographyTextheading>
+        <Text>
+          {`
                     LINKS
                     Social media related here.
 
                     FEED
                     Feed of social media posts here 
                     `}
-                </Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+        </Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };
 
 export const ViewOrgmentaContact = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>Contact</ViewTypographyTextheading>
-                <Text>
-                    {`Contact Us
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Contact</ViewTypographyTextheading>
+        <Text>
+          {`Contact Us
                     Contact form goes here`}
-                </Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+        </Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };
 
 export const ViewOrgmentaPartner = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>Partners</ViewTypographyTextheading>
-                <Text>
-                    {`
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Partners</ViewTypographyTextheading>
+        <Text>
+          {`
                     Partner With Us
                     Contact form goes here
 
                     Our Partners
                     List of partners goes here
                     `}
-                </Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+        </Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };
 
 // Community Pages
 
 export const ViewOrgmentaNews = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>News</ViewTypographyTextheading>
-                <Text>
-                    {`
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>News</ViewTypographyTextheading>
+        <Text>
+          {`
                     NEWS
                     `}
-                </Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+        </Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };
 
 export const ViewOrgmentaForums = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>Forums</ViewTypographyTextheading>
-                <Text>{`Community forums / discussion boards go here`}</Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Forums</ViewTypographyTextheading>
+        <Text>{`Community forums / discussion boards go here`}</Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };
 
 export const ViewOrgmentaGuides = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>Guides</ViewTypographyTextheading>
-                <Text>
-                    {`Guides, tutorials, instructions, how-tos etc. go here`}
-                </Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Guides</ViewTypographyTextheading>
+        <Text>{`Guides, tutorials, instructions, how-tos etc. go here`}</Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };
 
 export const ViewOrgmentaWhitepapers = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>
-                    White Papers
-                </ViewTypographyTextheading>
-                <Text>{`White papers, justifications etc. go here`}</Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>White Papers</ViewTypographyTextheading>
+        <Text>{`White papers, justifications etc. go here`}</Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };
 
 export const ViewOrgmentaEnhancements = ({}: any) => {
-    return (
-        <ViewPageMain>
-            <ScrollView>
-                <ViewTypographyTextheading>
-                    Enhancements
-                </ViewTypographyTextheading>
-                <Text>
-                    {`
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Enhancements</ViewTypographyTextheading>
+        <Text>
+          {`
                     Request a feature or other enhancement
                     Enhacement request form goes here
 
                     Enhancement Requests
                     Enhacement request list goes here, showing status (whether reviewed, addded to roadmap etc.)
                     `}
-                </Text>
-            </ScrollView>
-        </ViewPageMain>
-    );
+        </Text>
+      </ScrollView>
+    </ViewPageMain>
+  );
 };

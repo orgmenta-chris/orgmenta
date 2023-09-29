@@ -5,6 +5,8 @@ import { Text, ScrollView, View, Image, ImageBackground } from "react-native";
 import { mapTypeMain } from "../utils/type";
 import Svg, { Path, G } from "react-native-svg";
 import { useWindowDimensions } from "../utils/window";
+import { ViewCryptoExample } from "../utils/crypto";
+
 import { ViewStorageUpload } from "../components/playground/storageUpload";
 import VaultFunctions from "../components/playground/vaultFunctions";
 import {
@@ -16,7 +18,7 @@ import { UseBarcodeReader, UseCamera } from "../utils/camera";
 import { UseClipboardCopy } from "../utils/clipboard";
 import { NotificationBody, UseNotification } from "../utils/notification";
 import { UseSoundPlayer, UseSoundRecorder, UseVideoPlayer } from "../utils/av";
-
+import { ViewScreenRecorder } from '../utils/recorder'
 
 export default function Home() {
   const windowDimensions = useWindowDimensions();
@@ -447,152 +449,156 @@ export default function Home() {
             </View>
           </View>
 
-            {/* temp spacer */}
-            <View style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}>
-              <View
-                style={{
-                  backgroundColor: "rgba(0, 0, 0, 0.1)",
-                  borderColor: "rgba(0, 0, 0, 0.15)",
-                  borderWidth: 1,
-                  flexDirection: "column",
-                  width: "100%",
-                }}
-              >
-                <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
-                  Contact Form
-                </Text>
-                <Text>xyz</Text>
-                <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
-                  Overview
-                </Text>
-                <Text>Clear, transparent pricing</Text>
-                <Text>
-                  No mandatory demo or sales pressure, just sign up and use it
-                </Text>
-                <Text>
-                  (But sign up for a demo here if you want one [link])
-                </Text>
-                <Text>
-                  Dedicated Account Manager who will never abandon you or charge
-                  for their time
-                </Text>
-                <Text>24/7 Support</Text>
-                <Text>Consulting packages available for bespoke requests</Text>
-                <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
-                  Pricing
-                </Text>
-                <Text>xyz</Text>
-                <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
-                  Entity Types
-                </Text>
-                <Text>
-                  All your entities and their relationships brought into the hub
-                </Text>
-                <Text style={{ fontStyle: "italic" }}>
-                  {mapTypeMain.map((x) => x.display_plural).join(" <--> ")}
-                </Text>
-                <Text>Link Anything To Anything</Text>
-                <Text>
-                  No restrictions - link any contact, to any event, to any task,
-                  to any location, to any reference, to any item
-                </Text>
-                <Text>(Example screenshot here)</Text>
-                <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
-                  Features
-                </Text>
-                <Text>Business Management</Text>
-                <Text>Projects & Service Tickets</Text>
-                <Text>Accounting & Finance</Text>
-                <Text>Procurement and stock management</Text>
-                <Text>Invoice your agreements and sales to your customers</Text>
-                <Text>Employee management and productivity</Text>
-                <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
-                  Benefits
-                </Text>
-                <Text>
-                  Integrated Services (outsource your work to on-demand
-                  technical experts)
-                </Text>
-                <Text>MSP Community (peer/expert discussions and groups)</Text>
-                <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
-                  Integrations
-                </Text>
-                <Text>Productivity</Text>
-                <Text>- Microsoft</Text>
-                <Text>- Google Workspace / Gsuite</Text>
-                <Text>- Zapier</Text>
-                <Text>Remote Monitoring Systems</Text>
-                <Text>- ConnectWise Automate (LabTech)</Text>
-                <Text>- Datto RMM (Kaseya)</Text>
-                <Text>- SolarWinds N-Central</Text>
-                <Text>Vendors</Text>
-                <Text>- Pax8</Text>
-                <Text>- Datto Commerce</Text>
-                <Text>- Ingram Micro</Text>
-                <Text>- Dicker Data</Text>
-                <Text>- Tech Data</Text>
-                <Text>- Rhipe</Text>
-                <Text>- Synnex</Text>
-                <Text>Finance</Text>
-                <Text>- Xero</Text>
-                <Text>- QuickBooks</Text>
-                <Text>- Myob</Text>
-                <Text>- WaveApps</Text>
-                <Text>- Dicker Data</Text>
-                <Text>- Tech Data</Text>
-                <Text>- Rhipe</Text>
-                <Text>- Synnex</Text>
-                <Text>Import / Export</Text>
-                <Text>- CSV</Text>
-                <Text>- Xlsx</Text>
-                <Text>- xml / RSS</Text>
-                <Text>- Postgres/SQLite.</Text>
-                <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
-                  Contact Form
-                </Text>
-                <Text>xyz</Text>
-                {/* Barcode Scanner (working) */}
-                {/* <UseBarcodeReader /> */}
+          {/* temp spacer */}
+          <View style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}>
+            <View
+              style={{
+                backgroundColor: "rgba(0, 0, 0, 0.1)",
+                borderColor: "rgba(0, 0, 0, 0.15)",
+                borderWidth: 1,
+                flexDirection: "column",
+                width: "100%",
+              }}
+            >
+              <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
+                Contact Form
+              </Text>
+              <Text>xyz</Text>
+              <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
+                Overview
+              </Text>
+              <Text>Clear, transparent pricing</Text>
+              <Text>
+                No mandatory demo or sales pressure, just sign up and use it
+              </Text>
+              <Text>(But sign up for a demo here if you want one [link])</Text>
+              <Text>
+                Dedicated Account Manager who will never abandon you or charge
+                for their time
+              </Text>
+              <Text>24/7 Support</Text>
+              <Text>Consulting packages available for bespoke requests</Text>
+              <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
+                Pricing
+              </Text>
+              <Text>xyz</Text>
+              <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
+                Entity Types
+              </Text>
+              <Text>
+                All your entities and their relationships brought into the hub
+              </Text>
+              <Text style={{ fontStyle: "italic" }}>
+                {mapTypeMain.map((x) => x.display_plural).join(" <--> ")}
+              </Text>
+              <Text>Link Anything To Anything</Text>
+              <Text>
+                No restrictions - link any contact, to any event, to any task,
+                to any location, to any reference, to any item
+              </Text>
+              <Text>(Example screenshot here)</Text>
+              <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
+                Features
+              </Text>
+              <Text>Business Management</Text>
+              <Text>Projects & Service Tickets</Text>
+              <Text>Accounting & Finance</Text>
+              <Text>Procurement and stock management</Text>
+              <Text>Invoice your agreements and sales to your customers</Text>
+              <Text>Employee management and productivity</Text>
+              <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
+                Benefits
+              </Text>
+              <Text>
+                Integrated Services (outsource your work to on-demand technical
+                experts)
+              </Text>
+              <Text>MSP Community (peer/expert discussions and groups)</Text>
+              <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
+                Integrations
+              </Text>
+              <Text>Productivity</Text>
+              <Text>- Microsoft</Text>
+              <Text>- Google Workspace / Gsuite</Text>
+              <Text>- Zapier</Text>
+              <Text>Remote Monitoring Systems</Text>
+              <Text>- ConnectWise Automate (LabTech)</Text>
+              <Text>- Datto RMM (Kaseya)</Text>
+              <Text>- SolarWinds N-Central</Text>
+              <Text>Vendors</Text>
+              <Text>- Pax8</Text>
+              <Text>- Datto Commerce</Text>
+              <Text>- Ingram Micro</Text>
+              <Text>- Dicker Data</Text>
+              <Text>- Tech Data</Text>
+              <Text>- Rhipe</Text>
+              <Text>- Synnex</Text>
+              <Text>Finance</Text>
+              <Text>- Xero</Text>
+              <Text>- QuickBooks</Text>
+              <Text>- Myob</Text>
+              <Text>- WaveApps</Text>
+              <Text>- Dicker Data</Text>
+              <Text>- Tech Data</Text>
+              <Text>- Rhipe</Text>
+              <Text>- Synnex</Text>
+              <Text>Import / Export</Text>
+              <Text>- CSV</Text>
+              <Text>- Xlsx</Text>
+              <Text>- xml / RSS</Text>
+              <Text>- Postgres/SQLite.</Text>
+              <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
+                Contact Form
+              </Text>
+              <Text>xyz</Text>
+              {/* Barcode Scanner (working) */}
+              {/* <UseBarcodeReader /> */}
 
-                {/* Camera (working) */}
-                {/* <UseCamera /> */}
+              {/* Camera (working) */}
+              {/* <UseCamera /> */}
 
-                {/* Clipboard copy (working) */}
-                {/* <UseClipboardCopy /> */}
+              {/* Clipboard copy (working) */}
+              {/* <UseClipboardCopy /> */}
 
-                {/* Notification component (working) */}
-                {/* <UseNotification {...notificationBody} /> */}
+              {/* Notification component (working) */}
+              {/* <UseNotification 
+                // {...notificationBody} 
+              /> */}
 
-                {/* Play sound (working) */}
-                {/* <UseSoundPlayer /> */}
+              {/* Play sound (working) */}
+              {/* <UseSoundPlayer /> */}
 
+              {/* Record sound (working) */}
+              {/* <UseSoundRecorder /> */}
 
-                {/* Record sound (working) */}
-                {/* <UseSoundRecorder /> */}
-                
-                
-                {/* Play video (working) */}
-                {/* <UseVideoPlayer /> */}
-              </View>
+              {/* Play video (working) */}
+              {/* <UseVideoPlayer /> */}
+
+              {/* Screen Recorder CG (NOT working yet)*/}
+              {/* <ViewScreenRecorder/> */}
+
+              {/* Crypto CG (NOT working yet)*/}
+              {/* <ViewCryptoExample/> */}
+              
             </View>
-            {/* temp spacer */}
-            <View style={{ height: 100 }}></View>
-            {/* temp spacer */}
-            <View style={{ height: 100 }}></View>
-            {/* temp spacer */}
-            <View style={{ height: 100 }}></View>
-            {/* temp spacer */}
-            <View style={{ height: 100 }}></View>
-            {/* temp spacer */}
-            <View style={{ height: 100 }}></View>
           </View>
-        </ScrollView>
-      </ImageBackground>
-    </>
+          {/* temp spacer */}
+          <View style={{ height: 100 }}></View>
+          {/* temp spacer */}
+          <View style={{ height: 100 }}></View>
+          {/* temp spacer */}
+          <View style={{ height: 100 }}></View>
+          {/* temp spacer */}
+          <View style={{ height: 100 }}></View>
+          {/* temp spacer */}
+          <View style={{ height: 100 }}></View>
+        </View>
+      </ScrollView>
+    </ImageBackground>
   );
 }
 
-const TextSwitcher: React.FC = () => {
+const CompanytypeSwitcher: React.FC = () => {
   const [index, setIndex] = useState(0);
   const texts = ["IT Company", "MSP", "MSSP", "VAR", "TSP", "OED"];
   useEffect(() => {

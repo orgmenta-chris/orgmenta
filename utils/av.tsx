@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { View, Button } from "react-native";
 import { Audio, Video, ResizeMode } from "expo-av";
 

@@ -27,7 +27,7 @@ import { ViewIconMain } from "./icon";
 
 import { ReactElement, memo, useEffect, useMemo, useState } from "react";
 import {
-  View,
+  View,ScrollView,
   Text,
   TouchableOpacity,
   Modal,
@@ -522,14 +522,14 @@ export const optionsDisplayMain = [
 export const ViewDisplayTabs = ({ id }: any) => {
   const display = useRouterLocation()?.paths[3];
   return (
-    <View
+    <ScrollView horizontal
       style={{
         width: "100%",
         flexDirection: "row",
       }}
     >
       {optionsDisplayMain?.map((x, i) => (
-        <View key={i} style={{ flex: 1 }}>
+        <View key={i} style={{ flex: 1, width:50,height: 50}}>
           <ViewRouterLinkthemed
             style={{
               padding: 5,
@@ -544,12 +544,12 @@ export const ViewDisplayTabs = ({ id }: any) => {
                 source={x.iconSource}
                 color={"white"}
               />
-              <Text>{x.title}</Text>
+              <Text style={{fontSize:11}}>{x.title}</Text>
             </View>
           </ViewRouterLinkthemed>
         </View>
       ))}
-    </View>
+    </ScrollView>
   );
 };
 

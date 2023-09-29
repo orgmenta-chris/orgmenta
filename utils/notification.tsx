@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Text, View, Button, Platform, StyleSheet } from "react-native";
+import { Text, View, Button, Platform } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
@@ -70,7 +70,7 @@ export interface NotificationBody {
   CustomNotificationBody?: React.ComponentType<any>;
 }
 
-export const Notification = (props: NotificationBody) => {
+export const UseNotification = (props: NotificationBody) => {
   const { testMode, CustomNotificationBody } = props;
 
   const [expoPushToken, setExpoPushToken] = useState("");
@@ -107,26 +107,37 @@ export const Notification = (props: NotificationBody) => {
 
   if (testMode === true && !CustomNotificationBody) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.header}>Push Notification Example</Text>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "space-around",
+          padding: 16,
+        }}
+      >
+        <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+          Push Notification Example
+        </Text>
         <Text>Your expo push token:</Text>
-        <Text style={styles.token}>{expoPushToken}</Text>
-        <View style={styles.notificationContainer}>
-          <Text style={styles.notificationTitle}>
+        <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 10 }}>
+          {expoPushToken}
+        </Text>
+        <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <Text style={{ fontSize: 16, fontWeight: "bold", marginTop: 20 }}>
             Title:{" "}
             {
               // @ts-ignore
               notification && notification.request.content.title
             }
           </Text>
-          <Text style={styles.notificationBody}>
+          <Text style={{ fontSize: 16, marginTop: 10 }}>
             Body:{" "}
             {
               // @ts-ignore
               notification && notification.request.content.body
             }
           </Text>
-          <Text style={styles.notificationData}>
+          <Text style={{ fontSize: 16, marginTop: 10 }}>
             Data:{" "}
             {
               // @ts-ignore
@@ -152,38 +163,3 @@ export const Notification = (props: NotificationBody) => {
     return <CustomNotificationBody />;
   }
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "space-around",
-    padding: 16,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  token: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginTop: 10,
-  },
-  notificationContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  notificationTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginTop: 20,
-  },
-  notificationBody: {
-    fontSize: 16,
-    marginTop: 10,
-  },
-  notificationData: {
-    fontSize: 16,
-    marginTop: 10,
-  },
-});

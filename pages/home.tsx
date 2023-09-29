@@ -5,10 +5,10 @@ import { Text, ScrollView, View, Image, ImageBackground } from "react-native";
 import { mapTypeMain } from "../utils/type";
 import Svg, { Path, G } from "react-native-svg";
 import { useWindowDimensions } from "../utils/window";
-import { BarCodeReaderComponent, CameraComponent } from "../utils/camera";
-import { ClipboardCopy } from "../utils/clipboard";
-import { Notification, NotificationBody } from "../utils/notification";
-import { PlaySoundComponent, PlayVideoComponent, RecordSoundComponent } from "../utils/av";
+import { UseBarcodeReader, UseCamera } from "../utils/camera";
+import { UseClipboardCopy } from "../utils/clipboard";
+import { NotificationBody, UseNotification } from "../utils/notification";
+import { UseSoundPlayer, UseSoundRecorder, UseVideoPlayer } from "../utils/av";
 
 // const notificationBody: NotificationBody = {
 //   testMode: true,
@@ -510,27 +510,27 @@ export default function Home() {
                 </Text>
                 <Text>xyz</Text>
                 {/* Barcode Scanner (working) */}
-                {/* <BarCodeReaderComponent /> */}
+                {/* <UseBarcodeReader /> */}
 
                 {/* Camera (working) */}
-                {/* <CameraComponent /> */}
+                {/* <UseCamera /> */}
 
                 {/* Clipboard copy (working) */}
-                {/* <ClipboardCopy /> */}
+                {/* <UseClipboardCopy /> */}
 
                 {/* Notification component (working) */}
-                {/* <Notification {...notificationBody} /> */}
+                {/* <UseNotification {...notificationBody} /> */}
 
                 {/* Play sound (working) */}
-                {/* <PlaySoundComponent /> */}
+                {/* <UseSoundPlayer /> */}
 
 
                 {/* Record sound (working) */}
-                {/* <RecordSoundComponent /> */}
+                {/* <UseSoundRecorder /> */}
                 
                 
                 {/* Play video (working) */}
-                {/* <PlayVideoComponent /> */}
+                {/* <UseVideoPlayer /> */}
               </View>
             </View>
             {/* temp spacer */}

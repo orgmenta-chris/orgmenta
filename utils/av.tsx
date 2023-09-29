@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { View, Button } from "react-native";
 import { Audio, Video, ResizeMode } from "expo-av";
 
-export const PlaySoundComponent = ({}: any) => {
+export const UseSoundPlayer = ({}: any) => {
   const [sound, setSound] = useState(null);
 
   const playSound = async () => {
@@ -50,7 +50,7 @@ export const PlaySoundComponent = ({}: any) => {
   );
 };
 
-export const RecordSoundComponent = ({}: any) => {
+export const UseSoundRecorder = ({}: any) => {
   const [recording, setRecording] = useState();
 
   const startRecording = async () => {
@@ -89,7 +89,7 @@ export const RecordSoundComponent = ({}: any) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Button
         title={recording ? "Stop Recording" : "Start Recording"}
         onPress={recording ? stopRecording : startRecording}
@@ -98,15 +98,15 @@ export const RecordSoundComponent = ({}: any) => {
   );
 };
 
-export const PlayVideoComponent = ({}: any) => {
+export const UseVideoPlayer = ({}: any) => {
   const video = useRef(null);
   const [status, setStatus] = useState({});
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Video
         ref={video}
-        style={styles.video}
+        style={{ width: 300, height: 200 }}
         source={{
           uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
         }}
@@ -115,7 +115,13 @@ export const PlayVideoComponent = ({}: any) => {
         isLooping
         onPlaybackStatusUpdate={(status) => setStatus(() => status)}
       />
-      <View style={styles.buttons}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          marginTop: 20,
+        }}
+      >
         <Button
           // @ts-ignore
           title={status.isPlaying ? "Pause" : "Play"}
@@ -132,20 +138,3 @@ export const PlayVideoComponent = ({}: any) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  video: {
-    width: 300,
-    height: 200,
-  },
-  buttons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 20,
-  },
-});

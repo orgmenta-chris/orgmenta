@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet, TextInput } from "react-native";
+import { View, Text, Button, TextInput } from "react-native";
 import * as Clipboard from "expo-clipboard";
 
-export const ClipboardCopy = ({}: any) => {
+export const UseClipboardCopy = ({}: any) => {
   const [copiedText, setCopiedText] = useState("");
   const [sampleText, setSampleText] = useState(
     "This is sample text you can edit. Copy to clipboard"
@@ -18,7 +18,14 @@ export const ClipboardCopy = ({}: any) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#f0f0f0",
+      }}
+    >
       <TextInput
         style={{
           height: 40,
@@ -35,25 +42,19 @@ export const ClipboardCopy = ({}: any) => {
       />
 
       <Button title="Copy to clipboard" onPress={copyToClipboard} />
-      <Text style={{marginVertical: 5}}></Text>
+      <Text style={{ marginVertical: 5 }}></Text>
       <Button title="View copied text" onPress={fetchCopiedText} />
 
-      <Text style={styles.copiedText}>{copiedText}</Text>
+      <Text
+        style={{
+          fontSize: 20,
+          marginVertical: 10,
+          fontWeight: "bold",
+          textAlign: "center",
+        }}
+      >
+        {copiedText}
+      </Text>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#f0f0f0", // Change to your desired background color
-  },
-  copiedText: {
-    fontSize: 20,
-    marginVertical: 10,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-});

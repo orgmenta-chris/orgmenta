@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, Image } from "react-native";
+import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Camera, CameraType } from "expo-camera";
 
-export const BarCodeReaderComponent = ({}: any) => {
+export const UseBarcodeReader = ({}: any) => {
   const [scanned, setScanned] = useState(false);
   const [hasPermission, setHasPermission] = useState(null);
   const [startCamera, setStartCamera] = React.useState(false);
@@ -41,10 +41,17 @@ export const BarCodeReaderComponent = ({}: any) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
+    >
       {startCamera && (
         <Camera
-          style={styles.camera}
+          style={{
+            flex: 1,
+            justifyContent: "flex-end",
+            alignItems: "center",
+            height: 500,
+          }}
           type={CameraType.back}
           barCodeScannerSettings={{
             barCodeTypes: [BarCodeScanner.Constants.BarCodeType.qr],
@@ -58,16 +65,13 @@ export const BarCodeReaderComponent = ({}: any) => {
       {scanned ? (
         <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
       ) : (
-        <Button
-          title="Scan Bar Code / QR Code"
-          disabled={true}
-        />
+        <Button title="Scan Bar Code / QR Code" disabled={true} />
       )}
     </View>
   );
 };
 
-export const CameraComponent = ({}: any) => {
+export const UseCamera = ({}: any) => {
   const [type, setType] = useState(CameraType.back);
   const [startCamera, setStartCamera] = React.useState(false);
 
@@ -97,11 +101,18 @@ export const CameraComponent = ({}: any) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
+    >
       {startCamera && (
         <View style={{ marginBottom: 10 }}>
           <Camera
-            style={styles.camera}
+            style={{
+              flex: 1,
+              justifyContent: "flex-end",
+              alignItems: "center",
+              height: 500,
+            }}
             type={type}
             ref={(r) => {
               // @ts-ignore
@@ -112,7 +123,15 @@ export const CameraComponent = ({}: any) => {
         </View>
       )}
 
-      <View style={styles.buttonContainer}>
+      <View
+        style={{
+          backgroundColor: "transparent",
+          flexDirection: "row",
+          justifyContent: "center",
+          marginBottom: 20,
+          gap: 5,
+        }}
+      >
         {startCamera && <Button title="Take Picture" onPress={__takePicture} />}
         {!startCamera && (
           <Button title="Start Camera" onPress={__startCamera} />
@@ -121,35 +140,3 @@ export const CameraComponent = ({}: any) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-  },
-  camera: {
-    flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
-    height: 500,
-  },
-  buttonContainer: {
-    backgroundColor: "transparent",
-    flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: 20,
-    gap: 5,
-  },
-  button: {
-    backgroundColor: "white",
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: "center",
-  },
-  text: {
-    fontSize: 18,
-    color: "black",
-  },
-});

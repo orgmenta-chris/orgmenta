@@ -19,6 +19,7 @@ import { UseClipboardCopy } from "../utils/clipboard";
 import { NotificationBody, UseNotification } from "../utils/notification";
 import { UseSoundPlayer, UseSoundRecorder, UseVideoPlayer } from "../utils/av";
 import { ViewScreenRecorder } from '../utils/recorder'
+import { ViewInquiryMain } from "../utils/inquiry";
 
 export default function Home() {
   const windowDimensions = useWindowDimensions();
@@ -463,7 +464,7 @@ export default function Home() {
               <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
                 Contact Form
               </Text>
-              <Text>xyz</Text>
+              <ViewInquiryMain/>
               <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
                 Overview
               </Text>
@@ -550,7 +551,7 @@ export default function Home() {
               <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
                 Contact Form
               </Text>
-              <Text>xyz</Text>
+              <ViewInquiryMain/>
               {/* Barcode Scanner (working) */}
               {/* <UseBarcodeReader /> */}
 
@@ -579,19 +580,10 @@ export default function Home() {
 
               {/* Crypto CG (NOT working yet)*/}
               {/* <ViewCryptoExample/> */}
-              
+
             </View>
           </View>
-          {/* temp spacer */}
-          <View style={{ height: 100 }}></View>
-          {/* temp spacer */}
-          <View style={{ height: 100 }}></View>
-          {/* temp spacer */}
-          <View style={{ height: 100 }}></View>
-          {/* temp spacer */}
-          <View style={{ height: 100 }}></View>
-          {/* temp spacer */}
-          <View style={{ height: 100 }}></View>
+          <View style={{ height: 1000 }}/>
         </View>
       </ScrollView>
     </ImageBackground>

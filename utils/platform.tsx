@@ -35,3 +35,47 @@ export const usePlatformCssweb = () => {
     }, []);
 };
 
+export const objectPlatformOs = {
+  web: {
+    description: "Android Mobile Device",
+  },
+  android: {
+    description: "Android Mobile Device",
+  },
+  ios: {
+    description: "iOS Mobile Device",
+  },
+  // itv: {
+  //   description: "Apple TV",
+  // },
+  // atv: {
+  //   description: "Android TV",
+  // },
+  // iwatch: {
+  //   description: "Apple Watch",
+  // },
+  // awatch: {
+  //   description: "Android Wear",
+  // },
+}
+
+export const objectPlatformTypes = {
+  web: {
+    description: "MacOS, Linux, Windows desktop computers"
+  },
+  desktop: {
+    description: "MacOS, Linux, Windows desktop computers"
+  },
+  mobile: {
+    description: "Android, ios"
+  },
+  // server: {
+  //   description: '' 
+  // },
+  // iot: {
+  //   description: "Internet of things / tvs / watches / vehicles",
+  // },
+  // peripheral: {
+  //   description: 'Dumb i/o devices' 
+  // },
+}

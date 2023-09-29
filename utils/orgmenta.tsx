@@ -15,6 +15,7 @@ import UserWidget from "../components/navigation/widgets/userWidget";
 import BrowseWidget from "../components/navigation/widgets/browseWidget";
 import OrgmentaWidget from "../components/navigation/widgets/orgmentaWidget";
 import BookmarkWidget from "../components/navigation/widgets/bookmarkWidget";
+import { features, requirements, procedures, devworkflow, paradigms, checklist, competitorFeatures, arrayCompetitors } from './roadmap'
 
 // Full Header component
 export const ViewOrgmentaHeader = () => {
@@ -380,12 +381,10 @@ export const ViewOrgmentaRoadmap = ({}: any) => {
   return (
     <ScrollView>
       <ViewTypographyTextheading>Roadmap</ViewTypographyTextheading>
-      <ViewCardExpandable />
       <Text>
-        {`
-                Roadmap timeline (Title, summary + priorities, dates etc.) here
-                (Info comes from Orgmenta's space > System/Governance? > Offerings > Roadmap
-                `}
+      {`Roadmap timeline (Title, summary + priorities, dates etc.) here.\n(Info comes from Orgmenta's space > System/Governance? > Offerings > Roadmap\n\n`}
+      {JSON.stringify([{features}, {requirements}, {procedures}, {paradigms}, {checklist}],null,2)}
+      
       </Text>
     </ScrollView>
   );
@@ -397,27 +396,11 @@ export const ViewOrgmentaCompare = ({}: any) => {
       <ScrollView>
         <ViewTypographyTextheading>Compare</ViewTypographyTextheading>
         <Text>
-          {`Compare to other products
-                    ServiceNow
-                    ConnectWise Manage/PSA
-                    Autotask
-                    SAP
-                    Salesforce
-                    Halo PSA
-                    Ninja RMM / NinjaOne
-                    FreshWorks / FreshDesk / FreshService
-                    Jira Service Management
-                    Synchro MSP
-                    RepairShoppr
-                    Ivanti Service Manager
-                    ManageEngine ServiceDesk Plus
-                    SysAid
-                    Cherwell ITSM
-                    BMC Remedy ITSM
-                    Odoo
-                    Thread (https://www.getthread.com/)
-                    Microsoft Dynamics
-                    `}
+          {`(Temp):\n\n`}
+          {`\n\nCompetitors:\n\n`}
+          {JSON.stringify(arrayCompetitors,null,2)}
+          {`\n\nFeature Comparison:\n\n`}
+          {JSON.stringify(competitorFeatures,null,2)}
         </Text>
       </ScrollView>
     </ViewPageMain>
@@ -468,313 +451,7 @@ export const ViewOrgmentaProduct = ({}: any) => {
       <ScrollView>
         <ViewTypographyTextheading>Product</ViewTypographyTextheading>
         <Text style={theme}>
-          {`//////////////////////
-                    NEEDS/REQUIREMENTS
-                    
-                    --- HIGH PRIORITY ----
-                    
-                    Data Loss
-                    - Never lose information. Time entries shouldn't lose or jumble text. As an employee I want to feel secure in typing directly into the app, such that if I lost internet or accidentally closed it, it would still be there upon return.
-                    - Feedback on changes - If I make a change, I want to see that change immediately with its status (indicators/spinners, loading messages etc.)
-                    - An intuitive interface where buttons and other components are where I expect them to be, and not bounce around on the screen.
-                    
-                    Support from Orgmenta
-                    - An available account manager and support system that is responsive and valuable.
-                    - No bargaining with account managers or sales. No unrequested sales calls. no spam messages.
-                    
-                    Relationship w/ Orgmenta /Orgmenta Ethics
-                    - No theft of my clients by my PSA company.
-                    - I want to believe in my PSA company, and not feel weird about their behavior or ethics.
-                    - No chance of the PSA company being compromised or selling out to VCs that have 'pump n dump' priorities. <-- Add canaries to promises/features/roadmaps, to burn chances of this happening without compromising investment possibilities?
-                    
-                    Community 
-                    - Get advice - 'what do other MSPs do?". PSA companies are in a good position for a high level view of the industry.
-                    
-                    Uptime
-                    As a user, I want as close to 100% uptime as is reasonably possible.
-                    
-                    Speed
-                    As a user, I want as close to instant data retrieval as is reasonably possible. (and instant UI changes).
-                    Immediate Response: 0-100 milliseconds - Perceived as instant, maintaining a feeling of direct manipulation.
-                    Fast Response: 100-300 milliseconds - Still perceived as reactive, but not as instantaneous.
-                    Noticeable Delay: 300-1000 milliseconds - Users notice a delay and may become slightly annoyed.
-                    Task Interruption: 1000+ milliseconds - The user's flow is interrupted, and they become increasingly frustrated.
-                    - A quick application that loads within 3 seconds, and each page in under a second.
-
-                    Transparency and Honesty
-                    As a client purchaser/billing approver, I want to see the Orgmenta roadmap and business plan.
-                    As a customer of a client, I want to see that Orgmenta is a trustworthy platform.
-
-                    Orgmenta Pricing& Billing: Clear, Transparent, Cheap Billing
-                    - Simple transparent billing with no unexpected charges
-                    - Simple licensing - by adding a user, automatically add a license. 
-                    - No multi-year lock in, tricksy contracts, unethical fine print, unanncounced contract renewals.
-
-                    Dependable, intuitive UI
-                    As a user, I want buttons where I expect them to be. I don't want marketing popups from Orgmenta. I don't want nag screens. I don't want buttons or other UI elements to jump around the page.
-                    - No popups or other forced overlays/components that prevent my usual flow. No cluttered interfaces with information that I don't need.
-
-                    API and Integrations
-                    As an administrator, I want a well-documented API to integrate third-party solutions.
-                    As a manager, I want to integrate with existing CRM, ERP, and other systems to centralize data.
-                    
-                    Value /ROI / Enable me / Be an exoskeleton
-                    As a user, the app should empower me to do my job better than with any other tool or if I was not using a tool. 
-
-
-                    ////////////////
-                    PARADIGMS
-                    The following are paradigms that the app is using. These are eposed to the client side to some extent. 
-                    If trials indicate that this does not work for the UX, then these paradigms can be made backend only (i.e. not expose the user to them as necessary).
-                    - Data structure: Node-Edge, 2-table paradigm instead of statically defined tables 
-                    - Displays: Data displays that the user can toggle between at will (to be restricted as necessary if users say they have 'TOO MUCH choice'/causes confusion)
-                    - Category/Modules/Business Framework
-                    - Dynamic attributes
-                    - TechStack - react native stack 
-                    - 'ViewRouterLink anything to anything' (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)
-                    - Custom attributes/properties on entities (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)
-                    
-                    ////////////////
-                    FEATURES (AND USE CASES)
-                    
-                    (this static data will be replaced with data from Orgmenta's space > product > catalog)
-                    
-                    --- HIGH PRIORITY ----
-                    Email (and other media) Connectors
-                    As a dispatcher, I want client enquiries to automatically create a ticket or update a relevant existing ticket.
-                    As a client, I want to be able to submit tickets through multiple channels (email, chat, phone) efficiently and minimise the time for it to be triaged, assigned and resolved.
-                    
-                    URL Parameters
-                    The user should be able to use a url with 'action' parameters in it, in order to prepopulate an action form.
-                    For example, add/title=example&type=Event should prepopulate a 
-                    This means that the action tabs must be accessible via url.
-                    As a user, I want to streamline my workflow, add bookmarks etc.
-                    As an Orgmenta employee, I want to be able to guide users to a specific screen/display/state very easily.
-
-                    Ticket Management
-                    As an administrator, I want to automatically categorize incoming tickets based on keywords, so they can be triaged effectively.
-                    As a technician, I want to view all my tickets on a single dashboard, so I can prioritize them based on SLA.
-                    As a client, I want to be able to submit tickets through multiple channels (email, chat, phone), so that I can reach support through my preferred method.
-                    
-                    Asset (/Configuration) Management
-                    As an administrator, I want to perform automatic scans on client networks to populate asset data. (low priority, RMMs cover this)
-                    As a technician, I want to link assets to tickets to better understand the scope of issues.
-                    As a manager, I want to see a utilization report for all managed assets, to understand overall performance.
-                    
-                    Billing & Invoicing
-                    As an administrator, I want to automate the conversion of billable hours into invoices.
-                    As a client, I want a breakdown of charges in my invoices for transparency.
-                    As a financial controller, I want to integrate the PSA with accounting software for efficient reconciliation.
-                    
-                    Reporting & Analytics
-                    As a manager, I want to view KPI dashboards to make data-driven decisions.
-                    As a technician, I want insights into common ticket issues for a given period, to improve service.
-                    As an executive, I want revenue and expense reports to gauge profitability.
-                    
-                    Workflow Automation
-                    As an administrator, I want to define workflows for common service requests.
-                    As a technician, I want repetitive tasks to be automated to save time.
-                    As a manager, I want workflow analytics to identify bottlenecks.
-                    
-                    Time Tracking
-                    As a technician, I want to record time spent on each ticket.
-                    As a manager, I want an overview of time entries for quality assurance.
-                    As a client, I want to view the time logged against my projects for accountability.
-                    
-                    Knowledge Base
-                    As a technician, I want to refer to the internal knowledge base for resolution steps.
-                    As a client, I want access to a public-facing FAQ for common issues.
-                    As a manager, I want the knowledge base to be automatically updated with new resolutions.
-                    
-                    User Management & Roles
-                    As an administrator, I want to define user roles and permissions based on job function.
-                    As a technician, I want role-specific access to modules and data.
-                    As a client, I want different levels of access based on my agreement with the MSP.
-                    
-                    Client Management
-                    As a sales executive, I want to track leads and convert them into clients within the PSA.
-                    As a manager, I want to associate specific technicians with certain clients for consistent service.
-                    As a client, I want a dedicated account manager I can reach out to for non-technical issues.
-                    
-                    Service Level Agreements (SLA)
-                    As a manager, I want to define SLA rules and ensure compliance.
-                    As a technician, I want notifications for approaching SLA deadlines.
-                    As a client, I want a report on SLA compliance for the services rendered.
-                    
-                    Compliance & Security Management
-                    As an administrator, I want robust security features like 2FA and data encryption.
-                    As a manager, I want compliance reports to adhere to standards such as GDPR, HIPAA, etc.
-                    As a client, I want assurance that my data is being handled securely.
-                    
-                    Multi-Tenancy and Account Segmentation
-                    As an administrator, I want to manage multiple tenant environments within a single PSA instance.
-                    As a manager, I want to segment client accounts based on specific criteria (industry, size, location).
-                    
-                    Notifications and Alerts
-                    As a technician, I want real-time notifications for ticket updates or comments.
-                    As a manager, I want to set up customized alerts for specific events, like SLA violations or system outages.
-                    
-                    Calendar and Scheduling
-                    As a technician, I want to synchronize my PSA calendar with external calendars (Google Calendar, Outlook).
-                    As a manager, I want to view all technicians' availability in one centralized calendar.
-                    
-                    Contract Management
-                    As a sales executive, I want to manage and renew client contracts within the PSA.
-                    As a manager, I want to set automated reminders for upcoming contract renewals.
-                    
-                    Mobile Accessibility
-                    As a technician, I want a mobile-friendly interface or app to update tickets while in the field.
-                    As a client, I want to access ticket status and updates via a mobile application.
-                    
-                    Customer Satisfaction Surveys
-                    As a manager, I want to automatically send CSAT surveys upon ticket resolution.
-                    As an executive, I want to see customer satisfaction metrics in my KPI dashboard.
-                    
-                    Internal Communications Tool
-                    As a technician, I want an internal chat function to collaborate with team members.
-                    As a manager, I want a communication log to track internal discussions related to tickets.
-                    
-                    Business Continuity and Disaster Recovery
-                    As an administrator, I want built-in backup and recovery options.
-                    As a manager, I want a contingency plan feature that documents the steps to take in case of system failure.
-                    
-                    Resource Allocation and Capacity Planning
-                    As a manager, I want to allocate resources based on skill sets and availability.
-                    As an executive, I want to plan for capacity based on trends in ticket volume and resource utilization.
-                    
-                    Change Management
-                    As a technician, I want to log changes made during the resolution process.
-                    As a manager, I want to approve major changes before they are implemented.
-                    
-                    Audit Trail
-                    As an administrator, I need to see all changes and edits made in the system. 
-                    As an employee, I want to be able to see a timeline of what I and my colleagues have done.
-                    
-                    
-                    --- MEDIUM PRIORITY ----
-
-                    Keyboard shortcuts
-                    As a general user, I want to be able to use keyboard shortcuts to navigate the app.
-                    
-                    Natural Language Notes with Links
-                    As a user, I want to be able to write notes/descriptions in the entities, and include references/relationships (to other entities, with their attribute/relationship type) in them.
-                    (e.g. in an entity called 'invoice123' I want to be able to write "See #Contact456 as the ^PrimaryContact" and it automatically link Contact456 as the Primary Contact if not already done)
-                    
-                    Inventory Management
-                    As a procurement manager, I want real-time inventory tracking within the PSA for hardware and software assets.
-
-                    Stock Take
-                    As a procurement manager, I want barcode scanning and other features to make stock take easy
-                    
-                    Signatures/Signoff
-                    As an account manager, I want the client to be able to sign off on a proposal.
-                    
-                    Client Portal
-                    As a client, I want to log into my MSPs portal and see all open tickets, discussions, configurations, proposals etc.
-                    
-                    Rosters, availability, On call and Time-Off Management
-                    As an HR manager, I want to manage leaves, holidays, and time-off within the same PSA system where work is being tracked.
-                    As an employee, I want to request time off in the easiest way possible.
-                    As a dispatcher, I want to see employee availability on a single pane of glass.
-                    
-                    Sales Proposals and Quoting
-                    As a sales executive, I want to create, send, and track sales proposals within the PSA system to streamline the sales process.
-                    As a manager, I want to maintain a repository of proposal templates for different services and contract types.
-                    As an administrator, I want to integrate proposal software with the PSA to ensure that pricing and asset lists are up-to-date.
-                    As a client, I want to view, comment on, and e-sign proposals through a client portal.
-                    
-                    Globalization and Localization
-                    As an executive, I want multi-language and multi-currency support for international operations.
-                    As a manager, I want to set region-specific settings, like date formats and compliance standards.
-                    
-                    Training and Documentation
-                    As an administrator, I want robust documentation and training modules within the PSA.
-                    As a manager, I want to assign and track training courses for new hires.
-                    
-                    Vendor Management
-                    As a manager, I want to track vendor performance metrics.
-                    As an administrator, I want to record contracts and terms with vendors.
-                    As a financial controller, I want to manage payments and renewals with vendors.
-                    As a procurement manager, I want to track and manage all vendor interactions, including quotations, lead times, and service quality, within the PSA system.
-                    
-                    Training & Development
-                    As a technician, I want to manage my skills & certifications
-                    As a manager, I want to view the expertise at my disposal.
-                    As a dispatcher, I want to filter expertise and assign an engineer with the skills commensurate to the project/service required.
-                    
-                    Business Intelligence and Advanced Analytics
-                    As an executive, I want predictive analytics capabilities to forecast resource needs, revenue, and other key metrics.
-                    As an employee, I want to easily spin up charts/reports/dashboards (with the data available and related to me)
-                    
-                    Backups
-                    As an MSP, we want to be able to back up and restore the entire PSA system to a specific timestamp.
-                    As an MSP, we want to be able to roll back granular changes to entities/relationships.
-                    
-                    Email Design
-                    As an MSP, I want to be able to design email templates from within the PSA. (see https://news.ycombinator.com/item?id=37596253 loops and similar)
-                    
-                    Shared Inbox
-                    As an MSP, we want 'One space for email, marketing, and customer relationships' (e.g. https://helpmonks.com/) and for employees to be able to view shared folders/inboxes
-                    
-                    
-                    --- LOW PRIORITY ----
-                    
-                    White-Labeling and Customization
-                    As a manager, I want the ability to white-label the PSA tool to maintain brand consistency. This includes custom domain / dns records to have the psa available under our corporate domain.
-                    As an administrator, I want extensive UI/UX customization capabilities to match our specific workflow needs.
-                    
-                    E-Signature and Document Management
-                    As a sales executive, I want to send, receive, and store e-signed contracts within the PSA.
-                    As a manager, I want to manage all client-related documents in one centralized repository.
-                    
-                    Social Media Integration
-                    As a customer service representative, I want to manage customer inquiries from social media channels within the PSA.
-                    As a manager, I want social media analytics in my reporting dashboard.
-                    As a marketing manager, I want to manage campaigns and promotions within the PSA.
-                    
-                    Gamification
-                    As a manager, I want to incorporate gamification elements to motivate and engage technicians.
-                    As a technician, I [MAY] want [THE OPTION] to earn rewards or recognition for achieving performance milestones [THAT IS NON-MANDATORY AND DOES NOT AFFECT PERFORMANCE ASSESSMENTS]. <-- CONTENTIOUS.
-                    (Or just make it a pleasant app to use.)
-                    
-                    Payment Processing
-                    As an administrator, I want to integrate payment gateways for direct billing through the PSA.
-                    As a client, I want to pay invoices within the PSA portal itself for convenience.
-                    
-                    Real-time Collaboration
-                    As a technician, I want to collaborate in real-time with team members on complex issues.
-                    As a manager, I want a live feed of ticket status updates for dynamic resource allocation.
-                    
-                    Compliance and Auditing
-                    As an administrator, I want features that help in compliance management, like GDPR or HIPAA, including automated reporting and audit trails.
-                    As an internal auditor, I want to provide evidence to myself and external auditors that standards are being upheld.
-                    
-                    VoIP Integration
-                    As a customer service representative, I want the PSA to integrate with VoIP systems so that client communication can be logged and tracked within tickets.
-                    As an employee, I want everything integrated into a single pane of glass (but only if it does not compromise on features or UX)
-                    
-                    Internal Tool Creation
-                    As a member of the dev team, I want to empower employees to transform and display data themselves.
-                    As an employee, I want to be able to spin up a quick internal app (a la Retool) rather than spending months with the IT department /dev team
-                    
-                    Status Page
-                    As a member of a client's IT support team, I want to be able to see the status of all their services in a single pane.
-                    As a client, I want to be able to see the status of all our services in a single pane.
-                    (like statuspage or updown.io)
-                    
-                    Link Page
-                    As an employee or business, I want to have a collated contact page or landing page.
-                    (like link tree or leaf page)
-                    
-                    Corporate Website
-                    As an MSP, we want to be able to single-click publish our corporate website and not worry about hosting, domains or pricing.
-                    As an MSP, we want to be able to make entities 'published' and public facing, and automatically go onto the correct page of our website (e.g. news, roadmap)
-                    
-                    Link shortener
-                    As an MSP, we want a bespoke url shortener that we and our clients can use.
-                    
-                    
-                    `}
+          {`FEATURES GO HERE`}
         </Text>
       </ScrollView>
     </ViewPageMain>

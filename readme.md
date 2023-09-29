@@ -106,7 +106,7 @@
 - types must start with 'Type' (uppercase T)
 - react-specific utility functions that perform an action must start with 'Execute' (uppercase E)
 - react-specific utility objects that have a method must start with 'Utility' (uppercase U)
-- General syncronous functions must start with 'do' (lowercase). See crypto.tsx for examples.
+- General synchronous functions must start with 'do' (lowercase). See crypto.tsx for examples.
 - General async functions must start with 'async' (lowercase). See crypto.tsx for examples.
 
 ## Module Structure

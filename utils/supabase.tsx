@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import "react-native-url-polyfill/auto";
 import { UtilityPlatformMain } from "./platform";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 // (Mobile Only) Secure Store.
 // If this is used elsewhere in the project, it will be split out into its own module / migrated to 'storage' (storage>local/clients).
@@ -104,7 +105,7 @@ export async function requestSupabaseTables(filters: any) {
 // Views
 
 // This is just a useful reference of views
-const mapSupabaseViews = {
+export const mapSupabaseViews = {
   attributes_unioned: {
     description:
       "This joins attributes with side 1 as the focus, to attributes with side 2 as the focus. This allows you to see all attributes in one column.",
@@ -113,4 +114,30 @@ const mapSupabaseViews = {
     description:
       "This joins relationships with side 1 as the focus, to relationships with side 2 as the focus. This allows you to see all entities in one column.",
   },
+};
+
+
+// Table
+
+export async function requestSupabaseTablerows(tableName: string){
+  // console.log('useEntityCreate',entity)
+  return await instanceSupabaseClient
+    .from("entities_orgmenta")
+    .select()
+    .then(handleSupabaseResponse as any);
+}
+ 
+export const useSupabaseTable = (tableName: string) => {
+  // const queryClient = useQueryClient();
+  return useMutation(
+    ["entity", "create"],
+    () => requestSupabaseTablerows(tableName),
+    {
+      //todo
+      onSuccess: () => {
+        // queryClient.invalidateQueries([]);
+        // refetch();
+      },
+    }
+  );
 };

@@ -3,10 +3,10 @@
 // Meta
 
 export const metaThemeInfo = {
-    description: `A 'theme' is the visual style and design configuration that defines the look and feel of a user interface.`,
-    requestThemeMain: `A function to get the theme`,
-    useThemeToken: `A hook for accessing the theme`,
-    TypeThemeMain: `Record<K, T> is a utility type that constructs an object type with keys of type K and values of type T. Useful for describing objects that have a set of properties where the property names are not fixed but the type of each value is known.`,
+  description: `A 'theme' is the visual style and design configuration that defines the look and feel of a user interface.`,
+  requestThemeMain: `A function to get the theme`,
+  useThemeToken: `A hook for accessing the theme`,
+  TypeThemeMain: `Record<K, T> is a utility type that constructs an object type with keys of type K and values of type T. Useful for describing objects that have a set of properties where the property names are not fixed but the type of each value is known.`,
 };
 
 // Main
@@ -18,19 +18,25 @@ export type TypeThemeMain = Record<string, any>;
 // Token
 
 export const useThemeToken = (component_name: string) => {
-    const theme: TypeThemeMain = {
-        text: { style: { color: `white` } },
-        heading: {
-            style: { color: `white`, fontSize: 30, alignSelf: "center" },
-        },
-        link: { style: { textDecoration: `none`, color: `white` } },
-        default: { style: {} },
-    };
-    if (theme[component_name]) {
-        return theme[component_name];
-    } else {
-        return theme.default;
-    }
+  const theme: TypeThemeMain = {
+    text: { style: { color: `white` } },
+    heading: {
+      style: { color: `white`, fontSize: 30, alignSelf: "center" },
+    },
+    subheading: {
+      style: { color: "#176596", fontWeight: "700", fontSize: 17 },
+    },
+    subsubheading: {
+      style: { fontWeight: "500", fontSize: 16, color: "#0c4a73" },
+    },
+    link: { style: { textDecoration: `none`, color: `white` } },
+    default: { style: {} },
+  };
+  if (theme[component_name]) {
+    return theme[component_name];
+  } else {
+    return theme.default;
+  }
 };
 
 // Temp - not final theme structure

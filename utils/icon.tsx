@@ -83,7 +83,7 @@ export const ViewIconMain: React.FC<interfaceIconMain> = memo(
         name={name}
         size={size}
         color={color}
-        style={{ padding, flex: 1,...style }}
+        style={{ padding,...style }}
       />
     );
   }

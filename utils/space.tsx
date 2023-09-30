@@ -20,6 +20,7 @@ import {
   ColumnResizeMode,
   ColumnDef,
 } from "@tanstack/react-table";
+import { ViewTypographyTextsubheading } from "./typography";
 
 // Meta
 
@@ -77,7 +78,7 @@ export const metaSpaceSetup = {
 };
 
 export interface interfaceSpaceSetup {
-    // todo
+  // todo
 }
 
 export async function requestSpaceSetup(space: interfaceSpaceSetup) {
@@ -110,7 +111,8 @@ export interface interfaceSpaceUpdate {
   // todo
 }
 
-export async function requestSpaceUpdate(space: interfaceSpaceUpdate) { // todo
+export async function requestSpaceUpdate(space: interfaceSpaceUpdate) {
+  // todo
   //todo
 }
 
@@ -126,7 +128,8 @@ export interface interfaceSpaceDelete {
   // todo
 }
 
-export async function requestSpaceDelete(space: interfaceSpaceDelete) { // todo
+export async function requestSpaceDelete(space: interfaceSpaceDelete) {
+  // todo
   //todo
 }
 
@@ -144,7 +147,8 @@ export interface interfaceSpaceDestroy {
   // todo
 }
 
-export async function requestSpaceDestroy(space: interfaceSpaceDestroy) { // todo
+export async function requestSpaceDestroy(space: interfaceSpaceDestroy) {
+  // todo
   //todo
 }
 
@@ -177,6 +181,7 @@ export const useSpaceArray = ({ ...Input }) => {
   return query;
 };
 
+// todo
 export const ViewSpaceArray = () => {
   const array = useSpaceArray({});
   const attributeColumnNames = [
@@ -195,7 +200,8 @@ export const ViewSpaceArray = () => {
   return (
     <View>
       <Text style={{ fontWeight: "700" }}>ViewSpaceArray</Text>
-      {/* <ViewSpaceTable data={array.data} columns={columns}/> */}
+      {/* <Text style={{}}>{JSON.stringify(array,null,2)}</Text> */}
+      <ViewSpaceTable data={array.data} columns={columns} />
     </View>
   );
 };
@@ -240,7 +246,7 @@ export const ViewSpaceItem = ({ id }: interfaceSpaceItem) => {
 // Then the user can switch active companies, which will update this query.
 export const useSpaceActive = ({ ...Input }: TypeSpaceActive) => {
   const query = useQuery({
-    queryKey: ["spaces", "active"],
+    queryKey: ["spaces", "selected"],
     queryFn: () => {
       return {};
     },
@@ -346,6 +352,7 @@ export const ViewSpaceModal = (props: any) => {
       pinnable
       collapsible
     >
+      <ViewSpaceSwitch/>
       <ViewRouterLink to={`/spaces/${"SPACEIDHERE"}/pods`}>
         SPACE
       </ViewRouterLink>
@@ -371,37 +378,13 @@ export const ViewSpaceModal = (props: any) => {
 export const useSpaceState = (id: any) => {
   // const queryClient = useQueryClient();
   const query = useQuery({
-    queryKey: ["state", id],
+    queryKey: id,
     queryFn: () => null,
     staleTime: Infinity, // This means the data will never become stale automatically
     refetchOnWindowFocus: false,
   });
   return query;
 };
-
-// Set (set values to a space's state)
-
-export const useSpaceSet = (id: string, newData: any) => {
-  const queryClient = useQueryClient();
-  return () => {
-    queryClient.setQueryData(["space", id], (oldData: any) => {
-      // This just does a shallow merge with newData properties overwriting any presceding properties.
-      // future versions should utilise underscore.js + any custom merge functionality if needed.
-      const data = { ...oldData, ...newData };
-      return data;
-    });
-  };
-};
-
-// // Selected
-
-// export const useSpaceSelected = (id:string, newData:any) => {
-//   const selected = useSpaceState('selected');
-//   const select = (id:string)=>{useSpaceSet('selected',id)};
-//   return {
-//     selected, select
-//   }
-// }
 
 // Pinned
 
@@ -449,31 +432,36 @@ export const ViewModalState = ({ modalName }: any) => {
   );
 };
 
-// Switch
-export const ViewSpaceSwitch = (props: any) => {
-    // A widget to switch between spaces / make a different space active
-    const array = useSpaceArray({});
-    const selected = useSpaceState(["space", "selected"]);
-
-    // Call the hook at the top level and get the updater function
-    const updateSelected = useSpaceSet("selected", "1");
-
-    const select = (id: string) => {
-        // console.log(1)
-        updateSelected(); // Use the updater function here
-    };
-
+export const ViewSpaceSwitch = () => {
+  const array = useSpaceArray({});
+  const updater = useSpaceSet(["space", "selected"], (id: string, title: string, storename: string) => ({ id: id, title, storename }));
+  const selected = useSpaceState(["space", "selected"]);
   return (
-    <View style={{}}>
-      <Text>array{JSON.stringify(array?.data, null, 2)}</Text>
-      <Text>selected{JSON.stringify(selected, null, 2)}</Text>
-      <Pressable onPress={useSpaceSet("selected", "test")}>
-        <Text>select</Text>
-      </Pressable>
-      <ViewModalState modalName={"selected"} />
+    <View style={{margin: 5, backgroundColor:'white'}}>
+      <ViewTypographyTextsubheading>Switch Space</ViewTypographyTextsubheading>
+      <View style={{}}>
+        {array?.data?.map((x, i) => (
+          <Pressable key={i} style={{padding: 10, margin: 5,backgroundColor: 'lightgray'}} onPress={() => updater(x.id, x.name_display_singular, x.name_store_singular)}>
+            <Text>{x.name_display_singular}</Text>
+          </Pressable>
+        ))}
+        {/* testing */}
+        {/* <Text>{JSON.stringify(selected.data)}</Text> */}
+      </View>
     </View>
   );
 };
+// Set (set values to a space's state)
+export const useSpaceSet = (queryKey: string[], newData: (id: string, title: string, storename: string) => any) => {
+  const queryClient = useQueryClient();
+  return (passedId: string, passedTitle: string, passedStorename: string) => {
+    const resolvedData = newData(passedId, passedTitle, passedStorename);
+    queryClient.setQueryData(queryKey, (oldData: any) => {
+      return { ...oldData, ...resolvedData };
+    });
+  };
+};
+
 
 // Sync
 // Future feature: Spaces will be able to share entityrelationships between each other.

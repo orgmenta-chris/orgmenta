@@ -1,13 +1,17 @@
-import { Text, View } from "react-native";
-import { ViewBrowseSearch } from "../utils/browse"
-import { ViewSignatureCanvas } from "../utils/signature"
+
+import { ViewPageMain } from "../utils/page";
+import { ViewBrowseSearch } from "../utils/browse";
+import { ViewTypographyTextheading } from "../utils/typography";
+import { ScrollView } from "react-native";
 
 export default function BrowsePage() {
-    return (
-        <View>
-            {/* <ViewSignatureCanvas/> */}
-            <Text style={{ fontSize: 24 }}>Browse</Text>
-            <ViewBrowseSearch/>
-        </View>
-    );
+  return (
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Browse</ViewTypographyTextheading>
+        <ViewBrowseSearch />
+      </ScrollView>
+    </ViewPageMain>
+  );
 }
+ 

@@ -106,11 +106,13 @@ export const features = [
     version: 0.0,
     status: "0. New",
     description: "Email (and other communication channels) Connectors",
+    notes: 'see autotask live formulas, may be useful reference: https://ww1.autotask.net/help/content/4_admin/2featuressettings/livereports/addlivereport/Calculations/LRFormulas.htm',
     priority: 2,
     userstories: {
       any_user: [
         "use a url with 'action' parameters in it, in order to prepopulate an action form. For example, add/title=example&type=Event should prepopulate a form.This means that the action tabs must be accessible via url.",
         "streamline my workflow, add bookmarks etc.",
+        "be able to put formulas in my url params, e.g. 'start=[today+3]', 'budget=[sum(childevents)+1]' etc."
       ],
       customer_user: [
         "submit tickets through multiple channels (email, chat, phone) efficiently and minimise the time for it to be triaged, assigned and resolved.",

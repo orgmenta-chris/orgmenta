@@ -3,6 +3,7 @@ import { View, Pressable, Text } from "react-native";
 import { data } from "../utils/static";
 import { ViewIconMain } from "../utils/icon";
 import { ViewRouterLink } from "../utils/router";
+import { ViewTypographyTextsubsubheading, ViewTypographyTextsubheading } from "../utils/typography";
 
 export const Expandable = ({ item }: any) => {
   const [expanded, expandedToggle] = useState(false);
@@ -26,8 +27,7 @@ export const Expandable = ({ item }: any) => {
           }}
           to={"entity/" + item.nickname}
         >
-          <Text 
-            style={{color: '#176596', fontWeight:'700', fontSize:17}} selectable={false}>{item.display_singular}</Text>
+          <ViewTypographyTextsubheading>{item.display_singular}</ViewTypographyTextsubheading> 
         </ViewRouterLink>
         <Pressable
           onPress={() => expandedToggle((oldValue) => !oldValue)}
@@ -58,7 +58,7 @@ export const Expandable = ({ item }: any) => {
             )
             .map((x, i) => (
               <ViewRouterLink style={{textDecoration:'none', margin:10}} to={"entity/" + x.nickname} key={'a'+item.id+i}>             
-                <Text style={{ fontWeight:'500', fontSize:16,color: '#0c4a73'}} selectable={false}>{x.display_singular}</Text>
+                <ViewTypographyTextsubsubheading>{x.display_singular}</ViewTypographyTextsubsubheading>
               </ViewRouterLink>
             ))}
         </View>

@@ -370,25 +370,24 @@ export const ViewDisplayCalendar = (props: any) => {
 // Timeline
 export const ViewDisplayTimeline = (props: any) => {
   const data = [
-    { time: "09:00", title: "Event 1", description: "Event 1 Description" },
-    { time: "10:45", title: "Event 2", description: "Event 2 Description" },
-    { time: "12:00", title: "Event 3", description: "Event 3 Description" },
-    { time: "14:00", title: "Event 4", description: "Event 4 Description" },
-    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
-    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
-    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
-    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
-    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
-    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
-    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
-    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
-    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
-    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
-    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
-    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
-    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+    { time: "09:00", title: "TimelineEvent 1", description: "Event 1 Description" },
+    { time: "10:45", title: "TimelineEvent 2", description: "Event 2 Description" },
+    { time: "12:00", title: "TimelineEvent 3", description: "Event 3 Description" },
+    { time: "14:00", title: "TimelineEvent 4", description: "Event 4 Description" },
+    { time: "16:30", title: "TimelineEvent 5", description: "Event 5 Description" },
+    { time: "16:30", title: "TimelineEvent 6", description: "Event 5 Description" },
+    { time: "16:30", title: "TimelineEvent 7", description: "Event 5 Description" },
+    { time: "16:30", title: "TimelineEvent 8", description: "Event 5 Description" },
+    { time: "16:30", title: "TimelineEvent 9", description: "Event 5 Description" },
+    { time: "16:30", title: "TimelineEvent 10", description: "Event 5 Description" },
+    { time: "16:30", title: "TimelineEvent 11", description: "Event 5 Description" },
+    { time: "16:30", title: "TimelineEvent 12", description: "Event 5 Description" },
+    { time: "16:30", title: "TimelineEvent 13", description: "Event 5 Description" },
+    { time: "16:30", title: "TimelineEvent 14", description: "Event 5 Description" },
+    { time: "16:30", title: "TimelineEvent 15", description: "Event 5 Description" },
+    { time: "16:30", title: "TimelineEvent 16", description: "Event 5 Description" },
+    { time: "16:30", title: "TimelineEvent 17", description: "Event 5 Description" },
   ];
-
   return (
     <View style={{ height: "100%" }}>
       <ViewTimelineMain

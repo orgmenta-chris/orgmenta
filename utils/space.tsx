@@ -2,7 +2,7 @@
 
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { ViewModalMain } from "./modal";
-import { ViewRouterLink } from "./router";
+import { ViewRouterLink, ViewRouterLinkthemed } from "./router";
 import { useState, useEffect } from "react";
 import { ScrollView, View, Text, Pressable } from "react-native";
 import {
@@ -21,6 +21,7 @@ import {
   ColumnDef,
 } from "@tanstack/react-table";
 import { ViewTypographyTextsubheading } from "./typography";
+import { ViewCardExpandable } from "./card";
 
 // Meta
 
@@ -352,23 +353,10 @@ export const ViewSpaceModal = (props: any) => {
       pinnable
       collapsible
     >
-      <ViewSpaceSwitch/>
-      <ViewRouterLink to={`/spaces/${"SPACEIDHERE"}/pods`}>
-        SPACE
-      </ViewRouterLink>
-      <ViewRouterLink to={`/spaces/all/pods`}>ALL SPACES</ViewRouterLink>
-      <ViewRouterLink to={`/spaces/${"SPACEIDHERE"}/pods`}>
-        SPACE
-      </ViewRouterLink>
-      <ViewRouterLink to={`/spaces/all/pods`}>ALL SPACES</ViewRouterLink>
-      <ViewRouterLink to="">Files</ViewRouterLink>
-      <ViewRouterLink to="">Settings</ViewRouterLink>
-      <ViewRouterLink to="">Subscription & Billing</ViewRouterLink>
-
-      <Text>(list of spaces here)</Text>
-      <Pressable>
-        <Text>+ Add a new organization</Text>
-      </Pressable>
+      <ScrollView>
+        <ViewSpaceSwitch />
+        <ViewSpaceLinks />
+      </ScrollView>
     </ViewModalMain>
   );
 };
@@ -434,25 +422,73 @@ export const ViewModalState = ({ modalName }: any) => {
 
 export const ViewSpaceSwitch = () => {
   const array = useSpaceArray({});
-  const updater = useSpaceSet(["space", "selected"], (id: string, title: string, storename: string) => ({ id: id, title, storename }));
-  const selected = useSpaceState(["space", "selected"]);
+  const updater = useSpaceSet(
+    ["space", "selected"],
+    (id: string, title: string, storename: string) => ({
+      id: id,
+      title,
+      storename,
+    })
+  );
   return (
-    <View style={{margin: 5, backgroundColor:'white'}}>
-      <ViewTypographyTextsubheading>Switch Space</ViewTypographyTextsubheading>
-      <View style={{}}>
-        {array?.data?.map((x, i) => (
-          <Pressable key={i} style={{padding: 10, margin: 5,backgroundColor: 'lightgray'}} onPress={() => updater(x.id, x.name_display_singular, x.name_store_singular)}>
-            <Text>{x.name_display_singular}</Text>
-          </Pressable>
-        ))}
-        {/* testing */}
-        {/* <Text>{JSON.stringify(selected.data)}</Text> */}
-      </View>
-    </View>
+    <ViewCardExpandable
+      startExpanded
+      header={"Switch Space"}
+      body={array?.data?.map((x, i) => (
+        <Pressable
+          key={i}
+          style={{ padding: 10, margin: 5, backgroundColor: "lightgray" }}
+          onPress={() =>
+            updater(x.id, x.name_display_singular, x.name_store_singular)
+          }
+        >
+          <Text>{x.name_display_singular}</Text>
+        </Pressable>
+      ))}
+    />
   );
 };
+
+export const ViewSpaceLinks = () => {
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Navigation"}
+      body={
+        <>
+          <ViewRouterLinkthemed to={`/spaces/${"SPACEIDHERE"}/pods`}>
+            SPACE
+          </ViewRouterLinkthemed>
+          <ViewRouterLinkthemed to={`/spaces/all/pods`}>
+            ALL SPACES
+          </ViewRouterLinkthemed>
+          <ViewRouterLinkthemed to={`/spaces/${"SPACEIDHERE"}/pods`}>
+            SPACE
+          </ViewRouterLinkthemed>
+          <ViewRouterLinkthemed to={`/spaces/all/pods`}>
+            ALL SPACES
+          </ViewRouterLinkthemed>
+          <ViewRouterLinkthemed to="">Files</ViewRouterLinkthemed>
+          <ViewRouterLinkthemed to="">Settings</ViewRouterLinkthemed>
+          <ViewRouterLinkthemed to="">
+            Subscription & Billing
+          </ViewRouterLinkthemed>
+
+          <Text>(list of spaces here)</Text>
+          <Pressable>
+            <Text>+ Add a new organization</Text>
+          </Pressable>
+        </>
+      }
+    />
+  );
+};
+
 // Set (set values to a space's state)
-export const useSpaceSet = (queryKey: string[], newData: (id: string, title: string, storename: string) => any) => {
+export const useSpaceSet = (
+  queryKey: string[],
+  newData: (id: string, title: string, storename: string) => any
+) => {
   const queryClient = useQueryClient();
   return (passedId: string, passedTitle: string, passedStorename: string) => {
     const resolvedData = newData(passedId, passedTitle, passedStorename);
@@ -461,7 +497,6 @@ export const useSpaceSet = (queryKey: string[], newData: (id: string, title: str
     });
   };
 };
-
 
 // Sync
 // Future feature: Spaces will be able to share entityrelationships between each other.

@@ -3,6 +3,7 @@ import { ViewPageMain } from "../utils/page";
 import { ViewDisplayDynamic } from "../utils/display";
 import { ViewActionTabs } from "../utils/action";
 import { ViewFocusMain } from "../utils/focus";
+import { useSpaceState } from "../utils/space";
 import {
   useEntityArray,
   useEntitySingle,
@@ -12,11 +13,12 @@ import { useRouterLocation } from "./../utils/router";
 import { View } from "react-native";
 
 export default function Entity() {
+  const space = useSpaceState(["space", "selected"]);
   const paths = useRouterLocation()?.paths;
   // todo: auxiliary data doesn't have relationship ids yet
   const display = paths?.[3]; // this should be passed as the component prop instead of hardcoded here
   const id = paths?.[2]; // this should be passed as the component  prop instead of hardcoded here
-  const auxiliary = useEntityArray({ category: id });
+  const auxiliary = useEntityArray({ table: space?.data?.id, category: id });
   const focus = useEntitySingle({ id: id });
   const schema = useEntitySchema();
   return (

@@ -1,10 +1,12 @@
 // 'Bookmarks' are links to categories, pinned or other saved entity views.
 
 import { ViewModalMain } from "./modal";
-import { Expandable } from "../components/expandable";
 import { ScrollView } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { data } from "./static";
+import { ViewCardExpandable } from "./card";
+import { ViewRouterLinkthemed } from "./router";
+import { ViewTypographyTextsubsubheading } from "./typography";
 
 // Modal
 
@@ -24,7 +26,27 @@ export const ViewBookmarkModal = (props: any) => {
               (x) => (x.status === "3. Active" || __DEV__) && x.parent === 1
             ) // if in production, only show active modules
             .map((x, i) => (
-              <Expandable item={x} key={x.id || i} />
+              <ViewCardExpandable
+                key={x.id || i}
+                header={x.display_singular}
+                headerlink={"entity/" + x.nickname}
+                body={data
+                  .filter(
+                    (y) =>
+                      (y.status === "3. Active" || __DEV__) && y.parent === x.id
+                  )
+                  .map((y, i) => (
+                    <ViewRouterLinkthemed
+                      style={{ textDecoration: "none", margin: 10 }}
+                      to={"entity/" + y.nickname}
+                      key={"a" + y.id + i}
+                    >
+                      <ViewTypographyTextsubsubheading>
+                        {y.display_singular}
+                      </ViewTypographyTextsubsubheading>
+                    </ViewRouterLinkthemed>
+                  ))}
+              />
             )) // display the name only (temporary, to be replaced with link)
         }
       </ScrollView>

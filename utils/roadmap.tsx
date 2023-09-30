@@ -1246,6 +1246,7 @@ export const paradigms = [
   "Many-many relationships (at the moment, everything is attached to everything, e.g. an item may be linked to a category, the category's parent, the category's grandparent etc.. But this will balloon out, so we may need to do recursive joins in postgresql.)",
   "short term memory layout: Business Framework: 9 Top level modules (condensing further would compromise functionality), 5 submodules max for each subsequent sublevel. ~9 Main entity types.",
   "Opinionated Definitions, Types, Statuses, Displays",
+  "Permissions and access: The entityrel structure allows us to be granular and only share some things inter-spacetable. but could the graph itself have a pattern that could have info inferred from? and will there be a problem with a single entity being entirely shared (do we need to lock specific fields from being shared?)",
 ];
 
 // Checklist
@@ -1450,3 +1451,63 @@ export const arrayCompetitors: { id: number; name: string; industry: string, url
   { id: 19, name: "Microsoft Dynamics", industry: 'agnostic', url: "https://www.microsoft.com/en-us/dynamics365" }
 ];
 
+export const arrayCompetitorCompanies ={
+  connectwise: {
+    employees: 3100,
+  },
+  kaseya: {
+    employees: 3500
+  }
+}
+
+export const orgmentaTerritories = [
+  { region: 'North America & Caribbean', population: 650, language_primary: 'English', language_secondary: 'Spanish', language_tertiary: 'French', remaining: "<5m"},
+  { region: 'Latin America', population: 650,  language_primary: 'Spanish', language_secondary: 'Portuguese', language_tertiary: 'English', remaining: "<5m" },
+  { region: 'Western, Central & South Europe', population: 450, language_primary: 'English',  language_secondary: 'French', language_tertiary: 'German', remaining: "?m" },
+  { region: 'Africa', population: 1000, language_primary: 'Arabic',  language_secondary: 'Swahili', language_tertiary: 'English', remaining: "?m" },
+  { region: 'Russian & Eastern Europe / Slavic and Central Asia', population: 350, language_primary: 'Russian',  language_secondary: 'English', language_tertiary: 'n/a', remaining: "?m" },
+  { region: 'India and South Asia', population: 1400, language_primary: 'Hindi',  language_secondary: 'Bengali', language_tertiary: 'English', language_quaternary: '', remaining: "?m" },
+  { region: 'China & Friends', population: 2000, language_primary: 'Standard/Mandarin',  language_secondary: 'English', language_tertiary: 'n/a', remaining: "?m" },
+  { region: 'Middle East & Western Asia', population: 300, language_primary: '',  language_secondary: 'Turkish', language_tertiary: 'English', remaining: "?m" },
+  { region: 'Indonesia & SE Asia', population: 1000, language_primary: 'Indonesian',  language_secondary: 'English', language_tertiary: 'n/a', remaining: "?m" },
+]
+
+const languagesByTotalSpeakers = [
+  { priority: 1, language: 'English', speakers_primary: 380, speakers_secondary: 1077, speakers_total: 1456 },
+  { priority: 2, language: 'Standard/Mandarin', speakers_primary: 939, speakers_secondary: 199, speakers_total: 1138 },
+  { priority: 2, language: 'Hindi', speakers_primary: 345, speakers_secondary: 266, speakers_total: 609 },
+  { priority: 2, language: 'Spanish', speakers_primary: 485, speakers_secondary: 74, speakers_total: 559 },
+  { priority: 2, language: 'French', speakers_primary: 81, speakers_secondary: 229, speakers_total: 310 },
+  { priority: 3, language: 'Modern Standard Arabic', speakers_primary: 0, speakers_secondary: 274, speakers_total: 274 },
+  { priority: 3, language: 'Bengali', speakers_primary: 234, speakers_secondary: 39, speakers_total: 273 },
+  { priority: 3, language: 'Portuguese', speakers_primary: 236, speakers_secondary: 27, speakers_total: 264 },
+  { priority: 3, language: 'Russian', speakers_primary: 147, speakers_secondary: 108, speakers_total: 255 },
+  { priority: 3, language: 'Urdu', speakers_primary: 71, speakers_secondary: 161, speakers_total: 232 },
+  { priority: 3, language: 'Indonesian', speakers_primary: 44, speakers_secondary: 155, speakers_total: 199 },
+  { priority: 3, language: 'German', speakers_primary: 75, speakers_secondary: 58, speakers_total: 133 },
+  { priority: 4, language: 'Japanese', speakers_primary: 123, speakers_secondary: 0.2, speakers_total: 123 },
+  { priority: 4, language: 'Egyptian Arabic', speakers_primary: 77, speakers_secondary: 25, speakers_total: 102 },
+  { priority: 4, language: 'Marathi', speakers_primary: 83, speakers_secondary: 16, speakers_total: 99 },
+  { priority: 4, language: 'Telugu', speakers_primary: 83, speakers_secondary: 13, speakers_total: 96 },
+  { priority: 4, language: 'Turkish', speakers_primary: 84, speakers_secondary: 6, speakers_total: 90 },
+  { priority: 4, language: 'Tamil', speakers_primary: 79, speakers_secondary: 8, speakers_total: 87 },
+  { priority: 4, language: 'Yue Chinese', speakers_primary: 86, speakers_secondary: 1, speakers_total: 87 },
+  { priority: 4, language: 'Vietnamese', speakers_primary: 85, speakers_secondary: 1, speakers_total: 86 },
+  { priority: 4, language: 'Wu Chinese', speakers_primary: 83, speakers_secondary: 0.1, speakers_total: 83 },
+  { priority: 4, language: 'Tagalog', speakers_primary: 29, speakers_secondary: 54, speakers_total: 83 },
+  { priority: 4, language: 'Korean', speakers_primary: 82, speakers_secondary: 0, speakers_total: 82 },
+  { priority: 4, language: 'Iranian Persian', speakers_primary: 57, speakers_secondary: 21, speakers_total: 79 },
+  { priority: 4, language: 'Hausa', speakers_primary: 52, speakers_secondary: 27, speakers_total: 79 },
+  { priority: 4, language: 'Swahili', speakers_primary: 16, speakers_secondary: 55, speakers_total: 72 },
+  { priority: 4, language: 'Javanese', speakers_primary: 0, speakers_secondary: 68, speakers_total: 68 },
+  { priority: 4, language: 'Italian', speakers_primary: 65, speakers_secondary: 3, speakers_total: 68 },
+  { priority: 5, language: 'Western Punjabi', speakers_primary: 0, speakers_secondary: 67, speakers_total: 67 },
+  { priority: 5, language: 'Gujarati', speakers_primary: 57, speakers_secondary: 5, speakers_total: 62 },
+  { priority: 5, language: 'Thai', speakers_primary: 21, speakers_secondary: 40, speakers_total: 61 },
+];
+
+export const ethicsQuestions = [
+  "Is it wrong to be implementing Microsoft et al first, and further strengthening their monolopoly? Or should be use that as a spring board to get power before we help break the monopoly?",
+  "is it wrong to be concentrating on the wealthier territories? Should we be lifting up the rest first, even if it's counter to our success? Or is our success a way to then enable the lifting?",
+  "Should we be charging more per seat to smaller companies, and giving larger companies economies of scale? Is this necessary to get the bigger companies as customers?",
+]

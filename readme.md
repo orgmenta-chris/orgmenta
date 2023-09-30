@@ -345,7 +345,15 @@ If queries start timing out / taking too long:
 
 }
 
-# General Learning References
+# General References
+
+## Learning References
 
 - https://github.com/hayanisaid/React-Native-developer-roadmap
 - https://roadmap.sh/react-native
+
+## Visual Programming
+- https://news.ycombinator.com/item?id=37702059
+
+## Category & Set Theory
+- https://news.ycombinator.com/item?id=37704579

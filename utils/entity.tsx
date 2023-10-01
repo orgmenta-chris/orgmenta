@@ -85,20 +85,18 @@ export const ViewEntityTabs = ({ id }: any) => {
 
 // Array
 
-export const useEntityArray = (filter_object?: any) => {
+export const useEntityArray = (table?:any, category?: any) => {
   // todo: implement filter_array in query function
   const query = useQuery({
-    queryKey: ["entities", "array", filter_object],
+    queryKey: ["entities", "array", table, category],
     queryFn: () => {
       return (
         instanceSupabaseClient
-          .from("entities_orgmenta")
+          .from(table||"entities")
           // .from("entities")
           .select()
-
           // temp hardcoded filters:
-          .contains("categories", [filter_object?.category || "all"])
-
+          .contains("categories", [category || "all"])
           // .contains('other', { test: 1 }) // Example of how we can add static fields in (e.g. event_start can be in here instead of having to create a new column which is only applicable to events)
           // or we can store this sort of thing in side b of relationships (but that requires a join)
           // todo: implement filter_array here
@@ -172,7 +170,7 @@ export interface interfaceEntityCreate {
 }
 
 export async function validateEntityCreate(entity: interfaceEntityCreate) {
-  console.log("todo");
+  //todo
 }
 
 export async function requestEntityCreate(entity: interfaceEntityCreate) {
@@ -225,7 +223,7 @@ export const useEntityCreate = (props: interfaceEntityCreate) => {
 // E.g. if this hook is used by an Invoice entity, it will return only the attributes relevant to the invoice (like line_items and balance_due)
 // (to do: make dynamic - at the moment it isn't accepting props for the filter)
 export const useEntitySchema = () => {
-  const query = useAttributeUnioned(["categories", "Entity"]);
+  const query = useAttributeUnioned(["Entity"]);
   return query;
 };
 

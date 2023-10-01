@@ -23,6 +23,7 @@ export const ExpoSecureStoreAdapter = {
       SecureStore.deleteItemAsync(key);
   },
 };
+
 export const TempUnencryptedWebWorkaround = {
   getItem: (key: string) => {
       return AsyncStorage.getItem(key);

@@ -98,23 +98,24 @@ export const ViewDisplayPod = (props: any) => {
 // Form
 
 export const ViewDisplayForm = (props: any) => {
+  // console.log(props?.schema?.data?.map(x=>x.focus_columns.name_singular))
   // Chris todo: auxiliary data doesn't have relationship ids yet, so 'if(oldItem.focus_columns.cell_field==='relationship'){' does nothing yet
   // create the appropriate schema for the form
   let data: any = useMemo(() => {
     let items: any = [];
-
     if (props.schema && props.focus.data && props.auxiliary) {
       props?.schema?.data?.forEach((oldItem: any) => {
         let newItem = { ...oldItem, ...oldItem.auxiliary_columns };
+        // console.log('newItem.name_singular',newItem[newItem.name_singular])
+        // console.log('newItem.name_singular',newItem.name_singular)
         // if the attribute is 'relationship' we know that it is in the relationship table instead of being a column on the entity table.
         if (oldItem.focus_columns.cell_field === "relationship") {
           newItem.table = "relationships";
           newItem.value = "(relationships)"; //'props.auxiliary.data to be filtered here (todo)'
         } else {
           newItem.table = "entities";
-          newItem.value = props.focus.data?.[0]?.[newItem.name_singular];
+          newItem.value = newItem[newItem.name_singular];
         }
-
         delete newItem.focus_columns;
         delete newItem.auxiliary_columns;
         items.push(newItem);

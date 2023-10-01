@@ -12,21 +12,30 @@ import {
 import { useRouterLocation } from "./../utils/router";
 import { View } from "react-native";
 
+type TypeSpaceData = {
+  storename: string;
+}
+
 export default function Entity() {
   const space = useSpaceState(["space", "selected"]);
   const paths = useRouterLocation()?.paths;
-  // todo: auxiliary data doesn't have relationship ids yet
-  const display = paths?.[3]; // this should be passed as the component prop instead of hardcoded here
-  const id = paths?.[2]; // this should be passed as the component  prop instead of hardcoded here
-  const auxiliary = useEntityArray({ table: space?.data?.id, category: id });
-  const focus = useEntitySingle({ id: id });
+  const display = paths?.[3]; // this will eventually be passed as the component prop instead of hardcoded here
+  const category = paths?.[2]; // this will eventually be passed as the component  prop instead of hardcoded here
+  const storename = (space?.data as TypeSpaceData | undefined)?.storename;
+  // todo: auxiliary data doesn't have relationships table joined to it yet
+  const auxiliary = useEntityArray(
+    `entities_${storename}`,
+    category
+  );
+  const focus = useEntitySingle({ category });
   const schema = useEntitySchema();
   return (
     <ViewPageMain>
+      {/* Flex View to keep Action tabs at the bottom of the screen */}
       <View style={{ flex: 1 }}>
-        {/* Show the entity focus (the primary record being viewed) */}
+        {/* Show the 'focus' entity (the primary record being viewed) */}
         <ViewFocusMain />
-        {/* Show the auxiliary entities (in whichever mode is selected, e.g. Calendar, Table etc.) */}
+        {/* Show the 'auxiliary' entities (secondary records being vieweed, possibly related to the focus) in whichever mode is selected, e.g. Calendar, Table etc. */}
         <ViewDisplayDynamic
           auxiliary={auxiliary}
           schema={schema}

@@ -53,7 +53,7 @@ export default function Home() {
           source={require("../assets/logo/full/color_cropped.png")}
         />
         <Text style={{ textAlign: "center", fontSize: 20 }}>
-          The Business Operating System
+          The BOS (Business Operating System) / ERP (Enterprise Resource Planning) / PSA (Professional Services Automation)
         </Text>
         <Text
           style={{

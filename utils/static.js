@@ -4250,8 +4250,18 @@ export const data = [
       id: 190,
       parent: 19,
       status: "5. Hold",
-      name_singular: "offerings",
-      display_singular: "Offerings",
+      name_singular: "AUTOMATION+WORKFLOWS",
+      display_singular: "AUTOMATION+WORKFLOWS",
+      description:
+        "Add in automation and workflows (to be confirmed where)",
+      nickname: "system-AUTOMATION+WORKFLOWS",
+    },
+    {
+      id: 190,
+      parent: 19,
+      status: "5. Hold",
+      name_singular: "OFFERINGS-MOVETOGOVERNANCEORACCOUNTS?",
+      display_singular: "OFFERINGS-MOVETOGOVERNANCEORACCOUNTS?",
       description:"Management of your company offerings (products / services)",
       summary: [
         "Work with you to establish and maintain core offerings (products & services)",
@@ -4282,6 +4292,8 @@ export const data = [
         "Either manual price changes or automatic contract increases (e.g. contracts that stipulate that prices will be increased by inflation+3% YoY.)",
       nickname: "system-offerings-prices",
       notes: `Factors that should be catered for in pricing:
+      Inflation. 5-10% YoY is common. For 22/23/24 10% should be considered due to unprescedented inflation. Some other countries with runaway inflation need to cater for this more often.
+
       Discount Strategy: Policies and rules for when and how to offer discounts, be it seasonal, bulk, or targeted to certain customer segments.
       Cost Structure: An understanding of how the various costs (fixed, variable, direct, and indirect) affect the pricing strategy.
       Price Localization: Adjusting pricing strategy for different geographic locations or markets.
@@ -4376,7 +4388,13 @@ export const data = [
       description:
         "Implement a price change/adjustment (with a date set for when it will come into effect).",
       summary:
-        "After the change is applied to your product catalog, there should be a rule/check to ensure that prices haven't gone down uninentionally, or risen by >X% depending on requirements",
+        `After the change is applied to your product catalog, there should be a rule/check to ensure that prices haven't gone down uninentionally, or risen by >X% depending on requirements.
+        How to cater for inflation if trading internationally:
+        Weighted Average Inflation: This approach is often used when costs are incurred in multiple currencies. The inflation rates are weighted according to the proportion of costs in each currency.
+        Higher of the Two: Some businesses opt for this conservative approach to ensure they are covered for increases in costs. This is more common when there is high volatility in either inflation rates or exchange rates.
+        Currency of Major Expenditure: If the majority of expenses are in one currency, companies may use the inflation rate of that currency as the basis for price adjustments.
+        Peg to a third party (unrelated) currency, e.g. USD.
+        `,
       nickname: "system-offerings-prices-modifications",
     },
     {
@@ -4384,10 +4402,18 @@ export const data = [
       parent: 1901,
       status: "5. Hold",
       name_singular: "awareness",
-      display_singular: "Awareness",
+      display_singular: "Awareness OR DATE OF EFFECT",
       description: "Alert any affected stakeholders",
-      summary:
-        "Primarily, customers (especially current subscribers) should be made aware of the impending price change, with appropriate notice period.",
+      summary:`
+        Primarily, customers (especially current subscribers) should be made aware of the impending price change, with appropriate notice period.
+        When to apply a price increase:
+        - Immediate / as of next billing date (+appropriate notice buffer) - For significant increase in costs.
+        - CY
+        - FY
+        - Contract anniversary date (most common)
+        Add Value
+        When you increase your prices, impart the value / justify the increase. think of a free gift or service you can add to increase the value. Clients will be less likely to feel uneasy about the increase in price.
+     `,
       nickname: "system-offerings-prices-awareness",
     },
     {
@@ -4761,7 +4787,7 @@ export const data = [
       parent: 19,
       status: "5. Hold",
       name_singular: "data",
-      display_singular: "Data",
+      display_singular: "DATA_MOVEINTOPROCESS?",
       description: "",
       summary: "",
       nickname: "system-data",

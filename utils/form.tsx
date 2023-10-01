@@ -21,7 +21,7 @@ export const ViewFormMain = ({ children, title }: any) => {
 
 // A form that shows the correct field type based on a field propery in each object
 export const ViewFormDynamic = ({ data, title }: any) => {
-  // console.log('data',data)
+  // console.log(data)
   return (
     <ViewFormMain>
       {!data && (
@@ -34,7 +34,7 @@ export const ViewFormDynamic = ({ data, title }: any) => {
             ...item,
             label: item.display_singular,
             value: item.value,
-            component: item.form_field || "Text",
+            component: item.form_field,
           }}
         />
       ))}

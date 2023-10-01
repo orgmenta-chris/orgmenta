@@ -6,12 +6,12 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { ScrollView, View, Text } from "react-native";
 import { useTableColumns } from "../components/displays/table/table";
 import {
-    createColumnHelper,
-    flexRender,
-    getCoreRowModel,
-    useReactTable,
-    ColumnResizeMode,
-    ColumnDef,
+  createColumnHelper,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+  ColumnResizeMode,
+  ColumnDef,
 } from "@tanstack/react-table";
 
 // Create
@@ -101,16 +101,17 @@ export const ViewAttributeMain = memo(() => {
 });
 
 // Unioned
-
-export const useAttributeUnioned = (class_array = [] as any) => {
-  // get all of the attributes from both the A and B sides of attributes
-  const searchArray = ["All"].concat(class_array).join(","); // make this dynamic and accept props
-  const queryKey: (string | number)[] = ["attributes", "unioned", searchArray];
+export const useAttributeUnioned = (classArray: any) => {
+  const queryKey: (string | number)[] = ["attributes", "unioned", classArray];
+  const searchArray = ["All", "Entity"].concat(classArray).join(",");
   const queryFn = async () => {
     const response = await instanceSupabaseClient
       .from("attributes_unioned")
       .select()
-      .or(`class.cd.{${searchArray}}`); // match at least one value from the search array (or if null, assume that it is a universal attribute )
+      .filter("class", "cd", `{${searchArray}}`); // get any attribute that shares at least one class with this searchArray
+    // Testing
+    // .or(`class.cd.['Entity'],class.cd.["${attribute_class}"]`);
+    // .or(`class.cd.{'${classValue}'}`); // match at least one value from the search array (or if null, assume that it is a universal attribute )
     // .or(`class.is.null, class.cd.{${searchArray}}`) // match at least one value from the search array (or if null, assume that it is a universal attribute )
     return response.data;
   };
@@ -119,7 +120,7 @@ export const useAttributeUnioned = (class_array = [] as any) => {
 };
 
 export const ViewAttributeUnioned = memo(() => {
-  const array = useAttributeUnioned({ attribute_class: "Entity" });
+  const array = useAttributeUnioned(["Entity"]);
   const attributeColumnNames = [
     "id",
     "class",

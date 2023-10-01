@@ -178,6 +178,7 @@ export const useSpaceArray = ({ ...Input }) => {
       return response.data;
     },
     enabled: true,
+    keepPreviousData: true
   } as UseQueryOptions<any[], unknown>); // Specify the expected types for data and error.
   return query;
 };
@@ -484,7 +485,6 @@ export const ViewSpaceLinks = () => {
   );
 };
 
-// Set (set values to a space's state)
 export const useSpaceSet = (
   queryKey: string[],
   newData: (id: string, title: string, storename: string) => any
@@ -493,6 +493,9 @@ export const useSpaceSet = (
   return (passedId: string, passedTitle: string, passedStorename: string) => {
     const resolvedData = newData(passedId, passedTitle, passedStorename);
     queryClient.setQueryData(queryKey, (oldData: any) => {
+      if (JSON.stringify(oldData) === JSON.stringify(resolvedData)) {
+        return oldData;
+      }
       return { ...oldData, ...resolvedData };
     });
   };

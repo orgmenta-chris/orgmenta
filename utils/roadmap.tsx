@@ -106,13 +106,14 @@ export const features = [
     version: 0.0,
     status: "0. New",
     description: "Email (and other communication channels) Connectors",
-    notes: 'see autotask live formulas, may be useful reference: https://ww1.autotask.net/help/content/4_admin/2featuressettings/livereports/addlivereport/Calculations/LRFormulas.htm',
+    notes:
+      "see autotask live formulas, may be useful reference: https://ww1.autotask.net/help/content/4_admin/2featuressettings/livereports/addlivereport/Calculations/LRFormulas.htm",
     priority: 2,
     userstories: {
       any_user: [
         "use a url with 'action' parameters in it, in order to prepopulate an action form. For example, add/title=example&type=Event should prepopulate a form.This means that the action tabs must be accessible via url.",
         "streamline my workflow, add bookmarks etc.",
-        "be able to put formulas in my url params, e.g. 'start=[today+3]', 'budget=[sum(childevents)+1]' etc."
+        "be able to put formulas in my url params, e.g. 'start=[today+3]', 'budget=[sum(childevents)+1]' etc.",
       ],
       customer_user: [
         "submit tickets through multiple channels (email, chat, phone) efficiently and minimise the time for it to be triaged, assigned and resolved.",
@@ -1237,18 +1238,49 @@ export const procedures = [
 // General models / structures that Orgmenta is using.
 // These are exposed to the client side to some extent - If trials indicate that this does not work for the UX, then these paradigms can be made backend only (i.e. not expose the user to them as necessary).
 // These may be non-performant - If trials indicate that this does not work, then they can be mitigated (see query speed in readme for example)
-export const paradigms = [
-  "Data structure: Node-Edge, 2-table paradigm instead of statically defined tables",
-  "Displays: Data displays that the user can toggle between at will (to be restricted as necessary if users say they have 'TOO MUCH choice'/causes confusion)",
-  "Categories/Modules/Business Framework",
-  "Dynamic attributes",
-  "TechStack (react native stack)",
-  "'ViewRouterLink anything to anything' (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)",
-  "Custom attributes/properties on entities (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)",
-  "Many-many relationships (at the moment, everything is attached to everything, e.g. an item may be linked to a category, the category's parent, the category's grandparent etc.. But this will balloon out, so we may need to do recursive joins in postgresql.)",
-  "short term memory layout: Business Framework: 9 Top level modules (condensing further would compromise functionality), 5 submodules max for each subsequent sublevel. ~9 Main entity types.",
-  "Opinionated Definitions, Types, Statuses, Displays",
-  "Permissions and access: The entityrel structure allows us to be granular and only share some things inter-spacetable. but could the graph itself have a pattern that could have info inferred from? and will there be a problem with a single entity being entirely shared (do we need to lock specific fields from being shared?)",
+type Paradigm = {
+  description: string;
+};
+export const paradigms: Paradigm[] = [
+  {
+    description: "Data structure: Node-Edge, 2-table paradigm instead of statically defined tables",
+  },
+  {
+    description: "Displays: Data displays that the user can toggle between at will (to be restricted as necessary if users say they have 'TOO MUCH choice'/causes confusion)",
+  },
+  {
+    description: "Categories/Modules/Business Framework",
+  },
+  {
+    description: "Dynamic attributes",
+  },
+  {
+    description: "TechStack (react native stack)",
+  },
+  {
+    description: "'ViewRouterLink anything to anything' (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)",
+  },
+  {
+    description: "Custom attributes/properties on entities (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)",
+  },
+  {
+    description: "Many-many relationships (at the moment, everything is attached to everything, e.g. an item may be linked to a category, the category's parent, the category's grandparent etc.. But this will balloon out, so we may need to do recursive joins in postgresql.)",
+  },
+  {
+    description: "short term memory layout: Business Framework: 9 Top level modules (condensing further would compromise functionality), 5 submodules max for each subsequent sublevel. ~9 Main entity types.",
+  },
+  {
+    description: "Opinionated Definitions, Types, Statuses, Displays",
+  },
+  {
+    description: "Permissions and access: The entityrel structure allows us to be granular and only share some things inter-spacetable. but could the graph itself have a pattern that could have info inferred from? and will there be a problem with a single entity being entirely shared (do we need to lock specific fields from being shared?)",
+  },
+  {
+    description: "Framework module SCOPE. Need to ensure that all submodules are comparable in size/scope",
+  },
+  {
+    description: "Framework module FUNCTIONAL PARITY(?). Need to ensure that all submodules are comparable in function TYPE.(?) e.g. we don't want one set of submodules describing statuses that the parent travels through, while another describes features of the parent. (?)And we don't want one set to be nouns and the other verbs(?). Can someone describe this better than my awful attempt?",
+  }
 ];
 
 // Checklist
@@ -1431,85 +1463,538 @@ export const competitorFeatures = {
   ],
 };
 
-export const arrayCompetitors: { id: number; name: string; industry: string, url: string }[] = [
-  { id: 1, name: "ServiceNow", industry: 'IT', url: "https://www.servicenow.com" },
-  { id: 2, name: "ConnectWise Manage/PSA", industry: 'IT', url: "https://www.connectwise.com" },
-  { id: 3, name: "Autotask", industry: 'IT', url: "https://www.autotask.com" },
-  { id: 4, name: "SAP", industry: 'agnostic', url: "https://www.sap.com" },
-  { id: 5, name: "Salesforce", industry: 'agnostic', url: "https://www.salesforce.com" },
-  { id: 6, name: "Halo PSA", industry: 'IT', url: "https://www.haloservicemanagement.com" },
-  { id: 7, name: "Ninja RMM / NinjaOne", industry: 'IT', url: "https://www.ninjarmm.com" },
-  { id: 8, name: "FreshWorks / FreshDesk / FreshService", industry: 'agnostic', url: "https://www.freshworks.com" },
-  { id: 9, name: "Jira Service Management", industry: 'IT', url: "https://www.atlassian.com/software/jira/service-management" },
-  { id: 10, name: "Synchro MSP", industry: 'IT', url: "https://www.synchromsp.com" },
-  { id: 11, name: "RepairShoppr", industry: 'IT', url: "https://www.repairshoppr.com" },
-  { id: 12, name: "Ivanti Service Manager", industry: 'IT', url: "https://www.ivanti.com" },
-  { id: 13, name: "ManageEngine ServiceDesk Plus", industry: 'IT', url: "https://www.manageengine.com" },
-  { id: 14, name: "SysAid", industry: 'agnostic', url: "https://www.sysaid.com" },
-  { id: 15, name: "Cherwell ITSM", industry: 'IT', url: "https://www.cherwell.com" },
-  { id: 16, name: "BMC Remedy ITSM", industry: 'IT', url: "https://www.bmc.com" },
-  { id: 17, name: "Odoo", industry: 'agnostic', url: "https://www.odoo.com" },
-  { id: 18, name: "Thread (https://www.getthread.com/)", industry: 'IT', url: "https://www.getthread.com/" },
-  { id: 19, name: "Microsoft Dynamics", industry: 'agnostic', url: "https://www.microsoft.com/en-us/dynamics365" }
+export const arrayCompetitors: {
+  id: number;
+  name: string;
+  industry: string;
+  url: string;
+}[] = [
+  {
+    id: 1,
+    name: "ServiceNow",
+    industry: "IT",
+    url: "https://www.servicenow.com",
+  },
+  {
+    id: 2,
+    name: "ConnectWise Manage/PSA",
+    industry: "IT",
+    url: "https://www.connectwise.com",
+  },
+  { id: 3, name: "Autotask", industry: "IT", url: "https://www.autotask.com" },
+  { id: 4, name: "SAP", industry: "agnostic", url: "https://www.sap.com" },
+  {
+    id: 5,
+    name: "Salesforce",
+    industry: "agnostic",
+    url: "https://www.salesforce.com",
+  },
+  {
+    id: 6,
+    name: "Halo PSA",
+    industry: "IT",
+    url: "https://www.haloservicemanagement.com",
+  },
+  {
+    id: 7,
+    name: "Ninja RMM / NinjaOne",
+    industry: "IT",
+    url: "https://www.ninjarmm.com",
+  },
+  {
+    id: 8,
+    name: "FreshWorks / FreshDesk / FreshService",
+    industry: "agnostic",
+    url: "https://www.freshworks.com",
+  },
+  {
+    id: 9,
+    name: "Jira Service Management",
+    industry: "IT",
+    url: "https://www.atlassian.com/software/jira/service-management",
+  },
+  {
+    id: 10,
+    name: "Synchro MSP",
+    industry: "IT",
+    url: "https://www.synchromsp.com",
+  },
+  {
+    id: 11,
+    name: "RepairShoppr",
+    industry: "IT",
+    url: "https://www.repairshoppr.com",
+  },
+  {
+    id: 12,
+    name: "Ivanti Service Manager",
+    industry: "IT",
+    url: "https://www.ivanti.com",
+  },
+  {
+    id: 13,
+    name: "ManageEngine ServiceDesk Plus",
+    industry: "IT",
+    url: "https://www.manageengine.com",
+  },
+  {
+    id: 14,
+    name: "SysAid",
+    industry: "agnostic",
+    url: "https://www.sysaid.com",
+  },
+  {
+    id: 15,
+    name: "Cherwell ITSM",
+    industry: "IT",
+    url: "https://www.cherwell.com",
+  },
+  {
+    id: 16,
+    name: "BMC Remedy ITSM",
+    industry: "IT",
+    url: "https://www.bmc.com",
+  },
+  { id: 17, name: "Odoo", industry: "agnostic", url: "https://www.odoo.com" },
+  {
+    id: 18,
+    name: "Thread (https://www.getthread.com/)",
+    industry: "IT",
+    url: "https://www.getthread.com/",
+  },
+  {
+    id: 19,
+    name: "Microsoft Dynamics",
+    industry: "agnostic",
+    url: "https://www.microsoft.com/en-us/dynamics365",
+  },
 ];
 
-export const arrayCompetitorCompanies ={
+export const arrayCompetitorCompanies = {
   connectwise: {
     employees: 3100,
   },
   kaseya: {
-    employees: 3500
-  }
-}
+    employees: 3500,
+  },
+};
 
 export const orgmentaTerritories = [
-  { region: 'North America & Caribbean', population: 650, language_primary: 'English', language_secondary: 'Spanish', language_tertiary: 'French', remaining: "<5m"},
-  { region: 'Latin America', population: 650,  language_primary: 'Spanish', language_secondary: 'Portuguese', language_tertiary: 'English', remaining: "<5m" },
-  { region: 'Western, Central & South Europe', population: 450, language_primary: 'English',  language_secondary: 'French', language_tertiary: 'German', remaining: "?m" },
-  { region: 'Africa', population: 1000, language_primary: 'Arabic',  language_secondary: 'Swahili', language_tertiary: 'English', remaining: "?m" },
-  { region: 'Russian & Eastern Europe / Slavic and Central Asia', population: 350, language_primary: 'Russian',  language_secondary: 'English', language_tertiary: 'n/a', remaining: "?m" },
-  { region: 'India and South Asia', population: 1400, language_primary: 'Hindi',  language_secondary: 'Bengali', language_tertiary: 'English', language_quaternary: '', remaining: "?m" },
-  { region: 'China & Friends', population: 2000, language_primary: 'Standard/Mandarin',  language_secondary: 'English', language_tertiary: 'n/a', remaining: "?m" },
-  { region: 'Middle East & Western Asia', population: 300, language_primary: '',  language_secondary: 'Turkish', language_tertiary: 'English', remaining: "?m" },
-  { region: 'Indonesia & SE Asia', population: 1000, language_primary: 'Indonesian',  language_secondary: 'English', language_tertiary: 'n/a', remaining: "?m" },
-]
+  {
+    region: "North America & Caribbean",
+    population: 650,
+    language_primary: "English",
+    language_secondary: "Spanish",
+    language_tertiary: "French",
+    remaining: "<5m",
+  },
+  {
+    region: "Latin America",
+    population: 650,
+    language_primary: "Spanish",
+    language_secondary: "Portuguese",
+    language_tertiary: "English",
+    remaining: "<5m",
+  },
+  {
+    region: "Western, Central & South Europe",
+    population: 450,
+    language_primary: "English",
+    language_secondary: "French",
+    language_tertiary: "German",
+    remaining: "?m",
+  },
+  {
+    region: "Africa",
+    population: 1000,
+    language_primary: "Arabic",
+    language_secondary: "Swahili",
+    language_tertiary: "English",
+    remaining: "?m",
+  },
+  {
+    region: "Russian & Eastern Europe / Slavic and Central Asia",
+    population: 350,
+    language_primary: "Russian",
+    language_secondary: "English",
+    language_tertiary: "n/a",
+    remaining: "?m",
+  },
+  {
+    region: "India and South Asia",
+    population: 1400,
+    language_primary: "Hindi",
+    language_secondary: "Bengali",
+    language_tertiary: "English",
+    language_quaternary: "",
+    remaining: "?m",
+  },
+  {
+    region: "China & Friends",
+    population: 2000,
+    language_primary: "Standard/Mandarin",
+    language_secondary: "English",
+    language_tertiary: "n/a",
+    remaining: "?m",
+  },
+  {
+    region: "Middle East & Western Asia",
+    population: 300,
+    language_primary: "",
+    language_secondary: "Turkish",
+    language_tertiary: "English",
+    remaining: "?m",
+  },
+  {
+    region: "Indonesia & SE Asia",
+    population: 1000,
+    language_primary: "Indonesian",
+    language_secondary: "English",
+    language_tertiary: "n/a",
+    remaining: "?m",
+  },
+];
 
-const languagesByTotalSpeakers = [
-  { priority: 1, language: 'English', speakers_primary: 380, speakers_secondary: 1077, speakers_total: 1456 },
-  { priority: 2, language: 'Standard/Mandarin', speakers_primary: 939, speakers_secondary: 199, speakers_total: 1138 },
-  { priority: 2, language: 'Hindi', speakers_primary: 345, speakers_secondary: 266, speakers_total: 609 },
-  { priority: 2, language: 'Spanish', speakers_primary: 485, speakers_secondary: 74, speakers_total: 559 },
-  { priority: 2, language: 'French', speakers_primary: 81, speakers_secondary: 229, speakers_total: 310 },
-  { priority: 3, language: 'Modern Standard Arabic', speakers_primary: 0, speakers_secondary: 274, speakers_total: 274 },
-  { priority: 3, language: 'Bengali', speakers_primary: 234, speakers_secondary: 39, speakers_total: 273 },
-  { priority: 3, language: 'Portuguese', speakers_primary: 236, speakers_secondary: 27, speakers_total: 264 },
-  { priority: 3, language: 'Russian', speakers_primary: 147, speakers_secondary: 108, speakers_total: 255 },
-  { priority: 3, language: 'Urdu', speakers_primary: 71, speakers_secondary: 161, speakers_total: 232 },
-  { priority: 3, language: 'Indonesian', speakers_primary: 44, speakers_secondary: 155, speakers_total: 199 },
-  { priority: 3, language: 'German', speakers_primary: 75, speakers_secondary: 58, speakers_total: 133 },
-  { priority: 4, language: 'Japanese', speakers_primary: 123, speakers_secondary: 0.2, speakers_total: 123 },
-  { priority: 4, language: 'Egyptian Arabic', speakers_primary: 77, speakers_secondary: 25, speakers_total: 102 },
-  { priority: 4, language: 'Marathi', speakers_primary: 83, speakers_secondary: 16, speakers_total: 99 },
-  { priority: 4, language: 'Telugu', speakers_primary: 83, speakers_secondary: 13, speakers_total: 96 },
-  { priority: 4, language: 'Turkish', speakers_primary: 84, speakers_secondary: 6, speakers_total: 90 },
-  { priority: 4, language: 'Tamil', speakers_primary: 79, speakers_secondary: 8, speakers_total: 87 },
-  { priority: 4, language: 'Yue Chinese', speakers_primary: 86, speakers_secondary: 1, speakers_total: 87 },
-  { priority: 4, language: 'Vietnamese', speakers_primary: 85, speakers_secondary: 1, speakers_total: 86 },
-  { priority: 4, language: 'Wu Chinese', speakers_primary: 83, speakers_secondary: 0.1, speakers_total: 83 },
-  { priority: 4, language: 'Tagalog', speakers_primary: 29, speakers_secondary: 54, speakers_total: 83 },
-  { priority: 4, language: 'Korean', speakers_primary: 82, speakers_secondary: 0, speakers_total: 82 },
-  { priority: 4, language: 'Iranian Persian', speakers_primary: 57, speakers_secondary: 21, speakers_total: 79 },
-  { priority: 4, language: 'Hausa', speakers_primary: 52, speakers_secondary: 27, speakers_total: 79 },
-  { priority: 4, language: 'Swahili', speakers_primary: 16, speakers_secondary: 55, speakers_total: 72 },
-  { priority: 4, language: 'Javanese', speakers_primary: 0, speakers_secondary: 68, speakers_total: 68 },
-  { priority: 4, language: 'Italian', speakers_primary: 65, speakers_secondary: 3, speakers_total: 68 },
-  { priority: 5, language: 'Western Punjabi', speakers_primary: 0, speakers_secondary: 67, speakers_total: 67 },
-  { priority: 5, language: 'Gujarati', speakers_primary: 57, speakers_secondary: 5, speakers_total: 62 },
-  { priority: 5, language: 'Thai', speakers_primary: 21, speakers_secondary: 40, speakers_total: 61 },
+export const languagesByTotalSpeakers = [
+  {
+    priority: 1,
+    language: "English",
+    speakers_primary: 380,
+    speakers_secondary: 1077,
+    speakers_total: 1456,
+  },
+  {
+    priority: 2,
+    language: "Standard/Mandarin",
+    speakers_primary: 939,
+    speakers_secondary: 199,
+    speakers_total: 1138,
+  },
+  {
+    priority: 2,
+    language: "Hindi",
+    speakers_primary: 345,
+    speakers_secondary: 266,
+    speakers_total: 609,
+  },
+  {
+    priority: 2,
+    language: "Spanish",
+    speakers_primary: 485,
+    speakers_secondary: 74,
+    speakers_total: 559,
+  },
+  {
+    priority: 2,
+    language: "French",
+    speakers_primary: 81,
+    speakers_secondary: 229,
+    speakers_total: 310,
+  },
+  {
+    priority: 3,
+    language: "Modern Standard Arabic",
+    speakers_primary: 0,
+    speakers_secondary: 274,
+    speakers_total: 274,
+  },
+  {
+    priority: 3,
+    language: "Bengali",
+    speakers_primary: 234,
+    speakers_secondary: 39,
+    speakers_total: 273,
+  },
+  {
+    priority: 3,
+    language: "Portuguese",
+    speakers_primary: 236,
+    speakers_secondary: 27,
+    speakers_total: 264,
+  },
+  {
+    priority: 3,
+    language: "Russian",
+    speakers_primary: 147,
+    speakers_secondary: 108,
+    speakers_total: 255,
+  },
+  {
+    priority: 3,
+    language: "Urdu",
+    speakers_primary: 71,
+    speakers_secondary: 161,
+    speakers_total: 232,
+  },
+  {
+    priority: 3,
+    language: "Indonesian",
+    speakers_primary: 44,
+    speakers_secondary: 155,
+    speakers_total: 199,
+  },
+  {
+    priority: 3,
+    language: "German",
+    speakers_primary: 75,
+    speakers_secondary: 58,
+    speakers_total: 133,
+  },
+  {
+    priority: 4,
+    language: "Japanese",
+    speakers_primary: 123,
+    speakers_secondary: 0.2,
+    speakers_total: 123,
+  },
+  {
+    priority: 4,
+    language: "Egyptian Arabic",
+    speakers_primary: 77,
+    speakers_secondary: 25,
+    speakers_total: 102,
+  },
+  {
+    priority: 4,
+    language: "Marathi",
+    speakers_primary: 83,
+    speakers_secondary: 16,
+    speakers_total: 99,
+  },
+  {
+    priority: 4,
+    language: "Telugu",
+    speakers_primary: 83,
+    speakers_secondary: 13,
+    speakers_total: 96,
+  },
+  {
+    priority: 4,
+    language: "Turkish",
+    speakers_primary: 84,
+    speakers_secondary: 6,
+    speakers_total: 90,
+  },
+  {
+    priority: 4,
+    language: "Tamil",
+    speakers_primary: 79,
+    speakers_secondary: 8,
+    speakers_total: 87,
+  },
+  {
+    priority: 4,
+    language: "Yue Chinese",
+    speakers_primary: 86,
+    speakers_secondary: 1,
+    speakers_total: 87,
+  },
+  {
+    priority: 4,
+    language: "Vietnamese",
+    speakers_primary: 85,
+    speakers_secondary: 1,
+    speakers_total: 86,
+  },
+  {
+    priority: 4,
+    language: "Wu Chinese",
+    speakers_primary: 83,
+    speakers_secondary: 0.1,
+    speakers_total: 83,
+  },
+  {
+    priority: 4,
+    language: "Tagalog",
+    speakers_primary: 29,
+    speakers_secondary: 54,
+    speakers_total: 83,
+  },
+  {
+    priority: 4,
+    language: "Korean",
+    speakers_primary: 82,
+    speakers_secondary: 0,
+    speakers_total: 82,
+  },
+  {
+    priority: 4,
+    language: "Iranian Persian",
+    speakers_primary: 57,
+    speakers_secondary: 21,
+    speakers_total: 79,
+  },
+  {
+    priority: 4,
+    language: "Hausa",
+    speakers_primary: 52,
+    speakers_secondary: 27,
+    speakers_total: 79,
+  },
+  {
+    priority: 4,
+    language: "Swahili",
+    speakers_primary: 16,
+    speakers_secondary: 55,
+    speakers_total: 72,
+  },
+  {
+    priority: 4,
+    language: "Javanese",
+    speakers_primary: 0,
+    speakers_secondary: 68,
+    speakers_total: 68,
+  },
+  {
+    priority: 4,
+    language: "Italian",
+    speakers_primary: 65,
+    speakers_secondary: 3,
+    speakers_total: 68,
+  },
+  {
+    priority: 5,
+    language: "Western Punjabi",
+    speakers_primary: 0,
+    speakers_secondary: 67,
+    speakers_total: 67,
+  },
+  {
+    priority: 5,
+    language: "Gujarati",
+    speakers_primary: 57,
+    speakers_secondary: 5,
+    speakers_total: 62,
+  },
+  {
+    priority: 5,
+    language: "Thai",
+    speakers_primary: 21,
+    speakers_secondary: 40,
+    speakers_total: 61,
+  },
 ];
 
 export const ethicsQuestions = [
   "Is it wrong to be implementing Microsoft et al first, and further strengthening their monolopoly? Or should be use that as a spring board to get power before we help break the monopoly?",
   "is it wrong to be concentrating on the wealthier territories? Should we be lifting up the rest first, even if it's counter to our success? Or is our success a way to then enable the lifting?",
   "Should we be charging more per seat to smaller companies, and giving larger companies economies of scale? Is this necessary to get the bigger companies as customers?",
-]
+];
+
+// Axioms serve as the non-derivable, foundational beliefs.
+export const axioms = [
+  {
+    id: 1,
+    title: "Sanctity of free will",
+    description:
+      "The belief that individual autonomy is paramount and should never be compromised.",
+  },
+  {
+    id: 2,
+    title: "Sanctity of no obligation",
+    description:
+      "The belief that individuals should never be coerced or obligated into actions against their will.",
+  },
+  {
+    id: 3,
+    title: "Sanctity of privacy",
+    description: "",
+  },
+  {
+    id: 4,
+    title: "Transparency",
+    description:
+      "The belief that openness and honesty are mandatory in all interactions.",
+  },
+  {
+    id: 5,
+    title: "Sustainability",
+    description:
+      "The belief that actions today must not compromise future generations.",
+  },
+];
+
+// Tenets are principles or policies derived from axioms, which guide decision-making.
+export const tenets = [
+  {
+    id: 1,
+    axioms: [1, 2],
+    title:
+      "Never have people entered into contracts without full understanding and want",
+    description:
+      "All contractual engagements must be made with full transparency, ensuring parties are both knowledgeable and willing.",
+  },
+  {
+    id: 2,
+    axioms: [3],
+    title: "Respect for individual data privacy",
+    description:
+      "A commitment to the respectful treatment of personal data, in line with the principle of free will.",
+  },
+  {
+    id: 3,
+    axioms: [4],
+    title: "Transparent business operations",
+    description:
+      "All business operations should be transparent to all stakeholders to the fullest extent possible. This raises discussions about whether too much transparency would hurt the company and undermine the goal (i.e. is a consequentialist view of level-of-transparency appropriate?",
+  },
+  {
+    id: 4,
+    axioms: [5],
+    title: "Commitment to environmental responsibility",
+    description:
+      "Adherence to sustainable practices in all aspects of business.",
+  },
+];
+
+// Imperatives are actionable rules or guidelines that stem from tenets.
+export const imperatives = [
+  {
+    id: 1,
+    tenets: [1],
+    title:
+      "Contracts, terms & conditions must be as explicit and understandable as possible",
+    description:
+      "The language and terms used in contracts must be clear, unambiguous, and easily comprehensible to all parties involved.",
+  },
+  {
+    id: 2,
+    tenets: [2],
+    title: "Ensure stringent data protection measures",
+    description:
+      "Enforce robust security measures to guarantee the integrity and confidentiality of individual data.",
+  },
+  {
+    id: 3,
+    tenets: [4],
+    title: "Regularly disclose financial and operational data",
+    description:
+      "Transparently share key performance indicators, financial metrics, and other relevant data at regular intervals.",
+  },
+  {
+    id: 4,
+    tenets: [5],
+    title: "Adopt and promote eco-friendly practices",
+    description:
+      "Integrate sustainable practices into business operations and encourage stakeholders to do the same.",
+  },
+];
+// Business proccesses must then adhere to imperitives.
+
+export const articlesTemp = [
+  {
+    topic: "LLMs",
+    notes: `
+      At the very least, LLMs should be considered as comparable to the productivity/ability increase that search engines offered, and directories before that.
+      - 'Fuzzy' questions are now possible (TipOfTheTongue, general inquiry, etc.)
+      - Data analysis now possible that wasn't before (e.g. 'Check my spotify account and see what the average #listens is for songs. Then you can see how niche your taste is.')
+      - Speed increases (faster to get info and analyse data)
+    `,
+  },
+  {
+    topic: "(One article per business framework submodule)",
+    notes: `
+      E.g. see the 'prices' module and submodules - when to implement price increases, how to calculate them, what to cater for e.g. inflation
+    `,
+  },
+];

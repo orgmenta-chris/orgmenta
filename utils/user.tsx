@@ -11,63 +11,15 @@ import { useState } from "react";
 import { ScrollView, View, Text, Pressable } from "react-native";
 import { useAttributeUnioned } from "./attribute";
 import { ViewModalMain } from "./modal";
+import { ViewCardExpandable } from "./card";
 import { useQuery } from "@tanstack/react-query";
 import { useAuthSession, useAuthSignout } from "./auth";
 import { useNavigate } from "react-router-dom";
 import SignIn from "../components/auth/signIn";
 import SignUp from "../components/auth/signUp";
+import { ViewRouterLinkthemed } from "./router";
+import { ViewTypographyTextsubsubheading } from "./typography";
 // import MSAL from "../../../auth/msal";
-
-// Widget to just show a link to the main user page (user/[userid])
-export const ViewUserAll = () => {
-    return (
-        <View>
-            <Text>[Link to users/all]</Text>
-            <Text>[Link to users/userid]</Text>
-        </View>
-    );
-};
-
-// Widget to show the active entities for that user (e.g. what is the current event being worked on)
-export const ViewUserActivity = () => {
-    return (
-        <View>
-            <Text>[Next events]</Text>
-            <Text>[Link to show all user events]</Text>
-        </View>
-    );
-};
-
-// Widget to show the recent notifications/logs for that user (e.g system alerts, logs for changes to entities that the user is 'following'/assinged to, etc.
-export const ViewUserAlerts = () => {
-  return (
-    <View>
-      {/* Presets button so that the user can change the view of what comes through in this widget */}
-      <Text>[Presets button]</Text>
-    </View>
-  );
-};
-
-// Widget to show the recent messages/communications for that user
-export const ViewUserComms = () => {
-  return (
-    <View>
-      {/* Presets button so that the user can change the view of what comes through in this widget */}
-      <Text>[Recent messages]</Text>
-      <Text>[Link to all messages (user/userid/messages)]</Text>
-    </View>
-  );
-};
-
-// Widget to show the devices that the user has logged in with
-export const ViewUserDevice = () => {
-  return (
-    <View>
-      <Text>[Current Device Info (e.g. sync status)]</Text>
-      <Text>[Link to all devices (user/userid/devices)]</Text>
-    </View>
-  );
-};
 
 // Attributes
 
@@ -84,7 +36,7 @@ export const ViewUserAttributes = () => {
     <>
       {/* <Text>{JSON.stringify(attributes.data?.[0],null,2)}</Text> */}
       {/* <Text>{JSON.stringify(keys,null,2)}</Text> */}
-      {attributes?.data?.map((x:any, i:string) => (
+      {attributes?.data?.map((x: any, i: string) => (
         <View key={i}>
           <Text>{x?.focus_columns?.name_singular}</Text>
           {/* <Text key={i}>{x.side}</Text>  */}
@@ -109,7 +61,6 @@ export const ViewUserModal = (props: any) => {
   const handleTabPress = (index: number) => {
     setActiveTab(index);
   };
-
   return (
     <ViewModalMain
       modalName={"user"}
@@ -118,15 +69,150 @@ export const ViewUserModal = (props: any) => {
       pinnable
       collapsible
     >
-      <ScrollView style={{ height: "80%" }}>
-        {/* <Text>{JSON.stringify(auth)}</Text> */}
-        <View
-          style={{
-            flexDirection: "row",
-            marginBottom: 10,
-            marginHorizontal: 12,
-          }}
+      <ScrollView>
+        <ViewUserSession />
+        <ViewUserLinks />
+        <ViewUserSwitch />
+        <ViewUserTracking />
+        <ViewUserActivity />
+        <ViewUserAlerts />
+        <ViewUserComms />
+        <ViewUserDevice />
+      </ScrollView>
+    </ViewModalMain>
+  );
+};
+// Widget to show the active entities for that user (e.g. what is the current event being worked on)
+export const ViewUserActivity = () => {
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Activity"}
+      body={
+        <>
+          <Text>ACTIVITY</Text>
+          <Text>[Next events]</Text>
+          <Text>[Link to show all user events]</Text>
+        </>
+      }
+    />
+  );
+};
+
+// Widget to show cookie/tracking/privacy options
+export const ViewUserTracking = () => {
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Tracking"}
+      body={
+        <>
+          <Text>TRACKING</Text>
+          <Text>[cookies etc.]</Text>
+        </>
+      }
+    />
+  );
+};
+
+// Widget to show the recent notifications/logs for that user (e.g system alerts, logs for changes to entities that the user is 'following'/assinged to, etc.
+export const ViewUserAlerts = () => {
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Presets"}
+      body={
+        <>
+          <Text>[Presets button]</Text>
+          {/* Presets button so that the user can change the view of what comes through in this widget */}
+        </>
+      }
+    />
+  );
+};
+
+// Widget to show the recent messages/communications for that user
+export const ViewUserComms = () => {
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Alerts/Notifications"}
+      body={
+        <>
+          {/* Presets button so that the user can change the view of what comes through in this widget */}
+          <Text>[Recent messages]</Text>
+          <Text>[Link to all messages (user/userid/messages)]</Text>{" "}
+        </>
+      }
+    />
+  );
+};
+
+// Widget to show the devices that the user has logged in with
+export const ViewUserDevice = () => {
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Devices"}
+      body={
+        <>
+        <Text>[Current Device Info (e.g. sync status)]</Text>
+        <Text>[Link to all devices (user/userid/devices)]</Text>
+        </>
+      }
+    />
+  );
+};
+
+export const ViewUserSwitch = () => {
+  // TODO
+  const array = { data: [{ id: "TEMP", nickname: "TEMP" }] };
+  const updater = (id: string, nickname: string) => "temp";
+  // const array = useUserArray({});
+  // const updater = useUserSet(
+  //   ["user", "selected"],
+  //   (id: string) => ({
+  //     id: id,
+  //   })
+  // );
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Switch User"}
+      body={array?.data?.map((x, i) => (
+        <Pressable
+          key={i}
+          style={{ padding: 10, margin: 5, backgroundColor: "lightgray" }}
+          onPress={() => updater(x.id, x.nickname)}
         >
+          <Text>
+            {x.nickname}
+            {x.id}
+          </Text>
+        </Pressable>
+      ))}
+    />
+  );
+};
+
+export const ViewUserSession = () => {
+  const auth = useAuthSession();
+  const signout = useAuthSignout();
+  const native = useNavigate();
+  const [activeTab, setActiveTab] = useState(0);
+  const tabs = [
+    { tab: "Sign in", component: <SignIn /> },
+    { tab: "Sign up", component: <SignUp /> },
+  ];
+  const handleTabPress = (index: number) => {
+    setActiveTab(index);
+  };
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Signup/In"}
+      body={
+        <>
           {auth?.data?.session === null
             ? tabs.map((content, index) => (
                 <Pressable
@@ -148,96 +234,103 @@ export const ViewUserModal = (props: any) => {
                 </Pressable>
               ))
             : null}
-        </View>
-        {auth?.data?.session === null ? (
-          <View>{tabs[activeTab].component}</View>
-        ) : (
-          <View>
-            <Pressable
-              onPress={() => {
-                native(`/users/${auth?.data?.session?.user?.id || 'guest'}/pods`);
-              }}
-            >
-              <Text
-                style={{
-                  color: "blue",
-                  textDecorationStyle: "solid",
-                  textAlign: "center",
+          {auth?.data?.session === null ? (
+            <View>{tabs[activeTab].component}</View>
+          ) : (
+            <View>
+              <Pressable
+                style={{ margin: 10 }}
+                onPress={() => {
+                  signout.mutate();
                 }}
               >
-                View Profile
-              </Text>
-            </Pressable>
-            <Pressable
-              onPress={() => {
-                native(`/users/${auth?.data?.session?.user?.id || 'guest'}/devices`);
-              }}
-            >
-              <Text
-                style={{
-                  color: "blue",
-                  textDecorationStyle: "solid",
-                  textAlign: "center",
+                <ViewTypographyTextsubsubheading>
+                  Signout
+                </ViewTypographyTextsubsubheading>
+              </Pressable>
+            </View>
+          )}
+        </>
+      }
+    />
+  );
+};
+
+export const ViewUserLinks = () => {
+  const auth = useAuthSession();
+  const signout = useAuthSignout();
+  const native = useNavigate();
+  const [activeTab, setActiveTab] = useState(0);
+  const tabs = [
+    { tab: "Sign in", component: <SignIn /> },
+    { tab: "Sign up", component: <SignUp /> },
+  ];
+  const handleTabPress = (index: number) => {
+    setActiveTab(index);
+  };
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Navigation"}
+      body={
+        <>
+          {auth?.data?.session === null ? (
+            <View>{tabs[activeTab].component}</View>
+          ) : (
+            <View>
+              <ViewRouterLinkthemed
+                style={{ textDecoration: "none", margin: 10 }}
+                to={`/users/${auth?.data?.session?.user?.id || "guest"}/pods`}
+              >
+                <ViewTypographyTextsubsubheading>
+                  Profile
+                </ViewTypographyTextsubsubheading>
+              </ViewRouterLinkthemed>
+              <ViewRouterLinkthemed
+                style={{ textDecoration: "none", margin: 10 }}
+                to={`/users/${
+                  auth?.data?.session?.user?.id || "guest"
+                }/devices`}
+              >
+                <ViewTypographyTextsubsubheading>
+                  Devices
+                </ViewTypographyTextsubsubheading>
+              </ViewRouterLinkthemed>
+              <ViewRouterLinkthemed
+                style={{ textDecoration: "none", margin: 10 }}
+                to={`/users/${
+                  auth?.data?.session?.user?.id || "guest"
+                }/settings`}
+              >
+                <ViewTypographyTextsubsubheading>
+                  Settings
+                </ViewTypographyTextsubsubheading>
+              </ViewRouterLinkthemed>
+              <ViewRouterLinkthemed
+                style={{ textDecoration: "none", margin: 10 }}
+                to={`/users/${
+                  auth?.data?.session?.user?.id || "guest"
+                }/pods/events`}
+              >
+                <ViewTypographyTextsubsubheading>
+                  All Events
+                </ViewTypographyTextsubsubheading>
+              </ViewRouterLinkthemed>
+              <Pressable
+                style={{ margin: 10 }}
+                onPress={() => {
+                  signout.mutate();
                 }}
               >
-                Devices
-              </Text>
-            </Pressable>
-            <Pressable
-              onPress={() => {
-                native(`/users/${auth?.data?.session?.user?.id || 'guest'}/settings`);
-              }}
-            >
-              <Text
-                style={{
-                  color: "blue",
-                  textDecorationStyle: "solid",
-                  textAlign: "center",
-                }}
-              >
-                Settings
-              </Text>
-            </Pressable>
-            <Pressable
-              onPress={() => {
-                native(`/users/${auth?.data?.session?.user?.id || 'guest'}/pods`);
-              }}
-            >
-              <Text
-                style={{
-                  color: "blue",
-                  textDecorationStyle: "solid",
-                  textAlign: "center",
-                }}
-              >
-                All Events
-              </Text>
-            </Pressable>
-            <Pressable
-              onPress={() => {
-                signout.mutate();
-              }}
-            >
-              <Text
-                style={{
-                  color: "blue",
-                  textDecorationStyle: "solid",
-                  textAlign: "center",
-                }}
-              >
-                Log out
-              </Text>
-            </Pressable>
-            {/* <MSAL /> */}
-          </View>
-        )}
-        <ViewUserAll />
-        <ViewUserActivity />
-        <ViewUserAlerts />
-        <ViewUserComms />
-        <ViewUserDevice />
-      </ScrollView>
-    </ViewModalMain>
+                <ViewTypographyTextsubsubheading>
+                  Signout
+                </ViewTypographyTextsubsubheading>
+              </Pressable>
+            </View>
+          )}
+        </>
+      }
+    />
   );
 };
 

@@ -71,7 +71,7 @@ export const ViewBrowseModal = (props: any) => {
   );
 };
 
-// Modal
+// Search
 
 export const ViewBrowseSearch = (props: any) => {
   const [search, set] = useState("");

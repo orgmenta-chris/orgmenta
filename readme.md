@@ -153,6 +153,10 @@ And see https://github.com/search?q=repo%3Afacebook%2Freact-native+platform&type
 - We do not use compound components (e.g. ExampleComponent.Header). We use completely separate components. The tradeoff (compound components are better for prop handling through the parent) is worth it for consistency, reusability, memoization etc.
 - We do not use deprecated components (Touchable Opacity, Button etc.)
 
+### Routing
+
+- Links are preferred over buttons, because we want to retain right-click ability on web as much as possible.
+
 ### Strings & Keys
 
 - Use a ` (backtick / grave accent) by default for strings, not ' (quotation marks) or " (double quotation marks).
@@ -353,7 +357,9 @@ If queries start timing out / taking too long:
 - https://roadmap.sh/react-native
 
 ## Visual Programming
+
 - https://news.ycombinator.com/item?id=37702059
 
 ## Category & Set Theory
+
 - https://news.ycombinator.com/item?id=37704579

@@ -9,6 +9,7 @@ import { UseBarcodeReader, UseCamera } from "../utils/camera";
 import { UseClipboardCopy } from "../utils/clipboard";
 import { NotificationBody, UseNotification } from "../utils/notification";
 import { UseSoundPlayer, UseSoundRecorder, UseVideoPlayer } from "../utils/av";
+import { UseStripeFunctions } from "../utils/stripe";
 
 // const notificationBody: NotificationBody = {
 //   testMode: true,
@@ -531,6 +532,9 @@ export default function Home() {
                 
                 {/* Play video (working) */}
                 {/* <UseVideoPlayer /> */}
+
+                {/* Test Stripe/supbase db functions (working) */}
+                <UseStripeFunctions />
               </View>
             </View>
             {/* temp spacer */}

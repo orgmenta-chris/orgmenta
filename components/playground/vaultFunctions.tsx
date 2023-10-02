@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Button, Text } from "react-native";
-import { addSecret, getSecret, /* deleteSecret */ } from "../../utils/vault";
+import { VaultAddSecret, VaultGetSecret } from "../../utils/vault";
 
 // A component to test the supabase db functions implemented using RPC
 
@@ -10,7 +10,7 @@ const InsertComponent = () => {
   const [res, setRes] = useState("");
 
   const addKeyToVault = async (name: string, secret: string) => {
-    const response = await addSecret(name, secret);
+    const response = await VaultAddSecret(name, secret);
     setRes(response);
   };
 
@@ -53,7 +53,7 @@ const GetComponent = () => {
   const [res, setRes] = useState("");
 
   const getKeyFromVault = async (secret_name: string) => {
-    const response = await getSecret(secret_name);
+    const response = await VaultGetSecret(secret_name);
     setRes(response);
   };
 
@@ -80,44 +80,6 @@ const GetComponent = () => {
     </View>
   );
 };
-
-// const DeleteComponent = () => {
-//   const [secretName, setSecretName] = useState("");
-
-//   const deleteKeyFromVault = async (secret_name: string) => {
-//     try {
-//       const response = await deleteSecret(secret_name);
-//       console.log(response);
-//     } catch (error) {
-//       throw new Error(`${error}`);
-//     }
-//   };
-
-//   return (
-//     <View
-//       style={{
-//         position: "absolute",
-//         padding: 10,
-//         backgroundColor: "yellow",
-//         right: 0,
-//         bottom: 0,
-//       }}
-//     >
-//       <Text style={{ textAlign: "center" }}>Delete Secret - Testing Area</Text>
-//       <TextInput
-//         style={styles.input}
-//         onChangeText={setSecretName}
-//         value={secretName}
-//         placeholder="secret name"
-//         keyboardType="numeric"
-//       />
-//       <Button
-//         onPress={() => deleteKeyFromVault(secretName)}
-//         title="Delete Secret"
-//       />
-//     </View>
-//   );
-// };
 
 const VaultFunctions = () => {
   const [operations, setOperations] = useState("insert");

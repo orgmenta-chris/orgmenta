@@ -2,16 +2,16 @@
 
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { ViewModalMain } from "./modal";
-import { ViewRouterLink, ViewRouterLinkthemed } from "./router";
-import { useState, useEffect } from "react";
-import { ScrollView, View, Text, Pressable } from "react-native";
+import { ViewRouterLinkthemed } from "./router";
+import { ViewTypographyTextsubsubheading } from "./typography";
+import { ViewCardExpandable } from "./card";
+import { useTableColumns } from "../components/displays/table/table";
 import {
   useQuery,
   useMutation,
   useQueryClient,
   UseQueryOptions,
 } from "@tanstack/react-query";
-import { useTableColumns } from "../components/displays/table/table";
 import {
   createColumnHelper,
   flexRender,
@@ -20,24 +20,8 @@ import {
   ColumnResizeMode,
   ColumnDef,
 } from "@tanstack/react-table";
-import { ViewTypographyTextsubheading } from "./typography";
-import { ViewCardExpandable } from "./card";
-
-// Meta
-
-export const metaSpaceInfo = {
-  description: `A 'space' is an environment for an organisation, business department, division, territory or other company subdivision.`,
-  features: [
-    "Create",
-    "Setup",
-    "Update",
-    "Delete",
-    "Array",
-    "Item",
-    "Active",
-    "Table",
-  ],
-};
+import { ScrollView, View, Text, Pressable } from "react-native";
+import { useState, useEffect } from "react";
 
 // Create (Create a space. Note that this does not set up all of the other related assets like tables, load in any blueprint entities, run any necessary server functions, etc (see useSpaceSetup for that)
 
@@ -167,19 +151,25 @@ export const useSpaceDestroy = (props: interfaceSpaceDestroy) => {
 
 // Array
 
-export const useSpaceArray = ({ ...Input }) => {
-  const query = useQuery({
-    queryKey: ["spaces", "array", "add_relevant_props_here"],
-    queryFn: async () => {
-      const response = await instanceSupabaseClient
-        .from("spaces")
-        .select()
-        .limit(10);
-      return response.data;
-    },
+export async function requestSpaceArray() {
+  return await instanceSupabaseClient
+    .from("spaces")
+    .select()
+    .range(0, 9) //temp arbitrary limit of 10 (todo: pass variables in here to get proper pagination)
+    .then(handleSupabaseResponse as any);
+}
+
+export const useSpaceArray = (spacename?: any, categories?: any) => {
+  console.log("category", categories);
+  const queryKey: (string | number)[] = [
+    "entities",
+    "array",
+    spacename,
+    categories,
+  ];
+  const query = useQuery(queryKey, () => requestSpaceArray(), {
     enabled: true,
-    keepPreviousData: true
-  } as UseQueryOptions<any[], unknown>); // Specify the expected types for data and error.
+  });
   return query;
 };
 
@@ -270,13 +260,12 @@ export const updateSpaceActive = ({ space }: TypeSpaceActive) => {
 
 // Table
 
+// Temp. to be replaced with Loisa's dynamic table once developed
 export const ViewSpaceTable = ({ ...Input }) => {
   // This is currently a hardocded basic table, but will use the proper modular table component built by Loisa
   const columns = Input.columns;
-
   const [columnResizeMode, setColumnResizeMode] =
     useState<ColumnResizeMode>("onChange");
-
   // When data is provided, set the data to state
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -284,7 +273,6 @@ export const ViewSpaceTable = ({ ...Input }) => {
       setData(Input.data);
     }
   }, [Input?.data]);
-
   const table = useReactTable({
     data,
     columns,
@@ -294,7 +282,6 @@ export const ViewSpaceTable = ({ ...Input }) => {
     //   debugHeaders: true, // logs to console
     //   debugColumns: true, // logs to console
   });
-
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
@@ -355,14 +342,24 @@ export const ViewSpaceModal = (props: any) => {
       collapsible
     >
       <ScrollView>
+        <ViewSpaceCurrent />
         <ViewSpaceSwitch />
         <ViewSpaceLinks />
+        <ViewSpaceAlerts />
       </ScrollView>
     </ViewModalMain>
   );
 };
 
 // State (save a space's data to state. E.g. 'Selected' uses this to save the current/active space.)
+
+export type TypeSpaceState = {
+  data:
+    | {
+        spacename: string;
+      }
+    | undefined;
+};
 
 export const useSpaceState = (id: any) => {
   // const queryClient = useQueryClient();
@@ -375,67 +372,90 @@ export const useSpaceState = (id: any) => {
   return query;
 };
 
-// Pinned
+// Current
 
-export const useModalPinned = (modalName: string) => {
-  const queryClient = useQueryClient();
-  return () => {
-    queryClient.setQueryData(["space", modalName], (oldData: any) => {
-      return { ...oldData, pinned: !oldData?.pinned };
-    });
-  };
-};
-
-// Toggle
-
-export const ViewModalToggle = ({ modalName }: any) => {
-  // Example button to toggle the modal state value
+// Currently selected space links/options
+export const ViewSpaceCurrent = (props: any) => {
+  const spaceActive: any = useSpaceState(["space", "selected"]);
   return (
-    <Pressable onPress={useModalPinned(modalName)}>
-      <Text>Toggle</Text>
-    </Pressable>
+    <ViewCardExpandable
+      startExpanded
+      header={spaceActive?.data?.title}
+      body={
+        spaceActive?.data?.selected && (
+          <>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/spaces/${spaceActive.data.selected}`}
+            >
+              <ViewTypographyTextsubsubheading>
+                Go to Space
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/spaces/${spaceActive.data.selected}/attributes`}
+            >
+              <ViewTypographyTextsubsubheading>
+                Attributes
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/spaces/${spaceActive.data.selected}/files`}
+            >
+              <ViewTypographyTextsubsubheading>
+                Files
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/spaces/${spaceActive.data.selected}/settings`}
+            >
+              <ViewTypographyTextsubsubheading>
+                Settings
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/spaces/${spaceActive.data.selected}/billing`}
+            >
+              <ViewTypographyTextsubsubheading>
+                Subscription & Billing
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/spaces/${spaceActive.data.selected}/members`}
+            >
+              <ViewTypographyTextsubsubheading>
+                Members
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+          </>
+        )
+      }
+    />
   );
 };
 
-// State
-
-export const useModalState = (modalName: string) => {
-  // const queryClient = useQueryClient();
-  const query = useQuery({
-    queryKey: ["space", modalName],
-    queryFn: () => null,
-    // initialData: () => queryClient.getQueryData(['modal', modalName]) || null,
-    // staleTime: Infinity // This means the data will never become stale automatically
-    refetchOnWindowFocus: false,
-  });
-  return query;
-};
-
-export const ViewModalState = ({ modalName }: any) => {
-  const modalState = useModalState(modalName);
-  return (
-    <>
-      <ViewModalToggle />
-      <Text>{JSON.stringify(modalState?.data, null, 2)}</Text>
-    </>
-  );
-};
-
+// Switch between available spaces
 export const ViewSpaceSwitch = () => {
   const array = useSpaceArray({});
   const updater = useSpaceSet(
     ["space", "selected"],
-    (id: string, title: string, storename: string) => ({
+    (id: string, title: string, spacename: string) => ({
       id: id,
       title,
-      storename,
+      spacename,
     })
   );
   return (
     <ViewCardExpandable
       startExpanded
       header={"Switch Space"}
-      body={array?.data?.map((x, i) => (
+      /* @ts-ignore */
+      body={(array?.data as any)?.map((x, i) => (
         <Pressable
           key={i}
           style={{ padding: 10, margin: 5, backgroundColor: "lightgray" }}
@@ -450,6 +470,7 @@ export const ViewSpaceSwitch = () => {
   );
 };
 
+// Links that do not depend on a specific space
 export const ViewSpaceLinks = () => {
   return (
     <ViewCardExpandable
@@ -457,41 +478,45 @@ export const ViewSpaceLinks = () => {
       header={"Navigation"}
       body={
         <>
-          <ViewRouterLinkthemed to={`/spaces/${"SPACEIDHERE"}/pods`}>
-            SPACE
+          <ViewRouterLinkthemed style={{ margin: 5 }} to={`/spaces/all/pods`}>
+            <ViewTypographyTextsubsubheading>
+              All Spaces
+            </ViewTypographyTextsubsubheading>
           </ViewRouterLinkthemed>
-          <ViewRouterLinkthemed to={`/spaces/all/pods`}>
-            ALL SPACES
+          <ViewRouterLinkthemed style={{ margin: 5 }} to={`/spaces/all/new`}>
+            <ViewTypographyTextsubsubheading>
+              Create New Space
+            </ViewTypographyTextsubsubheading>
           </ViewRouterLinkthemed>
-          <ViewRouterLinkthemed to={`/spaces/${"SPACEIDHERE"}/pods`}>
-            SPACE
-          </ViewRouterLinkthemed>
-          <ViewRouterLinkthemed to={`/spaces/all/pods`}>
-            ALL SPACES
-          </ViewRouterLinkthemed>
-          <ViewRouterLinkthemed to="">Files</ViewRouterLinkthemed>
-          <ViewRouterLinkthemed to="">Settings</ViewRouterLinkthemed>
-          <ViewRouterLinkthemed to="">
-            Subscription & Billing
-          </ViewRouterLinkthemed>
-
-          <Text>(list of spaces here)</Text>
-          <Pressable>
-            <Text>+ Add a new organization</Text>
-          </Pressable>
         </>
       }
     />
   );
 };
 
+// Widget to show the recent notifications/logs for that user (e.g system alerts, logs for changes to entities that the user is 'following'/assinged to, etc.
+export const ViewSpaceAlerts = () => {
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Alerts/Notifications"}
+      body={
+        <>
+          <Text>todo</Text>
+        </>
+      }
+    />
+  );
+};
+
+// An empty useQuery that is used to as a state (this uses cache so retains data between reloads, sessions and component closures)
 export const useSpaceSet = (
   queryKey: string[],
-  newData: (id: string, title: string, storename: string) => any
+  newData: (id: string, title: string, spacename: string) => any
 ) => {
   const queryClient = useQueryClient();
-  return (passedId: string, passedTitle: string, passedStorename: string) => {
-    const resolvedData = newData(passedId, passedTitle, passedStorename);
+  return (passedId: string, passedTitle: string, passedspacename: string) => {
+    const resolvedData = newData(passedId, passedTitle, passedspacename);
     queryClient.setQueryData(queryKey, (oldData: any) => {
       if (JSON.stringify(oldData) === JSON.stringify(resolvedData)) {
         return oldData;
@@ -499,6 +524,23 @@ export const useSpaceSet = (
       return { ...oldData, ...resolvedData };
     });
   };
+};
+
+// Meta
+
+// Temporary / CG using for reference & designing
+export const metaSpaceInfo = {
+  description: `A 'space' is an environment for an organisation, business department, division, territory or other company subdivision.`,
+  features: [
+    "Create",
+    "Setup",
+    "Update",
+    "Delete",
+    "Array",
+    "Item",
+    "Active",
+    "Table",
+  ],
 };
 
 // Sync

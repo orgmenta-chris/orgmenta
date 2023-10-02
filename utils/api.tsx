@@ -3,8 +3,6 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { View, Text, ActivityIndicator } from "react-native";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { View, Text, ActivityIndicator } from "react-native";
 
 // Source
 

@@ -6,7 +6,7 @@ import * as SecureStore from "expo-secure-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import "react-native-url-polyfill/auto";
 import { UtilityPlatformMain } from "./platform";
-import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 // (Mobile Only) Secure Store.
@@ -14,19 +14,19 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 // We will use useQuery+asyncstorage+encryption instead (to work on web) once the encryption for it is confirmed as secure.
 export const ExpoSecureStoreAdapter = {
   getItem: (key: string) => {
-      return SecureStore.getItemAsync(key);
+    return SecureStore.getItemAsync(key);
   },
   setItem: (key: string, value: string) => {
-      SecureStore.setItemAsync(key, value);
+    SecureStore.setItemAsync(key, value);
   },
   removeItem: (key: string) => {
-      SecureStore.deleteItemAsync(key);
+    SecureStore.deleteItemAsync(key);
   },
 };
 
 export const TempUnencryptedWebWorkaround = {
   getItem: (key: string) => {
-      return AsyncStorage.getItem(key);
+    return AsyncStorage.getItem(key);
   },
   setItem: (key: string, value: string) => {
     AsyncStorage.setItem(key, value);
@@ -35,39 +35,42 @@ export const TempUnencryptedWebWorkaround = {
     AsyncStorage.removeItem(key);
   },
 };
+
 // Instance
 
+export const createSupabaseClient = createClient;
+
 export const instanceSupabaseClient = createSupabaseClient(
-    // create an instance of the supabase client class
-    process.env.STAGING_SUPABASE_URL!, //The ! asserts that the variable is not undefined.
-    process.env.STAGING_SUPABASE_PUBLIC_KEY!, //The ! asserts that the variable is not undefined.
-    {
-        auth: {
-            storage:
-                UtilityPlatformMain.OS !== "web" ?
-                (ExpoSecureStoreAdapter as any) : TempUnencryptedWebWorkaround,
-            autoRefreshToken: true,
-            persistSession: true,
-            detectSessionInUrl: false,
-        },
-    }
+  // create an instance of the supabase client class
+  process.env.STAGING_SUPABASE_URL!, //The ! asserts that the variable is not undefined.
+  process.env.STAGING_SUPABASE_PUBLIC_KEY!, //The ! asserts that the variable is not undefined.
+  {
+    auth: {
+      storage:
+        UtilityPlatformMain.OS !== "web"
+          ? (ExpoSecureStoreAdapter as any)
+          : TempUnencryptedWebWorkaround,
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: false,
+    },
+  }
 );
 
 // Response
 
 export interface interfaceSupabaseResponse {
-    response: any;
-    function_name?: string;
+  response: any;
+  function_name?: string;
 }
 
 export function handleSupabaseResponse(
-    response: interfaceSupabaseResponse["response"],
-    function_name: interfaceSupabaseResponse["function_name"]
+  response: interfaceSupabaseResponse["response"],
+  function_name: interfaceSupabaseResponse["function_name"]
 ) {
-    // console.log('handleSupabaseResponse',response)
-    // todo: use function_name prop for logging purposes if useful
-    if (response.error) throw response.error;
-    return response.data;
+  // todo: use function_name prop for logging purposes if useful
+  if (response.error) throw response.error;
+  return response.data;
 }
 
 // Tables
@@ -117,17 +120,15 @@ export const mapSupabaseViews = {
   },
 };
 
-
 // Table
 
-export async function requestSupabaseTablerows(tableName: string){
-  // console.log('useEntityCreate',entity)
+export async function requestSupabaseTablerows(tableName: string) {
   return await instanceSupabaseClient
     .from("entities_orgmenta")
     .select()
     .then(handleSupabaseResponse as any);
 }
- 
+
 export const useSupabaseTable = (tableName: string) => {
   // const queryClient = useQueryClient();
   return useMutation(

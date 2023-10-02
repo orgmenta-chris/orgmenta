@@ -52,7 +52,7 @@ export const ViewFieldMain = ({ item }: { item: interfaceFieldMain }) => {
 
 // A default component if a 'field' wasn't specified for a field
 export const ViewFieldMissing = ({ defaultValue }: any) => {
-  return (<ViewTypographyTextthemed>{defaultValue}</ViewTypographyTextthemed>)
+  return <ViewTypographyTextthemed>{defaultValue}</ViewTypographyTextthemed>;
 };
 
 // A default component if a 'field' wasn't specified for a field
@@ -67,46 +67,66 @@ export const ViewFieldFilepickerandlist = ({ defaultValue }: any) => {
 
 // Hidden field
 export const ViewFieldHidden = ({ defaultValue }: any) => {
-  return (<ViewTypographyTextthemed style={{color:'blue'}}>['HIDDEN']{defaultValue}</ViewTypographyTextthemed>)
+  return (
+    <ViewTypographyTextthemed style={{ color: "blue" }}>
+      ['HIDDEN']{defaultValue}
+    </ViewTypographyTextthemed>
+  );
 };
 
 // A non-editable text field
 export const ViewFieldText = ({ defaultValue }: any) => {
-  return (<ViewTypographyTextthemed>{defaultValue}</ViewTypographyTextthemed>)
+  return <ViewTypographyTextthemed>{defaultValue}</ViewTypographyTextthemed>;
 };
 
 // A non-editable text field
 export const ViewFieldInput = ({ defaultValue }: any) => {
-  return (<ViewTypographyTextthemed style={{color:'blue'}}>['INPUT:']{defaultValue}</ViewTypographyTextthemed>)
+  return (
+    <ViewTypographyTextthemed style={{ color: "blue" }}>
+      ['INPUT:']{defaultValue}
+    </ViewTypographyTextthemed>
+  );
 };
 
 // A non-editable text field
 export const ViewFieldRelationship = ({ defaultValue }: any) => {
   return (
-    <ViewTypographyTextthemed style={{color:'blue'}}>['RELATIONSHIP:']{defaultValue}</ViewTypographyTextthemed>
+    <ViewTypographyTextthemed style={{ color: "blue" }}>
+      ['RELATIONSHIP:']{defaultValue}
+    </ViewTypographyTextthemed>
   );
 };
 // A non-editable text field
 export const ViewFieldPicker = ({ defaultValue }: any) => {
-  return (<ViewTypographyTextthemed style={{color:'blue'}}>['PICKER:']{defaultValue}</ViewTypographyTextthemed>)
+  return (
+    <ViewTypographyTextthemed style={{ color: "blue" }}>
+      ['PICKER:']{defaultValue}
+    </ViewTypographyTextthemed>
+  );
 };
 // A non-editable text field
 export const ViewFieldRichtext = ({ defaultValue }: any) => {
   return (
-    <ViewTypographyTextthemed style={{color:'blue'}}>['RICHTEXT']{defaultValue}</ViewTypographyTextthemed>
+    <ViewTypographyTextthemed style={{ color: "blue" }}>
+      ['RICHTEXT']{defaultValue}
+    </ViewTypographyTextthemed>
   );
 };
 // Numeric
 export const ViewFieldNumeric = ({ defaultValue }: any) => {
   return (
-    <ViewTypographyTextthemed style={{color:'blue'}}>['NUMERIC']{defaultValue}</ViewTypographyTextthemed>
+    <ViewTypographyTextthemed style={{ color: "blue" }}>
+      ['NUMERIC']{defaultValue}
+    </ViewTypographyTextthemed>
   );
 };
 
 // Numeric
 export const ViewFieldDatetime = ({ defaultValue }: any) => {
   return (
-    <ViewTypographyTextthemed style={{color:'blue'}}>['NUMERIC']{defaultValue}</ViewTypographyTextthemed>
+    <ViewTypographyTextthemed style={{ color: "blue" }}>
+      ['NUMERIC']{defaultValue}
+    </ViewTypographyTextthemed>
   );
 };
 
@@ -114,7 +134,7 @@ export const ViewFieldDatetime = ({ defaultValue }: any) => {
 
 export const mapFieldComponents: any = {
   missing: ViewFieldMissing,
-  hidden: ViewFieldHidden,
+  hidden: ViewFieldHidden, // secure/password/protected/obscured/shield
   text: ViewFieldText,
   files: ViewFieldFilepickerandlist,
   input: ViewFieldInput,

@@ -5,9 +5,6 @@
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { View, Text } from "react-native";
-import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { View, Text } from "react-native";
 
 // Create
 
@@ -60,20 +57,20 @@ export const useMemberDelete = (props: interfaceMemberDelete) => {
 
 // Array
 
+export async function requestMemberArray() {
+  return await instanceSupabaseClient
+    .from("members")
+    .select()
+    .then(handleSupabaseResponse as any);
+}
+
 export const useMemberArray = ({ ...Input }) => {
   const queryKey: (string | number)[] = [
     "members",
     "array",
     "add_relevant_props_here",
   ];
-  const queryFn = async () => {
-    const response = await instanceSupabaseClient
-      .from("members")
-      .select()
-      .limit(10); // temporary limit, feel free to remove this or make pagination dynamic if needed.
-    return response.data;
-  };
-  const query = useQuery<any, Error>(queryKey, queryFn, { enabled: true });
+  const query = useQuery(queryKey, requestMemberArray, { enabled: true });
   return query;
 };
 

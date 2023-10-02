@@ -1,7 +1,11 @@
 // A 'Focus' is the primary entity being studied / viewed
 
 import { View, Text } from "react-native";
-import { ViewRouterLink, ViewRouterLinkthemed, useRouterLocation } from "./router";
+import {
+  ViewRouterLink,
+  ViewRouterLinkthemed,
+  useRouterLocation,
+} from "./router";
 import { data } from "./static";
 
 // Main
@@ -37,29 +41,63 @@ export const ViewFocusHeader = () => {
     >
       {/* Title of the current process (breadcrumbs) */}
       <Text>
-        {ggrandparent?.id && ggrandparent?.id > 9 && (<>
-          <ViewRouterLinkthemed style={{ fontSize: 20}} to={"/entity/" + ggrandparent.nickname}>
-            <Text style={{ textDecorationLine: 'underline',fontSize: 20}}>{ggrandparent.display_singular}</Text>
-          </ViewRouterLinkthemed>
-          <View><Text style={{ fontSize: 20}}>{" > "}</Text></View>
-        </>)}
-        {grandparent?.id && grandparent?.id > 9 && (<>
-          <ViewRouterLinkthemed style={{ fontSize: 20}} to={"/entity/" + grandparent.nickname}>
-            <Text style={{ textDecorationLine: 'underline',fontSize: 20}}>{grandparent.display_singular}</Text>
-          </ViewRouterLinkthemed>
-          <View><Text style={{ fontSize: 20}}>{" > "}</Text></View>
-        </>)}
-        {parent?.id && parent?.id > 9 && (<>
-          <ViewRouterLinkthemed style={{ fontSize: 20}} to={"/entity/" + parent.nickname}>
-            <Text style={{ textDecorationLine: 'underline',fontSize: 20}}>{parent.display_singular}</Text>
-          </ViewRouterLinkthemed>
-          <View><Text style={{ fontSize: 20}}>{" > "}</Text></View>
-        </>)}
-        {process?.id && (<>
-          <ViewRouterLinkthemed style={{ fontSize: 20}} to={"/entity/" + process.nickname}>
-            <Text style={{ fontSize: 20, color:'white'}}>{process.display_singular}</Text>
-          </ViewRouterLinkthemed>
-        </>)}
+        {ggrandparent?.id && ggrandparent?.id > 9 && (
+          <>
+            <ViewRouterLinkthemed
+              style={{ fontSize: 20 }}
+              to={"/entity/" + ggrandparent.nickname}
+            >
+              <Text style={{ textDecorationLine: "underline", fontSize: 20 }}>
+                {ggrandparent.display_singular}
+              </Text>
+            </ViewRouterLinkthemed>
+            <View>
+              <Text style={{ fontSize: 20 }}>{" > "}</Text>
+            </View>
+          </>
+        )}
+        {grandparent?.id && grandparent?.id > 9 && (
+          <>
+            <ViewRouterLinkthemed
+              style={{ fontSize: 20 }}
+              to={"/entity/" + grandparent.nickname}
+            >
+              <Text style={{ textDecorationLine: "underline", fontSize: 20 }}>
+                {grandparent.display_singular}
+              </Text>
+            </ViewRouterLinkthemed>
+            <View>
+              <Text style={{ fontSize: 20 }}>{" > "}</Text>
+            </View>
+          </>
+        )}
+        {parent?.id && parent?.id > 9 && (
+          <>
+            <ViewRouterLinkthemed
+              style={{ fontSize: 20 }}
+              to={"/entity/" + parent.nickname}
+            >
+              <Text style={{ textDecorationLine: "underline", fontSize: 20 }}>
+                {parent.display_singular}
+              </Text>
+            </ViewRouterLinkthemed>
+            <View>
+              <Text style={{ fontSize: 20 }}>{" > "}</Text>
+            </View>
+          </>
+        )}
+        {process?.id && (
+          <>
+            <ViewRouterLinkthemed
+              style={{ fontSize: 20 }}
+              to={"/entity/" + process.nickname}
+            >
+              <Text style={{ fontSize: 20, color: "white" }}>
+                {process.display_singular}
+              </Text>
+            </ViewRouterLinkthemed>
+          </>
+        )}
       </Text>
     </View>
   );

@@ -2,7 +2,6 @@
 
 import { View, Text } from "react-native";
 
-
 export const ViewPathMain = (props: any) => {
   return (
     <View

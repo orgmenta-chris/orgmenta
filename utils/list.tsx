@@ -7,7 +7,8 @@
 import { View, Text } from "react-native";
 // Main
 
-export const ViewListMain = ({ data }: any) => {
+export const ViewListMain = ({ data=[] }: any) => {
+  // console.log('data',data)
   return (
     // PLACEHOLDER:
     <View>

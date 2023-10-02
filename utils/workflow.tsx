@@ -4,7 +4,6 @@
 
 import { Text, View } from "react-native";
 
-
 export const ViewWorkflowMain = ({ children }: any) => {
   return (
     <View>

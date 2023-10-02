@@ -3,8 +3,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Text, View, Pressable } from "react-native";
 import { ViewIconMain } from "./icon";
 import { getHeaderDimensions } from "./header";
-import { getStatusbarDimensions } from "./statusbar";
-import { useWindowDimensions } from "./window";
+// import { getStatusbarDimensions } from "./statusbar";
+// import { useWindowDimensions } from "./window";
 
 // Meta
 
@@ -189,10 +189,8 @@ export const ViewModalBody = ({
 export const ViewModalBackdrop = ({ modalName }: any) => {
   return (
     <Pressable
-      // onPress={()=>console.log('s')}
       onPress={useModalVisibility(modalName)}
       style={{
-        // backgroundColor:'red',
         backgroundColor: "rgba(0,0,0,0.2)",
         width: "100%",
         height: "100%",

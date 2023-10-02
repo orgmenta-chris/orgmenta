@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { View, Button } from "react-native";
 import { Audio, Video, ResizeMode } from "expo-av";
 
-export const UseSoundPlayer = ({}: any) => {
+export const ViewSoundPlayer = ({}: any) => {
   const [sound, setSound] = useState(null);
 
   const playSound = async () => {
@@ -50,7 +50,7 @@ export const UseSoundPlayer = ({}: any) => {
   );
 };
 
-export const UseSoundRecorder = ({}: any) => {
+export const ViewSoundRecorder = ({}: any) => {
   const [recording, setRecording] = useState();
 
   const startRecording = async () => {

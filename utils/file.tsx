@@ -98,7 +98,6 @@ export const requestFileUpload = () => {
         name: pickedDocument[0]?.name,
         data: result.data,
       };
-      // console.log(myArray);
     },
     error: (error: any) => {
       throw new Error(error);
@@ -142,7 +141,6 @@ export const ViewFileExample = ({}: any) => {
         name: pickedDocument[0]?.name,
         data: result.data,
       };
-      // console.log(myArray);
     },
     error: (error: any) => {
       throw new Error(error);

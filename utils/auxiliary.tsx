@@ -1,4 +1,4 @@
-import { instanceSupabaseClient } from "./supabase";
+import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { useQuery } from "@tanstack/react-query";
 import { TextInput, View, Text } from "react-native";
 import { useState } from "react";
@@ -12,8 +12,8 @@ export const requestAuxiliaryArray = (filter_array: any) => {
     query.contains("related", "examplefocusid");
   }
   query
-    .limit(10) // temporary limit, feel free to remove this or make pagination dynamic if needed.
-    .then((response) => response.data);
+    .range(0, 9) //temp arbitrary limit of 10 (todo: pass variables in here to get proper pagination)    .then((response) => response.data);
+    .then(handleSupabaseResponse as any);
   return query;
 };
 
@@ -27,8 +27,8 @@ export const useAuxiliaryArray = ({
     const response = await instanceSupabaseClient
       .from("auxiliary")
       .select("id")
-      .limit(10);
-    return response.data;
+      .range(0, 9) //temp arbitrary limit of 10 (todo: pass variables in here to get proper pagination)    return response.data;
+      .then(handleSupabaseResponse as any);
   };
   const query = useQuery<any, Error>(queryKey, queryFn, { enabled: true });
   return query;

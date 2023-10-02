@@ -51,6 +51,7 @@ export const ViewCardExpandable = (props: any) => {
 };
 
 // Non-expandable card
+
 export const ViewCardMain = (props: any) => {
   return (
     <View
@@ -78,13 +79,15 @@ export const ViewCardMain = (props: any) => {
   );
 };
 
+// Header
+
 export const ViewCardHeaderplain = (props: any) => {
   return (
     <Pressable
       onPress={() => props.expandedToggle((oldValue: any) => !oldValue)}
       style={{ flexDirection: "row", alignItems: "center", padding: 5 }}
     >
-      <ViewTypographyTextsubheading>
+      <ViewTypographyTextsubheading numberOfLines={1}>
         {props.header || "Card Header Missing"}
       </ViewTypographyTextsubheading>
     </Pressable>
@@ -101,7 +104,7 @@ export const ViewCardHeaderlink = (props: any) => {
         }}
         to={props.headerlink}
       >
-        <ViewTypographyTextsubheading>
+        <ViewTypographyTextsubheading numberOfLines={1}>
           {props.header}
         </ViewTypographyTextsubheading>
       </ViewRouterLinkthemed>

@@ -1,9 +1,8 @@
-
 import { ViewPageMain } from "../utils/page";
 import { ViewDisplayDynamic } from "../utils/display";
 import { ViewActionTabs } from "../utils/action";
 import { ViewFocusMain } from "../utils/focus";
-import { useSpaceState } from "../utils/space";
+import { useSpaceState, TypeSpaceState } from "../utils/space";
 import {
   useEntityArray,
   useEntitySingle,
@@ -12,21 +11,14 @@ import {
 import { useRouterLocation } from "./../utils/router";
 import { View } from "react-native";
 
-type TypeSpaceData = {
-  storename: string;
-}
-
 export default function Entity() {
   const space = useSpaceState(["space", "selected"]);
   const paths = useRouterLocation()?.paths;
   const display = paths?.[3]; // this will eventually be passed as the component prop instead of hardcoded here
   const category = paths?.[2]; // this will eventually be passed as the component  prop instead of hardcoded here
-  const storename = (space?.data as TypeSpaceData | undefined)?.storename;
+  const spacename = (space.data as TypeSpaceState["data"])?.spacename;
   // todo: auxiliary data doesn't have relationships table joined to it yet
-  const auxiliary = useEntityArray(
-    `entities_${storename}`,
-    category
-  );
+  const auxiliary = useEntityArray(spacename, [category]);
   const focus = useEntitySingle({ category });
   const schema = useEntitySchema();
   return (

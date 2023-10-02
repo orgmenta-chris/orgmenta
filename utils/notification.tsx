@@ -14,7 +14,6 @@ Notifications.setNotificationHandler({
 
 const registerForPushNotificationsAsync = async () => {
   let token;
-
   if (Platform.OS === "android") {
     await Notifications.setNotificationChannelAsync("default", {
       name: "default",
@@ -23,7 +22,6 @@ const registerForPushNotificationsAsync = async () => {
       lightColor: "#FF231F7C",
     });
   }
-
   if (Device.isDevice) {
     const { status: existingStatus } =
       await Notifications.getPermissionsAsync();
@@ -44,17 +42,15 @@ const registerForPushNotificationsAsync = async () => {
         projectId: Constants.expoConfig.extra.eas.projectId,
       })
     ).data;
-    console.log(token);
+    // console.log(token);
   } else {
     alert("Must use a physical device for Push Notifications");
   }
-
   return token;
 };
 
 export const schedulePushNotification = async (props: any) => {
   const { title, body, data } = props;
-
   await Notifications.scheduleNotificationAsync({
     content: {
       title,
@@ -65,36 +61,31 @@ export const schedulePushNotification = async (props: any) => {
   });
 };
 
-export interface NotificationBody {
+export interface TypeNotificationBody {
   testMode: boolean;
   CustomNotificationBody?: React.ComponentType<any>;
 }
 
-export const UseNotification = (props: NotificationBody) => {
+export const UseNotification = (props: TypeNotificationBody) => {
   const { testMode, CustomNotificationBody } = props;
-
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
-
   useEffect(() => {
     registerForPushNotificationsAsync().then((token: any) =>
       setExpoPushToken(token)
     );
-
     // @ts-ignore
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification: any) => {
         setNotification(notification);
       });
-
     // @ts-ignore
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
+        // console.log(response);
       });
-
     return () => {
       Notifications.removeNotificationSubscription(
         // @ts-ignore
@@ -104,7 +95,6 @@ export const UseNotification = (props: NotificationBody) => {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
-
   if (testMode === true && !CustomNotificationBody) {
     return (
       <View
@@ -158,7 +148,6 @@ export const UseNotification = (props: NotificationBody) => {
       </View>
     );
   }
-
   if (testMode === false && CustomNotificationBody) {
     return <CustomNotificationBody />;
   }

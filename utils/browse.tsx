@@ -1,18 +1,20 @@
 // 'Browse' is search functionality, with optional 'quick-add' to convert the search term to a new entity.
 
 import { ViewModalMain } from "./modal";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { ScrollView, View, Text, TextInput, Pressable } from "react-native";
 import { ViewRouterLinkthemed } from "./router";
 import { instanceSupabaseClient } from "./supabase";
-import { ViewIconMain } from './icon';
+import { ViewTypographyTextsubsubheading } from "./typography";
+import { ViewIconMain } from "./icon";
+import { ViewCardExpandable } from "./card";
+import { useQueryerQuery } from "./queryer";
+import { ScrollView, View, Text, TextInput, Pressable } from "react-native";
+import { useState } from "react";
 
 // Active
 
-// This is a useQuery query that just returns a blank object (it doesn't query anything). Then the user can switch active bookmarks, which will update this query.
+// This is a useQueryerQuery query that just returns a blank object (it doesn't query anything). Then the user can switch active bookmarks, which will update this query.
 export const useBrowseActive = ({ ...Input }: TypeBrowseActive) => {
-  const query = useQuery({
+  const query = useQueryerQuery({
     queryKey: ["browse", "active"],
     queryFn: () => {
       return {};
@@ -42,11 +44,13 @@ export const useBrowseArray = ({ searchterm }: any) => {
     if (searchterm) {
       query.ilike("title", `%${searchterm}%`);
     }
-    query.limit(10);
+    query.range(0, 9);//temp arbitrary limit of 10 (todo: pass variables in here to get proper pagination)
     const response = await query;
     return response.data;
   };
-  const query = useQuery<any, Error>(queryKey, queryFn, { enabled: true });
+  const query = useQueryerQuery<any, Error>(queryKey, queryFn, {
+    enabled: true,
+  });
   return query;
 };
 
@@ -64,9 +68,14 @@ export const ViewBrowseModal = (props: any) => {
       collapsible
     >
       <ViewRouterLinkthemed to="browse">
-        <ViewIconMain color={'black'} name={`open-outline`} source={`Ionicons`} />
+        <ViewIconMain
+          color={"black"}
+          name={`open-outline`}
+          source={`Ionicons`}
+        />
       </ViewRouterLinkthemed>
       <ViewBrowseSearch />
+      <ViewBrowseLinks />
     </ViewModalMain>
   );
 };
@@ -78,20 +87,31 @@ export const ViewBrowseSearch = (props: any) => {
   const browseArray = useBrowseArray({ searchterm: search });
   return (
     <View>
-      <View style={{ flexDirection: "row", maxHeight: 40, width: "100%"}}>
-        <Text style={{flex: 2}}>{`Search: `}</Text>
+      <View style={{ flexDirection: "row", maxHeight: 40, width: "100%" }}>
+        <Text style={{ flex: 2 }}>{`Search: `}</Text>
         <View>
           <TextInput
-            style={{ flex: 3, backgroundColor: "white", borderWidth:1, maxWidth:100 }}
+            style={{
+              flex: 3,
+              backgroundColor: "white",
+              borderWidth: 1,
+              maxWidth: 100,
+            }}
             onChangeText={(e) => set(e)}
           />
         </View>
-        <Pressable  style={{flex: 1, maxHeight:20}}>
-          <ViewIconMain color={`black`} name={`add-circle`} source={`Ionicons`} />
+        <Pressable style={{ flex: 1, maxHeight: 20 }}>
+          <ViewIconMain
+            color={`black`}
+            name={`add-circle`}
+            source={`Ionicons`}
+          />
           {/* <Text>(QuickaddButton-todo)</Text> */}
         </Pressable>
       </View>
-      <ScrollView style={{ flex: 1, backgroundColor: "gray" }}>
+      {/* Test */}
+      {/* <Text>{JSON.stringify(browseArray.data,null,2)}</Text> */}
+      <ScrollView style={{ height: "100%", backgroundColor: "gray" }}>
         {browseArray.isLoading && (
           <Text
             numberOfLines={2}
@@ -104,18 +124,19 @@ export const ViewBrowseSearch = (props: any) => {
             Loading...
           </Text>
         )}
-        {!browseArray.isLoading && (!browseArray?.data || browseArray?.data?.length === 0) && (
-          <Text
-            style={{
-              marginTop: 2,
-              fontSize: 12,
-              height: 30,
-              backgroundColor: "white",
-            }}
-          >
-            0 Results Found
-          </Text>
-        )}
+        {!browseArray.isLoading &&
+          (!browseArray?.data || browseArray?.data?.length === 0) && (
+            <Text
+              style={{
+                marginTop: 2,
+                fontSize: 12,
+                height: 30,
+                backgroundColor: "white",
+              }}
+            >
+              0 Results Found
+            </Text>
+          )}
         {browseArray?.data?.map((x: any, i: string) => (
           <Text
             numberOfLines={2}
@@ -134,3 +155,44 @@ export const ViewBrowseSearch = (props: any) => {
     </View>
   );
 };
+
+// Widget to link to entities/attributes/etc. (temp, CG to further design.)
+// to replace with toggle buttons
+export const ViewBrowseLinks = () => {
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Schemas"}
+      body={
+        <View>
+          <ViewRouterLinkthemed style={{ margin: 5 }} to={`/browse/all`}>
+            <ViewTypographyTextsubsubheading>
+              All
+            </ViewTypographyTextsubsubheading>
+          </ViewRouterLinkthemed>
+          <ViewRouterLinkthemed style={{ margin: 5 }} to={`/browse/entities`}>
+            <ViewTypographyTextsubsubheading>
+              Entities
+            </ViewTypographyTextsubsubheading>
+          </ViewRouterLinkthemed>
+          <ViewRouterLinkthemed style={{ margin: 5 }} to={`/browse/attributes`}>
+            <ViewTypographyTextsubsubheading>
+              Attributes
+            </ViewTypographyTextsubsubheading>
+          </ViewRouterLinkthemed>
+          <ViewRouterLinkthemed style={{ margin: 5 }} to={`/browse/relationships`}>
+            <ViewTypographyTextsubsubheading>
+              Relationships
+            </ViewTypographyTextsubsubheading>
+          </ViewRouterLinkthemed>
+          <ViewRouterLinkthemed style={{ margin: 5 }} to={`/browse/members`}>
+            <ViewTypographyTextsubsubheading>
+              Members
+            </ViewTypographyTextsubsubheading>
+          </ViewRouterLinkthemed>
+        </View>
+      }
+    />
+  );
+};
+

@@ -1,7 +1,8 @@
 import { useThemeToken, TypeThemeMain } from "./theme";
 import { validateObjectIsobject } from "./object";
 import { mergeStylesheetMain } from "./stylesheet";
-import { Text, TextProps, TextStyle, StyleProp } from "react-native";
+import { View, Text, TextProps, TextStyle, StyleProp } from "react-native";
+
 // Main
 
 export type TypeTypographyText = TextProps;
@@ -11,9 +12,9 @@ export const ViewTypographyText = Text;
 // Themed
 
 export type TypeTypographyTextthemed = TypeTypographyText & {
-    children?: React.ReactNode;
-    theme_token?: string;
-    style?: StyleProp<TextStyle> & { [key: string]: any };
+  children?: React.ReactNode;
+  theme_token?: string;
+  style?: StyleProp<TextStyle> & { [key: string]: any };
 };
 
 export const ViewTypographyTextthemed = ({
@@ -78,7 +79,6 @@ export const ViewTypographyTextsubheading = ({
     </Text>
   );
 };
-
 
 export const ViewTypographyTextsubsubheading = ({
   children,

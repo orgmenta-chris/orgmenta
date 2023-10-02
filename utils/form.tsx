@@ -1,5 +1,6 @@
 import { ScrollView, Text } from "react-native";
 import { ViewFieldMain, interfaceFieldMain } from "./field";
+
 // Main
 
 export interface interfaceFormMain {
@@ -10,7 +11,7 @@ export interface interfaceFormMain {
 // The main simple form
 export const ViewFormMain = ({ children, title }: any) => {
   return (
-    <ScrollView style={{margin: 5}}>
+    <ScrollView style={{ margin: 5 }}>
       {title && <Text>{title}</Text>}
       {children}
     </ScrollView>
@@ -21,7 +22,6 @@ export const ViewFormMain = ({ children, title }: any) => {
 
 // A form that shows the correct field type based on a field propery in each object
 export const ViewFormDynamic = ({ data, title }: any) => {
-  // console.log(data)
   return (
     <ViewFormMain>
       {!data && (

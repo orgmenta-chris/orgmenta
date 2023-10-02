@@ -1280,6 +1280,9 @@ export const paradigms: Paradigm[] = [
   },
   {
     description: "Framework module FUNCTIONAL PARITY(?). Need to ensure that all submodules are comparable in function TYPE.(?) e.g. we don't want one set of submodules describing statuses that the parent travels through, while another describes features of the parent. (?)And we don't want one set to be nouns and the other verbs(?). Can someone describe this better than my awful attempt?",
+  },
+  {
+    description: "Scope limitations: Target Industries, Codebase-to-library, a hold on expansion vertically & horizontally, physical/brick&mortar, feature scope",
   }
 ];
 
@@ -1912,6 +1915,18 @@ export const axioms = [
     description:
       "The belief that actions today must not compromise future generations.",
   },
+  {
+    id: 6,
+    title: "Stability and Survivability",
+    description:
+      "Stability in the product and the company. Aim to build a business that will last a millenium (as long as it is valuable and does not hinder the world)",
+  },
+  {
+    id: 7,
+    title: "Internalise Externalities",
+    description:
+      "",
+  },
 ];
 
 // Tenets are principles or policies derived from axioms, which guide decision-making.
@@ -1945,6 +1960,20 @@ export const tenets = [
     description:
       "Adherence to sustainable practices in all aspects of business.",
   },
+  {
+    id: 5,
+    axioms: [6],
+    title: "Stable, scalable, restorable, mirrored databases",
+    description:
+      "",
+  },
+  {
+    id: 6,
+    axioms: [6],
+    title: "Stable, scalable, restorable, mirrored databases",
+    description:
+      "",
+  },
 ];
 
 // Imperatives are actionable rules or guidelines that stem from tenets.
@@ -1966,17 +1995,24 @@ export const imperatives = [
   },
   {
     id: 3,
-    tenets: [4],
+    tenets: [3],
     title: "Regularly disclose financial and operational data",
     description:
       "Transparently share key performance indicators, financial metrics, and other relevant data at regular intervals.",
   },
   {
     id: 4,
-    tenets: [5],
+    tenets: [4],
     title: "Adopt and promote eco-friendly practices",
     description:
       "Integrate sustainable practices into business operations and encourage stakeholders to do the same.",
+  },
+  {
+    id: 5,
+    tenets: [5],
+    title: "Never expose real tables to an application",
+    description:
+      " Create and maintain an 'API' schema which contains only views, functions, procedures, and only allow applications to use this schema. This gives you a layer of indirection on the DB side such that you can nearly eliminate the dance of coordinating application changes and database migrations.",
   },
 ];
 // Business proccesses must then adhere to imperitives.
@@ -1989,7 +2025,19 @@ export const articlesTemp = [
       - 'Fuzzy' questions are now possible (TipOfTheTongue, general inquiry, etc.)
       - Data analysis now possible that wasn't before (e.g. 'Check my spotify account and see what the average #listens is for songs. Then you can see how niche your taste is.')
       - Speed increases (faster to get info and analyse data)
+      - LLMs are good when you speak at a high level, regarding high level topics (or where training data was from academics etc.). But not when it's using quora and reddit posts for training.
     `,
+  },
+  {
+    topic: "Email - DMarc etc.",
+    notes: `
+      BIMI (Brand Indicators for Message Identification) is a standard that allows domain owners to associate their brand logo with their email messages. By linking a verified SVG logo to DNS records, email providers who support BIMI can display the logo next to the email in the recipient's inbox. This enhances brand recognition and can help in combating phishing attacks. The process typically involves setting up a BIMI text record in your DNS, associating an SVG image, and passing DMARC authentication. BIMI aims to create a more secure and brand-centric email ecosystem.
+      This not only helps brand identity, but neatly packages your email security.
+      DMARC: https://news.ycombinator.com/item?id=37729964
+      DKIM: https://news.ycombinator.com/item?id=37723688
+      BIMI: https://www.litmus.com/blog/what-is-bimi-and-why-should-email-marketers-care
+      DMARC, SPF, and DKIM: https://news.ycombinator.com/item?id=29869266
+      `,
   },
   {
     topic: "(One article per business framework submodule)",

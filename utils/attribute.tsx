@@ -45,7 +45,7 @@ export const useAttributeMain = ({}: any) => {
 export const ViewAttributeMain = memo(() => {
   // Chris is going to enhance this placeholder component
   const array = useAttributeMain({});
-  const attributeColumnNames = [
+  const attributeColumnNames = [ // static for now but will use useAttributesArray in the future
     "id",
     "status",
     "a_name_singular",

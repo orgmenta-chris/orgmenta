@@ -5,7 +5,10 @@ import { ViewCardExpandable } from "./card";
 import { ViewModalMain } from "./modal";
 import { ViewRouterLink } from "./router";
 import { useThemeToken } from "./theme";
-import { ViewTypographyTextheading } from "./typography";
+import {
+  ViewTypographyTextheading,
+  ViewTypographyTextsubheading,
+} from "./typography";
 import { useQuery } from "@tanstack/react-query";
 import { Text, View, ScrollView } from "react-native";
 import { ViewHeaderMain, ViewHeaderSection } from "./header";
@@ -15,7 +18,17 @@ import UserWidget from "../components/navigation/widgets/userWidget";
 import BrowseWidget from "../components/navigation/widgets/browseWidget";
 import OrgmentaWidget from "../components/navigation/widgets/orgmentaWidget";
 import BookmarkWidget from "../components/navigation/widgets/bookmarkWidget";
-import { features, requirements, procedures, devworkflow, paradigms, checklist, competitorFeatures, arrayCompetitors } from './roadmap'
+import {
+  features,
+  requirements,
+  procedures,
+  devworkflow,
+  paradigms,
+  checklist,
+  competitorFeatures,
+  arrayCompetitors,
+} from "./roadmap";
+import { ViewInquiryMain } from "../utils/inquiry";
 
 // Full Header component
 export const ViewOrgmentaHeader = () => {
@@ -382,9 +395,18 @@ export const ViewOrgmentaRoadmap = ({}: any) => {
     <ScrollView>
       <ViewTypographyTextheading>Roadmap</ViewTypographyTextheading>
       <Text>
-      {`Roadmap timeline (Title, summary + priorities, dates etc.) here.\n(Info comes from Orgmenta's space > System/Governance? > Offerings > Roadmap\n\n`}
-      {JSON.stringify([{features}, {requirements}, {procedures}, {paradigms}, {checklist}],null,2)}
-      
+        {`Roadmap timeline (Title, summary + priorities, dates etc.) here.\n(Info comes from Orgmenta's space > System/Governance? > Offerings > Roadmap\n\n`}
+        {JSON.stringify(
+          [
+            { features },
+            { requirements },
+            { procedures },
+            { paradigms },
+            { checklist },
+          ],
+          null,
+          2
+        )}
       </Text>
     </ScrollView>
   );
@@ -398,9 +420,9 @@ export const ViewOrgmentaCompare = ({}: any) => {
         <Text>
           {`(Temp):\n\n`}
           {`\n\nCompetitors:\n\n`}
-          {JSON.stringify(arrayCompetitors,null,2)}
+          {JSON.stringify(arrayCompetitors, null, 2)}
           {`\n\nFeature Comparison:\n\n`}
-          {JSON.stringify(competitorFeatures,null,2)}
+          {JSON.stringify(competitorFeatures, null, 2)}
         </Text>
       </ScrollView>
     </ViewPageMain>
@@ -445,12 +467,14 @@ export const ViewOrgmentaFrameworks = ({}: any) => {
 };
 
 export const ViewOrgmentaProduct = ({}: any) => {
-  const theme = useThemeToken("orgmentaproduct");
+  // const theme = useThemeToken("orgmentaproduct"); // CG todo
   return (
     <ViewPageMain>
       <ScrollView>
         <ViewTypographyTextheading>Product</ViewTypographyTextheading>
-        <Text style={theme}>
+        <Text
+        // style={theme}
+        >
           {`FEATURES GO HERE`}
         </Text>
       </ScrollView>
@@ -500,12 +524,12 @@ export const ViewOrgmentaSocials = ({}: any) => {
         <ViewTypographyTextheading>Socials</ViewTypographyTextheading>
         <Text>
           {`
-                    LINKS
-                    Social media related here.
+          LINKS
+          Social media related here.
 
-                    FEED
-                    Feed of social media posts here 
-                    `}
+          FEED
+          Feed of social media posts here 
+          `}
         </Text>
       </ScrollView>
     </ViewPageMain>
@@ -517,10 +541,8 @@ export const ViewOrgmentaContact = ({}: any) => {
     <ViewPageMain>
       <ScrollView>
         <ViewTypographyTextheading>Contact</ViewTypographyTextheading>
-        <Text>
-          {`Contact Us
-                    Contact form goes here`}
-        </Text>
+        <ViewTypographyTextsubheading>Contact Us:</ViewTypographyTextsubheading>
+        <ViewInquiryMain />
       </ScrollView>
     </ViewPageMain>
   );

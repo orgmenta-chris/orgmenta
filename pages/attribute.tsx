@@ -3,31 +3,28 @@ import { ViewAttributeMain, ViewAttributeUnioned } from "../utils/attribute";
 import { ViewPageMain } from "../utils/page";
 import { ViewTypographyTextheading } from "../utils/typography";
 import {
-    ViewRouterLink,
-    ViewRouterRoutes,
-    ViewRouterRoute,
+  ViewRouterLink,
+  ViewRouterRoutes,
+  ViewRouterRoute,
 } from "../utils/router";
 
 export default function AttributePage() {
-    return (
-        <ViewPageMain>
-            <ViewTypographyTextheading>Attributes</ViewTypographyTextheading>
-            <View style={{ flexDirection: "row" }}>
-                <ViewRouterLink to={"main"} style={{ margin: 5 }}>
-                    Main
-                </ViewRouterLink>
-                <ViewRouterLink to={"unioned"} style={{ margin: 5 }}>
-                    Unioned
-                </ViewRouterLink>
-            </View>
-            <ViewRouterRoutes>
-                <ViewRouterRoute path="main" element={<ViewAttributeMain />} />
-                <ViewRouterRoute
-                    path="unioned"
-                    element={<ViewAttributeUnioned />}
-                />
-            </ViewRouterRoutes>
-            {/* <ViewAttributeMain/> */}
-        </ViewPageMain>
-    );
+  return (
+    <ViewPageMain>
+      <ViewTypographyTextheading>Attributes</ViewTypographyTextheading>
+      <View style={{ flexDirection: "row" }}>
+        <ViewRouterLink to={"main"} style={{ margin: 5 }}>
+          Main
+        </ViewRouterLink>
+        <ViewRouterLink to={"unioned"} style={{ margin: 5 }}>
+          Unioned
+        </ViewRouterLink>
+      </View>
+      <ViewRouterRoutes>
+        <ViewRouterRoute path="main" element={<ViewAttributeMain />} />
+        <ViewRouterRoute path="unioned" element={<ViewAttributeUnioned />} />
+      </ViewRouterRoutes>
+      {/* <ViewAttributeMain/> */}
+    </ViewPageMain>
+  );
 }

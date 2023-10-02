@@ -44,6 +44,7 @@ import { ViewBrowseModal } from "./utils/browse";
 import { ViewSpaceModal } from "./utils/space";
 import { ViewUserModal } from "./utils/user";
 import { ViewLandingPage } from "./utils/landing";
+import { ViewTestPage } from "./utils/test";
 
 export default function App() {
   usePlatformCssweb(); // shim to add css to web
@@ -57,12 +58,16 @@ export default function App() {
           <ViewRouterRoutes>
             {/* Temp page for deployed website (landing page only, stips all other functionality out) */}
             {!__DEV__ && (
-              <ViewRouterRoute path="/*" element={<ViewLandingPage />} />
+              <>
+                <ViewRouterRoute path="/*" element={<ViewLandingPage />} />
+              </>
             )}
             {__DEV__ && (
               <>
                 {/* Home Page */}
                 <ViewRouterRoute path="/" element={<Home />} />
+                {/* Test Page */}
+                <ViewRouterRoute path="/test" element={<ViewTestPage />} />
                 {/* App Pages */}
                 <ViewRouterRoute
                   path="app/"

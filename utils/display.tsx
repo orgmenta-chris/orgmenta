@@ -2,11 +2,7 @@
 // It is a 'perspective into the graph'.
 // You can view entities and their relationships in different displays (e.g. Table, list, calendar) and filters.
 
-import {
-  ViewRouterLink,
-  ViewRouterLinkthemed,
-  useRouterLocation,
-} from "./router";
+import { ViewRouterLinkthemed, useRouterLocation } from "./router";
 import { ViewFormDynamic } from "./form";
 import { ViewListMain } from "./list";
 import { ViewChartMain } from "./chart";
@@ -27,7 +23,8 @@ import { ViewIconMain } from "./icon";
 
 import { ReactElement, memo, useEffect, useMemo, useState } from "react";
 import {
-  View,ScrollView,
+  View,
+  ScrollView,
   Text,
   TouchableOpacity,
   Modal,
@@ -88,9 +85,9 @@ export const ViewDisplayPod = (props: any) => {
       <ViewPodInfo />
       <ViewPodTabs />
       <ViewPodList title={"Example List Pod"} data={auxiliary.data} />
+      {/* <ViewPodExample />
       <ViewPodExample />
-      <ViewPodExample />
-      <ViewPodExample />
+      <ViewPodExample /> */}
     </ViewPodMain>
   );
 };
@@ -98,7 +95,6 @@ export const ViewDisplayPod = (props: any) => {
 // Form
 
 export const ViewDisplayForm = (props: any) => {
-  // console.log(props?.schema?.data?.map(x=>x.focus_columns.name_singular))
   // Chris todo: auxiliary data doesn't have relationship ids yet, so 'if(oldItem.focus_columns.cell_field==='relationship'){' does nothing yet
   // create the appropriate schema for the form
   let data: any = useMemo(() => {
@@ -106,8 +102,6 @@ export const ViewDisplayForm = (props: any) => {
     if (props.schema && props.focus.data && props.auxiliary) {
       props?.schema?.data?.forEach((oldItem: any) => {
         let newItem = { ...oldItem, ...oldItem.auxiliary_columns };
-        // console.log('newItem.name_singular',newItem[newItem.name_singular])
-        // console.log('newItem.name_singular',newItem.name_singular)
         // if the attribute is 'relationship' we know that it is in the relationship table instead of being a column on the entity table.
         if (oldItem.focus_columns.cell_field === "relationship") {
           newItem.table = "relationships";
@@ -129,6 +123,7 @@ export const ViewDisplayForm = (props: any) => {
 
 // Table
 
+// todo (to be replaced with Loisa's dynamic table once developed)
 export const ViewDisplayTable = (props: any) => {
   const schema = props.schema;
   // const columns = useTableColumns(
@@ -319,21 +314,21 @@ export const ViewDisplayCalendar = (props: any) => {
     swipeEnabled: true, // Enable swipe navigation
     weekStartsOn: 0, // Start the week on Sunday
     weekEndsOn: 6, // End the week on Saturday
-    onChangeDate: (dateRange:any) => {
+    onChangeDate: (dateRange: any) => {
       // Handle date range change
-      console.log("Date range changed:", dateRange);
+      console.info("Date range changed:", dateRange);
     },
     onPressCell: (date) => {
       // Handle cell press
-      console.log("Cell pressed:", date);
+      console.info("Cell pressed:", date);
     },
     onPressDateHeader: (date) => {
       // Handle date header press
-      console.log("Date header pressed:", date);
+      console.info("Date header pressed:", date);
     },
     onPressEvent: (event) => {
       // Handle event click
-      console.log("Event clicked:", event);
+      console.info("Event clicked:", event);
     },
     eventMinHeightForMonthView: 40, // Set the minimum event height for month view
     activeDate: new Date(), // Set the active date to September 15th, 2023
@@ -371,23 +366,91 @@ export const ViewDisplayCalendar = (props: any) => {
 // Timeline
 export const ViewDisplayTimeline = (props: any) => {
   const data = [
-    { time: "09:00", title: "TimelineEvent 1", description: "Event 1 Description" },
-    { time: "10:45", title: "TimelineEvent 2", description: "Event 2 Description" },
-    { time: "12:00", title: "TimelineEvent 3", description: "Event 3 Description" },
-    { time: "14:00", title: "TimelineEvent 4", description: "Event 4 Description" },
-    { time: "16:30", title: "TimelineEvent 5", description: "Event 5 Description" },
-    { time: "16:30", title: "TimelineEvent 6", description: "Event 5 Description" },
-    { time: "16:30", title: "TimelineEvent 7", description: "Event 5 Description" },
-    { time: "16:30", title: "TimelineEvent 8", description: "Event 5 Description" },
-    { time: "16:30", title: "TimelineEvent 9", description: "Event 5 Description" },
-    { time: "16:30", title: "TimelineEvent 10", description: "Event 5 Description" },
-    { time: "16:30", title: "TimelineEvent 11", description: "Event 5 Description" },
-    { time: "16:30", title: "TimelineEvent 12", description: "Event 5 Description" },
-    { time: "16:30", title: "TimelineEvent 13", description: "Event 5 Description" },
-    { time: "16:30", title: "TimelineEvent 14", description: "Event 5 Description" },
-    { time: "16:30", title: "TimelineEvent 15", description: "Event 5 Description" },
-    { time: "16:30", title: "TimelineEvent 16", description: "Event 5 Description" },
-    { time: "16:30", title: "TimelineEvent 17", description: "Event 5 Description" },
+    {
+      time: "09:00",
+      title: "TimelineEvent 1",
+      description: "Event 1 Description",
+    },
+    {
+      time: "10:45",
+      title: "TimelineEvent 2",
+      description: "Event 2 Description",
+    },
+    {
+      time: "12:00",
+      title: "TimelineEvent 3",
+      description: "Event 3 Description",
+    },
+    {
+      time: "14:00",
+      title: "TimelineEvent 4",
+      description: "Event 4 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 5",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 6",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 7",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 8",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 9",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 10",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 11",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 12",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 13",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 14",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 15",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 16",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 17",
+      description: "Event 5 Description",
+    },
   ];
   return (
     <View style={{ height: "100%" }}>
@@ -411,9 +474,7 @@ export const ViewDisplayTimeline = (props: any) => {
 // Also add the data into a useQuery so that it caches everything (including the image if possible?)
 export const ViewDisplayMaps = (props: any) => {
   const { customerAddress } = props; // this data could be geocoded into lat and long coordinates for them to be rendered on the map
-
   const [worldMapJSON, setWorldMapJSON] = useState(null);
-
   const fetchWorldMap = async () => {
     try {
       const response = await fetch(
@@ -428,17 +489,16 @@ export const ViewDisplayMaps = (props: any) => {
       console.error("Error fetching world map data:", error);
     }
   };
-
-  // this function essentially converts the user addresses into coordinates that can be used to render markers on the map.
+  // this function converts the user addresses into coordinates that can be used to render markers on the map.
   const goeCodeAddresses = () => {
     // todo
   };
-
   useEffect(() => {
     fetchWorldMap();
   }, []);
-
-  return (
+  return UtilityPlatformMain.OS !== "web" ? (
+    <ViewMapMobile />
+  ) : (
     <View style={{ maxHeight: 400 }}>
       <Map height={600} defaultZoom={2.5}>
         <GeoJson
@@ -464,6 +524,7 @@ export const ViewDisplayMaps = (props: any) => {
 
 // Json
 
+// Will use dynamic json tree component from json.tsx once developed by Loisa
 export const ViewDisplayJson = (props: any) => {
   const schema = props.schema;
   const auxiliary = props.auxiliary;
@@ -488,9 +549,14 @@ export const mapDisplayComponents: any = {
   calendar: ViewDisplayCalendar,
   timeline: ViewDisplayTimeline,
   maps: ViewDisplayMaps,
-  chart: ViewDisplayJson,
-  path: ViewDisplayJson,
   json: ViewDisplayJson,
+  // chart: ViewDisplayChart,
+  // path: ViewDisplayPath,
+  // kanban: ViewDisplayKanban,
+  // gantt: ViewDisplayGantt,
+  // thread: ViewDisplayThreads,
+  // nodes: ViewDisplayNodes,
+  // spacial: ViewDisplaySpacial,
 };
 
 // Options
@@ -507,9 +573,13 @@ export const optionsDisplayMain = [
   { title: "Calendar", iconName: "calendar", iconSource: "Feather" },
   { title: "Timeline", iconName: "timeline", iconSource: "MaterialIcons" },
   { title: "Maps", iconName: "map", iconSource: "Feather" },
+  {
+    title: "Json",
+    iconName: "code-json",
+    iconSource: "MaterialCommunityIcons",
+  },
   { title: "Chart", iconName: "piechart", iconSource: "AntDesign" },
   // { title: "Path", iconName: "share", iconSource: "Foundation", },
-  // { title: "Json", iconName: "code-json", iconSource: "MaterialCommunityIcons"},
   // { title: "Kanban", iconName: "view-column", iconSource: "MaterialIcons"},
   // { title: "Gantt", iconName: "chart-gantt", iconSource: "MaterialCommunityIcons"},
   // { title: "Threads", iconName: "wechat", iconSource: "AntDesign"},
@@ -519,17 +589,18 @@ export const optionsDisplayMain = [
 
 // Tabs
 
-export const ViewDisplayTabs = ({ id }: any) => {
+export const ViewDisplayTabs = ({}: any) => {
   const display = useRouterLocation()?.paths[3];
   return (
-    <ScrollView horizontal
+    <ScrollView
+      horizontal
       style={{
         width: "100%",
         flexDirection: "row",
       }}
     >
       {optionsDisplayMain?.map((x, i) => (
-        <View key={i} style={{ flex: 1, width:50,height: 50}}>
+        <View key={i} style={{ flex: 1, width: 50, height: 50 }}>
           <ViewRouterLinkthemed
             style={{
               padding: 5,
@@ -544,7 +615,7 @@ export const ViewDisplayTabs = ({ id }: any) => {
                 source={x.iconSource}
                 color={"white"}
               />
-              <Text style={{fontSize:11}}>{x.title}</Text>
+              <Text style={{ fontSize: 11 }}>{x.title}</Text>
             </View>
           </ViewRouterLinkthemed>
         </View>

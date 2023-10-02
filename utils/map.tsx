@@ -1,9 +1,8 @@
 import MapView from "react-native-maps";
 import { View } from "react-native";
 
-
 export const ViewMapMobile = () => {
-  const location = { latitude: 37.78825, longitude: -122.4324 }
+  const location = { latitude: 37.78825, longitude: -122.4324 };
   return (
     <View style={{ backgroundColor: "red", width: "100%", height: "100%" }}>
       <MapView
@@ -22,8 +21,6 @@ export const ViewMapMobile = () => {
     </View>
   );
 };
-
-
 
 // Todo:
 // DONE: https://developers.google.com/maps/documentation/javascript/get-api-key

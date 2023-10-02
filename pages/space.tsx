@@ -1,6 +1,6 @@
 
 import { ViewPageMain } from "../utils/page";
-import { ViewSpaceArray, ViewSpaceSwitch } from "../utils/space";
+import { ViewSpaceLinks, ViewSpaceArray, ViewSpaceCurrent, ViewSpaceSwitch } from "../utils/space";
 import { ViewTypographyTextheading } from "../utils/typography";
 import { ScrollView } from "react-native";
 
@@ -9,6 +9,8 @@ export default function SpacePage() {
     <ViewPageMain>
       <ScrollView>
         <ViewTypographyTextheading>Spaces</ViewTypographyTextheading>
+        <ViewSpaceLinks />
+        <ViewSpaceCurrent />
         <ViewSpaceSwitch />
         <ViewSpaceArray />
       </ScrollView>

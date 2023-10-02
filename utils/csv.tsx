@@ -1,4 +1,4 @@
-import Papa, { ParseConfig } from 'papaparse';
+import Papa, { ParseConfig } from "papaparse";
 
 // Parser
 

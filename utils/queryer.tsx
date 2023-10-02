@@ -4,6 +4,7 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
+  UseQueryResult
 } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
@@ -46,3 +47,6 @@ export const useQueryerMutation = useMutation;
 
 // Query
 export const useQueryerQuery = useQuery;
+
+// Results
+export type TypeQueryerResult = UseQueryResult

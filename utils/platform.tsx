@@ -30,9 +30,9 @@ export const usePlatformCssweb = () => {
           display: none;
         }
       `;
-            document.head.appendChild(style);
-        }
-    }, []);
+      document.head.appendChild(style);
+    }
+  }, []);
 };
 
 export const objectPlatformOs = {
@@ -57,25 +57,25 @@ export const objectPlatformOs = {
   // awatch: {
   //   description: "Android Wear",
   // },
-}
+};
 
 export const objectPlatformTypes = {
   web: {
-    description: "MacOS, Linux, Windows desktop computers"
+    description: "MacOS, Linux, Windows desktop computers",
   },
   desktop: {
-    description: "MacOS, Linux, Windows desktop computers"
+    description: "MacOS, Linux, Windows desktop computers",
   },
   mobile: {
-    description: "Android, ios"
+    description: "Android, ios",
   },
   // server: {
-  //   description: '' 
+  //   description: ''
   // },
   // iot: {
   //   description: "Internet of things / tvs / watches / vehicles",
   // },
   // peripheral: {
-  //   description: 'Dumb i/o devices' 
+  //   description: 'Dumb i/o devices'
   // },
-}
+};

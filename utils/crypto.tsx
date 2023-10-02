@@ -2,7 +2,7 @@
 // https://docs.expo.dev/versions/latest/sdk/crypto/
 // Note: AES encryption not yet tested (waiting for msal android, for android emulator testing.)
 // If crypto.js is not compatible (it should be) then we could use crypto-es instead (simple drop in replacement).
-  // see https://stackoverflow.com/questions/60733815/how-to-encrypt-data-in-react-native-using-expo
+// see https://stackoverflow.com/questions/60733815/how-to-encrypt-data-in-react-native-using-expo
 
 import { useState } from "react";
 import { View, Text, Pressable } from "react-native";
@@ -16,7 +16,10 @@ export const doCryptoEncrypt = (text: string, secretKey: string): string => {
 };
 
 // Decrypt
-export const doCryptoDecrypt = (cipherText: string, secretKey: string): string => {
+export const doCryptoDecrypt = (
+  cipherText: string,
+  secretKey: string
+): string => {
   const bytes = CryptoJS.AES.decrypt(cipherText, secretKey);
   const originalText = bytes.toString(CryptoJS.enc.Utf8);
   return originalText;
@@ -54,13 +57,22 @@ export const ViewCryptoExample = () => {
   return (
     <View style={{ height: 400, width: 400, backgroundColor: "red" }}>
       <Text>Crypto Module Example</Text>
-      <Pressable style={{backgroundColor:'green', padding: 10}}onPress={handleHash}>
+      <Pressable
+        style={{ backgroundColor: "green", padding: 10 }}
+        onPress={handleHash}
+      >
         <Text>Test Hash</Text>
       </Pressable>
-      <Pressable style={{backgroundColor:'blue', padding: 10}} onPress={handleEncrypt}>
+      <Pressable
+        style={{ backgroundColor: "blue", padding: 10 }}
+        onPress={handleEncrypt}
+      >
         <Text>Encrypt</Text>
       </Pressable>
-      <Pressable style={{backgroundColor:'yellow', padding: 10}} onPress={handleDecrypt}>
+      <Pressable
+        style={{ backgroundColor: "yellow", padding: 10 }}
+        onPress={handleDecrypt}
+      >
         <Text>Decrypt</Text>
       </Pressable>
       <Text>AES: {aes}</Text>

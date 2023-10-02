@@ -6,19 +6,14 @@ import { mapTypeMain } from "../utils/type";
 import Svg, { Path, G } from "react-native-svg";
 import { useWindowDimensions } from "../utils/window";
 import { ViewCryptoExample } from "../utils/crypto";
-
-import { ViewStorageUpload } from "../components/playground/storageUpload";
 import VaultFunctions from "../components/playground/vaultFunctions";
-import {
-  ViewTypographyTextthemed,
-  ViewTypographyTextheading,
-} from "../utils/typography";
+import { ViewTypographyTextheading,ViewTypographyTextthemed } from "../utils/typography";
 import { ViewSvgArrowmain, ViewSvgArrowhead } from "../utils/svg";
-import { UseBarcodeReader, UseCamera } from "../utils/camera";
-import { UseClipboardCopy } from "../utils/clipboard";
-import { NotificationBody, UseNotification } from "../utils/notification";
-import { UseSoundPlayer, UseSoundRecorder, UseVideoPlayer } from "../utils/av";
-import { ViewScreenRecorder } from '../utils/recorder'
+import { ViewBarcodeReader, ViewCameraMain } from "../utils/camera";
+import { ViewClipboardCopy } from "../utils/clipboard";
+import { TypeNotificationBody, UseNotification } from "../utils/notification";
+import { ViewSoundPlayer, ViewSoundRecorder, UseVideoPlayer } from "../utils/av";
+import { ViewScreenRecorder } from "../utils/recorder";
 import { ViewInquiryMain } from "../utils/inquiry";
 
 export default function Home() {
@@ -53,7 +48,8 @@ export default function Home() {
           source={require("../assets/logo/full/color_cropped.png")}
         />
         <Text style={{ textAlign: "center", fontSize: 20 }}>
-          The BOS (Business Operating System) / ERP (Enterprise Resource Planning) / PSA (Professional Services Automation)
+          The BOS (Business Operating System) / ERP (Enterprise Resource
+          Planning) / PSA (Professional Services Automation)
         </Text>
         <Text
           style={{
@@ -79,13 +75,13 @@ export default function Home() {
           height: "100%",
         }}
       >
-        <View
+        {/* <View
           key={"test"}
           style={{
             height: windowDimensions.height - 80,
             backgroundColor: "green",
           }}
-        ></View>
+        ></View> */}
 
         <View key={"product_overview"}>
           <View
@@ -464,7 +460,7 @@ export default function Home() {
               <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
                 Contact Form
               </Text>
-              <ViewInquiryMain/>
+              <ViewInquiryMain />
               <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
                 Overview
               </Text>
@@ -551,15 +547,15 @@ export default function Home() {
               <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
                 Contact Form
               </Text>
-              <ViewInquiryMain/>
+              <ViewInquiryMain />
               {/* Barcode Scanner (working) */}
-              {/* <UseBarcodeReader /> */}
+              {/* <ViewBarcodeReader /> */}
 
               {/* Camera (working) */}
-              {/* <UseCamera /> */}
+              {/* <ViewCameraMain /> */}
 
               {/* Clipboard copy (working) */}
-              {/* <UseClipboardCopy /> */}
+              {/* <ViewClipboardCopy /> */}
 
               {/* Notification component (working) */}
               {/* <UseNotification 
@@ -567,10 +563,10 @@ export default function Home() {
               /> */}
 
               {/* Play sound (working) */}
-              {/* <UseSoundPlayer /> */}
+              {/* <ViewSoundPlayer /> */}
 
               {/* Record sound (working) */}
-              {/* <UseSoundRecorder /> */}
+              {/* <ViewSoundRecorder /> */}
 
               {/* Play video (working) */}
               {/* <UseVideoPlayer /> */}
@@ -580,10 +576,9 @@ export default function Home() {
 
               {/* Crypto CG (NOT working yet)*/}
               {/* <ViewCryptoExample/> */}
-
             </View>
           </View>
-          <View style={{ height: 1000 }}/>
+          <View style={{ height: 1000 }} />
         </View>
       </ScrollView>
     </ImageBackground>

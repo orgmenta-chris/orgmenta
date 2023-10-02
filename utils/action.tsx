@@ -1,8 +1,7 @@
-// An 'Action' is something that can be done to an 'Entity'.
+// An 'Action' (or 'control'?) is something that can be done to an 'Entity'.
 
 import {
   ViewRouterLinkthemed,
-  ViewRouterLink,
   ViewRouterRoutes,
   ViewRouterRoute,
   useRouterLocation,
@@ -46,7 +45,7 @@ export const ViewActionDisplay = ({}: any) => {
   return (
     <View style={{ flexDirection: "column" }}>
       <Text>DisplayMode</Text>
-      <ViewDisplayTabs/>
+      <ViewDisplayTabs />
     </View>
   );
 };
@@ -335,13 +334,13 @@ export const ViewActionLink = ({}: any) => {
 export const ViewActionExport = ({}: any) => {
   const native = useRouterNavigate();
   return (
-    <View style={{ flexDirection: "row", maxHeight:200 }}>
+    <View style={{ flexDirection: "row", maxHeight: 200 }}>
       <ViewIconMain
-            name={"ios-print-outline"}
-            source={"Ionicons"}
-            color={"black"}
-            size={24}
-        />
+        name={"ios-print-outline"}
+        source={"Ionicons"}
+        color={"black"}
+        size={24}
+      />
       <ViewIconMain
         name={"pdffile1"}
         source={"AntDesign"}

@@ -103,7 +103,6 @@ export const uploadDocument = async ({ name, file }: documentToBeUploaded) => {
 };
 
 export const useStorageUpload = ({ name, file }: documentToBeUploaded) => {
-  // console.log('fileUpload', name, file)
   const queryClient = useQueryClient();
   const mutation = useMutation(
     ["files", "create"],

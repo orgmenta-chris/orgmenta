@@ -167,6 +167,13 @@ And see https://github.com/search?q=repo%3Afacebook%2Freact-native+platform&type
 
 - At the moment, we haven't set clear instruction as to when to use types and when to use interfaces. To be confirmed/codified.
 
+## Console
+The following will ensure that we don't accidentally expose PII, and that we will be able to easily (search for and) remove all testing console.logs before each pull request to the production branch.
+- console.log for testing/staging only
+- console.warn or console.error for live/production only. No sensitive data to be used in these.
+- Other console methods (.info, .table etc.): No rules specified at this point.
+
+
 ## Functionality
 
 ### Declarations
@@ -257,6 +264,10 @@ todo
 <!-- ----------------- -->
 
 # Deployment
+
+## Checklist
+- Remove all console.logs (see the ## Console section - only .warn and .error )
+
 
 ## Web
 

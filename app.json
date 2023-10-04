@@ -40,7 +40,6 @@
       [
         "@stripe/stripe-react-native",
         {
-          "merchantIdentifier": "",
           "enableGooglePay": true
         }
       ]

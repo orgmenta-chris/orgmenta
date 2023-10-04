@@ -221,9 +221,14 @@ export default function App() {
 
   return (
     // <ViewMsalProvider instance={msalInstance}> */}
-    // <StripeProvider publishableKey={publishableKey}>
-    <AppBody />
+    // UtilityPlatformMain.OS === "web" ? (
+    //   <AppBody />
+    //   ) : (
+    //     <StripeProvider publishableKey={publishableKey}>
+    //     <AppBody />
     //   </StripeProvider>
+    // )
+    <AppBody />
     // </ViewMsalProvider> */}
   );
 }

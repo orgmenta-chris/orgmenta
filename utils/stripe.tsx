@@ -24,14 +24,16 @@ if (__DEV__) {
 //   apiVersion: "2023-08-16",
 // });
 
+const stripeURL = "https://api.stripe.com/v1/";
+
 // export const StripeCreateCustomer = async () => {
-//   const params: Stripe.CustomerCreateParams = {
-//     description: "Test customer - 1",
-//   };
+  // const params: Stripe.CustomerCreateParams = {
+  //   description: "Test customer - 1",
+  // };
 
-//   const customer: Stripe.Customer = await stripe.customers.create(params);
+  // const customer: Stripe.Customer = await stripe.customers.create(params);
 
-//   console.log(customer);
+  // console.log(customer);
 // };
 
 export const StripeGetAccounts = async () => {

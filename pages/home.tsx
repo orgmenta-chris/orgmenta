@@ -10,6 +10,7 @@ import { UseClipboardCopy } from "../utils/clipboard";
 import { NotificationBody, UseNotification } from "../utils/notification";
 import { UseSoundPlayer, UseSoundRecorder, UseVideoPlayer } from "../utils/av";
 import { UseStripeFunctions } from "../utils/stripe";
+import { UtilityPlatformMain } from "../utils/platform";
 
 // const notificationBody: NotificationBody = {
 //   testMode: true,
@@ -525,16 +526,17 @@ export default function Home() {
                 {/* Play sound (working) */}
                 {/* <UseSoundPlayer /> */}
 
-
                 {/* Record sound (working) */}
                 {/* <UseSoundRecorder /> */}
-                
-                
+
                 {/* Play video (working) */}
                 {/* <UseVideoPlayer /> */}
 
                 {/* Test Stripe/supbase db functions (working) */}
-                <UseStripeFunctions />
+                {/* <UseStripeFunctions /> */}
+                {/* {UtilityPlatformMain.OS === "web" ? null : (
+                  <UseStripeFunctions />
+                )} */}
               </View>
             </View>
             {/* temp spacer */}

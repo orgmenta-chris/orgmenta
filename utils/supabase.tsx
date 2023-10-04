@@ -4,10 +4,27 @@ import * as SecureStore from "expo-secure-store";
 import "react-native-url-polyfill/auto";
 import { UtilityPlatformMain } from "./platform";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import {
+  STAGING_SUPABASE_URL,
+  STAGING_SUPABASE_PUBLIC_KEY,
+  PRODUCTION_SUPABASE_URL,
+  PRODUCTION_SUPABASE_PUBLIC_KEY,
+} from "@env";
 
 // (Mobile Only) Secure Store.
 // If this is used elsewhere in the project, it will be split out into its own module / migrated to 'storage' (storage>local/clients).
 // We will use useQuery+asyncstorage+encryption instead (to work on web) once the encryption for it is confirmed as secure.
+let supabaseURL: any;
+let supabaseAnonKey: any;
+
+if (__DEV__) {
+  supabaseURL = `${STAGING_SUPABASE_URL}`;
+  supabaseAnonKey = `${STAGING_SUPABASE_PUBLIC_KEY}`;
+} else {
+  supabaseURL = `${PRODUCTION_SUPABASE_URL}`;
+  supabaseAnonKey = `${PRODUCTION_SUPABASE_PUBLIC_KEY}`;
+}
+
 export const ExpoSecureStoreAdapter = {
   getItem: (key: string) => {
     return SecureStore.getItemAsync(key);
@@ -24,8 +41,8 @@ export const ExpoSecureStoreAdapter = {
 
 export const instanceSupabaseClient = createSupabaseClient(
   // create an instance of the supabase client class
-  "https://qfiulevnnvsptiwtwvuz.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmaXVsZXZubnZzcHRpd3R3dnV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ4MjQ1MzcsImV4cCI6MTk4MDQwMDUzN30.D2lskLMTLfvucKbs3eqxxu0uygwyvd-krOFQN-T0APM",
+  supabaseURL,
+  supabaseAnonKey,
   {
     auth: {
       storage:

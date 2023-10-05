@@ -13,7 +13,7 @@ interface TypeInquiryMain {
 
 export const ViewInquiryMain = () => {
   const [state, set] = useState<TypeInquiryMain>({});
-  const create = useInquiryCreate(state);
+  const create = useInquiryCreate(state, ()=>set({}));
   return (
     <ScrollView style={{ flexDirection: "column"}}>
       {/* <Text>{JSON.stringify(state, null, 2)}</Text> */}
@@ -46,7 +46,6 @@ export const ViewInquiryMain = () => {
           style={{ borderRadius:5, padding: 10, margin:5,  backgroundColor: (state?.email && state?.message ) ? "lightblue" : "gray" }}
           onPress={() => {
             create.mutate();
-            set((old) => ({}));
           }}
         >
         <Text>Submit</Text>
@@ -74,8 +73,10 @@ export async function requestInquiryCreate(data: any) {
     .then(handleSupabaseResponse as any);
 }
 
-export const useInquiryCreate = (data: any) => {
-  return useMutation(["inquiry", "create"], () =>
-    requestInquiryCreate(data)
-  );
+export const useInquiryCreate = (data: any, resetState: () => void) => {
+  return useMutation(["inquiry", "create"], () => requestInquiryCreate(data), {
+    onSuccess: () => {
+      resetState();
+    },
+  });
 };

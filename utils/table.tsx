@@ -33,7 +33,7 @@ import {
 import { faker } from "@faker-js/faker";
 
 import { UtilityPlatformMain } from "./platform";
-import { View, Text } from "react-native";
+import { View, Text, TextInput, FlatList, Pressable } from "react-native";
 
 // fake data to use in our table view
 
@@ -150,13 +150,23 @@ export const DebouncedInput = ({
     return () => clearTimeout(timeout);
   }, [value]);
 
-  return (
-    <input
-      {...props}
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    />
-  );
+  if (UtilityPlatformMain.OS === "web") {
+    return (
+      <input
+        {...props}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+    );
+  } else {
+    return (
+      <TextInput
+        {...props}
+        value={value.toString()} // Convert to string for TextInput value
+        onChangeText={(text) => setValue(text)} // Use onChangeText instead of onChange
+      />
+    );
+  }
 };
 
 export const Filter = ({
@@ -180,60 +190,119 @@ export const Filter = ({
     [column.getFacetedUniqueValues()]
   );
 
-  return typeof firstValue === "number" ? (
-    <div>
-      <div className="flex space-x-2">
-        <DebouncedInput
-          type="number"
-          min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
-          max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
-          value={(columnFilterValue as [number, number])?.[0] ?? ""}
-          onChange={(value) =>
-            column.setFilterValue((old: [number, number]) => [value, old?.[1]])
-          }
-          placeholder={`Min ${
-            column.getFacetedMinMaxValues()?.[0]
-              ? `(${column.getFacetedMinMaxValues()?.[0]})`
-              : ""
-          }`}
-          className="w-24 border shadow rounded"
-        />
-        <DebouncedInput
-          type="number"
-          min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
-          max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
-          value={(columnFilterValue as [number, number])?.[1] ?? ""}
-          onChange={(value) =>
-            column.setFilterValue((old: [number, number]) => [old?.[0], value])
-          }
-          placeholder={`Max ${
-            column.getFacetedMinMaxValues()?.[1]
-              ? `(${column.getFacetedMinMaxValues()?.[1]})`
-              : ""
-          }`}
-          className="w-24 border shadow rounded"
-        />
+  if (UtilityPlatformMain.OS === "web") {
+    return typeof firstValue === "number" ? (
+      <div>
+        <div className="flex space-x-2">
+          <DebouncedInput
+            type="number"
+            min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+            max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+            value={(columnFilterValue as [number, number])?.[0] ?? ""}
+            onChange={(value) =>
+              column.setFilterValue((old: [number, number]) => [
+                value,
+                old?.[1],
+              ])
+            }
+            placeholder={`Min ${
+              column.getFacetedMinMaxValues()?.[0]
+                ? `(${column.getFacetedMinMaxValues()?.[0]})`
+                : ""
+            }`}
+            className="w-24 border shadow rounded"
+          />
+          <DebouncedInput
+            type="number"
+            min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+            max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+            value={(columnFilterValue as [number, number])?.[1] ?? ""}
+            onChange={(value) =>
+              column.setFilterValue((old: [number, number]) => [
+                old?.[0],
+                value,
+              ])
+            }
+            placeholder={`Max ${
+              column.getFacetedMinMaxValues()?.[1]
+                ? `(${column.getFacetedMinMaxValues()?.[1]})`
+                : ""
+            }`}
+            className="w-24 border shadow rounded"
+          />
+        </div>
+        <div className="h-1" />
       </div>
-      <div className="h-1" />
-    </div>
-  ) : (
-    <>
-      <datalist id={column.id + "list"}>
-        {sortedUniqueValues.slice(0, 5000).map((value: any) => (
-          <option value={value} key={value} />
-        ))}
-      </datalist>
-      <DebouncedInput
-        type="text"
-        value={(columnFilterValue ?? "") as string}
-        onChange={(value) => column.setFilterValue(value)}
-        placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
-        className="w-36 border shadow rounded"
-        list={column.id + "list"}
-      />
-      <div className="h-1" />
-    </>
-  );
+    ) : (
+      <>
+        <datalist id={column.id + "list"}>
+          {sortedUniqueValues.slice(0, 5000).map((value: any) => (
+            <option value={value} key={value} />
+          ))}
+        </datalist>
+        <DebouncedInput
+          type="text"
+          value={(columnFilterValue ?? "") as string}
+          onChange={(value) => column.setFilterValue(value)}
+          placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
+          className="w-36 border shadow rounded"
+          list={column.id + "list"}
+        />
+        <div className="h-1" />
+      </>
+    );
+  } else {
+    return typeof firstValue === "number" ? (
+      <View>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <DebouncedInput
+            type="numeric" // Set type for numeric input
+            value={(columnFilterValue as [number, number])?.[0] ?? ""}
+            onChange={(value) =>
+              column.setFilterValue((old: [number, number]) => [
+                value,
+                old?.[1],
+              ])
+            }
+            placeholder={`Min ${
+              column.getFacetedMinMaxValues()?.[0]
+                ? `(${column.getFacetedMinMaxValues()?.[0]})`
+                : ""
+            }`}
+            style={{ width: 80, borderWidth: 1, borderRadius: 5, padding: 5 }}
+          />
+          <DebouncedInput
+            type="numeric" // Set type for numeric input
+            value={(columnFilterValue as [number, number])?.[1] ?? ""}
+            onChange={(value) =>
+              column.setFilterValue((old: [number, number]) => [
+                old?.[0],
+                value,
+              ])
+            }
+            placeholder={`Max ${
+              column.getFacetedMinMaxValues()?.[1]
+                ? `(${column.getFacetedMinMaxValues()?.[1]})`
+                : ""
+            }`}
+            style={{ width: 80, borderWidth: 1, borderRadius: 5, padding: 5 }}
+          />
+        </View>
+        <View style={{ height: 1 }} />
+      </View>
+    ) : (
+      <>
+        <TextInput
+          value={(columnFilterValue ?? "") as string}
+          onChangeText={(text) => column.setFilterValue(text)} // Use onChangeText for text input
+          placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
+          style={{ width: 120, borderWidth: 1, borderRadius: 5, padding: 5 }}
+          // list={column.id + "list"} // React Native doesn't have datalist, so you may need a custom solution
+        />
+        <View style={{ height: 1 }} />
+      </>
+    );
+  }
 };
 
 const TableViewWeb = (props: any) => {
@@ -420,10 +489,179 @@ const TableViewWeb = (props: any) => {
   );
 };
 
-const TableViewMobile = () => {
+const TableViewMobile = (props: any) => {
+  const { columns, data, refreshData } = props;
+
+  const rerender = useReducer(() => ({}), {})[1];
+
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [globalFilter, setGlobalFilter] = useState("");
+
+  const table = useReactTable({
+    data,
+    columns,
+    filterFns: {
+      fuzzy: fuzzyFilter,
+    },
+    state: {
+      columnFilters,
+      globalFilter,
+    },
+    onColumnFiltersChange: setColumnFilters,
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn: fuzzyFilter,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    getFacetedMinMaxValues: getFacetedMinMaxValues(),
+    debugTable: true,
+    debugHeaders: true,
+    debugColumns: false,
+  });
+
+  useEffect(() => {
+    if (table.getState().columnFilters[0]?.id === "fullName") {
+      if (table.getState().sorting[0]?.id !== "fullName") {
+        table.setSorting([{ id: "fullName", desc: false }]);
+      }
+    }
+  }, [table.getState().columnFilters[0]?.id]);
+
   return (
-    <View>
-      <Text>Still looking for option for tables on mobile</Text>
+    <View style={{ padding: 2 }}>
+      <View>
+        <DebouncedInput
+          value={globalFilter ?? ""}
+          onChange={(value) => setGlobalFilter(String(value))}
+          style={{
+            padding: 2,
+            fontSize: 18,
+            borderWidth: 1,
+            borderColor: "black",
+          }}
+          placeholder="Search all columns..."
+        />
+      </View>
+      <View style={{ height: 2 }} />
+      {/* Use FlatList to render your table */}
+      <FlatList
+        data={table.getRowModel().rows}
+        keyExtractor={(row) => row.id.toString()}
+        renderItem={({ item: row }) => (
+          <View key={row.id}>
+            {row.getVisibleCells().map((cell) => (
+              <Text key={cell.id}>
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </Text>
+            ))}
+          </View>
+        )}
+      />
+      <View style={{ height: 2 }} />
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Pressable
+          style={({ pressed }) => ({
+            borderColor: pressed ? "gray" : "black",
+            borderWidth: 1,
+            borderRadius: 5,
+            padding: 10,
+          })}
+          onPress={() => table.setPageIndex(0)}
+          disabled={!table.getCanPreviousPage()}
+        >
+          <Text>{"<<"}</Text>
+        </Pressable>
+        <Pressable
+          style={({ pressed }) => ({
+            borderColor: pressed ? "gray" : "black",
+            borderWidth: 1,
+            borderRadius: 5,
+            padding: 10,
+          })}
+          onPress={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          <Text>{"<"}</Text>
+        </Pressable>
+        <Pressable
+          style={({ pressed }) => ({
+            borderColor: pressed ? "gray" : "black",
+            borderWidth: 1,
+            borderRadius: 5,
+            padding: 10,
+          })}
+          onPress={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          <Text>{">"}</Text>
+        </Pressable>
+        <Pressable
+          style={({ pressed }) => ({
+            borderColor: pressed ? "gray" : "black",
+            borderWidth: 1,
+            borderRadius: 5,
+            padding: 10,
+          })}
+          onPress={() => table.setPageIndex(table.getPageCount() - 1)}
+          disabled={!table.getCanNextPage()}
+        >
+          <Text>{">>"}</Text>
+        </Pressable>
+        <Text>
+          Page {table.getState().pagination.pageIndex + 1} of{" "}
+          {table.getPageCount()} |
+        </Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text> Go to page:</Text>
+          <TextInput
+            value={(table.getState().pagination.pageIndex + 1).toString()}
+            onChangeText={(text) => {
+              const page = text ? Number(text) - 1 : 0;
+              table.setPageIndex(page);
+            }}
+            style={{ borderWidth: 1, borderRadius: 5, padding: 5, width: 50 }}
+          />
+        </View>
+        <TextInput
+          value={table.getState().pagination.pageSize.toString()}
+          onChangeText={(text) => {
+            table.setPageSize(Number(text));
+          }}
+          style={{ borderWidth: 1, borderRadius: 5, padding: 5, width: 80 }}
+        />
+      </View>
+      <Text>{table.getPrePaginationRowModel().rows.length} Rows</Text>
+      <Pressable
+        style={({ pressed }) => ({
+          borderColor: pressed ? "gray" : "black",
+          borderWidth: 1,
+          borderRadius: 5,
+          padding: 5,
+        })}
+        onPress={() => rerender()}
+      >
+        <Text>Force Rerender</Text>
+      </Pressable>
+      <Pressable
+        style={({ pressed }) => ({
+          borderColor: pressed ? "gray" : "black",
+          borderWidth: 1,
+          borderRadius: 5,
+          padding: 5,
+        })}
+        onPress={() => refreshData()}
+      >
+        <Text>Refresh Data</Text>
+      </Pressable>
     </View>
   );
 };
@@ -433,6 +671,6 @@ export const UseDisplayTable =
     ? ({ tableData }: any) => {
         return <TableViewWeb {...tableData} />;
       }
-    : () => {
-        return <TableViewMobile />;
+    : ({ tableData }: any) => {
+        return <TableViewMobile {...tableData} />;
       };

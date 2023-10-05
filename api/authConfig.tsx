@@ -2,9 +2,8 @@ import { Configuration, PublicClientApplication } from "@azure/msal-browser";
 import {
   STAGING_AZURE_CLIENT_ID,
   STAGING_AZURE_TENANT_ID,
-  PRODUCTION_AZURE_CLIENT_ID,
-  PRODUCTION_AZURE_TENANT_ID,
 } from "@env";
+import { VaultGetSecret } from "../utils/vault";
 
 // Microsoft Authentication Library configuration
 
@@ -17,8 +16,8 @@ if (__DEV__) {
   tenantIdVar = `${STAGING_AZURE_TENANT_ID}`;
 } else {
   // You are in production mode
-  clientIdVar = `${PRODUCTION_AZURE_CLIENT_ID}`;
-  tenantIdVar = `${PRODUCTION_AZURE_TENANT_ID}`;
+  clientIdVar = VaultGetSecret("PRODUCTION_AZURE_CLIENT_ID");
+  tenantIdVar = VaultGetSecret("PRODUCTION_AZURE_TENANT_ID");
 }
 
 const msalConfig: Configuration = {

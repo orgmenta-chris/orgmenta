@@ -5,9 +5,8 @@ import { Pressable, View, Text } from "react-native";
 import {
   STAGING_STRIPE_SECRET_KEY,
   STAGING_STRIPE_PUBLISHABLE_KEY,
-  PRODUCTION_STRIPE_SECRET_KEY,
-  PRODUCTION_STRIPE_PUBLISHABLE_KEY,
 } from "@env";
+import { VaultGetSecret } from "./vault";
 
 let publishableKey: any;
 let secretKey: any;
@@ -16,25 +15,11 @@ if (__DEV__) {
   publishableKey = `${STAGING_STRIPE_PUBLISHABLE_KEY}`;
   secretKey = `${STAGING_STRIPE_SECRET_KEY}`;
 } else {
-  publishableKey = `${PRODUCTION_STRIPE_PUBLISHABLE_KEY}`;
-  secretKey = `${PRODUCTION_STRIPE_SECRET_KEY}`;
+  publishableKey = VaultGetSecret("PRODUCTION_STRIPE_PUBLISHABLE_KEY");
+  secretKey = VaultGetSecret("PRODUCTION_STRIPE_SECRET_KEY");
 }
 
-// export const stripe = new Stripe(secretKey, {
-//   apiVersion: "2023-08-16",
-// });
-
 const stripeURL = "https://api.stripe.com/v1/";
-
-// export const StripeCreateCustomer = async () => {
-  // const params: Stripe.CustomerCreateParams = {
-  //   description: "Test customer - 1",
-  // };
-
-  // const customer: Stripe.Customer = await stripe.customers.create(params);
-
-  // console.log(customer);
-// };
 
 export const StripeGetAccounts = async () => {
   const { data, error } = await client.rpc("get_accounts");

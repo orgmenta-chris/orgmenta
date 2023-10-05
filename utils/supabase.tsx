@@ -7,9 +7,8 @@ import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import {
   STAGING_SUPABASE_URL,
   STAGING_SUPABASE_PUBLIC_KEY,
-  PRODUCTION_SUPABASE_URL,
-  PRODUCTION_SUPABASE_PUBLIC_KEY,
 } from "@env";
+import { VaultGetSecret } from "./vault";
 
 // (Mobile Only) Secure Store.
 // If this is used elsewhere in the project, it will be split out into its own module / migrated to 'storage' (storage>local/clients).
@@ -21,8 +20,8 @@ if (__DEV__) {
   supabaseURL = `${STAGING_SUPABASE_URL}`;
   supabaseAnonKey = `${STAGING_SUPABASE_PUBLIC_KEY}`;
 } else {
-  supabaseURL = `${PRODUCTION_SUPABASE_URL}`;
-  supabaseAnonKey = `${PRODUCTION_SUPABASE_PUBLIC_KEY}`;
+  supabaseURL = VaultGetSecret("PRODUCTION_SUPABASE_URL");
+  supabaseAnonKey = VaultGetSecret("PRODUCTION_SUPABASE_PUBLIC_KEY");
 }
 
 export const ExpoSecureStoreAdapter = {

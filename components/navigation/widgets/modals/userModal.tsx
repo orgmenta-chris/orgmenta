@@ -45,7 +45,7 @@ const UserModal = (props) => {
           <View style={styles.modalView}>
             <Text style={{ marginHorizontal: 12, color: "green" }}>
               {auth?.data?.isSignedIn
-                ? "Signed in as " + auth.data.currentUser
+                ? "Signed in as " + auth.data.nickUpper
                 : "Using guest account"}
             </Text>
             <View style={styles.divider}></View>

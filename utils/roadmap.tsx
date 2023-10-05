@@ -1,6 +1,34 @@
 // Placeholder - will have a roadmap module for displaying a product roadmap.
 // This will be used by OrgmentaRoadmap.
 
+export const currentTargets = [
+  {
+    id: 1,
+    title: "Implement intial help module",
+    assignedTo: "c",
+    versions: [1],
+  },
+  {
+    id: 2,
+    title: "Stripe initial packages & integration",
+    assignedTo: "l",
+    versions: [2],
+  },
+];
+export const currentVersions = [
+  { id: 1, title: "Help Module v0.1", feature: 1 },
+  { id: 2, title: "Stripe Module v0.1", feature: 2 },
+];
+export const currentFeatures = [
+  { id: 1, title: "Help Module", usecases: [1] },
+  { id: 2, title: "Stripe Module", usecases: [2, 3] },
+];
+export const currentUsecases = [
+  { id: 1, title: "Be able to access help on any component in the UI" },
+  { id: 2, title: "Link client stripe account" },
+  { id: 3, title: "Pay customer invoice via stripe in orgmenta" },
+];
+
 // Userroles
 export const user_roles = [
   {
@@ -96,7 +124,33 @@ export const user_roles = [
   },
 ];
 
+export const featurePriorities = [
+  {
+    priority: 1,
+    description: "Needs to be implemented now, hindering other development",
+  },
+  {
+    priority: 2,
+    description: "Needs to be implemented before intial go-live",
+  },
+  {
+    priority: 3,
+    description: "Future Feature",
+  },
+  {
+    priority: 4,
+    description: "Future Feature - long term",
+  },
+  {
+    priority: 5,
+    description:
+      "Very long term / wishlist dependent on orgmenta long term success",
+  },
+];
+
 // Features
+// 'Features' for orgmenta are like 'Real-Time Analytics', 'Data Encryption' and others of same scope and target.
+// They are not 'Invoicing' etc. (this is fullfilled by 'modules' (see static.js and bookmarks.tsx for their temporary location while they are static) in this circumstance Accounts > Receivables > Invoicing)
 // specific features for the system. userstories can be constructed with:
 // const exampleUserstory  = 'As a' + 'Dispatcher' + 'I want to '+ features[0].userstories.dispatcher;
 // User stories will be split out into being separate entities (which can then be linked to requirements, features, user_roles etc.
@@ -1095,13 +1149,114 @@ export const features = [
     priority: 1,
     userstories: {},
   },
+  {
+    title: "Downtime detector",
+    version: 0.0,
+    status: "0. New",
+    description:
+      "a la https://downdetector.com.au/ / https://www.pingdom.com/solution/website-down-detector/ / https://uptimerobot.com/",
+    priority: 5,
+    userstories: {},
+  },
+  {
+    title: "StatusPage",
+    version: 0.0,
+    status: "0. New",
+    description: "a la https://status.io/",
+    priority: 4,
+    userstories: {},
+  },
+  {
+    title: "DNS Manager",
+    version: 0.0,
+    status: "0. New",
+    description:
+      "Create a dns manager system for engineers to update from the PSA instead of logging into separate hosting instances.",
+    priority: 5,
+    userstories: {},
+  },
+  {
+    title:
+      "Extra rich text functionality: Ability to paste tables, screenshots (etc.) into rich text",
+    version: 0.0,
+    status: "0. New",
+    description:
+      "CW etc. does not allow you to paste csv or xlsx cells/tables into time entries with formatting. We should be able to retain the formatting when pasted in.",
+    priority: 5,
+    userstories: {},
+  },
+  {
+    title: "Password Manager",
+    version: 0.0,
+    status: "0. New",
+    description:
+      "A la Bitwarden etc. Depends on appropriate securitty & security audit.",
+    priority: 3,
+    userstories: {},
+  },
+  {
+    title: "Payments System",
+    version: 0.0,
+    status: "0. New",
+    description:
+      "Allow customers to pay our clients' invoices, downpayments etc. through Orgmenta. Via stripe if possible (allow clients to configure Stripe integration and accept payments, add products/sync products from Orgmenta etc.",
+    priority: 3,
+    userstories: {},
+  },
 ];
 
 // Requirements
-// General 'needs' for the system
-export const requirements = [
+//
+export const requirements= [
   {
-    title: `Data Loss`,
+    category: "User Satisfaction",
+    title: 'UI satisfaction',
+    description:
+      "The interface must be intuitive enough for new users to perform basic tasks without training.",
+  },
+  {
+    category: "Functional",
+    title: 'CRUD',
+    description:
+      "The system must support the entry, modification, and deletion of customer records.",
+  },
+  {
+    category: "Performance",
+    description:
+      "The system must support up to 10,000 concurrent users without degrading performance below acceptable levels.",
+  },
+  {
+    category: "Security",
+    description:
+      "All customer data must be encrypted using at least AES-256 encryption.",
+  },
+  {
+    category: "Reliability",
+    description:
+      "The system must have a Mean Time Between Failures (MTBF) of 500 hours or more.",
+  },
+  {
+    category: "Input/Output",
+    description:
+      "The software must allow for the export of customer data in both CSV and XML formats.",
+  },
+  {
+    category: "Data Integrity",
+    description:
+      "The software must validate all customer email addresses before saving.",
+  },
+  {
+    category: "Usability",
+    description:
+      "Users must be able to complete the data entry for a new customer record within three minutes.",
+  },
+];
+
+
+// General 'needs' for the system
+export const needs = [
+  {
+    title: `No Data Loss / No impact from data loss`,
     description: `
 		- Never lose information. Time entries shouldn't lose or jumble text. As an employee I want to feel secure in typing directly into the app, such that if I lost internet or accidentally closed it, it would still be there upon return.
 		- Feedback on changes - If I make a change, I want to see that change immediately with its status (indicators/spinners, loading messages etc.)
@@ -1243,10 +1398,12 @@ type Paradigm = {
 };
 export const paradigms: Paradigm[] = [
   {
-    description: "Data structure: Node-Edge, 2-table paradigm instead of statically defined tables",
+    description:
+      "Data structure: Node-Edge, 2-table paradigm instead of statically defined tables",
   },
   {
-    description: "Displays: Data displays that the user can toggle between at will (to be restricted as necessary if users say they have 'TOO MUCH choice'/causes confusion)",
+    description:
+      "Displays: Data displays that the user can toggle between at will (to be restricted as necessary if users say they have 'TOO MUCH choice'/causes confusion)",
   },
   {
     description: "Categories/Modules/Business Framework",
@@ -1258,32 +1415,44 @@ export const paradigms: Paradigm[] = [
     description: "TechStack (react native stack)",
   },
   {
-    description: "'ViewRouterLink anything to anything' (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)",
+    description:
+      "'ViewRouterLink anything to anything' (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)",
   },
   {
-    description: "Custom attributes/properties on entities (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)",
+    description:
+      "Custom attributes/properties on entities (if this freedom results in too much confusion, then we need to reassess and hide it somewhat / last resort remove the ability entirely)",
   },
   {
-    description: "Many-many relationships (at the moment, everything is attached to everything, e.g. an item may be linked to a category, the category's parent, the category's grandparent etc.. But this will balloon out, so we may need to do recursive joins in postgresql.)",
+    description:
+      "Many-many relationships (at the moment, everything is attached to everything, e.g. an item may be linked to a category, the category's parent, the category's grandparent etc.. But this will balloon out, so we may need to do recursive joins in postgresql.)",
   },
   {
-    description: "short term memory layout: Business Framework: 9 Top level modules (condensing further would compromise functionality), 5 submodules max for each subsequent sublevel. ~9 Main entity types.",
+    description:
+      "short term memory layout: Business Framework: 9 Top level modules (condensing further would compromise functionality), 5 submodules max for each subsequent sublevel. ~9 Main entity types.",
   },
   {
     description: "Opinionated Definitions, Types, Statuses, Displays",
   },
   {
-    description: "Permissions and access: The entityrel structure allows us to be granular and only share some things inter-spacetable. but could the graph itself have a pattern that could have info inferred from? and will there be a problem with a single entity being entirely shared (do we need to lock specific fields from being shared?)",
+    description:
+      "Permissions and access: The entityrel structure allows us to be granular and only share some things inter-spacetable. but could the graph itself have a pattern that could have info inferred from? and will there be a problem with a single entity being entirely shared (do we need to lock specific fields from being shared?)",
   },
   {
-    description: "Framework module SCOPE. Need to ensure that all submodules are comparable in size/scope",
+    description:
+      "Framework module SCOPE. Need to ensure that all submodules are comparable in size/scope",
   },
   {
-    description: "Framework module FUNCTIONAL PARITY(?). Need to ensure that all submodules are comparable in function TYPE.(?) e.g. we don't want one set of submodules describing statuses that the parent travels through, while another describes features of the parent. (?)And we don't want one set to be nouns and the other verbs(?). Can someone describe this better than my awful attempt?",
+    description:
+      "Framework module FUNCTIONAL PARITY(?). Need to ensure that all submodules are comparable in function TYPE.(?) e.g. we don't want one set of submodules describing statuses that the parent travels through, while another describes features of the parent. (?)And we don't want one set to be nouns and the other verbs(?). Can someone describe this better than my awful attempt?",
   },
   {
-    description: "Scope limitations: Target Industries, Codebase-to-library, a hold on expansion vertically & horizontally, physical/brick&mortar, feature scope",
-  }
+    description:
+      "Scope limitations: Target Industries, a hold on expansion vertically & horizontally, physical/brick&mortar, feature scope",
+  },
+  {
+    description:
+      "Scope limitation: Codebase-to-library / natural language & quick dev / LLM access to code & use components for solution to prompt",
+  },
 ];
 
 // Checklist
@@ -1570,6 +1739,1376 @@ export const arrayCompetitors: {
     name: "Microsoft Dynamics",
     industry: "agnostic",
     url: "https://www.microsoft.com/en-us/dynamics365",
+  },
+];
+
+export const arrayIndustryProducts: {
+  title: string;
+  categories: any[];
+  integrations: any[];
+  priority: number;
+}[] = [
+  {
+    title: "RapidAPI",
+    categories: ["Apis"],
+    integrations: ["Apis"],
+    priority: 2,
+  },
+  {
+    title: "LinkedIn",
+    categories: ["Office Software"],
+    integrations: ["ArticlePosting", "SocialSharing"],
+    priority: 4,
+  },
+  {
+    title: "Microsoft Office",
+    categories: ["Office Software"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "LibreOffice",
+    categories: ["Office Software"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Adobe Acrobat",
+    categories: ["Office Software"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Smartsheet",
+    categories: ["Office Software"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "WPS Office",
+    categories: ["Office Software"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Zoho Docs",
+    categories: ["Office Software"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Google Docs/Sheets/Slides",
+    categories: ["Office Software"],
+    integrations: [],
+    priority: 2,
+  },
+  {
+    title: "Microsoft Graph/365/Office",
+    categories: ["Productivity", "Office Software"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Google Workspace / Gsuite /Docs/Sheets/Slides ",
+    categories: ["Productivity", "Office Software"],
+    integrations: [],
+    priority: 2,
+  },
+  {
+    title: "Zapier",
+    categories: ["Productivity"],
+    integrations: [],
+    priority: 2,
+  },
+  {
+    title: "Slack",
+    categories: ["Productivity"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "Asana",
+    categories: ["Productivity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Trello",
+    categories: ["Productivity"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "Jira",
+    categories: ["Productivity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Notion",
+    categories: ["Productivity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Monday.com",
+    categories: ["Productivity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Airtable",
+    categories: ["Productivity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "ClickUp",
+    categories: ["Productivity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Todoist",
+    categories: ["Productivity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Evernote",
+    categories: ["Productivity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "ConnectWise PSA (Manage)",
+    categories: ["PSA"],
+    integrations: ["Import / Export"],
+    priority: 2,
+  },
+  {
+    title: "Autotask (Datto PSA)",
+    categories: ["PSA"],
+    integrations: ["Import / Export"],
+    priority: 2,
+  },
+  {
+    title: "Kaseya VSA",
+    categories: ["Remote Monitoring Systems"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Webroot",
+    categories: ["Cybersecurity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Sophos",
+    categories: ["Cybersecurity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "N-able",
+    categories: ["Remote Monitoring Systems"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Auvik",
+    categories: ["Network Management"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "IT Glue",
+    categories: ["Documentation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Continuum",
+    categories: ["IT Management"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "TeamViewer",
+    categories: ["Remote Access"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Malwarebytes",
+    categories: ["Cybersecurity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "ConnectWise Control",
+    categories: ["Remote Access"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "NinjaRMM",
+    categories: ["Remote Monitoring Systems"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Bitdefender",
+    categories: ["Cybersecurity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "PagerDuty",
+    categories: ["Incident Management"],
+    integrations: [],
+    priority: 4,
+  },
+  { title: "Salesforce", categories: ["CRM"], integrations: [], priority: 4 },
+  { title: "HubSpot", categories: ["CRM"], integrations: [], priority: 4 },
+  {
+    title: "Zendesk",
+    categories: ["Customer Support"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "ServiceNow",
+    categories: ["IT Service Management"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Acronis",
+    categories: ["Backup and Recovery"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Trend Micro",
+    categories: ["Cybersecurity"],
+    integrations: [],
+    priority: 4,
+  },
+
+  {
+    title: "ConnectWise Automate (LabTech)",
+    categories: ["Remote Monitoring Systems"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Datto RMM (Kaseya)",
+    categories: ["Remote Monitoring Systems"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "SolarWinds N-Central",
+    categories: ["Remote Monitoring Systems"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Pax8",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 2,
+  },
+  {
+    title: "Datto Commerce",
+    categories: ["Vendors", "Quotes"],
+    integrations: [
+      "Contract/Agreement Sync",
+      "Product Catalog sync",
+      "Quote/Proposal/Opportunity Sync",
+    ],
+    priority: 2,
+  },
+  {
+    title: "ConnectWise Sell",
+    categories: ["Quotes"],
+    integrations: [
+      "Contract/Agreement Sync",
+      "Product Catalog sync",
+      "Quote/Proposal/Opportunity Sync",
+    ],
+    priority: 2,
+  },
+  {
+    title: "ITQuoter",
+    categories: ["Quotes"],
+    integrations: [
+      "Contract/Agreement Sync",
+      "Product Catalog sync",
+      "Quote/Proposal/Opportunity Sync",
+    ],
+    priority: 2,
+  },
+  {
+    title: "Ingram Micro",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 2,
+  },
+  {
+    title: "Dicker Data",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 2,
+  },
+  {
+    title: "Tech Data",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 2,
+  },
+  {
+    title: "Rhipe",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 4,
+  },
+  {
+    title: "Sherweb",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 2,
+  },
+  {
+    title: "Synnex",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 2,
+  },
+  {
+    title: "Arrow Electronics",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 2,
+  },
+  {
+    title: "Avnet",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 4,
+  },
+  {
+    title: "ScanSource",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 4,
+  },
+  {
+    title: "Westcon-Comstor",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 4,
+  },
+  {
+    title: "SHI International",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 4,
+  },
+  {
+    title: "CDW",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 4,
+  },
+  {
+    title: "Softchoice",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 4,
+  },
+  {
+    title: "Insight Enterprises",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 4,
+  },
+  {
+    title: "Connection (https://www.connection.com/)",
+    categories: ["Vendors"],
+    integrations: [],
+    priority: 4,
+  },
+  { title: "Anixter", categories: ["Vendors"], integrations: [], priority: 4 },
+  {
+    title: "SYNNEX Corporation",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 2,
+  },
+  {
+    title: "Tech Data Corporation",
+    categories: ["Vendors"],
+    integrations: [],
+    priority: 2,
+  },
+  {
+    title: "Ingram Micro Inc.",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 2,
+  },
+  {
+    title: "Sonepar",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 4,
+  },
+  {
+    title: "WESCO International",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 4,
+  },
+  {
+    title: "Grainger",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 4,
+  },
+
+  {
+    title: "PCM",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 4,
+  },
+  { title: "Xero", categories: ["Finance"], integrations: [], priority: 2 },
+  {
+    title: "QuickBooks (Online etc.",
+    categories: ["Finance"],
+    integrations: [],
+    priority: 2,
+  },
+  { title: "Myob", categories: ["Finance"], integrations: [], priority: 2 },
+  { title: "WaveApps", categories: ["Finance"], integrations: [], priority: 3 },
+  {
+    title: "FreshBooks",
+    categories: ["Finance"],
+    integrations: [],
+    priority: 3,
+  },
+  { title: "Sage", categories: ["Finance"], integrations: [], priority: 3 },
+  {
+    title: "Zoho",
+    categories: ["Finance", "Office Software"],
+    integrations: [],
+    priority: 3,
+  },
+  { title: "KashFlow", categories: ["Finance"], integrations: [], priority: 4 },
+  { title: "NetSuite", categories: ["Finance"], integrations: [], priority: 4 },
+  {
+    title: "SAP Business One",
+    categories: ["Finance"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "FreeAgent",
+    categories: ["Finance"],
+    integrations: [],
+    priority: 4,
+  },
+  { title: "Quicken", categories: ["Finance"], integrations: [], priority: 3 },
+  {
+    title: "CSV",
+    categories: ["File Formats"],
+    integrations: ["Import / Export"],
+    priority: 1,
+  },
+  {
+    title: "Xlsx / xls",
+    categories: ["File Formats"],
+    integrations: ["Import / Export"],
+    priority: 2,
+  },
+  {
+    title: "xml / RSS",
+    categories: ["File Formats"],
+    integrations: ["Import / Export"],
+    priority: 2,
+  },
+  {
+    title: "SQL/Postgres/SQLite",
+    categories: ["File Formats"],
+    integrations: ["Import / Export"],
+    priority: 2,
+  },
+  {
+    title: "PayPal",
+    categories: ["Payment Systems"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "Square (Block)",
+    categories: ["Payment Systems"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "Adyen",
+    categories: ["Payment Systems"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Braintree",
+    categories: ["Payment Systems"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Authorize.Net",
+    categories: ["Payment Systems"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "Worldpay",
+    categories: ["Payment Systems"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Skrill",
+    categories: ["Payment Systems"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Neteller",
+    categories: ["Payment Systems"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "2Checkout",
+    categories: ["Payment Systems"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "CyberSource",
+    categories: ["Payment Systems"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Wix",
+    categories: ["Website Builders"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "Squarespace",
+    categories: ["Website Builders"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "Weebly",
+    categories: ["Website Builders"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "Shopify",
+    categories: ["Website Builders"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "WordPress",
+    categories: ["Website Builders"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "Webflow",
+    categories: ["Website Builders"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "BigCommerce",
+    categories: ["Website Builders"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Joomla",
+    categories: ["Website Builders"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Drupal",
+    categories: ["Website Builders"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Magento",
+    categories: ["Website Builders"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Wise-Pay",
+    categories: ["Payment Facilitators"],
+    integrations: [],
+    priority: 2,
+  },
+  {
+    title: "ConnectBooster",
+    categories: ["Payment Facilitators"],
+    integrations: [],
+    priority: 2,
+  },
+  {
+    title: "Datagate",
+    categories: ["Payment Facilitators"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Invoice Ninja",
+    categories: ["Payment Facilitators"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "ChargeOver",
+    categories: ["Payment Facilitators"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "BlueSnap",
+    categories: ["Payment Facilitators"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Cloud Depot",
+    categories: ["Payment Facilitators"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "GoCardless",
+    categories: ["Payment Facilitators"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "PaySimple",
+    categories: ["Payment Facilitators"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Recurly",
+    categories: ["Payment Facilitators"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Paddle",
+    categories: ["Payment Platforms"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "FastSpring",
+    categories: ["Payment Platforms"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Gumroad",
+    categories: ["Payment Platforms"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "SendOwl",
+    categories: ["Payment Platforms"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "ThriveCart",
+    categories: ["Payment Platforms"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "SamCart",
+    categories: ["Payment Platforms"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Veeam",
+    categories: ["Backup and Recovery"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Barracuda",
+    categories: ["Cybersecurity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Fortinet",
+    categories: ["Cybersecurity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Cisco Meraki",
+    categories: ["Network Management"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Ubiquiti Networks",
+    categories: ["Network Management"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Freshdesk",
+    categories: ["Customer Support"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "LogMeIn",
+    categories: ["Remote Access"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "AnyDesk",
+    categories: ["Remote Access"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Splashtop",
+    categories: ["Remote Access"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Kaspersky",
+    categories: ["Cybersecurity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "McAfee",
+    categories: ["Cybersecurity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Norton",
+    categories: ["Cybersecurity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "ESET",
+    categories: ["Cybersecurity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Mailchimp",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "ActiveCampaign",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Infusionsoft",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "GetResponse",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Drip",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "ConvertKit",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Moosend",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "SendinBlue",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "AWS",
+    categories: ["Cloud Services"],
+    integrations: [],
+    priority: 2,
+  },
+  {
+    title: "Azure",
+    categories: ["Cloud Services"],
+    integrations: [],
+    priority: 2,
+  },
+  {
+    title: "Google Cloud",
+    categories: ["Cloud Services"],
+    integrations: [],
+    priority: 2,
+  },
+  {
+    title: "IBM Cloud",
+    categories: ["Cloud Services"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Oracle Cloud",
+    categories: ["Cloud Services"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Alibaba Cloud",
+    categories: ["Cloud Services"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "DigitalOcean",
+    categories: ["Cloud Services"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Vultr",
+    categories: ["Cloud Services"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Linode",
+    categories: ["Cloud Services"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Rackspace",
+    categories: ["Cloud Services"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Heroku",
+    categories: ["Cloud Services"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Cloudflare",
+    categories: ["CDN and Security"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Fastly",
+    categories: ["CDN and Security"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Akamai",
+    categories: ["CDN and Security"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "KeyCDN",
+    categories: ["CDN and Security"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "StackPath",
+    categories: ["CDN and Security"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Sucuri",
+    categories: ["CDN and Security"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Incapsula",
+    categories: ["CDN and Security"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "MaxCDN",
+    categories: ["CDN and Security"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "BunnyCDN",
+    categories: ["CDN and Security"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Zendesk Sell",
+    categories: ["CRM"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Pipedrive",
+    categories: ["CRM"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Freshsales",
+    categories: ["CRM"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Nimble",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Agile CRM",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Streak",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Close",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Nutshell",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Less Annoying CRM",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Capsule",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Insightly",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Copper",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "OnePageCRM",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "amoCRM",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "PipelineDeals",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Highrise",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Redtail CRM",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "GreenRope",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Salesflare",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "ProsperWorks",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Salesmate",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Bitrix24",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "Teamgate",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "SugarCRM",
+    categories: ["CRM"],
+    integrations: ["Import / Export"],
+    priority: 4,
+  },
+  {
+    title: "SharpSpring",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Ontraport",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Keap",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Marketo",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Eloqua",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Pardot",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "HubSpot",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "Act-On",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Wishpond",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "LeadSquared",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Thryv",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "EngageBay",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "SALESmanago",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "GreenRope",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Net-Results",
+    categories: ["Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Outreach",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "SalesLoft",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Groove",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "InsideSales.com",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Yesware",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "ToutApp",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Mixmax",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Reply",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Cirrus Insight",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "PersistIQ",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Apollo",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "VanillaSoft",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "FrontSpin",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Klenty",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Mailshake",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Sendbloom",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "QuickMail.io",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Woodpecker.co",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Autoklose",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Nimble",
+    categories: ["Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "SendGrid",
+    categories: ["Email Marketing"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "3CX",
+    categories: ["VoIP", "Customer Support"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "CW Control",
+    categories: ["Remote Management"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "Twilio",
+    categories: ["Communication APIs"],
+    integrations: [],
+    priority: 3,
+  },
+  {
+    title: "ActiveCampaign",
+    categories: ["Email Marketing", "Marketing Automation"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "Intercom",
+    categories: ["Customer Support", "Sales Engagement"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "RingCentral",
+    categories: ["VoIP", "Customer Support"],
+    integrations: [],
+    priority: 4,
+  },
+  {
+    title: "TeamViewer",
+    categories: ["Remote Management"],
+    integrations: [],
+    priority: 4,
   },
 ];
 
@@ -1924,8 +3463,7 @@ export const axioms = [
   {
     id: 7,
     title: "Internalise Externalities",
-    description:
-      "",
+    description: "",
   },
 ];
 
@@ -1964,15 +3502,13 @@ export const tenets = [
     id: 5,
     axioms: [6],
     title: "Stable, scalable, restorable, mirrored databases",
-    description:
-      "",
+    description: "",
   },
   {
     id: 6,
     axioms: [6],
     title: "Stable, scalable, restorable, mirrored databases",
-    description:
-      "",
+    description: "",
   },
 ];
 

@@ -18,26 +18,26 @@ export const ViewInquiryMain = () => {
     <ScrollView style={{ flexDirection: "column"}}>
       {/* <Text>{JSON.stringify(state, null, 2)}</Text> */}
       <View style={{ flexDirection: "row", margin:5,   }}>
-        <Text style={{height: 30, verticalAlign:'center', flex: 1}}>Name: </Text>
+        <Text style={{height: 30, verticalAlign:'middle', flex: 1}}>Name: </Text>
         <TextInput 
           value={state.name || ''}
-          style={{height: 30, verticalAlign:'center', flex: 3, borderWidth:1}}
+          style={{height: 30, verticalAlign:'middle', flex: 3, borderWidth:1}}
           onChangeText={(newData)=>set({...state,name:newData})}
         />
       </View>
       <View style={{ flexDirection: "row", margin:5,   }}>
-        <Text style={{height: 30, verticalAlign:'center', flex: 1}}>Email*: </Text>
+        <Text style={{height: 30, verticalAlign:'middle', flex: 1}}>Email*: </Text>
         <TextInput
           value={state.email || ''} 
-          style={{height: 30, verticalAlign:'center', flex: 3, borderWidth:1}}
+          style={{height: 30, verticalAlign:'middle', flex: 3, borderWidth:1}}
           onChangeText={(newData)=>set({...state,email:newData})}
         />
       </View>
       <View style={{ flexDirection: "row", margin:5,   }}>
-        <Text style={{height: 30, verticalAlign:'center', flex: 1}}>Message*: </Text>
+        <Text style={{height: 30, verticalAlign:'middle', flex: 1}}>Message*: </Text>
         <TextInput 
           value={state.message || ''}
-          style={{height: 30, verticalAlign:'center', flex: 3, borderWidth:1}}
+          style={{height: 30, verticalAlign:'middle', flex: 3, borderWidth:1}}
           onChangeText={(newData)=>set({...state,message:newData})}
         />
       </View>
@@ -52,7 +52,7 @@ export const ViewInquiryMain = () => {
         <Text>Submit</Text>
       </Pressable>
       <View style={{ flexDirection: "row" }}>
-        <Text style={{textAlign:'center', verticalAlign:'center', flex: 1}}>
+        <Text style={{textAlign:'center', verticalAlign:'middle', flex: 1}}>
           <Text>
             {create.isLoading && `Submitting...`}
             {create.isError && `Error: ${JSON.stringify(create.error,null,2)}`}

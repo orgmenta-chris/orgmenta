@@ -17,7 +17,7 @@ import {
   ViewPodExample,
 } from "./pod";
 import { ViewIconMain } from "./icon";
-// import { ViewTableMain, useTableColumns } from "./table";
+import { ViewTableMain  } from "./table-old";
 // import { ViewJsonMain } from "./json";
 // import { ViewIconMain } from "./icon";
 
@@ -37,7 +37,7 @@ import ViewMapWeb from "../components/displays/maps/ViewDisplayMaps";
 // import ViewDisplayList from "../components/displays/list/ViewDisplayList";
 // import ViewDisplayMaps from "../components/displays/maps/ViewDisplayMaps";
 // import ViewDisplayPods from "../components/displays/pods/ViewDisplayPods";
-// import ViewDisplayTable from "../components/displays/table/ViewDisplayTable";
+import TableExample from "../components/displays/table/ViewDisplayTable";
 // import ViewJsonMain from "../components/displays/json/ViewJsonMain";
 import { ViewTimelineMain, TypeTimelineMain } from "./timeline";
 import { Map, Marker, GeoJson } from "pigeon-maps";
@@ -73,6 +73,11 @@ export const ViewDisplayList = (props: any) => {
   const auxiliary = props.auxiliary;
   // const focus = props.focus;
   return <ViewListMain data={auxiliary?.data} />;
+};
+export const ViewDisplayChart = (props: any) => {
+  const auxiliary = props.auxiliary;
+  // const focus = props.focus;
+  return <ViewChartMain data={auxiliary?.data} />;
 };
 
 export const ViewDisplayPod = (props: any) => {
@@ -136,6 +141,7 @@ export const ViewDisplayTable = (props: any) => {
   return (
     <>
       <ViewTableTabs />
+      <ViewTableMain data={[]} schema={[]} />
       {/* <ViewTableMain columns={columns} data={auxiliary.data} /> */}
     </>
   );
@@ -550,7 +556,7 @@ export const mapDisplayComponents: any = {
   timeline: ViewDisplayTimeline,
   maps: ViewDisplayMaps,
   json: ViewDisplayJson,
-  // chart: ViewDisplayChart,
+  chart: ViewDisplayChart,
   // path: ViewDisplayPath,
   // kanban: ViewDisplayKanban,
   // gantt: ViewDisplayGantt,

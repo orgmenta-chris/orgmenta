@@ -1952,6 +1952,18 @@ export const data = [
     nickname: "product-catalog-solutions-usecases",
   },
   {
+    id: 130100,
+    parent: 13010,
+    status: "0. New",
+    name_singular: "sequences",
+    display_singular: "Sequences",
+    description:
+      "Workflows in the product.",
+    summary:
+      "Use Case Flows / User paths that are bundles of user stories",
+    nickname: "product-catalog-solutions-usecases-sequences",
+  },
+  {
     id: 130101,
     parent: 13010,
     status: "0. New",
@@ -4085,8 +4097,9 @@ export const data = [
     status: "0. New",
     name_singular: "testing",
     display_singular: "Testing",
+    description: "Tests and validation for the solution/deliverable",
     summary:
-      "Tests and validation for the solution/deliverable, rollbacks for failed tests, monitoring periods to confirm fixes",
+      "Tests and validation, rollbacks for failed tests, monitoring periods to confirm fixes",
     nickname: "project-execution-testing",
   },
   {
@@ -4095,6 +4108,59 @@ export const data = [
     status: "0. New",
     name_singular: "tests",
     display_singular: "Tests",
+    description: "Undertake testing and validation",
+    summary: `
+    Performance Testing
+      Stress Testing: This aims to evaluate how a system performs under extreme conditions. The system is pushed beyond its normal operational capacity to see how it handles high or peak loads. The goal is to identify the breaking point of the system.
+      Load Testing: This is more focused on simulating real-world load conditions for the system. It aims to determine how the system behaves under expected load conditions and to identify bottlenecks that could affect its performance.
+    Functional Testing
+      Unit Testing: Validates individual components or units of a software.
+      Integration Testing: Validates interactions between integrated components.
+      System Testing: Validates the entire system as a whole.
+      Regression Testing: Ensures that new changes don't break existing functionalities.
+      Smoke Testing: Quick, preliminary tests to show that the critical functionalities work.
+      Sanity Testing: Narrow scope testing, conducted when a minor change occurs in the code.
+      Acceptance Testing: Validates that the system meets business requirements.
+    Non-Functional Testing
+      Performance Testing: Assesses system performance under various conditions.
+        Stress Testing: This aims to evaluate how a system performs under extreme conditions. The system is pushed beyond its normal operational capacity to see how it handles high or peak loads. The goal is to identify the breaking point of the system.
+        Load Testing: This is more focused on simulating real-world load conditions for the system. It aims to determine how the system behaves under expected load conditions and to identify bottlenecks that could affect its performance.
+      Usability Testing: Evaluates the user interface and overall user experience.
+      Security Testing: Checks for vulnerabilities, risks, and threats in the application.
+      Compatibility Testing: Ensures that the software runs on different combinations of hardware, OS, and networks.
+      Reliability Testing: Assesses how fault-tolerant a system is.
+      Scalability Testing: Determines if the system can handle increased load.
+    Specialized Testing
+      Exploratory Testing: Unscripted testing to explore the application's functionality.
+      End-to-End Testing: Validates the flow of an application from start to finish.
+      Beta Testing: Performed by real users of the software application in a real environment.
+      Database Testing: Validates databases and their data integrity.
+      Localization Testing: Checks the quality of a product's localization for a particular culture/locale.
+      Accessibility Testing: Ensures that the application can be used by people with disabilities.
+    Automated Testing
+      API Testing: Validates the application programming interfaces (APIs).
+      GUI Testing: Tests the graphical user interface of the application.
+    Platform Testing
+      Installation Testing: Validates the installation process and behavior of the application.
+      Operational Testing: Validates backup and recovery procedures.
+      Hardware-Software Integration Testing
+    Lifecycle and Methodology Testing
+      Continuous Testing: Ongoing testing in a CI/CD environment.
+      A/B Testing: Compares two versions of a webpage or app against each other.
+      Agile Testing: Testing practices designed to fit Agile development methodologies.
+        Iterative Testing
+        User Story Validation
+      DevOps Testing: Testing integrated into the DevOps pipeline.
+        Continuous Testing
+        Infrastructure as Code Testing
+      Waterfall Testing: Traditional testing in a sequential development environment.
+        Phase-specific Testing (e.g., Requirements, Design, Implementation)
+      TDD/BDD: Test-Driven Development and Behavior-Driven Development.
+        Red-Green-Refactor
+        Scenario Testing
+      V-Model Testing: Validation and Verification model.
+        Parallel Development and Testing Phases
+    `,
     nickname: "project-execution-testing-tests",
   },
   {
@@ -4482,7 +4548,12 @@ export const data = [
     status: "5. Hold",
     name_singular: "technology",
     display_singular: "Technology",
-    description: "Your business software, hardware and infrastructure stack",
+    description: `Your business software, hardware and infrastructure stack. 
+    ADD 'DOWNTIME' TO A SUBMODULE HERE OR IN PRODUCT:
+    If we become aware of (external but also internal) product with current downtime (from outage detectors) or impending downtime (via alerts, emails or banners on websites), it should be added in (automatically where possible).
+    Then it should automatically (via templates, if enabled) create tasks to inform stakeholders (internal or otherwise)
+    We should also be able to track uptime % of internal and external services.
+    `,
     nickname: "system-technology",
   },
   {

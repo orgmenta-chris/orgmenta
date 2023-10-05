@@ -5,16 +5,8 @@ import { Text, ScrollView, View, Image, ImageBackground } from "react-native";
 import { mapTypeMain } from "../utils/type";
 import Svg, { Path, G } from "react-native-svg";
 import { useWindowDimensions } from "../utils/window";
-import { ViewCryptoExample } from "../utils/crypto";
-import VaultFunctions from "../components/playground/vaultFunctions";
-import { ViewTypographyTextheading,ViewTypographyTextthemed } from "../utils/typography";
-import { ViewSvgArrowmain, ViewSvgArrowhead } from "../utils/svg";
-import { ViewBarcodeReader, ViewCameraMain } from "../utils/camera";
-import { ViewClipboardCopy } from "../utils/clipboard";
-import { TypeNotificationBody, UseNotification } from "../utils/notification";
-import { ViewSoundPlayer, ViewSoundRecorder, UseVideoPlayer } from "../utils/av";
-import { ViewScreenRecorder } from "../utils/recorder";
 import { ViewInquiryMain } from "../utils/inquiry";
+import { arrayIndustryProducts } from "../utils/roadmap";
 
 export default function Home() {
   const windowDimensions = useWindowDimensions();
@@ -486,7 +478,7 @@ export default function Home() {
                 All your entities and their relationships brought into the hub
               </Text>
               <Text style={{ fontStyle: "italic" }}>
-                {mapTypeMain.map((x) => x.display_plural).join(" <--> ")}
+                {mapTypeMain.map((x, i) => x.display_plural).join(" <--> ")}
               </Text>
               <Text>Link Anything To Anything</Text>
               <Text>
@@ -514,68 +506,15 @@ export default function Home() {
               <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
                 Integrations
               </Text>
-              <Text>Productivity</Text>
-              <Text>- Microsoft</Text>
-              <Text>- Google Workspace / Gsuite</Text>
-              <Text>- Zapier</Text>
-              <Text>Remote Monitoring Systems</Text>
-              <Text>- ConnectWise Automate (LabTech)</Text>
-              <Text>- Datto RMM (Kaseya)</Text>
-              <Text>- SolarWinds N-Central</Text>
-              <Text>Vendors</Text>
-              <Text>- Pax8</Text>
-              <Text>- Datto Commerce</Text>
-              <Text>- Ingram Micro</Text>
-              <Text>- Dicker Data</Text>
-              <Text>- Tech Data</Text>
-              <Text>- Rhipe</Text>
-              <Text>- Synnex</Text>
-              <Text>Finance</Text>
-              <Text>- Xero</Text>
-              <Text>- QuickBooks</Text>
-              <Text>- Myob</Text>
-              <Text>- WaveApps</Text>
-              <Text>- Dicker Data</Text>
-              <Text>- Tech Data</Text>
-              <Text>- Rhipe</Text>
-              <Text>- Synnex</Text>
-              <Text>Import / Export</Text>
-              <Text>- CSV</Text>
-              <Text>- Xlsx</Text>
-              <Text>- xml / RSS</Text>
-              <Text>- Postgres/SQLite.</Text>
+              {arrayIndustryProducts
+                .filter((x) => x.priority < 3)
+                .map((x, i) => (
+                  <Text key={i}>{x.title}</Text>
+                ))}
               <Text style={{ fontWeight: "800", color: "#0c4a73" }}>
                 Contact Form
               </Text>
               <ViewInquiryMain />
-              {/* Barcode Scanner (working) */}
-              {/* <ViewBarcodeReader /> */}
-
-              {/* Camera (working) */}
-              {/* <ViewCameraMain /> */}
-
-              {/* Clipboard copy (working) */}
-              {/* <ViewClipboardCopy /> */}
-
-              {/* Notification component (working) */}
-              {/* <UseNotification 
-                // {...notificationBody} 
-              /> */}
-
-              {/* Play sound (working) */}
-              {/* <ViewSoundPlayer /> */}
-
-              {/* Record sound (working) */}
-              {/* <ViewSoundRecorder /> */}
-
-              {/* Play video (working) */}
-              {/* <UseVideoPlayer /> */}
-
-              {/* Screen Recorder CG (NOT working yet)*/}
-              {/* <ViewScreenRecorder/> */}
-
-              {/* Crypto CG (NOT working yet)*/}
-              {/* <ViewCryptoExample/> */}
             </View>
           </View>
           <View style={{ height: 1000 }} />

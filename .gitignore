@@ -81,3 +81,11 @@ yarn-error.*
 *.tsbuildinfo
 
 # @end expo-cli
+
+# Other
+/AppTest.tsx
+/webpack.config-backup.js
+/metro.config-backup.js
+.expo_backup
+/utils/table-old.tsx
+sql

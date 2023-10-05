@@ -13,9 +13,11 @@ import { useAuthSession, useAuthSignout } from "./auth";
 import { ViewRouterLinkthemed } from "./router";
 import { useQueryerQuery } from "./queryer";
 import { ViewTypographyTextsubsubheading } from "./typography";
+import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
+import { ViewIconMain } from "./icon";
+import { ScrollView, View, Text, Pressable } from "react-native";
 import SignIn from "../components/auth/signIn";
 import SignUp from "../components/auth/signUp";
-import { ScrollView, View, Text, Pressable } from "react-native";
 import { useState } from "react";
 // import MSAL from "../../../auth/msal";
 
@@ -55,9 +57,9 @@ export const ViewUserModal = (props: any) => {
         <ViewUserSession />
         <ViewUserSwitch />
         <ViewUserLinks />
-        <ViewUserTracking />
+        <ViewUserPrivacy />
         <ViewUserActivity />
-        <ViewUserAlerts />
+        <ViewUserNotifications />
         <ViewUserComms />
         <ViewUserDevice />
       </ScrollView>
@@ -65,6 +67,9 @@ export const ViewUserModal = (props: any) => {
   );
 };
 
+{
+  /* <View>{tabs[activeTab].component}</View> */
+}
 // Widget to show the active entities for that user (e.g. what is the current event being worked on)
 export const ViewUserActivity = () => {
   return (
@@ -83,15 +88,72 @@ export const ViewUserActivity = () => {
 };
 
 // Widget to show cookie/tracking/privacy options
-export const ViewUserTracking = () => {
+export const ViewUserPrivacy = () => {
+  const [shieldState, shieldSet] = useState(true);
+  const [infoState, infoSet] = useState(false);
   return (
     <ViewCardExpandable
       startExpanded
-      header={"Tracking"}
+      header={"Privacy"}
       body={
         <>
-          <Text>TRACKING</Text>
-          <Text>[cookies etc.]</Text>
+          <View style={{ flexDirection: "row", flex: 1 }}>
+            <Pressable
+              style={{
+                flexDirection: "row",
+                padding: 5,
+                flex: 1,
+                height: 50,
+                backgroundColor: shieldState ? "gray" : "lightgray",
+              }}
+              onPress={() => shieldSet((old) => !old)}
+            >
+              <ViewTypographyTextsubsubheading
+                selectable={false}
+                style={{ flex: 1 }}
+              >
+                Privacy Shield:
+              </ViewTypographyTextsubsubheading>
+              <ViewIconMain
+                name={shieldState ? "shield" : "shield-off"}
+                source={"Feather"}
+                color={"white"}
+              />
+            </Pressable>
+            <Pressable
+              style={{
+                flexDirection: "row",
+                padding: 5,
+                height: 50,
+              }}
+              onPress={() => infoSet((old) => !old)}
+              onHoverIn={() => infoSet(true)}
+              onHoverOut={() => infoSet(false)}
+            >
+              <ViewIconMain name={"info"} source={"Feather"} color={"black"} />
+              {/* todo: fix opacity (coming from a parent somewhere?) */}
+              {infoState && (
+                <View
+                  style={{
+                    position: "absolute",
+                    backgroundColor: "rgba(211,211,211, 1)",
+                    bottom: -50,
+                    left: -125,
+                    width: 175,
+                    height: 50,
+                  }}
+                >
+                  <Text>
+                    Shield is{" "}
+                    {shieldState
+                      ? "ON. Your fields are hidden in the UI (TODO)"
+                      : "OFF. Your fields are visible in the UI. (TODO)"}
+                  </Text>
+                </View>
+              )}
+            </Pressable>
+          </View>
+          <Text>[cookies & tracking]</Text>
         </>
       }
     />
@@ -99,11 +161,11 @@ export const ViewUserTracking = () => {
 };
 
 // Widget to show the recent notifications/logs for that user (e.g system alerts, logs for changes to entities that the user is 'following'/assinged to, etc.
-export const ViewUserAlerts = () => {
+export const ViewUserNotifications = () => {
   return (
     <ViewCardExpandable
       startExpanded
-      header={"Alerts/Notifications"}
+      header={"Notifications"}
       body={
         <>
           <Text>todo</Text>
@@ -118,7 +180,7 @@ export const ViewUserComms = () => {
   return (
     <ViewCardExpandable
       startExpanded
-      header={"Comms/Messages"}
+      header={"Comms"}
       body={
         <>
           <Text>[Recent messages]</Text>
@@ -129,7 +191,7 @@ export const ViewUserComms = () => {
   );
 };
 
-// Widget to show the devices that the user has logged in with / has preferences set for.
+// Widget to show the devices that the user has logged in with / has preferences shieldSet for.
 export const ViewUserDevice = () => {
   return (
     <ViewCardExpandable
@@ -170,6 +232,49 @@ export const ViewUserSwitch = () => {
   );
 };
 
+export const ViewUserSignin = () => {
+  const auth = useAuthSession();
+  const signout = useAuthSignout();
+  const handleTabPress = (index: number) => {
+    setActiveTab(index);
+  };
+  const tabs = [
+    { tab: "Sign in", component: <SignIn /> },
+    { tab: "Sign up", component: <SignUp /> },
+  ];
+  const [activeTab, setActiveTab] = useState(0);
+  return (
+    <>
+      <View style={{ flexDirection: "row" }}>
+        {tabs.map((content, index) => (
+          <View key={index} style={{ flexDirection: "row", flex: 1 }}>
+            <Pressable
+              key={index}
+              style={{
+                flex: 1,
+                padding: 10,
+                borderTopWidth: 1,
+                borderRightWidth: 1,
+                borderLeftWidth: 1,
+                borderTopRightRadius: 5,
+                borderTopLeftRadius: 5,
+                borderColor: activeTab === index ? "black" : "transparent",
+                backgroundColor:
+                  activeTab === index ? "lightblue" : "transparent",
+              }}
+              onPress={() => handleTabPress(index)}
+            >
+              <Text selectable={false} style={{ fontWeight: "bold" }}>
+                {content.tab}
+              </Text>
+            </Pressable>
+          </View>
+        ))}
+      </View>
+      <View>{tabs[activeTab].component}</View>
+    </>
+  );
+};
 // Widget to show options/links for the current logged in user
 export const ViewUserSession = () => {
   const auth = useAuthSession();
@@ -182,88 +287,62 @@ export const ViewUserSession = () => {
   const handleTabPress = (index: number) => {
     setActiveTab(index);
   };
+  console.log("tabs[activeTab]", tabs[activeTab]);
   return (
     <ViewCardExpandable
       startExpanded
-      header={auth.data.session.user.email || "Sign In/Up"}
+      header={auth?.data?.nickUpper || "Sign In/Up"}
       body={
-        <>
-          {auth?.data?.session === null ? (
-            tabs.map((content, index) => (
-              <>
-                <Pressable
-                  key={index}
-                  style={{
-                    padding: 10,
-                    borderTopWidth: 1,
-                    borderRightWidth: 1,
-                    borderLeftWidth: 1,
-                    borderTopRightRadius: 5,
-                    borderTopLeftRadius: 5,
-                    borderColor: activeTab === index ? "black" : "transparent",
-                    backgroundColor:
-                      activeTab === index ? "lightblue" : "transparent",
-                  }}
-                  onPress={() => handleTabPress(index)}
-                >
-                  <Text style={{ fontWeight: "bold" }}>{content.tab}</Text>
-                </Pressable>
-                <View>{tabs[activeTab].component}</View>
-              </>
-            ))
-          ) : (
-            <View>
-              <ViewRouterLinkthemed
-                style={{ margin: 5 }}
-                to={`/users/${auth?.data?.session?.user?.id || "guest"}/pods`}
-              >
-                <ViewTypographyTextsubsubheading>
-                  Profile
-                </ViewTypographyTextsubsubheading>
-              </ViewRouterLinkthemed>
-              <ViewRouterLinkthemed
-                style={{ margin: 5 }}
-                to={`/users/${
-                  auth?.data?.session?.user?.id || "guest"
-                }/devices`}
-              >
-                <ViewTypographyTextsubsubheading>
-                  Devices
-                </ViewTypographyTextsubsubheading>
-              </ViewRouterLinkthemed>
-              <ViewRouterLinkthemed
-                style={{ margin: 5 }}
-                to={`/users/${
-                  auth?.data?.session?.user?.id || "guest"
-                }/settings`}
-              >
-                <ViewTypographyTextsubsubheading>
-                  Settings
-                </ViewTypographyTextsubsubheading>
-              </ViewRouterLinkthemed>
-              <ViewRouterLinkthemed
-                style={{ margin: 5 }}
-                to={`/users/${
-                  auth?.data?.session?.user?.id || "guest"
-                }/pods/events`}
-              >
-                <ViewTypographyTextsubsubheading>
-                  All Events
-                </ViewTypographyTextsubsubheading>
-              </ViewRouterLinkthemed>
-              <Pressable
-                style={{ margin: 5 }}
-                onPress={() => {
-                  signout.mutate();
-                }}
-              >
-                <ViewTypographyTextsubsubheading>
-                  Signout
-                </ViewTypographyTextsubsubheading>
-              </Pressable>
-            </View>
-          )}
-        </>
+        auth?.data?.session === null ? (
+          <ViewUserSignin />
+        ) : (
+          <View>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/users/${auth?.data?.session?.user?.id || "guest"}/pods`}
+            >
+              <ViewTypographyTextsubsubheading selectable={false}>
+                Profile
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/users/${auth?.data?.session?.user?.id || "guest"}/devices`}
+            >
+              <ViewTypographyTextsubsubheading selectable={false}>
+                Devices
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/users/${auth?.data?.session?.user?.id || "guest"}/settings`}
+            >
+              <ViewTypographyTextsubsubheading selectable={false}>
+                Settings
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/users/${
+                auth?.data?.session?.user?.id || "guest"
+              }/pods/events`}
+            >
+              <ViewTypographyTextsubsubheading selectable={false}>
+                All Events
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+            <Pressable
+              style={{ margin: 5 }}
+              onPress={() => {
+                signout.mutate();
+              }}
+            >
+              <ViewTypographyTextsubsubheading selectable={false}>
+                Signout
+              </ViewTypographyTextsubsubheading>
+            </Pressable>
+          </View>
+        )
       }
     />
   );
@@ -278,7 +357,7 @@ export const ViewUserLinks = () => {
       body={
         <View>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/users/all`}>
-            <ViewTypographyTextsubsubheading>
+            <ViewTypographyTextsubsubheading selectable={false}>
               All Users
             </ViewTypographyTextsubsubheading>
           </ViewRouterLinkthemed>
@@ -311,3 +390,23 @@ export const useUserActive = ({ ...Input }: TypeUserActive) => {
 };
 
 export type TypeUserActive = any; // placeholder
+
+// import { useQuery } from "@tanstack/react-query";
+
+export const useUserSingle = (id: string) => {
+  const queryKey = ["user", "single", id];
+  const queryFn = async () => requestUserSingle(id);
+  const query = useQueryerQuery(queryKey, queryFn, {
+    enabled: id ? true : false,
+  });
+  return query;
+};
+
+export const requestUserSingle = async (id: string) => {
+  const query = instanceSupabaseClient.from("users").select();
+  query
+    .range(0, 0) //temp arbitrary limit of 10 (todo: pass variables in here to get proper pagination)    .then((response) => response.data);
+    .eq("id", id)
+    .then(handleSupabaseResponse as any);
+  return query;
+};

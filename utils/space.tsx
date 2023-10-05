@@ -3,7 +3,7 @@
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { ViewModalMain } from "./modal";
 import { ViewRouterLinkthemed } from "./router";
-import { ViewTypographyTextsubsubheading } from "./typography";
+import { ViewTypographyTextthemed, ViewTypographyTextsubsubheading } from "./typography";
 import { ViewCardExpandable } from "./card";
 import { useTableColumns } from "../components/displays/table/table";
 import {
@@ -345,7 +345,7 @@ export const ViewSpaceModal = (props: any) => {
         <ViewSpaceCurrent />
         <ViewSpaceSwitch />
         <ViewSpaceLinks />
-        <ViewSpaceAlerts />
+        <ViewSpaceNotifications />
       </ScrollView>
     </ViewModalMain>
   );
@@ -377,18 +377,18 @@ export const useSpaceState = (id: any) => {
 // Currently selected space links/options
 export const ViewSpaceCurrent = (props: any) => {
   const spaceActive: any = useSpaceState(["space", "selected"]);
-  return (
+  return ( spaceActive?.data?.title &&
     <ViewCardExpandable
       startExpanded
       header={spaceActive?.data?.title}
       body={
-        spaceActive?.data?.selected && (
+        spaceActive?.data?.title && (
           <>
             <ViewRouterLinkthemed
               style={{ margin: 5 }}
               to={`/spaces/${spaceActive.data.selected}`}
             >
-              <ViewTypographyTextsubsubheading>
+              <ViewTypographyTextsubsubheading selectable={false}>
                 Go to Space
               </ViewTypographyTextsubsubheading>
             </ViewRouterLinkthemed>
@@ -396,7 +396,7 @@ export const ViewSpaceCurrent = (props: any) => {
               style={{ margin: 5 }}
               to={`/spaces/${spaceActive.data.selected}/attributes`}
             >
-              <ViewTypographyTextsubsubheading>
+              <ViewTypographyTextsubsubheading selectable={false}>
                 Attributes
               </ViewTypographyTextsubsubheading>
             </ViewRouterLinkthemed>
@@ -404,7 +404,7 @@ export const ViewSpaceCurrent = (props: any) => {
               style={{ margin: 5 }}
               to={`/spaces/${spaceActive.data.selected}/files`}
             >
-              <ViewTypographyTextsubsubheading>
+              <ViewTypographyTextsubsubheading selectable={false}>
                 Files
               </ViewTypographyTextsubsubheading>
             </ViewRouterLinkthemed>
@@ -412,7 +412,7 @@ export const ViewSpaceCurrent = (props: any) => {
               style={{ margin: 5 }}
               to={`/spaces/${spaceActive.data.selected}/settings`}
             >
-              <ViewTypographyTextsubsubheading>
+              <ViewTypographyTextsubsubheading selectable={false}>
                 Settings
               </ViewTypographyTextsubsubheading>
             </ViewRouterLinkthemed>
@@ -420,7 +420,7 @@ export const ViewSpaceCurrent = (props: any) => {
               style={{ margin: 5 }}
               to={`/spaces/${spaceActive.data.selected}/billing`}
             >
-              <ViewTypographyTextsubsubheading>
+              <ViewTypographyTextsubsubheading selectable={false}>
                 Subscription & Billing
               </ViewTypographyTextsubsubheading>
             </ViewRouterLinkthemed>
@@ -428,7 +428,7 @@ export const ViewSpaceCurrent = (props: any) => {
               style={{ margin: 5 }}
               to={`/spaces/${spaceActive.data.selected}/members`}
             >
-              <ViewTypographyTextsubsubheading>
+              <ViewTypographyTextsubsubheading selectable={false}>
                 Members
               </ViewTypographyTextsubsubheading>
             </ViewRouterLinkthemed>
@@ -441,6 +441,7 @@ export const ViewSpaceCurrent = (props: any) => {
 
 // Switch between available spaces
 export const ViewSpaceSwitch = () => {
+  const spaceActive: any = useSpaceState(["space", "selected"]);
   const array = useSpaceArray({});
   const updater = useSpaceSet(
     ["space", "selected"],
@@ -453,12 +454,11 @@ export const ViewSpaceSwitch = () => {
   return (
     <ViewCardExpandable
       startExpanded
-      header={"Switch Space"}
-      /* @ts-ignore */
-      body={(array?.data as any)?.map((x, i) => (
+      header={spaceActive?.data?.title ? "Switch Space" : "Select a Space"}
+      body={(array?.data as any)?.map((x:any, i:string) => (
         <Pressable
           key={i}
-          style={{ padding: 10, margin: 5, backgroundColor: "lightgray" }}
+          style={{ padding: 10, marginBottom:5, backgroundColor: "lightgray" }}
           onPress={() =>
             updater(x.id, x.name_display_singular, x.name_store_singular)
           }
@@ -479,12 +479,12 @@ export const ViewSpaceLinks = () => {
       body={
         <>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/spaces/all/pods`}>
-            <ViewTypographyTextsubsubheading>
+            <ViewTypographyTextsubsubheading selectable={false}>
               All Spaces
             </ViewTypographyTextsubsubheading>
           </ViewRouterLinkthemed>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/spaces/all/new`}>
-            <ViewTypographyTextsubsubheading>
+            <ViewTypographyTextsubsubheading selectable={false}>
               Create New Space
             </ViewTypographyTextsubsubheading>
           </ViewRouterLinkthemed>
@@ -495,14 +495,21 @@ export const ViewSpaceLinks = () => {
 };
 
 // Widget to show the recent notifications/logs for that user (e.g system alerts, logs for changes to entities that the user is 'following'/assinged to, etc.
-export const ViewSpaceAlerts = () => {
+export const ViewSpaceNotifications = () => {
   return (
     <ViewCardExpandable
       startExpanded
-      header={"Alerts/Notifications"}
+      header={"Notifications"}
       body={
         <>
-          <Text>todo</Text>
+          <ViewTypographyTextthemed style={{ margin: 5, color:'black' }} >
+            (Notifications go here)
+          </ViewTypographyTextthemed>
+          <ViewRouterLinkthemed style={{ margin: 5 }} to={`/spaces/all/notifications`}>
+            <ViewTypographyTextsubsubheading selectable={false}>
+              Go to Space Notifications
+            </ViewTypographyTextsubsubheading>
+          </ViewRouterLinkthemed>
         </>
       }
     />

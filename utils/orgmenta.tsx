@@ -8,6 +8,7 @@ import { useThemeToken } from "./theme";
 import {
   ViewTypographyTextheading,
   ViewTypographyTextsubheading,
+  ViewTypographyText,
 } from "./typography";
 import { useQuery } from "@tanstack/react-query";
 import { Text, View, ScrollView } from "react-native";
@@ -21,6 +22,7 @@ import BookmarkWidget from "../components/navigation/widgets/bookmarkWidget";
 import {
   features,
   requirements,
+  needs,
   procedures,
   devworkflow,
   paradigms,
@@ -106,7 +108,7 @@ export const ViewOrgmentaModal = (props: any) => {
             Pricing
           </ViewRouterLink>
           <ViewRouterLink
-            to={"app/product"}
+            to={"app/features"}
             style={{
               justifyContent: "center",
               textDecoration: "none",
@@ -114,7 +116,7 @@ export const ViewOrgmentaModal = (props: any) => {
               padding: 3,
             }}
           >
-            Product{/*Features */}
+            Features
           </ViewRouterLink>
           <ViewRouterLink
             to={"app/roadmap"}
@@ -311,7 +313,7 @@ export const ViewOrgmentaModal = (props: any) => {
             Enhancements{/* Enhancement Requests */}
           </ViewRouterLink>
           <ViewRouterLink
-            to={"community/partners"}
+            to={"community/partner"}
             style={{
               justifyContent: "center",
               textDecoration: "none",
@@ -331,84 +333,36 @@ export const ViewOrgmentaModal = (props: any) => {
 
 export const ViewOrgmentaPricing = ({}: any) => {
   return (
-    <ScrollView>
-      <ViewTypographyTextheading>Pricing</ViewTypographyTextheading>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-      <Text>ViewOrgmentaPricing placeholder</Text>
-    </ScrollView>
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Pricing</ViewTypographyTextheading>
+        <Text>ViewOrgmentaPricing placeholder</Text>
+      </ScrollView>
+    </ViewPageMain>
   );
 };
 
 export const ViewOrgmentaRoadmap = ({}: any) => {
   return (
-    <ScrollView>
-      <ViewTypographyTextheading>Roadmap</ViewTypographyTextheading>
-      <Text>
-        {`Roadmap timeline (Title, summary + priorities, dates etc.) here.\n(Info comes from Orgmenta's space > System/Governance? > Offerings > Roadmap\n\n`}
-        {JSON.stringify(
-          [
-            { features },
-            { requirements },
-            { procedures },
-            { paradigms },
-            { checklist },
-          ],
-          null,
-          2
-        )}
-      </Text>
-    </ScrollView>
+    <ViewPageMain>
+      <ScrollView>
+        <ViewTypographyTextheading>Roadmap</ViewTypographyTextheading>
+        <Text>
+          {`Roadmap timeline (Title, summary + priorities, dates etc.) here.\n(Info comes from Orgmenta's space > System/Governance? > Offerings > Roadmap\n\n`}
+          {JSON.stringify(
+            [
+              { features },
+              { requirements },
+              { procedures },
+              { paradigms },
+              { checklist },
+            ],
+            null,
+            2
+          )}
+        </Text>
+      </ScrollView>
+    </ViewPageMain>
   );
 };
 
@@ -466,17 +420,44 @@ export const ViewOrgmentaFrameworks = ({}: any) => {
   );
 };
 
-export const ViewOrgmentaProduct = ({}: any) => {
+export const ViewOrgmentaFeatures = ({}: any) => {
   // const theme = useThemeToken("orgmentaproduct"); // CG todo
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Product</ViewTypographyTextheading>
-        <Text
-        // style={theme}
-        >
-          {`FEATURES GO HERE`}
-        </Text>
+        <ViewTypographyTextheading>Features</ViewTypographyTextheading>
+        <ViewTypographyTextsubheading>P1</ViewTypographyTextsubheading>
+        {features
+          .filter((x) => x.priority === 1)
+          .map((x,i) => (
+            <ViewTypographyText key={'p1-'+i} style={{ width: "100%", flex: 1 }}>
+              {x.title}
+            </ViewTypographyText>
+          ))}
+        <ViewTypographyTextsubheading>P2</ViewTypographyTextsubheading>
+        {features
+          .filter((x) => x.priority === 2)
+          .map((x,i) => (
+            <ViewTypographyText key={'p2-'+i}  style={{ width: "100%", flex: 1 }}>
+              {x.title}
+            </ViewTypographyText>
+          ))}
+        <ViewTypographyTextsubheading>P3</ViewTypographyTextsubheading>
+        {features
+          .filter((x) => x.priority === 3)
+          .map((x,i) => (
+            <ViewTypographyText key={'p3-'+i} style={{ width: "100%", flex: 1 }}>
+              {x.title}
+            </ViewTypographyText>
+          ))}
+        <ViewTypographyTextsubheading>P4+</ViewTypographyTextsubheading>
+        {features
+          .filter((x) => x.priority > 3)
+          .map((x,i) => (
+            <ViewTypographyText key={'p4-'+i} style={{ width: "100%", flex: 1 }}>
+              {x.title}
+            </ViewTypographyText>
+          ))}
       </ScrollView>
     </ViewPageMain>
   );
@@ -553,15 +534,10 @@ export const ViewOrgmentaPartner = ({}: any) => {
     <ViewPageMain>
       <ScrollView>
         <ViewTypographyTextheading>Partners</ViewTypographyTextheading>
-        <Text>
-          {`
-                    Partner With Us
-                    Contact form goes here
-
-                    Our Partners
-                    List of partners goes here
-                    `}
-        </Text>
+        <ViewTypographyTextsubheading>Partner With Us:</ViewTypographyTextsubheading>
+        <ViewInquiryMain />
+        <ViewTypographyTextsubheading>Our Partners:</ViewTypographyTextsubheading>
+        <Text>List of partners goes here</Text>
       </ScrollView>
     </ViewPageMain>
   );

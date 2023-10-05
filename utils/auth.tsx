@@ -134,6 +134,10 @@ export const useAuthSession = () => {
         queryFn: () =>
             requestAuthSession().then((response: any) => {
                 // console.log('response',response)
+                const currentUser = response?.data?.session?.user?.email || 'Guest';
+                // These are temporary - We will add a 'nickname' field in the db to replace this.
+                const nickLower = currentUser.split('@')?.[0];
+                const nickUpper = nickLower.charAt(0).toUpperCase() + nickLower.slice(1)
                 if (response) {
                     return {
                         ...response.data,
@@ -141,8 +145,9 @@ export const useAuthSession = () => {
                         currentStatus: response?.data?.session?.user?.email
                             ? "Signed In"
                             : "Signed Out",
-                        currentUser:
-                            response?.data?.session?.user?.email || "Guest",
+                        currentUser,
+                        nickLower,
+                        nickUpper
                     };
                 } else {
                     return {

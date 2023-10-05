@@ -1,10 +1,12 @@
 // 'Bookmarks' are links to categories, pinned or other saved entity views.
 
 import { ViewModalMain } from "./modal";
-import { ScrollView } from "react-native";
+import { useState } from "react";
+import { View, ScrollView, Pressable, Text } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { data } from "./static";
 import { ViewCardExpandable } from "./card";
+import { ViewIconMain } from "./icon";
 import { ViewRouterLinkthemed } from "./router";
 import { ViewTypographyTextsubsubheading } from "./typography";
 
@@ -19,7 +21,8 @@ export const ViewBookmarkModal = (props: any) => {
       pinnable
       collapsible
     >
-      <ScrollView>
+      <ScrollView style={{
+        flex:1, marginBottom:5}}>
         {
           data // temporary array that contains all the navigation objects
             .filter(
@@ -37,7 +40,7 @@ export const ViewBookmarkModal = (props: any) => {
                   )
                   .map((y, i) => (
                     <ViewRouterLinkthemed
-                      style={{ textDecoration: "none", margin: 10 }}
+                      style={{ textDecoration: "none", margin: 5 }}
                       to={"entity/" + y.nickname}
                       key={"a" + y.id + i}
                     >
@@ -50,9 +53,73 @@ export const ViewBookmarkModal = (props: any) => {
             )) // display the name only (temporary, to be replaced with link)
         }
       </ScrollView>
+      <View><ViewBookmarkTabs/></View>
     </ViewModalMain>
   );
 };
+
+
+export const ViewBookmarkTabs = ({}: any) => {
+  const [state, set] = useState("modules");
+  return (
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator
+      style={{
+        width: "100%",
+        height: 50,
+        flexDirection: "row",
+      }}
+    >
+      <Pressable
+        style={{
+          padding: 5,
+          flex: 1,
+          width: 50,
+          height: 50,
+          backgroundColor: state === "modules" ? "gray" : "lightgray",
+        }}
+        onPress={() => set("modules")}
+      >
+      <View style={{ alignItems: "center", flex: 1 }}>
+        <ViewIconMain name={"category"} source={"MaterialIcons"} color={"white"} />
+        <Text style={{ fontSize: 11 }}>Modules</Text>
+      </View>
+    </Pressable>
+      <Pressable
+        style={{
+          padding: 5,
+          flex: 1,
+          width: 50,
+          height: 50,
+          backgroundColor: state === "pinned" ? "gray" : "lightgray",
+        }}
+        onPress={() => set("pinned")}
+      >
+      <View style={{ alignItems: "center", flex: 1 }}>
+        <ViewIconMain name={"star"} source={"Entypo"} color={"white"} />
+        <Text style={{ fontSize: 11 }}>Pinned</Text>
+      </View>
+    </Pressable>
+      <Pressable
+        style={{
+          padding: 5,
+          flex: 1,
+          width: 50,
+          height: 50,
+          backgroundColor: state === "recent" ? "gray" : "lightgray",
+        }}
+        onPress={() => set("recent")}
+      >
+      <View style={{ alignItems: "center", flex: 1 }}>
+        <ViewIconMain name={"history"} source={"MaterialIcons"} color={"white"} />
+        <Text style={{ fontSize: 11 }}>Recent</Text>
+      </View>
+    </Pressable>
+    </ScrollView>
+  );
+};
+
 
 // Active
 

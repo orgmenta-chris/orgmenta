@@ -2,7 +2,7 @@
 // Chris todo
 
 import { View } from "react-native";
-import { ViewPresetOptions } from "./presets";
+import { ViewPresetOptions } from "./preset";
 
 // Main
 

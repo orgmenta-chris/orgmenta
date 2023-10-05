@@ -1,4 +1,5 @@
 const createExpoWebpackConfigAsync = require('@expo/webpack-config');
+const path = require('path'); // Add this line to use path.resolve()
 
 module.exports = async function (env, argv) {
   const config = await createExpoWebpackConfigAsync(env, argv);
@@ -9,11 +10,13 @@ module.exports = async function (env, argv) {
     use: 'html-loader'
   });
 
-  // Add the alias
+  // Modify the alias
   config.resolve.alias = {
     ...config.resolve.alias,
+    'react-native$': 'react-native-web',
     'react-native-maps': 'react-native-web-maps',
     'react-native-webview': 'react-native-web-webview',
+    '@stripe/stripe-react-native': 'react-native-web', // just prevents web from loading in @stripe/stripe-react-native
   };
 
   return config;

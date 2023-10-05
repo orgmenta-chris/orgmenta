@@ -17,7 +17,7 @@ import {
   ViewPodExample,
 } from "./pod";
 import { ViewIconMain } from "./icon";
-import { ViewTableMain  } from "./table-old";
+// import { ViewTableMain  } from "./table-old";
 // import { ViewJsonMain } from "./json";
 // import { ViewIconMain } from "./icon";
 
@@ -141,7 +141,6 @@ export const ViewDisplayTable = (props: any) => {
   return (
     <>
       <ViewTableTabs />
-      <ViewTableMain data={[]} schema={[]} />
       {/* <ViewTableMain columns={columns} data={auxiliary.data} /> */}
     </>
   );

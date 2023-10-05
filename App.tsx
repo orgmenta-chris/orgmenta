@@ -45,30 +45,10 @@ import { ViewOrgmentaModal } from "./utils/orgmenta";
 import { ViewBrowseModal } from "./utils/browse";
 import { ViewSpaceModal } from "./utils/space";
 import { ViewUserModal } from "./utils/user";
-import { UtilityPlatformMain, usePlatformCssweb } from "./utils/platform";
-import { useEffect, useState } from "react";
-import { StripeProvider } from "@stripe/stripe-react-native";
-import {
-  STAGING_STRIPE_PUBLISHABLE_KEY,
-  PRODUCTION_STRIPE_PUBLISHABLE_KEY,
-} from "@env";
+import { usePlatformCssweb } from "./utils/platform";
 
 export default function App() {
   usePlatformCssweb(); // shim to add css to web
-
-  // const [publishableKey, setPublishableKey] = useState("");
-
-  // const fetchPublishableKey = async () => {
-  //   if (__DEV__) {
-  //     setPublishableKey(`${STAGING_STRIPE_PUBLISHABLE_KEY}`);
-  //   } else {
-  //     setPublishableKey(`${PRODUCTION_STRIPE_PUBLISHABLE_KEY}`);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchPublishableKey();
-  // }, []);
 
   const AppBody = () => {
     return (
@@ -219,16 +199,5 @@ export default function App() {
     );
   };
 
-  return (
-    // <ViewMsalProvider instance={msalInstance}> */}
-    // UtilityPlatformMain.OS === "web" ? (
-    //   <AppBody />
-    //   ) : (
-    //     <StripeProvider publishableKey={publishableKey}>
-    //     <AppBody />
-    //   </StripeProvider>
-    // )
-    <AppBody />
-    // </ViewMsalProvider> */}
-  );
+  return <AppBody />;
 }

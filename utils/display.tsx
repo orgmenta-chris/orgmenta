@@ -24,6 +24,9 @@ import {
   Modal,
   ViewStyle,
   Button,
+  FlatList,
+  TextInput,
+  StyleSheet,
 } from "react-native";
 // import MapChart from "../components/displays/maps";
 // import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
@@ -47,6 +50,8 @@ import {
   WeekNum,
 } from "react-native-big-calendar";
 import JSONTree from "react-native-json-tree";
+import { Person, UseDisplayTable, fuzzySort, makeData } from "./table";
+import { ColumnDef } from "@tanstack/react-table";
 // import { Map as ImmutableMap } from "immutable";
 
 // Dynamic
@@ -122,19 +127,82 @@ export const ViewDisplayForm = (props: any) => {
 // Table
 
 export const ViewDisplayTable = (props: any) => {
-  const schema = props.schema;
-  // const columns = useTableColumns(
-  //   schema.data?.map(
-  //     (x: { focus_columns: { name_singular: any } }) =>
-  //       x.focus_columns.name_singular
-  //   )
-  // );
-  const auxiliary = props.auxiliary;
+  const [data, setData] = useState<Person[]>(() => makeData(1000));
+  const refreshData = () => setData((old) => makeData(1000));
+
+  const columns = useMemo<ColumnDef<Person, any>[]>(
+    () => [
+      {
+        header: "Name",
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "firstName",
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+          },
+          {
+            accessorFn: (row) => row.lastName,
+            id: "lastName",
+            cell: (info) => info.getValue(),
+            header: () => <span>Last Name</span>,
+            footer: (props) => props.column.id,
+          },
+          {
+            accessorFn: (row) => `${row.firstName} ${row.lastName}`,
+            id: "fullName",
+            header: "Full Name",
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            filterFn: "fuzzy",
+            sortingFn: fuzzySort,
+          },
+        ],
+      },
+      {
+        header: "Info",
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "age",
+            header: () => "Age",
+            footer: (props) => props.column.id,
+          },
+          {
+            header: "More Info",
+            columns: [
+              {
+                accessorKey: "visits",
+                header: () => <span>Visits</span>,
+                footer: (props) => props.column.id,
+              },
+              {
+                accessorKey: "status",
+                header: "Status",
+                footer: (props) => props.column.id,
+              },
+              {
+                accessorKey: "progress",
+                header: "Profile Progress",
+                footer: (props) => props.column.id,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    []
+  );
+
+  const tableData = {
+    columns,
+    data,
+    refreshData,
+  };
   return (
-    <>
-      <ViewTableTabs />
-      {/* <ViewTableMain columns={columns} data={auxiliary.data} /> */}
-    </>
+    <View style={{ maxHeight: 400 }}>
+      <UseDisplayTable tableData={tableData} />
+    </View>
   );
 };
 

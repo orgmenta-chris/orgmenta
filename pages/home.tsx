@@ -9,8 +9,9 @@ import { UseBarcodeReader, UseCamera } from "../utils/camera";
 import { UseClipboardCopy } from "../utils/clipboard";
 import { NotificationBody, UseNotification } from "../utils/notification";
 import { UseSoundPlayer, UseSoundRecorder, UseVideoPlayer } from "../utils/av";
-import { UseStripeFunctions } from "../utils/stripe";
+import { UseNewStripeWrapperFunctions, UseStripeFunctions } from "../utils/stripe";
 import { UtilityPlatformMain } from "../utils/platform";
+import { StripeProvider } from "@stripe/stripe-react-native";
 
 // const notificationBody: NotificationBody = {
 //   testMode: true,
@@ -534,9 +535,7 @@ export default function Home() {
 
                 {/* Test Stripe/supbase db functions (working) */}
                 {/* <UseStripeFunctions /> */}
-                {/* {UtilityPlatformMain.OS === "web" ? null : (
-                  <UseStripeFunctions />
-                )} */}
+                <UseNewStripeWrapperFunctions />
               </View>
             </View>
             {/* temp spacer */}

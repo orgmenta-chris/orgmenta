@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { View, StyleSheet, TextInput, Button, Text } from "react-native";
 import { addSecret, getSecret, /* deleteSecret */ } from "../../utils/vault";
 
@@ -17,9 +17,8 @@ const InsertComponent = () => {
   return (
     <View
       style={{
-        position: "absolute",
         padding: 10,
-        backgroundColor: "yellow",
+        backgroundColor: "green",
         right: 0,
         bottom: 0,
       }}
@@ -30,14 +29,14 @@ const InsertComponent = () => {
         onChangeText={setSecretName}
         value={secretName}
         placeholder="secret name"
-        keyboardType="numeric"
+        // keyboardType="numeric"
       />
       <TextInput
         style={styles.input}
         onChangeText={setSecretKey}
         value={secretKey}
         placeholder="secret key"
-        keyboardType="numeric"
+        // keyboardType="numeric"
       />
       <Text>{res && `uuid: ${res}`}</Text>
       <Button
@@ -60,7 +59,6 @@ const GetComponent = () => {
   return (
     <View
       style={{
-        position: "absolute",
         padding: 10,
         backgroundColor: "yellow",
         right: 0,
@@ -73,7 +71,7 @@ const GetComponent = () => {
         onChangeText={setSecretName}
         value={secretName}
         placeholder="secret name"
-        keyboardType="numeric"
+        // keyboardType="numeric"
       />
       <Text>{res && `secret: ${res}`}</Text>
       <Button onPress={() => getKeyFromVault(secretName)} title="Get Secret" />
@@ -121,10 +119,10 @@ const GetComponent = () => {
 
 const VaultFunctions = () => {
   const [operations, setOperations] = useState("insert");
-
   return (
-    <View>
-      <View style={{ flexDirection: "row", gap: 5 }}>
+    <View style={{margin:10, minHeight:300, backgroundColor:'orange'}}>
+      <View style={{ flexDirection: "row", gap: 5, backgroundColor:'red',
+        margin: 10, }}>
         <Button
           onPress={() => setOperations("insert")}
           title="Insert Secret View"
@@ -136,7 +134,7 @@ const VaultFunctions = () => {
         /> */}
       </View>
 
-      <View>
+      <View style={{ flexDirection: "row", gap: 5, backgroundColor:'red' }}>
         {operations === "insert" ? <InsertComponent /> : null}
         {operations === "get" ? <GetComponent /> : null}
         {/* {operations === "delete" ? <DeleteComponent /> : null} */}

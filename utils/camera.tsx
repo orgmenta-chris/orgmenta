@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Camera, CameraType } from "expo-camera";
 
-export const UseBarcodeReader = ({}: any) => {
+export const ViewBarcodeReader = ({}: any) => {
   const [scanned, setScanned] = useState(false);
   const [hasPermission, setHasPermission] = useState(null);
   const [startCamera, setStartCamera] = React.useState(false);
@@ -71,7 +71,7 @@ export const UseBarcodeReader = ({}: any) => {
   );
 };
 
-export const UseCamera = ({}: any) => {
+export const ViewCameraMain = ({}: any) => {
   const [type, setType] = useState(CameraType.back);
   const [startCamera, setStartCamera] = React.useState(false);
 

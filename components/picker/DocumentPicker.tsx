@@ -1,37 +1,39 @@
-import React from "react";
-import * as DocPicker from "expo-document-picker";
-import { View, Button } from "react-native";
+// MIGRATED TO FILE.TSX
 
-// MVP document picker, this can be duplicated and modified to create different pickers for different file formats.
-// using expo-document-picker: https://docs.expo.dev/versions/latest/sdk/document-picker/
+// import React from "react";
+// import * as DocPicker from "expo-document-picker";
+// import { View, Button } from "react-native";
 
-// Component takes the following props: setPickedDocument() - setter function to get the uploaded documents, ref useState()
+// // MVP document picker, this can be duplicated and modified to create different pickers for different file formats.
+// // using expo-document-picker: https://docs.expo.dev/versions/latest/sdk/document-picker/
 
-const DocumentPicker = (props: any) => {
-  const { setPickedDocument, type, multiple } = props;
+// // Component takes the following props: setPickedDocument() - setter function to get the uploaded documents, ref useState()
 
-  const pickDocument = async () => {
-    try {
-      const result = await DocPicker.getDocumentAsync({
-        ...type,
-        multiple,
-      });
+// const DocumentPicker = (props: any) => {
+//   const { setPickedDocument, type, multiple } = props;
 
-      if (!result.canceled) {
-        setPickedDocument(result.assets);
-      } else {
-        setPickedDocument([]);
-      }
-    } catch (error) {
-      console.error("Error picking document:", error);
-    }
-  };
+//   const pickDocument = async () => {
+//     try {
+//       const result = await DocPicker.getDocumentAsync({
+//         ...type,
+//         multiple,
+//       });
 
-  return (
-    <View>
-      <Button title="Pick a Document" onPress={pickDocument} />
-    </View>
-  );
-};
+//       if (!result.canceled) {
+//         setPickedDocument(result.assets);
+//       } else {
+//         setPickedDocument([]);
+//       }
+//     } catch (error) {
+//       console.error("Error picking document:", error);
+//     }
+//   };
 
-export default DocumentPicker;
+//   return (
+//     <View>
+//       <Button title="Pick a Document" onPress={pickDocument} />
+//     </View>
+//   );
+// };
+
+// export default DocumentPicker;

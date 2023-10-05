@@ -28,7 +28,7 @@ export const ViewPodMain = ({items,children}:any) => {
 // A container for each pod
 export const ViewPodFrame = ({children, style}:any) => {
     return (
-        <View style={{height:40, flexDirection:'column', borderWidth:1, backgroundColor:'lightgray', borderColor:'white', margin: 4,...style, }}>
+        <View style={{height:40, flexDirection:'column', backgroundColor:'lightgray', borderColor:'white', margin: 5, ...style, }}>
             {children}
         </View>
     )

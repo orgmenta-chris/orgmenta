@@ -6,7 +6,7 @@ import { View } from "react-native";
 // Main
 
 type TypeHeaderMain = {
-  children: ReactNode;
+    children: ReactNode;
 };
 
 // full Header component (currently hardcoded, no props)
@@ -58,9 +58,9 @@ export const getHeaderDimensions = () => {
 
 // Sections for the header
 export type TypeHeaderSection = {
-  children: ReactNode;
-  flex?: number;
-  padding?: number;
+    children: ReactNode;
+    flex?: number;
+    padding?: number;
 };
 
 export const ViewHeaderSection = ({

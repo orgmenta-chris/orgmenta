@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SignIn from "../../../auth/signIn";
 import SignUp from "../../../auth/signUp";
-import React from "react";
 // import MSAL from "../../../auth/msal";
 
 // @ts-ignore
@@ -46,7 +45,7 @@ const UserModal = (props) => {
           <View style={styles.modalView}>
             <Text style={{ marginHorizontal: 12, color: "green" }}>
               {auth?.data?.isSignedIn
-                ? "Signed in as " + auth.data.currentUser
+                ? "Signed in as " + auth.data.nickUpper
                 : "Using guest account"}
             </Text>
             <View style={styles.divider}></View>

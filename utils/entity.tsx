@@ -85,30 +85,34 @@ export const ViewEntityTabs = ({ id }: any) => {
 
 // Array
 
-export const useEntityArray = (filter_object?: any) => {
-  // todo: implement filter_array in query function
-  const query = useQuery({
-    queryKey: ["entities", "array", filter_object],
-    queryFn: () => {
-      return (
-        instanceSupabaseClient
-          .from("entities_orgmenta")
-          // .from("entities")
-          .select()
+export async function requestEntityArray(spacename?: any, categories?: any) {
+  return await instanceSupabaseClient
+    .from(spacename ? `entities_${spacename}` : "entities")
+    .select()
+    .filter(
+      // This will only return entities that have ALL of the items in the array. If we want to change it to 'any in search array' we need to use an rpc instead, or do an 'or' method and go through every category array item.
+      "categories",
+      "cs",
+      `{${categories.join(",")}}` // e.g. `{"product-catalog-solutions-usecases","product-catalog-solutions-features","product-catalog-solutions-requirements"}`
+    )
+    .range(0, 9) //temp arbitrary limit of 10 (todo: pass variables in here to get proper pagination)
+    .then(handleSupabaseResponse as any);
+}
 
-          // temp hardcoded filters:
-          .contains("categories", [filter_object?.category || "all"])
-
-          // .contains('other', { test: 1 }) // Example of how we can add static fields in (e.g. event_start can be in here instead of having to create a new column which is only applicable to events)
-          // or we can store this sort of thing in side b of relationships (but that requires a join)
-          // todo: implement filter_array here
-          .limit(10) // temporary limit, feel free to remove this or make pagination dynamic if needed.
-          .then((response) => response.data)
-      );
-    },
-    enabled: true,
-    refetchOnMount: true,
-  });
+export const useEntityArray = (spacename?: any, categories?: any) => {
+  const queryKey: (string | number)[] = [
+    "entities",
+    "array",
+    spacename,
+    categories,
+  ];
+  const query = useQuery(
+    queryKey,
+    () => requestEntityArray(spacename, categories),
+    {
+      enabled: true,
+    }
+  );
   return query;
 };
 
@@ -121,7 +125,7 @@ export const useEntitySingle = (props: any) => {
   const query = {
     data: data
       .filter((x) => x.nickname === props.id)
-      ?.map((x) => (x = { ...x, title: x.display_singular })),
+      ?.map((x) => (x = { ...x, title: x.display_singular } as any)),
   };
   // const query = useQuery({
   //     queryKey:['entities','single',filter_array],
@@ -142,7 +146,7 @@ export const useEntitySingle = (props: any) => {
 
 export const useEntityCount = ({ filter_array }: any) => {
   // todo: implement filter_array in query function
-  const query = useQuery({
+  const query = useQuery<any, any, any>({
     queryKey: ["entities", "count", filter_array],
     queryFn: () => {
       return (
@@ -172,11 +176,10 @@ export interface interfaceEntityCreate {
 }
 
 export async function validateEntityCreate(entity: interfaceEntityCreate) {
-  console.log("todo");
+  //todo
 }
 
 export async function requestEntityCreate(entity: interfaceEntityCreate) {
-  // console.log('useEntityCreate',entity)
   return await instanceSupabaseClient
     // .from("entities")
     .from("entities_orgmenta")
@@ -225,7 +228,7 @@ export const useEntityCreate = (props: interfaceEntityCreate) => {
 // E.g. if this hook is used by an Invoice entity, it will return only the attributes relevant to the invoice (like line_items and balance_due)
 // (to do: make dynamic - at the moment it isn't accepting props for the filter)
 export const useEntitySchema = () => {
-  const query = useAttributeUnioned(["categories", "Entity"]);
+  const query = useAttributeUnioned(["Entity"]);
   return query;
 };
 
@@ -236,7 +239,7 @@ export const ViewEntitySchema = (props: any) => {
     <View style={{ flexDirection: "column" }}>
       <Text>ViewEntitySchema</Text>
       {schema?.data?.map((x: any, i: number) => (
-        <View key={i} style={{ margin: 4 }}>
+        <View key={i} style={{ margin: 5 }}>
           {/* <Text style={{margin:4}}>{Object.keys(x)}</Text> */}
           <Text>{x.focus_columns.display_singular}</Text>
           {/* <Text>{x.auxiliary_columns.display_singular}</Text> */}

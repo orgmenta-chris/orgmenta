@@ -1,4 +1,4 @@
-import React, { useState, ReactElement, useMemo } from "react";
+import  { useState, ReactElement, useMemo } from "react";
 import { View, Pressable, Text } from "react-native";
 import MyCalendar from "./calendar";
 

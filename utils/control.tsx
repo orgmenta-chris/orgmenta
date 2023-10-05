@@ -1,7 +1,8 @@
 // A 'Control' is a filtering, sorting, grouping, or viewing of entity display data.
+// Chris todo
 
 import { View } from "react-native";
-import { ViewPresetOptions } from "./presets";
+import { ViewPresetOptions } from "./preset";
 
 // Main
 
@@ -15,7 +16,7 @@ export const ViewControlMain = ({}: any) => {
         
       <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Group</Text>
 
-      <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Sort</Text>
+            <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Sort</Text>
 
       <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Filter</Text> */}
     </View>

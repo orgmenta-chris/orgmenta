@@ -7,13 +7,13 @@ import { View, Text, ActivityIndicator } from "react-native";
 // Source
 
 export interface interfaceApiSource {
-  url: string;
-  options: {
-    method: string;
-    headers: {
-      [key: string]: any;
+    url: string;
+    options: {
+        method: string;
+        headers: {
+            [key: string]: any;
+        };
     };
-  };
 }
 
 export const mapApiSource = {

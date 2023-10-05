@@ -6,14 +6,14 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // Signup (Todo)
 
 export interface interfaceAuthSignup {
-  email: string;
-  password: string;
-  confirmPassword: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
 }
 
 export interface interfaceSuperBaseSignup {
-  email: string;
-  password: string;
+    email: string;
+    password: string;
 }
 
 export const requestAuthSignup = async ({
@@ -42,38 +42,38 @@ export const useAuthSignup = ({
     console.log("Passwords do not match");
   }
 
-  return useMutation(
-    ["auth", "signup"],
-    () => requestAuthSignup({ email, password }),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["auth", "session"]);
-      },
-    }
-  );
+    return useMutation(
+        ["auth", "signup"],
+        () => requestAuthSignup({ email, password }),
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(["auth", "session"]);
+            },
+        }
+    );
 };
 
 // Signout
 
 export const requestAuthSignout = async () => {
-  await instanceSupabaseClient.auth.signOut();
+    await instanceSupabaseClient.auth.signOut();
 };
 
 export const useAuthSignout = () => {
-  const queryClient = useQueryClient();
+    const queryClient = useQueryClient();
 
-  return useMutation(["auth", "signout"], () => requestAuthSignout(), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["auth", "session"]);
-    },
-  });
+    return useMutation(["auth", "signout"], () => requestAuthSignout(), {
+        onSuccess: () => {
+            queryClient.invalidateQueries(["auth", "session"]);
+        },
+    });
 };
 
 // Signin
 
 export interface interfaceAuthSignin {
-  email: string;
-  password: string;
+    email: string;
+    password: string;
 }
 
 export const requestAuthSignin = async ({
@@ -89,69 +89,75 @@ export const requestAuthSignin = async ({
     throw new Error(error.message);
   }
 
-  return data;
+    return data;
 };
 
 export const useAuthSignin = ({ email, password }: interfaceAuthSignin) => {
-  const queryClient = useQueryClient();
+    const queryClient = useQueryClient();
 
-  return useMutation(
-    ["auth", "signin"],
-    () => requestAuthSignin({ email, password }),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["auth", "session"]);
-      },
-    }
-  );
+    return useMutation(
+        ["auth", "signin"],
+        () => requestAuthSignin({ email, password }),
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(["auth", "session"]);
+            },
+        }
+    );
 };
 
 // Reset (Todo)
 
 export interface interfaceAuthReset {
-  email: string;
+    email: string;
 }
 
 export const requestAuthReset = async (props: interfaceAuthReset) => {
-  await instanceSupabaseClient.auth.resetPasswordForEmail(props.email, {
-    redirectTo: "https://orgmenta.com/update-password", // Not yet functional
-  });
+    await instanceSupabaseClient.auth.resetPasswordForEmail(props.email, {
+        redirectTo: "https://orgmenta.com/update-password", // Not yet functional
+    });
 };
 
 export const useAuthReset = ({ email }: interfaceAuthReset) => {
-  return useMutation(["auth", "reset"], () => requestAuthReset({ email }));
+    return useMutation(["auth", "reset"], () => requestAuthReset({ email }));
 };
 
 // Session
 
 export const requestAuthSession = async () => {
-  return await instanceSupabaseClient.auth.getSession();
+    return await instanceSupabaseClient.auth.getSession();
 };
 
 export const useAuthSession = () => {
-  const query = useQuery({
-    queryKey: ["auth", "session"],
-    queryFn: () =>
-      requestAuthSession().then((response: any) => {
-        // console.log('response',response)
-        if (response) {
-          return {
-            ...response.data,
-            isSignedIn: !!response?.data?.session?.user?.email,
-            currentStatus: response?.data?.session?.user?.email
-              ? "Signed In"
-              : "Signed Out",
-            currentUser: response?.data?.session?.user?.email || "Guest",
-          };
-        } else {
-          return {
-            name: "Guest",
-          };
-        }
-      }),
-  });
+    const query = useQuery({
+        queryKey: ["auth", "session"],
+        queryFn: () =>
+            requestAuthSession().then((response: any) => {
+                // console.log('response',response)
+                const currentUser = response?.data?.session?.user?.email || 'Guest';
+                // These are temporary - We will add a 'nickname' field in the db to replace this.
+                const nickLower = currentUser.split('@')?.[0];
+                const nickUpper = nickLower.charAt(0).toUpperCase() + nickLower.slice(1)
+                if (response) {
+                    return {
+                        ...response.data,
+                        isSignedIn: !!response?.data?.session?.user?.email,
+                        currentStatus: response?.data?.session?.user?.email
+                            ? "Signed In"
+                            : "Signed Out",
+                        currentUser,
+                        nickLower,
+                        nickUpper
+                    };
+                } else {
+                    return {
+                        name: "Guest",
+                    };
+                }
+            }),
+    });
 
-  return query;
+    return query;
 };
 
 // Options

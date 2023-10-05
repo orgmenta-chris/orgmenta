@@ -1,11 +1,17 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { ViewAttributeMain, ViewAttributeUnioned } from "../utils/attribute";
-import { ViewRouterLink, ViewRouterRoutes, ViewRouterRoute } from "../utils/router";
+import { ViewPageMain } from "../utils/page";
+import { ViewTypographyTextheading } from "../utils/typography";
+import {
+  ViewRouterLink,
+  ViewRouterRoutes,
+  ViewRouterRoute,
+} from "../utils/router";
 
-export default function UserPage() {
+export default function AttributePage() {
   return (
-    <View>
-      <Text style={{ fontSize: 24 }}>Attributes</Text>
+    <ViewPageMain>
+      <ViewTypographyTextheading>Attributes</ViewTypographyTextheading>
       <View style={{ flexDirection: "row" }}>
         <ViewRouterLink to={"main"} style={{ margin: 5 }}>
           Main
@@ -19,6 +25,6 @@ export default function UserPage() {
         <ViewRouterRoute path="unioned" element={<ViewAttributeUnioned />} />
       </ViewRouterRoutes>
       {/* <ViewAttributeMain/> */}
-    </View>
+    </ViewPageMain>
   );
 }

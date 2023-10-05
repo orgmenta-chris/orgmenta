@@ -14,7 +14,7 @@ const ViewDisplayTable = (props: any) => {
   const auxiliary = props.auxiliary;
   return (
     <View style={{ flexDirection: "column" }}>
-      <ViewTableMain columns={columns} data={auxiliary.data} />
+      <ViewTableMain columns={columns} data={[1,2,3]} />
     </View>
   );
 };

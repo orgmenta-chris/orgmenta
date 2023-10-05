@@ -20,6 +20,6 @@ export const getSecret = async (secret_name: string) => {
 };
 
 // export const deleteSecret = async (secret_name: string) => {
-//   const vault = await client.rpc("delete_secret", { secret_name });
-//   return vault;
+// 	const vault = await client.rpc("delete_secret", { secret_name });
+// 	return vault;
 // };

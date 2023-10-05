@@ -1,4 +1,5 @@
 // A 'member' is a contact (group or individual) that is a member of a space.
+// A 'member' is a contact (group or individual) that is a member of a space.
 // It has its own table (rather than being part of the entities table) so that we can use this for row level security on other tables.
 
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
@@ -56,20 +57,20 @@ export const useMemberDelete = (props: interfaceMemberDelete) => {
 
 // Array
 
+export async function requestMemberArray() {
+  return await instanceSupabaseClient
+    .from("members")
+    .select()
+    .then(handleSupabaseResponse as any);
+}
+
 export const useMemberArray = ({ ...Input }) => {
   const queryKey: (string | number)[] = [
     "members",
     "array",
     "add_relevant_props_here",
   ];
-  const queryFn = async () => {
-    const response = await instanceSupabaseClient
-      .from("members")
-      .select()
-      .limit(10); // temporary limit, feel free to remove this or make pagination dynamic if needed.
-    return response.data;
-  };
-  const query = useQuery<any, Error>(queryKey, queryFn, { enabled: true });
+  const query = useQuery(queryKey, requestMemberArray, { enabled: true });
   return query;
 };
 

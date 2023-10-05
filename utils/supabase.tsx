@@ -1,9 +1,13 @@
+// The 'supabase' module is the client that handles Supabase auth, db, vault etc.
 // https://supabase.com/docs/guides/getting-started/tutorials/with-expo
+// Vault, Storage etc. are in their own modules to due complexity and being their own defined entity.
 
 import * as SecureStore from "expo-secure-store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import "react-native-url-polyfill/auto";
 import { UtilityPlatformMain } from "./platform";
-import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 // (Mobile Only) Secure Store.
 // If this is used elsewhere in the project, it will be split out into its own module / migrated to 'storage' (storage>local/clients).
@@ -20,27 +24,38 @@ export const ExpoSecureStoreAdapter = {
   },
 };
 
+export const TempUnencryptedWebWorkaround = {
+  getItem: (key: string) => {
+    return AsyncStorage.getItem(key);
+  },
+  setItem: (key: string, value: string) => {
+    AsyncStorage.setItem(key, value);
+  },
+  removeItem: (key: string) => {
+    AsyncStorage.removeItem(key);
+  },
+};
+
 // Instance
+
+export const createSupabaseClient = createClient;
 
 export const instanceSupabaseClient = createSupabaseClient(
   // create an instance of the supabase client class
-  "https://qfiulevnnvsptiwtwvuz.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmaXVsZXZubnZzcHRpd3R3dnV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ4MjQ1MzcsImV4cCI6MTk4MDQwMDUzN30.D2lskLMTLfvucKbs3eqxxu0uygwyvd-krOFQN-T0APM",
+  process.env.STAGING_SUPABASE_URL!, //The ! asserts that the variable is not undefined.
+  process.env.STAGING_SUPABASE_PUBLIC_KEY!, //The ! asserts that the variable is not undefined.
   {
     auth: {
       storage:
-        UtilityPlatformMain.OS !== "web" && (ExpoSecureStoreAdapter as any),
+        UtilityPlatformMain.OS !== "web"
+          ? (ExpoSecureStoreAdapter as any)
+          : TempUnencryptedWebWorkaround,
       autoRefreshToken: true,
       persistSession: true,
       detectSessionInUrl: false,
     },
   }
 );
-
-// export const instanceSupabaseClient = createClient( // expo variables not yet working
-//     process.env.STAGING_REACT_APP_SUPABASE_URL,
-//     process.env.STAGING_REACT_APP_SUPABASE_PUBLIC_KEY
-// );
 
 // Response
 
@@ -53,7 +68,6 @@ export function handleSupabaseResponse(
   response: interfaceSupabaseResponse["response"],
   function_name: interfaceSupabaseResponse["function_name"]
 ) {
-  // console.log('handleSupabaseResponse',response)
   // todo: use function_name prop for logging purposes if useful
   if (response.error) throw response.error;
   return response.data;
@@ -95,7 +109,7 @@ export async function requestSupabaseTables(filters: any) {
 // Views
 
 // This is just a useful reference of views
-const mapSupabaseViews = {
+export const mapSupabaseViews = {
   attributes_unioned: {
     description:
       "This joins attributes with side 1 as the focus, to attributes with side 2 as the focus. This allows you to see all attributes in one column.",
@@ -104,4 +118,28 @@ const mapSupabaseViews = {
     description:
       "This joins relationships with side 1 as the focus, to relationships with side 2 as the focus. This allows you to see all entities in one column.",
   },
+};
+
+// Table
+
+export async function requestSupabaseTablerows(tableName: string) {
+  return await instanceSupabaseClient
+    .from("entities_orgmenta")
+    .select()
+    .then(handleSupabaseResponse as any);
+}
+
+export const useSupabaseTable = (tableName: string) => {
+  // const queryClient = useQueryClient();
+  return useMutation(
+    ["entity", "create"],
+    () => requestSupabaseTablerows(tableName),
+    {
+      //todo
+      onSuccess: () => {
+        // queryClient.invalidateQueries([]);
+        // refetch();
+      },
+    }
+  );
 };

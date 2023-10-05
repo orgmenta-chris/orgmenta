@@ -1,207 +1,3 @@
-// import { createUuid4, typeUuid4, validateUuid4 } from './uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
-
-// console.log(createUuid4())
-// function processdatum (inputid){
-//     let datum = data.find(x=>x.id===inputid)
-//     let item = inputid+'//';delete datum?.id
-//     item = item+(datum?.parent||'')+'//'; delete datum?.parent
-//     item = item+(datum?.title||'')+'//'; delete datum?.title
-//     item = item+(datum?.status||'')+'//'; delete datum?.status
-//     item = item+(datum?.description||'')+'//'; delete datum?.description
-//     item = item+(datum?.name_singular||'')+'//'; delete datum?.name_singular
-//     item = item+(datum?.name_plural||'')+'//'; delete datum?.name_plural
-//     item = item+(datum?.display_singular||'')+'//'; delete datum?.display_singular
-//     item = item+(datum?.display_plural||'')+'//'; delete datum?.display_plural
-//     item = item+(JSON.stringify(datum)||'')
-//     return item
-// }
-
-// let entities = []
-// for(var org=1;org<5;org++){
-//     // var datum = data.find(x=>x.id===org)
-//     // var item = org+'//'
-//     // item = item+(datum?.parent||'')+'//'; delete datum?.parent
-//     // item = item+(datum?.title||'')+'//'; delete datum?.title
-//     // item = item+(datum?.status||'')+'//'; delete datum?.status
-//     // item = item+(datum?.description||'')+'//'; delete datum?.description
-//     // item = item+(datum?.name_singular||'')+'//'; delete datum?.name_singular
-//     // item = item+(datum?.name_plural||'')+'//'; delete datum?.name_plural
-//     // item = item+(datum?.display_singular||'')+'//'; delete datum?.display_singular
-//     // item = item+(datum?.display_plural||'')+'//'; delete datum?.display_plural
-//     // item = item+(JSON.stringify(datum)||'')
-//     // entities.push(item)
-//     entities.push(processdatum(org))
-//     for(var area=1;area<9;area++){
-//         // ids.push(Number(''+org+area));
-//         entities.push(processdatum(area))
-
-//         for(var process=1;process<5;process++){
-//             // ids.push(Number(''+org+area+process));
-//             entities.push(processdatum(process))
-
-//             for(var procedure=1;procedure<5;procedure++){
-//                 // ids.push(Number(''+org+area+process+procedure));
-//                 entities.push(processdatum(procedure))
-
-//                 for(var step=1;step<5;step++){
-//                     // ids.push(Number(''+org+area+process+procedure+step));
-//                     entities.push(processdatum(step))
-
-//                     for(var instruction=1;instruction<5;instruction++){
-//                         // ids.push(Number(''+org+area+process+procedure+step+instruction));
-//                         entities.push(processdatum(instruction))
-
-//                     }
-
-//                 }
-
-//             }
-
-//         }
-
-//     }
-
-// }
-// console.log(entities.join(','))
-// console.log(data);
-// let dataTable = {
-//     'other':[],
-//     'id':[],
-//     'parent':[],
-//     'status':[],
-//     'name_singular':[],
-//     'name_plural':[],
-//     'display_singular':[],
-//     'display_plural':[],
-//     'description':[]
-// }
-// let keys = Object.keys(dataTable)
-
-// for(var i=0;i<data.length;i++){
-
-//     let d = data[i]; // the item from the array that we will get the data from
-
-//     for(var j=0;j<keys.length;j++){ // for each property (id, parent etc.)
-//         dataTable[keys[j]].push(d[keys[j]] || null);    // add
-//         delete d[keys[j]];
-//     }
-
-//     dataTable.other.push(JSON.stringify(d) || null);
-// }
-// // console.log('dataTable',dataTable.id.join());
-
-// let ids = []
-
-// for(var org=1;org<5;org++){
-//     var datum = data.find(x=>x.id===org)
-//     var item = org+'//'
-//     item = item+(datum?.parent||'')+'//'; delete datum?.parent
-//     item = item+(datum?.title||'')+'//'; delete datum?.title
-//     item = item+(datum?.status||'')+'//'; delete datum?.status
-//     item = item+(datum?.description||'')+'//'; delete datum?.description
-//     item = item+(datum?.name_singular||'')+'//'; delete datum?.name_singular
-//     item = item+(datum?.name_plural||'')+'//'; delete datum?.name_plural
-//     item = item+(datum?.display_singular||'')+'//'; delete datum?.display_singular
-//     item = item+(datum?.display_plural||'')+'//'; delete datum?.display_plural
-//     item = item+(JSON.stringify(datum)||'')
-//     ids.push(item)
-//     // ids.push(org+'//'+(org.parent+'//'+org.title+'//'+org.description);
-
-//     // for(var area=1;area<9;area++){
-//     //     ids.push(Number(''+org+area));
-
-//     //     for(var process=1;process<5;process++){
-//     //         ids.push(Number(''+org+area+process));
-
-//     //         for(var procedure=1;procedure<5;procedure++){
-//     //             ids.push(Number(''+org+area+process+procedure));
-
-//     //             for(var step=1;step<5;step++){
-//     //                 ids.push(Number(''+org+area+process+procedure+step));
-
-//     //                 for(var instruction=1;instruction<5;instruction++){
-//     //                     ids.push(Number(''+org+area+process+procedure+step+instruction));
-
-//     //                 }
-
-//     //             }
-
-//     //         }
-
-//     //     }
-
-//     // }
-
-// }
-// // console.log(ids.join(','))
-
-// const properties = ["id","name_singular","name_plural","display_singular","display_plural","parent","status","description"]
-
-// // function to loop through all the objects and find all properties
-// function miscProperties() {
-//     for(var i=0;i<data.length;i++){
-//         const oldObj = data[i];
-//         // Object.keys(oldObj)
-//     }
-//     return data
-// }
-
-// console.log('miscProperties',miscProperties())
-
-// //
-// function getUniqueTopLevelProperties(objectsArray) {
-//     const propertiesSet = new Set();
-
-//     objectsArray.forEach((obj) => {
-//       Object.keys(obj).forEach((property) => {
-//         if(!properties.includes(property)) {propertiesSet.add(property);}
-//       });
-//     });
-
-//     return Array.from(propertiesSet);
-//   }
-
-// console.log('getUniqueTopLevelProperties',getUniqueTopLevelProperties(data))
-
-// // show any items that are missing properties
-// function getMissingPropertyItems(objectsArray) {
-//     let newArr = []
-//     objectsArray.forEach((obj) => {
-//         // if(!obj['subheading'] && obj.id <100){newArr.push(obj.id)}
-//         if(!obj['display_singular']){newArr.push(obj.id)}
-//         // properties.forEach((property)=>{if(!obj[property]){newArr.push(obj.id)}})
-//     });
-//     return newArr
-//   }
-
-// console.log('getMissingPropertyItems',getMissingPropertyItems(data))
-
-// const nicknamed = ()=> {
-//     let newData = []
-//     data.forEach((x)=>{
-//         const parent = data.find(y=>y.id===x.parent)
-//         const pnick =  x.id > 99 && parent.name_singular
-//         const grandparent = data.find(z=>z.id===parent?.parent)
-//         const gnick =  x.id > 999 && grandparent.name_singular
-//         newData.push({
-//             ...x,
-//             nickname: (gnick ? gnick +'-' :'') + (pnick ? pnick +'-' :'') + x.name_singular
-
-//         })
-//     })
-//     return newData
-//         // const nicknames = data.map(x=>x={
-//         //     ...x,
-//         //     nickname:
-//         //         (x?.grandparentobj?.name_singular ? (x?.grandparentobj?.name_singular + '-'):'')
-//         //         + (x?.parentobj?.name_singular ? (x?.parentobj?.name_singular + '-'):'')
-//         //         + x.name_singular,
-
-//         // })
-//         // return nicknames
-// }
-// console.log(nicknamed())
-
 export const data = [
   {
     id: 3,
@@ -271,8 +67,75 @@ export const data = [
     status: "5. Hold",
     name_singular: "plan",
     display_singular: "Plan",
-    description: "",
+    description: "Business Plan",
     nickname: "governance-model-plan",
+  },
+  {
+    id: 11001,
+    parent: 1100,
+    status: "5. Hold",
+    name_singular: "mission",
+    display_singular: "Mission",
+    description:
+      "Mission statement / a clear summary of the purpose of the business",
+    summary:
+      "Analygous to a peer reviewed scientific paper having an 'abstract'",
+    nickname: "governance-model-plan-mission",
+  },
+  {
+    id: 11001,
+    parent: 1100,
+    status: "5. Hold",
+    name_singular: "values",
+    display_singular: "Values",
+    description: "Company/Organizational Values",
+    summary:
+      "What are your Brand values? Consider these to be products, as you are essentially selling 'trust' or other company values to all of your stakeholders.",
+    nickname: "governance-model-plan-values",
+  },
+  {
+    id: 11002,
+    parent: 1100,
+    status: "5. Hold",
+    name_singular: "goals",
+    display_singular: "Goals",
+    description: "Company/Organizational Goals",
+    summary: "Top level objectives / goals",
+    nickname: "governance-model-plan-goals",
+  },
+  {
+    id: 11003,
+    parent: 1100,
+    status: "5. Hold",
+    name_singular: "justification",
+    display_singular: "Justification",
+    description:
+      "Summary of market research and other proofs of viability/reasons for operating",
+    summary: "",
+    nickname: "governance-model-plan-justification",
+  },
+  {
+    id: 11004,
+    parent: 1100,
+    status: "5. Hold",
+    name_singular: "capital",
+    display_singular: "Capital",
+    description: "Summary of Accounts/Finance and other resources",
+    summary:
+      "Financial resources or assets employed to start, operate, and grow your business.",
+    nickname: "governance-model-plan-justification",
+    notes: `
+              Financial Capital: Money used to fund a business, including initial capital, working capital, and growth capital.
+              Human Capital: The skills, knowledge, experience, and abilities of employees.
+              Social Capital: The value derived from an individual's or business's network of relationships, which can be used to gain resources or advantages.
+              Intellectual Capital: Intangible assets like patents, trademarks, and copyrights that contribute to a business's competitive advantage.
+              Natural Capital: Natural resources that can be used to produce goods or services.
+              Physical Capital: Tangible assets like machinery, buildings, and infrastructure used in the production of goods or services.
+              Venture Capital: Funding provided by investors to startups and small businesses expected to have long-term growth potential.
+              Debt Capital: Money borrowed through various means, including loans and bonds, to run the business.
+              Equity Capital: Funds raised by a business in exchange for shares of ownership in the company.
+              Working Capital: Short-term assets minus short-term liabilities, used for day-to-day operations.
+          `,
   },
   {
     id: 1101,
@@ -280,8 +143,42 @@ export const data = [
     status: "5. Hold",
     name_singular: "structure",
     display_singular: "Structure",
-    description: "",
+    description: "Business structure / hierarchy",
     nickname: "governance-model-structure",
+  },
+  {
+    id: 11010,
+    parent: 1101,
+    status: "5. Hold",
+    name_singular: "ownership",
+    display_singular: "ownership",
+    description: "Business ownership structures",
+    summary:
+      "C-Corp / LLC / Sole Trader or Proprietorship / Partnership Cooperative / Umbrella & holding corps / Franchise / Non-profit / Charity / etc.",
+    nickname: "governance-model-structure-ownership",
+    types: [
+      "LLC",
+      "S-Corp",
+      "C-Corp",
+      "Sole Trader / Proprietorship",
+      "Umbrella",
+      "Holding",
+      "Franchise",
+      "Unlimited Company - UK, ROI and others",
+      "Società a responsabilità limitata (SRL) - Italy",
+      "Proprietary Limited Company (Pty Ltd) - Australia",
+      "Aktiebolag (AB) - Sweden",
+      "Kabushiki Kaisha (KK) - Japan",
+      "Société Anonyme (SA) - France",
+      "Gesellschaft mit beschränkter Haftung (GmbH) - Germany",
+      "Public Limited Company (PLC) - UK",
+      "Joint Venture",
+      "Professional LLC (PLLC)",
+      "Professional Corporation (PC)",
+      "B-Corporation",
+      "Non Profit",
+      "Charity",
+    ],
   },
   {
     id: 1102,
@@ -291,6 +188,7 @@ export const data = [
     display_singular: "Jurisdictions",
     description:
       "Where you are operating (unions, countries, states, counties, markets)",
+    summary: "",
     nickname: "governance-model-jurisdictions",
   },
   {
@@ -299,7 +197,7 @@ export const data = [
     status: "5. Hold",
     name_singular: "roadmap",
     display_singular: "Roadmap",
-    description: "",
+    description: "Your company roadmap and timeline",
     nickname: "governance-model-roadmap",
   },
   {
@@ -577,10 +475,20 @@ export const data = [
     id: 113,
     parent: 11,
     status: "5. Hold",
-    name_singular: "roadmap",
-    display_singular: "Roadmap",
+    name_singular: "metrics",
+    display_singular: "Metrics",
     description: "Your company roadmap and timeline",
-    nickname: "governance-roadmap",
+    nickname: "governance-metrics",
+  },
+  {
+    id: 1130,
+    parent: 113,
+    status: "5. Hold",
+    name_singular: "scorecards",
+    display_singular: "Scorecards",
+    description: "Scorecards from different areas of the business",
+    summary: "",
+    nickname: "governance-metrics",
   },
   {
     id: 114,
@@ -615,40 +523,31 @@ export const data = [
     nickname: "governance-executive-management",
   },
   {
-    id: 11410,
-    parent: 1141,
-    status: "5. Hold",
-    name_singular: "Report Analysis",
-    display_singular: "Management",
-    description: "",
-    nickname: "executive-management-Report Analysis",
-  },
-  {
     id: 1142,
     parent: 114,
     status: "5. Hold",
-    name_singular: "",
-    display_singular: "",
-    description: "",
-    nickname: "governance-executive-",
+    name_singular: "accountability",
+    display_singular: "Accountability",
+    description: "Mechanisms for assigning and tracking responsibilities",
+    nickname: "governance-executive-accountability",
   },
   {
     id: 1143,
     parent: 114,
     status: "5. Hold",
-    name_singular: "",
-    display_singular: "",
-    description: "",
-    nickname: "governance-executive-",
+    name_singular: "reports",
+    display_singular: "Reports",
+    description: "Report creations for the business's decision making",
+    nickname: "governance-executive-reports",
   },
   {
     id: 1144,
     parent: 114,
     status: "5. Hold",
-    name_singular: "",
-    display_singular: "",
-    description: "",
-    nickname: "governance-executive-",
+    name_singular: "decisions",
+    display_singular: "Decisions",
+    description: "Decision Making",
+    nickname: "governance-executive-decisions",
   },
   {
     id: 12,
@@ -835,13 +734,13 @@ export const data = [
     ],
     nickname: "accounts-ledger-statements",
     notes: `
-            "IPO layout (Initial public offering model)", //https://the-cfo.io/2019/11/06/what-are-the-different-financial-models/
-            "Discounted Cash Flow (DCF) and LBO Models", // https://www.investopedia.com/terms/d/dcf.asp, https://www.google.com/search?rlz=1C1CHBF_en-GBAU966AU967&q=LBO+Model+vs+dcf&spell=1&sa=X&ved=2ahUKEwjwzKrts6n4AhU_-jgGHeBJAOYQirwEKAB6BAgBEDI&biw=1229&bih=576&dpr=1.56
-            "M&A Model"
-            // "Review asset accounts",
-            // "Review liability accounts",
-            // "Review revenue accounts",
-            // "Review expense accounts",`,
+              "IPO layout (Initial public offering model)", //https://the-cfo.io/2019/11/06/what-are-the-different-financial-models/
+              "Discounted Cash Flow (DCF) and LBO Models", // https://www.investopedia.com/terms/d/dcf.asp, https://www.google.com/search?rlz=1C1CHBF_en-GBAU966AU967&q=LBO+Model+vs+dcf&spell=1&sa=X&ved=2ahUKEwjwzKrts6n4AhU_-jgGHeBJAOYQirwEKAB6BAgBEDI&biw=1229&bih=576&dpr=1.56
+              "M&A Model"
+              // "Review asset accounts",
+              // "Review liability accounts",
+              // "Review revenue accounts",
+              // "Review expense accounts",`,
   },
   {
     id: 1204,
@@ -1920,6 +1819,18 @@ export const data = [
     nickname: "accounts-compliance",
   },
   {
+    id: 124,
+    parent: 12,
+    status: "5. Hold",
+    name_singular: "conformance",
+    display_singular: "Conformance",
+    description:
+      "Accounts & Finance Compliance (legally, to GAAP priciples, tax compliance, etc.)",
+    summary:
+      "End of month/year closures, P&L, Balance Sheet, Accounting compliance, tax submissions",
+    nickname: "accounts-conformance",
+  },
+  {
     id: 1240,
     parent: 124,
     status: "5. Hold",
@@ -2039,6 +1950,18 @@ export const data = [
     description: "Description of how users will perform tasks",
     summary: "Specific situations in which a product or service can be used",
     nickname: "product-catalog-solutions-usecases",
+  },
+  {
+    id: 130100,
+    parent: 13010,
+    status: "0. New",
+    name_singular: "sequences",
+    display_singular: "Sequences",
+    description:
+      "Workflows in the product.",
+    summary:
+      "Use Case Flows / User paths that are bundles of user stories",
+    nickname: "product-catalog-solutions-usecases-sequences",
   },
   {
     id: 130101,
@@ -3101,7 +3024,57 @@ export const data = [
     name_singular: "performance",
     display_singular: "Performance",
     description: "Performance management",
+    summary:
+      "performance tracking, management and reviews (both ways, not just employer->employee",
     nickname: "personnel-development-performance",
+  },
+  {
+    id: 160300,
+    parent: 16030,
+    status: "5. Hold",
+    name_singular: "tracking",
+    display_singular: "Tracking",
+    description: "Performance tracking",
+    nickname: "personnel-development-performance-tracking",
+  },
+  {
+    id: 160301,
+    parent: 16030,
+    status: "5. Hold",
+    name_singular: "management",
+    display_singular: "Management",
+    description: "Performance management",
+    nickname: "personnel-development-performance-management",
+  },
+  {
+    id: 160302,
+    parent: 16030,
+    status: "5. Hold",
+    name_singular: "reviews",
+    display_singular: "Reviews",
+    description: "Performance reviews",
+    nickname: "personnel-development-performance-reviews",
+  },
+  {
+    id: 160303,
+    parent: 16030,
+    status: "5. Hold",
+    name_singular: "feedback",
+    display_singular: "Feedback",
+    description:
+      "Two way feedback (the employee should also be able to openly provide feedback to the company",
+    summary:
+      "To be ethical, there must be an option for the feedback to be anonymous - Else data should be considered inaccurate and compromised.",
+    nickname: "personnel-development-performance-x",
+  },
+  {
+    id: 160304,
+    parent: 16030,
+    status: "5. Hold",
+    name_singular: "y",
+    display_singular: "y",
+    description: "",
+    nickname: "personnel-development-performance-y",
   },
   {
     id: 16031,
@@ -3120,10 +3093,29 @@ export const data = [
     status: "5. Hold",
     name_singular: "engagement",
     display_singular: "Engagement",
-    summary: "Training & Development",
-    description:
+    description: "Employee engagement",
+    summary:
       "Strategies and initiatives aimed at promoting a positive workplace culture and improving employee satisfaction, motivation, and commitment.",
     nickname: "personnel-development-engagement",
+  },
+  {
+    id: 16030,
+    parent: 1603,
+    status: "5. Hold",
+    name_singular: "skills",
+    display_singular: "Skills",
+    description: "Career Pathways",
+    summary: "A module to explore and outline potential career progressions.",
+    nickname: "personnel-development-skills",
+  },
+  {
+    id: 16030,
+    parent: 1603,
+    status: "5. Hold",
+    name_singular: "pathways",
+    display_singular: "Pathways",
+    description: "Skills & Certifications",
+    nickname: "personnel-development-skills",
   },
   {
     id: 1604,
@@ -3187,6 +3179,35 @@ export const data = [
     display_singular: "Timesheets",
     description: "",
     nickname: "personnel-attendance-timesheets",
+  },
+  {
+    id: 16130,
+    parent: 1613,
+    status: "0. New",
+    name_singular: "timeentries",
+    display_singular: "Time Entries",
+    description: "",
+    nickname: "personnel-attendance-timesheets-timeentries",
+  },
+  {
+    id: 16131,
+    parent: 1613,
+    status: "0. New",
+    name_singular: "timesheetsubmissions",
+    display_singular: "Timesheet Submissions",
+    description: "",
+    nickname: "personnel-attendance-timesheets-timesheetsubmissions",
+  },
+  {
+    id: 16132,
+    parent: 1613,
+    status: "0. New",
+    name_singular: "timesheetapprovals",
+    display_singular: "Timesheet Approvals",
+    description: "Multi Level timesheet approvals from line managers",
+    notes:
+      "Often the line manager will evaluate from an employee performance perspective, and the billing manager will review from a billing suitability perspective",
+    nickname: "personnel-attendance-timesheets-timesheetapprovals",
   },
   {
     id: 162,
@@ -3411,6 +3432,55 @@ export const data = [
     display_singular: "Safety",
     description: "Health & Safety",
     nickname: "personnel-welfare-safety",
+    notes:
+      "also referred to as OHS, OH&S, OSH, H&S and other formats depending on the country",
+    ISSUE:
+      "scope is an issue here, because it's not just Personnel that is affected - Other stakeholders are too. This would make more sense in Systems.",
+  },
+  {
+    id: 16300,
+    parent: 1630,
+    status: "5. Hold",
+    name_singular: "emergencies",
+    display_singular: "Emergencies",
+    description: "Emergency procedures",
+    nickname: "personnel-welfare-safety-emergencies",
+  },
+  {
+    id: 16301,
+    parent: 1630,
+    status: "5. Hold",
+    name_singular: "checks",
+    display_singular: "Checks",
+    description: "Routine inspections and OHS checklists",
+    nickname: "personnel-welfare-safety-checks",
+  },
+  {
+    id: 16302,
+    parent: 1630,
+    status: "5. Hold",
+    name_singular: "incidents",
+    display_singular: "Incidents",
+    description: "Incident reporting",
+    nickname: "personnel-welfare-safety-incidents",
+  },
+  {
+    id: 16303,
+    parent: 1630,
+    status: "5. Hold",
+    name_singular: "x",
+    display_singular: "x",
+    description: "",
+    nickname: "personnel-welfare-safety-x",
+  },
+  {
+    id: 16304,
+    parent: 1630,
+    status: "5. Hold",
+    name_singular: "y",
+    display_singular: "y",
+    description: "",
+    nickname: "personnel-welfare-safety-y",
   },
   {
     id: 1631,
@@ -3620,6 +3690,24 @@ export const data = [
     display_singular: "Quality",
     description: "Quality Assurance and Control",
     nickname: "project-control-quality",
+  },
+  {
+    id: 18000,
+    parent: 1800,
+    status: "0. New",
+    name_singular: "qualitycontrol",
+    display_singular: "Quality Control",
+    description: "",
+    nickname: "project-control-quality-qualitycontrol",
+  },
+  {
+    id: 18001,
+    parent: 1800,
+    status: "0. New",
+    name_singular: "qualityassurance",
+    display_singular: "Quality Assurance",
+    description: "",
+    nickname: "project-control-quality-qualityassurance",
   },
   {
     id: 1801,
@@ -4009,8 +4097,9 @@ export const data = [
     status: "0. New",
     name_singular: "testing",
     display_singular: "Testing",
+    description: "Tests and validation for the solution/deliverable",
     summary:
-      "Tests and validation for the solution/deliverable, rollbacks for failed tests, monitoring periods to confirm fixes",
+      "Tests and validation, rollbacks for failed tests, monitoring periods to confirm fixes",
     nickname: "project-execution-testing",
   },
   {
@@ -4019,6 +4108,59 @@ export const data = [
     status: "0. New",
     name_singular: "tests",
     display_singular: "Tests",
+    description: "Undertake testing and validation",
+    summary: `
+    Performance Testing
+      Stress Testing: This aims to evaluate how a system performs under extreme conditions. The system is pushed beyond its normal operational capacity to see how it handles high or peak loads. The goal is to identify the breaking point of the system.
+      Load Testing: This is more focused on simulating real-world load conditions for the system. It aims to determine how the system behaves under expected load conditions and to identify bottlenecks that could affect its performance.
+    Functional Testing
+      Unit Testing: Validates individual components or units of a software.
+      Integration Testing: Validates interactions between integrated components.
+      System Testing: Validates the entire system as a whole.
+      Regression Testing: Ensures that new changes don't break existing functionalities.
+      Smoke Testing: Quick, preliminary tests to show that the critical functionalities work.
+      Sanity Testing: Narrow scope testing, conducted when a minor change occurs in the code.
+      Acceptance Testing: Validates that the system meets business requirements.
+    Non-Functional Testing
+      Performance Testing: Assesses system performance under various conditions.
+        Stress Testing: This aims to evaluate how a system performs under extreme conditions. The system is pushed beyond its normal operational capacity to see how it handles high or peak loads. The goal is to identify the breaking point of the system.
+        Load Testing: This is more focused on simulating real-world load conditions for the system. It aims to determine how the system behaves under expected load conditions and to identify bottlenecks that could affect its performance.
+      Usability Testing: Evaluates the user interface and overall user experience.
+      Security Testing: Checks for vulnerabilities, risks, and threats in the application.
+      Compatibility Testing: Ensures that the software runs on different combinations of hardware, OS, and networks.
+      Reliability Testing: Assesses how fault-tolerant a system is.
+      Scalability Testing: Determines if the system can handle increased load.
+    Specialized Testing
+      Exploratory Testing: Unscripted testing to explore the application's functionality.
+      End-to-End Testing: Validates the flow of an application from start to finish.
+      Beta Testing: Performed by real users of the software application in a real environment.
+      Database Testing: Validates databases and their data integrity.
+      Localization Testing: Checks the quality of a product's localization for a particular culture/locale.
+      Accessibility Testing: Ensures that the application can be used by people with disabilities.
+    Automated Testing
+      API Testing: Validates the application programming interfaces (APIs).
+      GUI Testing: Tests the graphical user interface of the application.
+    Platform Testing
+      Installation Testing: Validates the installation process and behavior of the application.
+      Operational Testing: Validates backup and recovery procedures.
+      Hardware-Software Integration Testing
+    Lifecycle and Methodology Testing
+      Continuous Testing: Ongoing testing in a CI/CD environment.
+      A/B Testing: Compares two versions of a webpage or app against each other.
+      Agile Testing: Testing practices designed to fit Agile development methodologies.
+        Iterative Testing
+        User Story Validation
+      DevOps Testing: Testing integrated into the DevOps pipeline.
+        Continuous Testing
+        Infrastructure as Code Testing
+      Waterfall Testing: Traditional testing in a sequential development environment.
+        Phase-specific Testing (e.g., Requirements, Design, Implementation)
+      TDD/BDD: Test-Driven Development and Behavior-Driven Development.
+        Red-Green-Refactor
+        Scenario Testing
+      V-Model Testing: Validation and Verification model.
+        Parallel Development and Testing Phases
+    `,
     nickname: "project-execution-testing-tests",
   },
   {
@@ -4064,10 +4206,11 @@ export const data = [
     id: 18401,
     parent: 1840,
     status: "0. New",
-    name_singular: "training",
-    display_singular: "Training",
-    summary: "",
+    name_singular: "induction",
+    display_singular: "Induction",
     description: "",
+    summary:
+      "Training users/teams that are inheriting or using the project deliverables",
     nickname: "project-evaluation-handover-training",
   },
   {
@@ -4173,18 +4316,170 @@ export const data = [
     id: 190,
     parent: 19,
     status: "5. Hold",
-    name_singular: "offerings",
-    display_singular: "Offerings",
-    description:
-      "MOVE THIS TO GOVERNANCE>MODEL? Management of your company offerings (products / services)",
+    name_singular: "AUTOMATION+WORKFLOWS",
+    display_singular: "AUTOMATION+WORKFLOWS",
+    description: "Add in automation and workflows (to be confirmed where)",
+    nickname: "system-AUTOMATION+WORKFLOWS",
+  },
+  {
+    id: 190,
+    parent: 19,
+    status: "5. Hold",
+    name_singular: "OFFERINGS-MOVETOGOVERNANCEORACCOUNTS?",
+    display_singular: "OFFERINGS-MOVETOGOVERNANCEORACCOUNTS?",
+    description: "Management of your company offerings (products / services)",
     summary: [
       "Work with you to establish and maintain core offerings (products & services)",
       "Set and maintain rates, and schedule pricing reviews annually or more frequently",
       "Maintain customer/marketing facing offerings & pricing materials",
       "Provide reporting on core offerings and their successes/issues",
     ],
-    features: [],
     nickname: "system-offerings",
+  },
+  {
+    id: 1900,
+    parent: 190,
+    status: "5. Hold",
+    name_singular: "products_and_services",
+    display_singular: "Products & Services",
+    description: "Determine what your company offers",
+    summary:
+      "Compilation of the Product > Catalog (and dictates what products/components are designed and obtained in Product>Catalog",
+    nickname: "system-offerings-products_and_services",
+  },
+  {
+    id: 1901,
+    parent: 190,
+    status: "5. Hold",
+    name_singular: "prices",
+    display_singular: "Prices",
+    description: "Set prices for products and services you are selling",
+    summary:
+      "Either manual price changes or automatic contract increases (e.g. contracts that stipulate that prices will be increased by inflation+3% YoY.)",
+    nickname: "system-offerings-prices",
+    notes: `Factors that should be catered for in pricing:
+      Inflation. 5-10% YoY is common. For 22/23/24 10% should be considered due to unprescedented inflation. Some other countries with runaway inflation need to cater for this more often.
+
+      Discount Strategy: Policies and rules for when and how to offer discounts, be it seasonal, bulk, or targeted to certain customer segments.
+      Cost Structure: An understanding of how the various costs (fixed, variable, direct, and indirect) affect the pricing strategy.
+      Price Localization: Adjusting pricing strategy for different geographic locations or markets.
+      Revenue Stream Identification: Analysis of various ways the product or service could be monetized, beyond straightforward sales.
+      Psychological Pricing: Implementing pricing techniques that take advantage of psychological triggers (e.g., $9.99 instead of $10.00).
+      Value-Based Pricing: Establishing price points based on the perceived value to the customer rather than solely on cost or market conditions.
+      Dynamic Pricing: Real-time price adjustments based on current market demand, time, or other variables.
+      Price Testing: A/B or multivariate tests to understand how different price points affect customer behavior and sales.
+      Customer Lifetime Value (CLV) Analysis: Factoring in the net profit attributable to the entire future relationship with a customer.
+      Regulatory Compliance: Ensuring that pricing models and changes comply with local, state, or federal laws.
+      Channel Pricing: Adjusting pricing based on the sales channel (e.g., online vs. physical store).
+      Bundling and Unbundling: Offering groups of products or services together at a reduced price, or selling previously bundled items separately.
+      Price Skimming: Starting with a high price and lowering it over time to maximize profits from different consumer segments.
+      Price Discrimination: Offering different prices to different customer groups based on elasticity or other factors.
+      Peer and Industry Benchmarking: Regularly comparing your prices and strategies to industry averages or similar businesses.
+      Ancillary Revenue: Identifying and capitalizing on secondary revenue streams that may be related to the primary product/service (e.g., extended warranties).
+      Trade Terms: Conditions under which a product will be sold to intermediaries like wholesalers, including pricing and discounts.
+      Payment Plans and Financing: Offering various methods for customers to finance their purchase, which can also affect the overall price perception.
+      Pricing Audits: Regular internal or external reviews to ensure that the pricing strategy is being effectively implemented and is achieving desired results.
+      Price Anchoring: Utilizing a reference price around which other prices can be compared, affecting customer perception of value.
+      Cross-Channel Consistency: Ensuring prices are consistent across all sales channels to prevent channel conflict.
+      Penetration Pricing: Strategies to gain market share by initially setting lower prices.
+      Exit Pricing: Policies for how to price products that are about to be phased out or discontinued.
+      Loss Leader Strategy: Offering products at a loss to attract customers who will then purchase more profitable items.
+      Seasonal Pricing: Adjusting prices according to seasonal demand fluctuations.
+      Event-Based Pricing: Special pricing around events (holidays, sales events, etc.)
+      Tactical Pricing: Short-term pricing adjustments in response to immediate market conditions or actions by competitors.
+      Loyalty and Rewards Pricing: Pricing benefits for customers who participate in loyalty programs.
+      Multi-currency Pricing: Setting prices in different currencies for international markets.
+      Differential Pricing: Different pricing structures for various editions or versions of the product.
+      Freemium Pricing: Offering basic features for free while charging for premium features.
+      Cost-Plus Pricing: Simply adding a markup to the cost of goods sold.
+      Decoy Pricing: Using a third pricing option to make one of the other two options more attractive.
+      Two-Part Tariff: A pricing model that includes a fixed fee plus a variable consumption rate.
+      Rate Cards: Formal documentation outlining standard prices for products or services, typically for B2B.
+      Index-Based Pricing: Linking prices to a published index such as inflation rates or commodity prices.
+      SaaS Tiering: Specific to SaaS products, pricing based on service tiers with different feature sets.
+      Custom Pricing: Tailoring pricing for individual clients or situations, often in a B2B context.
+      Scarcity Pricing: Creating a sense of urgency or exclusivity to encourage immediate purchase at the given price.
+      Hedging Strategies: Using financial instruments to offset potential losses from price volatility, often in commodities.
+      `,
+  },
+  {
+    id: 19010,
+    parent: 1901,
+    status: "5. Hold",
+    name_singular: "elasticity",
+    display_singular: "Elasticity",
+    description:
+      "Price Elasticity Modeling / Revenue Optimization - planning for how changes in price will impact demand (and consequently, revenue)",
+    summary:
+      "The act of planning for prices and how they will relate to revenue (e.g. if we raise prices from x to y what will the impact on demand be?). In economics and business, this is often related to the concept of 'price elasticity of demand', which quantifies how sensitive the quantity demanded of a good is to a change in price",
+    nickname: "system-offerings-prices-elasticity",
+  },
+  {
+    id: 19011,
+    parent: 1901,
+    status: "5. Hold",
+    name_singular: "discretion",
+    display_singular: "Discretion",
+    description: "Discount Strategy",
+    summary:
+      "Leeway and allowed fluctuations on RRP/ Gross Profit. For example, a salesperson might be allowed to reduce GP to 10% to get a deal over the line",
+    nickname: "system-offerings-prices-discretion",
+  },
+  {
+    id: 19012,
+    parent: 1901,
+    status: "5. Hold",
+    name_singular: "banding",
+    display_singular: "Banding",
+    description:
+      "Grouping various price points under specific categories for easier management or customer understanding.",
+    summary: `This might then be used in determining the price (e.g. whether a product should be fit into a certain band). This helps to compare products and make sure all products are appropriately valued in relation to each other.`,
+    notes: ` Examples:
+              Electronics Store: Laptops may be grouped by price ranges such as $500-$699, $700-$999, and $1000-$1500, offering a band within which various models fall.
+              Clothing Retailer: T-shirts could be banded into price categories like $20-$30, $31-$40, and $41-$50.
+              Grocery Store: Organic fruits might be banded into ranges like $1-$3 per pound, $4-$6 per pound, and $7-$9 per pound.
+              SaaS Products: Software as a Service (SaaS) subscriptions may offer three bands - Basic, Pro, and Enterprise, each having a specific price range.
+              Hotels: Room rates may be banded into ranges like Economy ($100-$150), Standard ($151-$200), and Premium ($201-$300).
+              Car Dealership: Used cars could be grouped into bands like $5000-$10000, $10001-$15000, and $15001-$20000.
+              Online Marketplace: On platforms like eBay or Amazon, sellers might use price banding to categorize products by price range to help buyers quickly find what they're looking for.
+          `,
+    nickname: "system-offerings-prices-banding",
+  },
+  {
+    id: 19013,
+    parent: 1901,
+    status: "5. Hold",
+    name_singular: "modifications",
+    display_singular: "Modifications",
+    description:
+      "Implement a price change/adjustment (with a date set for when it will come into effect).",
+    summary: `After the change is applied to your product catalog, there should be a rule/check to ensure that prices haven't gone down uninentionally, or risen by >X% depending on requirements.
+        How to cater for inflation if trading internationally:
+        Weighted Average Inflation: This approach is often used when costs are incurred in multiple currencies. The inflation rates are weighted according to the proportion of costs in each currency.
+        Higher of the Two: Some businesses opt for this conservative approach to ensure they are covered for increases in costs. This is more common when there is high volatility in either inflation rates or exchange rates.
+        Currency of Major Expenditure: If the majority of expenses are in one currency, companies may use the inflation rate of that currency as the basis for price adjustments.
+        Peg to a third party (unrelated) currency, e.g. USD.
+        `,
+    nickname: "system-offerings-prices-modifications",
+  },
+  {
+    id: 19014,
+    parent: 1901,
+    status: "5. Hold",
+    name_singular: "awareness",
+    display_singular: "Awareness OR DATE OF EFFECT",
+    description: "Alert any affected stakeholders",
+    summary: `
+        Primarily, customers (especially current subscribers) should be made aware of the impending price change, with appropriate notice period.
+        When to apply a price increase:
+        - Immediate / as of next billing date (+appropriate notice buffer) - For significant increase in costs.
+        - CY
+        - FY
+        - Contract anniversary date (most common)
+        Add Value
+        When you increase your prices, impart the value / justify the increase. think of a free gift or service you can add to increase the value. Clients will be less likely to feel uneasy about the increase in price.
+     `,
+    nickname: "system-offerings-prices-awareness",
   },
   {
     id: 191,
@@ -4253,7 +4548,12 @@ export const data = [
     status: "5. Hold",
     name_singular: "technology",
     display_singular: "Technology",
-    description: "Your business software, hardware and infrastructure stack",
+    description: `Your business software, hardware and infrastructure stack. 
+    ADD 'DOWNTIME' TO A SUBMODULE HERE OR IN PRODUCT:
+    If we become aware of (external but also internal) product with current downtime (from outage detectors) or impending downtime (via alerts, emails or banners on websites), it should be added in (automatically where possible).
+    Then it should automatically (via templates, if enabled) create tasks to inform stakeholders (internal or otherwise)
+    We should also be able to track uptime % of internal and external services.
+    `,
     nickname: "system-technology",
   },
   {
@@ -4557,7 +4857,7 @@ export const data = [
     parent: 19,
     status: "5. Hold",
     name_singular: "data",
-    display_singular: "Data",
+    display_singular: "DATA_MOVEINTOPROCESS?",
     description: "",
     summary: "",
     nickname: "system-data",
@@ -5025,14 +5325,14 @@ export const data = [
   },
 ];
 
-// console.log('data',data.filter(x=>!x.display_singular))
+// console.info('data',data.filter(x=>!x.display_singular))
 // const newData = data.map((x,i)=>x={
 //     ...x,
 //     type: 'Area',
 //     class: 'Category',
 //     categoryid:
 // })
-// console.log('newData',newData)
+// console.info('newData',newData)
 
 // function prepCategoriesForEntryIntoDatabase(){
 //     let dataWithNewIds = []
@@ -5061,13 +5361,217 @@ export const data = [
 
 //     })
 //     let relationshipsToCreate = []
-//     console.log('dataWithNewParents',dataWithNewParents)
-//     console.log('entitiesToCreate',entitiesToCreate)
-//     console.log('relationshipsToCreate',relationshipsToCreate)
+//     console.info('dataWithNewParents',dataWithNewParents)
+//     console.info('entitiesToCreate',entitiesToCreate)
+//     console.info('relationshipsToCreate',relationshipsToCreate)
 // }
 // prepCategoriesForEntryIntoDatabase()
 
 // const newData = data;
 // export {newData}
 
-// console.log(data.filter(x=>x.id>99999))?.length();
+// console.info(data.filter(x=>x.id>99999))?.length();
+
+// import { createUuid4, typeUuid4, validateUuid4 } from './uuid' // note that we generate the id for tables here on the client / edge side (not the cloud db side), so that we can make immediate/optimistic changes to the ui & cache.
+
+// console.info(createUuid4())
+// function processdatum (inputid){
+//     let datum = data.find(x=>x.id===inputid)
+//     let item = inputid+'//';delete datum?.id
+//     item = item+(datum?.parent||'')+'//'; delete datum?.parent
+//     item = item+(datum?.title||'')+'//'; delete datum?.title
+//     item = item+(datum?.status||'')+'//'; delete datum?.status
+//     item = item+(datum?.description||'')+'//'; delete datum?.description
+//     item = item+(datum?.name_singular||'')+'//'; delete datum?.name_singular
+//     item = item+(datum?.name_plural||'')+'//'; delete datum?.name_plural
+//     item = item+(datum?.display_singular||'')+'//'; delete datum?.display_singular
+//     item = item+(datum?.display_plural||'')+'//'; delete datum?.display_plural
+//     item = item+(JSON.stringify(datum)||'')
+//     return item
+// }
+
+// let entities = []
+// for(var org=1;org<5;org++){
+//     // var datum = data.find(x=>x.id===org)
+//     // var item = org+'//'
+//     // item = item+(datum?.parent||'')+'//'; delete datum?.parent
+//     // item = item+(datum?.title||'')+'//'; delete datum?.title
+//     // item = item+(datum?.status||'')+'//'; delete datum?.status
+//     // item = item+(datum?.description||'')+'//'; delete datum?.description
+//     // item = item+(datum?.name_singular||'')+'//'; delete datum?.name_singular
+//     // item = item+(datum?.name_plural||'')+'//'; delete datum?.name_plural
+//     // item = item+(datum?.display_singular||'')+'//'; delete datum?.display_singular
+//     // item = item+(datum?.display_plural||'')+'//'; delete datum?.display_plural
+//     // item = item+(JSON.stringify(datum)||'')
+//     // entities.push(item)
+//     entities.push(processdatum(org))
+//     for(var area=1;area<9;area++){
+//         // ids.push(Number(''+org+area));
+//         entities.push(processdatum(area))
+
+//         for(var process=1;process<5;process++){
+//             // ids.push(Number(''+org+area+process));
+//             entities.push(processdatum(process))
+
+//             for(var procedure=1;procedure<5;procedure++){
+//                 // ids.push(Number(''+org+area+process+procedure));
+//                 entities.push(processdatum(procedure))
+
+//                 for(var step=1;step<5;step++){
+//                     // ids.push(Number(''+org+area+process+procedure+step));
+//                     entities.push(processdatum(step))
+
+//                     for(var instruction=1;instruction<5;instruction++){
+//                         // ids.push(Number(''+org+area+process+procedure+step+instruction));
+//                         entities.push(processdatum(instruction))
+
+//                     }
+
+//                 }
+
+//             }
+
+//         }
+
+//     }
+
+// }
+// console.info(entities.join(','))
+// console.info(data);
+// let dataTable = {
+//     'other':[],
+//     'id':[],
+//     'parent':[],
+//     'status':[],
+//     'name_singular':[],
+//     'name_plural':[],
+//     'display_singular':[],
+//     'display_plural':[],
+//     'description':[]
+// }
+// let keys = Object.keys(dataTable)
+
+// for(var i=0;i<data.length;i++){
+
+//     let d = data[i]; // the item from the array that we will get the data from
+
+//     for(var j=0;j<keys.length;j++){ // for each property (id, parent etc.)
+//         dataTable[keys[j]].push(d[keys[j]] || null);    // add
+//         delete d[keys[j]];
+//     }
+
+//     dataTable.other.push(JSON.stringify(d) || null);
+// }
+// // console.info('dataTable',dataTable.id.join());
+
+// let ids = []
+
+// for(var org=1;org<5;org++){
+//     var datum = data.find(x=>x.id===org)
+//     var item = org+'//'
+//     item = item+(datum?.parent||'')+'//'; delete datum?.parent
+//     item = item+(datum?.title||'')+'//'; delete datum?.title
+//     item = item+(datum?.status||'')+'//'; delete datum?.status
+//     item = item+(datum?.description||'')+'//'; delete datum?.description
+//     item = item+(datum?.name_singular||'')+'//'; delete datum?.name_singular
+//     item = item+(datum?.name_plural||'')+'//'; delete datum?.name_plural
+//     item = item+(datum?.display_singular||'')+'//'; delete datum?.display_singular
+//     item = item+(datum?.display_plural||'')+'//'; delete datum?.display_plural
+//     item = item+(JSON.stringify(datum)||'')
+//     ids.push(item)
+//     // ids.push(org+'//'+(org.parent+'//'+org.title+'//'+org.description);
+
+//     // for(var area=1;area<9;area++){
+//     //     ids.push(Number(''+org+area));
+
+//     //     for(var process=1;process<5;process++){
+//     //         ids.push(Number(''+org+area+process));
+
+//     //         for(var procedure=1;procedure<5;procedure++){
+//     //             ids.push(Number(''+org+area+process+procedure));
+
+//     //             for(var step=1;step<5;step++){
+//     //                 ids.push(Number(''+org+area+process+procedure+step));
+
+//     //                 for(var instruction=1;instruction<5;instruction++){
+//     //                     ids.push(Number(''+org+area+process+procedure+step+instruction));
+
+//     //                 }
+
+//     //             }
+
+//     //         }
+
+//     //     }
+
+//     // }
+
+// }
+// // console.info(ids.join(','))
+
+// const properties = ["id","name_singular","name_plural","display_singular","display_plural","parent","status","description"]
+
+// // function to loop through all the objects and find all properties
+// function miscProperties() {
+//     for(var i=0;i<data.length;i++){
+//         const oldObj = data[i];
+//         // Object.keys(oldObj)
+//     }
+//     return data
+// }
+
+// console.info('miscProperties',miscProperties())
+
+// //
+// function getUniqueTopLevelProperties(objectsArray) {
+//     const propertiesSet = new Set();
+
+//     objectsArray.forEach((obj) => {
+//       Object.keys(obj).forEach((property) => {
+//         if(!properties.includes(property)) {propertiesSet.add(property);}
+//       });
+//     });
+
+//     return Array.from(propertiesSet);
+//   }
+
+// console.info('getUniqueTopLevelProperties',getUniqueTopLevelProperties(data))
+
+// // show any items that are missing properties
+// function getMissingPropertyItems(objectsArray) {
+//     let newArr = []
+//     objectsArray.forEach((obj) => {
+//         // if(!obj['subheading'] && obj.id <100){newArr.push(obj.id)}
+//         if(!obj['display_singular']){newArr.push(obj.id)}
+//         // properties.forEach((property)=>{if(!obj[property]){newArr.push(obj.id)}})
+//     });
+//     return newArr
+//   }
+
+// console.info('getMissingPropertyItems',getMissingPropertyItems(data))
+
+// const nicknamed = ()=> {
+//     let newData = []
+//     data.forEach((x)=>{
+//         const parent = data.find(y=>y.id===x.parent)
+//         const pnick =  x.id > 99 && parent.name_singular
+//         const grandparent = data.find(z=>z.id===parent?.parent)
+//         const gnick =  x.id > 999 && grandparent.name_singular
+//         newData.push({
+//             ...x,
+//             nickname: (gnick ? gnick +'-' :'') + (pnick ? pnick +'-' :'') + x.name_singular
+
+//         })
+//     })
+//     return newData
+//         // const nicknames = data.map(x=>x={
+//         //     ...x,
+//         //     nickname:
+//         //         (x?.grandparentobj?.name_singular ? (x?.grandparentobj?.name_singular + '-'):'')
+//         //         + (x?.parentobj?.name_singular ? (x?.parentobj?.name_singular + '-'):'')
+//         //         + x.name_singular,
+
+//         // })
+//         // return nicknames
+// }
+// console.info(nicknamed())

@@ -170,7 +170,7 @@ export const useEntityCount = ({ filter_array }: any) => {
           .from("entities_orgmenta")
           .select("*", { count: "exact", head: true })
           // todo: implement filter_array here
-          .then((response) => response)
+          .then((response:any) => response)
       );
     },
     enabled: true,

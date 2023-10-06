@@ -49,18 +49,9 @@ import { ViewStripeWrappermain } from "./utils/stripe-test";
 import { useState } from "react";
 
 export default function App() {
-  usePlatformCssweb(); // shim to add css to web
-  const [publishableKey, setPublishableKey] = useState<string>("");
-  async () => {
-    if (__DEV__) {
-      setPublishableKey(`${process.env.STAGING_STRIPE_PUBLISHABLE_KEY}`);
-    } else {
-      setPublishableKey(`${process.env.PRODUCTION_STRIPE_PUBLISHABLE_KEY}`);
-    }
-  };
-  return (
-    // <ViewMsalProvider instance={msalInstance}> */}
-    <ViewStripeWrappermain publishableKey={publishableKey}>
+   usePlatformCssweb(); // shim to add css to web
+   const AppBody = () => {
+    return (
       <ViewRouterProvider>
         <ViewQueryerProvider>
           <ViewStatusbarMain />
@@ -225,7 +216,7 @@ export default function App() {
           </ViewWindowMain>
         </ViewQueryerProvider>
       </ViewRouterProvider>
-    </ViewStripeWrappermain>
-    // </ViewMsalProvider> */}
-  );
+    );
+  };
+  return <AppBody />;
 }

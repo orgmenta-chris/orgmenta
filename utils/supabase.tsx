@@ -6,12 +6,28 @@ import * as SecureStore from "expo-secure-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import "react-native-url-polyfill/auto";
 import { UtilityPlatformMain } from "./platform";
-import { createClient } from "@supabase/supabase-js";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { createClient as createSupabaseClient, useQuery, useMutation, useQueryClient } from "@supabase/supabase-js";
+import {
+  STAGING_SUPABASE_URL,
+  STAGING_SUPABASE_PUBLIC_KEY,
+  PRODUCTION_SUPABASE_URL,
+  PRODUCTION_SUPABASE_PUBLIC_KEY,
+} from "@env";
 
 // (Mobile Only) Secure Store.
 // If this is used elsewhere in the project, it will be split out into its own module / migrated to 'storage' (storage>local/clients).
 // We will use useQuery+asyncstorage+encryption instead (to work on web) once the encryption for it is confirmed as secure.
+let supabaseURL: any;
+let supabaseAnonKey: any;
+
+if (__DEV__) {
+  supabaseURL = `${STAGING_SUPABASE_URL}`;
+  supabaseAnonKey = `${STAGING_SUPABASE_PUBLIC_KEY}`;
+} else {
+  supabaseURL = `${PRODUCTION_SUPABASE_URL}`;
+  supabaseAnonKey = `${PRODUCTION_SUPABASE_PUBLIC_KEY}`;
+}
+
 export const ExpoSecureStoreAdapter = {
   getItem: (key: string) => {
     return SecureStore.getItemAsync(key);
@@ -42,8 +58,13 @@ export const createSupabaseClient = createClient;
 
 export const instanceSupabaseClient = createSupabaseClient(
   // create an instance of the supabase client class
-  process.env.STAGING_SUPABASE_URL!, //The ! asserts that the variable is not undefined.
-  process.env.STAGING_SUPABASE_PUBLIC_KEY!, //The ! asserts that the variable is not undefined.
+  
+  
+supabaseURL,
+supabaseAnonKey,
+// process.env.STAGING_SUPABASE_URL!, //The ! asserts that the variable is not undefined.
+// process.env.STAGING_SUPABASE_PUBLIC_KEY!, //The ! asserts that the variable is not undefined.
+
   {
     auth: {
       storage:

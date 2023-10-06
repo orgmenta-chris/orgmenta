@@ -5,6 +5,13 @@ import { Text, ScrollView, View, Image, ImageBackground } from "react-native";
 import { mapTypeMain } from "../utils/type";
 import Svg, { Path, G } from "react-native-svg";
 import { useWindowDimensions } from "../utils/window";
+import { UseBarcodeReader, UseCamera } from "../utils/camera";
+import { UseClipboardCopy } from "../utils/clipboard";
+import { NotificationBody, UseNotification } from "../utils/notification";
+import { UseSoundPlayer, UseSoundRecorder, UseVideoPlayer } from "../utils/av";
+import { UseNewStripeWrapperFunctions, UseStripeFunctions } from "../utils/stripe";
+import { UtilityPlatformMain } from "../utils/platform";
+import { StripeProvider } from "@stripe/stripe-react-native";
 import { ViewInquiryMain } from "../utils/inquiry";
 import { arrayIndustryProducts } from "../utils/roadmap";
 
@@ -515,6 +522,30 @@ export default function Home() {
                 Contact Form
               </Text>
               <ViewInquiryMain />
+              {/* Barcode Scanner (working) */}
+              {/* <UseBarcodeReader /> */}
+
+              {/* Camera (working) */}
+              {/* <UseCamera /> */}
+
+              {/* Clipboard copy (working) */}
+              {/* <UseClipboardCopy /> */}
+
+              {/* Notification component (working) */}
+              {/* <UseNotification {...notificationBody} /> */}
+
+              {/* Play sound (working) */}
+              {/* <UseSoundPlayer /> */}
+
+              {/* Record sound (working) */}
+              {/* <UseSoundRecorder /> */}
+
+              {/* Play video (working) */}
+              {/* <UseVideoPlayer /> */}
+
+              {/* Test Stripe/supbase db functions (working) */}
+              {/* <UseStripeFunctions /> */}
+              <UseNewStripeWrapperFunctions />
             </View>
           </View>
           <View style={{ height: 1000 }} />

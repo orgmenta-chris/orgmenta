@@ -2,24 +2,21 @@ import { ViewPageMain } from "../utils/page";
 import { ViewDisplayDynamic } from "../utils/display";
 import { ViewActionTabs } from "../utils/action";
 import { ViewFocusMain } from "../utils/focus";
+import { useAuxiliaryArray } from "../utils/auxiliary";
 import { useSpaceState, TypeSpaceState } from "../utils/space";
-import {
-  useEntityArray,
-  useEntitySingle,
-  useEntitySchema,
-} from "../utils/entity";
+import { useEntitySingle, useEntitySchema } from "../utils/entity";
 import { useRouterLocation } from "./../utils/router";
 import { View } from "react-native";
 
 export default function Entity() {
-  const space = useSpaceState(["space", "selected"]);
-  const paths = useRouterLocation()?.paths;
-  const display = paths?.[3]; // this will eventually be passed as the component prop instead of hardcoded here
-  const category = paths?.[2]; // this will eventually be passed as the component  prop instead of hardcoded here
-  const spacename = (space.data as TypeSpaceState["data"])?.spacename;
-  // todo: auxiliary data doesn't have relationships table joined to it yet
-  const auxiliary = useEntityArray(spacename, [category]);
-  const focus = useEntitySingle({ category });
+  const spaceSelected = useSpaceState(["space", "selected"]);
+  const routerPaths = useRouterLocation()?.paths;
+  const focus = useEntitySingle({ entityFocus: routerPaths?.[2] });
+  const auxiliary = useAuxiliaryArray({
+    space_name: (spaceSelected as TypeSpaceState)?.data?.spacename,
+    filters_array: [], //todo
+    column_names: [], //todo
+  });
   const schema = useEntitySchema();
   return (
     <ViewPageMain>
@@ -32,7 +29,7 @@ export default function Entity() {
           auxiliary={auxiliary}
           schema={schema}
           focus={focus}
-          display={display}
+          display={routerPaths?.[3]}
         />
       </View>
       {/* Show the actions tabs/links (e.g. add,edit,copy,delete,share etc.*/}

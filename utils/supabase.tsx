@@ -6,7 +6,9 @@ import * as SecureStore from "expo-secure-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import "react-native-url-polyfill/auto";
 import { UtilityPlatformMain } from "./platform";
-import { createClient as createSupabaseClient, useQuery, useMutation, useQueryClient } from "@supabase/supabase-js";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { createClient } from "@supabase/supabase-js";
+
 import {
   STAGING_SUPABASE_URL,
   STAGING_SUPABASE_PUBLIC_KEY,

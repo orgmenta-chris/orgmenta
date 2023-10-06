@@ -15,7 +15,7 @@ export const useAuxiliaryArray = ({
     "NON-EXISTING-COLUMN",
     "",
   ]);
-  console.info("useAuxiliaryArray columns", column_names);
+  // console.info("useAuxiliaryArray columns", column_names);
   const queryKey = ["auxiliary", space_name, filters];
   const queryFn = async () =>
     requestAuxiliaryArray({ space_name, column_names });

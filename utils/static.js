@@ -67,7 +67,20 @@ export const data = [
     status: "5. Hold",
     name_singular: "plan",
     display_singular: "Plan",
-    description: "Business Plan",
+    description: `"Business Plan"
+    Choosing the business offering
+    Red blue ocean
+    Something that won't burn you out, won't make you hate it, dont mind hobby being no longer a hobby, sustainable
+    if lifestyle biz, know that it is.
+    something without a dead-end
+    something without unnecessary risk
+    no unnecessary dependency on platforms, current environment, political upheaval etc.
+    something expandable to the size you want and need
+    long term survival
+    something you gave the ability to learn /grow into (yourself, or able to engage necessary skills and rssources from others)
+    something that adds value to the world, does not
+    something where if you ikebana all of your externalities, it will still be sustainable
+`,
     nickname: "governance-model-plan",
   },
   {

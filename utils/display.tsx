@@ -145,8 +145,8 @@ export const ViewDisplayTable = (props: any) => {
 export const ViewDisplayCalendar = (props: any) => {
   return (
     <View style={{ flex: 1 }}>
-      <ViewCalendarMain/>
-      {/* <ViewCalendarContainer/> */}
+      {/* <ViewCalendarMain/> */}
+      <ViewCalendarContainer/>
     </View>
   );
 };

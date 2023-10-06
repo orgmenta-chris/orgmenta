@@ -1,3 +1,6 @@
+
+import { useWindowDimensions } from "./window";
+import { ViewModalMain } from "./modal";
 import {
   Calendar,
   CalendarProps,
@@ -23,6 +26,54 @@ import {
   Button,
 } from "react-native";
 import { useState, ReactElement } from "react";
+
+
+// Container (compilation of multiple components)
+
+export const ViewCalendarContainer = ({ events }: any) => {
+  events = examplesCalendarEvent; // testing
+  const windowDimensions = useWindowDimensions();
+  const ControlPanel = windowDimensions.width < 768 ? ViewModalMain : View; // Note for Chris as reminder: maybe use this instead of the conditional below, if props play nice with the two types. OR, make ViewModalMain have an inline type.
+  return (
+    <View
+      key={"container"}
+      style={{ height: "100%", width: "100%", flexDirection: "row" }}
+    >
+      { windowDimensions.width < 768 ?
+        <ViewModalMain>
+          <ViewCalendarButtons />
+          <View style={{ height: 200, margin: 10 }}>
+            <ViewCalendarPicker />
+          </View>
+          <View style={{ flex:1, margin: 10 }}>
+          <ViewCalendarCalendars />
+          </View>
+        </ViewModalMain>
+        :
+        <View key={"left-panel"} style={{ flex: 1, width: 100, margin: 20 }}>
+          <ViewCalendarButtons />
+          <View style={{ height: 200, margin: 10 }}>
+            <ViewCalendarPicker />
+          </View>
+          <View style={{ flex:1, margin: 10 }}>
+          <ViewCalendarCalendars />
+          </View>
+        </View>
+      }
+      <View
+        key={"right-panel"}
+        style={{ flex: 4, margin: 20, flexDirection: "column" }}
+        // onLayout={onLayout}
+      >
+        <View style={{ height: 50 }}>
+          <ViewCalendarButtons />
+        </View>
+        <ViewCalendarMain/>
+        {/* <ViewCalendarScheduler height={600} mode={"month"} events={events} /> */}
+      </View>
+    </View>
+  );
+};
 
 // Main (current Event Scheduler Calendar proof of concept from Loisa)
 
@@ -67,7 +118,7 @@ export const ViewCalendarMain = (props: any) => {
   const events = examplesCalendarEvent; // replace with auxiliary once start and end/finish is on there
   const calendarProps: CalendarProps<ICalendarEventBase> = {
     events,
-    height: 600,
+    height:  400,
     overlapOffset: 10, // Set overlap offset to 10 pixels
     hourRowHeight: 60, // Set hour row height to 60 pixels
     ampm: true, // Display time in AM/PM format
@@ -187,36 +238,6 @@ export const ViewCalendarButtons = ({ onChangeDate }: any) => {
     >
       <Button title="<" onPress={goToLeft} />
       <Button title=">" onPress={goToRight} />
-    </View>
-  );
-};
-
-// Container (compilation of multiple components)
-
-export const ViewCalendarContainer = ({ events }: any) => {
-  events = examplesCalendarEvent; // testing
-  return (
-    <View
-      key={"container"}
-      style={{ height: "100%", width: "100%", flexDirection: "row" }}
-    >
-      <View key={"left-panel"} style={{ flex: 1, minWidth: 210, margin: 20 }}>
-        <ViewCalendarButtons />
-        <View style={{ height: 200, margin: 10 }}>
-          <ViewCalendarPicker />
-        </View>
-        <ViewCalendarCalendars />
-      </View>
-      <View
-        key={"right-panel"}
-        style={{ flex: 3, margin: 20, flexDirection: "column" }}
-        // onLayout={onLayout}
-      >
-        <View style={{ height: 50 }}>
-          <ViewCalendarButtons />
-        </View>
-        <ViewCalendarScheduler height={600} mode={"month"} events={events} />
-      </View>
     </View>
   );
 };

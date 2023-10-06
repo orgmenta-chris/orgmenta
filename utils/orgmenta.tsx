@@ -23,6 +23,8 @@ import {
   features,
   requirements,
   needs,
+  pricingTemp,
+  articlesTemp,
   procedures,
   devworkflow,
   paradigms,
@@ -337,6 +339,7 @@ export const ViewOrgmentaPricing = ({}: any) => {
       <ScrollView>
         <ViewTypographyTextheading>Pricing</ViewTypographyTextheading>
         <Text>ViewOrgmentaPricing placeholder</Text>
+        <Text>{JSON.stringify(pricingTemp, null, 2)}</Text>
       </ScrollView>
     </ViewPageMain>
   );
@@ -429,32 +432,44 @@ export const ViewOrgmentaFeatures = ({}: any) => {
         <ViewTypographyTextsubheading>P1</ViewTypographyTextsubheading>
         {features
           .filter((x) => x.priority === 1)
-          .map((x,i) => (
-            <ViewTypographyText key={'p1-'+i} style={{ width: "100%", flex: 1 }}>
+          .map((x, i) => (
+            <ViewTypographyText
+              key={"p1-" + i}
+              style={{ width: "100%", flex: 1 }}
+            >
               {x.title}
             </ViewTypographyText>
           ))}
         <ViewTypographyTextsubheading>P2</ViewTypographyTextsubheading>
         {features
           .filter((x) => x.priority === 2)
-          .map((x,i) => (
-            <ViewTypographyText key={'p2-'+i}  style={{ width: "100%", flex: 1 }}>
+          .map((x, i) => (
+            <ViewTypographyText
+              key={"p2-" + i}
+              style={{ width: "100%", flex: 1 }}
+            >
               {x.title}
             </ViewTypographyText>
           ))}
         <ViewTypographyTextsubheading>P3</ViewTypographyTextsubheading>
         {features
           .filter((x) => x.priority === 3)
-          .map((x,i) => (
-            <ViewTypographyText key={'p3-'+i} style={{ width: "100%", flex: 1 }}>
+          .map((x, i) => (
+            <ViewTypographyText
+              key={"p3-" + i}
+              style={{ width: "100%", flex: 1 }}
+            >
               {x.title}
             </ViewTypographyText>
           ))}
         <ViewTypographyTextsubheading>P4+</ViewTypographyTextsubheading>
         {features
           .filter((x) => x.priority > 3)
-          .map((x,i) => (
-            <ViewTypographyText key={'p4-'+i} style={{ width: "100%", flex: 1 }}>
+          .map((x, i) => (
+            <ViewTypographyText
+              key={"p4-" + i}
+              style={{ width: "100%", flex: 1 }}
+            >
               {x.title}
             </ViewTypographyText>
           ))}
@@ -534,9 +549,13 @@ export const ViewOrgmentaPartner = ({}: any) => {
     <ViewPageMain>
       <ScrollView>
         <ViewTypographyTextheading>Partners</ViewTypographyTextheading>
-        <ViewTypographyTextsubheading>Partner With Us:</ViewTypographyTextsubheading>
+        <ViewTypographyTextsubheading>
+          Partner With Us:
+        </ViewTypographyTextsubheading>
         <ViewInquiryMain />
-        <ViewTypographyTextsubheading>Our Partners:</ViewTypographyTextsubheading>
+        <ViewTypographyTextsubheading>
+          Our Partners:
+        </ViewTypographyTextsubheading>
         <Text>List of partners goes here</Text>
       </ScrollView>
     </ViewPageMain>
@@ -572,11 +591,13 @@ export const ViewOrgmentaForums = ({}: any) => {
 };
 
 export const ViewOrgmentaGuides = ({}: any) => {
+  // rename this to 'articles' and have a 'guides' tag/type of article instead?
   return (
     <ViewPageMain>
       <ScrollView>
         <ViewTypographyTextheading>Guides</ViewTypographyTextheading>
         <Text>{`Guides, tutorials, instructions, how-tos etc. go here`}</Text>
+        <Text>{JSON.stringify(articlesTemp, null, 2)}</Text>
       </ScrollView>
     </ViewPageMain>
   );
@@ -600,12 +621,12 @@ export const ViewOrgmentaEnhancements = ({}: any) => {
         <ViewTypographyTextheading>Enhancements</ViewTypographyTextheading>
         <Text>
           {`
-                    Request a feature or other enhancement
-                    Enhacement request form goes here
+          Request a feature or other enhancement
+          Enhacement request form goes here
 
-                    Enhancement Requests
-                    Enhacement request list goes here, showing status (whether reviewed, addded to roadmap etc.)
-                    `}
+          Enhancement Requests
+          Enhacement request list goes here, showing status (whether reviewed, addded to roadmap etc.)
+          `}
         </Text>
       </ScrollView>
     </ViewPageMain>

@@ -216,7 +216,7 @@ When you are coding, the following things may help to test / mock quicker.
 
 - Install the Expo Go (https://expo.dev/client) app: https://play.google.com/store/apps/details?id=host.exp.exponent
 - In Android, you may need to hold-press the Expo Go app icon, click 'info', and force stop. Then go to 'Storage' and delete all data.
-- In Vscode/IDE/CLI, `yarn start` or `yarn start --tunnel`
+- In Vscode/IDE/CLI, `yarn start` or `yarn start --tunnel` (note - tunnel uses a LOT of bandwidth - do not use on metered internet connections!)
 - If no qr code is shown in the CLI, press w to start web (which will generate the qr code)
 - It's a good idea to screenshot the qr code and have it up in a tab ready for reuse if necessary (as the expo app crashes often)
 - G to your camera app and scan the qr code (note that it's best to use the camera app instead of the expo app to scan the qr code if possible, as the expo app seems to sometimes not load it correctly for some reason?)

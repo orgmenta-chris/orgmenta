@@ -3581,4 +3581,56 @@ export const articlesTemp = [
       E.g. see the 'prices' module and submodules - when to implement price increases, how to calculate them, what to cater for e.g. inflation
     `,
   },
+  {
+    topic: "Choosing an offering / What product/service to provide",
+    notes: `(this should be from Governance > Model)`,
+  },
+  {
+    topic: "Renegade data schema - Either not viable or everyone is missing the wood for the trees",
+    notes: `schema is dynamic, and modern dbs should be able to handle table views on the fly for truly customisable platform`,
+  },
+  {
+    topic: "(Related to the 'renegade data schema' article) - 'A truly custom business platform",
+    notes: `Standard complaints about Odoo et al: Hitting limitations, not being able to customise it etc.
+    But our one is different - The modules can be tweaked in any way you want.
+    (Examples)`,
+  },
 ];
+
+export const pricingTemp   = {
+  sole: {
+    sizecap: 'x number of entities, $x afterwards',// is this sustainable? Check how usage would impact the supabase costs.
+    spaces: 1,
+    members: 1,
+    price: '$0 - FREE', // is this sustainable? Check how usage would impact the supabase costs.
+  },
+  grow: {
+    sizecap: 'y number of entities, $x afterwards',
+    spaces: 1,
+    members: 'unlimited',
+    price: '$Y per member',
+  },
+  business : {
+    sizecap: 'z number of entities, $x afterwards',
+    spaces:'unlimited',
+    members: 'unlimited',
+    price: '$Z per member',
+  }
+}
+
+// We need 'steps' - granular actions that can occur within the app. 
+// - These combine into workflows/userflows.
+// - The business modules are 'manifested from' workflows + template Entities.
+export const stepsTemp = [
+  {
+    title: "Click button/link",
+  },
+  {
+    title: "Call Webhook/Endpoint",
+  },
+]
+
+export const questionsTools = [ // fundamental heuristics needed?
+  "What is the nature of the set relationship between A and B? Are they identical, subsets, or do they intersect?",
+  "Is this necessary? Does it solve the problem?"
+]

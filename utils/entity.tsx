@@ -118,6 +118,21 @@ export const useEntityArray = (spacename?: any, categories?: any) => {
 
 // Single
 
+export async function requestEntitySingle(spacename?: any, categories?: any) {
+  return await instanceSupabaseClient
+    .from(spacename ? `entities_${spacename}` : "entities")
+    .select()
+    .filter(
+      // This will only return entities that have ALL of the items in the array. If we want to change it to 'any in search array' we need to use an rpc instead, or do an 'or' method and go through every category array item.
+      "categories",
+      "cs",
+      `{${categories.join(",")}}` // e.g. `{"product-catalog-solutions-usecases","product-catalog-solutions-features","product-catalog-solutions-requirements"}`
+    )
+    .range(0, 9) //temp arbitrary limit of 10 (todo: pass variables in here to get proper pagination)
+    .then(handleSupabaseResponse as any);
+}
+
+
 export const useEntitySingle = (props: any) => {
   // todo: implement filter_array in query function
   // At the moment, this just uses the categories array (e.g. Accounts > Receivables > Invoices).

@@ -8,13 +8,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@azure/identity": "^3.3.0",
-    "@azure/msal-browser": "^3.1.0",
-    "@azure/msal-react": "^2.0.3",
     "@expo/webpack-config": "^19.0.0",
-    "@microsoft/microsoft-graph-client": "^3.0.6",
-    "@microsoft/microsoft-graph-types": "^2.38.0",
-    "@microsoft/msgraph-sdk-javascript": "^1.0.0-preview.4",
     "@react-native-async-storage/async-storage": "1.18.2",
     "@stripe/stripe-react-native": "0.28.0",
     "@supabase/supabase-js": "^2.33.1",
@@ -52,6 +46,7 @@
     "immutable": "^5.0.0-beta.4",
     "moment": "^2.29.4",
     "papaparse": "^5.4.1",
+    "pdf-lib": "^1.17.1",
     "pigeon-maps": "^0.21.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -83,6 +78,7 @@
     "stripe": "^13.8.0",
     "underscore": "^1.13.6",
     "uuid": "^9.0.0",
+    "web-push": "^3.6.6",
     "yarn": "^1.22.19",
     "zustand": "^4.4.1"
   },

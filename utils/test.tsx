@@ -10,11 +10,8 @@ import { ViewSvgArrowmain, ViewSvgArrowhead } from "../utils/svg";
 import { ViewBarcodeReader, ViewCameraMain } from "../utils/camera";
 import { ViewClipboardCopy } from "../utils/clipboard";
 import { TypeNotificationBody, UseNotification } from "../utils/notification";
-import {
-  ViewSoundPlayer,
-  ViewSoundRecorder,
-  UseVideoPlayer,
-} from "../utils/av";
+import { ViewSoundPlayer, ViewSoundRecorder } from "./audio";
+import { ViewVideoPlayer } from "./video";
 import { ViewScreenRecorder } from "../utils/recorder";
 import { ViewHelpMain } from "../utils/help";
 
@@ -40,17 +37,17 @@ export const ViewTestPage = () => {
 
         {/* Notification component (working) */}
         {/* <UseNotification 
-                // {...notificationBody} 
-              /> */}
+          // {...notificationBody} 
+        /> */}
 
-        {/* Play sound (working) */}
-        {/* <ViewSoundPlayer /> */}
+        <Text>Example Sound Player:</Text>
+        <ViewSoundPlayer />
 
-        {/* Record sound (working) */}
-        {/* <ViewSoundRecorder /> */}
+        <Text>Example Sound Recorder:</Text>
+        <ViewSoundRecorder />
 
         {/* Play video (working) */}
-        {/* <UseVideoPlayer /> */}
+        <ViewVideoPlayer />
 
         {/* Screen Recorder CG (NOT working yet)*/}
         {/* <ViewScreenRecorder/> */}

@@ -5,7 +5,7 @@
 
 import { ViewTypographyTextthemed } from "../utils/typography";
 import { ViewFileUpload } from "./file";
-import { View, Text } from "react-native";
+import { View, Text, TextInput } from "react-native";
 
 // Tabs
 
@@ -82,9 +82,10 @@ export const ViewFieldText = ({ defaultValue }: any) => {
 // A non-editable text field
 export const ViewFieldInput = ({ defaultValue }: any) => {
   return (
-    <ViewTypographyTextthemed style={{ color: "blue" }}>
-      ['INPUT:']{defaultValue}
-    </ViewTypographyTextthemed>
+    <TextInput style={{borderWidth: 1}}/>
+    // <ViewTypographyTextthemed style={{ color: "blue" }}>
+    //   ['INPUT:']{defaultValue}
+    // </ViewTypographyTextthemed>
   );
 };
 

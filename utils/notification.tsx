@@ -152,3 +152,19 @@ export const UseNotification = (props: TypeNotificationBody) => {
     return <CustomNotificationBody />;
   }
 };
+
+
+export const RefreshButton = () => {
+  const scheduleAndReload = () => {
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Refresh',
+        body: 'Press to refresh the app',
+      },
+      trigger: null,
+    });
+    window.location.reload();
+  };
+
+  return <Button title="Send Refresh Notification" onPress={scheduleAndReload} />;
+};

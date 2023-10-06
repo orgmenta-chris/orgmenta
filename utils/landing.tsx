@@ -6,15 +6,12 @@ import {
   ViewTypographyTextheading,
   ViewTypographyTextthemed,
 } from "../utils/typography";
+import { ViewOrgmentaBackground } from "../utils/orgmenta";
 
 export const ViewLandingPage = () => {
   const windowDimensions = useWindowDimensions();
   return (
-    <ImageBackground
-      style={{ width: "100%", height: "100%" }}
-      source={require("../assets/backgroundCompressed.jpg")}
-      resizeMode="cover"
-    >
+    <ViewOrgmentaBackground>
       <ScrollView>
         <View
           style={{
@@ -86,10 +83,11 @@ export const ViewLandingPage = () => {
           <ViewInquiryMain />
         </View>
       </ScrollView>
-    </ImageBackground>
+    </ViewOrgmentaBackground>
   );
 };
 
+// temp
 const CompanytypeSwitcher: React.FC = () => {
   const [index, setIndex] = useState(0);
   const texts = ["IT Company", "MSP", "MSSP", "VAR", "TSP", "OED"];

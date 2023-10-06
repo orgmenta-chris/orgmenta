@@ -1,4 +1,13 @@
-export const data = [
+export const data: {
+  id: number;
+  parent: number | null;
+  status: string;
+  name_singular: string;
+  display_singular: string;
+  description: string;
+  summary: string;
+  nickname: string;
+}[] = [
   {
     id: 3,
     parent: null,
@@ -51,7 +60,7 @@ export const data = [
     name_singular: "model",
     display_singular: "Model",
     description: "Your business model and plan",
-    tagline:
+    summary:
       "End-to-end business planning, from intitial idea through to implementation plans",
     notes: [
       "Business plan etc.",

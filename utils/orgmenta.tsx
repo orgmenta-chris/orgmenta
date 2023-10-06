@@ -11,7 +11,7 @@ import {
   ViewTypographyText,
 } from "./typography";
 import { useQuery } from "@tanstack/react-query";
-import { Text, View, ScrollView } from "react-native";
+import { Text, View, ScrollView, ImageBackground } from "react-native";
 import { ViewHeaderMain, ViewHeaderSection } from "./header";
 import { ViewPageMain } from "../utils/page";
 import SpaceWidget from "../components/navigation/widgets/spaceWidget";
@@ -630,5 +630,17 @@ export const ViewOrgmentaEnhancements = ({}: any) => {
         </Text>
       </ScrollView>
     </ViewPageMain>
+  );
+};
+
+export const ViewOrgmentaBackground = ({ children }: any) => {
+  return (
+    <ImageBackground
+      style={{ width: "100%", height: "100%" }}
+      source={require("../assets/backgroundCompressed.jpg")}
+      resizeMode="cover"
+    >
+      {children}
+    </ImageBackground>
   );
 };

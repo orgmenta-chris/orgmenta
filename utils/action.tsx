@@ -12,22 +12,16 @@ import { useEntityCreate } from "./entity";
 import { arrayTypeMain } from "./type";
 import { arrayStatusMain } from "./status";
 import { createUuid4 } from "./uuid";
-import ViewIconMain from "../components/displays/icons/ViewIconMain";
+import { ViewDisplayTabs } from "./display";
+import { ViewIconMain } from "./icon";
+import { ViewFileModal } from "./pdf";
 import {
   TextInput,
   View,
   Text,
   Pressable,
-  Button,
-  useWindowDimensions,
-  Modal,
 } from "react-native";
 import { useState } from "react";
-import * as Print from "expo-print";
-import { shareAsync } from "expo-sharing";
-import RenderHtml from "react-native-render-html";
-import { UtilityPlatformMain } from "./platform";
-import { ViewDisplayTabs } from "./display";
 
 // Modal
 
@@ -333,6 +327,7 @@ export const ViewActionLink = ({}: any) => {
 
 export const ViewActionExport = ({}: any) => {
   const native = useRouterNavigate();
+  const [statePdfModal, setPdfModal] = useState(false);
   return (
     <View style={{ flexDirection: "row", maxHeight: 200 }}>
       <ViewIconMain
@@ -341,123 +336,18 @@ export const ViewActionExport = ({}: any) => {
         color={"black"}
         size={24}
       />
-      <ViewIconMain
-        name={"pdffile1"}
-        source={"AntDesign"}
-        color={"black"}
-        size={24}
+      <Pressable onPress={() => setPdfModal((old) => !old)}>
+        <ViewIconMain
+          name={"pdffile1"}
+          source={"AntDesign"}
+          color={"black"}
+          size={24}
+        />
+      </Pressable>
+      <ViewFileModal
+        statePdfModal={statePdfModal}
+        setPdfModal={() => setPdfModal((old) => !old)}
       />
-      <ViewActionPDF />
-      {/* (Chris is leaving ViewActionPDF as-is because Loisa is working on it, but we will eventually have the functionality triggered by the pdf icon button above) */}
-    </View>
-  );
-};
-
-// PDF
-
-export const ViewActionPDF = ({}: any) => {
-  const source = {
-    html: `
-        <html>
-          <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-          </head>
-          <body style="text-align: center;">
-            <h1 style="font-size: 50px; font-family: Helvetica Neue; font-weight: normal;">
-              Hello Expo!
-            </h1>
-            <img
-              src="https://d30j33t1r58ioz.cloudfront.net/static/guides/sdk.png"
-              style="width: 90vw;" />
-          </body>
-        </html>
-      `,
-  };
-
-  const { width } = useWindowDimensions();
-
-  const [isModalVisible, setModalVisible] = useState(false);
-
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
-
-  const DisplayFileModal = () => {
-    const printPDFWeb = async (source: any) => {
-      const newWindow: any = window.open("", "_blank");
-      newWindow.document.open();
-      newWindow.document.write(source.html);
-      newWindow.document.close();
-
-      // Wait for all assets to load
-      newWindow.onload = () => {
-        // Trigger the print dialog
-        newWindow.print();
-      };
-    };
-
-    const printPDFMobile = async (source: any) => {
-      const { uri } = await Print.printToFileAsync(source);
-      await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
-    };
-
-    return (
-      <Modal
-        animationType="slide" // You can use 'slide', 'fade', or 'none'
-        transparent={true} // Make the modal background transparent
-        visible={isModalVisible}
-        onRequestClose={toggleModal} // Android back button behavior
-      >
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-            }}
-          >
-            <View
-              style={{
-                backgroundColor: "white",
-                padding: 10,
-                marginBottom: 10,
-              }}
-            >
-              {
-                // @ts-ignore
-                <RenderHtml contentWidth={width} source={source} />
-              }
-            </View>
-            <Button
-              onPress={() => {
-                UtilityPlatformMain.OS === "web"
-                  ? printPDFWeb(source)
-                  : printPDFMobile(source);
-              }}
-              title={
-                UtilityPlatformMain.OS === "web"
-                  ? "Save Document"
-                  : "Share Document"
-              }
-            />
-            <Pressable onPress={toggleModal}>
-              <Text style={{ color: "white", marginTop: 10 }}>Close</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-    );
-  };
-
-  return (
-    <View style={{ flexDirection: "column" }}>
-      <Text>PDF</Text>
-      <Text>render/display and allow for downloading of PDF files</Text>
-      <DisplayFileModal />
-      <Button title="Show File" onPress={toggleModal} />
     </View>
   );
 };
@@ -525,34 +415,26 @@ export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
   const paths = useRouterLocation().paths;
   return (
     <View style={{ flexDirection: "column", backgroundColor: "lightgray" }}>
-      <View
-        style={
-          {
-            /*borderWidth: 1*/
+      <ViewRouterRoutes>
+        <ViewRouterRoute path="display" element={<ViewActionDisplay />} />
+        <ViewRouterRoute path="control" element={<ViewActionControl />} />
+        <ViewRouterRoute
+          path="/add"
+          element={
+            <ViewActionAdd
+              auxiliary={auxiliary}
+              schema={schema}
+              focus={focus}
+            />
           }
-        }
-      >
-        <ViewRouterRoutes>
-          <ViewRouterRoute path="display" element={<ViewActionDisplay />} />
-          <ViewRouterRoute path="control" element={<ViewActionControl />} />
-          <ViewRouterRoute
-            path="/add"
-            element={
-              <ViewActionAdd
-                auxiliary={auxiliary}
-                schema={schema}
-                focus={focus}
-              />
-            }
-          />
-          <ViewRouterRoute path="edit" element={<ViewActionEdit />} />
-          <ViewRouterRoute path="sync" element={<ViewActionSync />} />
-          <ViewRouterRoute path="share" element={<ViewActionShare />} />
-          <ViewRouterRoute path="template" element={<ViewActionTemplate />} />
-          <ViewRouterRoute path="link" element={<ViewActionLink />} />
-          <ViewRouterRoute path="export" element={<ViewActionExport />} />
-        </ViewRouterRoutes>
-      </View>
+        />
+        <ViewRouterRoute path="edit" element={<ViewActionEdit />} />
+        <ViewRouterRoute path="sync" element={<ViewActionSync />} />
+        <ViewRouterRoute path="share" element={<ViewActionShare />} />
+        <ViewRouterRoute path="template" element={<ViewActionTemplate />} />
+        <ViewRouterRoute path="link" element={<ViewActionLink />} />
+        <ViewRouterRoute path="export" element={<ViewActionExport />} />
+      </ViewRouterRoutes>
       <View style={{ flexDirection: "row" /*borderWidth: 1*/ }}>
         {optionsActionTabs?.map((x, i) => (
           <ViewRouterLinkthemed
@@ -587,9 +469,3 @@ export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
     </View>
   );
 };
-
-// <Pressable
-// onPress={() => {
-//   native(`/users/${auth?.data?.session?.user?.id || 'guest'}/devices`);
-// }}
-// >

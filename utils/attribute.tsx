@@ -1,8 +1,9 @@
 //  An 'Attribute' is a property that an entity has.
 
-import { useState, memo, useEffect, useReducer } from "react";
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQueryerMutation, useQueryerQuery } from "./queryer";
+
+import { useState, memo, useEffect, useReducer } from "react";
 import { ScrollView, View, Text } from "react-native";
 import { useTableColumns } from "../components/displays/table/table";
 import {
@@ -24,7 +25,7 @@ export async function requestAttributeCreate(attribute: any) {
 }
 
 export const useAttributeCreate = (props: any) => {
-  return useMutation(["attribute", "create"], () =>
+  return useQueryerMutation(["attribute", "create"], () =>
     requestAttributeCreate(props)
   );
 };
@@ -38,14 +39,17 @@ export const useAttributeMain = ({}: any) => {
     const response = await instanceSupabaseClient.from("attributes").select();
     return response.data;
   };
-  const query = useQuery<any, Error>(queryKey, queryFn, { enabled: true });
+  const query = useQueryerQuery<any, Error>(queryKey, queryFn, {
+    enabled: true,
+  });
   return query;
 };
 
 export const ViewAttributeMain = memo(() => {
   // Chris is going to enhance this placeholder component
   const array = useAttributeMain({});
-  const attributeColumnNames = [ // static for now but will use useAttributesArray in the future
+  const attributeColumnNames = [
+    // static for now but will use useAttributesArray in the future
     "id",
     "status",
     "a_name_singular",
@@ -115,7 +119,9 @@ export const useAttributeUnioned = (classArray: any) => {
     // .or(`class.is.null, class.cd.{${searchArray}}`) // match at least one value from the search array (or if null, assume that it is a universal attribute )
     return response.data;
   };
-  const query = useQuery<any, Error>(queryKey, queryFn, { enabled: true });
+  const query = useQueryerQuery<any, Error>(queryKey, queryFn, {
+    enabled: true,
+  });
   return query;
 };
 
@@ -149,27 +155,20 @@ export const ViewAttributeTable = ({ ...Input }) => {
   const columns = Input.columns;
   const [columnResizeMode, setColumnResizeMode] =
     useState<ColumnResizeMode>("onChange");
-
-  // When data is provided, set the data to state
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]); // When data is provided, set the data to state
   useEffect(() => {
     if (Input?.data) {
       setData(Input.data);
     }
   }, [Input?.data]);
-
-  const rerender = useReducer(() => ({}), {})[1];
-
+  const rerender = useReducer(() => ({}), {})[1];s
   const table = useReactTable({
     data,
     columns,
-    columnResizeMode, //https://tanstack.com/table/v8/docs/examples/react/column-sizing
+    columnResizeMode,
     getCoreRowModel: getCoreRowModel(),
-    //   debugTable: true, // logs to console
-    //   debugHeaders: true, // logs to console
-    //   debugColumns: true, // logs to console
+    filterFns: undefined as any,
   });
-
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>

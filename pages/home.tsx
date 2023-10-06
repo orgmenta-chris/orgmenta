@@ -1,28 +1,20 @@
 // The home page will ideally just show a demo space + product information/ sales pitch, and a guest user if not logged in.
 // If logged in, then it should also show the user a dropdown asking them if they want to set a default page when logged in.
-import { useEffect, useState } from "react";
-import { Text, ScrollView, View, Image, ImageBackground } from "react-native";
 import { mapTypeMain } from "../utils/type";
-import Svg, { Path, G } from "react-native-svg";
 import { useWindowDimensions } from "../utils/window";
-import { UseBarcodeReader, UseCamera } from "../utils/camera";
-import { UseClipboardCopy } from "../utils/clipboard";
-import { NotificationBody, UseNotification } from "../utils/notification";
-import { UseSoundPlayer, UseSoundRecorder, UseVideoPlayer } from "../utils/av";
-import { UseNewStripeWrapperFunctions, UseStripeFunctions } from "../utils/stripe";
-import { UtilityPlatformMain } from "../utils/platform";
-import { StripeProvider } from "@stripe/stripe-react-native";
+import { UseNewStripeWrapperFunctions } from "../utils/stripe";
 import { ViewInquiryMain } from "../utils/inquiry";
+import { ViewSvgMain, ViewSvgPath, ViewSvgGroup } from "../utils/svg";
 import { arrayIndustryProducts } from "../utils/roadmap";
+import { useEffect, useState } from "react";
+import { Text, ScrollView, View, Image } from "react-native";
+import { ViewOrgmentaBackground } from "../utils/orgmenta";
+import { ViewRouterLinkthemed } from "../utils/router";
 
 export default function Home() {
   const windowDimensions = useWindowDimensions();
   return (
-    <ImageBackground
-      style={{ width: "100%", height: "100%" }}
-      source={require("../assets/backgroundCompressed.jpg")}
-      resizeMode="cover"
-    >
+    <ViewOrgmentaBackground>
       <View
         style={{
           margin: 90,
@@ -95,26 +87,26 @@ export default function Home() {
                 alignItems: "center",
               }}
             >
-              <Svg
+              <ViewSvgMain
                 key={"orgmenta_arrow"}
                 width="100"
                 height="100"
                 style={{ alignSelf: "center" }}
                 viewBox="0 0 100 100"
               >
-                <Path
+                <ViewSvgPath
                   d="M50,50 L50,10"
                   stroke="#22b2e4"
                   strokeWidth="5"
                   fill="none"
                 />
-                <Path
+                <ViewSvgPath
                   d="M50,10 L40,30 L50,10 L60,30 L50,10"
                   stroke="#22b2e4"
                   strokeWidth="5"
                   fill="#22b2e4"
                 />
-              </Svg>
+              </ViewSvgMain>
               <Text
                 style={{
                   top: -45,
@@ -160,30 +152,30 @@ export default function Home() {
                 alignItems: "center",
               }}
             >
-              <Svg
+              <ViewSvgMain
                 key={"bookmark_arrow"}
                 style={{ left: -30 }}
                 width="100"
                 height="150"
                 viewBox="0 0 100 400"
               >
-                <Path
+                <ViewSvgPath
                   d="M80,360 C35,260 35,140 58,15"
                   stroke="#22b2e4"
                   strokeWidth="15"
                   fill="none"
                 />
                 {/* Extended Curved Arrow line */}
-                <G transform="rotate(20 50 40)">
-                  <Path
+                <ViewSvgGroup transform="rotate(20 50 40)">
+                  <ViewSvgPath
                     d="M50,10 L40,30 L50,10 L60,30 L50,10"
                     stroke="#22b2e4"
                     strokeWidth="15"
                     fill="#22b2e4"
                   />
-                </G>
+                </ViewSvgGroup>
                 {/* Rotated Arrowhead */}
-              </Svg>
+              </ViewSvgMain>
               <Text
                 style={{
                   top: -15,
@@ -219,28 +211,28 @@ export default function Home() {
                 alignItems: "center",
               }}
             >
-              <Svg
+              <ViewSvgMain
                 key={"browse_arrow"}
                 style={{ right: -30 }}
                 width="100"
                 height="150"
                 viewBox="0 0 100 400"
               >
-                <Path
+                <ViewSvgPath
                   d="M20,360 C65,260 65,140 42,15"
                   stroke="#22b2e4"
                   strokeWidth="15"
                   fill="none"
                 />
-                <G transform="scale(-1, 1) translate(-100, 0) rotate(20 50 40)">
-                  <Path
+                <ViewSvgGroup transform="scale(-1, 1) translate(-100, 0) rotate(20 50 40)">
+                  <ViewSvgPath
                     d="M50,10 L40,30 L50,10 L60,30 L50,10"
                     stroke="#22b2e4"
                     strokeWidth="15"
                     fill="#22b2e4"
                   />
-                </G>
-              </Svg>
+                </ViewSvgGroup>
+              </ViewSvgMain>
               <Text
                 style={{
                   top: -15,
@@ -286,29 +278,29 @@ export default function Home() {
                 alignItems: "center",
               }}
             >
-              <Svg
+              <ViewSvgMain
                 key={"user_arrow"}
                 width="100"
                 height="1200"
                 viewBox="0 0 100 600"
               >
-                <G transform="scale(-1, 1) translate(-100, 0)">
-                  <Path
+                <ViewSvgGroup transform="scale(-1, 1) translate(-100, 0)">
+                  <ViewSvgPath
                     d="M20,540 C97.5,390 97.5,210 63,22.5"
                     stroke="#22b2e4"
                     strokeWidth="5"
                     fill="none"
                   />
-                  <G transform="scale(-1, 1) translate(-100, 0) rotate(20 37 22.5)">
-                    <Path
+                  <ViewSvgGroup transform="scale(-1, 1) translate(-100, 0) rotate(20 37 22.5)">
+                    <ViewSvgPath
                       d="M37,22.5 L27,42.5 L37,22.5 L47,42.5 L37,22.5"
                       stroke="#22b2e4"
                       strokeWidth="5"
                       fill="#22b2e4"
                     />
-                  </G>
-                </G>
-              </Svg>
+                  </ViewSvgGroup>
+                </ViewSvgGroup>
+              </ViewSvgMain>
               <Text
                 style={{
                   minHeight: 70,
@@ -344,27 +336,27 @@ export default function Home() {
                 alignItems: "center",
               }}
             >
-              <Svg
+              <ViewSvgMain
                 key={"user_arrow"}
                 width="100"
                 height="1200"
                 viewBox="0 0 100 600"
               >
-                <Path
+                <ViewSvgPath
                   d="M20,540 C97.5,390 97.5,210 63,22.5"
                   stroke="#22b2e4"
                   strokeWidth="5"
                   fill="none"
                 />
-                <G transform="scale(-1, 1) translate(-126, 0) rotate(20 63 22.5)">
-                  <Path
+                <ViewSvgGroup transform="scale(-1, 1) translate(-126, 0) rotate(20 63 22.5)">
+                  <ViewSvgPath
                     d="M63,22.5 L53,42.5 L63,22.5 L73,42.5 L63,22.5"
                     stroke="#22b2e4"
                     strokeWidth="5"
                     fill="#22b2e4"
                   />
-                </G>
-              </Svg>
+                </ViewSvgGroup>
+              </ViewSvgMain>
               <Text
                 style={{
                   minHeight: 70,
@@ -420,28 +412,28 @@ export default function Home() {
                   fontSize: 14,
                 }}
               >{`Or scroll down for\nmore information`}</Text>
-              <Svg
+              <ViewSvgMain
                 key={"orgmenta_arrow_flipped"}
                 width="100"
                 height="100"
                 style={{ alignSelf: "center" }}
                 viewBox="0 0 100 100"
               >
-                <Path
+                <ViewSvgPath
                   d="M50,50 L50,90"
                   stroke="#22b2e4"
                   strokeWidth="5"
                   fill="none"
                 />
-                <G transform="scale(1, -1) translate(0, -100)">
-                  <Path
+                <ViewSvgGroup transform="scale(1, -1) translate(0, -100)">
+                  <ViewSvgPath
                     d="M50,10 L40,30 L50,10 L60,30 L50,10"
                     stroke="#22b2e4"
                     strokeWidth="5"
                     fill="#22b2e4"
                   />
-                </G>
-              </Svg>
+                </ViewSvgGroup>
+              </ViewSvgMain>
             </View>
           </View>
 
@@ -522,27 +514,6 @@ export default function Home() {
                 Contact Form
               </Text>
               <ViewInquiryMain />
-              {/* Barcode Scanner (working) */}
-              {/* <UseBarcodeReader /> */}
-
-              {/* Camera (working) */}
-              {/* <UseCamera /> */}
-
-              {/* Clipboard copy (working) */}
-              {/* <UseClipboardCopy /> */}
-
-              {/* Notification component (working) */}
-              {/* <UseNotification {...notificationBody} /> */}
-
-              {/* Play sound (working) */}
-              {/* <UseSoundPlayer /> */}
-
-              {/* Record sound (working) */}
-              {/* <UseSoundRecorder /> */}
-
-              {/* Play video (working) */}
-              {/* <UseVideoPlayer /> */}
-
               {/* Test Stripe/supbase db functions (working) */}
               {/* <UseStripeFunctions /> */}
               <UseNewStripeWrapperFunctions />
@@ -551,7 +522,23 @@ export default function Home() {
           <View style={{ height: 1000 }} />
         </View>
       </ScrollView>
-    </ImageBackground>
+      {/* Test Link (temp) */}
+      {__DEV__ && (
+        <View
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+          }}
+        >
+          <ViewRouterLinkthemed to="test">
+            <Text style={{ width: 400, height: 40, backgroundColor: "green" }}>
+              TESTING PAGE
+            </Text>
+          </ViewRouterLinkthemed>
+        </View>
+      )}
+    </ViewOrgmentaBackground>
   );
 }
 

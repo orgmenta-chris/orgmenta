@@ -9,7 +9,14 @@ import { ViewChartMain } from "./chart";
 import { ViewPathMain } from "./path";
 import { ViewMapMobile } from "./map";
 import { UtilityPlatformMain } from "./platform";
-import { ViewCalendarMain, ViewCalendarContainer, TypeCalendarHeader, examplesCalendarEvent, ViewCalendarEvent, TypeCalendarEvent  } from "./calendar";
+import {
+  ViewCalendarMain,
+  ViewCalendarContainer,
+  TypeCalendarHeader,
+  examplesCalendarEvent,
+  ViewCalendarEvent,
+  TypeCalendarEvent,
+} from "./calendar";
 import {
   ViewPodMain,
   ViewPodInfo,
@@ -27,7 +34,7 @@ import {
   View,
   ScrollView,
   Text,
-  TouchableOpacity,
+  Pressable,
   Modal,
   ViewStyle,
   Button,
@@ -216,7 +223,7 @@ export const ViewDisplayCalendar = (props: any) => {
   return (
     <View style={{ flex: 1 }}>
       {/* <ViewCalendarMain/> */}
-      <ViewCalendarContainer/>
+      <ViewCalendarContainer />
     </View>
   );
 };
@@ -446,7 +453,7 @@ export const ViewDisplayJson = (props: any) => {
   };
 
   return (
-    <View style={{ flexDirection: "column" }}>
+    <View style={{ flexDirection: "column", flex: 1 }}>
       <JSONTree
         data={jsonData}
         theme={{
@@ -466,6 +473,19 @@ export const ViewDisplayJson = (props: any) => {
         }}
         invertTheme={true}
       />
+      <View style={{height: 40}}>
+        <Pressable onPress={() => console.log("todo")}>
+          <Text
+            style={{
+              color: "blue",
+              textDecorationStyle: "solid",
+              textAlign: "center",
+            }}
+          >
+            Expand/Collapse All Button (todo)
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 };

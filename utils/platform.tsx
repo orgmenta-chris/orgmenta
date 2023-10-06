@@ -23,10 +23,21 @@ export const usePlatformCssweb = () => {
     if (UtilityPlatformMain.OS === "web") {
       const style = document.createElement("style");
       style.innerHTML = `
+        /* REMOVE STANDARD SCROLLBAR (to replace with styling instead of removing completely) */
         body {
           font-family: 'Roboto';
         }
         ::-webkit-scrollbar {
+          display: none;
+        }
+        /* REMOVE WEBPAGE HEADER AND FOOTER FOR PRINTING */
+        /* Hide the page header */
+        @page {
+          size: auto; /* Set the page size to 'auto' */
+          margin: 0mm; /* Set margins to zero */
+        }
+        /* Hide the page footer */
+        @page :footer {
           display: none;
         }
       `;

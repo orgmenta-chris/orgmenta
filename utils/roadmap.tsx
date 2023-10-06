@@ -156,6 +156,14 @@ export const featurePriorities = [
 // User stories will be split out into being separate entities (which can then be linked to requirements, features, user_roles etc.
 export const features = [
   {
+    title: "Undo/Redo",
+    version: 0.0,
+    status: "0. New",
+    description: "Undo (and redo) to any point in entity-relationship histories",
+    priority: 2,
+    notes: "Chris to design this"
+  },
+  {
     title: "URL Parameters",
     version: 0.0,
     status: "0. New",
@@ -3623,10 +3631,19 @@ export const pricingTemp   = {
 // - The business modules are 'manifested from' workflows + template Entities.
 export const stepsTemp = [
   {
-    title: "Click button/link",
+    title: "Click button/link or 'navigate to x/y/z'",
   },
   {
     title: "Call Webhook/Endpoint",
+  },
+  {
+    title: "Db function or edge function",
+  },
+  {
+    title: "Db trigger",
+  },
+  {
+    title: "Sync occurs / entity created / relationship created",
   },
 ]
 

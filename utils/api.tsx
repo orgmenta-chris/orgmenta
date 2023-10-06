@@ -1,7 +1,7 @@
 // This is a useful module to easily utilise apis.
 // For example, it is set up to easily use rapidapi endpoints.
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryerQuery } from "./queryer";
 import { View, Text, ActivityIndicator } from "react-native";
 
 // Source
@@ -56,7 +56,7 @@ export const useApiItems = (props: any) => {
   if (!props?.options) {
     throw new Error("useApiItems: No options provided");
   }
-  const query = useQuery(["api", props.name || "default"], () =>
+  const query = useQueryerQuery(["api", props.name || "default"], () =>
     requestApiItems(props)
   );
   return query;

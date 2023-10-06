@@ -30,6 +30,9 @@ import {
   Modal,
   ViewStyle,
   Button,
+  FlatList,
+  TextInput,
+  StyleSheet,
 } from "react-native";
 import ViewMapWeb from "../components/displays/maps/ViewDisplayMaps";
 // import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
@@ -52,6 +55,10 @@ import {
   Mode,
   WeekNum,
 } from "react-native-big-calendar";
+import JSONTree from "react-native-json-tree";
+import { Person, UseDisplayTable, fuzzySort, makeData } from "./table";
+import { ColumnDef } from "@tanstack/react-table";
+// import { Map as ImmutableMap } from "immutable";
 
 // Dynamic
 
@@ -130,19 +137,82 @@ export const ViewDisplayForm = (props: any) => {
 
 // todo (to be replaced with Loisa's dynamic table once developed)
 export const ViewDisplayTable = (props: any) => {
-  const schema = props.schema;
-  // const columns = useTableColumns(
-  //   schema.data?.map(
-  //     (x: { focus_columns: { name_singular: any } }) =>
-  //       x.focus_columns.name_singular
-  //   )
-  // );
-  const auxiliary = props.auxiliary;
+  const [data, setData] = useState<Person[]>(() => makeData(1000));
+  const refreshData = () => setData((old) => makeData(1000));
+
+  const columns = useMemo<ColumnDef<Person, any>[]>(
+    () => [
+      {
+        header: "Name",
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "firstName",
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+          },
+          {
+            accessorFn: (row) => row.lastName,
+            id: "lastName",
+            cell: (info) => info.getValue(),
+            header: () => <span>Last Name</span>,
+            footer: (props) => props.column.id,
+          },
+          {
+            accessorFn: (row) => `${row.firstName} ${row.lastName}`,
+            id: "fullName",
+            header: "Full Name",
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            filterFn: "fuzzy",
+            sortingFn: fuzzySort,
+          },
+        ],
+      },
+      {
+        header: "Info",
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "age",
+            header: () => "Age",
+            footer: (props) => props.column.id,
+          },
+          {
+            header: "More Info",
+            columns: [
+              {
+                accessorKey: "visits",
+                header: () => <span>Visits</span>,
+                footer: (props) => props.column.id,
+              },
+              {
+                accessorKey: "status",
+                header: "Status",
+                footer: (props) => props.column.id,
+              },
+              {
+                accessorKey: "progress",
+                header: "Profile Progress",
+                footer: (props) => props.column.id,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    []
+  );
+
+  const tableData = {
+    columns,
+    data,
+    refreshData,
+  };
   return (
-    <>
-      <ViewTableTabs />
-      {/* <ViewTableMain columns={columns} data={auxiliary.data} /> */}
-    </>
+    <View style={{ maxHeight: 400 }}>
+      <UseDisplayTable tableData={tableData} />
+    </View>
   );
 };
 
@@ -531,15 +601,88 @@ export const ViewDisplayMaps = (props: any) => {
 
 // Will use dynamic json tree component from json.tsx once developed by Loisa
 export const ViewDisplayJson = (props: any) => {
-  const schema = props.schema;
-  const auxiliary = props.auxiliary;
-  // const columns = useTableColumns(
-  //   schema.data?.map((x: any) => x.focus_columns.name_singular)
-  // );
+  const jsonData = {
+    name: "John Doe",
+    age: 30,
+    address: {
+      street: "123 Main St",
+      city: "New York",
+      zipCode: "10001",
+    },
+    email: "john.doe@example.com",
+    isEmployed: true,
+    hobbies: ["Reading", "Hiking"],
+    pets: [
+      {
+        name: "Fido",
+        species: "Dog",
+        age: 5,
+      },
+      {
+        name: "Whiskers",
+        species: "Cat",
+        age: 3,
+      },
+    ],
+    education: [
+      {
+        degree: "Bachelor's",
+        major: "Computer Science",
+        university: "Example University",
+        year: 2015,
+      },
+      {
+        degree: "Master's",
+        major: "Business Administration",
+        university: "Another University",
+        year: 2018,
+      },
+    ],
+    // immutable: ImmutableMap({ key: "value" }),
+  };
+
+  const theme = {
+    scheme: "monokai",
+    author: "wimer hazenberg (http://www.monokai.nl)",
+    base00: "#272822",
+    base01: "#383830",
+    base02: "#49483e",
+    base03: "#75715e",
+    base04: "#a59f85",
+    base05: "#f8f8f2",
+    base06: "#f5f4f1",
+    base07: "#f9f8f5",
+    base08: "#f92672",
+    base09: "#fd971f",
+    base0A: "#f4bf75",
+    base0B: "#a6e22e",
+    base0C: "#a1efe4",
+    base0D: "#66d9ef",
+    base0E: "#ae81ff",
+    base0F: "#cc6633",
+  };
+
   return (
     <View style={{ flexDirection: "column" }}>
-      {/* <ViewJsonMain schema={schema} auxiliary={auxiliary} columns={columns} /> */}
-      {/* todo */}
+      <JSONTree
+        data={jsonData}
+        theme={{
+          extend: theme,
+          // underline keys for literal values
+          valueLabel: {
+            textDecoration: "underline",
+          },
+          // switch key for objects to uppercase when object is expanded.
+          // `nestedNodeLabel` receives additional arguments `expanded` and `keyPath`
+          nestedNodeLabel: ({ style }, nodeType, expanded) => ({
+            style: {
+              ...style,
+              textTransform: expanded ? "uppercase" : style.textTransform,
+            },
+          }),
+        }}
+        invertTheme={true}
+      />
     </View>
   );
 };

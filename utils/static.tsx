@@ -7,6 +7,7 @@ export const data: {
   description: string;
   summary: string;
   nickname: string;
+  notes?:string;
 }[] = [
   {
     id: 3,

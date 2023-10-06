@@ -93,6 +93,7 @@ export const ViewSoundRecorder = () => {
         onPress={stopRecording}
         disabled={!recording}
       />
+      <Text>{JSON.stringify(getURI)}</Text>
       <Button disabled={!uri || isPlaying} title="Play Recording" onPress={playSound} />
       <Button disabled={!uri || !isPlaying} title="Stop Playback" onPress={stopSound} />
       <Button disabled={!uri} title="Clear Recording" onPress={clearRecording} />

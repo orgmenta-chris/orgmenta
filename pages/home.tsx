@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <ImageBackground
       style={{ width: "100%", height: "100%" }}
-      source={require("../assets/background2.jpg")}
+      source={require("../assets/backgroundCompressed.jpg")}
       resizeMode="cover"
     >
       <View

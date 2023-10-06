@@ -89,3 +89,4 @@ yarn-error.*
 .expo_backup
 /utils/table-old.tsx
 sql
+.env-backup.txt

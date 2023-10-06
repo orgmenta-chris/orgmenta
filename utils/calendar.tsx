@@ -65,9 +65,6 @@ export const ViewCalendarContainer = ({ events }: any) => {
         style={{ flex: 4, margin: 20, flexDirection: "column" }}
         // onLayout={onLayout}
       >
-        <View style={{ height: 50 }}>
-          <ViewCalendarButtons />
-        </View>
         <ViewCalendarMain/>
         {/* <ViewCalendarScheduler height={600} mode={"month"} events={events} /> */}
       </View>
@@ -192,17 +189,12 @@ export const ViewCalendarMain = (props: any) => {
   };
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ flex: 1, marginVertical: 10 }}>
-        {
-          // @ts-ignore
-          <Calendar {...calendarProps} />
-        }
-      </View>
       <View
         style={{
           // flex: 1,
           flexDirection: "row",
-          justifyContent: "center",
+          justifyContent: "flex-end",
+          backgroundColor: "red",
           gap: 5,
           marginBottom: 10,
         }}
@@ -211,6 +203,13 @@ export const ViewCalendarMain = (props: any) => {
         <Button onPress={() => setMode("week")} title="Week" />
         <Button onPress={() => setMode("3days")} title="3 Days" />
         <Button onPress={() => setMode("day")} title="Day" />
+        <ViewCalendarButtons/>
+      </View>
+      <View style={{ flex: 1, marginVertical: 10 }}>
+        {
+          // @ts-ignore
+          <Calendar {...calendarProps} />
+        }
       </View>
     </View>
   );
@@ -234,10 +233,10 @@ export const ViewCalendarButtons = ({ onChangeDate }: any) => {
   return (
     <View
       key={"container"}
-      style={{ height: 40, width: "100%", flexDirection: "row" }}
+      style={{flexDirection: "row", gap: 5, marginLeft: 10 }}
     >
-      <Button title="<" onPress={goToLeft} />
-      <Button title=">" onPress={goToRight} />
+      <Button disabled title=" < " onPress={goToLeft} />
+      <Button disabled title=" > " onPress={goToRight} />
     </View>
   );
 };

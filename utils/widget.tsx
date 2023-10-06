@@ -1,7 +1,6 @@
 // A widget is a container component that has options that appear on hover/click.
 
 import { ViewRouterLink } from "./router";
-
 import { useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import ViewIconMain from "../components/displays/icons/ViewIconMain";

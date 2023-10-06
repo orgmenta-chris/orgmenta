@@ -1,5 +1,5 @@
 import { ActivityIndicator, Text } from "react-native";
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { useMsal, useAccount } from "@azure/msal-react";
 import { loginRequest } from "./authConfig";
 import useTokenStore from "../states/api/storeToken";

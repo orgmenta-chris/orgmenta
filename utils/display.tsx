@@ -2,9 +2,13 @@
 // It is a 'perspective into the graph'.
 // You can view entities and their relationships in different displays (e.g. Table, list, calendar) and filters.
 
-import { ViewRouterLink, useRouterLocation } from "./router";
+import { ViewRouterLinkthemed, useRouterLocation } from "./router";
 import { ViewFormDynamic } from "./form";
 import { ViewListMain } from "./list";
+import { ViewChartMain } from "./chart";
+import { ViewPathMain } from "./path";
+import { ViewMapMobile } from "./map";
+import { UtilityPlatformMain } from "./platform";
 import {
   ViewPodMain,
   ViewPodInfo,
@@ -12,13 +16,15 @@ import {
   ViewPodTabs,
   ViewPodExample,
 } from "./pod";
-// import { ViewTableMain, useTableColumns } from "./table";
+import { ViewIconMain } from "./icon";
+// import { ViewTableMain  } from "./table-old";
 // import { ViewJsonMain } from "./json";
 // import { ViewIconMain } from "./icon";
 
 import { ReactElement, memo, useEffect, useMemo, useState } from "react";
 import {
   View,
+  ScrollView,
   Text,
   TouchableOpacity,
   Modal,
@@ -28,15 +34,15 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-// import MapChart from "../components/displays/maps";
+import ViewMapWeb from "../components/displays/maps/ViewDisplayMaps";
 // import ViewDisplayCalendar from "../components/displays/calendar/ViewDisplayCalendar";
 // import ViewDisplayForm from "../components/displays/forms/ViewDisplayForm";
 // import ViewDisplayList from "../components/displays/list/ViewDisplayList";
 // import ViewDisplayMaps from "../components/displays/maps/ViewDisplayMaps";
 // import ViewDisplayPods from "../components/displays/pods/ViewDisplayPods";
-// import ViewDisplayTable from "../components/displays/table/ViewDisplayTable";
+import TableExample from "../components/displays/table/ViewDisplayTable";
 // import ViewJsonMain from "../components/displays/json/ViewJsonMain";
-import Timeline from "react-native-timeline-flatlist";
+import { ViewTimelineMain, TypeTimelineMain } from "./timeline";
 import { Map, Marker, GeoJson } from "pigeon-maps";
 import {
   Calendar,
@@ -75,6 +81,11 @@ export const ViewDisplayList = (props: any) => {
   // const focus = props.focus;
   return <ViewListMain data={auxiliary?.data} />;
 };
+export const ViewDisplayChart = (props: any) => {
+  const auxiliary = props.auxiliary;
+  // const focus = props.focus;
+  return <ViewChartMain data={auxiliary?.data} />;
+};
 
 export const ViewDisplayPod = (props: any) => {
   const schema = props.schema;
@@ -86,9 +97,9 @@ export const ViewDisplayPod = (props: any) => {
       <ViewPodInfo />
       <ViewPodTabs />
       <ViewPodList title={"Example List Pod"} data={auxiliary.data} />
+      {/* <ViewPodExample />
       <ViewPodExample />
-      <ViewPodExample />
-      <ViewPodExample />
+      <ViewPodExample /> */}
     </ViewPodMain>
   );
 };
@@ -100,7 +111,6 @@ export const ViewDisplayForm = (props: any) => {
   // create the appropriate schema for the form
   let data: any = useMemo(() => {
     let items: any = [];
-
     if (props.schema && props.focus.data && props.auxiliary) {
       props?.schema?.data?.forEach((oldItem: any) => {
         let newItem = { ...oldItem, ...oldItem.auxiliary_columns };
@@ -110,9 +120,8 @@ export const ViewDisplayForm = (props: any) => {
           newItem.value = "(relationships)"; //'props.auxiliary.data to be filtered here (todo)'
         } else {
           newItem.table = "entities";
-          newItem.value = props.focus.data?.[0]?.[newItem.name_singular];
+          newItem.value = newItem[newItem.name_singular];
         }
-
         delete newItem.focus_columns;
         delete newItem.auxiliary_columns;
         items.push(newItem);
@@ -126,6 +135,7 @@ export const ViewDisplayForm = (props: any) => {
 
 // Table
 
+// todo (to be replaced with Loisa's dynamic table once developed)
 export const ViewDisplayTable = (props: any) => {
   const [data, setData] = useState<Person[]>(() => makeData(1000));
   const refreshData = () => setData((old) => makeData(1000));
@@ -379,21 +389,21 @@ export const ViewDisplayCalendar = (props: any) => {
     swipeEnabled: true, // Enable swipe navigation
     weekStartsOn: 0, // Start the week on Sunday
     weekEndsOn: 6, // End the week on Saturday
-    onChangeDate: (dateRange) => {
+    onChangeDate: (dateRange: any) => {
       // Handle date range change
-      console.log("Date range changed:", dateRange);
+      console.info("Date range changed:", dateRange);
     },
     onPressCell: (date) => {
       // Handle cell press
-      console.log("Cell pressed:", date);
+      console.info("Cell pressed:", date);
     },
     onPressDateHeader: (date) => {
       // Handle date header press
-      console.log("Date header pressed:", date);
+      console.info("Date header pressed:", date);
     },
     onPressEvent: (event) => {
       // Handle event click
-      console.log("Event clicked:", event);
+      console.info("Event clicked:", event);
     },
     eventMinHeightForMonthView: 40, // Set the minimum event height for month view
     activeDate: new Date(), // Set the active date to September 15th, 2023
@@ -431,28 +441,115 @@ export const ViewDisplayCalendar = (props: any) => {
 // Timeline
 export const ViewDisplayTimeline = (props: any) => {
   const data = [
-    { time: "09:00", title: "Event 1", description: "Event 1 Description" },
-    { time: "10:45", title: "Event 2", description: "Event 2 Description" },
-    { time: "12:00", title: "Event 3", description: "Event 3 Description" },
-    { time: "14:00", title: "Event 4", description: "Event 4 Description" },
-    { time: "16:30", title: "Event 5", description: "Event 5 Description" },
+    {
+      time: "09:00",
+      title: "TimelineEvent 1",
+      description: "Event 1 Description",
+    },
+    {
+      time: "10:45",
+      title: "TimelineEvent 2",
+      description: "Event 2 Description",
+    },
+    {
+      time: "12:00",
+      title: "TimelineEvent 3",
+      description: "Event 3 Description",
+    },
+    {
+      time: "14:00",
+      title: "TimelineEvent 4",
+      description: "Event 4 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 5",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 6",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 7",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 8",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 9",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 10",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 11",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 12",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 13",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 14",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 15",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 16",
+      description: "Event 5 Description",
+    },
+    {
+      time: "16:30",
+      title: "TimelineEvent 17",
+      description: "Event 5 Description",
+    },
   ];
-
   return (
-    <View style={{ maxHeight: 400 }}>
-      <Text style={{ fontSize: 25, marginBottom: 10 }}>Timeline</Text>
-      <Timeline data={data} />
+    <View style={{ height: "100%" }}>
+      <ViewTimelineMain
+        data={data}
+        style={{}}
+        descriptionStyle={{ color: "white" }}
+        // isUsingFlatlist={true}
+        // circleSize={20}
+        // circleColor='rgb(45,156,219)'
+        // lineColor='rgb(45,156,219)'
+        // timeContainerStyle={{minWidth:52, marginTop: -5}}
+        // timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
+      />
     </View>
   );
 };
 
 // Maps
-
+// Bring PigeonMaps (from components..../ViewDisplayMaps etc.) into a maps.tsx.
+// Also add the data into a useQuery so that it caches everything (including the image if possible?)
 export const ViewDisplayMaps = (props: any) => {
   const { customerAddress } = props; // this data could be geocoded into lat and long coordinates for them to be rendered on the map
-
   const [worldMapJSON, setWorldMapJSON] = useState(null);
-
   const fetchWorldMap = async () => {
     try {
       const response = await fetch(
@@ -467,17 +564,16 @@ export const ViewDisplayMaps = (props: any) => {
       console.error("Error fetching world map data:", error);
     }
   };
-
-  // this function essentially converts the user addresses into coordinates that can be used to render markers on the map.
+  // this function converts the user addresses into coordinates that can be used to render markers on the map.
   const goeCodeAddresses = () => {
     // todo
   };
-
   useEffect(() => {
     fetchWorldMap();
   }, []);
-
-  return (
+  return UtilityPlatformMain.OS !== "web" ? (
+    <ViewMapMobile />
+  ) : (
     <View style={{ maxHeight: 400 }}>
       <Map height={600} defaultZoom={2.5}>
         <GeoJson
@@ -503,6 +599,7 @@ export const ViewDisplayMaps = (props: any) => {
 
 // Json
 
+// Will use dynamic json tree component from json.tsx once developed by Loisa
 export const ViewDisplayJson = (props: any) => {
   const jsonData = {
     name: "John Doe",
@@ -593,147 +690,85 @@ export const ViewDisplayJson = (props: any) => {
 // Components
 
 export const mapDisplayComponents: any = {
-  list: ViewDisplayList,
   pods: ViewDisplayPod,
   form: ViewDisplayForm,
+  list: ViewDisplayList,
   table: ViewDisplayTable,
   calendar: ViewDisplayCalendar,
   timeline: ViewDisplayTimeline,
   maps: ViewDisplayMaps,
   json: ViewDisplayJson,
+  chart: ViewDisplayChart,
+  // path: ViewDisplayPath,
+  // kanban: ViewDisplayKanban,
+  // gantt: ViewDisplayGantt,
+  // thread: ViewDisplayThreads,
+  // nodes: ViewDisplayNodes,
+  // spacial: ViewDisplaySpacial,
 };
 
 // Options
 
 export const optionsDisplayMain = [
-  // ViewDisplayTabs should use this instead of being statically written - Chris todo
-  { title: "Json", iconName: "sdadsasdsads", iconSource: "Feather" },
   { title: "Pods", iconName: "view-quilt", iconSource: "MaterialIcons" },
   {
     title: "Form",
-    iconName: "form", // or view-list-outline MaterialCommunityIcons
-    iconSource: "AntDesign",
+    iconName: "view-list-outline",
+    iconSource: "MaterialCommunityIcons",
   },
   { title: "List", iconName: "list", iconSource: "Feather" },
   { title: "Table", iconName: "table", iconSource: "AntDesign" },
   { title: "Calendar", iconName: "calendar", iconSource: "Feather" },
-  { title: "Timeline", iconName: "timeline", iconSource: "Feather" },
-  { title: "Map", iconName: "map", iconSource: "Feather" },
-  { title: "Chart", iconName: "sdadsasdsads", iconSource: "Feather" },
-  { title: "Path", iconName: "sdadsasdsads", iconSource: "Feather" },
+  { title: "Timeline", iconName: "timeline", iconSource: "MaterialIcons" },
+  { title: "Maps", iconName: "map", iconSource: "Feather" },
+  {
+    title: "Json",
+    iconName: "code-json",
+    iconSource: "MaterialCommunityIcons",
+  },
+  { title: "Chart", iconName: "piechart", iconSource: "AntDesign" },
+  // { title: "Path", iconName: "share", iconSource: "Foundation", },
+  // { title: "Kanban", iconName: "view-column", iconSource: "MaterialIcons"},
+  // { title: "Gantt", iconName: "chart-gantt", iconSource: "MaterialCommunityIcons"},
+  // { title: "Threads", iconName: "wechat", iconSource: "AntDesign"},
+  // { title: "Nodes", iconName: "map-marker-path", iconSource: "MaterialCommunityIcons"},
+  // { title: "Spacial", iconName: "printer-3d", iconSource: "MaterialCommunityIcons"},
 ];
 
 // Tabs
 
-export const ViewDisplayTabs = ({ id, display }: any) => {
-  // Contextual tabs (i.e. these will eventually grey out if not applicable to the current focused entity)
-  const path = useRouterLocation()?.paths;
+export const ViewDisplayTabs = ({}: any) => {
+  const display = useRouterLocation()?.paths[3];
   return (
-    <View
+    <ScrollView
+      horizontal
       style={{
-        flexDirection: "column",
-        position: "absolute",
-        right: 0,
-        top: 100,
-        backgroundColor: "gray",
+        width: "100%",
+        flexDirection: "row",
       }}
     >
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "pods" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../pods"}
-      >
-        Pod
-      </ViewRouterLink>
-      {/* CG handling the pods component/module */}
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "form" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../form"}
-      >
-        Form
-      </ViewRouterLink>
-      {/* CG handling the form component/module*/}
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "list" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../list"}
-      >
-        List
-      </ViewRouterLink>
-      {/*Loisa Handling the list component/module */}
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "table" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../table"}
-      >
-        Table
-      </ViewRouterLink>
-      {/*Loisa Handling the table component/module */}
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "calendar" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../calendar"}
-      >
-        Calendar
-      </ViewRouterLink>
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "timeline" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../timeline"}
-      >
-        Timeline
-      </ViewRouterLink>
-      {/*Loisa Handling the calendar component/module */}
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "maps" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../maps"}
-      >
-        Maps
-      </ViewRouterLink>
-      {/*Loisa Handling the maps component/module */}
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: display === "json" ? "lightgray" : "transparent",
-        }}
-        to={"entity/../../json"}
-      >
-        JSON
-      </ViewRouterLink>
-      {/*Loisa Handling the json component/module */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='kanban'&&'lightgray')}} to={`/entity/` +path[2]+'/kanban'}>Kanban</ViewRouterLink> */}
-      {/* On hold */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='gantt'&&'lightgray')}} to={`/entity/` +path[2]+'/gantt'}>Gantt</ViewRouterLink> */}
-      {/* On hold */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='timeline'&&'lightgray')}} to={`/entity/` +path[2]+'/timeline'}>Timeline</ViewRouterLink> */}
-      {/* On hold */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='threads'&&'lightgray')}} to={`/entity/` +path[2]+'/threads'}>Threads</ViewRouterLink> */}
-      {/* On hold */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='chart'&&'lightgray')}} to={`/entity/` +path[2]+'/chart'}>Chart/Statistics</ViewRouterLink> */}
-      {/* On hold */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='path'&&'lightgray')}} to={`/entity/` +path[2]+'/path'}>Path</ViewRouterLink> */}
-      {/* On hold */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='nodes'&&'lightgray')}} to={`/entity/` +path[2]+'/nodes'}>Nodes</ViewRouterLink> */}
-      {/* On hold */}
-      {/* <ViewRouterLink style={{padding:5, backgroundColor:(path[3]==='spacial'&&'lightgray')}} to={`/entity/` +path[2]+'/spacial'}>Spacial</ViewRouterLink> */}
-      {/* On hold */}
-    </View>
+      {optionsDisplayMain?.map((x, i) => (
+        <View key={i} style={{ flex: 1, width: 50, height: 50 }}>
+          <ViewRouterLinkthemed
+            style={{
+              padding: 5,
+              backgroundColor:
+                display === x.title.toLowerCase() ? "gray" : "lightgray",
+            }}
+            to={`entity/../../../${x.title.toLowerCase()}/display`}
+          >
+            <View style={{ alignItems: "center", flex: 1 }}>
+              <ViewIconMain
+                name={x.iconName}
+                source={x.iconSource}
+                color={"white"}
+              />
+              <Text style={{ fontSize: 11 }}>{x.title}</Text>
+            </View>
+          </ViewRouterLinkthemed>
+        </View>
+      ))}
+    </ScrollView>
   );
 };
 

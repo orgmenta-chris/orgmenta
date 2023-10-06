@@ -1,22 +1,28 @@
-import { Text, View } from "react-native";
+
+
+import { ViewPageMain } from "../utils/page";
 import { useAuthSession } from "../utils/auth";
 import { ViewUserAttributes } from "../utils/user";
-import { ViewDisplayDynamic } from'../utils/display'
+import { ViewDisplayDynamic } from "../utils/display";
+import { ViewTypographyTextheading } from "../utils/typography";
+import { useUserSingle } from "../utils/user";
+import { Text, View } from "react-native";
 
 export default function UserPage() {
-  const session = useAuthSession();
-  
+  const auth = useAuthSession();
+  const user = useUserSingle(auth?.data?.session?.id);
+  console.log(auth?.data)
   return (
-    <View style={{ flexDirection: "column" }}>
-      <Text style={{ fontWeight: '700', marginBottom: 10 }}>USER PAGE</Text>
+    <ViewPageMain>
+      <ViewTypographyTextheading>User</ViewTypographyTextheading>
       <View style={{ maxWidth: 500 }}>
         <Text style={{ marginBottom: 10 }}>ViewAuthDetails</Text>
-        {session.data && (
-          <Text>Logged in as: {session.data.session.user.email}</Text>
+        {auth.data && (
+          <Text>Logged in as: {auth?.data?.session?.user?.email}</Text>
         )}
       </View>
-      <ViewUserAttributes/>
-      <ViewDisplayDynamic/>
-    </View>
+      <ViewUserAttributes />
+      <ViewDisplayDynamic />
+    </ViewPageMain>
   );
 }

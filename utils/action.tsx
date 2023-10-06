@@ -1,17 +1,17 @@
-// An 'Action' is something that can be done to an 'Entity'.
+// An 'Action' (or 'control'?) is something that can be done to an 'Entity'.
 
 import {
-  ViewRouterLink,
+  ViewRouterLinkthemed,
   ViewRouterRoutes,
   ViewRouterRoute,
   useRouterLocation,
+  useRouterNavigate,
 } from "./router";
 import { ViewControlMain } from "./control";
 import { useEntityCreate } from "./entity";
 import { arrayTypeMain } from "./type";
 import { arrayStatusMain } from "./status";
 import { createUuid4 } from "./uuid";
-
 import ViewIconMain from "../components/displays/icons/ViewIconMain";
 import {
   TextInput,
@@ -27,6 +27,7 @@ import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
 import RenderHtml from "react-native-render-html";
 import { UtilityPlatformMain } from "./platform";
+import { ViewDisplayTabs } from "./display";
 
 // Modal
 
@@ -34,6 +35,17 @@ export const ViewActionModal = ({}: any) => {
   return (
     <View style={{ flexDirection: "column" }}>
       <Text>ViewActionModal - To do</Text>
+    </View>
+  );
+};
+
+// Display
+
+export const ViewActionDisplay = ({}: any) => {
+  return (
+    <View style={{ flexDirection: "column" }}>
+      <Text>DisplayMode</Text>
+      <ViewDisplayTabs />
     </View>
   );
 };
@@ -118,7 +130,7 @@ export const ViewActionAdd = ({ auxiliary, schema, focus }: any) => {
       {/* <ViewFormDynamic data={data} /> */}
       <View style={{ flexDirection: "row" }}>
         <Pressable
-          disabled={!state?.title && true}
+          disabled={!state?.title}
           style={{ backgroundColor: state?.title ? "lightblue" : "gray" }}
           onPress={() => {
             create.mutate();
@@ -317,6 +329,30 @@ export const ViewActionLink = ({}: any) => {
   );
 };
 
+// Export
+
+export const ViewActionExport = ({}: any) => {
+  const native = useRouterNavigate();
+  return (
+    <View style={{ flexDirection: "row", maxHeight: 200 }}>
+      <ViewIconMain
+        name={"ios-print-outline"}
+        source={"Ionicons"}
+        color={"black"}
+        size={24}
+      />
+      <ViewIconMain
+        name={"pdffile1"}
+        source={"AntDesign"}
+        color={"black"}
+        size={24}
+      />
+      <ViewActionPDF />
+      {/* (Chris is leaving ViewActionPDF as-is because Loisa is working on it, but we will eventually have the functionality triggered by the pdf icon button above) */}
+    </View>
+  );
+};
+
 // PDF
 
 export const ViewActionPDF = ({}: any) => {
@@ -429,7 +465,12 @@ export const ViewActionPDF = ({}: any) => {
 // Tabs
 
 export const optionsActionTabs = [
-  { title: "View", iconName: "eye", iconSource: "Feather", description: "" },
+  {
+    title: "Display",
+    iconName: "eye",
+    iconSource: "Feather",
+    description: "Change the display mode",
+  },
   {
     title: "Control",
     iconName: "filter",
@@ -451,7 +492,7 @@ export const optionsActionTabs = [
   {
     title: "Sync",
     iconName: "sync",
-    iconSource: "MaterialIcons",
+    iconSource: "OctIcons",
     description: "sync and database storage status",
   },
   {
@@ -473,21 +514,27 @@ export const optionsActionTabs = [
     description: "link/unlink/manage entity relationships",
   },
   {
-    title: "PDF",
-    iconName: "file",
-    iconSource: "Feather",
-    description: "render/display and allow for downloading of PDF files",
+    title: "Export",
+    iconName: "export",
+    iconSource: "Fontisto",
+    description: "Export, print and render/display PDF files",
   },
-  // {title:'Display',iconName:'eye',iconSource:'Feather', description: "change the display mode between Calendar, Table, List etc."},// in case we want to make the mode/display choices (calendar, table etc.) within these tabs instead of on their own
 ];
 
 export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
   const paths = useRouterLocation().paths;
   return (
-    <View style={{ flexDirection: "column" }}>
-      <View style={{ borderWidth: 1 }}>
+    <View style={{ flexDirection: "column", backgroundColor: "lightgray" }}>
+      <View
+        style={
+          {
+            /*borderWidth: 1*/
+          }
+        }
+      >
         <ViewRouterRoutes>
-          <ViewRouterRoute path="/control" element={<ViewActionControl />} />
+          <ViewRouterRoute path="display" element={<ViewActionDisplay />} />
+          <ViewRouterRoute path="control" element={<ViewActionControl />} />
           <ViewRouterRoute
             path="/add"
             element={
@@ -498,38 +545,51 @@ export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
               />
             }
           />
-          <ViewRouterRoute path="/edit" element={<ViewActionEdit />} />
-          <ViewRouterRoute path="/sync" element={<ViewActionSync />} />
-          <ViewRouterRoute path="/share" element={<ViewActionShare />} />
-          <ViewRouterRoute path="/template" element={<ViewActionTemplate />} />
-          <ViewRouterRoute path="/link" element={<ViewActionLink />} />
-          <ViewRouterRoute path="/pdf" element={<ViewActionPDF />} />
+          <ViewRouterRoute path="edit" element={<ViewActionEdit />} />
+          <ViewRouterRoute path="sync" element={<ViewActionSync />} />
+          <ViewRouterRoute path="share" element={<ViewActionShare />} />
+          <ViewRouterRoute path="template" element={<ViewActionTemplate />} />
+          <ViewRouterRoute path="link" element={<ViewActionLink />} />
+          <ViewRouterRoute path="export" element={<ViewActionExport />} />
         </ViewRouterRoutes>
       </View>
-      <View style={{ flexDirection: "row", borderWidth: 1 }}>
+      <View style={{ flexDirection: "row" /*borderWidth: 1*/ }}>
         {optionsActionTabs?.map((x, i) => (
-          <ViewRouterLink
-            key={i}
-            style={{
-              padding: 5,
-              textDecoration: "none",
-              backgroundColor:
-                paths[4] === x.title.toLocaleLowerCase()
-                  ? "lightgrey"
-                  : "transparent",
-            }}
+          <ViewRouterLinkthemed
             to={x.title.toLowerCase()}
+            style={{
+              flex: 1,
+            }}
+            key={i}
           >
-            {/* {x.title} */}
-            <ViewIconMain
-              name={x.iconName}
-              source={x.iconSource}
-              color={"black"}
-              size={24}
-            />
-          </ViewRouterLink>
+            <View
+              style={{
+                flex: 1,
+                padding: 5,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor:
+                  paths[4] === x.title.toLocaleLowerCase()
+                    ? "gray"
+                    : "transparent",
+              }}
+            >
+              <ViewIconMain
+                name={x.iconName}
+                source={x.iconSource}
+                color={"black"}
+                size={24}
+              />
+            </View>
+          </ViewRouterLinkthemed>
         ))}
       </View>
     </View>
   );
 };
+
+// <Pressable
+// onPress={() => {
+//   native(`/users/${auth?.data?.session?.user?.id || 'guest'}/devices`);
+// }}
+// >

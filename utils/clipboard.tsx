@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { View, Text, Button, TextInput } from "react-native";
 import * as Clipboard from "expo-clipboard";
 
-export const UseClipboardCopy = ({}: any) => {
+export const ViewClipboardCopy = ({}: any) => {
   const [copiedText, setCopiedText] = useState("");
   const [sampleText, setSampleText] = useState(
     "This is sample text you can edit. Copy to clipboard"

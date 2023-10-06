@@ -1,7 +1,7 @@
 // A 'router' manages navigation and routing in a React application, directing the display of content based on the current URL or route
 // NOTE THAT BACK BUTTON FUNCTIONALITY ON MOBILE MAY NOT YET BE WORKING.
 
-import { Text } from "react-native";
+import { Text, View, Pressable } from "react-native";
 import { UtilityPlatformMain } from "./platform";
 import { useThemeToken, TypeThemeMain } from "./theme";
 import { validateObjectIsobject } from "./object";
@@ -26,6 +26,8 @@ import {
   Link as NLink,
   LinkProps as NLinkProps,
 } from "react-router-native";
+import { ViewPageMain } from "../utils/page";
+import { ViewTypographyTextthemed } from "../utils/typography";
 
 // Location
 
@@ -72,10 +74,20 @@ export type TypeRouterLink = NLinkProps | DLinkProps;
 export const ViewRouterLink: React.FC<any> = ({ children, ...rest }) => {
   const LinkComponent = UtilityPlatformMain.OS === "web" ? DLink : NLink;
   const isString = typeof children === "string";
-  return (
+  const navigate = useRouterNavigate();
+  return UtilityPlatformMain.OS === "web" ? (
     <LinkComponent {...rest}>
       {isString ? <Text>{children}</Text> : children}
     </LinkComponent>
+  ) : (
+    <Pressable
+      style={{ minHeight: 40 }}
+      onPress={() => {
+        navigate(`${rest.to}`);
+      }}
+    >
+      {isString ? <Text>{children}</Text> : children}
+    </Pressable>
   );
 };
 
@@ -107,8 +119,68 @@ export const ViewRouterLinkthemed = ({
   );
 };
 
+// Button (allows us to navigate AND perform functions - but we lose right click ability, so don't use this unless necessary / unless right click isn't needed)
+
+// TODO (placeholder, not tested)
+export const ViewRouterButton = ({
+  to,
+  otherfunctions,
+  heading,
+  children,
+  theme_token,
+  style,
+  ...rest
+}: any) => {
+  const navigate = useNavigate();
+  const theme = useThemeToken(theme_token || "link") as TypeThemeMain;
+  const isStyleObject = validateObjectIsobject(style as TypeStylesheetMain);
+  const stylesheetMerged = mergeStylesheetMain(
+    theme?.style,
+    isStyleObject ? (style as TypeThemeMain) : {}
+  );
+  const propsMerged = { ...theme, ...rest, style: stylesheetMerged };
+  return (
+    <Pressable
+      {...propsMerged}
+      onPress={() => {
+        navigate(to);
+        otherfunctions();
+      }}
+    >
+      <ViewTypographyTextthemed>{heading}</ViewTypographyTextthemed>
+    </Pressable>
+  );
+};
+
 // Navigate
 
 export const ExecuteRouterNavigate = Navigate;
 
 export type TypeRouterNavigate = NavigateProps;
+
+// Lost (404 / not found page)
+export const ViewRouterLostpage = () => {
+  return (
+    <ViewPageMain>
+      <Text
+        style={{
+          margin: 20,
+          fontSize: 30,
+          fontWeight: "800",
+          textAlign: "center",
+        }}
+      >
+        404 Not Found
+      </Text>
+      <ViewRouterLinkthemed to={"/"}>
+        <View style={{ flex: 1 }}>
+          <ViewTypographyTextthemed
+            style={{ fontSize: 24, flex: 1, alignSelf: "center" }}
+          >
+            Home
+          </ViewTypographyTextthemed>
+        </View>
+      </ViewRouterLinkthemed>
+    </ViewPageMain>
+  );
+};

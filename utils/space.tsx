@@ -2,16 +2,16 @@
 
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { ViewModalMain } from "./modal";
-import { ViewRouterLink } from "./router";
-import { useState, useEffect } from "react";
-import { StyleSheet, ScrollView, View, Text, Pressable } from "react-native";
+import { ViewRouterLinkthemed } from "./router";
+import { ViewTypographyTextthemed, ViewTypographyTextsubsubheading } from "./typography";
+import { ViewCardExpandable } from "./card";
+import { useTableColumns } from "../components/displays/table/table";
 import {
   useQuery,
   useMutation,
   useQueryClient,
   UseQueryOptions,
 } from "@tanstack/react-query";
-import { useTableColumns } from "../components/displays/table/table";
 import {
   createColumnHelper,
   flexRender,
@@ -20,22 +20,8 @@ import {
   ColumnResizeMode,
   ColumnDef,
 } from "@tanstack/react-table";
-
-// Meta
-
-export const metaSpaceInfo = {
-  description: `A 'space' is an environment for an organisation, business department, division, territory or other company subdivision.`,
-  features: [
-    "Create",
-    "Setup",
-    "Update",
-    "Delete",
-    "Array",
-    "Item",
-    "Active",
-    "Table",
-  ],
-};
+import { ScrollView, View, Text, Pressable } from "react-native";
+import { useState, useEffect } from "react";
 
 // Create (Create a space. Note that this does not set up all of the other related assets like tables, load in any blueprint entities, run any necessary server functions, etc (see useSpaceSetup for that)
 
@@ -110,7 +96,8 @@ export interface interfaceSpaceUpdate {
   // todo
 }
 
-export async function requestSpaceUpdate(space: interfaceSpaceUpdate) { // todo
+export async function requestSpaceUpdate(space: interfaceSpaceUpdate) {
+  // todo
   //todo
 }
 
@@ -126,7 +113,8 @@ export interface interfaceSpaceDelete {
   // todo
 }
 
-export async function requestSpaceDelete(space: interfaceSpaceDelete) { // todo
+export async function requestSpaceDelete(space: interfaceSpaceDelete) {
+  // todo
   //todo
 }
 
@@ -144,7 +132,8 @@ export interface interfaceSpaceDestroy {
   // todo
 }
 
-export async function requestSpaceDestroy(space: interfaceSpaceDestroy) { // todo
+export async function requestSpaceDestroy(space: interfaceSpaceDestroy) {
+  // todo
   //todo
 }
 
@@ -162,21 +151,29 @@ export const useSpaceDestroy = (props: interfaceSpaceDestroy) => {
 
 // Array
 
-export const useSpaceArray = ({ ...Input }) => {
-  const query = useQuery({
-    queryKey: ["spaces", "array", "add_relevant_props_here"],
-    queryFn: async () => {
-      const response = await instanceSupabaseClient
-        .from("spaces")
-        .select()
-        .limit(10);
-      return response.data;
-    },
+export async function requestSpaceArray() {
+  return await instanceSupabaseClient
+    .from("spaces")
+    .select()
+    .range(0, 9) //temp arbitrary limit of 10 (todo: pass variables in here to get proper pagination)
+    .then(handleSupabaseResponse as any);
+}
+
+export const useSpaceArray = (spacename?: any, categories?: any) => {
+  console.log("category", categories);
+  const queryKey: (string | number)[] = [
+    "entities",
+    "array",
+    spacename,
+    categories,
+  ];
+  const query = useQuery(queryKey, () => requestSpaceArray(), {
     enabled: true,
-  } as UseQueryOptions<any[], unknown>); // Specify the expected types for data and error.
+  });
   return query;
 };
 
+// todo
 export const ViewSpaceArray = () => {
   const array = useSpaceArray({});
   const attributeColumnNames = [
@@ -195,7 +192,8 @@ export const ViewSpaceArray = () => {
   return (
     <View>
       <Text style={{ fontWeight: "700" }}>ViewSpaceArray</Text>
-      {/* <ViewSpaceTable data={array.data} columns={columns}/> */}
+      {/* <Text style={{}}>{JSON.stringify(array,null,2)}</Text> */}
+      <ViewSpaceTable data={array.data} columns={columns} />
     </View>
   );
 };
@@ -217,7 +215,7 @@ export const useSpaceItem = ({ id }: interfaceSpaceItem) => {
         .single();
       return response.data;
     },
-    enabled: id && true,
+    enabled: !!id,
     // ...props
   } as UseQueryOptions<any[], unknown>); // Specify the expected types for data and error.
   return query;
@@ -240,7 +238,7 @@ export const ViewSpaceItem = ({ id }: interfaceSpaceItem) => {
 // Then the user can switch active companies, which will update this query.
 export const useSpaceActive = ({ ...Input }: TypeSpaceActive) => {
   const query = useQuery({
-    queryKey: ["spaces", "active"],
+    queryKey: ["spaces", "selected"],
     queryFn: () => {
       return {};
     },
@@ -262,13 +260,12 @@ export const updateSpaceActive = ({ space }: TypeSpaceActive) => {
 
 // Table
 
+// Temp. to be replaced with Loisa's dynamic table once developed
 export const ViewSpaceTable = ({ ...Input }) => {
   // This is currently a hardocded basic table, but will use the proper modular table component built by Loisa
   const columns = Input.columns;
-
   const [columnResizeMode, setColumnResizeMode] =
     useState<ColumnResizeMode>("onChange");
-
   // When data is provided, set the data to state
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -276,7 +273,6 @@ export const ViewSpaceTable = ({ ...Input }) => {
       setData(Input.data);
     }
   }, [Input?.data]);
-
   const table = useReactTable({
     data,
     columns,
@@ -286,7 +282,6 @@ export const ViewSpaceTable = ({ ...Input }) => {
     //   debugHeaders: true, // logs to console
     //   debugColumns: true, // logs to console
   });
-
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
@@ -346,32 +341,30 @@ export const ViewSpaceModal = (props: any) => {
       pinnable
       collapsible
     >
-      <ViewRouterLink to={`/spaces/${"SPACEIDHERE"}/pods`}>
-        SPACE
-      </ViewRouterLink>
-      <ViewRouterLink to={`/spaces/all/pods`}>ALL SPACES</ViewRouterLink>
-      <ViewRouterLink to={`/spaces/${"SPACEIDHERE"}/pods`}>
-        SPACE
-      </ViewRouterLink>
-      <ViewRouterLink to={`/spaces/all/pods`}>ALL SPACES</ViewRouterLink>
-      <ViewRouterLink to="">Files</ViewRouterLink>
-      <ViewRouterLink to="">Settings</ViewRouterLink>
-      <ViewRouterLink to="">Subscription & Billing</ViewRouterLink>
-
-      <Text>(list of spaces here)</Text>
-      <Pressable>
-        <Text>+ Add a new organization</Text>
-      </Pressable>
+      <ScrollView>
+        <ViewSpaceCurrent />
+        <ViewSpaceSwitch />
+        <ViewSpaceLinks />
+        <ViewSpaceNotifications />
+      </ScrollView>
     </ViewModalMain>
   );
 };
 
 // State (save a space's data to state. E.g. 'Selected' uses this to save the current/active space.)
 
+export type TypeSpaceState = {
+  data:
+    | {
+        spacename: string;
+      }
+    | undefined;
+};
+
 export const useSpaceState = (id: any) => {
   // const queryClient = useQueryClient();
   const query = useQuery({
-    queryKey: ["state", id],
+    queryKey: id,
     queryFn: () => null,
     staleTime: Infinity, // This means the data will never become stale automatically
     refetchOnWindowFocus: false,
@@ -379,101 +372,182 @@ export const useSpaceState = (id: any) => {
   return query;
 };
 
-// Set (set values to a space's state)
+// Current
 
-export const useSpaceSet = (id: string, newData: any) => {
-  const queryClient = useQueryClient();
-  return () => {
-    queryClient.setQueryData(["space", id], (oldData: any) => {
-      // This just does a shallow merge with newData properties overwriting any presceding properties.
-      // future versions should utilise underscore.js + any custom merge functionality if needed.
-      const data = { ...oldData, ...newData };
-      return data;
-    });
-  };
-};
-
-// // Selected
-
-// export const useSpaceSelected = (id:string, newData:any) => {
-//   const selected = useSpaceState('selected');
-//   const select = (id:string)=>{useSpaceSet('selected',id)};
-//   return {
-//     selected, select
-//   }
-// }
-
-// Pinned
-
-export const useModalPinned = (modalName: string) => {
-  const queryClient = useQueryClient();
-  return () => {
-    queryClient.setQueryData(["space", modalName], (oldData: any) => {
-      return { ...oldData, pinned: !oldData?.pinned };
-    });
-  };
-};
-
-// Toggle
-
-export const ViewModalToggle = ({ modalName }: any) => {
-  // Example button to toggle the modal state value
-  return (
-    <Pressable onPress={useModalPinned(modalName)}>
-      <Text>Toggle</Text>
-    </Pressable>
+// Currently selected space links/options
+export const ViewSpaceCurrent = (props: any) => {
+  const spaceActive: any = useSpaceState(["space", "selected"]);
+  return ( spaceActive?.data?.title &&
+    <ViewCardExpandable
+      startExpanded
+      header={spaceActive?.data?.title}
+      body={
+        spaceActive?.data?.title && (
+          <>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/spaces/${spaceActive.data.selected}`}
+            >
+              <ViewTypographyTextsubsubheading selectable={false}>
+                Go to Space
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/spaces/${spaceActive.data.selected}/attributes`}
+            >
+              <ViewTypographyTextsubsubheading selectable={false}>
+                Attributes
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/spaces/${spaceActive.data.selected}/files`}
+            >
+              <ViewTypographyTextsubsubheading selectable={false}>
+                Files
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/spaces/${spaceActive.data.selected}/settings`}
+            >
+              <ViewTypographyTextsubsubheading selectable={false}>
+                Settings
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/spaces/${spaceActive.data.selected}/billing`}
+            >
+              <ViewTypographyTextsubsubheading selectable={false}>
+                Subscription & Billing
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+            <ViewRouterLinkthemed
+              style={{ margin: 5 }}
+              to={`/spaces/${spaceActive.data.selected}/members`}
+            >
+              <ViewTypographyTextsubsubheading selectable={false}>
+                Members
+              </ViewTypographyTextsubsubheading>
+            </ViewRouterLinkthemed>
+          </>
+        )
+      }
+    />
   );
 };
 
-// State
-
-export const useModalState = (modalName: string) => {
-  // const queryClient = useQueryClient();
-  const query = useQuery({
-    queryKey: ["space", modalName],
-    queryFn: () => null,
-    // initialData: () => queryClient.getQueryData(['modal', modalName]) || null,
-    // staleTime: Infinity // This means the data will never become stale automatically
-    refetchOnWindowFocus: false,
-  });
-  return query;
-};
-
-export const ViewModalState = ({ modalName }: any) => {
-  const modalState = useModalState(modalName);
-  return (
-    <>
-      <ViewModalToggle />
-      <Text>{JSON.stringify(modalState?.data, null, 2)}</Text>
-    </>
-  );
-};
-
-// Switch
-
-export const ViewSpaceSwitch = (props: any) => {
-  // A widget to switch between spaces / make a different space active
+// Switch between available spaces
+export const ViewSpaceSwitch = () => {
+  const spaceActive: any = useSpaceState(["space", "selected"]);
   const array = useSpaceArray({});
-  const selected = useSpaceState(["space", "selected"]);
-
-  // Call the hook at the top level and get the updater function
-  const updateSelected = useSpaceSet("selected", "1");
-
-  const select = (id: string) => {
-    // console.log(1)
-    updateSelected(); // Use the updater function here
-  };
-
-  return (
-    <View style={{}}>
-      <Text>array{JSON.stringify(array?.data, null, 2)}</Text>
-      <Text>selected{JSON.stringify(selected, null, 2)}</Text>
-      <Pressable onPress={useSpaceSet("selected", "test")}>
-        <Text>select</Text>
-      </Pressable>
-      <ViewModalState modalName={"selected"} />
-    </View>
+  const updater = useSpaceSet(
+    ["space", "selected"],
+    (id: string, title: string, spacename: string) => ({
+      id: id,
+      title,
+      spacename,
+    })
   );
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={spaceActive?.data?.title ? "Switch Space" : "Select a Space"}
+      body={(array?.data as any)?.map((x:any, i:string) => (
+        <Pressable
+          key={i}
+          style={{ padding: 10, marginBottom:5, backgroundColor: "lightgray" }}
+          onPress={() =>
+            updater(x.id, x.name_display_singular, x.name_store_singular)
+          }
+        >
+          <Text>{x.name_display_singular}</Text>
+        </Pressable>
+      ))}
+    />
+  );
+};
+
+// Links that do not depend on a specific space
+export const ViewSpaceLinks = () => {
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Navigation"}
+      body={
+        <>
+          <ViewRouterLinkthemed style={{ margin: 5 }} to={`/spaces/all/pods`}>
+            <ViewTypographyTextsubsubheading selectable={false}>
+              All Spaces
+            </ViewTypographyTextsubsubheading>
+          </ViewRouterLinkthemed>
+          <ViewRouterLinkthemed style={{ margin: 5 }} to={`/spaces/all/new`}>
+            <ViewTypographyTextsubsubheading selectable={false}>
+              Create New Space
+            </ViewTypographyTextsubsubheading>
+          </ViewRouterLinkthemed>
+        </>
+      }
+    />
+  );
+};
+
+// Widget to show the recent notifications/logs for that user (e.g system alerts, logs for changes to entities that the user is 'following'/assinged to, etc.
+export const ViewSpaceNotifications = () => {
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Notifications"}
+      body={
+        <>
+          <ViewTypographyTextthemed style={{ margin: 5, color:'black' }} >
+            (Notifications go here)
+          </ViewTypographyTextthemed>
+          <ViewRouterLinkthemed style={{ margin: 5 }} to={`/spaces/all/notifications`}>
+            <ViewTypographyTextsubsubheading selectable={false}>
+              Go to Space Notifications
+            </ViewTypographyTextsubsubheading>
+          </ViewRouterLinkthemed>
+        </>
+      }
+    />
+  );
+};
+
+// An empty useQuery that is used to as a state (this uses cache so retains data between reloads, sessions and component closures)
+export const useSpaceSet = (
+  queryKey: string[],
+  newData: (id: string, title: string, spacename: string) => any
+) => {
+  const queryClient = useQueryClient();
+  return (passedId: string, passedTitle: string, passedspacename: string) => {
+    const resolvedData = newData(passedId, passedTitle, passedspacename);
+    queryClient.setQueryData(queryKey, (oldData: any) => {
+      if (JSON.stringify(oldData) === JSON.stringify(resolvedData)) {
+        return oldData;
+      }
+      return { ...oldData, ...resolvedData };
+    });
+  };
+};
+
+// Meta
+
+// Temporary / CG using for reference & designing
+export const metaSpaceInfo = {
+  description: `A 'space' is an environment for an organisation, business department, division, territory or other company subdivision.`,
+  features: [
+    "Create",
+    "Setup",
+    "Update",
+    "Delete",
+    "Array",
+    "Item",
+    "Active",
+    "Table",
+  ],
 };
 
 // Sync

@@ -1,7 +1,11 @@
 // A 'Focus' is the primary entity being studied / viewed
 
 import { View, Text } from "react-native";
-import { ViewRouterLink, useRouterLocation } from "./router";
+import {
+  ViewRouterLink,
+  ViewRouterLinkthemed,
+  useRouterLocation,
+} from "./router";
 import { data } from "./static";
 
 // Main
@@ -23,33 +27,77 @@ export const ViewFocusHeader = () => {
   // At the moment, this shows breadcrumbs for categories (e.g. governance > model > plan) from static.js
   // But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
   const path = useRouterLocation()?.paths;
-  const process = data?.find((x) => x.nickname === path[2]);
-  const subprocesses = process && data.filter((x) => x.parent === process.id);
-  const parent = data?.find((y) => y.id === process?.parent);
-  const grandparent = data?.find((z) => z.id === parent?.parent);
+  const process = data?.find((a) => a.nickname === path[2]);
+  const parent = data?.find((b) => b.id === process?.parent);
+  const grandparent = data?.find((c) => c.id === parent?.parent);
+  const ggrandparent = data?.find((d) => d.id === grandparent?.parent);
   return (
-    <View style={{ flexDirection: "column" }}>
+    <View
+      style={{
+        flexDirection: "column",
+        borderWidth: 1,
+        margin: 5,
+      }}
+    >
       {/* Title of the current process (breadcrumbs) */}
-      <Text style={{ fontSize: 24, height: 30 }}>
+      <Text>
+        {ggrandparent?.id && ggrandparent?.id > 9 && (
+          <>
+            <ViewRouterLinkthemed
+              style={{ fontSize: 20 }}
+              to={"/entity/" + ggrandparent.nickname}
+            >
+              <Text style={{ textDecorationLine: "underline", fontSize: 20 }}>
+                {ggrandparent.display_singular}
+              </Text>
+            </ViewRouterLinkthemed>
+            <View>
+              <Text style={{ fontSize: 20 }}>{" > "}</Text>
+            </View>
+          </>
+        )}
         {grandparent?.id && grandparent?.id > 9 && (
           <>
-            {" "}
-            <ViewRouterLink to={"/entity/" + grandparent.nickname}>
-              {grandparent.display_singular}
-            </ViewRouterLink>
-            {" > "}
+            <ViewRouterLinkthemed
+              style={{ fontSize: 20 }}
+              to={"/entity/" + grandparent.nickname}
+            >
+              <Text style={{ textDecorationLine: "underline", fontSize: 20 }}>
+                {grandparent.display_singular}
+              </Text>
+            </ViewRouterLinkthemed>
+            <View>
+              <Text style={{ fontSize: 20 }}>{" > "}</Text>
+            </View>
           </>
         )}
         {parent?.id && parent?.id > 9 && (
           <>
-            {" "}
-            <ViewRouterLink to={"/entity/" + parent.nickname}>
-              {parent.display_singular}
-            </ViewRouterLink>
-            {" > "}
+            <ViewRouterLinkthemed
+              style={{ fontSize: 20 }}
+              to={"/entity/" + parent.nickname}
+            >
+              <Text style={{ textDecorationLine: "underline", fontSize: 20 }}>
+                {parent.display_singular}
+              </Text>
+            </ViewRouterLinkthemed>
+            <View>
+              <Text style={{ fontSize: 20 }}>{" > "}</Text>
+            </View>
           </>
         )}
-        {process?.display_singular}
+        {process?.id && (
+          <>
+            <ViewRouterLinkthemed
+              style={{ fontSize: 20 }}
+              to={"/entity/" + process.nickname}
+            >
+              <Text style={{ fontSize: 20, color: "white" }}>
+                {process.display_singular}
+              </Text>
+            </ViewRouterLinkthemed>
+          </>
+        )}
       </Text>
     </View>
   );
@@ -73,7 +121,7 @@ export const ViewFocusInfo = () => {
         flexDirection: "column",
         borderWidth: 1,
         borderColor: "white",
-        margin: 4,
+        margin: 5,
       }}
     >
       <View style={{ height: 40, backgroundColor: "lightgray" }}>
@@ -112,7 +160,7 @@ export const ViewFocusTabs = () => {
         flexDirection: "column",
         borderWidth: 1,
         borderColor: "white",
-        margin: 4,
+        margin: 5,
       }}
     >
       {/* Tabs for each subprocess */}

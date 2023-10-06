@@ -2,12 +2,12 @@
 import { ViewIconMain } from "../../../utils/icon";
 import { useWindowDimensions } from  "../../../utils/window";
 import { useModalVisibility } from "../../../utils/modal";
-import { useSpaceActive, TypeSpaceActive } from "../../../utils/space";
+import { useSpaceActive, TypeSpaceActive, useSpaceState } from "../../../utils/space";
 import { Text, Pressable } from "react-native";
 
 export default function SpaceWidget() {
   const window = useWindowDimensions();
-  const spaceActive = useSpaceActive({}) as TypeSpaceActive;
+  const spaceActive = useSpaceState(["space", "selected"]);
   return (
     <Pressable
       onPress={useModalVisibility('space')}
@@ -25,10 +25,10 @@ export default function SpaceWidget() {
         size={30}
         style={{
           alignItems: 'center', 
-          justifyContent: 'center',
+          justifyContent: 'center'
         }}
       />
-      {window?.width > 600 && <Text selectable={false} numberOfLines={1} style={{ paddingLeft: 10, color: 'white' }}>{spaceActive?.data?.title}</Text>}
+      {window?.width > 600 && <Text selectable={false} numberOfLines={1} style={{ paddingLeft: 10, color: 'white', justifyContent:'flex-start' }}>{spaceActive?.data?.title}</Text>}
     </Pressable>  
   );
 }

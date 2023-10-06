@@ -18,8 +18,3 @@ export const VaultGetSecret = async (secret_name: string) => {
   if (error) throw new Error(`${error}`);
   else return data;
 };
-
-// export const deleteSecret = async (secret_name: string) => {
-//   const vault = await client.rpc("delete_secret", { secret_name });
-//   return vault;
-// };

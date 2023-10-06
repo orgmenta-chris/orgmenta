@@ -4,8 +4,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { instanceSupabaseClient } from "./supabase";
 import { decode } from "base64-arraybuffer-es6";
-// @ts-ignore
-import Papa from "papaparse";
 
 // https://supabase.com/docs/reference/javascript/storage-from-list
 
@@ -25,13 +23,13 @@ import Papa from "papaparse";
 
 // For now let's just use a single 'default' bucket.
 
-const bucketName = "default";
+export const defaultStorageBucket = "default";
 
 // Create a new bucket
 
 export const createNewBucket = async () => {
   const { data, error } = await instanceSupabaseClient.storage.createBucket(
-    bucketName,
+    defaultStorageBucket,
     {
       public: true,
       allowedMimeTypes: [
@@ -52,7 +50,7 @@ export const createNewBucket = async () => {
 
 export const retrieveBucket = async () => {
   const { data, error } = await instanceSupabaseClient.storage.getBucket(
-    bucketName
+    defaultStorageBucket
   );
 
   if (error) {
@@ -89,7 +87,7 @@ export const ensureBucketExists = async () => {
 
 export const uploadDocument = async ({ name, file }: documentToBeUploaded) => {
   const { data, error } = await instanceSupabaseClient.storage
-    .from(bucketName)
+    .from(defaultStorageBucket)
     .upload(
       `documents/${file.name}`, // at the moment, this just uses the default file name (including file extension), not the 'name' passed through as a prop.
       decode(file.uri), // base64 into ArrayBuffer
@@ -104,8 +102,7 @@ export const uploadDocument = async ({ name, file }: documentToBeUploaded) => {
   return data;
 };
 
-export const fileUpload = ({ name, file }: documentToBeUploaded) => {
-  // console.log('fileUpload', name, file)
+export const useStorageUpload = ({ name, file }: documentToBeUploaded) => {
   const queryClient = useQueryClient();
   const mutation = useMutation(
     ["files", "create"],
@@ -119,12 +116,13 @@ export const fileUpload = ({ name, file }: documentToBeUploaded) => {
   return mutation;
 };
 
-// List all documents in the bucket
+// Items
 
-export const listAllDocumentsInBucket = async () => {
+// List all documents in the bucket
+export const requestBucketItems = async () => {
   try {
     const { data, error } = await instanceSupabaseClient.storage
-      .from(bucketName)
+      .from(defaultStorageBucket)
       .list("documents/", {
         limit: 100,
         offset: 0,
@@ -134,18 +132,17 @@ export const listAllDocumentsInBucket = async () => {
     if (error) {
       throw new Error(error.message);
     }
-
     return data || [];
   } catch (error) {
     throw error;
   }
 };
 
-export const bucketItems = () => {
+export const useBucketItems = () => {
   const query = useQuery({
     queryKey: ["bucket"],
     queryFn: () =>
-      listAllDocumentsInBucket().then((response: any) => {
+      requestBucketItems().then((response: any) => {
         if (response && response !== undefined) {
           return response.data;
         } else {
@@ -153,28 +150,5 @@ export const bucketItems = () => {
         }
       }),
   });
-
   return query;
-};
-
-export interface ParseCSV {
-  header: boolean;
-  skipEmptyLines: boolean;
-  complete: Function;
-  error: Function;
-}
-
-export const parseCSV = async (data: any[], config: ParseCSV) => {
-  data.map(async (document: any) => {
-    try {
-      const base64Data = document.uri.replace("data:text/csv;base64,", "");
-
-      // Decode base64 to a text CSV string
-      const csvText = atob(base64Data);
-
-      Papa.parse(csvText, config);
-    } catch (error) {
-      throw new Error(`${error}`);
-    }
-  });
 };

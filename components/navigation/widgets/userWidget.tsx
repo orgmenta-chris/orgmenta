@@ -8,7 +8,7 @@ import { Text, Pressable } from "react-native";
 export default function BrowseWidget() {
   const auth = useAuthSession();
   const window = useWindowDimensions();
-  const userActive = useUserActive({}) as TypeUserActive;
+  // const userActive = useUserActive({}) as TypeUserActive;
   return (
     <Pressable
       onPress={useModalVisibility('user')}
@@ -19,7 +19,7 @@ export default function BrowseWidget() {
         flexDirection: 'row'
       }}
     >
-      {window?.width > 600 && <Text selectable={false} numberOfLines={1} style={{ paddingRight: 10, color: 'white' }}>{`${auth?.data?.currentUser}`}</Text>}
+      {window?.width > 600 && <Text selectable={false} numberOfLines={1} style={{ paddingRight: 10, color: 'white' }}>{`${auth?.data?.nickUpper}`}</Text>}
       <ViewIconMain
         name={'user'}
         source={'Feather'}

@@ -108,6 +108,16 @@
   - For example, starting to type 'View' into `import { View[...] } from './window'` in many IDEs will then show a list of all the available Views (react native components) that are offered in that module.
   - We include the module name in the middle part of the declaration, so that no imports will ever conflict, and all names regardless of context are clear as to which module they come from (worth the trade-off of readability, and our brains will blank it out anyway).
 
+### Reserved Words
+- No overlap in word usage even in different contexts.
+  - A word, when used, should not be used elsewhere (where possible) - in ANY context. For example, 'notification' is now a claimed word for a module. Therefore, in a different(unrelated) context, e.g. when referring to someone notfiying you of something verbally, then 'alert' may be a more appropriate term. 
+  - This is a general best effort rule. Sometimes it may be unavoidable.
+- Misc Reserved words
+  - Name: Don't use 'name' for properties. Use 'title'. This keeps 'name' as a reserved programming language term. For contacts/people, use 'firstname, middlename, lastname, fullname, nickname' etc. but not just 'name'.
+  - End:  (Chris to evaluate feasiblity of this with Event Calendars etc.) Don't use 'end' for finish times. Keep 'end' as a reserved programming word - Use 'finish' instead.
+  - (NOT) Start: (maybe 'commence' might be needed for event start times - but in this circumstance, it might be pragmatic to keep using 'start' as it isn't a js reserved word and using other terms for events would be confusing for people, and it wouldn't be possible to break the habit / swap out usage in common parlance).
+
+
 #### General Notes
 
 - Length of file / number of declarations is not an issue, and not a reason to split out into a new file. Just press `Ctrl+K, Ctrl+0` to collapse everything and see a clear list of what's in the module.
@@ -131,6 +141,7 @@
 ### Units (suffix)
 
 - The unit must have a capitalized first letter.
+
 
 ## Module Structure
 

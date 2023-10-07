@@ -1,5 +1,6 @@
-// help / info module.
+// help module.
 // Components will have info icons that the user can click on for assistance (and link to a help page?)
+// Need to absract the bar (to 'toolbar'), the info (to 'info') and settings (to 'settings)
 
 import { useState } from "react";
 import { ViewContainerStatic } from "./container";
@@ -7,6 +8,8 @@ import { ViewTypographyText } from "./typography";
 import { ViewIconMain } from "./icon";
 import { ViewRouterLinkthemed } from "./router";
 import { Pressable } from "react-native";
+
+// POPUP
 
 export const ViewHelpPopup = ({ children, state }: any) => {
   return (
@@ -16,6 +19,8 @@ export const ViewHelpPopup = ({ children, state }: any) => {
     </ViewContainerStatic>
   );
 };
+
+// ICONS
 
 export const ViewHelpIcons = ({ children, set, to }: any) => {
   return (
@@ -32,7 +37,7 @@ export const ViewHelpIcons = ({ children, set, to }: any) => {
         style={{
           margin: 5,
         }}
-        // NOT YET IMPLEMENTED (need to get the tooltip, outside of the parent component)
+        // NOT YET IMPLEMENTED (need to abstract this out and get the tooltip outside of the parent component)
         // onPress={() => set((old: any) => !old)}
         // onHoverIn={() => set(true)} 
         // onHoverOut={() => set(false)}
@@ -55,14 +60,35 @@ export const ViewHelpIcons = ({ children, set, to }: any) => {
           color={"gray"}
         />
       </ViewRouterLinkthemed>
+      <Pressable
+        style={{
+          margin: 5,
+        }}
+        // NOT YET IMPLEMENTED (need to abstract this out and need to get the 'more'/settings widget outside of the parent component)
+        // onPress={() => set((old: any) => !old)}
+        // onHoverIn={() => set(true)} 
+        // onHoverOut={() => set(false)}
+      >
+        <ViewIconMain
+          name={"ellipsis-horizontal-circle-sharp"}
+          source={"Ionicons"}
+          color={"gray"}
+          size={26}
+          style={{top:-2  }}
+        />
+      </Pressable>
     </ViewContainerStatic>
   );
 };
+
+// CONTAINER
+
 export const ViewHelpContainer = ({ children, to }: any) => {
   const [state, set] = useState(false);
   return (
     <ViewContainerStatic>
       <ViewHelpIcons set={set} to={to} />
+      {state && <ViewHelpPopup children={children} state={state} />}
       {state && <ViewHelpPopup children={children} state={state} />}
     </ViewContainerStatic>
   );

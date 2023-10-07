@@ -198,7 +198,7 @@ export async function requestSpaceArray() {
 }
 
 export const useSpaceArray = (spacename?: any, categories?: any) => {
-  console.log("category", categories);
+  // console.log("category", categories);
   const queryKey: (string | number)[] = [
     "entities",
     "array",

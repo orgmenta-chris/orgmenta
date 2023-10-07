@@ -82,7 +82,7 @@ export const data: {
     description: `"Business Plan"
     Choosing the business offering
     Red blue ocean
-    Something that won't burn you out, won't make you hate it, dont mind hobby being no longer a hobby, sustainable
+    Something that won't burn you out, won't make you hate it, dont mind hobby being no longer a hobby, sustainable <--https://old.reddit.com/r/smallbusiness/comments/171myh4/why_do_people_keep_trying_to_open_restaurants/
     if lifestyle biz, know that it is.
     something without a dead-end
     something without unnecessary risk
@@ -279,7 +279,7 @@ export const data: {
     parent: 111,
     status: "5. Hold",
     name_singular: "domain",
-    display_singular: "Domain",
+    display_singular: "Domain (or expertise, if we need the domain keyword reserved for domain purchases",
     description: "Consultation with industry experts",
     summary:
       "Bring expert consultation in for specialist advice (e.g. data center employees for a server move project)",
@@ -546,6 +546,15 @@ export const data: {
     display_singular: "Management",
     description: "",
     nickname: "governance-executive-management",
+  },
+  {
+    id: 11410,
+    parent: 1141,
+    status: "5. Hold",
+    name_singular: "stakeholdermanagement",
+    display_singular: "Stakeholder Management",
+    description: "",
+    nickname: "governance-executive-management-stakeholdermanagement",
   },
   {
     id: 1142,
@@ -1999,6 +2008,18 @@ export const data: {
     nickname: "product-catalog-solutions-usecases-userstories",
   },
   {
+    id: 130102,
+    parent: 13010,
+    status: "0. New",
+    name_singular: "userroles",
+    display_singular: "User Roles",
+    description:
+      "Stakeholder Groups that are affected. These compile all of the roles involved in user stories/ that have requested features / that have requirements",
+    summary:
+      "",
+    nickname: "product-catalog-solutions-usecases-userroles",
+  },
+  {
     id: 13011,
     parent: 1301,
     status: "0. New",
@@ -2473,7 +2494,28 @@ export const data: {
     name_singular: "monitoring",
     display_singular: "Monitoring",
     description: "monitoring deployed products",
+    summary: 'Automatic and manual monitoring, alerting to threshold triggers, and provide feedback and information to internal & external stakeholders.',
     nickname: "deployment-usage-monitoring",
+  },
+  {
+    id: 13341,
+    parent: 13341,
+    status: "0. New",
+    name_singular: "thresholds",
+    display_singular: "Thresholds",
+    description: "Maintaining appropriate triggers for alerts",
+    summary: 'Set thresholds to alert you of multi-user outages, single user issues, changes to environments, external news, or anything that is related to the operation of the deployed product.',
+    nickname: "deployment-usage-monitoring-thresholds",
+  },
+  {
+    id: 133410,
+    parent: 13341,
+    status: "0. New",
+    name_singular: "alerts",
+    display_singular: "Alerts",
+    description: "Receive and disseminate alerts",
+    summary: 'get alerts, and pass them onto stakeholders as appropriate. For example, wide scale outages. Log as a fault automatically or manually where needed.',
+    nickname: "deployment-usage-monitoring-alerts",
   },
   {
     id: 13342,
@@ -3568,6 +3610,24 @@ export const data: {
     nickname: "market-brands",
   },
   {
+    id: 1700,
+    parent: 170,
+    status: "0. New",
+    name_singular: "graphics",
+    display_singular: "Graphics",
+    description: "logos etc.",
+    nickname: "market-brands-graphics",
+  },
+  {
+    id: 1701,
+    parent: 170,
+    status: "0. New",
+    name_singular: "assets",
+    display_singular: "Assets",
+    description: "Domains etc.",
+    nickname: "market-brands-assets",
+  },
+  {
     id: 171,
     parent: 17,
     status: "5. Hold",
@@ -3873,10 +3933,19 @@ export const data: {
     id: 18120,
     parent: 1812,
     status: "0. New",
-    name_singular: "stakeholder-identify",
-    display_singular: "Identify",
+    name_singular: "stakeholderidentification",
+    display_singular: "Stakeholder Identification",
     summary: "Add any relevant stakeholders to the ticket",
-    nickname: "response-stakeholders-stakeholder-identify",
+    nickname: "project-response-stakeholders-stakeholderidentification",
+  },
+  {
+    id: 18120,
+    parent: 1812,
+    status: "0. New",
+    name_singular: "stakeholderlist",
+    display_singular: "Stakeholderlist",
+    summary: "Maintain the stakeholder list",
+    nickname: "project-response-stakeholders-stakeholderlist",
   },
   {
     id: 1813,
@@ -3899,7 +3968,7 @@ export const data: {
     description: "Attach documentation to the ticket.",
     notes:
       "Attach customer-specific documentation (this should be followed first) and general documentation (used as a fallback for tasks if there is no customer-specific process for a task",
-    nickname: "response-requirements-assignprocesses",
+    nickname: "project-response-requirements-assignprocesses",
   },
   {
     id: 18131,
@@ -3908,7 +3977,7 @@ export const data: {
     name_singular: "establishrequirements",
     display_singular: "Establish Requirements",
     description: "List the necessary requirements",
-    nickname: "response-requirements-establishrequirements",
+    nickname: "project-response-requirements-establishrequirements",
   },
   {
     id: 1814,
@@ -4573,7 +4642,7 @@ export const data: {
     display_singular: "Technology",
     description: `Your business software, hardware and infrastructure stack. 
     ADD 'DOWNTIME' TO A SUBMODULE HERE OR IN PRODUCT:
-    If we become aware of (external but also internal) product with current downtime (from outage detectors) or impending downtime (via alerts, emails or banners on websites), it should be added in (automatically where possible).
+    If we become aware of (external but also internal) product with current downtime (from outage detectors - see product>deployment>usage>monitoring) or impending downtime (via alerts, emails or banners on websites), it should be added in (automatically where possible).
     Then it should automatically (via templates, if enabled) create tasks to inform stakeholders (internal or otherwise)
     We should also be able to track uptime % of internal and external services.
     `,

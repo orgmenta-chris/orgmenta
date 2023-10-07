@@ -1,11 +1,11 @@
 // An 'Action' (or 'control'?) is something that can be done to an 'Entity'.
 
+import { useEntityCreate } from "./entity";
+import { useModalVisibility } from "./modal";
 import { ViewContainerStatic } from "./container";
 import { ViewInputText } from "./input";
 import { ViewControlMain } from "./control";
-import { useEntityCreate } from "./entity";
-import { arrayTypeMain } from "./type";
-import { arrayStatusMain } from "./status";
+import { ViewFormDynamic } from "./form";
 import { createUuid4 } from "./uuid";
 import { ViewDisplayTabs } from "./display";
 import { ViewIconMain } from "./icon";
@@ -23,6 +23,8 @@ import {
   useRouterLocation,
   useRouterNavigate,
 } from "./router";
+import { arrayTypeMain } from "./type";
+import { arrayStatusMain } from "./status";
 import { Pressable } from "react-native";
 import { useState } from "react";
 
@@ -52,9 +54,21 @@ export const ViewActionControl = ({}: any) => {
   );
 };
 
-// Add
+
+// ADD
+
+// state to keep the form values etc. in.
+// export const useActionAdd = () => {
+//   const queryClient = useQueryClient();
+//   // return () => {
+//   //   queryClient.setQueryData(["modal", modalName], (oldData: any) => {
+//   //     return { ...oldData, visible: !oldData?.visible };
+//   //   });
+//   // };
+// };
 
 export const ViewActionAdd = ({ auxiliary, schema, focus }: any) => {
+  // const test = useActionAdd();
   const paths = useRouterLocation()?.paths;
   const category = paths[2];
   const [state, set] =
@@ -72,7 +86,7 @@ export const ViewActionAdd = ({ auxiliary, schema, focus }: any) => {
     <ViewContainerStatic style={{ flexDirection: "column" }}>
       <ViewActionHeading title={"Add"} subtitle={"Create entities"} />
       {/* <ViewTypographyText style={{ fontStyle: "italic" }}>{testing: JSON.stringify(state)}</ViewTypographyText> */}
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
+      {/* <ViewContainerStatic style={{ flexDirection: "row" }}>
         <ViewTypographyText style={{ fontWeight: "700" }}>
           Title:
         </ViewTypographyText>
@@ -128,7 +142,6 @@ export const ViewActionAdd = ({ auxiliary, schema, focus }: any) => {
         />
       </ViewContainerStatic>
 
-      {/* <ViewFormDynamic data={data} /> */}
       <ViewContainerStatic style={{ flexDirection: "row" }}>
         <Pressable
           disabled={!state?.title}
@@ -140,7 +153,8 @@ export const ViewActionAdd = ({ auxiliary, schema, focus }: any) => {
         >
           <ViewTypographyText>Create</ViewTypographyText>
         </Pressable>
-      </ViewContainerStatic>
+      </ViewContainerStatic> */}
+      <ViewFormDynamic data={data} />
     </ViewContainerStatic>
   );
 };

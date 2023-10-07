@@ -61,7 +61,7 @@ export const useAuthSignup = ({
 }: TypeAuthSignup) => {
   const queryClient = useQueryerClient();
   if (password !== confirmPassword) {
-    console.log("Passwords do not match");
+    console.error("Passwords do not match");
   }
   return useQueryerMutation(
     ["auth", "signup"],

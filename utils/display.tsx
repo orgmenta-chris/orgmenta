@@ -41,6 +41,8 @@ export const ViewDisplayDynamic = memo(
 export const ViewDisplayList = (props: any) => {
   // const focus = props.focus;
   const auxiliary = props.auxiliary;
+  // const aux = auxiliary?.data?.filter(x=>x.relationships && Object.keys(x.relationships)?.length>0 )
+  // console.log('aux', auxiliary?.data?.filter(x=>x.relationships))
   return <ViewListMain data={auxiliary?.data} />;
 };
 

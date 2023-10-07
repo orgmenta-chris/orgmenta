@@ -346,7 +346,6 @@ export const ViewUserSession = () => {
   const handleTabPress = (index: number) => {
     setActiveTab(index);
   };
-  console.log("tabs[activeTab]", tabs[activeTab]);
   return (
     <ViewCardExpandable
       startExpanded

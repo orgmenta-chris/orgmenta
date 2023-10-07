@@ -1,4 +1,8 @@
-import React, {
+
+import { ViewContainerStatic, ViewContainerScroll } from "./container";
+import { ViewTypographyText } from "./typography";
+import { UtilityPlatformMain } from "./platform";
+import {
   InputHTMLAttributes,
   useEffect,
   useMemo,
@@ -32,8 +36,111 @@ import {
 
 import { faker } from "@faker-js/faker";
 
-import { UtilityPlatformMain } from "./platform";
-import { View, Text, TextInput, FlatList, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  FlatList,
+  Pressable,
+} from "react-native";
+
+
+// CONTAINER
+
+// Main table component
+export const ViewTableContainer = (props: any) => {
+  const [data, setData] = useState<Person[]>(() => makeData(1000));
+  const refreshData = () => setData((old) => makeData(1000));
+  const columns = useMemo<ColumnDef<Person, any>[]>(
+    () => [
+      {
+        header: "Name",
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "firstName",
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+          },
+          {
+            accessorFn: (row) => row.lastName,
+            id: "lastName",
+            cell: (info) => info.getValue(),
+            header: () => <span>Last Name</span>,
+            footer: (props) => props.column.id,
+          },
+          {
+            accessorFn: (row) => `${row.firstName} ${row.lastName}`,
+            id: "fullName",
+            header: "Full Name",
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            filterFn: "fuzzy",
+            sortingFn: fuzzySort,
+          },
+        ],
+      },
+      {
+        header: "Info",
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "age",
+            header: () => "Age",
+            footer: (props) => props.column.id,
+          },
+          {
+            header: "More Info",
+            columns: [
+              {
+                accessorKey: "visits",
+                header: () => <span>Visits</span>,
+                footer: (props) => props.column.id,
+              },
+              {
+                accessorKey: "status",
+                header: "Status",
+                footer: (props) => props.column.id,
+              },
+              {
+                accessorKey: "progress",
+                header: "Profile Progress",
+                footer: (props) => props.column.id,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    []
+  );
+  const tableData = {
+    columns,
+    data,
+    refreshData,
+  };
+  return (
+    <ViewContainerStatic style={{ maxHeight: 400 }}>
+      <UseDisplayTable tableData={tableData} />
+    </ViewContainerStatic>
+  );
+};
+
+
+// TableTabs (Temp)
+
+// 'Table Tabs' will be a subcomponent of 'Table' (like 'Table Footer' and'Table Header' are table subcomponents )
+// To be moved into the table file (but added here since it is a placeholder and so as not to interfere with current works)
+// Or, since this might need to be used by List (and maybe others like timeline) as well, maybe it needs to be its own 'display tabs' module or else we just directly use a primitive 'tabs' module in ViewDisplayTable, ViewDisplayList etc.
+// At the moment, it just has 'Types' hardcoded into it as the tabs.
+// But, it will be made dynamic (which will allow things like plugins and user interactions to hide this component, switch out the tabs to 'Status' or  other property groupings, etc.)
+export const ViewTableTabs = (props: any) => {
+  return (
+    <ViewTypographyText>["Area","Event","Contact","etc."]</ViewTypographyText>
+  );
+};
+
 
 // fake data to use in our table view
 
@@ -305,6 +412,8 @@ export const Filter = ({
   }
 };
 
+// Need to use the same code for web and mobile.
+// The tables will need to be changed to retain web styling but be using Views etc. as the mobile one is.
 const TableViewWeb = (props: any) => {
   const { columns, data, refreshData } = props;
 
@@ -666,6 +775,10 @@ const TableViewMobile = (props: any) => {
   );
 };
 
+// Need to use the same code for web and mobile.
+// The tables will need to be changed to retain web styling but be using Views etc. as the mobile one is.
+// Change to this when done:
+// export const ViewTableMain = ({ tableData }: any) => { return <ViewTableCore {...tableData} /> }
 export const UseDisplayTable =
   UtilityPlatformMain.OS === "web"
     ? ({ tableData }: any) => {
@@ -674,3 +787,110 @@ export const UseDisplayTable =
     : ({ tableData }: any) => {
         return <TableViewMobile {...tableData} />;
       };
+
+// Need to use the same code for web and mobile.
+// The tables will need to be changed to retain web styling but be using Views etc. as the mobile one is.
+const TableViewCombined = (props: any) => {
+  const { columns, data, refreshData } = props;
+
+  const rerender = useReducer(() => ({}), {})[1];
+
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [globalFilter, setGlobalFilter] = useState("");
+
+  const table = useReactTable({
+    data,
+    columns,
+    filterFns: {
+      fuzzy: fuzzyFilter,
+    },
+    state: {
+      columnFilters,
+      globalFilter,
+    },
+    onColumnFiltersChange: setColumnFilters,
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn: fuzzyFilter,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    getFacetedMinMaxValues: getFacetedMinMaxValues(),
+    debugTable: true,
+    debugHeaders: true,
+    debugColumns: false,
+  });
+
+  useEffect(() => {
+    if (table.getState().columnFilters[0]?.id === "fullName") {
+      if (table.getState().sorting[0]?.id !== "fullName") {
+        table.setSorting([{ id: "fullName", desc: false }]);
+      }
+    }
+  }, [table.getState().columnFilters[0]?.id]);
+  return (
+    <View style={{ padding: 8 }}>
+      <View>
+        <TextInput
+          value={globalFilter ?? ""}
+          onChangeText={(value) => setGlobalFilter(String(value))}
+          style={{
+            padding: 8,
+            borderWidth: 1,
+            borderColor: "black",
+            fontSize: 18,
+          }}
+          placeholder="Search all columns..."
+        />
+      </View>
+      <View style={{ height: 8 }} />
+      {/* ... Table code */}
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <View style={{ borderWidth: 1, borderRadius: 4, padding: 8 }}>
+          <Button
+            title="<<"
+            onPress={() => table.setPageIndex(0)}
+            disabled={!table.getCanPreviousPage()}
+          />
+        </View>
+        <View style={{ borderWidth: 1, borderRadius: 4, padding: 8 }}>
+          <Button
+            title="<"
+            onPress={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          />
+        </View>
+
+        <View style={{ borderWidth: 1, borderRadius: 4, padding: 8 }}>
+          <Button
+            title=">"
+            onPress={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          />
+        </View>
+        <View style={{ borderWidth: 1, borderRadius: 4, padding: 8 }}>
+          <Button
+            title=">>"
+            onPress={() => table.setPageIndex(table.getPageCount() - 1)}
+            disabled={!table.getCanNextPage()}
+          />
+        </View>
+        {/* ... (Other buttons and controls) */}
+      </View>
+      <View>
+        <Button onPress={() => rerender()} title="Force Rerender" />
+      </View>
+      <View>
+        <Button onPress={() => refreshData()} title="Refresh Data" />
+      </View>
+    </View>
+  );
+};

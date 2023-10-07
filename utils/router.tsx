@@ -1,7 +1,11 @@
 // A 'router' manages navigation and routing in a React application, directing the display of content based on the current URL or route
 // NOTE THAT BACK BUTTON FUNCTIONALITY ON MOBILE MAY NOT YET BE WORKING.
 
-import { Text, View, Pressable } from "react-native";
+import { ViewButtonPressable } from "./button";
+import { ViewTypographyText } from "./typography";
+import { ViewContainerStatic } from "./container";
+import { ViewPageMain } from "./page";
+import { ViewTypographyTextthemed } from "./typography";
 import { UtilityPlatformMain } from "./platform";
 import { useThemeToken, TypeThemeMain } from "./theme";
 import { validateObjectIsobject } from "./object";
@@ -26,8 +30,6 @@ import {
   Link as NLink,
   LinkProps as NLinkProps,
 } from "react-router-native";
-import { ViewPageMain } from "../utils/page";
-import { ViewTypographyTextthemed } from "../utils/typography";
 
 // Location
 
@@ -77,17 +79,17 @@ export const ViewRouterLink: React.FC<any> = ({ children, ...rest }) => {
   const navigate = useRouterNavigate();
   return UtilityPlatformMain.OS === "web" ? (
     <LinkComponent {...rest}>
-      {isString ? <Text>{children}</Text> : children}
+      {isString ? <ViewTypographyText>{children}</ViewTypographyText> : children}
     </LinkComponent>
   ) : (
-    <Pressable
+    <ViewButtonPressable
       style={{ minHeight: 40 }}
       onPress={() => {
         navigate(`${rest.to}`);
       }}
     >
-      {isString ? <Text>{children}</Text> : children}
-    </Pressable>
+      {isString ? <ViewTypographyText>{children}</ViewTypographyText> : children}
+    </ViewButtonPressable>
   );
 };
 
@@ -108,12 +110,12 @@ export const ViewRouterLinkthemed = ({
   const isStyleObject = validateObjectIsobject(style as TypeStylesheetMain);
   const stylesheetMerged = mergeStylesheetMain(
     theme?.style,
-    isStyleObject ? (style as TypeThemeMain) : {}
+    isStyleObject ? (style as any) : {}
   );
   const propsMerged = { ...theme, ...rest, style: stylesheetMerged };
   return (
     <ViewRouterLink {...propsMerged}>
-      {/* Text passed through as children must be within a text element.*/}
+      {/* ViewTypographyText passed through as children must be within a text element.*/}
       {children}
     </ViewRouterLink>
   );
@@ -136,11 +138,11 @@ export const ViewRouterButton = ({
   const isStyleObject = validateObjectIsobject(style as TypeStylesheetMain);
   const stylesheetMerged = mergeStylesheetMain(
     theme?.style,
-    isStyleObject ? (style as TypeThemeMain) : {}
+    isStyleObject ? (style as any) : {}
   );
   const propsMerged = { ...theme, ...rest, style: stylesheetMerged };
   return (
-    <Pressable
+    <ViewButtonPressable
       {...propsMerged}
       onPress={() => {
         navigate(to);
@@ -148,7 +150,7 @@ export const ViewRouterButton = ({
       }}
     >
       <ViewTypographyTextthemed>{heading}</ViewTypographyTextthemed>
-    </Pressable>
+    </ViewButtonPressable>
   );
 };
 
@@ -162,7 +164,7 @@ export type TypeRouterNavigate = NavigateProps;
 export const ViewRouterLostpage = () => {
   return (
     <ViewPageMain>
-      <Text
+      <ViewTypographyText
         style={{
           margin: 20,
           fontSize: 30,
@@ -171,15 +173,15 @@ export const ViewRouterLostpage = () => {
         }}
       >
         404 Not Found
-      </Text>
+      </ViewTypographyText>
       <ViewRouterLinkthemed to={"/"}>
-        <View style={{ flex: 1 }}>
+        <ViewContainerStatic style={{ flex: 1 }}>
           <ViewTypographyTextthemed
             style={{ fontSize: 24, flex: 1, alignSelf: "center" }}
           >
             Home
           </ViewTypographyTextthemed>
-        </View>
+        </ViewContainerStatic>
       </ViewRouterLinkthemed>
     </ViewPageMain>
   );

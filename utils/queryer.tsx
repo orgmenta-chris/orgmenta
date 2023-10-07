@@ -1,15 +1,16 @@
-import AsyncStorage from "@react-native-async-storage/async-storage"; // move this into own file
+import { UtilityLocalAsyncstorage } from './local'
 import {
   QueryClient,
   useMutation,
   useQuery,
   useQueryClient,
-  UseQueryResult
+  UseQueryResult,
+  UseQueryOptions,
 } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
 
-// Client
+// CLIENT
 
 export const ClassQueryerClient = QueryClient;
 
@@ -23,15 +24,15 @@ export const instanceQueryClient = new ClassQueryerClient({
   },
 });
 
-// Persister
+// PERSISTER
 
 export const createQueryerPersister = createAsyncStoragePersister; // At the moment, this only allows AsyncStorage. Others may be added in the future.
 
 export const instanceQueryerPersister = createQueryerPersister({
-  storage: AsyncStorage,
+  storage: UtilityLocalAsyncstorage,
 });
 
-// Provider
+// PROVIDER
 
 export const ViewQueryerProvider = ({ children }: any) => (
   <PersistQueryClientProvider
@@ -42,11 +43,18 @@ export const ViewQueryerProvider = ({ children }: any) => (
   </PersistQueryClientProvider>
 );
 
-// Mutation
+// MUTATION
+
 export const useQueryerMutation = useMutation;
 
-// Query
+// QUERY
+
 export const useQueryerQuery = useQuery;
 
-// Results
+// RESULTS
+
 export type TypeQueryerResult = UseQueryResult
+
+// OPTIONS
+
+export type TypeQueryerOptions<TData = unknown, TError = unknown> = UseQueryOptions<TData, TError>;

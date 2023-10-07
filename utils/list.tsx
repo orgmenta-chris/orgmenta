@@ -4,22 +4,23 @@
 // The items need to have headers along with collapsible/expandable bodies (like in the sidebar).
 // Once that's done, then we can discuss how best to render items correctly (i.e. how&what attributes to render in the header and in the collapsible body)
 
-import { View, Text } from "react-native";
-// Main
+import { ViewContainerStatic, ViewContainerScroll } from "./container";
+import { ViewTypographyText } from "./typography";
+
+// MAIN
 
 export const ViewListMain = ({ data=[] }: any) => {
   // console.log('data',data)
   return (
-    // PLACEHOLDER:
-    <View>
+    <ViewContainerScroll style={{flex:1, backgroundColor:'white'}}>
       {data?.map((x: any, i: number) => (
-        <View
+        <ViewContainerStatic
           key={i}
           style={{ flex: 1, margin: 5, backgroundColor: "gray", minHeight: 50 }}
         >
-          <Text style={{ color: "white" }}>{x.title}</Text>
-        </View>
+          <ViewTypographyText style={{ color: "white" }}>{x.entities.title}</ViewTypographyText>
+        </ViewContainerStatic>
       ))}
-    </View>
+    </ViewContainerScroll>
   );
 };

@@ -1,6 +1,6 @@
 import { ScrollView, View, Text } from "react-native";
 
-export const ViewFormMain = ({ data }: any) => {
+export const ViewFormContainer = ({ data }: any) => {
   return (
     <ScrollView>
       {data?.map((x:any, i:number) => (

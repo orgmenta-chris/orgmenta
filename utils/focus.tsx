@@ -131,13 +131,13 @@ export const ViewFocusInfo = () => {
         <Text style={{ fontSize: 12 }}>{process?.summary}</Text>
       </View>
       {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
-                {process.subheading}
-            </Text> */}
+            {process.subheading}
+        </Text> */}
       {/* TESTING */}
       {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
-                {JSON.stringify({grandparent,parent,process,subprocesses},null,2)}
-                {JSON.stringify({process},null,2)}
-            </Text> */}
+          {JSON.stringify({grandparent,parent,process,subprocesses},null,2)}
+          {JSON.stringify({process},null,2)}
+      </Text> */}
     </View>
   );
 };

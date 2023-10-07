@@ -1,8 +1,10 @@
 // This is a useful module to easily utilise apis.
 // For example, it is set up to easily use rapidapi endpoints.
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { View, Text, ActivityIndicator } from "react-native";
+import { useQueryerQuery } from "./queryer";
+import { ViewContainerStatic } from "./container";
+import { ViewTypographyText } from "./typography";
+import { ViewIndicatorSpinner } from "./indicator";
 
 // Source
 
@@ -56,7 +58,7 @@ export const useApiItems = (props: any) => {
   if (!props?.options) {
     throw new Error("useApiItems: No options provided");
   }
-  const query = useQuery(["api", props.name || "default"], () =>
+  const query = useQueryerQuery(["api", props.name || "default"], () =>
     requestApiItems(props)
   );
   return query;
@@ -65,16 +67,16 @@ export const useApiItems = (props: any) => {
 export const ViewApiItems = ({ source }: interfaceApiItems) => {
   // A simple component to display the items (or roll your own using useApiItems or requestApiItems)
   const items = useApiItems(source);
-  if (items.isLoading) return <ActivityIndicator />;
+  if (items.isLoading) return <ViewIndicatorSpinner />;
   if (items.data)
     return (
-      <View style={{ backgroundColor: "lightgray" }}>
-        <Text>{JSON.stringify(JSON.parse(items.data), null, 2)}</Text>
-      </View>
+      <ViewContainerStatic style={{ backgroundColor: "lightgray" }}>
+        <ViewTypographyText>{JSON.stringify(JSON.parse(items.data), null, 2)}</ViewTypographyText>
+      </ViewContainerStatic>
     );
   if (items.error)
-    return <Text>An error occurred: {JSON.stringify(items)}</Text>;
-  return <Text>An unknown problem occurred. {JSON.stringify(items)}</Text>;
+    return <ViewTypographyText>An error occurred: {JSON.stringify(items)}</ViewTypographyText>;
+  return <ViewTypographyText>An unknown problem occurred. {JSON.stringify(items)}</ViewTypographyText>;
 };
 
 export const ExampleApiItems = () => {

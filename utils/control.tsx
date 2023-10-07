@@ -1,16 +1,21 @@
-// A 'Control' is a filtering, sorting, grouping, or viewing of entity display data.
+// A 'Control' is a filtering, sorting, grouping, or presets of entity display data.
 // Chris todo
 
-import { View } from "react-native";
+import { ViewContainerStatic } from "./container";
+import { ViewTypographySubheading, ViewTypographyText } from "./typography";
 import { ViewPresetOptions } from "./preset";
 
 // Main
 
 export const ViewControlMain = ({}: any) => {
   return (
-    <View style={{ flexDirection: "row", gap: 10, borderWidth: 1 }}>
-      {/* Presets are saved views for filtering, sorting, grouping (etc.) entities. See presets.tsx. */}
-      {/* <Text>CONTROL</Text>
+    <ViewContainerStatic
+      style={{ flexDirection: "row", gap: 10, borderWidth: 1 }}
+    >
+      <ViewTypographyText>
+        (Presets, Filters, Sorting, Grouping)
+      </ViewTypographyText>
+      {/*
       <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Presets<ViewPresetOptions/></Text>
       
         
@@ -19,6 +24,6 @@ export const ViewControlMain = ({}: any) => {
             <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Sort</Text>
 
       <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Filter</Text> */}
-    </View>
+    </ViewContainerStatic>
   );
 };

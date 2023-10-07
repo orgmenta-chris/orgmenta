@@ -87,17 +87,42 @@
 - We just use .tsx instead of any .ts or .js files (just for ease, standardisation, and to make it easier to add components to it later if needed)
 - We don't need to import react (i.e. don't worry about doing `import React from 'react`) - It's not needed in React v17 onwards ( the new JSX Transform allows you to use JSX without importing the React object).
 
-## Naming conventions
+## Naming Convention
 
-### General
+### Overview
 
-- All declaration names must be made of three parts: [declaration type][module name][descriptor of functionality]
-- For example, ViewStorageProvider (View = declaration type of component, Storage = module name, Provider = functionality)
-- This order is specific (with the declaration type being the prefix) due to hooks having to be prefixed with 'use', which locks us into the convention.
-- We include the module name in the middle part of the declaration, so that no imports will ever conflict, and all names regardless of context are clear as to which module they come from (worth the trade-off of readability, and our brains will blank it out anyway).
+#### Name Structure
+
+- All declaration names must be made of three parts (prefix, base, suffix): [declaration][module][unit].
+  - Declaration: (prefix) The declaration type
+  - Module: (base) The name of the file/directory
+  - Unit: (suffix) The group of declarations that describes functionality.
+- Example
+  - ViewStorageProvider: View = declaration type, Storage = module name, Provider = unit.
+  - In this circumstance, the Storage Module may have many Units, one of which is 'Provider'.
+  - The 'Provider' Unit may have many declaration types, e.g. ViewStorageProvider, requestStorageProvider, createStorageProvider.
+- Reasoning
+  - The order of this naming convention is specific (with the declaration type being the prefix) due to hooks having to be prefixed with 'use', which locks us into the convention.
+  - This common structure is kept across all declarations to ensure consistent behavior can be expected.
+  - By prefixing with the declaration type, we can easily see what declaration types can be imported from a module.
+  - For example, starting to type 'View' into `import { View[...] } from './window'` in many IDEs will then show a list of all the available Views (react native components) that are offered in that module.
+  - We include the module name in the middle part of the declaration, so that no imports will ever conflict, and all names regardless of context are clear as to which module they come from (worth the trade-off of readability, and our brains will blank it out anyway).
+
+### Reserved Words
+- No overlap in word usage even in different contexts.
+  - A word, when used, should not be used elsewhere (where possible) - in ANY context. For example, 'notification' is now a claimed word for a module. Therefore, in a different(unrelated) context, e.g. when referring to someone notfiying you of something verbally, then 'alert' may be a more appropriate term. 
+  - This is a general best effort rule. Sometimes it may be unavoidable.
+- Misc Reserved words
+  - Name: Don't use 'name' for properties. Use 'title'. This keeps 'name' as a reserved programming language term. For contacts/people, use 'firstname, middlename, lastname, fullname, nickname' etc. but not just 'name'.
+  - End:  (Chris to evaluate feasiblity of this with Event Calendars etc.) Don't use 'end' for finish times. Keep 'end' as a reserved programming word - Use 'finish' instead.
+  - (NOT) Start: (maybe 'commence' might be needed for event start times - but in this circumstance, it might be pragmatic to keep using 'start' as it isn't a js reserved word and using other terms for events would be confusing for people, and it wouldn't be possible to break the habit / swap out usage in common parlance).
+
+
+#### General Notes
+
 - Length of file / number of declarations is not an issue, and not a reason to split out into a new file. Just press `Ctrl+K, Ctrl+0` to collapse everything and see a clear list of what's in the module.
 
-### Specific
+### Declarations (prefix)
 
 - Hooks must start with 'use' (lowercase)
 - Remote data requests must start with 'request' (lowercase)
@@ -108,6 +133,15 @@
 - react-specific utility objects that have a method must start with 'Utility' (uppercase U)
 - General synchronous functions must start with 'do' (lowercase). See crypto.tsx for examples.
 - General async functions must start with 'async' (lowercase). See crypto.tsx for examples.
+
+### Modules (base)
+
+- The base of all declarations must equal the name of the file (but with a capitalized first letter)
+
+### Units (suffix)
+
+- The unit must have a capitalized first letter.
+
 
 ## Module Structure
 
@@ -168,11 +202,12 @@ And see https://github.com/search?q=repo%3Afacebook%2Freact-native+platform&type
 - At the moment, we haven't set clear instruction as to when to use types and when to use interfaces. To be confirmed/codified.
 
 ## Console
+
 The following will ensure that we don't accidentally expose PII, and that we will be able to easily (search for and) remove all testing console.logs before each pull request to the production branch.
+
 - console.log for testing/staging only
 - console.warn or console.error for live/production only. No sensitive data to be used in these.
 - Other console methods (.info, .table etc.): No rules specified at this point.
-
 
 ## Functionality
 
@@ -266,8 +301,8 @@ todo
 # Deployment
 
 ## Checklist
-- Remove all console.logs (see the ## Console section - only .warn and .error )
 
+- Remove all console.logs (see the ## Console section - only .warn and .error )
 
 ## Web
 

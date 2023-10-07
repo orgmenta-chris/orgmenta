@@ -1,8 +1,8 @@
-import React from "react";
-import { View } from "react-native";
+// import React from "react";
+// import { View } from "react-native";
 
-const ViewPodsMain = ({ items, children }: any) => {
-  return <View>{children}</View>;
-};
+// const ViewPodsMain = ({ items, children }: any) => {
+//   return <View>{children}</View>;
+// };
 
-export default ViewPodsMain;
+// export default ViewPodsMain;

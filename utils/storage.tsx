@@ -1,7 +1,7 @@
 // I need this to be a module for interacting with the supabase storage api.
 // i.e. https://supabase.com/docs/guides/storage
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryerQuery, useQueryerMutation, useQueryerClient } from "./queryer";
 import { instanceSupabaseClient } from "./supabase";
 import { decode } from "base64-arraybuffer-es6";
 
@@ -103,8 +103,8 @@ export const uploadDocument = async ({ name, file }: documentToBeUploaded) => {
 };
 
 export const useStorageUpload = ({ name, file }: documentToBeUploaded) => {
-  const queryClient = useQueryClient();
-  const mutation = useMutation(
+  const queryClient = useQueryerClient();
+  const mutation = useQueryerMutation(
     ["files", "create"],
     () => uploadDocument({ name, file }),
     {
@@ -139,7 +139,7 @@ export const requestBucketItems = async () => {
 };
 
 export const useBucketItems = () => {
-  const query = useQuery({
+  const query = useQueryerQuery({
     queryKey: ["bucket"],
     queryFn: () =>
       requestBucketItems().then((response: any) => {

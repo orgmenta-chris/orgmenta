@@ -64,7 +64,7 @@ export const callMsGraphPOST = async (
 
   return fetch(endpoint, options)
     .then((response) => response.json())
-    .catch((error) => console.log(error));
+    .catch((error) => console.error(error));
 };
 
 export const callMsGraphPATCH = async (
@@ -134,5 +134,5 @@ export const callMsGraphDELETE = async (
 
   return fetch(endpoint, options)
     .then((response) => response.json())
-    .catch((error) => console.log(error));
+    .catch((error) => console.error(error));
 };

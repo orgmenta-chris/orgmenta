@@ -1,14 +1,16 @@
 // Placeholder
 
-import { Text, View } from "react-native";
+import { ViewContainerStatic, ViewContainerScroll } from "./container";
+import { ViewTypographyText } from "./typography";
 
-// Main
+// CONTAINER
+
 // A component to display an error message.
-export const ViewErrorMain = ({ children }: any) => {
+export const ViewErrorContainer = ({ children }: any) => {
   return (
-    <View>
-      <Text>ViewErrorMain placeholder</Text>
-      <Text>{children}</Text>
-    </View>
+    <ViewContainerStatic>
+      <ViewTypographyText>ViewErrorMain placeholder</ViewTypographyText>
+      <ViewTypographyText>{children}</ViewTypographyText>
+    </ViewContainerStatic>
   );
 };

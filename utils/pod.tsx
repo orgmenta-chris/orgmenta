@@ -4,24 +4,25 @@
 // E.g. on the 'invoicing' category entity, you could pin an 'unsent invoices count' widget to to this display.
 
 import { ViewRouterLink, useRouterLocation } from "./router";
-import { View, Text } from "react-native";
+import { ViewContainerStatic } from "./container";
+import { ViewTypographyText } from "./typography";
 import { data } from "./static";
 
 // Main
 
-export const ViewPodMain = ({ items, children }: any) => {
+export const ViewPodContainer = ({ items, children }: any) => {
   return (
-    <View>
+    <ViewContainerStatic>
       {children}
       {/* <Text>{JSON.stringify({items})}</Text> */}
-    </View>
+    </ViewContainerStatic>
   );
 };
 
 // List
 
 export const ViewPodList = ({ items, children }: any) => {
-  return <Text>ViewPodList (todo)</Text>;
+  return <ViewTypographyText>ViewPodList (todo)</ViewTypographyText>;
 };
 
 // Example
@@ -29,21 +30,21 @@ export const ViewPodList = ({ items, children }: any) => {
 export const ViewPodExample = () => {
   // Temporary examplepod
   return (
-    <View
+    <ViewContainerStatic
       style={{
         flexDirection: "column",
         margin: 5,
       }}
     >
-      <View style={{ height: 40, backgroundColor: "lightgray" }}>
-        <Text style={{ fontSize: 16, fontStyle: "italic" }}>
+      <ViewContainerStatic style={{ height: 40, backgroundColor: "lightgray" }}>
+        <ViewTypographyText style={{ fontSize: 16, fontStyle: "italic" }}>
           Another Example Pod
-        </Text>
-        <Text style={{ fontSize: 12 }}>
+        </ViewTypographyText>
+        <ViewTypographyText style={{ fontSize: 12 }}>
           To be replaced with dynamic pods using db data
-        </Text>
-      </View>
-    </View>
+        </ViewTypographyText>
+      </ViewContainerStatic>
+    </ViewContainerStatic>
   );
 };
 
@@ -58,19 +59,19 @@ export const ViewPodInfo = () => {
   const process = data?.find((x) => x.nickname === path[2]);
   const parent = data?.find((y) => y.id === process?.parent);
   return (
-    <View
+    <ViewContainerStatic
       style={{
         flexDirection: "column",
         margin: 5,
       }}
     >
-      <View style={{ backgroundColor: "lightgray" }}>
-        <Text style={{ fontSize: 14, fontStyle: "italic" }}>
+      <ViewContainerStatic style={{ backgroundColor: "lightgray" }}>
+        <ViewTypographyText style={{ fontSize: 14, fontStyle: "italic" }}>
           {process?.description}
-        </Text>
-        <Text style={{ fontSize: 12 }}>{process?.summary}</Text>
-      </View>
-    </View>
+        </ViewTypographyText>
+        <ViewTypographyText style={{ fontSize: 12 }}>{process?.summary}</ViewTypographyText>
+      </ViewContainerStatic>
+    </ViewContainerStatic>
   );
 };
 
@@ -86,24 +87,24 @@ export const ViewPodTabs = () => {
   const subprocesses = process && data.filter((x) => x.parent === process.id);
   const parent = data?.find((y) => y.id === process?.parent);
   return (
-    <View
+    <ViewContainerStatic
       style={{
         flexDirection: "column",
         margin: 5,
       }}
     >
       {/* Tabs for each subprocess */}
-      <View style={{ flexDirection: "row", height: 40 }}>
+      <ViewContainerStatic style={{ flexDirection: "row", height: 40 }}>
         {subprocesses?.map((x, i) => (
           <ViewRouterLink
             style={{ flex: 1 }}
             key={i}
             to={`/entity/` + x.nickname}
           >
-            <Text>{x.display_singular}</Text>
+            <ViewTypographyText>{x.display_singular}</ViewTypographyText>
           </ViewRouterLink>
         ))}
-      </View>
-    </View>
+      </ViewContainerStatic>
+    </ViewContainerStatic>
   );
 };

@@ -24,7 +24,7 @@ const AccessToken = () => {
           if (response) {
             setToken(response.accessToken);
           } else {
-            console.log("something went wrong");
+            console.error("something went wrong");
           }
         })
         .catch(async (error) => {

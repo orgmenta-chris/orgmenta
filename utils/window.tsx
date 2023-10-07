@@ -10,7 +10,9 @@ import {
 } from "react-native";
 import { getStatusbarDimensions } from "./statusbar";
 
-export const ViewWindowMain = (props: any) => {
+// CONTAINER
+
+export const ViewWindowContainer = (props: any) => {
   const windowDimensions = useWindowDimensions();
   const statusbarDimensions = getStatusbarDimensions();
   return (
@@ -34,26 +36,6 @@ export const useWindowDimensions = originalUseWindowDimensions; // use this hook
 
 export const getWindowDimensions = Dimensions; // else you can use this function instead
 
-// SAFE AREA
+// SAFEAREA
 
-export const ViewWindowSafearea = SafeAreaView;
-
-// STATUSBAR
-
-// export type TypeWindowStatusbar = StatusBarProps
-
-// export const ViewWindowStatusbar = (props:any) => {
-//     return (
-//         <StatusBar
-//             style={'light'}
-//             // backgroundColor="#0c4a73"
-//         />
-//     )
-// }
-
-// export const getWindowStatusbarheight = () => { // <-- THIS IS AN EXAMPLE OF WHEN TO SPLIT OUT INTO A NEW FILE (see )
-//     const platform_os = Platform.OS;
-//     if (platform_os === 'web') { return 0 }
-//     if (platform_os === 'ios') { return 0 } // iOS uses safeAreaView instead.
-//     else { return 24 } // this is a hack to ensure that it doesn't cover the statusbar on android. This may not cover some custom roms.
-// }
+export const ViewWindowSafearea = SafeAreaView; // Ensure that the window doesn't overlap ios device notification bar

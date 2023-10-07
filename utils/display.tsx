@@ -1,61 +1,34 @@
 // A 'display' is a way of viewing entities, their relationships, and their attributes.
 // It is a 'perspective into the graph'.
-// You can view entities and their relationships in different displays (e.g. Table, list, calendar) and filters.
+// You can 'view entities and their relationships' in different displays (e.g. Table, list, calendar) and filters.
+// The Display Components transform the entity/schema/relationships data then provide them to the relevant component
+// (e.g. ViewDisplayTable transforms entities data, then provides them to the table component from table.js )
 
+import { ViewContainerStatic, ViewContainerScroll } from "./container";
+import { ViewTypographyText } from "./typography";
 import { ViewRouterLinkthemed, useRouterLocation } from "./router";
 import { ViewFormDynamic } from "./form";
 import { ViewListMain } from "./list";
 import { ViewChartMain } from "./chart";
-import { ViewPathMain } from "./path";
+import { ViewPathContainer } from "./path";
 import { ViewMapMobile } from "./map";
-import { UtilityPlatformMain } from "./platform";
-import { ViewCalendarMain, ViewCalendarContainer, TypeCalendarHeader, examplesCalendarEvent, ViewCalendarEvent, TypeCalendarEvent  } from "./calendar";
-import {
-  ViewPodMain,
-  ViewPodInfo,
-  ViewPodList,
-  ViewPodTabs,
-  ViewPodExample,
-} from "./pod";
+import { ViewCalendarContainer } from "./calendar";
+import { ViewTimelineContainer } from "./timeline";
+import { ViewPodContainer, ViewPodInfo, ViewPodList, ViewPodTabs } from "./pod";
 import { ViewIconMain } from "./icon";
-// import { ViewTableMain  } from "./table-old";
-// import { ViewJsonMain } from "./json";
-// import { ViewIconMain } from "./icon";
+import { ViewJsonContainer, objectJsonExample } from "./json";
+import { UtilityPlatformMain } from "./platform";
 
-import { ReactElement, memo, useEffect, useMemo, useState } from "react";
-import {
-  View,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  Modal,
-  ViewStyle,
-  Button,
-  FlatList,
-  TextInput,
-  StyleSheet,
-} from "react-native";
+import { memo, useEffect, useMemo, useState } from "react";
 import ViewMapWeb from "../components/displays/maps/ViewDisplayMaps";
-import { ViewTimelineMain, TypeTimelineMain } from "./timeline";
 import { Map, Marker, GeoJson } from "pigeon-maps";
-import {
-  Calendar,
-  CalendarHeaderForMonthViewProps,
-  CalendarHeaderProps,
-  CalendarTouchableOpacityProps,
-  DateRangeHandler,
-  EventCellStyle,
-  ICalendarEventBase,
-  Mode,
-  WeekNum,
-} from "react-native-big-calendar";
-import JSONTree from "react-native-json-tree";
-import { Person, UseDisplayTable, fuzzySort, makeData } from "./table";
+import { ViewTableContainer, Person, UseDisplayTable, fuzzySort, makeData } from "./table";
 import { ColumnDef } from "@tanstack/react-table";
 // import { Map as ImmutableMap } from "immutable";
 
-// Dynamic
+// DYNAMIC
 
+// Select the correct display component depending on what is requested with the 'display' prop.
 export const ViewDisplayDynamic = memo(
   ({ auxiliary, schema, focus, display }: any) => {
     // The main display component that switches between different components
@@ -64,17 +37,17 @@ export const ViewDisplayDynamic = memo(
   }
 );
 
-// Displays
-
-// These components transform the entity/schema/relationships data then provide them to the relevant component
-// (e.g. ViewDisplayTable transforms entities data, then provides them to the table component from table.js )
-// Chris is owning the below components.
-
+// LIST
 export const ViewDisplayList = (props: any) => {
-  const auxiliary = props.auxiliary;
   // const focus = props.focus;
+  const auxiliary = props.auxiliary;
+  // const aux = auxiliary?.data?.filter(x=>x.relationships && Object.keys(x.relationships)?.length>0 )
+  // console.log('aux', auxiliary?.data?.filter(x=>x.relationships))
   return <ViewListMain data={auxiliary?.data} />;
 };
+
+// CHART
+
 export const ViewDisplayChart = (props: any) => {
   const auxiliary = props.auxiliary;
   // const focus = props.focus;
@@ -87,14 +60,14 @@ export const ViewDisplayPod = (props: any) => {
   const focus = props.focus;
   const data = "make focus into an array and concat with aux";
   return (
-    <ViewPodMain items={auxiliary} schema={schema.data}>
+    <ViewPodContainer items={auxiliary} schema={schema.data}>
       <ViewPodInfo />
       <ViewPodTabs />
       <ViewPodList title={"Example List Pod"} data={auxiliary.data} />
       {/* <ViewPodExample />
       <ViewPodExample />
       <ViewPodExample /> */}
-    </ViewPodMain>
+    </ViewPodContainer>
   );
 };
 
@@ -129,84 +102,11 @@ export const ViewDisplayForm = (props: any) => {
 
 // Table
 
-// todo (to be replaced with Loisa's dynamic table once developed)
 export const ViewDisplayTable = (props: any) => {
-  const [data, setData] = useState<Person[]>(() => makeData(1000));
-  const refreshData = () => setData((old) => makeData(1000));
-
-  const columns = useMemo<ColumnDef<Person, any>[]>(
-    () => [
-      {
-        header: "Name",
-        footer: (props) => props.column.id,
-        columns: [
-          {
-            accessorKey: "firstName",
-            cell: (info) => info.getValue(),
-            footer: (props) => props.column.id,
-          },
-          {
-            accessorFn: (row) => row.lastName,
-            id: "lastName",
-            cell: (info) => info.getValue(),
-            header: () => <span>Last Name</span>,
-            footer: (props) => props.column.id,
-          },
-          {
-            accessorFn: (row) => `${row.firstName} ${row.lastName}`,
-            id: "fullName",
-            header: "Full Name",
-            cell: (info) => info.getValue(),
-            footer: (props) => props.column.id,
-            filterFn: "fuzzy",
-            sortingFn: fuzzySort,
-          },
-        ],
-      },
-      {
-        header: "Info",
-        footer: (props) => props.column.id,
-        columns: [
-          {
-            accessorKey: "age",
-            header: () => "Age",
-            footer: (props) => props.column.id,
-          },
-          {
-            header: "More Info",
-            columns: [
-              {
-                accessorKey: "visits",
-                header: () => <span>Visits</span>,
-                footer: (props) => props.column.id,
-              },
-              {
-                accessorKey: "status",
-                header: "Status",
-                footer: (props) => props.column.id,
-              },
-              {
-                accessorKey: "progress",
-                header: "Profile Progress",
-                footer: (props) => props.column.id,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-    []
-  );
-
-  const tableData = {
-    columns,
-    data,
-    refreshData,
-  };
   return (
-    <View style={{ maxHeight: 400 }}>
-      <UseDisplayTable tableData={tableData} />
-    </View>
+    <ViewContainerStatic style={{ maxHeight: 400 }}>
+      <ViewTableContainer />
+    </ViewContainerStatic>
   );
 };
 
@@ -214,116 +114,19 @@ export const ViewDisplayTable = (props: any) => {
 
 export const ViewDisplayCalendar = (props: any) => {
   return (
-    <View style={{ flex: 1 }}>
+    <ViewContainerStatic style={{ flex: 1 }}>
+      <ViewCalendarContainer />
       {/* <ViewCalendarMain/> */}
-      <ViewCalendarContainer/>
-    </View>
+    </ViewContainerStatic>
   );
 };
 
 // Timeline
 export const ViewDisplayTimeline = (props: any) => {
-  const data = [
-    {
-      time: "09:00",
-      title: "TimelineEvent 1",
-      description: "Event 1 Description",
-    },
-    {
-      time: "10:45",
-      title: "TimelineEvent 2",
-      description: "Event 2 Description",
-    },
-    {
-      time: "12:00",
-      title: "TimelineEvent 3",
-      description: "Event 3 Description",
-    },
-    {
-      time: "14:00",
-      title: "TimelineEvent 4",
-      description: "Event 4 Description",
-    },
-    {
-      time: "16:30",
-      title: "TimelineEvent 5",
-      description: "Event 5 Description",
-    },
-    {
-      time: "16:30",
-      title: "TimelineEvent 6",
-      description: "Event 5 Description",
-    },
-    {
-      time: "16:30",
-      title: "TimelineEvent 7",
-      description: "Event 5 Description",
-    },
-    {
-      time: "16:30",
-      title: "TimelineEvent 8",
-      description: "Event 5 Description",
-    },
-    {
-      time: "16:30",
-      title: "TimelineEvent 9",
-      description: "Event 5 Description",
-    },
-    {
-      time: "16:30",
-      title: "TimelineEvent 10",
-      description: "Event 5 Description",
-    },
-    {
-      time: "16:30",
-      title: "TimelineEvent 11",
-      description: "Event 5 Description",
-    },
-    {
-      time: "16:30",
-      title: "TimelineEvent 12",
-      description: "Event 5 Description",
-    },
-    {
-      time: "16:30",
-      title: "TimelineEvent 13",
-      description: "Event 5 Description",
-    },
-    {
-      time: "16:30",
-      title: "TimelineEvent 14",
-      description: "Event 5 Description",
-    },
-    {
-      time: "16:30",
-      title: "TimelineEvent 15",
-      description: "Event 5 Description",
-    },
-    {
-      time: "16:30",
-      title: "TimelineEvent 16",
-      description: "Event 5 Description",
-    },
-    {
-      time: "16:30",
-      title: "TimelineEvent 17",
-      description: "Event 5 Description",
-    },
-  ];
   return (
-    <View style={{ height: "100%" }}>
-      <ViewTimelineMain
-        data={data}
-        style={{}}
-        descriptionStyle={{ color: "white" }}
-        // isUsingFlatlist={true}
-        // circleSize={20}
-        // circleColor='rgb(45,156,219)'
-        // lineColor='rgb(45,156,219)'
-        // timeContainerStyle={{minWidth:52, marginTop: -5}}
-        // timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
-      />
-    </View>
+    <ViewContainerStatic style={{ height: "100%" }}>
+      <ViewTimelineContainer/>
+    </ViewContainerStatic>
   );
 };
 
@@ -357,7 +160,7 @@ export const ViewDisplayMaps = (props: any) => {
   return UtilityPlatformMain.OS !== "web" ? (
     <ViewMapMobile />
   ) : (
-    <View style={{ maxHeight: 400 }}>
+    <ViewContainerStatic style={{ maxHeight: 400 }}>
       <Map height={600} defaultZoom={2.5}>
         <GeoJson
           data={worldMapJSON}
@@ -376,97 +179,77 @@ export const ViewDisplayMaps = (props: any) => {
         <Marker width={50} anchor={[13.75396, 100.50224]} color="gray" />
         <Marker width={50} anchor={[-1.292066, 36.821945]} color="gray" />
       </Map>
-    </View>
+    </ViewContainerStatic>
   );
 };
 
-// Json
+// KANBAN
 
-// Will use dynamic json tree component from json.tsx once developed by Loisa
-export const ViewDisplayJson = (props: any) => {
-  const jsonData = {
-    name: "John Doe",
-    age: 30,
-    address: {
-      street: "123 Main St",
-      city: "New York",
-      zipCode: "10001",
-    },
-    email: "john.doe@example.com",
-    isEmployed: true,
-    hobbies: ["Reading", "Hiking"],
-    pets: [
-      {
-        name: "Fido",
-        species: "Dog",
-        age: 5,
-      },
-      {
-        name: "Whiskers",
-        species: "Cat",
-        age: 3,
-      },
-    ],
-    education: [
-      {
-        degree: "Bachelor's",
-        major: "Computer Science",
-        university: "Example University",
-        year: 2015,
-      },
-      {
-        degree: "Master's",
-        major: "Business Administration",
-        university: "Another University",
-        year: 2018,
-      },
-    ],
-    // immutable: ImmutableMap({ key: "value" }),
-  };
-
-  const theme = {
-    scheme: "monokai",
-    author: "wimer hazenberg (http://www.monokai.nl)",
-    base00: "#272822",
-    base01: "#383830",
-    base02: "#49483e",
-    base03: "#75715e",
-    base04: "#a59f85",
-    base05: "#f8f8f2",
-    base06: "#f5f4f1",
-    base07: "#f9f8f5",
-    base08: "#f92672",
-    base09: "#fd971f",
-    base0A: "#f4bf75",
-    base0B: "#a6e22e",
-    base0C: "#a1efe4",
-    base0D: "#66d9ef",
-    base0E: "#ae81ff",
-    base0F: "#cc6633",
-  };
-
+export const ViewDisplayKanban = (props: any) => {
   return (
-    <View style={{ flexDirection: "column" }}>
-      <JSONTree
-        data={jsonData}
-        theme={{
-          extend: theme,
-          // underline keys for literal values
-          valueLabel: {
-            textDecoration: "underline",
-          },
-          // switch key for objects to uppercase when object is expanded.
-          // `nestedNodeLabel` receives additional arguments `expanded` and `keyPath`
-          nestedNodeLabel: ({ style }, nodeType, expanded) => ({
-            style: {
-              ...style,
-              textTransform: expanded ? "uppercase" : style.textTransform,
-            },
-          }),
-        }}
-        invertTheme={true}
-      />
-    </View>
+    <ViewContainerStatic>
+      <ViewTypographyText>ViewDisplayKanban Placeholder</ViewTypographyText>
+    </ViewContainerStatic>
+  );
+};
+
+// GANTT
+
+export const ViewDisplayGantt = (props: any) => {
+  return (
+    <ViewContainerStatic>
+      <ViewTypographyText>ViewDisplayGantt Placeholder</ViewTypographyText>
+    </ViewContainerStatic>
+  );
+};
+
+// THREADS
+
+export const ViewDisplayThreads = (props: any) => {
+  return (
+    <ViewContainerStatic>
+      <ViewTypographyText>ViewDisplayThreads Placeholder</ViewTypographyText>
+    </ViewContainerStatic>
+  );
+};
+
+// NODES
+
+export const ViewDisplayNodes = (props: any) => {
+  return (
+    <ViewContainerStatic>
+      <ViewTypographyText>ViewDisplayNodes Placeholder</ViewTypographyText>
+    </ViewContainerStatic>
+  );
+};
+
+// SPACIAL
+
+export const ViewDisplaySpacial = (props: any) => {
+  return (
+    <ViewContainerStatic>
+      <ViewTypographyText>ViewDisplaySpacial Placeholder</ViewTypographyText>
+    </ViewContainerStatic>
+  );
+};
+
+// JSON
+
+export const ViewDisplayJson = (props: any) => {
+  return (
+    <ViewContainerStatic>
+      <ViewTypographyText>ViewDisplayJson Placeholder</ViewTypographyText>
+      <ViewJsonContainer data={objectJsonExample} />
+    </ViewContainerStatic>
+  );
+};
+
+export const ViewDisplayPath = (props: any) => {
+  return (
+    <ViewContainerStatic>
+      <ViewTypographyText>ViewDisplayPath Placeholder</ViewTypographyText>
+      <ViewPathContainer />
+    </ViewContainerStatic>
   );
 };
 
@@ -482,12 +265,12 @@ export const mapDisplayComponents: any = {
   maps: ViewDisplayMaps,
   json: ViewDisplayJson,
   chart: ViewDisplayChart,
-  // path: ViewDisplayPath,
-  // kanban: ViewDisplayKanban,
-  // gantt: ViewDisplayGantt,
-  // thread: ViewDisplayThreads,
-  // nodes: ViewDisplayNodes,
-  // spacial: ViewDisplaySpacial,
+  path: ViewDisplayPath,
+  kanban: ViewDisplayKanban,
+  gantt: ViewDisplayGantt,
+  threads: ViewDisplayThreads,
+  nodes: ViewDisplayNodes,
+  spacial: ViewDisplaySpacial,
 };
 
 // Options
@@ -510,12 +293,24 @@ export const optionsDisplayMain = [
     iconSource: "MaterialCommunityIcons",
   },
   { title: "Chart", iconName: "piechart", iconSource: "AntDesign" },
-  // { title: "Path", iconName: "share", iconSource: "Foundation", },
-  // { title: "Kanban", iconName: "view-column", iconSource: "MaterialIcons"},
-  // { title: "Gantt", iconName: "chart-gantt", iconSource: "MaterialCommunityIcons"},
-  // { title: "Threads", iconName: "wechat", iconSource: "AntDesign"},
-  // { title: "Nodes", iconName: "map-marker-path", iconSource: "MaterialCommunityIcons"},
-  // { title: "Spacial", iconName: "printer-3d", iconSource: "MaterialCommunityIcons"},
+  { title: "Path", iconName: "share", iconSource: "Foundation" },
+  { title: "Kanban", iconName: "view-column", iconSource: "MaterialIcons" },
+  {
+    title: "Gantt",
+    iconName: "chart-gantt",
+    iconSource: "MaterialCommunityIcons",
+  },
+  { title: "Threads", iconName: "wechat", iconSource: "AntDesign" },
+  {
+    title: "Nodes",
+    iconName: "map-marker-path",
+    iconSource: "MaterialCommunityIcons",
+  },
+  {
+    title: "Spacial",
+    iconName: "printer-3d",
+    iconSource: "MaterialCommunityIcons",
+  },
 ];
 
 // Tabs
@@ -523,7 +318,7 @@ export const optionsDisplayMain = [
 export const ViewDisplayTabs = ({}: any) => {
   const display = useRouterLocation()?.paths[3];
   return (
-    <ScrollView
+    <ViewContainerScroll
       horizontal
       style={{
         width: "100%",
@@ -531,7 +326,7 @@ export const ViewDisplayTabs = ({}: any) => {
       }}
     >
       {optionsDisplayMain?.map((x, i) => (
-        <View key={i} style={{ flex: 1, width: 50, height: 50 }}>
+        <ViewContainerStatic key={i} style={{ flex: 1, width: 50, height: 50 }}>
           <ViewRouterLinkthemed
             style={{
               padding: 5,
@@ -540,28 +335,19 @@ export const ViewDisplayTabs = ({}: any) => {
             }}
             to={`entity/../../../${x.title.toLowerCase()}/display`}
           >
-            <View style={{ alignItems: "center", flex: 1 }}>
+            <ViewContainerStatic style={{ alignItems: "center", flex: 1 }}>
               <ViewIconMain
                 name={x.iconName}
                 source={x.iconSource}
                 color={"white"}
               />
-              <Text style={{ fontSize: 11 }}>{x.title}</Text>
-            </View>
+              <ViewTypographyText style={{ fontSize: 11 }}>
+                {x.title}
+              </ViewTypographyText>
+            </ViewContainerStatic>
           </ViewRouterLinkthemed>
-        </View>
+        </ViewContainerStatic>
       ))}
-    </ScrollView>
+    </ViewContainerScroll>
   );
-};
-
-// TableTabs (Temp)
-
-// 'Table Tabs' will be a subcomponent of 'Table' (like 'Table Footer' and'Table Header' are table subcomponents )
-// To be moved into the table file (but added here since it is a placeholder and so as not to interfere with current works)
-// Or, since this might need to be used by List (and maybe others like timeline) as well, maybe it needs to be its own 'display tabs' module or else we just directly use a primitive 'tabs' module in ViewDisplayTable, ViewDisplayList etc.
-// At the moment, it just has 'Types' hardcoded into it as the tabs.
-// But, it will be made dynamic (which will allow things like plugins and user interactions to hide this component, switch out the tabs to 'Status' or  other property groupings, etc.)
-export const ViewTableTabs = (props: any) => {
-  return <Text>["Area","Event","Contact","etc."]</Text>;
 };

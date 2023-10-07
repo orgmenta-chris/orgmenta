@@ -1,7 +1,11 @@
-import { useState } from "react";
-import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
-import { useMutation } from "@tanstack/react-query";
+import { ViewContainerStatic, ViewContainerScroll } from "./container";
+import { ViewTypographyText } from "./typography";
+import { ViewInputText } from "./input";
+import { useQueryerMutation } from "./queryer";
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
+
+import { useState } from "react";
+import { Pressable } from "react-native";
 
 // Main
 
@@ -15,32 +19,32 @@ export const ViewInquiryMain = () => {
   const [state, set] = useState<TypeInquiryMain>({});
   const create = useInquiryCreate(state, ()=>set({}));
   return (
-    <ScrollView style={{ flexDirection: "column"}}>
-      {/* <Text>{JSON.stringify(state, null, 2)}</Text> */}
-      <View style={{ flexDirection: "row", margin:5,   }}>
-        <Text style={{height: 30, verticalAlign:'middle', flex: 1}}>Name: </Text>
-        <TextInput 
+    <ViewContainerScroll style={{ flexDirection: "column"}}>
+      {/* <ViewTypographyText>{JSON.stringify(state, null, 2)}</ViewTypographyText> */}
+      <ViewContainerStatic style={{ flexDirection: "row", margin:5,   }}>
+        <ViewTypographyText style={{height: 30, verticalAlign:'middle', flex: 1}}>Name: </ViewTypographyText>
+        <ViewInputText 
           value={state.name || ''}
           style={{height: 30, verticalAlign:'middle', flex: 3, borderWidth:1}}
           onChangeText={(newData)=>set({...state,name:newData})}
         />
-      </View>
-      <View style={{ flexDirection: "row", margin:5,   }}>
-        <Text style={{height: 30, verticalAlign:'middle', flex: 1}}>Email*: </Text>
-        <TextInput
+      </ViewContainerStatic>
+      <ViewContainerStatic style={{ flexDirection: "row", margin:5,   }}>
+        <ViewTypographyText style={{height: 30, verticalAlign:'middle', flex: 1}}>Email*: </ViewTypographyText>
+        <ViewInputText
           value={state.email || ''} 
           style={{height: 30, verticalAlign:'middle', flex: 3, borderWidth:1}}
           onChangeText={(newData)=>set({...state,email:newData})}
         />
-      </View>
-      <View style={{ flexDirection: "row", margin:5,   }}>
-        <Text style={{height: 30, verticalAlign:'middle', flex: 1}}>Message*: </Text>
-        <TextInput 
+      </ViewContainerStatic>
+      <ViewContainerStatic style={{ flexDirection: "row", margin:5,   }}>
+        <ViewTypographyText style={{height: 30, verticalAlign:'middle', flex: 1}}>Message*: </ViewTypographyText>
+        <ViewInputText 
           value={state.message || ''}
           style={{height: 30, verticalAlign:'middle', flex: 3, borderWidth:1}}
           onChangeText={(newData)=>set({...state,message:newData})}
         />
-      </View>
+      </ViewContainerStatic>
       <Pressable
           disabled={!state?.email || !state?.message}
           style={{ borderRadius:5, padding: 10, margin:5,  backgroundColor: (state?.email && state?.message ) ? "lightblue" : "gray" }}
@@ -48,18 +52,18 @@ export const ViewInquiryMain = () => {
             create.mutate();
           }}
         >
-        <Text>Submit</Text>
+        <ViewTypographyText>Submit</ViewTypographyText>
       </Pressable>
-      <View style={{ flexDirection: "row" }}>
-        <Text style={{textAlign:'center', verticalAlign:'middle', flex: 1}}>
-          <Text>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
+        <ViewTypographyText style={{textAlign:'center', verticalAlign:'middle', flex: 1}}>
+          <ViewTypographyText>
             {create.isLoading && `Submitting...`}
             {create.isError && `Error: ${JSON.stringify(create.error,null,2)}`}
             {create.isSuccess && `Submitted. Thank you, we will respond ASAP.`}
-          </Text>
-        </Text>
-      </View>
-    </ScrollView>
+          </ViewTypographyText>
+        </ViewTypographyText>
+      </ViewContainerStatic>
+    </ViewContainerScroll>
   );
 };
 
@@ -74,7 +78,7 @@ export async function requestInquiryCreate(data: any) {
 }
 
 export const useInquiryCreate = (data: any, resetState: () => void) => {
-  return useMutation(["inquiry", "create"], () => requestInquiryCreate(data), {
+  return useQueryerMutation(["inquiry", "create"], () => requestInquiryCreate(data), {
     onSuccess: () => {
       resetState();
     },

@@ -1,31 +1,36 @@
-import { ScrollView, Text } from "react-native";
+import { ViewContainerScroll } from "./container";
+import { ViewTypographyText } from "./typography";
 import { ViewFieldMain, interfaceFieldMain } from "./field";
+import { ReactNode } from 'react';
 
-// Main
+// CONTAINER
 
-export interface interfaceFormMain {
+export interface interfaceFormContainer {
   title?: string;
-  data: interfaceFieldMain;
+  children?: ReactNode;
+  data?: interfaceFieldMain;
 }
 
 // The main simple form
-export const ViewFormMain = ({ children, title }: any) => {
+export const ViewFormContainer = ({ children, title }: interfaceFormContainer) => {
   return (
-    <ScrollView style={{ margin: 5 }}>
-      {title && <Text>{title}</Text>}
+    <ViewContainerScroll style={{ margin: 5 }}>
+      {title && <ViewTypographyText>{title}</ViewTypographyText>}
       {children}
-    </ScrollView>
+    </ViewContainerScroll>
   );
 };
 
-// Dynamic
+// DYNAMIC
 
 // A form that shows the correct field type based on a field propery in each object
 export const ViewFormDynamic = ({ data, title }: any) => {
   return (
-    <ViewFormMain>
+    <ViewFormContainer>
       {!data && (
-        <Text>-- No data has been passed to this form component --</Text>
+        <ViewTypographyText>
+          -- No data has been passed to this form component --
+        </ViewTypographyText>
       )}
       {data?.map((item: any, i: number) => (
         <ViewFieldMain
@@ -38,6 +43,6 @@ export const ViewFormDynamic = ({ data, title }: any) => {
           }}
         />
       ))}
-    </ViewFormMain>
+    </ViewFormContainer>
   );
 };

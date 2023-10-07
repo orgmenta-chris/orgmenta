@@ -8,12 +8,15 @@ export const useAuxiliaryArray = ({
 }: any) => {
   // Add core column names (currently has some tests in it, remove before go-live)
   column_names = column_names.concat([
+    "id",
     "type",
     "status",
-    "d0205b0b-3d78-4e77-8071-a53b65e7aa3a",
-    "43a0d73d-6285-4d8b-8e30-5357b80febd0",
-    "NON-EXISTING-COLUMN",
-    "",
+    "title",
+    "38a15ab6-c1ad-47cf-803c-5446e2214601", //has
+    // "d0205b0b-3d78-4e77-8071-a53b65e7aa3a",
+    // "43a0d73d-6285-4d8b-8e30-5357b80febd0",
+    // "NON-EXISTING-COLUMN",
+    // "",
   ]);
   // console.info("useAuxiliaryArray columns", column_names);
   const queryKey = ["auxiliary", space_name, filters];

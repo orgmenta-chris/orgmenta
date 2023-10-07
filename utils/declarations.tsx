@@ -1,6 +1,13 @@
-// placeholder
+import { string } from './string'
 
-export const arrayDeclarationTypes = [
+export const arrayDeclarationTypes: {
+  id: string;
+  declaration_type: string;
+  prefix: string;
+  description: string;
+  notes: string;
+  rule: string;
+}[] = [  
   {
     id: "todo",
     declaration_type: "hook",

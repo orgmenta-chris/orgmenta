@@ -4,7 +4,7 @@
 
 // import  { useMemo } from "react";
 // import { View } from "react-native";
-// import { ViewFormMain } from "./ViewFormMain";
+// import { ViewFormContainer } from "./ViewFormContainer";
 
 // const ViewDisplayForm = (props: any) => {
 //   // Chris todo: auxiliary data doesn't have relationship ids yet, so 'if(oldItem.focus_columns.cell_field==='relationship'){' does nothing yet
@@ -36,7 +36,7 @@
 
 //   return (
 //     <View style={{ flexDirection: "column", maxHeight: 500 }}>
-//       <ViewFormMain data={data} />
+//       <ViewFormContainer data={data} />
 //     </View>
 //   );
 // };

@@ -1,3 +1,5 @@
+// Manage notifications (/alerts) across all platforms
+
 import React, { useState, useEffect, useRef } from "react";
 import { Text, View, Button, Platform } from "react-native";
 import * as Device from "expo-device";
@@ -151,4 +153,20 @@ export const UseNotification = (props: TypeNotificationBody) => {
   if (testMode === false && CustomNotificationBody) {
     return <CustomNotificationBody />;
   }
+};
+
+
+export const RefreshButton = () => {
+  const scheduleAndReload = () => {
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Refresh',
+        body: 'Press to refresh the app',
+      },
+      trigger: null,
+    });
+    window.location.reload();
+  };
+
+  return <Button title="Send Refresh Notification" onPress={scheduleAndReload} />;
 };

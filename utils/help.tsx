@@ -32,7 +32,10 @@ export const ViewHelpIcons = ({ children, set, to }: any) => {
         style={{
           margin: 5,
         }}
-        onPress={() => set((old: any) => !old)}
+        // NOT YET IMPLEMENTED (need to get the tooltip, outside of the parent component)
+        // onPress={() => set((old: any) => !old)}
+        // onHoverIn={() => set(true)} 
+        // onHoverOut={() => set(false)}
       >
         <ViewIconMain
           name={"info-with-circle"}
@@ -55,7 +58,7 @@ export const ViewHelpIcons = ({ children, set, to }: any) => {
     </ViewContainerStatic>
   );
 };
-export const ViewHelpMain = ({ children, to }: any) => {
+export const ViewHelpContainer = ({ children, to }: any) => {
   const [state, set] = useState(false);
   return (
     <ViewContainerStatic>

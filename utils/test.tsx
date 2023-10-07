@@ -11,7 +11,7 @@ import { TypeNotificationBody, UseNotification } from "./notification";
 import { ViewSoundPlayer, ViewSoundRecorder } from "./audio";
 import { ViewVideoPlayer } from "./video";
 import { ViewScreenRecorder } from "./recorder";
-import { ViewHelpMain } from "./help";
+import { ViewHelpContainer } from "./help";
 
 import { Text, ScrollView } from "react-native";
 
@@ -20,7 +20,7 @@ export const ViewTestPage = () => {
   return __DEV__ ? (
     <ViewPageMain>
       <ScrollView>
-        <ViewHelpMain to={"testing123"} />
+        <ViewHelpContainer to={"testing123"} />
         <ViewTypographyHeading>Testing</ViewTypographyHeading>
         <Text>ViewTestPage Placeholder</Text>
         <Text>{JSON.stringify(aux, null, 2)}</Text>

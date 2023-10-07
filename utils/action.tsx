@@ -1,14 +1,7 @@
 // An 'Action' (or 'control'?) is something that can be done to an 'Entity'.
 
-import {
-  ViewRouterLinkthemed,
-  ViewRouterRoutes,
-  ViewRouterRoute,
-  useRouterLocation,
-  useRouterNavigate,
-} from "./router";
-import { ViewContainerStatic, ViewContainerScroll } from "./container";
-import { ViewTypographySubheading, ViewTypographySubsubheading } from "./typography";
+import { ViewContainerStatic } from "./container";
+import { ViewInputText } from "./input";
 import { ViewControlMain } from "./control";
 import { useEntityCreate } from "./entity";
 import { arrayTypeMain } from "./type";
@@ -17,28 +10,31 @@ import { createUuid4 } from "./uuid";
 import { ViewDisplayTabs } from "./display";
 import { ViewIconMain } from "./icon";
 import { ViewFileModal } from "./pdf";
-import { TextInput, View, Text, Pressable } from "react-native";
+import { ViewHelpContainer } from "./help";
+import {
+  ViewTypographyText,
+  ViewTypographySubheading,
+  ViewTypographySubsubheading,
+} from "./typography";
+import {
+  ViewRouterLinkthemed,
+  ViewRouterRoutes,
+  ViewRouterRoute,
+  useRouterLocation,
+  useRouterNavigate,
+} from "./router";
+import { Pressable } from "react-native";
 import { useState } from "react";
-
-// Modal
-
-// Not in use, not needed? CG to remove after panel design complete.
-// export const ViewActionModal = ({}: any) => {
-//   return (
-//     <View style={{ flexDirection: "column" }}>
-//       <Text>ViewActionModal - To do</Text>
-//     </View>
-//   );
-// };
 
 // Display
 
 // An action component to show the 'display modes' (Pods, form, table etc.)
 export const ViewActionDisplay = ({}: any) => {
   return (
-    <ViewContainerScroll horizontal style={{ margin: 5 }}>
+    <ViewContainerStatic>
+      <ViewActionHeading title={"Displays"} subtitle={"Switch Display Modes"} />
       <ViewDisplayTabs />
-    </ViewContainerScroll>
+    </ViewContainerStatic>
   );
 };
 
@@ -46,9 +42,13 @@ export const ViewActionDisplay = ({}: any) => {
 
 export const ViewActionControl = ({}: any) => {
   return (
-    <View style={{ flexDirection: "column" }}>
+    <ViewContainerStatic style={{ flexDirection: "column" }}>
+      <ViewActionHeading
+        title={"Control"}
+        subtitle={"Presets, Filters, Grouping and Sorting"}
+      />
       <ViewControlMain />
-    </View>
+    </ViewContainerStatic>
   );
 };
 
@@ -69,59 +69,67 @@ export const ViewActionAdd = ({ auxiliary, schema, focus }: any) => {
     });
   const create = useEntityCreate(state);
   return (
-    <View style={{ flexDirection: "column" }}>
-      <ViewTypographySubheading>Add</ViewTypographySubheading>
-      <ViewTypographySubsubheading>Add an entity</ViewTypographySubsubheading>
-      <Text style={{ fontStyle: "italic" }}>{JSON.stringify(state)}</Text>
-
-      <View style={{ flexDirection: "row" }}>
-        <Text style={{ fontWeight: "700" }}>Title:</Text>
-        <TextInput
+    <ViewContainerStatic style={{ flexDirection: "column" }}>
+      <ViewActionHeading title={"Add"} subtitle={"Create entities"} />
+      {/* <ViewTypographyText style={{ fontStyle: "italic" }}>{testing: JSON.stringify(state)}</ViewTypographyText> */}
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
+        <ViewTypographyText style={{ fontWeight: "700" }}>
+          Title:
+        </ViewTypographyText>
+        <ViewInputText
           onChangeText={(text) => set((old) => ({ ...old, title: text }))}
         />
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <Text style={{ fontWeight: "700" }}>Type:</Text>
+      </ViewContainerStatic>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
+        <ViewTypographyText style={{ fontWeight: "700" }}>
+          Type:
+        </ViewTypographyText>
         {arrayTypeMain?.map((x, i) => (
           <Pressable
             key={i}
             style={{ backgroundColor: "lightblue", margin: 1 }}
             onPress={() => set((old) => ({ ...old, type: x }))}
           >
-            <Text>{x}</Text>
+            <ViewTypographyText>{x}</ViewTypographyText>
           </Pressable>
         ))}
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <Text style={{ fontWeight: "700" }}>Status:</Text>
+      </ViewContainerStatic>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
+        <ViewTypographyText style={{ fontWeight: "700" }}>
+          Status:
+        </ViewTypographyText>
         {arrayStatusMain?.map((x, i) => (
           <Pressable
             key={i}
             style={{ backgroundColor: "lightblue", margin: 1 }}
             onPress={() => set((old) => ({ ...old, status: x }))}
           >
-            <Text>{x}</Text>
+            <ViewTypographyText>{x}</ViewTypographyText>
           </Pressable>
         ))}
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <Text style={{ fontWeight: "700" }}>Categories:</Text>
-        <TextInput
+      </ViewContainerStatic>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
+        <ViewTypographyText style={{ fontWeight: "700" }}>
+          Categories:
+        </ViewTypographyText>
+        <ViewInputText
           defaultValue={category}
           onChangeText={(text) =>
             set((old) => ({ ...old, categories: text?.split(",") }))
           }
         />
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <Text style={{ fontWeight: "700" }}>Description:</Text>
-        <TextInput
+      </ViewContainerStatic>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
+        <ViewTypographyText style={{ fontWeight: "700" }}>
+          Description:
+        </ViewTypographyText>
+        <ViewInputText
           onChangeText={(text) => set((old) => ({ ...old, description: text }))}
         />
-      </View>
+      </ViewContainerStatic>
 
       {/* <ViewFormDynamic data={data} /> */}
-      <View style={{ flexDirection: "row" }}>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
         <Pressable
           disabled={!state?.title}
           style={{ backgroundColor: state?.title ? "lightblue" : "gray" }}
@@ -130,10 +138,10 @@ export const ViewActionAdd = ({ auxiliary, schema, focus }: any) => {
             set((old) => ({ ...old, id: createUuid4() }));
           }}
         >
-          <Text>Create</Text>
+          <ViewTypographyText>Create</ViewTypographyText>
         </Pressable>
-      </View>
-    </View>
+      </ViewContainerStatic>
+    </ViewContainerStatic>
   );
 };
 
@@ -146,23 +154,27 @@ export const ViewActionEdit = ({}: any) => {
   const [statusState, statusSet] = useState("");
   const [descriptionState, descriptionSet] = useState("");
   return (
-    <View style={{ flexDirection: "column" }}>
-      <Text>EDIT</Text>
-      <View style={{ flexDirection: "row" }}>
+    <ViewContainerStatic style={{ flexDirection: "column" }}>
+      <ViewActionHeading title={"Edit"} subtitle={"Update entities"} />
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
         {/* The following will be made dynamic by Chris (the static fields are a placeholder) */}
-        <Text>Title</Text>
-        <TextInput onChangeText={(value) => titleSet(value)}></TextInput>
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <Text>Type</Text>
-        <TextInput onChangeText={(value) => typeSet(value)}></TextInput>
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <Text>Class</Text>
-        <TextInput onChangeText={(value) => classSet(value)}></TextInput>
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <Text>Status</Text>
+        <ViewTypographyText>Title</ViewTypographyText>
+        <ViewInputText
+          onChangeText={(value) => titleSet(value)}
+        ></ViewInputText>
+      </ViewContainerStatic>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
+        <ViewTypographyText>Type</ViewTypographyText>
+        <ViewInputText onChangeText={(value) => typeSet(value)}></ViewInputText>
+      </ViewContainerStatic>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
+        <ViewTypographyText>Class</ViewTypographyText>
+        <ViewInputText
+          onChangeText={(value) => classSet(value)}
+        ></ViewInputText>
+      </ViewContainerStatic>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
+        <ViewTypographyText>Status</ViewTypographyText>
         <Pressable
           style={{
             backgroundColor: statusState === "0. New" ? "gray" : "lightblue",
@@ -171,7 +183,7 @@ export const ViewActionEdit = ({}: any) => {
           }}
           onPress={() => statusSet("0. New")}
         >
-          <Text>0. New</Text>
+          <ViewTypographyText>0. New</ViewTypographyText>
         </Pressable>
         <Pressable
           style={{
@@ -182,7 +194,7 @@ export const ViewActionEdit = ({}: any) => {
           }}
           onPress={() => statusSet("1. Respond")}
         >
-          <Text>1. Respond</Text>
+          <ViewTypographyText>1. Respond</ViewTypographyText>
         </Pressable>
         <Pressable
           style={{
@@ -192,7 +204,7 @@ export const ViewActionEdit = ({}: any) => {
           }}
           onPress={() => statusSet("2. Active")}
         >
-          <Text>2. Active</Text>
+          <ViewTypographyText>2. Active</ViewTypographyText>
         </Pressable>
         <Pressable
           style={{
@@ -203,7 +215,7 @@ export const ViewActionEdit = ({}: any) => {
           }}
           onPress={() => statusSet("3. Waiting")}
         >
-          <Text>3. Waiting</Text>
+          <ViewTypographyText>3. Waiting</ViewTypographyText>
         </Pressable>
         <Pressable
           style={{
@@ -213,7 +225,7 @@ export const ViewActionEdit = ({}: any) => {
           }}
           onPress={() => statusSet("4. Hold")}
         >
-          <Text>4. Hold</Text>
+          <ViewTypographyText>4. Hold</ViewTypographyText>
         </Pressable>
         <Pressable
           style={{
@@ -224,7 +236,7 @@ export const ViewActionEdit = ({}: any) => {
           }}
           onPress={() => statusSet("5. Evaluate")}
         >
-          <Text>5. Evaluate</Text>
+          <ViewTypographyText>5. Evaluate</ViewTypographyText>
         </Pressable>
         <Pressable
           style={{
@@ -235,7 +247,7 @@ export const ViewActionEdit = ({}: any) => {
           }}
           onPress={() => statusSet("6. Cancelled")}
         >
-          <Text>6. Cancelled</Text>
+          <ViewTypographyText>6. Cancelled</ViewTypographyText>
         </Pressable>
         <Pressable
           style={{
@@ -246,14 +258,16 @@ export const ViewActionEdit = ({}: any) => {
           }}
           onPress={() => statusSet("7. Complete")}
         >
-          <Text>7. Complete</Text>
+          <ViewTypographyText>7. Complete</ViewTypographyText>
         </Pressable>
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <Text>Description</Text>
-        <TextInput onChangeText={(value) => descriptionSet(value)}></TextInput>
-      </View>
-      <View style={{ flexDirection: "row" }}>
+      </ViewContainerStatic>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
+        <ViewTypographyText>Description</ViewTypographyText>
+        <ViewInputText
+          onChangeText={(value) => descriptionSet(value)}
+        ></ViewInputText>
+      </ViewContainerStatic>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
         <Pressable
           style={{ backgroundColor: "lightblue" }}
           onPress={() =>
@@ -266,18 +280,18 @@ export const ViewActionEdit = ({}: any) => {
             })
           }
         >
-          <Text>Create</Text>
+          <ViewTypographyText>Create</ViewTypographyText>
         </Pressable>
-      </View>
-      {/* <View style={{flexDirection:'row'}}>
-        <Text>Testing:</Text>
-        <Text>{titleState}</Text>
-        <Text>{typeState}</Text>
-        <Text>{classState}</Text> 
-        <Text>{statusState}</Text>
-        <Text>{descriptionState}</Text>
-      </View> */}
-    </View>
+      </ViewContainerStatic>
+      {/* <ViewContainerStatic style={{flexDirection:'row'}}>
+        <ViewTypographyText>Testing:</ViewTypographyText>
+        <ViewTypographyText>{titleState}</ViewTypographyText>
+        <ViewTypographyText>{typeState}</ViewTypographyText>
+        <ViewTypographyText>{classState}</ViewTypographyText> 
+        <ViewTypographyText>{statusState}</ViewTypographyText>
+        <ViewTypographyText>{descriptionState}</ViewTypographyText>
+      </ViewContainerStatic> */}
+    </ViewContainerStatic>
   );
 };
 
@@ -285,9 +299,10 @@ export const ViewActionEdit = ({}: any) => {
 
 export const ViewActionSync = ({}: any) => {
   return (
-    <View style={{ flexDirection: "column" }}>
-      <Text>SYNC</Text>
-    </View>
+    <ViewContainerStatic style={{ flexDirection: "column" }}>
+      <ViewActionHeading title={"Sync"} subtitle={"Sync and Backup Entities"} />
+      <ViewTypographyText>ViewActionSync placeholder</ViewTypographyText>
+    </ViewContainerStatic>
   );
 };
 
@@ -295,9 +310,13 @@ export const ViewActionSync = ({}: any) => {
 
 export const ViewActionShare = ({}: any) => {
   return (
-    <View style={{ flexDirection: "column" }}>
-      <Text>SHARE</Text>
-    </View>
+    <ViewContainerStatic style={{ flexDirection: "column" }}>
+      <ViewActionHeading
+        title={"Share"}
+        subtitle={"Share, Forward, or Update Member Access"}
+      />
+      <ViewTypographyText>ViewActionShare placeholder</ViewTypographyText>
+    </ViewContainerStatic>
   );
 };
 
@@ -305,9 +324,13 @@ export const ViewActionShare = ({}: any) => {
 
 export const ViewActionTemplate = ({}: any) => {
   return (
-    <View style={{ flexDirection: "column" }}>
-      <Text>TEMPLATE</Text>
-    </View>
+    <ViewContainerStatic style={{ flexDirection: "column" }}>
+      <ViewActionHeading
+        title={"Templates"}
+        subtitle={"Run rules, import blueprints, or apply other templates"}
+      />
+      <ViewTypographyText>ViewActionTemplate placeholder</ViewTypographyText>
+    </ViewContainerStatic>
   );
 };
 
@@ -315,39 +338,55 @@ export const ViewActionTemplate = ({}: any) => {
 
 export const ViewActionLink = ({}: any) => {
   return (
-    <View style={{ flexDirection: "column" }}>
-      <Text>LINK</Text>
-      <Text>Create / manage entity relationships here</Text>
-    </View>
+    <ViewContainerStatic style={{ flexDirection: "column" }}>
+      <ViewActionHeading
+        title={"Link"}
+        subtitle={"Create / manage entity relationships"}
+      />
+      <ViewTypographyText>ViewActionLink placeholder</ViewTypographyText>
+    </ViewContainerStatic>
   );
 };
 
 // Export
 
 export const ViewActionExport = ({}: any) => {
-  const native = useRouterNavigate();
   const [statePdfModal, setPdfModal] = useState(false);
   return (
-    <View style={{ flexDirection: "row", maxHeight: 200 }}>
-      <ViewIconMain
-        name={"ios-print-outline"}
-        source={"Ionicons"}
-        color={"black"}
-        size={24}
+    <ViewContainerStatic style={{ flexDirection: "column" }}>
+      <ViewActionHeading
+        title={"Export"}
+        subtitle={"Download, export and backup entities"}
       />
-      <Pressable onPress={() => setPdfModal((old) => !old)}>
-        <ViewIconMain
-          name={"pdffile1"}
-          source={"AntDesign"}
-          color={"black"}
-          size={24}
+      <ViewContainerStatic style={{ flexDirection: "row", margin: 10 }}>
+        <Pressable
+          onPress={() => console.log('ViewActionExport print button: todo')}
+          style={{ margin: 5 }}
+        >
+          <ViewIconMain
+            name={"ios-print-outline"}
+            source={"Ionicons"}
+            color={"black"}
+            size={24}
+          />
+        </Pressable>
+        <Pressable
+          onPress={() => setPdfModal((old) => !old)}
+          style={{ margin: 5 }}
+        >
+          <ViewIconMain
+            name={"pdffile1"}
+            source={"AntDesign"}
+            color={"black"}
+            size={24}
+          />
+        </Pressable>
+        <ViewFileModal
+          statePdfModal={statePdfModal}
+          setPdfModal={() => setPdfModal((old) => !old)}
         />
-      </Pressable>
-      <ViewFileModal
-        statePdfModal={statePdfModal}
-        setPdfModal={() => setPdfModal((old) => !old)}
-      />
-    </View>
+      </ViewContainerStatic>
+    </ViewContainerStatic>
   );
 };
 
@@ -413,7 +452,9 @@ export const optionsActionTabs = [
 export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
   const paths = useRouterLocation().paths;
   return (
-    <View style={{ flexDirection: "column", backgroundColor: "lightgray" }}>
+    <ViewContainerStatic
+      style={{ flexDirection: "column", backgroundColor: "lightgray" }}
+    >
       <ViewRouterRoutes>
         <ViewRouterRoute path="display" element={<ViewActionDisplay />} />
         <ViewRouterRoute path="control" element={<ViewActionControl />} />
@@ -434,7 +475,7 @@ export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
         <ViewRouterRoute path="link" element={<ViewActionLink />} />
         <ViewRouterRoute path="export" element={<ViewActionExport />} />
       </ViewRouterRoutes>
-      <View style={{ flexDirection: "row" /*borderWidth: 1*/ }}>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
         {optionsActionTabs?.map((x, i) => (
           <ViewRouterLinkthemed
             to={x.title.toLowerCase()}
@@ -443,7 +484,7 @@ export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
             }}
             key={i}
           >
-            <View
+            <ViewContainerStatic
               style={{
                 flex: 1,
                 padding: 5,
@@ -461,10 +502,33 @@ export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
                 color={"black"}
                 size={24}
               />
-            </View>
+            </ViewContainerStatic>
           </ViewRouterLinkthemed>
         ))}
-      </View>
-    </View>
+      </ViewContainerStatic>
+    </ViewContainerStatic>
+  );
+};
+
+export const ViewActionHeading = ({ title, subtitle }: any) => {
+  return (
+    <ViewContainerStatic style={{ flexDirection: "row" }}>
+      <ViewTypographySubheading
+        style={{ margin: 10, textAlignVertical: "bottom" }}
+      >
+        {title}
+      </ViewTypographySubheading>
+      <ViewTypographySubsubheading
+        style={{
+          flex: 1,
+          margin: 10,
+          textAlignVertical: "bottom",
+          fontStyle: "italic",
+        }}
+      >
+        {subtitle}
+      </ViewTypographySubsubheading>
+      <ViewHelpContainer />
+    </ViewContainerStatic>
   );
 };

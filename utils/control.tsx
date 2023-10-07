@@ -12,7 +12,6 @@ export const ViewControlMain = ({}: any) => {
     <ViewContainerStatic
       style={{ flexDirection: "row", gap: 10, borderWidth: 1 }}
     >
-      <ViewTypographySubheading>Control</ViewTypographySubheading>
       <ViewTypographyText>
         (Presets, Filters, Sorting, Grouping)
       </ViewTypographyText>

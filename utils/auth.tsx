@@ -1,15 +1,34 @@
 // 'Auth' is a module for authentication sessions for a 'user'.
 
 import { instanceSupabaseClient } from "./supabase";
+import { ViewTypographyText } from "./typography";
+import { ViewContainerStatic } from "./container";
+import { ViewIndicatorSpinner } from "./indicator";
+import { ViewInputText } from "./input";
+import { ViewButtonPressable } from "./button";
+import { UtilityStylesheetMain } from "./stylesheet";
 import {
   useQueryerMutation,
   useQueryerQuery,
   useQueryerClient,
 } from "./queryer";
+import { useState } from "react";
 
-// Signup (Todo)
+// STYLES (to be moved to theme once developed)
 
-export interface interfaceAuthSignup {
+const styles = UtilityStylesheetMain.create({
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 5,
+  },
+});
+
+// SIGNUP (Todo / The View is complete, the others are placeholders that are no longer up to date. abstract out of the view into them)
+
+export type TypeAuthSignup = {
   email: string;
   password: string;
   confirmPassword: string;
@@ -39,7 +58,7 @@ export const useAuthSignup = ({
   email,
   password,
   confirmPassword,
-}: interfaceAuthSignup) => {
+}: TypeAuthSignup) => {
   const queryClient = useQueryerClient();
   if (password !== confirmPassword) {
     console.log("Passwords do not match");
@@ -55,7 +74,107 @@ export const useAuthSignup = ({
   );
 };
 
-// Signout
+export const ViewAuthSignup = () => {
+  const [usernameState, usernameUpdate] = useState("");
+  const [passwordState, passwordUpdate] = useState("");
+  const [confirmPasswordState, confirmPasswordUpdate] = useState("");
+  const signup = useAuthSignup({
+    email: usernameState,
+    password: passwordState,
+    confirmPassword: confirmPasswordState,
+  });
+  return (
+    <ViewContainerStatic>
+      <>
+        <ViewTypographyText style={{ marginHorizontal: 12 }}>
+          Email
+        </ViewTypographyText>
+        <ViewInputText
+          style={styles.input}
+          autoComplete="username"
+          placeholder="Email"
+          onChangeText={(value) => usernameUpdate(value)}
+        />
+        <ViewTypographyText style={{ marginHorizontal: 12 }}>
+          Password
+        </ViewTypographyText>
+        <ViewInputText
+          style={styles.input}
+          secureTextEntry={true}
+          placeholder="Password"
+          onChangeText={(value) => passwordUpdate(value)}
+        />
+        <ViewTypographyText style={{ marginHorizontal: 12 }}>
+          Confirm Password
+        </ViewTypographyText>
+        <ViewInputText
+          style={styles.input}
+          secureTextEntry={true}
+          placeholder="Confirm password"
+          onChangeText={(value) => confirmPasswordUpdate(value)}
+        />
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            backgroundColor: "lightblue",
+            gap: 5,
+            marginHorizontal: 12,
+            marginTop: 5,
+            padding: 10,
+            borderRadius: 5,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
+          }}
+          onPress={() => signup.mutate()}
+        >
+          <ViewTypographyText style={{ textAlign: "center" }}>
+            Sign Up
+          </ViewTypographyText>
+          <ViewTypographyText>
+            {signup.isLoading ? <ViewIndicatorSpinner /> : null}
+          </ViewTypographyText>
+        </ViewButtonPressable>
+        {signup.isError ? (
+          <ViewTypographyText
+            style={{
+              textAlign: "center",
+              marginTop: 20,
+              marginHorizontal: 12,
+              padding: 10,
+              borderRadius: 5,
+              backgroundColor: "#d15953",
+            }}
+          >
+            An error occurred: {(signup.error as any)?.message}
+          </ViewTypographyText>
+        ) : signup.isSuccess ? (
+          <ViewTypographyText
+            style={{
+              textAlign: "center",
+              marginTop: 20,
+              marginHorizontal: 12,
+              padding: 10,
+              borderRadius: 5,
+              backgroundColor: "#53d17b",
+            }}
+          >
+            Success! Account has been created successfully!
+          </ViewTypographyText>
+        ) : null}
+      </>
+    </ViewContainerStatic>
+  );
+};
+
+// SIGNOUT
 
 export const requestAuthSignout = async () => {
   await instanceSupabaseClient.auth.signOut();
@@ -71,17 +190,100 @@ export const useAuthSignout = () => {
   });
 };
 
-// Signin
+// SIGNIN (The View is complete, the others are placeholders that are no longer up to date. abstract out of the view into them)
 
-export interface interfaceAuthSignin {
+export const ViewAuthSignin = () => {
+  const [usernameState, usernameUpdate] = useState("");
+  const [passwordState, passwordUpdate] = useState("");
+
+  const signin = useAuthSignin({
+    email: usernameState,
+    password: passwordState,
+  });
+
+  return (
+    <ViewContainerStatic>
+      <ViewTypographyText style={{ marginHorizontal: 12 }}>Email</ViewTypographyText>
+      <ViewInputText
+        style={styles.input}
+        autoComplete="username"
+        placeholder="Email"
+        onChangeText={(value) => usernameUpdate(value)}
+      />
+      <ViewTypographyText style={{ marginHorizontal: 12 }}>Password</ViewTypographyText>
+      <ViewInputText
+        style={styles.input}
+        secureTextEntry={true}
+        placeholder="Password"
+        onChangeText={(value) => passwordUpdate(value)}
+      />
+      <ViewButtonPressable
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "row",
+          backgroundColor: "lightblue",
+          gap: 5,
+          marginHorizontal: 12,
+          marginTop: 5,
+          padding: 10,
+          borderRadius: 5,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 4,
+        }}
+        onPress={() => signin.mutate()}
+      >
+        <ViewTypographyText style={{ textAlign: "center" }}>Sign In</ViewTypographyText>
+        <ViewTypographyText>
+          {signin.isLoading ? <ViewIndicatorSpinner /> : null}
+        </ViewTypographyText>
+      </ViewButtonPressable>
+      {signin.isError ? (
+        <ViewTypographyText
+          style={{
+            textAlign: "center",
+            marginTop: 20,
+            marginHorizontal: 12,
+            padding: 10,
+            borderRadius: 5,
+            backgroundColor: "#d15953",
+          }}
+        >
+          An error occurred: {(signin.error as any)?.message}
+        </ViewTypographyText>
+      ) : signin.isSuccess ? (
+        <ViewTypographyText
+          style={{
+            textAlign: "center",
+            marginTop: 20,
+            marginHorizontal: 12,
+            padding: 10,
+            borderRadius: 5,
+            backgroundColor: "#53d17b",
+          }}
+        >
+          Logged in successfully!
+        </ViewTypographyText>
+      ) : null}
+    </ViewContainerStatic>
+  );
+};
+
+export type TypeAuthSignin = {
   email: string;
   password: string;
-}
+};
 
 export const requestAuthSignin = async ({
   email,
   password,
-}: interfaceAuthSignin) => {
+}: TypeAuthSignin) => {
   // at the moment, only 'signInWithPassword' is supported. Other signin options will be added in the future.
   const { data, error } = await instanceSupabaseClient.auth.signInWithPassword({
     email,
@@ -90,12 +292,11 @@ export const requestAuthSignin = async ({
   if (error) {
     throw new Error(error.message);
   }
-
   return data;
 };
 
 // hook to wrap requestAuthSignin
-export const useAuthSignin = ({ email, password }: interfaceAuthSignin) => {
+export const useAuthSignin = ({ email, password }: TypeAuthSignin) => {
   const queryClient = useQueryerClient();
   return useQueryerMutation(
     ["auth", "signin"],
@@ -108,26 +309,27 @@ export const useAuthSignin = ({ email, password }: interfaceAuthSignin) => {
   );
 };
 
-// Reset (Todo)
+// RESET (Todo)
 
-export interface interfaceAuthReset {
+export type TypeAuthReset = {
   email: string;
 }
 
-export const requestAuthReset = async (props: interfaceAuthReset) => {
+// request a password reset
+export const requestAuthReset = async (props: TypeAuthReset) => {
   await instanceSupabaseClient.auth.resetPasswordForEmail(props.email, {
     redirectTo: "https://orgmenta.com/update-password", // Not yet functional
   });
 };
 
 // hook to wrap requestAuthReset
-export const useAuthReset = ({ email }: interfaceAuthReset) => {
+export const useAuthReset = ({ email }: TypeAuthReset) => {
   return useQueryerMutation(["auth", "reset"], () =>
     requestAuthReset({ email })
   );
 };
 
-// Session
+// SESSION
 
 export const requestAuthSession = async () => {
   return await instanceSupabaseClient.auth.getSession();
@@ -165,7 +367,7 @@ export const useAuthSession = () => {
   return query;
 };
 
-// Options
+// OPTIONS
 
 // list of available options to the user regarding their session
 export const optionsAuthMain = [

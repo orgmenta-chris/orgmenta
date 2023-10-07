@@ -1,85 +1,54 @@
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { ViewRouterLink, useRouterLocation } from "./router";
+import { useRouterLocation } from "./router";
 import { useAttributeUnioned } from "./attribute";
+import { ViewContainerStatic } from "./container";
+import { ViewTypographyText } from "./typography";
+import { ViewPageMain } from "./page";
+import { ViewDisplayDynamic } from "./display";
+import { ViewActionTabs } from "./action";
+import { ViewFocusMain } from "./focus";
+import { useAuxiliaryArray } from "./auxiliary";
+import { useSpaceState, TypeSpaceState } from "./space";
+import {
+  useQueryerQuery,
+  useQueryerMutation,
+  useQueryerClient,
+} from "./queryer";
 import { data } from "./static";
-import { View, Text } from "react-native";
 
-// Tabs
+// PAGE
 
-export const ViewEntityTabs = ({ id }: any) => {
-  const path = useRouterLocation()?.paths;
+export const ViewEntityPage = () => {
+  const spaceSelected = useSpaceState(["space", "selected"]);
+  const routerPaths = useRouterLocation()?.paths;
+  const focus = useEntitySingle({ entityFocus: routerPaths?.[2] });
+  const auxiliary = useAuxiliaryArray({
+    space_name: (spaceSelected as TypeSpaceState)?.data?.spacename,
+    filters_array: [], //todo
+    column_names: [], //todo
+  });
+  const schema = useEntitySchema();
   return (
-    <View style={{ flexDirection: "row" }}>
-      {/* 
-      <ViewRouterLink style={{padding:5}} to='list'>Form</ViewRouterLink> */}
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: path[3] === "pods" ? "lightgray" : "transparent",
-        }}
-        to={`/entity/` + path[2] + "/pods"}
-      >
-        Pods
-      </ViewRouterLink>
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: path[3] === "form" ? "lightgray" : "transparent",
-        }}
-        to={`/entity/` + path[2] + "/form"}
-      >
-        Form
-      </ViewRouterLink>
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: path[3] === "list" ? "lightgray" : "transparent",
-        }}
-        to={`/entity/` + path[2] + "/list"}
-      >
-        List
-      </ViewRouterLink>
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: path[3] === "table" ? "lightgray" : "transparent",
-        }}
-        to={`/entity/` + path[2] + "/table"}
-      >
-        Table
-      </ViewRouterLink>
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: path[3] === "calendar" ? "lightgray" : "transparent",
-        }}
-        to={`/entity/` + path[2] + "/calendar"}
-      >
-        Calendar
-      </ViewRouterLink>
-      <ViewRouterLink
-        style={{
-          padding: 5,
-          backgroundColor: path[3] === "json" ? "lightgray" : "transparent",
-        }}
-        to={`/entity/` + path[2] + "/json"}
-      >
-        JSON
-      </ViewRouterLink>
-      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/kanban'}>Kanban</ViewRouterLink> */}
-      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/timeline'}>Timeline</ViewRouterLink> */}
-      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/threads'}>Threads</ViewRouterLink> */}
-      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/path'}>Path</ViewRouterLink> */}
-      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/nodes'}>Nodes</ViewRouterLink> */}
-      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/spacial'}>Spacial</ViewRouterLink> */}
-      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/map'}>Map</ViewRouterLink> */}
-      {/* <ViewRouterLink style={{padding:5}} to={`/entity/` +path[2]+'/chart'}>Chart</ViewRouterLink> */}
-    </View>
+    <ViewPageMain>
+      {/* Flex View to keep Action tabs at the bottom of the screen */}
+      <ViewContainerStatic style={{ flex: 1 }}>
+        {/* Show the 'focus' entity (the primary record being viewed) */}
+        <ViewFocusMain />
+        {/* Show the 'auxiliary' entities (secondary records being viewed, possibly related to the focus) in whichever mode is selected, e.g. Calendar, Table etc. */}
+        <ViewDisplayDynamic
+          auxiliary={auxiliary}
+          schema={schema}
+          focus={focus}
+          display={routerPaths?.[3]}
+        />
+      </ViewContainerStatic>
+      {/* Show the actions tabs/links (e.g. add,edit,copy,delete,share etc.*/}
+      <ViewActionTabs auxiliary={auxiliary} schema={schema} focus={focus} />
+    </ViewPageMain>
   );
 };
 
-// Array
+// ARRAY
 
 export async function requestEntityArray(spacename?: any, categories?: any) {
   categories = categories || []; // prevent .join error
@@ -103,7 +72,7 @@ export const useEntityArray = (spacename?: any, categories?: any) => {
     spacename,
     categories,
   ];
-  const query = useQuery(
+  const query = useQueryerQuery(
     queryKey,
     () => requestEntityArray(spacename, categories),
     {
@@ -113,7 +82,7 @@ export const useEntityArray = (spacename?: any, categories?: any) => {
   return query;
 };
 
-// Single
+// SINGLE
 
 export async function requestEntitySingle(spacename?: any, categories?: any) {
   return await instanceSupabaseClient
@@ -129,17 +98,16 @@ export async function requestEntitySingle(spacename?: any, categories?: any) {
     .then(handleSupabaseResponse as any);
 }
 
-
 export const useEntitySingle = (props: any) => {
   // todo: implement filter_array in query function
   // At the moment, this just uses the categories array (e.g. Accounts > Receivables > Invoices).
-  // But once the categories are in supabase (Chris is working on this), this will be changed to use the useQuery function.
+  // But once the categories are in supabase (Chris is working on this), this will be changed to use the useQueryerQuery function.
   const query = {
     data: data
       .filter((x) => x.nickname === props.id)
       ?.map((x) => (x = { ...x, title: x.display_singular } as any)),
   };
-  // const query = useQuery({
+  // const query = useQueryerQuery({
   //     queryKey:['entities','single',filter_array],
   //     queryFn:()=>{
   //         return instanceSupabaseClient
@@ -154,11 +122,11 @@ export const useEntitySingle = (props: any) => {
   return query;
 };
 
-// Count
+// COUNT
 
 export const useEntityCount = ({ filter_array }: any) => {
   // todo: implement filter_array in query function
-  const query = useQuery<any, any, any>({
+  const query = useQueryerQuery<any, any, any>({
     queryKey: ["entities", "count", filter_array],
     queryFn: () => {
       return (
@@ -167,7 +135,7 @@ export const useEntityCount = ({ filter_array }: any) => {
           .from("entities_orgmenta")
           .select("*", { count: "exact", head: true })
           // todo: implement filter_array here
-          .then((response:any) => response)
+          .then((response: any) => response)
       );
     },
     enabled: true,
@@ -175,7 +143,7 @@ export const useEntityCount = ({ filter_array }: any) => {
   return query;
 };
 
-// Create
+// CREATE
 
 export interface interfaceEntityCreate {
   id: string;
@@ -200,9 +168,9 @@ export async function requestEntityCreate(entity: interfaceEntityCreate) {
 }
 
 export const useEntityCreate = (props: interfaceEntityCreate) => {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryerClient();
   const { refetch } = useEntityArray();
-  return useMutation(
+  return useQueryerMutation(
     ["entity", "create"],
     () => requestEntityCreate(props),
     // Future enhancement: Optimistic updates to client side cache.
@@ -234,7 +202,7 @@ export const useEntityCreate = (props: interfaceEntityCreate) => {
   );
 };
 
-// Schema
+// SCHEMA
 
 // A hook that filters the useAttributeUnioned data to only show attributes that are relevant to this entity's schema.
 // E.g. if this hook is used by an Invoice entity, it will return only the attributes relevant to the invoice (like line_items and balance_due)
@@ -248,15 +216,17 @@ export const useEntitySchema = () => {
 export const ViewEntitySchema = (props: any) => {
   const schema = props.schema;
   return (
-    <View style={{ flexDirection: "column" }}>
-      <Text>ViewEntitySchema</Text>
+    <ViewContainerStatic style={{ flexDirection: "column" }}>
+      <ViewTypographyText>ViewEntitySchema</ViewTypographyText>
       {schema?.data?.map((x: any, i: number) => (
-        <View key={i} style={{ margin: 5 }}>
-          {/* <Text style={{margin:4}}>{Object.keys(x)}</Text> */}
-          <Text>{x.focus_columns.display_singular}</Text>
-          {/* <Text>{x.auxiliary_columns.display_singular}</Text> */}
-        </View>
+        <ViewContainerStatic key={i} style={{ margin: 5 }}>
+          {/* <ViewTypographyText style={{margin:4}}>{Object.keys(x)}</ViewTypographyText> */}
+          <ViewTypographyText>
+            {x.focus_columns.display_singular}
+          </ViewTypographyText>
+          {/* <ViewTypographyText>{x.auxiliary_columns.display_singular}</ViewTypographyText> */}
+        </ViewContainerStatic>
       ))}
-    </View>
+    </ViewContainerStatic>
   );
 };

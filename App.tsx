@@ -1,14 +1,11 @@
 import "react-native-url-polyfill/auto";
-// import { msalInstance } from "./api/authConfig"; // msal-react is not immediately compatible with react-native. We need https://www.npmjs.com/package/react-native-msal.
-// import { MsalProvider as ViewMsalProvider } from "@azure/msal-react"; // msal-react is not immediately compatible with react-native. We need https://www.npmjs.com/package/react-native-msal.
-import Home from "./pages/home";
-import User from "./pages/user";
-import Space from "./pages/space";
-import Entity from "./pages/entity";
-import Browse from "./pages/browse";
-import Attribute from "./pages/attribute";
-import { ViewRouterLostpage } from "./utils/router";
 import { usePlatformCssweb } from "./utils/platform";
+import { ViewOrgmentaHome } from "./utils/orgmenta";
+import { ViewEntityPage } from "./utils/entity";
+import { ViewSpacePage } from "./utils/space";
+import { ViewBrowsePage } from "./utils/browse";
+import { ViewAttributeMain } from "./utils/attribute";
+import { ViewRouterLostpage } from "./utils/router";
 import { ViewWindowContainer } from "./utils/window";
 import { ViewQueryerProvider } from "./utils/queryer";
 import {
@@ -42,15 +39,17 @@ import { ViewBookmarkModal } from "./utils/bookmark";
 import { ViewOrgmentaModal } from "./utils/orgmenta";
 import { ViewBrowseModal } from "./utils/browse";
 import { ViewSpaceModal } from "./utils/space";
-import { ViewUserModal } from "./utils/user";
+import { ViewUserPage, ViewUserModal } from "./utils/user";
 import { ViewLandingPage } from "./utils/landing";
 import { ViewTestPage } from "./utils/test";
 import { ViewStripeWrappermain } from "./utils/stripe-test";
 import { useState } from "react";
+// import { msalInstance } from "./api/authConfig"; // msal-react is not immediately compatible with react-native. We need https://www.npmjs.com/package/react-native-msal.
+// import { MsalProvider as ViewMsalProvider } from "@azure/msal-react"; // msal-react is not immediately compatible with react-native. We need https://www.npmjs.com/package/react-native-msal.
 
 export default function App() {
-   usePlatformCssweb(); // shim to add css to web
-   const AppBody = () => {
+  usePlatformCssweb(); // shim to add css to web
+  const AppBody = () => {
     return (
       <ViewRouterProvider>
         <ViewQueryerProvider>
@@ -65,10 +64,10 @@ export default function App() {
                 </>
               ) : (
                 <>
-                  {/* Home Page */}
-                  <ViewRouterRoute path="/" element={<Home />} />
-                  {/* Test Page */}
+                  {/* Testing Page */}
                   <ViewRouterRoute path="/test" element={<ViewTestPage />} />
+                  {/* Home Page */}
+                  <ViewRouterRoute path="/" element={<ViewOrgmentaHome />} />
                   {/* App Pages */}
                   <ViewRouterRoute
                     path="app/"
@@ -167,14 +166,17 @@ export default function App() {
                   />
                   <ViewRouterRoute
                     path="entity/:entityid/:display/*"
-                    element={<Entity />}
+                    element={<ViewEntityPage />}
                   />
                   {/* User Page */}
                   <ViewRouterRoute
                     path="users/"
                     element={<ExecuteRouterNavigate to="all" replace />}
                   />
-                  <ViewRouterRoute path="users/:userid/*" element={<User />} />
+                  <ViewRouterRoute
+                    path="users/:userid/*"
+                    element={<ViewUserPage />}
+                  />
                   {/* Space Page */}
                   <ViewRouterRoute
                     path="spaces/"
@@ -182,7 +184,7 @@ export default function App() {
                   />
                   <ViewRouterRoute
                     path="spaces/:spaceid/*"
-                    element={<Space />}
+                    element={<ViewSpacePage />}
                   />
                   {/* Browse Page */}
                   <ViewRouterRoute
@@ -191,7 +193,7 @@ export default function App() {
                   />
                   <ViewRouterRoute
                     path="browse/:browsemode/:searchterm"
-                    element={<Browse />}
+                    element={<ViewBrowsePage />}
                   />
                   {/* Attributes Page */}
                   <ViewRouterRoute
@@ -200,7 +202,7 @@ export default function App() {
                   />
                   <ViewRouterRoute
                     path="attributes/:mode/:attributeid/*"
-                    element={<Attribute />}
+                    element={<ViewAttributeMain />}
                   />
                   {/* 404 / Not found / Lost */}
                   <ViewRouterRoute path="/*" element={<ViewRouterLostpage />} />

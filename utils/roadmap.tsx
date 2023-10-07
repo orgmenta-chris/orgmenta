@@ -21,7 +21,6 @@ export const currentTargets: {
   },
 ];
 
-
 export const currentVersions: {
   id: number;
   title: string;
@@ -146,7 +145,6 @@ export const user_roles: {
   },
 ];
 
-
 export const featurePriorities: {
   priority: number;
   description: string;
@@ -193,17 +191,19 @@ export const features: {
     title: "Update",
     version: 0.0,
     status: "0. New",
-    description: "App updates - either via app store, expo updates, github>pullrequest>autodeplyNetlify, or other",
+    description:
+      "App updates - either via app store, expo updates, github>pullrequest>autodeplyNetlify, or other",
     priority: 2,
-    notes: ""
+    notes: "",
   },
   {
     title: "History/Undo/Redo",
     version: 0.0,
     status: "0. New",
-    description: "Undo (and redo) to any point in entity-relationship histories",
+    description:
+      "Undo (and redo) to any point in entity-relationship histories",
     priority: 2,
-    notes: "Chris to design this"
+    notes: "Chris to design this",
   },
   {
     title: "URL Parameters",
@@ -1264,19 +1264,19 @@ export const requirements: {
 }[] = [
   {
     category: "User Satisfaction",
-    title: 'UI satisfaction',
+    title: "UI satisfaction",
     description:
       "The interface must be intuitive enough for new users to perform basic tasks without training.",
   },
   {
     category: "Functional",
-    title: 'CRUD',
+    title: "CRUD",
     description:
       "The system must support the entry, modification, and deletion of customer records.",
   },
   {
     category: "Performance",
-    title: '',
+    title: "",
     description:
       "The system must support up to 10,000 concurrent users without degrading performance below acceptable levels.",
   },
@@ -1307,9 +1307,12 @@ export const requirements: {
   },
 ];
 
-
 // General 'needs' for the system
-export const needs = [
+
+export const needs: {
+  title: string;
+  description: string;
+}[] = [
   {
     title: `No Data Loss / No impact from data loss`,
     description: `
@@ -1395,7 +1398,12 @@ export const needs = [
 
 // Procedures
 // url_params are NOT finalised yet
-export const procedures = [
+export const procedures: {
+  title: string;
+  description: string;
+  steps: string[];
+  url_param: string;
+}[] = [
   {
     title: "Create an invoice from scratch",
     description:
@@ -1512,7 +1520,10 @@ export const paradigms: Paradigm[] = [
 
 // Checklist
 // This is a list of things for us to undertake before a module can be considered ready.
-export const checklist = [
+export const checklist: {
+  title: string;
+  description: string;
+}[] = [
   {
     title: "Client/Local/Edge/Server/Remote functionality",
     description:
@@ -3176,7 +3187,14 @@ export const arrayCompetitorCompanies = {
   },
 };
 
-export const orgmentaTerritories = [
+export const orgmentaTerritories: {
+  region: string;
+  population: number;
+  language_primary: string;
+  language_secondary: string;
+  language_tertiary: string;
+  remaining: string;
+}[] = [
   {
     region: "North America & Caribbean",
     population: 650,
@@ -3252,7 +3270,13 @@ export const orgmentaTerritories = [
   },
 ];
 
-export const languagesByTotalSpeakers = [
+export const languagesByTotalSpeakers: {
+  priority: number;
+  language: string;
+  speakers_primary: number;
+  speakers_secondary: number;
+  speakers_total: number;
+}[] = [
   {
     priority: 1,
     language: "English",
@@ -3472,14 +3496,19 @@ export const languagesByTotalSpeakers = [
   },
 ];
 
-export const ethicsQuestions = [
+export const ethicsQuestions:string[]= [
   "Is it wrong to be implementing Microsoft et al first, and further strengthening their monolopoly? Or should be use that as a spring board to get power before we help break the monopoly?",
   "is it wrong to be concentrating on the wealthier territories? Should we be lifting up the rest first, even if it's counter to our success? Or is our success a way to then enable the lifting?",
   "Should we be charging more per seat to smaller companies, and giving larger companies economies of scale? Is this necessary to get the bigger companies as customers?",
 ];
 
 // Axioms serve as the non-derivable, foundational beliefs.
-export const axioms = [
+
+export const axioms: {
+  id: number;
+  title: string;
+  description: string;
+}[] = [
   {
     id: 1,
     title: "Sanctity of free will",
@@ -3523,7 +3552,13 @@ export const axioms = [
 ];
 
 // Tenets are principles or policies derived from axioms, which guide decision-making.
-export const tenets = [
+
+export const tenets: {
+  id: number;
+  axioms: number[];
+  title: string;
+  description: string;
+}[] = [
   {
     id: 1,
     axioms: [1, 2],
@@ -3568,7 +3603,12 @@ export const tenets = [
 ];
 
 // Imperatives are actionable rules or guidelines that stem from tenets.
-export const imperatives = [
+export const imperatives: {
+  id: number;
+  tenets: number[];
+  title: string;
+  description: string;
+}[] = [
   {
     id: 1,
     tenets: [1],
@@ -3606,9 +3646,14 @@ export const imperatives = [
       " Create and maintain an 'API' schema which contains only views, functions, procedures, and only allow applications to use this schema. This gives you a layer of indirection on the DB side such that you can nearly eliminate the dance of coordinating application changes and database migrations.",
   },
 ];
+
 // Business proccesses must then adhere to imperitives.
 
-export const articlesTemp = [
+export const articlesTemp: {
+  // id: number;
+  topic: string;
+  notes: string;
+}[] = [
   {
     topic: "LLMs",
     notes: `
@@ -3617,6 +3662,7 @@ export const articlesTemp = [
       - Data analysis now possible that wasn't before (e.g. 'Check my spotify account and see what the average #listens is for songs. Then you can see how niche your taste is.')
       - Speed increases (faster to get info and analyse data)
       - LLMs are good when you speak at a high level, regarding high level topics (or where training data was from academics etc.). But not when it's using quora and reddit posts for training.
+      - Gosh, I just love asking " "What is the nature of the set relationship between A and B? Are they identical, subsets, or do they intersect?"," in order to get understanding and structure/overview of a subject.
     `,
   },
   {
@@ -3641,17 +3687,20 @@ export const articlesTemp = [
     notes: `(this should be from Governance > Model)`,
   },
   {
-    topic: "Renegade data schema - Either not viable or everyone is missing the wood for the trees",
+    topic:
+      "Renegade data schema - Either not viable or everyone is missing the wood for the trees",
     notes: `schema is dynamic, and modern dbs should be able to handle table views on the fly for truly customisable platform`,
   },
   {
-    topic: "(Related to the 'renegade data schema' article) - 'A truly custom business platform",
+    topic:
+      "(Related to the 'renegade data schema' article) - 'A truly custom business platform",
     notes: `Standard complaints about Odoo et al: Hitting limitations, not being able to customise it etc.
     But our one is different - The modules can be tweaked in any way you want.
     (Examples)`,
   },
   {
-    topic: "Show/Tell HN: A programming stack and paradigm that may make your eye twitchs",
+    topic:
+      "Show/Tell HN: A programming stack and paradigm that may make your eye twitchs",
     notes: `OK, you guys are likely to dislike this.
     But I stand by it, and will proceed to justify it.
     Chapter 0: A summary and example usage
@@ -3671,7 +3720,7 @@ export const articlesTemp = [
     - Further tricks to make it viable (indexing etc.)
     Chapter 4: Usage
     - 
-    `
+    `,
   },
   {
     topic: "How we handle updates",
@@ -3679,31 +3728,34 @@ export const articlesTemp = [
   },
 ];
 
-export const pricingTemp   = {
+export const pricingTemp = {
   sole: {
-    sizecap: 'x number of entities, $x afterwards',// is this sustainable? Check how usage would impact the supabase costs.
+    sizecap: "x number of entities, $x afterwards", // is this sustainable? Check how usage would impact the supabase costs.
     spaces: 1,
     members: 1,
-    price: '$0 - FREE', // is this sustainable? Check how usage would impact the supabase costs.
+    price: "$0 - FREE", // is this sustainable? Check how usage would impact the supabase costs.
   },
   grow: {
-    sizecap: 'y number of entities, $x afterwards',
+    sizecap: "y number of entities, $x afterwards",
     spaces: 1,
-    members: 'unlimited',
-    price: '$Y per member',
+    members: "unlimited",
+    price: "$Y per member",
   },
-  business : {
-    sizecap: 'z number of entities, $x afterwards',
-    spaces:'unlimited',
-    members: 'unlimited',
-    price: '$Z per member',
-  }
-}
+  business: {
+    sizecap: "z number of entities, $x afterwards",
+    spaces: "unlimited",
+    members: "unlimited",
+    price: "$Z per member",
+  },
+};
 
-// We need 'steps' - granular actions that can occur within the app. 
+// We need 'steps' - granular actions that can occur within the app.
 // - These combine into workflows/userflows.
 // - The business modules are 'manifested from' workflows + template Entities.
-export const stepsTemp = [
+export const stepsTemp: {
+  // id: number;
+  title: string;
+}[] = [
   {
     title: "Click button/link or 'navigate to x/y/z'",
   },
@@ -3719,9 +3771,10 @@ export const stepsTemp = [
   {
     title: "Sync occurs / entity created / relationship created",
   },
-]
+];
 
-export const questionsTools = [ // fundamental heuristics needed?
+export const questionsTools:string[] =[
+  // fundamental heuristics needed?
   "What is the nature of the set relationship between A and B? Are they identical, subsets, or do they intersect?",
-  "Is this necessary? Does it solve the problem?"
-]
+  "Is this necessary? Does it solve the problem?",
+];

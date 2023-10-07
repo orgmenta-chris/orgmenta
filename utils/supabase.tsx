@@ -2,10 +2,9 @@
 // https://supabase.com/docs/guides/getting-started/tutorials/with-expo
 // Vault, Storage etc. are in their own modules to due complexity and being their own defined entity.
 
-import { useQueryerQuery, useQueryerMutation, useQueryerClient } from "./queryer";
 import { UtilityPlatformMain } from "./platform";
-import * as SecureStore from "expo-secure-store";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { UtilityLocalAsyncstorage, UtilityLocalSecurestore } from './local'
+import { useQueryerQuery, useQueryerMutation, useQueryerClient } from "./queryer";
 import "react-native-url-polyfill/auto";
 import { createClient } from "@supabase/supabase-js";
 
@@ -18,7 +17,7 @@ import {
 
 // (Mobile Only) Secure Store.
 // If this is used elsewhere in the project, it will be split out into its own module / migrated to 'storage' (storage>local/clients).
-// We will use useQueryerQuery+asyncstorage+encryption instead (to work on web) once the encryption for it is confirmed as secure.
+// We will use useQueryerQuery+UtilityLocalAsyncstorage+encryption instead (to work on web) once the encryption for it is confirmed as secure.
 let supabaseURL: any;
 let supabaseAnonKey: any;
 
@@ -30,27 +29,27 @@ if (__DEV__) {
   supabaseAnonKey = `${PRODUCTION_SUPABASE_PUBLIC_KEY}`;
 }
 
-export const ExpoSecureStoreAdapter = {
+export const ExpoUtilityLocalSecurestoreAdapter = {
   getItem: (key: string) => {
-    return SecureStore.getItemAsync(key);
+    return UtilityLocalSecurestore.getItemAsync(key);
   },
   setItem: (key: string, value: string) => {
-    SecureStore.setItemAsync(key, value);
+    UtilityLocalSecurestore.setItemAsync(key, value);
   },
   removeItem: (key: string) => {
-    SecureStore.deleteItemAsync(key);
+    UtilityLocalSecurestore.deleteItemAsync(key);
   },
 };
 
 export const TempUnencryptedWebWorkaround = {
   getItem: (key: string) => {
-    return AsyncStorage.getItem(key);
+    return UtilityLocalAsyncstorage.getItem(key);
   },
   setItem: (key: string, value: string) => {
-    AsyncStorage.setItem(key, value);
+    UtilityLocalAsyncstorage.setItem(key, value);
   },
   removeItem: (key: string) => {
-    AsyncStorage.removeItem(key);
+    UtilityLocalAsyncstorage.removeItem(key);
   },
 };
 
@@ -68,7 +67,7 @@ export const instanceSupabaseClient = createSupabaseClient(
     auth: {
       storage:
         UtilityPlatformMain.OS !== "web"
-          ? (ExpoSecureStoreAdapter as any)
+          ? (ExpoUtilityLocalSecurestoreAdapter as any)
           : TempUnencryptedWebWorkaround,
       autoRefreshToken: true,
       persistSession: true,

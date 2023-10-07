@@ -6,22 +6,58 @@
 // - devices (the windows/apps/devices they log in from)
 // - alerts / notifications
 
-import { useAttributeUnioned } from "./attribute";
+import {
+  ViewTypographyHeading,
+  ViewTypographySubsubheading,
+  ViewTypographyText,
+} from "./typography";
 import { ViewModalMain } from "./modal";
 import { ViewCardExpandable } from "./card";
-import { useAuthSession, useAuthSignout } from "./auth";
 import { ViewRouterLinkthemed } from "./router";
-import { useQueryerQuery } from "./queryer";
-import { ViewTypographySubsubheading } from "./typography";
-import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
+import { ViewContainerScroll, ViewContainerStatic } from "./container";
+import { ViewButtonPressable } from "./button";
 import { ViewIconMain } from "./icon";
-import { ScrollView, View, Text, Pressable } from "react-native";
-import SignIn from "../components/auth/signIn";
-import SignUp from "../components/auth/signUp";
+import { ViewPageMain } from "./page";
+import { ViewDisplayDynamic } from "./display";
+import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
+import { useAttributeUnioned } from "./attribute";
+import { useQueryerQuery } from "./queryer";
+import { useWindowDimensions } from "./window";
+import { useModalVisibility } from "./modal";
+import {
+  useAuthSession,
+  useAuthSignout,
+  ViewAuthSignin,
+  ViewAuthSignup,
+} from "./auth";
 import { useState } from "react";
 // import MSAL from "../../../auth/msal";
 
-// Attributes
+// PAGE
+
+export const ViewUserPage = () => {
+  const auth = useAuthSession();
+  const user = useUserSingle(auth?.data?.session?.id);
+  return (
+    <ViewPageMain>
+      <ViewTypographyHeading>User</ViewTypographyHeading>
+      <ViewContainerStatic style={{ maxWidth: 500 }}>
+        <ViewTypographyText style={{ marginBottom: 10 }}>
+          ViewAuthDetails
+        </ViewTypographyText>
+        {auth.data && (
+          <ViewTypographyText>
+            Logged in as: {auth?.data?.session?.user?.email}
+          </ViewTypographyText>
+        )}
+      </ViewContainerStatic>
+      <ViewUserAttributes />
+      <ViewDisplayDynamic />
+    </ViewPageMain>
+  );
+};
+
+// ATTRIBUTES
 
 export const useUserAttributes = () => {
   const attributes = useAttributeUnioned(["User"]);
@@ -34,15 +70,17 @@ export const ViewUserAttributes = () => {
   return (
     <>
       {attributes?.data?.map((x: any, i: string) => (
-        <View key={i}>
-          <Text>{x?.focus_columns?.name_singular}</Text>
-        </View>
+        <ViewContainerStatic key={i}>
+          <ViewTypographyText>
+            {x?.focus_columns?.name_singular}
+          </ViewTypographyText>
+        </ViewContainerStatic>
       ))}
     </>
   );
 };
 
-// Modal
+// MODAL
 
 export const ViewUserModal = (props: any) => {
   return (
@@ -53,7 +91,7 @@ export const ViewUserModal = (props: any) => {
       pinnable
       collapsible
     >
-      <ScrollView>
+      <ViewContainerScroll>
         <ViewUserSession />
         <ViewUserSwitch />
         <ViewUserLinks />
@@ -62,14 +100,13 @@ export const ViewUserModal = (props: any) => {
         <ViewUserNotifications />
         <ViewUserComms />
         <ViewUserDevice />
-      </ScrollView>
+      </ViewContainerScroll>
     </ViewModalMain>
   );
 };
 
-{
-  /* <View>{tabs[activeTab].component}</View> */
-}
+// ACTIVITY
+
 // Widget to show the active entities for that user (e.g. what is the current event being worked on)
 export const ViewUserActivity = () => {
   return (
@@ -78,14 +115,18 @@ export const ViewUserActivity = () => {
       header={"Activity"}
       body={
         <>
-          <Text>ACTIVITY</Text>
-          <Text>[Next events]</Text>
-          <Text>[Link to show all user events]</Text>
+          <ViewTypographyText>ACTIVITY</ViewTypographyText>
+          <ViewTypographyText>[Next events]</ViewTypographyText>
+          <ViewTypographyText>
+            [Link to show all user events]
+          </ViewTypographyText>
         </>
       }
     />
   );
 };
+
+// PRIVACY
 
 // Widget to show cookie/tracking/privacy options
 export const ViewUserPrivacy = () => {
@@ -97,8 +138,8 @@ export const ViewUserPrivacy = () => {
       header={"Privacy"}
       body={
         <>
-          <View style={{ flexDirection: "row", flex: 1 }}>
-            <Pressable
+          <ViewContainerStatic style={{ flexDirection: "row", flex: 1 }}>
+            <ViewButtonPressable
               style={{
                 flexDirection: "row",
                 padding: 5,
@@ -119,8 +160,8 @@ export const ViewUserPrivacy = () => {
                 source={"Feather"}
                 color={"white"}
               />
-            </Pressable>
-            <Pressable
+            </ViewButtonPressable>
+            <ViewButtonPressable
               style={{
                 flexDirection: "row",
                 padding: 5,
@@ -133,7 +174,7 @@ export const ViewUserPrivacy = () => {
               <ViewIconMain name={"info"} source={"Feather"} color={"black"} />
               {/* todo: fix opacity (coming from a parent somewhere?) */}
               {infoState && (
-                <View
+                <ViewContainerStatic
                   style={{
                     position: "absolute",
                     backgroundColor: "rgba(211,211,211, 1)",
@@ -143,22 +184,24 @@ export const ViewUserPrivacy = () => {
                     height: 50,
                   }}
                 >
-                  <Text>
+                  <ViewTypographyText>
                     Shield is{" "}
                     {shieldState
                       ? "ON. Your fields are hidden in the UI (TODO)"
                       : "OFF. Your fields are visible in the UI. (TODO)"}
-                  </Text>
-                </View>
+                  </ViewTypographyText>
+                </ViewContainerStatic>
               )}
-            </Pressable>
-          </View>
-          <Text>[cookies & tracking]</Text>
+            </ViewButtonPressable>
+          </ViewContainerStatic>
+          <ViewTypographyText>[cookies & tracking]</ViewTypographyText>
         </>
       }
     />
   );
 };
+
+// NOTIFICATIONS
 
 // Widget to show the recent notifications/logs for that user (e.g system alerts, logs for changes to entities that the user is 'following'/assinged to, etc.
 export const ViewUserNotifications = () => {
@@ -168,12 +211,14 @@ export const ViewUserNotifications = () => {
       header={"Notifications"}
       body={
         <>
-          <Text>todo</Text>
+          <ViewTypographyText>todo</ViewTypographyText>
         </>
       }
     />
   );
 };
+
+// COMMS
 
 // Widget to show the recent messages/communications for that user
 export const ViewUserComms = () => {
@@ -183,13 +228,17 @@ export const ViewUserComms = () => {
       header={"Comms"}
       body={
         <>
-          <Text>[Recent messages]</Text>
-          <Text>[Link to all messages (user/userid/messages)]</Text>
+          <ViewTypographyText>[Recent messages]</ViewTypographyText>
+          <ViewTypographyText>
+            [Link to all messages (user/userid/messages)]
+          </ViewTypographyText>
         </>
       }
     />
   );
 };
+
+// DEVICE
 
 // Widget to show the devices that the user has logged in with / has preferences shieldSet for.
 export const ViewUserDevice = () => {
@@ -199,8 +248,12 @@ export const ViewUserDevice = () => {
       header={"Devices"}
       body={
         <>
-          <Text>[Current Device Info (e.g. sync status)]</Text>
-          <Text>[Link to all devices (user/userid/devices)]</Text>
+          <ViewTypographyText>
+            [Current Device Info (e.g. sync status)]
+          </ViewTypographyText>
+          <ViewTypographyText>
+            [Link to all devices (user/userid/devices)]
+          </ViewTypographyText>
         </>
       }
     />
@@ -217,16 +270,16 @@ export const ViewUserSwitch = () => {
       startExpanded
       header={"Switch User"}
       body={array?.data?.map((x, i) => (
-        <Pressable
+        <ViewButtonPressable
           key={i}
           style={{ padding: 10, margin: 5, backgroundColor: "lightgray" }}
           onPress={() => updater(x.id, x.nickname)}
         >
-          <Text>
+          <ViewTypographyText>
             {x.nickname}
             {x.id}
-          </Text>
-        </Pressable>
+          </ViewTypographyText>
+        </ViewButtonPressable>
       ))}
     />
   );
@@ -239,16 +292,19 @@ export const ViewUserSignin = () => {
     setActiveTab(index);
   };
   const tabs = [
-    { tab: "Sign in", component: <SignIn /> },
-    { tab: "Sign up", component: <SignUp /> },
+    { tab: "Sign in", component: <ViewAuthSignin /> },
+    { tab: "Sign up", component: <ViewAuthSignup /> },
   ];
   const [activeTab, setActiveTab] = useState(0);
   return (
     <>
-      <View style={{ flexDirection: "row" }}>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
         {tabs.map((content, index) => (
-          <View key={index} style={{ flexDirection: "row", flex: 1 }}>
-            <Pressable
+          <ViewContainerStatic
+            key={index}
+            style={{ flexDirection: "row", flex: 1 }}
+          >
+            <ViewButtonPressable
               key={index}
               style={{
                 flex: 1,
@@ -264,14 +320,17 @@ export const ViewUserSignin = () => {
               }}
               onPress={() => handleTabPress(index)}
             >
-              <Text selectable={false} style={{ fontWeight: "bold" }}>
+              <ViewTypographyText
+                selectable={false}
+                style={{ fontWeight: "bold" }}
+              >
                 {content.tab}
-              </Text>
-            </Pressable>
-          </View>
+              </ViewTypographyText>
+            </ViewButtonPressable>
+          </ViewContainerStatic>
         ))}
-      </View>
-      <View>{tabs[activeTab].component}</View>
+      </ViewContainerStatic>
+      <ViewContainerStatic>{tabs[activeTab].component}</ViewContainerStatic>
     </>
   );
 };
@@ -281,8 +340,8 @@ export const ViewUserSession = () => {
   const signout = useAuthSignout();
   const [activeTab, setActiveTab] = useState(0);
   const tabs = [
-    { tab: "Sign in", component: <SignIn /> },
-    { tab: "Sign up", component: <SignUp /> },
+    { tab: "Sign in", component: <ViewAuthSignin /> },
+    { tab: "Sign up", component: <ViewAuthSignup /> },
   ];
   const handleTabPress = (index: number) => {
     setActiveTab(index);
@@ -296,7 +355,7 @@ export const ViewUserSession = () => {
         auth?.data?.session === null ? (
           <ViewUserSignin />
         ) : (
-          <View>
+          <ViewContainerStatic>
             <ViewRouterLinkthemed
               style={{ margin: 5 }}
               to={`/users/${auth?.data?.session?.user?.id || "guest"}/pods`}
@@ -331,7 +390,7 @@ export const ViewUserSession = () => {
                 All Events
               </ViewTypographySubsubheading>
             </ViewRouterLinkthemed>
-            <Pressable
+            <ViewButtonPressable
               style={{ margin: 5 }}
               onPress={() => {
                 signout.mutate();
@@ -340,8 +399,8 @@ export const ViewUserSession = () => {
               <ViewTypographySubsubheading selectable={false}>
                 Signout
               </ViewTypographySubsubheading>
-            </Pressable>
-          </View>
+            </ViewButtonPressable>
+          </ViewContainerStatic>
         )
       }
     />
@@ -355,13 +414,13 @@ export const ViewUserLinks = () => {
       startExpanded
       header={"Navigation"}
       body={
-        <View>
+        <ViewContainerStatic>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/users/all`}>
             <ViewTypographySubsubheading selectable={false}>
               All Users
             </ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
-        </View>
+        </ViewContainerStatic>
       }
     />
   );
@@ -409,4 +468,39 @@ export const requestUserSingle = async (id: string) => {
     .eq("id", id)
     .then(handleSupabaseResponse as any);
   return query;
+};
+
+export const ViewUserWidget = () => {
+  const auth = useAuthSession();
+  const window = useWindowDimensions();
+  // const userActive = useUserActive({}) as TypeUserActive;
+  return (
+    <ViewButtonPressable
+      onPress={useModalVisibility("user")}
+      style={{
+        alignItems: "center",
+        justifyContent: "flex-end",
+        flex: 1,
+        flexDirection: "row",
+      }}
+    >
+      {window?.width > 600 && (
+        <ViewTypographyText
+          selectable={false}
+          numberOfLines={1}
+          style={{ paddingRight: 10, color: "white" }}
+        >{`${auth?.data?.nickUpper}`}</ViewTypographyText>
+      )}
+      <ViewIconMain
+        name={"user"}
+        source={"Feather"}
+        color={"white"}
+        size={30}
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      />
+    </ViewButtonPressable>
+  );
 };

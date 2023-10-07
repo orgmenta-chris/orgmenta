@@ -1,34 +1,36 @@
-import { useEffect, useState } from "react";
-import { Text, ScrollView, View, Image, ImageBackground } from "react-native";
-import { useWindowDimensions } from "../utils/window";
+// Currently is Orgmenta landing page rather than generalised component
+
+import { useWindowDimensions } from "./window";
+import { ViewContainerScroll, ViewContainerStatic } from "./container";
+import { ViewImageMain } from "./image";
 import { ViewInquiryMain } from "./inquiry";
+import { ViewOrgmentaBackground } from "./orgmenta";
 import {
   ViewTypographyHeading,
   ViewTypographyTextthemed,
-} from "../utils/typography";
-import { ViewOrgmentaBackground } from "../utils/orgmenta";
+  ViewTypographyText,
+} from "./typography";
+import { useEffect, useState } from "react";
 
 export const ViewLandingPage = () => {
   const windowDimensions = useWindowDimensions();
   return (
     <ViewOrgmentaBackground>
-      <ScrollView>
-        <View
+      <ViewContainerScroll>
+        <ViewContainerStatic
           style={{
             margin: 10,
             backgroundColor: "rgba(255, 255, 255, 0.9)",
             borderRadius: 5,
-            // position: "absolute",
             aspectRatio: 13 / 2,
             width: windowDimensions.width / 2 + 40,
             padding: 10,
             height: 200,
             alignSelf: "center",
             justifyContent: "center",
-            // top: windowDimensions.height / 2 - 325,
           }}
         >
-          <Image
+          <ViewImageMain
             style={{
               resizeMode: "contain",
               width: "100%",
@@ -41,7 +43,7 @@ export const ViewLandingPage = () => {
           >
             The Business Operating System
           </ViewTypographyTextthemed>
-          <Text
+          <ViewTypographyText
             style={{
               textAlign: "center",
               fontSize: 13,
@@ -50,14 +52,14 @@ export const ViewLandingPage = () => {
             }}
           >
             {`Build, automate and manage your \n`}
-            <Text style={{ fontWeight: "500", color: "#0c4a73" }}>
+            <ViewTypographyText style={{ fontWeight: "500", color: "#0c4a73" }}>
               <CompanytypeSwitcher />
-            </Text>
+            </ViewTypographyText>
             {`\nfrom a single pane of glass`}
-          </Text>
-        </View>
+          </ViewTypographyText>
+        </ViewContainerStatic>
 
-        <View
+        <ViewContainerStatic
           style={{
             margin: 10,
             backgroundColor: "rgba(255, 255, 255, 0.9)",
@@ -81,8 +83,8 @@ export const ViewLandingPage = () => {
             Register your interest:
           </ViewTypographyTextthemed>
           <ViewInquiryMain />
-        </View>
-      </ScrollView>
+        </ViewContainerStatic>
+      </ViewContainerScroll>
     </ViewOrgmentaBackground>
   );
 };
@@ -98,5 +100,5 @@ const CompanytypeSwitcher: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
-  return <Text>{texts[index]}</Text>;
+  return <ViewTypographyText>{texts[index]}</ViewTypographyText>;
 };

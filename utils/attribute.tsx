@@ -1,12 +1,17 @@
 //  An 'Attribute' is a property that an entity has.
 
+import { ViewPageMain } from "./page";
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { useQueryerMutation, useQueryerQuery } from "./queryer";
 import { ViewContainerStatic, ViewContainerScroll } from "./container";
-import { ViewTypographyText } from "./typography";
+import { ViewTypographyHeading, ViewTypographyText } from "./typography";
+import {
+  ViewRouterLink,
+  ViewRouterRoutes,
+  ViewRouterRoute,
+} from "./router";
 
 import { useState, memo, useEffect, useReducer } from "react";
-
 import { useTableColumns } from "../components/displays/table/table";
 import {
   createColumnHelper,
@@ -17,7 +22,30 @@ import {
   ColumnDef,
 } from "@tanstack/react-table";
 
-// Create
+// PAGE
+
+export const ViewAttributePage = () => {
+  return (
+    <ViewPageMain>
+      <ViewTypographyHeading>Attributes</ViewTypographyHeading>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
+        <ViewRouterLink to={"main"} style={{ margin: 5 }}>
+          Main
+        </ViewRouterLink>
+        <ViewRouterLink to={"unioned"} style={{ margin: 5 }}>
+          Unioned
+        </ViewRouterLink>
+      </ViewContainerStatic>
+      <ViewRouterRoutes>
+        <ViewRouterRoute path="main" element={<ViewAttributeMain />} />
+        <ViewRouterRoute path="unioned" element={<ViewAttributeUnioned />} />
+      </ViewRouterRoutes>
+      {/* <ViewAttributeMain/> */}
+    </ViewPageMain>
+  );
+};
+
+// CREATE
 
 export async function requestAttributeCreate(attribute: any) {
   return await instanceSupabaseClient
@@ -32,8 +60,9 @@ export const useAttributeCreate = (props: any) => {
   );
 };
 
-// Main
+// MAIN
 
+// Get the standard entities table contents (not unioned)
 export const useAttributeMain = ({}: any) => {
   // get all of the attributes
   const queryKey: (string | number)[] = ["attributes", "main", "all"];
@@ -106,7 +135,8 @@ export const ViewAttributeMain = memo(() => {
   );
 });
 
-// Unioned
+// UNIONED
+
 export const useAttributeUnioned = (classArray: any) => {
   const queryKey: (string | number)[] = ["attributes", "unioned", classArray];
   const searchArray = ["All", "Entity"].concat(classArray).join(",");
@@ -151,7 +181,7 @@ export const ViewAttributeUnioned = memo(() => {
   );
 });
 
-// Table
+// TABLE
 
 export const ViewAttributeTable = ({ ...Input }) => {
   const columns = Input.columns;
@@ -180,7 +210,10 @@ export const ViewAttributeTable = ({ ...Input }) => {
         >
           <ViewContainerStatic>
             {table.getHeaderGroups().map((headerGroup, hgroupIndex) => (
-              <ViewContainerStatic key={headerGroup.id} style={{ flexDirection: "row" }}>
+              <ViewContainerStatic
+                key={headerGroup.id}
+                style={{ flexDirection: "row" }}
+              >
                 {headerGroup.headers.map((header, headerIndex) => (
                   <ViewContainerStatic key={headerIndex}>
                     <ViewTypographyText
@@ -204,9 +237,15 @@ export const ViewAttributeTable = ({ ...Input }) => {
             ))}
           </ViewContainerStatic>
           {table.getRowModel().rows.map((row) => (
-            <ViewContainerStatic key={row.id} style={{ flexDirection: "row", width: 100 }}>
+            <ViewContainerStatic
+              key={row.id}
+              style={{ flexDirection: "row", width: 100 }}
+            >
               {row.getVisibleCells().map((cell, cellIndex) => (
-                <ViewTypographyText key={cell.id} style={{ minWidth: 200, borderWidth: 1 }}>
+                <ViewTypographyText
+                  key={cell.id}
+                  style={{ minWidth: 200, borderWidth: 1 }}
+                >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </ViewTypographyText>
               ))}

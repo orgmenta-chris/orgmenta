@@ -4,12 +4,34 @@ import { ViewModalMain } from "./modal";
 import { ViewRouterLinkthemed } from "./router";
 import { instanceSupabaseClient } from "./supabase";
 import { ViewContainerStatic, ViewContainerScroll } from "./container";
-import { ViewTypographySubsubheading } from "./typography";
+import {
+  ViewTypographyHeading,
+  ViewTypographyText,
+  ViewTypographySubsubheading,
+} from "./typography";
 import { ViewIconMain } from "./icon";
 import { ViewCardExpandable } from "./card";
+import { ViewInputText } from "./input";
+import { ViewButtonPressable } from "./button";
+import { ViewPageMain } from "./page";
 import { useQueryerQuery } from "./queryer";
-import { ScrollView, View, Text, TextInput, Pressable } from "react-native";
 import { useState } from "react";
+import { useWindowDimensions } from "./window";
+import { useModalVisibility } from "./modal";
+
+// PAGE
+
+
+export const ViewBrowsePage = () => {
+  return (
+    <ViewPageMain>
+      <ViewContainerScroll>
+        <ViewTypographyHeading>Browse</ViewTypographyHeading>
+        <ViewBrowseSearch />
+      </ViewContainerScroll>
+    </ViewPageMain>
+  );
+};
 
 // Active
 
@@ -86,14 +108,14 @@ export const ViewBrowseSearch = (props: any) => {
       startExpanded
       header={"Search"}
       body={
-        <View style={{ height: "100%" }}>
-          <View style={{ flex: 1 }}>
-            <View
+        <ViewContainerStatic style={{ height: "100%" }}>
+          <ViewContainerStatic style={{ flex: 1 }}>
+            <ViewContainerStatic
               style={{ flexDirection: "row", maxHeight: 40, width: "100%" }}
             >
-              <Text style={{ flex: 2 }}>{`Search: `}</Text>
-              <View>
-                <TextInput
+              <ViewTypographyText style={{ flex: 2 }}>{`Search: `}</ViewTypographyText>
+              <ViewContainerStatic>
+                <ViewInputText
                   style={{
                     flex: 3,
                     backgroundColor: "white",
@@ -102,19 +124,21 @@ export const ViewBrowseSearch = (props: any) => {
                   }}
                   onChangeText={(e) => set(e)}
                 />
-              </View>
-              <Pressable style={{ flex: 1, maxHeight: 20 }}>
+              </ViewContainerStatic>
+              <ViewButtonPressable style={{ flex: 1, maxHeight: 20 }}>
                 <ViewIconMain
                   color={`black`}
                   name={`add-circle`}
                   source={`Ionicons`}
                 />
-                {/* <Text>(QuickaddButton-todo)</Text> */}
-              </Pressable>
-            </View>
-            <ScrollView style={{ height: "100%", backgroundColor: "gray" }}>
+                {/* <ViewTypographyText>(QuickaddButton-todo)</ViewTypographyText> */}
+              </ViewButtonPressable>
+            </ViewContainerStatic>
+            <ViewContainerScroll
+              style={{ height: "100%", backgroundColor: "gray" }}
+            >
               {browseArray.isLoading && (
-                <Text
+                <ViewTypographyText
                   numberOfLines={2}
                   style={{
                     fontSize: 12,
@@ -123,11 +147,11 @@ export const ViewBrowseSearch = (props: any) => {
                   }}
                 >
                   Loading...
-                </Text>
+                </ViewTypographyText>
               )}
               {!browseArray.isLoading &&
                 (!browseArray?.data || browseArray?.data?.length === 0) && (
-                  <Text
+                  <ViewTypographyText
                     style={{
                       marginTop: 2,
                       fontSize: 12,
@@ -136,10 +160,10 @@ export const ViewBrowseSearch = (props: any) => {
                     }}
                   >
                     0 Results Found
-                  </Text>
+                  </ViewTypographyText>
                 )}
               {browseArray?.data?.map((x: any, i: string) => (
-                <Text
+                <ViewTypographyText
                   numberOfLines={2}
                   style={{
                     marginTop: 2,
@@ -150,14 +174,14 @@ export const ViewBrowseSearch = (props: any) => {
                   key={i}
                 >
                   {x.title}
-                </Text>
+                </ViewTypographyText>
               ))}
-            </ScrollView>
-          </View>
-          <View>
+            </ViewContainerScroll>
+          </ViewContainerStatic>
+          <ViewContainerStatic>
             <ViewBrowseTabs />
-          </View>
-        </View>
+          </ViewContainerStatic>
+        </ViewContainerStatic>
       }
     />
   );
@@ -171,7 +195,7 @@ export const ViewBrowseNavigation = () => {
       startExpanded
       header={"Navigation"}
       body={
-        <View>
+        <ViewContainerStatic>
           <ViewRouterLinkthemed to="browse">
             <ViewIconMain
               color={"black"}
@@ -179,7 +203,7 @@ export const ViewBrowseNavigation = () => {
               source={`Ionicons`}
             />
           </ViewRouterLinkthemed>
-        </View>
+        </ViewContainerStatic>
       }
     />
   );
@@ -190,7 +214,7 @@ export const ViewBrowseNavigation = () => {
 export const ViewBrowseTabs = ({}: any) => {
   const [state, set] = useState("all");
   return (
-    <ScrollView
+    <ViewContainerScroll
       horizontal
       showsHorizontalScrollIndicator
       style={{
@@ -199,7 +223,7 @@ export const ViewBrowseTabs = ({}: any) => {
         flexDirection: "row",
       }}
     >
-      <Pressable
+      <ViewButtonPressable
         style={{
           padding: 5,
           flex: 1,
@@ -209,12 +233,12 @@ export const ViewBrowseTabs = ({}: any) => {
         }}
         onPress={() => set("all")}
       >
-        <View style={{ alignItems: "center", flex: 1 }}>
+        <ViewContainerStatic style={{ alignItems: "center", flex: 1 }}>
           <ViewIconMain name={"globe"} source={"Entypo"} color={"white"} />
-          <Text style={{ fontSize: 11 }}>All</Text>
-        </View>
-      </Pressable>
-      <Pressable
+          <ViewTypographyText style={{ fontSize: 11 }}>All</ViewTypographyText>
+        </ViewContainerStatic>
+      </ViewButtonPressable>
+      <ViewButtonPressable
         style={{
           padding: 5,
           flex: 1,
@@ -224,12 +248,12 @@ export const ViewBrowseTabs = ({}: any) => {
         }}
         onPress={() => set("history")}
       >
-        <View style={{ alignItems: "center", flex: 1 }}>
+        <ViewContainerStatic style={{ alignItems: "center", flex: 1 }}>
           <ViewIconMain name={"history"} source={"Octicons"} color={"white"} />
-          <Text style={{ fontSize: 11 }}>History</Text>
-        </View>
-      </Pressable>
-      <Pressable
+          <ViewTypographyText style={{ fontSize: 11 }}>History</ViewTypographyText>
+        </ViewContainerStatic>
+      </ViewButtonPressable>
+      <ViewButtonPressable
         style={{
           padding: 5,
           flex: 1,
@@ -239,12 +263,12 @@ export const ViewBrowseTabs = ({}: any) => {
         }}
         onPress={() => set("websearch")}
       >
-        <View style={{ alignItems: "center", flex: 1 }}>
+        <ViewContainerStatic style={{ alignItems: "center", flex: 1 }}>
           <ViewIconMain name={"globe"} source={"Octicons"} color={"white"} />
-          <Text style={{ fontSize: 11 }}>Websearch</Text>
-        </View>
-      </Pressable>
-      <Pressable
+          <ViewTypographyText style={{ fontSize: 11 }}>Websearch</ViewTypographyText>
+        </ViewContainerStatic>
+      </ViewButtonPressable>
+      <ViewButtonPressable
         style={{
           padding: 5,
           flex: 1,
@@ -254,12 +278,12 @@ export const ViewBrowseTabs = ({}: any) => {
         }}
         onPress={() => set("askai")}
       >
-        <View style={{ alignItems: "center", flex: 1 }}>
+        <ViewContainerStatic style={{ alignItems: "center", flex: 1 }}>
           <ViewIconMain name={"chat"} source={"Entypo"} color={"white"} />
-          <Text style={{ fontSize: 11 }}>AskAi</Text>
-        </View>
-      </Pressable>
-    </ScrollView>
+          <ViewTypographyText style={{ fontSize: 11 }}>AskAi</ViewTypographyText>
+        </ViewContainerStatic>
+      </ViewButtonPressable>
+    </ViewContainerScroll>
   );
 };
 
@@ -271,16 +295,12 @@ export const ViewBrowseSchemas = () => {
       startExpanded
       header={"Schemas"}
       body={
-        <View>
+        <ViewContainerStatic>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/browse/all`}>
-            <ViewTypographySubsubheading>
-              All
-            </ViewTypographySubsubheading>
+            <ViewTypographySubsubheading>All</ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/browse/entities`}>
-            <ViewTypographySubsubheading>
-              Entities
-            </ViewTypographySubsubheading>
+            <ViewTypographySubsubheading>Entities</ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/browse/attributes`}>
             <ViewTypographySubsubheading>
@@ -296,12 +316,46 @@ export const ViewBrowseSchemas = () => {
             </ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/browse/members`}>
-            <ViewTypographySubsubheading>
-              Members
-            </ViewTypographySubsubheading>
+            <ViewTypographySubsubheading>Members</ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
-        </View>
+        </ViewContainerStatic>
       }
     />
+  );
+};
+
+export const ViewBrowseWidget = () => {
+  const window = useWindowDimensions();
+  const browseActive = useBrowseActive({}) as TypeBrowseActive;
+  return (
+    <ViewButtonPressable
+      onPress={useModalVisibility("browse")}
+      style={{
+        alignItems: "center",
+        justifyContent: "flex-end",
+        flex: 1,
+        flexDirection: "row",
+      }}
+    >
+      {window?.width > 600 && (
+        <ViewTypographyText
+          selectable={false}
+          numberOfLines={1}
+          style={{ paddingRight: 10, color: "white" }}
+        >
+          {browseActive?.data?.title}
+        </ViewTypographyText>
+      )}
+      <ViewIconMain
+        name={"book-open"}
+        source={"Feather"}
+        color={"white"}
+        size={30}
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      />
+    </ViewButtonPressable>
   );
 };

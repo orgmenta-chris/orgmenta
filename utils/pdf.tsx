@@ -6,8 +6,6 @@ import { asyncShareOpen } from "./share";
 import { asyncPrintFile } from "./print";
 import { useWindowDimensions } from "./window";
 import { UtilityPlatformMain } from "./platform";
-
-import { useState } from "react";
 import RenderHtml from "react-native-render-html";
 import { PDFDocument, rgb, Color } from "pdf-lib";
 import { TextInput, View, Text, Pressable, Button, Modal } from "react-native";

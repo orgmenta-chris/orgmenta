@@ -1,11 +1,13 @@
 // using expo-document-picker: https://docs.expo.dev/versions/latest/sdk/document-picker/
 
-import { doCsvParse, TypeCsvParse } from "./../utils/csv";
-import { useStorageUpload } from "./../utils/storage";
+import { doCsvParse, TypeCsvParse } from "./csv";
+import { useStorageUpload } from "./storage";
+import { ViewContainerStatic } from "./container";
+import { ViewTypographyText } from "./typography";
+import { useQueryerClient, useQueryerMutation } from "./queryer"; // Todo CG: maybe store in here instead of state? Would prevent issues if the user exited then reentered the app / would persist the data between sessions.
 import { useEffect, useState } from "react";
-import { View, Pressable, Button, Text } from "react-native";
+import { Pressable, Button } from "react-native";
 import * as DocPicker from "expo-document-picker";
-import { useQueryerClient, useQueryerMutation } from "./../utils/queryer"; // Todo CG: maybe store in here instead of state? Would prevent issues if the user exited then reentered the app / would persist the data between sessions.
 
 // Picker (pick a file from local)
 // At the moment, picking and uploading is across two buttons. However, we want to eventually have the option to do both in one go.
@@ -29,9 +31,9 @@ export const ViewFilePicker = (props: any) => {
     }
   };
   return (
-    <View>
+    <ViewContainerStatic>
       <Button title="Pick a Document" onPress={pickDocument} />
-    </View>
+    </ViewContainerStatic>
   );
 };
 
@@ -40,24 +42,26 @@ export const ViewFilePicker = (props: any) => {
 export const ViewFileUpload = ({}: any) => {
   const request = requestFileUpload();
   return (
-    <View>
-      <View style={{ flexDirection: "row" }}>
+    <ViewContainerStatic>
+      <ViewContainerStatic style={{ flexDirection: "row" }}>
         <ViewFilePicker
           setPickedDocument={request.setPickedDocument}
           type={request.fileTypes}
           multiple={request.multiple}
         />
         {request.pickedDocument && (
-          <View>
+          <ViewContainerStatic>
             {request.pickedDocument.map((document: any, index: number) => {
               return (
-                <View key={index} style={{ maxHeight: 30 }}>
-                  <Text>Name: {document.name}</Text>
-                  <Text>Type: {document.mimeType}</Text>
-                </View>
+                <ViewContainerStatic key={index} style={{ maxHeight: 30 }}>
+                  <ViewTypographyText>Name: {document.name}</ViewTypographyText>
+                  <ViewTypographyText>
+                    Type: {document.mimeType}
+                  </ViewTypographyText>
+                </ViewContainerStatic>
               );
             })}
-          </View>
+          </ViewContainerStatic>
         )}
         <Pressable
           style={{
@@ -69,10 +73,10 @@ export const ViewFileUpload = ({}: any) => {
           disabled={request.pickedDocument.length === 0}
           onPress={() => request.upload.mutate()}
         >
-          <Text>Upload</Text>
+          <ViewTypographyText>Upload</ViewTypographyText>
         </Pressable>
-      </View>
-    </View>
+      </ViewContainerStatic>
+    </ViewContainerStatic>
   );
 };
 
@@ -150,7 +154,7 @@ export const ViewFileExample = ({}: any) => {
     doCsvParse(pickedDocument, config);
   }, [pickedDocument]);
   return (
-    <View
+    <ViewContainerStatic
       style={{
         position: "absolute",
         padding: 10,
@@ -159,32 +163,34 @@ export const ViewFileExample = ({}: any) => {
         bottom: 0,
       }}
     >
-      <Text>Testing Area</Text>
+      <ViewTypographyText>Testing Area</ViewTypographyText>
       <ViewFilePicker
         setPickedDocument={setPickedDocument}
         type={fileTypes}
         multiple={multiple}
       />
       {pickedDocument && (
-        <View>
+        <ViewContainerStatic>
           {pickedDocument.map((document: any, index: number) => {
             return (
-              <View key={index}>
-                <Text>Selected Document:</Text>
-                <Text>Name: {document.name}</Text>
-                <Text>Type: {document.mimeType}</Text>
-              </View>
+              <ViewContainerStatic key={index}>
+                <ViewTypographyText>Selected Document:</ViewTypographyText>
+                <ViewTypographyText>Name: {document.name}</ViewTypographyText>
+                <ViewTypographyText>
+                  Type: {document.mimeType}
+                </ViewTypographyText>
+              </ViewContainerStatic>
             );
           })}
-        </View>
+        </ViewContainerStatic>
       )}
-      <View style={{ marginTop: 10 }}>
+      <ViewContainerStatic style={{ marginTop: 10 }}>
         <Button
           title="Upload Document"
           disabled={pickedDocument.length === 0}
           onPress={() => upload.mutate()}
         />
-      </View>
-    </View>
+      </ViewContainerStatic>
+    </ViewContainerStatic>
   );
 };

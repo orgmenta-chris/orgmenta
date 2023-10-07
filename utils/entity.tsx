@@ -1,10 +1,6 @@
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { ViewRouterLink, useRouterLocation } from "./router";
-// import { ViewListMain } from './list'
-// import { ViewTableMain,useTableColumns } from '../components/displays/table/table'
-// import { ViewJsonMain } from './json'
-// import { ViewPodsMain } from '../components/displays/pods/pods'
 import { useAttributeUnioned } from "./attribute";
 import { data } from "./static";
 import { View, Text } from "react-native";
@@ -86,6 +82,7 @@ export const ViewEntityTabs = ({ id }: any) => {
 // Array
 
 export async function requestEntityArray(spacename?: any, categories?: any) {
+  categories = categories || []; // prevent .join error
   return await instanceSupabaseClient
     .from(spacename ? `entities_${spacename}` : "entities")
     .select()

@@ -3,7 +3,7 @@ import { Text, ScrollView, View, Image, ImageBackground } from "react-native";
 import { useWindowDimensions } from "../utils/window";
 import { ViewInquiryMain } from "./inquiry";
 import {
-  ViewTypographyTextheading,
+  ViewTypographyHeading,
   ViewTypographyTextthemed,
 } from "../utils/typography";
 import { ViewOrgmentaBackground } from "../utils/orgmenta";
@@ -72,11 +72,11 @@ export const ViewLandingPage = () => {
             // top: windowDimensions.height / 2 - 100,
           }}
         >
-          <ViewTypographyTextheading
+          <ViewTypographyHeading
             style={{ margin: 5, color: "black", size: 16 }}
           >
             Coming Soon
-          </ViewTypographyTextheading>
+          </ViewTypographyHeading>
           <ViewTypographyTextthemed style={{ color: "black" }}>
             Register your interest:
           </ViewTypographyTextthemed>

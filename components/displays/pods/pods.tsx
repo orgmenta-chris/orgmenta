@@ -13,7 +13,7 @@ import { View, Text, ScrollView } from 'react-native';
 // Main
 
 // A container for all of the pods
-export const ViewPodMain = ({items,children}:any) => {
+export const ViewPodContainer = ({items,children}:any) => {
     return (
         <ScrollView style={{padding:4}}>
           {children}

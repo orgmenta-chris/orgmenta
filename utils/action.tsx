@@ -7,6 +7,8 @@ import {
   useRouterLocation,
   useRouterNavigate,
 } from "./router";
+import { ViewContainerStatic, ViewContainerScroll } from "./container";
+import { ViewTypographySubheading, ViewTypographySubsubheading } from "./typography";
 import { ViewControlMain } from "./control";
 import { useEntityCreate } from "./entity";
 import { arrayTypeMain } from "./type";
@@ -15,32 +17,28 @@ import { createUuid4 } from "./uuid";
 import { ViewDisplayTabs } from "./display";
 import { ViewIconMain } from "./icon";
 import { ViewFileModal } from "./pdf";
-import {
-  TextInput,
-  View,
-  Text,
-  Pressable,
-} from "react-native";
+import { TextInput, View, Text, Pressable } from "react-native";
 import { useState } from "react";
 
 // Modal
 
-export const ViewActionModal = ({}: any) => {
-  return (
-    <View style={{ flexDirection: "column" }}>
-      <Text>ViewActionModal - To do</Text>
-    </View>
-  );
-};
+// Not in use, not needed? CG to remove after panel design complete.
+// export const ViewActionModal = ({}: any) => {
+//   return (
+//     <View style={{ flexDirection: "column" }}>
+//       <Text>ViewActionModal - To do</Text>
+//     </View>
+//   );
+// };
 
 // Display
 
+// An action component to show the 'display modes' (Pods, form, table etc.)
 export const ViewActionDisplay = ({}: any) => {
   return (
-    <View style={{ flexDirection: "column" }}>
-      <Text>DisplayMode</Text>
+    <ViewContainerScroll horizontal style={{ margin: 5 }}>
       <ViewDisplayTabs />
-    </View>
+    </ViewContainerScroll>
   );
 };
 
@@ -72,7 +70,8 @@ export const ViewActionAdd = ({ auxiliary, schema, focus }: any) => {
   const create = useEntityCreate(state);
   return (
     <View style={{ flexDirection: "column" }}>
-      <Text style={{ fontWeight: "800" }}>Add an entity</Text>
+      <ViewTypographySubheading>Add</ViewTypographySubheading>
+      <ViewTypographySubsubheading>Add an entity</ViewTypographySubsubheading>
       <Text style={{ fontStyle: "italic" }}>{JSON.stringify(state)}</Text>
 
       <View style={{ flexDirection: "row" }}>

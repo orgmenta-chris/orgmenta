@@ -1,10 +1,10 @@
 import { useWindowDimensions } from "./window";
-import { View } from "react-native";
+import { ViewContainerStatic } from "./container";
 
 export const ViewPageMain = ({ children, marginEnabled = true }: any) => {
   const windowDimensions = useWindowDimensions();
   return (
-    <View
+    <ViewContainerStatic
       style={{
         flex: 1,
         marginLeft: marginEnabled && windowDimensions.width > 768 ? "15%" : 0,
@@ -12,6 +12,6 @@ export const ViewPageMain = ({ children, marginEnabled = true }: any) => {
       }}
     >
       {children}
-    </View>
+    </ViewContainerStatic>
   );
 };

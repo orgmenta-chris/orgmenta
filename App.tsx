@@ -9,7 +9,7 @@ import Browse from "./pages/browse";
 import Attribute from "./pages/attribute";
 import { ViewRouterLostpage } from "./utils/router";
 import { usePlatformCssweb } from "./utils/platform";
-import { ViewWindowMain } from "./utils/window";
+import { ViewWindowContainer } from "./utils/window";
 import { ViewQueryerProvider } from "./utils/queryer";
 import {
   ViewRouterProvider,
@@ -55,7 +55,7 @@ export default function App() {
       <ViewRouterProvider>
         <ViewQueryerProvider>
           <ViewStatusbarMain />
-          <ViewWindowMain>
+          <ViewWindowContainer>
             {!!__DEV__ && <ViewOrgmentaHeader />}
             <ViewRouterRoutes>
               {/*  Temp page for deployed website (landing page only, stips all other functionality out).  add '|| true' if you want to see the landing page version of the app instead of the full app. */}
@@ -213,7 +213,7 @@ export default function App() {
             <ViewOrgmentaModal />
             <ViewBrowseModal />
             <ViewUserModal />
-          </ViewWindowMain>
+          </ViewWindowContainer>
         </ViewQueryerProvider>
       </ViewRouterProvider>
     );

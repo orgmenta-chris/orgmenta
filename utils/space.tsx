@@ -3,7 +3,7 @@
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { ViewModalMain } from "./modal";
 import { ViewRouterLinkthemed } from "./router";
-import { ViewTypographyTextthemed, ViewTypographyTextsubsubheading } from "./typography";
+import { ViewTypographyTextthemed, ViewTypographySubsubheading } from "./typography";
 import { ViewCardExpandable } from "./card";
 import { useTableColumns } from "../components/displays/table/table";
 import {
@@ -388,49 +388,49 @@ export const ViewSpaceCurrent = (props: any) => {
               style={{ margin: 5 }}
               to={`/spaces/${spaceActive.data.selected}`}
             >
-              <ViewTypographyTextsubsubheading selectable={false}>
+              <ViewTypographySubsubheading selectable={false}>
                 Go to Space
-              </ViewTypographyTextsubsubheading>
+              </ViewTypographySubsubheading>
             </ViewRouterLinkthemed>
             <ViewRouterLinkthemed
               style={{ margin: 5 }}
               to={`/spaces/${spaceActive.data.selected}/attributes`}
             >
-              <ViewTypographyTextsubsubheading selectable={false}>
+              <ViewTypographySubsubheading selectable={false}>
                 Attributes
-              </ViewTypographyTextsubsubheading>
+              </ViewTypographySubsubheading>
             </ViewRouterLinkthemed>
             <ViewRouterLinkthemed
               style={{ margin: 5 }}
               to={`/spaces/${spaceActive.data.selected}/files`}
             >
-              <ViewTypographyTextsubsubheading selectable={false}>
+              <ViewTypographySubsubheading selectable={false}>
                 Files
-              </ViewTypographyTextsubsubheading>
+              </ViewTypographySubsubheading>
             </ViewRouterLinkthemed>
             <ViewRouterLinkthemed
               style={{ margin: 5 }}
               to={`/spaces/${spaceActive.data.selected}/settings`}
             >
-              <ViewTypographyTextsubsubheading selectable={false}>
+              <ViewTypographySubsubheading selectable={false}>
                 Settings
-              </ViewTypographyTextsubsubheading>
+              </ViewTypographySubsubheading>
             </ViewRouterLinkthemed>
             <ViewRouterLinkthemed
               style={{ margin: 5 }}
               to={`/spaces/${spaceActive.data.selected}/billing`}
             >
-              <ViewTypographyTextsubsubheading selectable={false}>
+              <ViewTypographySubsubheading selectable={false}>
                 Subscription & Billing
-              </ViewTypographyTextsubsubheading>
+              </ViewTypographySubsubheading>
             </ViewRouterLinkthemed>
             <ViewRouterLinkthemed
               style={{ margin: 5 }}
               to={`/spaces/${spaceActive.data.selected}/members`}
             >
-              <ViewTypographyTextsubsubheading selectable={false}>
+              <ViewTypographySubsubheading selectable={false}>
                 Members
-              </ViewTypographyTextsubsubheading>
+              </ViewTypographySubsubheading>
             </ViewRouterLinkthemed>
           </>
         )
@@ -479,14 +479,14 @@ export const ViewSpaceLinks = () => {
       body={
         <>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/spaces/all/pods`}>
-            <ViewTypographyTextsubsubheading selectable={false}>
+            <ViewTypographySubsubheading selectable={false}>
               All Spaces
-            </ViewTypographyTextsubsubheading>
+            </ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/spaces/all/new`}>
-            <ViewTypographyTextsubsubheading selectable={false}>
+            <ViewTypographySubsubheading selectable={false}>
               Create New Space
-            </ViewTypographyTextsubsubheading>
+            </ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
         </>
       }
@@ -506,9 +506,9 @@ export const ViewSpaceNotifications = () => {
             (Notifications go here)
           </ViewTypographyTextthemed>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/spaces/all/notifications`}>
-            <ViewTypographyTextsubsubheading selectable={false}>
+            <ViewTypographySubsubheading selectable={false}>
               Go to Space Notifications
-            </ViewTypographyTextsubsubheading>
+            </ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
         </>
       }

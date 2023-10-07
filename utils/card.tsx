@@ -1,6 +1,6 @@
 import {
-  ViewTypographyTextsubsubheading,
-  ViewTypographyTextsubheading,
+  ViewTypographySubsubheading,
+  ViewTypographySubheading,
 } from "../utils/typography";
 import { ViewRouterLinkthemed } from "../utils/router";
 import { ViewIconMain } from "../utils/icon";
@@ -88,9 +88,9 @@ export const ViewCardHeaderplain = (props: any) => {
       onPress={() => props.expandedToggle((oldValue: any) => !oldValue)}
       style={{ flexDirection: "row", alignItems: "center", padding: 5 }}
     >
-      <ViewTypographyTextsubheading selectable={false} numberOfLines={1}>
+      <ViewTypographySubheading selectable={false} numberOfLines={1}>
         {props.header || "Card Header Missing"}
-      </ViewTypographyTextsubheading>
+      </ViewTypographySubheading>
     </Pressable>
   );
 };
@@ -105,9 +105,9 @@ export const ViewCardHeaderlink = (props: any) => {
         }}
         to={props.headerlink}
       >
-        <ViewTypographyTextsubheading selectable={false} numberOfLines={1}>
+        <ViewTypographySubheading selectable={false} numberOfLines={1}>
           {props.header}
-        </ViewTypographyTextsubheading>
+        </ViewTypographySubheading>
       </ViewRouterLinkthemed>
     </View>
   );

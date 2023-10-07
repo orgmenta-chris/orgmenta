@@ -1,7 +1,8 @@
-import { ReactNode } from "react";
 import { getStatusbarDimensions } from "./statusbar";
 import { UtilityPlatformMain } from "./platform";
-import { View } from "react-native";
+import { ViewContainerStatic } from "./container";
+
+import { ReactNode } from "react";
 
 // Main
 
@@ -14,7 +15,7 @@ export const ViewHeaderMain = ({ children }: TypeHeaderMain) => {
   const statusbarDimensions = getStatusbarDimensions();
   const headerDimensions = getHeaderDimensions();
   return (
-    <View
+    <ViewContainerStatic
       style={{
         gap: 25,
         paddingLeft: headerDimensions.padding + 5,
@@ -30,7 +31,7 @@ export const ViewHeaderMain = ({ children }: TypeHeaderMain) => {
       }}
     >
       {children}
-    </View>
+    </ViewContainerStatic>
   );
 };
 
@@ -69,8 +70,8 @@ export const ViewHeaderSection = ({
   padding,
 }: TypeHeaderSection) => {
   return (
-    <View style={{ flex: flex || 1, padding: padding || 5, height: "100%" }}>
+    <ViewContainerStatic style={{ flex: flex || 1, padding: padding || 5, height: "100%" }}>
       {children}
-    </View>
+    </ViewContainerStatic>
   );
 };

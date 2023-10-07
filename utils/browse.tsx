@@ -3,7 +3,8 @@
 import { ViewModalMain } from "./modal";
 import { ViewRouterLinkthemed } from "./router";
 import { instanceSupabaseClient } from "./supabase";
-import { ViewTypographyTextsubsubheading } from "./typography";
+import { ViewContainerStatic, ViewContainerScroll } from "./container";
+import { ViewTypographySubsubheading } from "./typography";
 import { ViewIconMain } from "./icon";
 import { ViewCardExpandable } from "./card";
 import { useQueryerQuery } from "./queryer";
@@ -272,32 +273,32 @@ export const ViewBrowseSchemas = () => {
       body={
         <View>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/browse/all`}>
-            <ViewTypographyTextsubsubheading>
+            <ViewTypographySubsubheading>
               All
-            </ViewTypographyTextsubsubheading>
+            </ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/browse/entities`}>
-            <ViewTypographyTextsubsubheading>
+            <ViewTypographySubsubheading>
               Entities
-            </ViewTypographyTextsubsubheading>
+            </ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/browse/attributes`}>
-            <ViewTypographyTextsubsubheading>
+            <ViewTypographySubsubheading>
               Attributes
-            </ViewTypographyTextsubsubheading>
+            </ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
           <ViewRouterLinkthemed
             style={{ margin: 5 }}
             to={`/browse/relationships`}
           >
-            <ViewTypographyTextsubsubheading>
+            <ViewTypographySubsubheading>
               Relationships
-            </ViewTypographyTextsubsubheading>
+            </ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/browse/members`}>
-            <ViewTypographyTextsubsubheading>
+            <ViewTypographySubsubheading>
               Members
-            </ViewTypographyTextsubsubheading>
+            </ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
         </View>
       }

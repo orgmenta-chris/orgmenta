@@ -1,4 +1,5 @@
-import React from "react";
+import { requestVaultItem } from "./vault";
+import { UtilityPlatformMain } from "./platform";
 import { instanceSupabaseClient as client } from "./supabase";
 import { Pressable, View, Text } from "react-native";
 // import Stripe from "stripe";
@@ -6,8 +7,6 @@ import {
   STAGING_STRIPE_SECRET_KEY,
   STAGING_STRIPE_PUBLISHABLE_KEY,
 } from "@env";
-import { VaultGetSecret } from "./vault";
-import { UtilityPlatformMain } from "./platform";
 
 let publishableKey: any;
 let secretKey: any;
@@ -16,8 +15,8 @@ if (__DEV__) {
   publishableKey = `${STAGING_STRIPE_PUBLISHABLE_KEY}`;
   secretKey = `${STAGING_STRIPE_SECRET_KEY}`;
 } else {
-  publishableKey = VaultGetSecret("PRODUCTION_STRIPE_PUBLISHABLE_KEY");
-  secretKey = VaultGetSecret("PRODUCTION_STRIPE_SECRET_KEY");
+  publishableKey = requestVaultItem("PRODUCTION_STRIPE_PUBLISHABLE_KEY");
+  secretKey = requestVaultItem("PRODUCTION_STRIPE_SECRET_KEY");
 }
 
 const stripeURL = "https://api.stripe.com/v1";

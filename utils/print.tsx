@@ -1,4 +1,3 @@
-
 import * as Print from "expo-print";
 import {
   printAsync,
@@ -9,42 +8,40 @@ import {
   OrientationType,
   PrintOptions,
   Printer,
-  Orientation
-} from 'expo-print';
+  Orientation,
+} from "expo-print";
+
+// MAIN
 
 // If you want to just import the whole thing:
-
 export const UtilityPrintMain = Print;
 
-// others
+// OPTIONS
 
-// todo naming conventions and any other export
+export type TypePrintOptions = PrintOptions;
 
+// ORIENTATION 
 
-// Orientation (portrait or landscape)
+export type TypePrintOrientation = OrientationType; // portrait or landscape
 
-export type TypePrintOrientation = OrientationType;
+export const UtilityPrintOrientation = Orientation;
+// e.g. {orientation: Orientation.portrait} or  {orientation: Orientation.landscape}
 
-export const UtilityPrintOrientation = Orientation; 
-// e.g. {orientation: Orientation.portrait} or  {orientation: Orientation.landscape} 
-
-
-// Print
+// PRINT
 
 export const asyncPrintPrint = printAsync;
 
-// Select
+// SELECT
 
 export const asyncPrintSelect = selectPrinterAsync;
 
-
-// File
+// FILE
 
 export const asyncPrintFile = printToFileAsync;
 
 export type TypePrintFileoptions = FilePrintOptions;
 export type TypePrintFileresult = FilePrintResult;
 
-// Printer
+// PRINTER
 
 export type TypePrintPrinter = Printer;

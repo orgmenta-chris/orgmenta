@@ -2,7 +2,9 @@ import { useState, useRef } from "react";
 import { View, Button } from "react-native";
 import { Video, ResizeMode } from "expo-av";
 
-export const ViewVideoPlayer = ({uri="https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}: any) => {
+// PLAYER
+
+export const ViewVideoPlayer = ({ uri }: any) => {
   const video = useRef(null);
   const [status, setStatus] = useState({});
   return (
@@ -11,7 +13,7 @@ export const ViewVideoPlayer = ({uri="https://d23dyxeqlo5psv.cloudfront.net/big_
         ref={video}
         style={{ width: 300, height: 200 }}
         source={{
-          uri:uri,
+          uri: uri,
         }}
         useNativeControls
         resizeMode={ResizeMode.CONTAIN}
@@ -35,5 +37,16 @@ export const ViewVideoPlayer = ({uri="https://d23dyxeqlo5psv.cloudfront.net/big_
         />
       </View>
     </View>
+  );
+};
+
+// EXAMPLE
+
+// Test Video Player View
+export const ViewVideoExamole = () => {
+  return (
+    <ViewVideoPlayer
+      uri={"https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}
+    />
   );
 };

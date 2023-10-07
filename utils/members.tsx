@@ -3,8 +3,9 @@
 // It has its own table (rather than being part of the entities table) so that we can use this for row level security on other tables.
 
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { View, Text } from "react-native";
+import { useQueryerQuery, useQueryerMutation } from "./queryer";
+import { ViewContainerStatic } from "./container";
+import { ViewTypographyText } from "./typography";
 
 // Create
 
@@ -20,7 +21,7 @@ export async function requestMemberCreate(member: interfaceMemberCreate) {
 }
 
 export const useMemberCreate = (props: interfaceMemberCreate) => {
-  return useMutation(["member", "create"], () => requestMemberCreate(props));
+  return useQueryerMutation(["member", "create"], () => requestMemberCreate(props));
 };
 
 // Update (todo)
@@ -36,7 +37,7 @@ export async function requestMemberUpdate(member: interfaceMemberUpdate) { // to
 
 export const useMemberUpdate = (props: interfaceMemberUpdate) => {
   // todo
-  return useMutation(["member", "update"], () => requestMemberUpdate(props));
+  return useQueryerMutation(["member", "update"], () => requestMemberUpdate(props));
 };
 
 // Delete (todo)
@@ -52,7 +53,7 @@ export async function requestMemberDelete(member: interfaceMemberDelete) { // to
 
 export const useMemberDelete = (props: interfaceMemberDelete) => {
   // todo
-  return useMutation(["member", "delete"], () => requestMemberDelete(props));
+  return useQueryerMutation(["member", "delete"], () => requestMemberDelete(props));
 };
 
 // Array
@@ -70,19 +71,19 @@ export const useMemberArray = ({ ...Input }) => {
     "array",
     "add_relevant_props_here",
   ];
-  const query = useQuery(queryKey, requestMemberArray, { enabled: true });
+  const query = useQueryerQuery(queryKey, requestMemberArray, { enabled: true });
   return query;
 };
 
 export const ViewMemberArray = () => {
   const array = useMemberArray({});
   return (
-    <View>
-      <Text style={{ fontWeight: "700" }}>ViewMemberArray</Text>
-      <Text></Text>
+    <ViewContainerStatic>
+      <ViewTypographyText style={{ fontWeight: "700" }}>ViewMemberArray</ViewTypographyText>
+      <ViewTypographyText></ViewTypographyText>
       {/* Testing */}
-      <Text>{JSON.stringify(array, null, 2)}</Text>
-    </View>
+      <ViewTypographyText>{JSON.stringify(array, null, 2)}</ViewTypographyText>
+    </ViewContainerStatic>
   );
 };
 
@@ -103,18 +104,18 @@ export const useMemberItem = ({ id }: interfaceMemberItem) => {
       .single();
     return response.data;
   };
-  const query = useQuery<any, Error>(queryKey, queryFn, { enabled: !!id });
+  const query = useQueryerQuery<any, Error>(queryKey, queryFn, { enabled: !!id });
   return query;
 };
 
 export const ViewMemberItem = ({ id }: interfaceMemberItem) => {
   const item = useMemberItem({ id });
   return (
-    <View>
-      <Text style={{ fontWeight: "700" }}>ViewMemberItem</Text>
-      <Text></Text>
+    <ViewContainerStatic>
+      <ViewTypographyText style={{ fontWeight: "700" }}>ViewMemberItem</ViewTypographyText>
+      <ViewTypographyText></ViewTypographyText>
       {/* Testing */}
-      <Text>{JSON.stringify(item, null, 2)}</Text>
-    </View>
+      <ViewTypographyText>{JSON.stringify(item, null, 2)}</ViewTypographyText>
+    </ViewContainerStatic>
   );
 };

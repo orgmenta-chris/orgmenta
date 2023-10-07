@@ -2,11 +2,11 @@
 // https://supabase.com/docs/guides/getting-started/tutorials/with-expo
 // Vault, Storage etc. are in their own modules to due complexity and being their own defined entity.
 
+import { useQueryerQuery, useQueryerMutation, useQueryerClient } from "./queryer";
+import { UtilityPlatformMain } from "./platform";
 import * as SecureStore from "expo-secure-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import "react-native-url-polyfill/auto";
-import { UtilityPlatformMain } from "./platform";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createClient } from "@supabase/supabase-js";
 
 import {
@@ -18,7 +18,7 @@ import {
 
 // (Mobile Only) Secure Store.
 // If this is used elsewhere in the project, it will be split out into its own module / migrated to 'storage' (storage>local/clients).
-// We will use useQuery+asyncstorage+encryption instead (to work on web) once the encryption for it is confirmed as secure.
+// We will use useQueryerQuery+asyncstorage+encryption instead (to work on web) once the encryption for it is confirmed as secure.
 let supabaseURL: any;
 let supabaseAnonKey: any;
 
@@ -60,13 +60,10 @@ export const createSupabaseClient = createClient;
 
 export const instanceSupabaseClient = createSupabaseClient(
   // create an instance of the supabase client class
-  
-  
-supabaseURL,
-supabaseAnonKey,
-// process.env.STAGING_SUPABASE_URL!, //The ! asserts that the variable is not undefined.
-// process.env.STAGING_SUPABASE_PUBLIC_KEY!, //The ! asserts that the variable is not undefined.
-
+  supabaseURL,
+  supabaseAnonKey,
+  // process.env.STAGING_SUPABASE_URL!, //The ! asserts that the variable is not undefined.
+  // process.env.STAGING_SUPABASE_PUBLIC_KEY!, //The ! asserts that the variable is not undefined.
   {
     auth: {
       storage:
@@ -154,7 +151,7 @@ export async function requestSupabaseTablerows(tableName: string) {
 
 export const useSupabaseTable = (tableName: string) => {
   // const queryClient = useQueryClient();
-  return useMutation(
+  return useQueryerMutation(
     ["entity", "create"],
     () => requestSupabaseTablerows(tableName),
     {

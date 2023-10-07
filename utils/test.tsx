@@ -1,19 +1,19 @@
-import { ViewPageMain } from "../utils/page";
-import { ViewTypographyTextheading } from "../utils/typography";
-import { ViewInputRichmain } from "../utils/input";
-import { Text, ScrollView } from "react-native";
-import { useAuxiliaryArray } from "../utils/auxiliary";
-
-import { ViewCryptoExample } from "../utils/crypto";
-import VaultFunctions from "../components/playground/vaultFunctions";
-import { ViewSvgArrowmain, ViewSvgArrowhead } from "../utils/svg";
-import { ViewBarcodeReader, ViewCameraMain } from "../utils/camera";
-import { ViewClipboardCopy } from "../utils/clipboard";
-import { TypeNotificationBody, UseNotification } from "../utils/notification";
+import { ViewPageMain } from "./page";
+import { ViewTypographyHeading } from "./typography";
+import { ViewInputRichmain } from "./input";
+import { useAuxiliaryArray } from "./auxiliary";
+import { ViewCryptoExample } from "./crypto";
+import { ViewVaultExample } from "./vault";
+import { ViewSvgArrowmain, ViewSvgArrowhead } from "./svg";
+import { ViewBarcodeReader, ViewCameraMain } from "./camera";
+import { ViewClipboardCopy } from "./clipboard";
+import { TypeNotificationBody, UseNotification } from "./notification";
 import { ViewSoundPlayer, ViewSoundRecorder } from "./audio";
 import { ViewVideoPlayer } from "./video";
-import { ViewScreenRecorder } from "../utils/recorder";
-import { ViewHelpMain } from "../utils/help";
+import { ViewScreenRecorder } from "./recorder";
+import { ViewHelpMain } from "./help";
+
+import { Text, ScrollView } from "react-native";
 
 export const ViewTestPage = () => {
   const aux = useAuxiliaryArray({ filter_array: [] });
@@ -21,7 +21,7 @@ export const ViewTestPage = () => {
     <ViewPageMain>
       <ScrollView>
         <ViewHelpMain to={"testing123"} />
-        <ViewTypographyTextheading>Testing</ViewTypographyTextheading>
+        <ViewTypographyHeading>Testing</ViewTypographyHeading>
         <Text>ViewTestPage Placeholder</Text>
         <Text>{JSON.stringify(aux, null, 2)}</Text>
         <ViewInputRichmain />
@@ -57,6 +57,6 @@ export const ViewTestPage = () => {
       </ScrollView>
     </ViewPageMain>
   ) : (
-    <ViewTypographyTextheading>Access Denied</ViewTypographyTextheading>
+    <ViewTypographyHeading>Access Denied</ViewTypographyHeading>
   );
 };

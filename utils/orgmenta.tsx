@@ -6,8 +6,8 @@ import { ViewModalMain } from "./modal";
 import { ViewRouterLink } from "./router";
 import { useThemeToken } from "./theme";
 import {
-  ViewTypographyTextheading,
-  ViewTypographyTextsubheading,
+  ViewTypographyHeading,
+  ViewTypographySubheading,
   ViewTypographyText,
 } from "./typography";
 import { useQuery } from "@tanstack/react-query";
@@ -337,7 +337,7 @@ export const ViewOrgmentaPricing = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Pricing</ViewTypographyTextheading>
+        <ViewTypographyHeading>Pricing</ViewTypographyHeading>
         <Text>ViewOrgmentaPricing placeholder</Text>
         <Text>{JSON.stringify(pricingTemp, null, 2)}</Text>
       </ScrollView>
@@ -349,7 +349,7 @@ export const ViewOrgmentaRoadmap = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Roadmap</ViewTypographyTextheading>
+        <ViewTypographyHeading>Roadmap</ViewTypographyHeading>
         <Text>
           {`Roadmap timeline (Title, summary + priorities, dates etc.) here.\n(Info comes from Orgmenta's space > System/Governance? > Offerings > Roadmap\n\n`}
           {JSON.stringify(
@@ -373,7 +373,7 @@ export const ViewOrgmentaCompare = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Compare</ViewTypographyTextheading>
+        <ViewTypographyHeading>Compare</ViewTypographyHeading>
         <Text>
           {`(Temp):\n\n`}
           {`\n\nCompetitors:\n\n`}
@@ -390,7 +390,7 @@ export const ViewOrgmentaIndustries = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Industries</ViewTypographyTextheading>
+        <ViewTypographyHeading>Industries</ViewTypographyHeading>
         <Text>
           {`Use case by industry (just show entities from Orgmenta>Product>Catalog>Offerings>UseCases)`}
         </Text>
@@ -403,7 +403,7 @@ export const ViewOrgmentaFrameworks = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Methodologies</ViewTypographyTextheading>
+        <ViewTypographyHeading>Methodologies</ViewTypographyHeading>
         <Text>
           {`
                     Standards, Libraries, Frameworks and Methodologies (how to use Orgmenta with these libraries goes here)
@@ -428,8 +428,8 @@ export const ViewOrgmentaFeatures = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Features</ViewTypographyTextheading>
-        <ViewTypographyTextsubheading>P1</ViewTypographyTextsubheading>
+        <ViewTypographyHeading>Features</ViewTypographyHeading>
+        <ViewTypographySubheading>P1</ViewTypographySubheading>
         {features
           .filter((x) => x.priority === 1)
           .map((x, i) => (
@@ -440,7 +440,7 @@ export const ViewOrgmentaFeatures = ({}: any) => {
               {x.title}
             </ViewTypographyText>
           ))}
-        <ViewTypographyTextsubheading>P2</ViewTypographyTextsubheading>
+        <ViewTypographySubheading>P2</ViewTypographySubheading>
         {features
           .filter((x) => x.priority === 2)
           .map((x, i) => (
@@ -451,7 +451,7 @@ export const ViewOrgmentaFeatures = ({}: any) => {
               {x.title}
             </ViewTypographyText>
           ))}
-        <ViewTypographyTextsubheading>P3</ViewTypographyTextsubheading>
+        <ViewTypographySubheading>P3</ViewTypographySubheading>
         {features
           .filter((x) => x.priority === 3)
           .map((x, i) => (
@@ -462,7 +462,7 @@ export const ViewOrgmentaFeatures = ({}: any) => {
               {x.title}
             </ViewTypographyText>
           ))}
-        <ViewTypographyTextsubheading>P4+</ViewTypographyTextsubheading>
+        <ViewTypographySubheading>P4+</ViewTypographySubheading>
         {features
           .filter((x) => x.priority > 3)
           .map((x, i) => (
@@ -484,7 +484,7 @@ export const ViewOrgmentaAbout = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>About</ViewTypographyTextheading>
+        <ViewTypographyHeading>About</ViewTypographyHeading>
         <Text>{`Company information goes here`}</Text>
       </ScrollView>
     </ViewPageMain>
@@ -495,7 +495,7 @@ export const ViewOrgmentaPrivacy = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Privacy</ViewTypographyTextheading>
+        <ViewTypographyHeading>Privacy</ViewTypographyHeading>
         <Text>{`Privacy policy goes here`}</Text>
       </ScrollView>
     </ViewPageMain>
@@ -506,7 +506,7 @@ export const ViewOrgmentaTerms = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Terms</ViewTypographyTextheading>
+        <ViewTypographyHeading>Terms</ViewTypographyHeading>
         <Text>{`Terms & Conditions go here`}</Text>
       </ScrollView>
     </ViewPageMain>
@@ -517,7 +517,7 @@ export const ViewOrgmentaSocials = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Socials</ViewTypographyTextheading>
+        <ViewTypographyHeading>Socials</ViewTypographyHeading>
         <Text>
           {`
           LINKS
@@ -536,8 +536,8 @@ export const ViewOrgmentaContact = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Contact</ViewTypographyTextheading>
-        <ViewTypographyTextsubheading>Contact Us:</ViewTypographyTextsubheading>
+        <ViewTypographyHeading>Contact</ViewTypographyHeading>
+        <ViewTypographySubheading>Contact Us:</ViewTypographySubheading>
         <ViewInquiryMain />
       </ScrollView>
     </ViewPageMain>
@@ -548,14 +548,14 @@ export const ViewOrgmentaPartner = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Partners</ViewTypographyTextheading>
-        <ViewTypographyTextsubheading>
+        <ViewTypographyHeading>Partners</ViewTypographyHeading>
+        <ViewTypographySubheading>
           Partner With Us:
-        </ViewTypographyTextsubheading>
+        </ViewTypographySubheading>
         <ViewInquiryMain />
-        <ViewTypographyTextsubheading>
+        <ViewTypographySubheading>
           Our Partners:
-        </ViewTypographyTextsubheading>
+        </ViewTypographySubheading>
         <Text>List of partners goes here</Text>
       </ScrollView>
     </ViewPageMain>
@@ -568,7 +568,7 @@ export const ViewOrgmentaNews = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>News</ViewTypographyTextheading>
+        <ViewTypographyHeading>News</ViewTypographyHeading>
         <Text>
           {`
                     NEWS
@@ -583,7 +583,7 @@ export const ViewOrgmentaForums = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Forums</ViewTypographyTextheading>
+        <ViewTypographyHeading>Forums</ViewTypographyHeading>
         <Text>{`Community forums / discussion boards go here`}</Text>
       </ScrollView>
     </ViewPageMain>
@@ -595,7 +595,7 @@ export const ViewOrgmentaGuides = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Guides</ViewTypographyTextheading>
+        <ViewTypographyHeading>Guides</ViewTypographyHeading>
         <Text>{`Guides, tutorials, instructions, how-tos etc. go here`}</Text>
         <Text>{JSON.stringify(articlesTemp, null, 2)}</Text>
       </ScrollView>
@@ -607,7 +607,7 @@ export const ViewOrgmentaWhitepapers = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>White Papers</ViewTypographyTextheading>
+        <ViewTypographyHeading>White Papers</ViewTypographyHeading>
         <Text>{`White papers, justifications etc. go here`}</Text>
       </ScrollView>
     </ViewPageMain>
@@ -618,7 +618,7 @@ export const ViewOrgmentaEnhancements = ({}: any) => {
   return (
     <ViewPageMain>
       <ScrollView>
-        <ViewTypographyTextheading>Enhancements</ViewTypographyTextheading>
+        <ViewTypographyHeading>Enhancements</ViewTypographyHeading>
         <Text>
           {`
           Request a feature or other enhancement

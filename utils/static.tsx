@@ -1,3 +1,5 @@
+import { string } from "./string";
+
 export const data: {
   id: number;
   parent: number | null;
@@ -7,7 +9,7 @@ export const data: {
   description: string;
   summary: string;
   nickname: string;
-  notes?:string;
+  notes?: string;
 }[] = [
   {
     id: 3,
@@ -1980,10 +1982,8 @@ export const data: {
     status: "0. New",
     name_singular: "sequences",
     display_singular: "Sequences",
-    description:
-      "Workflows in the product.",
-    summary:
-      "Use Case Flows / User paths that are bundles of user stories",
+    description: "Workflows in the product.",
+    summary: "Use Case Flows / User paths that are bundles of user stories",
     nickname: "product-catalog-solutions-usecases-sequences",
   },
   {

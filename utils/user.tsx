@@ -12,7 +12,7 @@ import { ViewCardExpandable } from "./card";
 import { useAuthSession, useAuthSignout } from "./auth";
 import { ViewRouterLinkthemed } from "./router";
 import { useQueryerQuery } from "./queryer";
-import { ViewTypographyTextsubsubheading } from "./typography";
+import { ViewTypographySubsubheading } from "./typography";
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { ViewIconMain } from "./icon";
 import { ScrollView, View, Text, Pressable } from "react-native";
@@ -108,12 +108,12 @@ export const ViewUserPrivacy = () => {
               }}
               onPress={() => shieldSet((old) => !old)}
             >
-              <ViewTypographyTextsubsubheading
+              <ViewTypographySubsubheading
                 selectable={false}
                 style={{ flex: 1 }}
               >
                 Privacy Shield:
-              </ViewTypographyTextsubsubheading>
+              </ViewTypographySubsubheading>
               <ViewIconMain
                 name={shieldState ? "shield" : "shield-off"}
                 source={"Feather"}
@@ -301,25 +301,25 @@ export const ViewUserSession = () => {
               style={{ margin: 5 }}
               to={`/users/${auth?.data?.session?.user?.id || "guest"}/pods`}
             >
-              <ViewTypographyTextsubsubheading selectable={false}>
+              <ViewTypographySubsubheading selectable={false}>
                 Profile
-              </ViewTypographyTextsubsubheading>
+              </ViewTypographySubsubheading>
             </ViewRouterLinkthemed>
             <ViewRouterLinkthemed
               style={{ margin: 5 }}
               to={`/users/${auth?.data?.session?.user?.id || "guest"}/devices`}
             >
-              <ViewTypographyTextsubsubheading selectable={false}>
+              <ViewTypographySubsubheading selectable={false}>
                 Devices
-              </ViewTypographyTextsubsubheading>
+              </ViewTypographySubsubheading>
             </ViewRouterLinkthemed>
             <ViewRouterLinkthemed
               style={{ margin: 5 }}
               to={`/users/${auth?.data?.session?.user?.id || "guest"}/settings`}
             >
-              <ViewTypographyTextsubsubheading selectable={false}>
+              <ViewTypographySubsubheading selectable={false}>
                 Settings
-              </ViewTypographyTextsubsubheading>
+              </ViewTypographySubsubheading>
             </ViewRouterLinkthemed>
             <ViewRouterLinkthemed
               style={{ margin: 5 }}
@@ -327,9 +327,9 @@ export const ViewUserSession = () => {
                 auth?.data?.session?.user?.id || "guest"
               }/pods/events`}
             >
-              <ViewTypographyTextsubsubheading selectable={false}>
+              <ViewTypographySubsubheading selectable={false}>
                 All Events
-              </ViewTypographyTextsubsubheading>
+              </ViewTypographySubsubheading>
             </ViewRouterLinkthemed>
             <Pressable
               style={{ margin: 5 }}
@@ -337,9 +337,9 @@ export const ViewUserSession = () => {
                 signout.mutate();
               }}
             >
-              <ViewTypographyTextsubsubheading selectable={false}>
+              <ViewTypographySubsubheading selectable={false}>
                 Signout
-              </ViewTypographyTextsubsubheading>
+              </ViewTypographySubsubheading>
             </Pressable>
           </View>
         )
@@ -357,9 +357,9 @@ export const ViewUserLinks = () => {
       body={
         <View>
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/users/all`}>
-            <ViewTypographyTextsubsubheading selectable={false}>
+            <ViewTypographySubsubheading selectable={false}>
               All Users
-            </ViewTypographyTextsubsubheading>
+            </ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
         </View>
       }

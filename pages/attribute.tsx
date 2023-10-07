@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { ViewAttributeMain, ViewAttributeUnioned } from "../utils/attribute";
 import { ViewPageMain } from "../utils/page";
-import { ViewTypographyTextheading } from "../utils/typography";
+import { ViewTypographyHeading } from "../utils/typography";
 import {
   ViewRouterLink,
   ViewRouterRoutes,
@@ -11,7 +11,7 @@ import {
 export default function AttributePage() {
   return (
     <ViewPageMain>
-      <ViewTypographyTextheading>Attributes</ViewTypographyTextheading>
+      <ViewTypographyHeading>Attributes</ViewTypographyHeading>
       <View style={{ flexDirection: "row" }}>
         <ViewRouterLink to={"main"} style={{ margin: 5 }}>
           Main

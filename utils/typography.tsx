@@ -1,7 +1,7 @@
 import { useThemeToken, TypeThemeMain } from "./theme";
 import { validateObjectIsobject } from "./object";
 import { mergeStylesheetMain } from "./stylesheet";
-import { View, Text, TextProps, TextStyle, StyleProp } from "react-native";
+import { Text, TextProps, TextStyle, StyleProp } from "react-native";
 
 // Main
 
@@ -38,7 +38,7 @@ export const ViewTypographyTextthemed = ({
   );
 };
 
-export const ViewTypographyTextheading = ({
+export const ViewTypographyHeading = ({
   children,
   theme_token,
   style,
@@ -59,7 +59,7 @@ export const ViewTypographyTextheading = ({
   );
 };
 
-export const ViewTypographyTextsubheading = ({
+export const ViewTypographySubheading = ({
   children,
   theme_token,
   style,
@@ -80,7 +80,7 @@ export const ViewTypographyTextsubheading = ({
   );
 };
 
-export const ViewTypographyTextsubsubheading = ({
+export const ViewTypographySubsubheading = ({
   children,
   theme_token,
   style,

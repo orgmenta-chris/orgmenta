@@ -1,3 +1,5 @@
+// Manage notifications (/alerts) across all platforms
+
 import React, { useState, useEffect, useRef } from "react";
 import { Text, View, Button, Platform } from "react-native";
 import * as Device from "expo-device";

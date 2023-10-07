@@ -8,7 +8,7 @@ import { data } from "./static";
 import { ViewCardExpandable } from "./card";
 import { ViewIconMain } from "./icon";
 import { ViewRouterLinkthemed } from "./router";
-import { ViewTypographyTextsubsubheading } from "./typography";
+import { ViewTypographySubsubheading } from "./typography";
 
 // Modal
 
@@ -44,9 +44,9 @@ export const ViewBookmarkModal = (props: any) => {
                       to={"entity/" + y.nickname}
                       key={"a" + y.id + i}
                     >
-                      <ViewTypographyTextsubsubheading>
+                      <ViewTypographySubsubheading>
                         {y.display_singular}
-                      </ViewTypographyTextsubsubheading>
+                      </ViewTypographySubsubheading>
                     </ViewRouterLinkthemed>
                   ))}
               />

@@ -57,7 +57,9 @@ export const getStatusbarDimensions = () => {
   } // Unknown as to whether this fallback would ever be used (depends on future changes to react-native Platform)
 };
 
-// Constants
+// CONSTANTS
+
+// (currently just for reference purposes, not yet being utilised)
 
 // const STATUSBAR_DEFAULT_HEIGHT = 20;
 // const STATUSBAR_X_HEIGHT = 44;

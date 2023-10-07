@@ -2,22 +2,24 @@
 // Components will have info icons that the user can click on for assistance (and link to a help page?)
 
 import { useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { ViewContainerStatic } from "./container";
+import { ViewTypographyText } from "./typography";
 import { ViewIconMain } from "./icon";
 import { ViewRouterLinkthemed } from "./router";
+import { Pressable } from "react-native";
 
 export const ViewHelpPopup = ({ children, state }: any) => {
   return (
-    <View>
-      <Text>Maybe just use a UI library's tooltip for this rather than spinning own</Text>
-      <Text>{children}</Text>
-    </View>
+    <ViewContainerStatic>
+      <ViewTypographyText>Maybe just use a UI library's tooltip for this rather than spinning own</ViewTypographyText>
+      <ViewTypographyText>{children}</ViewTypographyText>
+    </ViewContainerStatic>
   );
 };
 
 export const ViewHelpIcons = ({ children, set, to }: any) => {
   return (
-    <View
+    <ViewContainerStatic
       style={{
         backgroundColor: "white",
         flexDirection: "row",
@@ -50,15 +52,15 @@ export const ViewHelpIcons = ({ children, set, to }: any) => {
           color={"gray"}
         />
       </ViewRouterLinkthemed>
-    </View>
+    </ViewContainerStatic>
   );
 };
 export const ViewHelpMain = ({ children, to }: any) => {
   const [state, set] = useState(false);
   return (
-    <View>
+    <ViewContainerStatic>
       <ViewHelpIcons set={set} to={to} />
       {state && <ViewHelpPopup children={children} state={state} />}
-    </View>
+    </ViewContainerStatic>
   );
 };

@@ -2,9 +2,11 @@
 
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { useQueryerMutation, useQueryerQuery } from "./queryer";
+import { ViewContainerStatic, ViewContainerScroll } from "./container";
+import { ViewTypographyText } from "./typography";
 
 import { useState, memo, useEffect, useReducer } from "react";
-import { ScrollView, View, Text } from "react-native";
+
 import { useTableColumns } from "../components/displays/table/table";
 import {
   createColumnHelper,
@@ -98,7 +100,7 @@ export const ViewAttributeMain = memo(() => {
   const columns = useTableColumns(attributeColumnNames);
   return (
     <>
-      <Text>ViewAttributeMain</Text>
+      <ViewTypographyText>ViewAttributeMain</ViewTypographyText>
       <ViewAttributeTable data={array.data} columns={columns} />
     </>
   );
@@ -143,7 +145,7 @@ export const ViewAttributeUnioned = memo(() => {
   const columns = useTableColumns(attributeColumnNames);
   return (
     <>
-      <Text>ViewAttributeUnioned</Text>
+      <ViewTypographyText>ViewAttributeUnioned</ViewTypographyText>
       <ViewAttributeTable data={array.data} columns={columns} />
     </>
   );
@@ -161,7 +163,7 @@ export const ViewAttributeTable = ({ ...Input }) => {
       setData(Input.data);
     }
   }, [Input?.data]);
-  const rerender = useReducer(() => ({}), {})[1];s
+  const rerender = useReducer(() => ({}), {})[1];
   const table = useReactTable({
     data,
     columns,
@@ -170,18 +172,18 @@ export const ViewAttributeTable = ({ ...Input }) => {
     filterFns: undefined as any,
   });
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>
-        <ScrollView
+    <ViewContainerStatic style={{ flex: 1 }}>
+      <ViewContainerStatic style={{ flex: 1 }}>
+        <ViewContainerScroll
           style={{ flex: 1, overflow: "scroll" }}
           stickyHeaderIndices={[0]}
         >
-          <View>
+          <ViewContainerStatic>
             {table.getHeaderGroups().map((headerGroup, hgroupIndex) => (
-              <View key={headerGroup.id} style={{ flexDirection: "row" }}>
+              <ViewContainerStatic key={headerGroup.id} style={{ flexDirection: "row" }}>
                 {headerGroup.headers.map((header, headerIndex) => (
-                  <View key={headerIndex}>
-                    <Text
+                  <ViewContainerStatic key={headerIndex}>
+                    <ViewTypographyText
                       key={header.id}
                       style={{
                         fontWeight: "bold",
@@ -195,24 +197,24 @@ export const ViewAttributeTable = ({ ...Input }) => {
                             header.column.columnDef.header,
                             header.getContext()
                           )}
-                    </Text>
-                  </View>
+                    </ViewTypographyText>
+                  </ViewContainerStatic>
                 ))}
-              </View>
+              </ViewContainerStatic>
             ))}
-          </View>
+          </ViewContainerStatic>
           {table.getRowModel().rows.map((row) => (
-            <View key={row.id} style={{ flexDirection: "row", width: 100 }}>
+            <ViewContainerStatic key={row.id} style={{ flexDirection: "row", width: 100 }}>
               {row.getVisibleCells().map((cell, cellIndex) => (
-                <Text key={cell.id} style={{ minWidth: 200, borderWidth: 1 }}>
+                <ViewTypographyText key={cell.id} style={{ minWidth: 200, borderWidth: 1 }}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </Text>
+                </ViewTypographyText>
               ))}
-            </View>
+            </ViewContainerStatic>
           ))}
-        </ScrollView>
-      </View>
-      <View />
-    </View>
+        </ViewContainerScroll>
+      </ViewContainerStatic>
+      <ViewContainerStatic />
+    </ViewContainerStatic>
   );
 };

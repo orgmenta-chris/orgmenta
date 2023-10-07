@@ -1,14 +1,12 @@
-import { View, Text } from "react-native";
-
-
-
+import { ViewContainerScroll } from "./container";
+import { ViewTypographyText } from "./typography";
 
 export const ViewChartMain = (props: any) => {
   return (
-    <View
+    <ViewContainerScroll
       style={{ backgroundColor: "white", flexDirection: "column", flex: 1 }}
     >
-      <Text>ViewChartMain todo</Text>
-    </View>
+      <ViewTypographyText>ViewChartMain todo</ViewTypographyText>
+    </ViewContainerScroll>
   );
 };

@@ -1,4 +1,4 @@
-import AsyncStorage from "@react-native-async-storage/async-storage"; // move this into own file
+import { UtilityCacheAsyncstorage } from './cache'
 import {
   QueryClient,
   useMutation,
@@ -28,7 +28,7 @@ export const instanceQueryClient = new ClassQueryerClient({
 export const createQueryerPersister = createAsyncStoragePersister; // At the moment, this only allows AsyncStorage. Others may be added in the future.
 
 export const instanceQueryerPersister = createQueryerPersister({
-  storage: AsyncStorage,
+  storage: UtilityCacheAsyncstorage,
 });
 
 // Provider

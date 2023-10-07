@@ -1,4 +1,3 @@
-
 import { useWindowDimensions } from "./window";
 import { ViewModalMain } from "./modal";
 import {
@@ -17,7 +16,6 @@ import {
 } from "react-native-big-calendar";
 import {
   View,
-  ScrollView,
   Text,
   TouchableOpacity,
   LayoutChangeEvent,
@@ -27,9 +25,9 @@ import {
 } from "react-native";
 import { useState, ReactElement } from "react";
 
+// CONTAINER
 
-// Container (compilation of multiple components)
-
+// Compilation of calendar components
 export const ViewCalendarContainer = ({ events }: any) => {
   events = examplesCalendarEvent; // testing
   const windowDimensions = useWindowDimensions();
@@ -39,41 +37,42 @@ export const ViewCalendarContainer = ({ events }: any) => {
       key={"container"}
       style={{ height: "100%", width: "100%", flexDirection: "row" }}
     >
-      { windowDimensions.width < 768 ?
+      {windowDimensions.width < 768 ? (
         <ViewModalMain>
           <ViewCalendarButtons />
           <View style={{ height: 200, margin: 10 }}>
             <ViewCalendarPicker />
           </View>
-          <View style={{ flex:1, margin: 10 }}>
-          <ViewCalendarCalendars />
+          <View style={{ flex: 1, margin: 10 }}>
+            <ViewCalendarCalendars />
           </View>
         </ViewModalMain>
-        :
+      ) : (
         <View key={"left-panel"} style={{ flex: 1, width: 100, margin: 20 }}>
           <ViewCalendarButtons />
           <View style={{ height: 200, margin: 10 }}>
             <ViewCalendarPicker />
           </View>
-          <View style={{ flex:1, margin: 10 }}>
-          <ViewCalendarCalendars />
+          <View style={{ flex: 1, margin: 10 }}>
+            <ViewCalendarCalendars />
           </View>
         </View>
-      }
+      )}
       <View
         key={"right-panel"}
         style={{ flex: 4, margin: 20, flexDirection: "column" }}
         // onLayout={onLayout}
       >
-        <ViewCalendarMain/>
+        <ViewCalendarMain />
         {/* <ViewCalendarScheduler height={600} mode={"month"} events={events} /> */}
       </View>
     </View>
   );
 };
 
-// Main (current Event Scheduler Calendar proof of concept from Loisa)
+// MAIN
 
+// Event Scheduler
 export const ViewCalendarMain = (props: any) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   interface CalendarProps<T extends ICalendarEventBase> {
@@ -115,7 +114,7 @@ export const ViewCalendarMain = (props: any) => {
   const events = examplesCalendarEvent; // replace with auxiliary once start and end/finish is on there
   const calendarProps: CalendarProps<ICalendarEventBase> = {
     events,
-    height:  400,
+    height: 400,
     overlapOffset: 10, // Set overlap offset to 10 pixels
     hourRowHeight: 60, // Set hour row height to 60 pixels
     ampm: true, // Display time in AM/PM format
@@ -203,7 +202,7 @@ export const ViewCalendarMain = (props: any) => {
         <Button onPress={() => setMode("week")} title="Week" />
         <Button onPress={() => setMode("3days")} title="3 Days" />
         <Button onPress={() => setMode("day")} title="Day" />
-        <ViewCalendarButtons/>
+        <ViewCalendarButtons />
       </View>
       <View style={{ flex: 1, marginVertical: 10 }}>
         {
@@ -233,7 +232,7 @@ export const ViewCalendarButtons = ({ onChangeDate }: any) => {
   return (
     <View
       key={"container"}
-      style={{flexDirection: "row", gap: 5, marginLeft: 10 }}
+      style={{ flexDirection: "row", gap: 5, marginLeft: 10 }}
     >
       <Button disabled title=" < " onPress={goToLeft} />
       <Button disabled title=" > " onPress={goToRight} />
@@ -241,8 +240,9 @@ export const ViewCalendarButtons = ({ onChangeDate }: any) => {
   );
 };
 
-// Picker
+// PICKER
 
+// A month picker to select a date
 export const ViewCalendarPicker = () => {
   return (
     <View style={{ height: 200, width: 200 }}>
@@ -257,8 +257,9 @@ export const ViewCalendarPicker = () => {
   );
 };
 
-// Calendars (list of calendars)
+// CALENDARS
 
+// List of calendars
 export const ViewCalendarCalendars = () => {
   return (
     <View style={{ flex: 1, backgroundColor: "red" }}>
@@ -267,21 +268,21 @@ export const ViewCalendarCalendars = () => {
   );
 };
 
-// Scheduler
+// SCHEDULER
 
 export const ViewCalendarScheduler = Calendar;
 
 export type TypeCalendarScheduler = CalendarProps<TypeCalendarEvent>;
 
-// Header Main
+// HEADER
 
+// Main
 export type TypeCalendarHeader = CalendarHeaderProps<TypeCalendarEvent>; // add any others in here
 
-// Header Month
-
+// Month
 export type TypeCalendarHeadermonth = CalendarHeaderForMonthViewProps;
 
-// Event
+// EVENT
 
 export const ViewCalendarEvent = CalendarEvent;
 

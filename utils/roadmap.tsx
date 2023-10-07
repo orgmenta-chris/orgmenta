@@ -1,7 +1,12 @@
 // Placeholder - will have a roadmap module for displaying a product roadmap.
 // This will be used by OrgmentaRoadmap.
 
-export const currentTargets = [
+export const currentTargets: {
+  id: number;
+  title: string;
+  assignedTo: string;
+  versions: number[];
+}[] = [
   {
     id: 1,
     title: "Implement intial help module",
@@ -15,22 +20,39 @@ export const currentTargets = [
     versions: [2],
   },
 ];
-export const currentVersions = [
+
+
+export const currentVersions: {
+  id: number;
+  title: string;
+  feature: number;
+}[] = [
   { id: 1, title: "Help Module v0.1", feature: 1 },
   { id: 2, title: "Stripe Module v0.1", feature: 2 },
 ];
-export const currentFeatures = [
+
+export const currentFeatures: {
+  id: number;
+  title: string;
+  usecases: number[];
+}[] = [
   { id: 1, title: "Help Module", usecases: [1] },
   { id: 2, title: "Stripe Module", usecases: [2, 3] },
 ];
-export const currentUsecases = [
+
+export const currentUsecases: {
+  id: number;
+  title: string;
+}[] = [
   { id: 1, title: "Be able to access help on any component in the UI" },
   { id: 2, title: "Link client stripe account" },
   { id: 3, title: "Pay customer invoice via stripe in orgmenta" },
 ];
 
-// Userroles
-export const user_roles = [
+export const user_roles: {
+  name: string;
+  description: string;
+}[] = [
   {
     name: "any_user",
     description: "Any user of the orgmenta app/ecosystem",
@@ -124,7 +146,11 @@ export const user_roles = [
   },
 ];
 
-export const featurePriorities = [
+
+export const featurePriorities: {
+  priority: number;
+  description: string;
+}[] = [
   {
     priority: 1,
     description: "Needs to be implemented now, hindering other development",
@@ -154,9 +180,25 @@ export const featurePriorities = [
 // specific features for the system. userstories can be constructed with:
 // const exampleUserstory  = 'As a' + 'Dispatcher' + 'I want to '+ features[0].userstories.dispatcher;
 // User stories will be split out into being separate entities (which can then be linked to requirements, features, user_roles etc.
-export const features = [
+
+export const features: {
+  title: string;
+  version: number;
+  status: string;
+  description: string;
+  priority: number;
+  notes: string;
+}[] = [
   {
-    title: "Undo/Redo",
+    title: "Update",
+    version: 0.0,
+    status: "0. New",
+    description: "App updates - either via app store, expo updates, github>pullrequest>autodeplyNetlify, or other",
+    priority: 2,
+    notes: ""
+  },
+  {
+    title: "History/Undo/Redo",
     version: 0.0,
     status: "0. New",
     description: "Undo (and redo) to any point in entity-relationship histories",
@@ -1214,8 +1256,12 @@ export const features = [
 ];
 
 // Requirements
-//
-export const requirements= [
+
+export const requirements: {
+  category: string;
+  title: string;
+  description: string;
+}[] = [
   {
     category: "User Satisfaction",
     title: 'UI satisfaction',
@@ -1230,6 +1276,7 @@ export const requirements= [
   },
   {
     category: "Performance",
+    title: '',
     description:
       "The system must support up to 10,000 concurrent users without degrading performance below acceptable levels.",
   },
@@ -3602,6 +3649,33 @@ export const articlesTemp = [
     notes: `Standard complaints about Odoo et al: Hitting limitations, not being able to customise it etc.
     But our one is different - The modules can be tweaked in any way you want.
     (Examples)`,
+  },
+  {
+    topic: "Show/Tell HN: A programming stack and paradigm that may make your eye twitchs",
+    notes: `OK, you guys are likely to dislike this.
+    But I stand by it, and will proceed to justify it.
+    Chapter 0: A summary and example usage
+    - Show how minimal effort is needed to 
+    Chapter 1: A cross platform programming stack is needed to reduce development time
+    - React native is one of the best options here, and we have selected it.
+    - Deploy to android, ios, web, windows, macOs, (linux, apple watch, etc. hopefully in the future) from a single codebase.
+    - All components are ready for ALL of those platforms.
+    Chapter 2: A naming convention and code style that scales (but you will still not like it)
+    - Prefix
+    - Center: Module name
+    - Postfix: 
+    Chapter 3: Normalisation to the extreme, or: Turning relational databases on their head, or: How we are missing a trick with modern databases
+    - Dynamic tables are possible.
+    - Postgres(ql) selected.
+    - Going further towards normalisation, towards almost key value tables.
+    - Further tricks to make it viable (indexing etc.)
+    Chapter 4: Usage
+    - 
+    `
+  },
+  {
+    topic: "How we handle updates",
+    notes: `See the notes in updates.tsx`,
   },
 ];
 

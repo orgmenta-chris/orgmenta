@@ -1,4 +1,8 @@
-import React, {
+
+import { ViewContainerStatic, ViewContainerScroll } from "./container";
+import { ViewTypographyText } from "./typography";
+import { UtilityPlatformMain } from "./platform";
+import {
   InputHTMLAttributes,
   useEffect,
   useMemo,
@@ -32,7 +36,6 @@ import {
 
 import { faker } from "@faker-js/faker";
 
-import { UtilityPlatformMain } from "./platform";
 import {
   View,
   Text,
@@ -41,6 +44,103 @@ import {
   FlatList,
   Pressable,
 } from "react-native";
+
+
+// CONTAINER
+
+// Main table component
+export const ViewTableContainer = (props: any) => {
+  const [data, setData] = useState<Person[]>(() => makeData(1000));
+  const refreshData = () => setData((old) => makeData(1000));
+  const columns = useMemo<ColumnDef<Person, any>[]>(
+    () => [
+      {
+        header: "Name",
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "firstName",
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+          },
+          {
+            accessorFn: (row) => row.lastName,
+            id: "lastName",
+            cell: (info) => info.getValue(),
+            header: () => <span>Last Name</span>,
+            footer: (props) => props.column.id,
+          },
+          {
+            accessorFn: (row) => `${row.firstName} ${row.lastName}`,
+            id: "fullName",
+            header: "Full Name",
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            filterFn: "fuzzy",
+            sortingFn: fuzzySort,
+          },
+        ],
+      },
+      {
+        header: "Info",
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "age",
+            header: () => "Age",
+            footer: (props) => props.column.id,
+          },
+          {
+            header: "More Info",
+            columns: [
+              {
+                accessorKey: "visits",
+                header: () => <span>Visits</span>,
+                footer: (props) => props.column.id,
+              },
+              {
+                accessorKey: "status",
+                header: "Status",
+                footer: (props) => props.column.id,
+              },
+              {
+                accessorKey: "progress",
+                header: "Profile Progress",
+                footer: (props) => props.column.id,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    []
+  );
+  const tableData = {
+    columns,
+    data,
+    refreshData,
+  };
+  return (
+    <ViewContainerStatic style={{ maxHeight: 400 }}>
+      <UseDisplayTable tableData={tableData} />
+    </ViewContainerStatic>
+  );
+};
+
+
+// TableTabs (Temp)
+
+// 'Table Tabs' will be a subcomponent of 'Table' (like 'Table Footer' and'Table Header' are table subcomponents )
+// To be moved into the table file (but added here since it is a placeholder and so as not to interfere with current works)
+// Or, since this might need to be used by List (and maybe others like timeline) as well, maybe it needs to be its own 'display tabs' module or else we just directly use a primitive 'tabs' module in ViewDisplayTable, ViewDisplayList etc.
+// At the moment, it just has 'Types' hardcoded into it as the tabs.
+// But, it will be made dynamic (which will allow things like plugins and user interactions to hide this component, switch out the tabs to 'Status' or  other property groupings, etc.)
+export const ViewTableTabs = (props: any) => {
+  return (
+    <ViewTypographyText>["Area","Event","Contact","etc."]</ViewTypographyText>
+  );
+};
+
 
 // fake data to use in our table view
 

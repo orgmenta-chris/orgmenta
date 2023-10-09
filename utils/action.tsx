@@ -1,12 +1,8 @@
 // An 'Action' (or 'control'?) is something that can be done to an 'Entity'.
 
-import { useEntityCreate } from "./entity";
-import { useModalVisibility } from "./modal";
-import { ViewContainerStatic, ViewContainerScroll } from "./container";
-import { ViewInputText } from "./input";
+import { ViewContainerStatic } from "./container";
 import { ViewControlMain } from "./control";
 import { ViewFormDynamic } from "./form";
-import { createUuid4 } from "./uuid";
 import { ViewDisplayTabs } from "./display";
 import { ViewIconMain } from "./icon";
 import { ViewFileModal } from "./pdf";
@@ -21,12 +17,9 @@ import {
   ViewRouterRoutes,
   ViewRouterRoute,
   useRouterLocation,
-  useRouterNavigate,
 } from "./router";
-import { arrayTypeMain } from "./type";
-import { arrayStatusMain } from "./status";
 import { Pressable } from "react-native";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // Display
 
@@ -60,12 +53,17 @@ export const ViewActionControl = ({}: any) => {
 // A component for creating new entity-relationships
 export const ViewActionAdd = ({ schema, focus }: any) => {
   schema = schema?.data
-    ?.filter((x: any) => x.form_field !== "hidden")
+    ?.filter(
+      (x: any) => x.form_field !== "hidden" // Remove 'hidden' fields (fields that are not meant to be shown on the form view)
+    )
     .map((x: any) => {
-      return { ...x, value: x.valueDefault };
+      return {
+        ...x,
+        value: x.valueDefault, // Alias the defaultValue field to be initial value
+      };
     });
   return (
-    <ViewContainerStatic style={{ flexDirection: "column"}}>
+    <ViewContainerStatic style={{ flexDirection: "column" }}>
       <ViewActionHeading title={"Add"} subtitle={"Create entities"} />
       <ViewFormDynamic data={schema} formname={"add"} queryId={"new"} />
     </ViewContainerStatic>
@@ -75,11 +73,9 @@ export const ViewActionAdd = ({ schema, focus }: any) => {
 // Edit
 
 export const ViewActionEdit = ({ schema, focus }: any) => {
-  schema = schema?.data
-    ?.filter((x: any) => x.form_field !== "hidden")
-    .map((x: any) => {
-      return { ...x, value: x.valueDefault };
-    });
+  schema = schema?.data?.filter(
+    (x: any) => x.form_field !== "hidden" // remove 'hidden' fields (fields that are not meant to be shown on the form view)
+  );
   return (
     <ViewContainerStatic style={{ flexDirection: "column", maxHeight: 300 }}>
       <ViewActionHeading title={"Edit"} subtitle={"Update entities"} />
@@ -262,21 +258,11 @@ export const ViewActionPanels = ({
         <ViewRouterRoute path="control" element={<ViewActionControl />} />
         <ViewRouterRoute
           path="/add"
-          element={
-            <ViewActionAdd
-              schema={schema}
-              focus={focus}
-            />
-          }
+          element={<ViewActionAdd schema={schema} focus={focus} />}
         />
         <ViewRouterRoute
           path="edit"
-          element={
-            <ViewActionEdit
-              schema={schema}
-              focus={focus}
-            />
-          }
+          element={<ViewActionEdit schema={schema} focus={focus} />}
         />
         <ViewRouterRoute path="sync" element={<ViewActionSync />} />
         <ViewRouterRoute path="share" element={<ViewActionShare />} />

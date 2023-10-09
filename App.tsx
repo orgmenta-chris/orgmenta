@@ -43,7 +43,6 @@ import {
   ViewOrgmentaPartner,
 } from "./utils/orgmenta";
 import { ViewStripeWrappermain } from "./utils/stripe-test";
-import { useState } from "react";
 // import { msalInstance } from "./api/authConfig"; // msal-react is not immediately compatible with react-native. We need https://www.npmjs.com/package/react-native-msal.
 // import { MsalProvider as ViewMsalProvider } from "@azure/msal-react"; // msal-react is not immediately compatible with react-native. We need https://www.npmjs.com/package/react-native-msal.
 

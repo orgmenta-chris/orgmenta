@@ -12,8 +12,8 @@ import { ViewVideoPlayer } from "./video";
 import { ViewScreenRecorder } from "./recorder";
 import { ViewHelpContainer } from "./help";
 import { ViewContainerScroll } from "./container";
-import { ViewShieldContainer, ViewShieldUniversal } from "./shield";
-import { TypeNotificationBody, UseNotification } from "./notification"; // Chris to check naming conventions. Also need to check how to use this?
+import { ViewShieldButton, ViewShieldUniversal } from "./shield";
+import { TypeNotificationBody, ViewNotificationExample } from "./notification"; // Chris to check naming conventions. Also need to check how to use this?
 
 export const ViewTestPage = () => {
   const aux = useAuxiliaryArray({ filter_array: [] });
@@ -31,9 +31,9 @@ export const ViewTestPage = () => {
         {/* <ViewClipboardCopy /> */}
 
         {/* Notification component (working) */}
-        {/* <UseNotification 
+        <ViewNotificationExample testMode
           // {...notificationBody} 
-        /> */}
+        />
 
         {/* <ViewTypographyText>Example Sound Player:</ViewTypographyText>
         <ViewSoundPlayer /> */}
@@ -52,8 +52,8 @@ export const ViewTestPage = () => {
         
         {/* Shield Chris (Working) */}
         {/* <ViewShieldUniversal/>
-        <ViewShieldContainer id={'test1'} />
-        <ViewShieldContainer id={'test2'} /> */}
+        <ViewShieldButton id={'test1'} />
+        <ViewShieldButton id={'test2'} /> */}
 
         {/* Help Chris (in progress ) */}
         {/* <ViewHelpContainer to={"testing123"} />

@@ -1,5 +1,6 @@
 // A 'shield' refers to a 'privacy mask' or 'redacted information', i.e. a cover or cloak / privacy shield on password fields, secure data etc.
 // This is a front-end feature only, and is available to the user.
+// A manager of a space will be able to set the default in supabase (e.g. 'By default, obscure the title field. By default, do not obscure the priority field')
 
 import { ViewContainerStatic } from "./container";
 import { ViewTypographySubsubheading, ViewTypographyText } from "./typography";
@@ -12,27 +13,32 @@ import { useState } from "react";
 // CONTAINER
 
 // Wrap a field in this component in order to provide it a shield and allow it to be obfuscated.
-export const ViewShieldContainer = ({ id }: any) => {
-  return <ViewShieldButton id={id} />;
-};
+// NOT YET IN USE
+// (currently just returns a button, not currently wrapping it or doing anything else.)
+// export const ViewShieldContainer = ({ id }: any) => {
+//   return <ViewShieldButton id={id} />;
+// };
 
 // PRESSABLE
 
 // Click to toggle shield on/off. If 'all' is passed in the 'field' prop, it will toggle all fields.
 // (Chris needs to ensure this doesn't cause performance issues - fields cannot look at the same query else they will all constantly update.)
 // (therefore, we need to use a seperate query key for each field - and if 'all' is toggled with the shield, then the function should update ALL the query keys that exist (and are currently active).
-export const ViewShieldButton = ({ id }: { id: string[] }) => {
+export const ViewShieldButton = ({ id, style }: { id: string[], style:any }) => {
   const fieldState = useFieldState(id) as TypeFieldState;
   const fieldSet = useShieldSet(id);
   return (
     <ViewButtonPressable
       style={{
         padding: 5,
-        backgroundColor: fieldState?.data?.shieldIndividual ? "gray" : "lightgray",
+        backgroundColor: fieldState?.data?.shieldIndividual
+          ? "gray"
+          : "lightgray",
+        ...style
       }}
       onPress={fieldSet}
     >
-      <ViewIconMain 
+      <ViewIconMain
         name={fieldState?.data?.shieldIndividual ? "shield" : "shield-off"}
         source={"Feather"}
         color={"white"}
@@ -50,10 +56,11 @@ export const useShieldSet = (id: string[]) => {
   const queryClient = useQueryerClient();
   return () => {
     queryClient.setQueryData(["field"].concat(id), (oldData: any) => {
-      return { ...oldData, 
+      return {
+        ...oldData,
         shieldIndividual: !oldData?.shieldIndividual,
-        shieldPrevious: !oldData?.shieldIndividual
-       };
+        shieldPrevious: !oldData?.shieldIndividual,
+      };
     });
   };
 };
@@ -62,6 +69,7 @@ export const useShieldSet = (id: string[]) => {
 
 // A component to toggle shields across all active fields in the app.
 export const ViewShieldUniversal = () => {
+  // todo: change this useState to a useQuery so that it will persist when the modal is opened and closed.
   const [universalState, universalSet] = useState(false); // whether the shield is applied universally
   const individualSet = useShieldUniversal(!universalState); // hook to set the shield for all fields
   const [infoState, infoSet] = useState(false); // whether the shield 'info tooltip' is currently visible
@@ -127,6 +135,8 @@ export const ViewShieldUniversal = () => {
 };
 
 // When the universal button is clicked, ALL field shields will be toggled throughout the app.
+// todo: maybe use useFieldSet (i.e. abstract out the logic in here)
+// todo: add functionality here to set a main 'universal' state so that we can replace the useState in. OR, use a 'useUserState'/'useUserState' instead.
 export const useShieldUniversal = (universalState: any) => {
   const queryClient = useQueryerClient();
   return () => {
@@ -138,8 +148,8 @@ export const useShieldUniversal = (universalState: any) => {
         queryClient.setQueryData(queryKey, (oldData: any) => {
           return {
             ...oldData,
-            shieldUniversal: !oldData.shieldUniversal,
-            shieldIndividual: universalState || oldData.shieldPrevious // if enabling universal shield, set the field shield to true. Else, set the previous individual shield state.
+            shieldUniversal: oldData?.shieldUniversal ? false : true,
+            shieldIndividual: universalState || oldData.shieldPrevious, // if enabling universal shield, set the field shield to true. Else, set the previous individual shield state.
           };
         });
       });

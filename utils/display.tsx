@@ -83,11 +83,12 @@ export const ViewDisplayForm = (props: any) => {
         // if the attribute is 'relationship' we know that it is in the relationship table instead of being a column on the entity table.
         if (oldItem.focus_columns.cell_field === "relationship") {
           newItem.table = "relationships";
-          newItem.value = "(relationships)"; //'props.auxiliary.data to be filtered here (todo)'
+          newItem.value = "(relationships)"; // props.auxiliary.data to be filtered here (todo)'
         } else {
           newItem.table = "entities";
           newItem.value = newItem[newItem.name_singular];
         }
+        newItem.queryId = newItem.id+newItem.side // Create a unique id to store in field state/cache
         delete newItem.focus_columns;
         delete newItem.auxiliary_columns;
         items.push(newItem);

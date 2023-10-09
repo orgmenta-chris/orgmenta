@@ -28,7 +28,7 @@ export const ViewInputDecimal = (props: any) => {
     <TextInput
       keyboardType="number-pad"
       returnKeyType="done"
-      value={state}
+      defaultValue={state}
       // maxLength={10} // optional, limit to 10 characters
       onChangeText={(old)=>{console.log(old);set(old.replace(/[^0-9.]/g, ''))}}
       // onChangeText={(text) => {

@@ -7,3 +7,9 @@ export const doArrayUnion = (arrayOfArrays: any) => {
   const result = _.union(...arrayOfArrays);
   return result;
 };
+
+// NONEMPTY
+export const isArrayNonempty = (arr: any): boolean => {
+  // return if it is an array and the array is not empty
+  return Array.isArray(arr) && arr.length > 0;
+};

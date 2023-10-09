@@ -1,8 +1,16 @@
 // A field is a data field and associated components (label, privacy shield, buttons, etc.)
 
-import { useQueryerQuery, TypeQueryerResult } from "./queryer";
-import { ViewShieldContainer, ViewShieldMask} from "./shield";
-import { ViewContainerStatic, ViewContainerRow } from "./container";
+import {
+  useQueryerClient,
+  useQueryerQuery,
+  TypeQueryerResult,
+} from "./queryer";
+import { ViewShieldButton, ViewShieldMask } from "./shield";
+import {
+  ViewContainerStatic,
+  ViewContainerRow,
+  ViewContainerScroll,
+} from "./container";
 import { ViewFileUpload } from "./file";
 import { ViewIconMain } from "./icon";
 import { ViewButtonPressable } from "./button";
@@ -18,20 +26,31 @@ import {
   ViewTypographyTextthemed,
   ViewTypographyLabel,
 } from "./typography";
+import { useState } from "react";
 
-// MAIN
+// DYNAMIC
 
 // A component that displays the correct field component dynamically.
-export const ViewFieldMain = ({ item, formname, entityid }: TypeFieldMain) => {
-  // Get the state showing whether the shield (privacy mask) is toggled on:
+export const ViewFieldDynamic = ({
+  item,
+  formname,
+  queryId,
+}: TypeFieldDynamic) => {
+  // a useState to hold any value change from the child field (which then automatically runs fieldSet if it changes)
+  // console.log(fieldState);
+  // const [valueState, valueSet] = useState(item.value);
+  // Get the state for the field:
   const fieldState = useFieldState([
     formname,
-    entityid,
+    queryId,
     item.label,
   ]) as TypeFieldState;
+  // get the set function to upate the state:
+  const fieldSet = useFieldSet([formname, queryId, item.label]);
   // Dynamically decide on a field component (Richtext, Integer, Text etc.) from the item's 'component' property:
   const Component =
-    mapFieldComponents[item.component] || mapFieldComponents["invalid"]; // this may benefit from usecallback or memoization of some sort?
+    mapFieldComponents[item.component as string] ||
+    mapFieldComponents["invalid"]; // this may benefit from usecallback or memoization of some sort?
   return (
     <ViewContainerRow style={{ margin: 5 }}>
       <ViewTypographyLabel
@@ -43,37 +62,40 @@ export const ViewFieldMain = ({ item, formname, entityid }: TypeFieldMain) => {
       <ViewContainerRow style={{ flex: 2, borderWidth: 1 }}>
         {fieldState?.data?.shieldIndividual ? (
           // If the universal or individual shields are on, obfuscate the field
-          <ViewShieldMask/>
+          <ViewShieldMask />
         ) : (
           // Else show the field
-          <Component valueDefault={item.value} />
+          <Component
+            state={(fieldState?.data as any)?.value}
+            set={fieldSet}
+            valueDefault={item.value} // remove these once in state
+            valueOptions={item.valueOptions} // remove these once in state
+          />
         )}
       </ViewContainerRow>
       <ViewFieldReset
         style={{ borderWidth: 1, borderLeftWidth: 0, borderRightWidth: 0 }}
       />
-      <ViewShieldContainer
-        id={[formname, entityid, item.label]}
-        style={{ borderWidth: 1, borderLeftWidth: 0 }}
+      <ViewShieldButton
+        id={[formname, queryId, item.label]}
+        style={{ borderWidth: 1 }}
       />
     </ViewContainerRow>
   );
 };
 
-export type TypeFieldMain = {
-  item: TypeFieldItem;
+export type TypeFieldDynamic = {
   formname: string;
-  entityid: string;
-};
-
-export type TypeFieldItem = {
-  [x: string]: any; // catch-all (fields are dynamic)
-  label: string;
-  value?: any;
-  valueDefault?: any;
-  placeholder?: any;
-  options?: any[];
-  component?: any; // type of field, e.g. ViewInputText
+  queryId: string;
+  item: {
+    label: string;
+    value?: any;
+    valueDefault?: any;
+    placeholder?: any;
+    options?: any[];
+    component?: string; // type of field, e.g. ViewInputText
+    [x: string]: any; // catch-all (fields are dynamic)
+  };
 };
 
 // A default component if a 'field' wasn't specified for a field
@@ -145,7 +167,7 @@ export const ViewFieldInput = ({ valueDefault, secure }: any) => {
         padding: 5,
         backgroundColor: "white",
       }}
-      defaultValue={valueDefault}
+      defaultValue={valueDefault?.toString()}
     />
   );
 };
@@ -158,14 +180,20 @@ export const ViewFieldRelationship = ({ valueDefault, secure }: any) => {
     </ViewTypographyTextthemed>
   );
 };
+
 // A non-editable text field
-export const ViewFieldPicker = ({ valueDefault, secure }: any) => {
+export const ViewFieldPicker = ({
+  valueDefault,
+  valueOptions,
+  secure,
+}: any) => {
   return (
     <ViewTypographyTextthemed style={{ color: "blue" }}>
       ['PICKER:']{valueDefault}
     </ViewTypographyTextthemed>
   );
 };
+
 // A non-editable text field
 export const ViewFieldRichtext = ({ valueDefault, secure }: any) => {
   return <ViewInputRichmain defaultValue={valueDefault} />;
@@ -234,6 +262,36 @@ export const ViewFieldButton = ({ valueDefault, secure }: any) => {
   );
 };
 
+// Button
+export const ViewFieldButtongroup = ({
+  valueDefault,
+  valueOptions,
+  state,
+  set,
+}: any) => {
+  return (
+    <ViewContainerScroll horizontal style={{ padding: 2 }}>
+      {valueOptions?.map((x: any, i: string) => (
+        <ViewButtonPressable
+          key={i}
+          onPress={() => {
+            set(() => x);
+          }}
+          style={{
+            flexDirection: "row",
+            margin: 5,
+            backgroundColor: x === state ? "gray" : "lightblue", //change to look at the state/cache
+            height: 35,
+            padding: 5,
+          }}
+        >
+          <ViewTypographyText>{x}</ViewTypographyText>
+        </ViewButtonPressable>
+      ))}
+    </ViewContainerScroll>
+  );
+};
+
 // COMPONENTS
 
 // An object with the available field components
@@ -244,12 +302,14 @@ export const mapFieldComponents: any = {
   files: ViewFieldFilepickerandlist,
   input: ViewFieldInput,
   relationship: ViewFieldRelationship,
-  richtext: ViewFieldRichtext,
+  // richtext: ViewFieldRichtext, // todo
+  richtext: ViewFieldInvalid,
   picker: ViewFieldPicker,
   numeric: ViewFieldDecimal, // change all values in attributes table to 'decimal' then change the name here too.
   integer: ViewFieldInteger,
   datetime: ViewFieldDatetime,
   button: ViewFieldButton,
+  buttongroup: ViewFieldButtongroup,
   dropdown: ViewTypographyText,
   toggles: ViewTypographyText,
 };
@@ -275,7 +335,7 @@ export const ViewFieldReset = ({ id, style }: any) => {
       }}
       // onPress={() => UPDATE THE FIELD STATE HERE BACK TO ITS DEFAULT VALUE}
       // onPress={() => UPDATE THE FIELD STATE HERE BACK TO ITS DEFAULT VALUE}
-      >
+    >
       <ViewIconMain name={"clear"} source={"MaterialIcons"} color={"white"} />
     </ViewButtonPressable>
   );
@@ -310,6 +370,23 @@ export type TypeFieldState = TypeQueryerResult & {
     valueCurrent: any; // the current value for the field (if different to the valueDefault)
     shieldUniversal?: string; // whether the shield is on or off app-wide
     shieldIndividual?: string; //  whether the shield is on or off on the field
-    shieldPrevious?: string; // to be used when reverting the shield to the previous state (if the universal shield was enabled)
+    shieldPrevious?: string; // what to revert the shield back to if universal shield is disabled
   };
 };
+
+// SET
+
+// Set field properties of the field useQuery
+export const useFieldSet = (id: string[]) => {
+  const queryClient = useQueryerClient();
+  return (setValueFunction: () => any) => {
+    const value = setValueFunction();
+    queryClient.setQueryData(["field"].concat(id), (oldData: any) => {
+      console.log("useFieldSet", oldData, value);
+      return {
+        ...oldData,
+        value: value,
+      };
+    });
+  };
+}

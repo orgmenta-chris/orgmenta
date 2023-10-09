@@ -1,5 +1,3 @@
-import { string } from './string'
-
 export const arrayDeclarationTypes: {
   id: string;
   declaration_type: string;

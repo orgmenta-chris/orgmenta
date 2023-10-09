@@ -1,6 +1,7 @@
-
-import { ViewContainerStatic, ViewContainerScroll } from "./container";
+import { ViewContainerStatic, ViewContainerRow } from "./container";
 import { ViewTypographyText } from "./typography";
+import { ViewButtonPressable } from "./button";
+import { ViewInputText, TypeInputText } from "./input";
 import { UtilityPlatformMain } from "./platform";
 import {
   InputHTMLAttributes,
@@ -27,24 +28,13 @@ import {
   ColumnDef,
   flexRender,
 } from "@tanstack/react-table";
-
 import {
   RankingInfo,
   rankItem,
   compareItems,
 } from "@tanstack/match-sorter-utils";
-
 import { faker } from "@faker-js/faker";
-
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  FlatList,
-  Pressable,
-} from "react-native";
-
+import { Button, FlatList } from "react-native";
 
 // CONTAINER
 
@@ -127,7 +117,6 @@ export const ViewTableContainer = (props: any) => {
   );
 };
 
-
 // TableTabs (Temp)
 
 // 'Table Tabs' will be a subcomponent of 'Table' (like 'Table Footer' and'Table Header' are table subcomponents )
@@ -140,7 +129,6 @@ export const ViewTableTabs = (props: any) => {
     <ViewTypographyText>["Area","Event","Contact","etc."]</ViewTypographyText>
   );
 };
-
 
 // fake data to use in our table view
 
@@ -267,9 +255,9 @@ export const DebouncedInput = ({
     );
   } else {
     return (
-      <TextInput
-        {...props}
-        value={value.toString()} // Convert to string for TextInput value
+      <ViewInputText
+        {...(props as TypeInputText)} // use type casting to avoid type mismatch
+        value={value.toString()} // Convert to string for ViewInputText value
         onChangeText={(text) => setValue(text)} // Use onChangeText instead of onChange
       />
     );
@@ -360,8 +348,8 @@ export const Filter = ({
     );
   } else {
     return typeof firstValue === "number" ? (
-      <View>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <ViewContainerStatic>
+        <ViewContainerRow style={{ justifyContent: "space-between" }}>
           <DebouncedInput
             type="numeric" // Set type for numeric input
             value={(columnFilterValue as [number, number])?.[0] ?? ""}
@@ -394,19 +382,19 @@ export const Filter = ({
             }`}
             style={{ width: 80, borderWidth: 1, borderRadius: 5, padding: 5 }}
           />
-        </View>
-        <View style={{ height: 1 }} />
-      </View>
+        </ViewContainerRow>
+        <ViewContainerStatic style={{ height: 1 }} />
+      </ViewContainerStatic>
     ) : (
       <>
-        <TextInput
+        <ViewInputText
           value={(columnFilterValue ?? "") as string}
           onChangeText={(text) => column.setFilterValue(text)} // Use onChangeText for text input
           placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
           style={{ width: 120, borderWidth: 1, borderRadius: 5, padding: 5 }}
           // list={column.id + "list"} // React Native doesn't have datalist, so you may need a custom solution
         />
-        <View style={{ height: 1 }} />
+        <ViewContainerStatic style={{ height: 1 }} />
       </>
     );
   }
@@ -457,14 +445,14 @@ const TableViewWeb = (props: any) => {
 
   return (
     <div className="p-2">
-      <div>
+      <ViewContainerStatic>
         <DebouncedInput
           value={globalFilter ?? ""}
           onChange={(value) => setGlobalFilter(String(value))}
           className="p-2 font-lg shadow border border-block"
           placeholder="Search all columns..."
         />
-      </div>
+      </ViewContainerStatic>
       <div className="h-2" />
       <table>
         <thead>
@@ -640,8 +628,8 @@ const TableViewMobile = (props: any) => {
   }, [table.getState().columnFilters[0]?.id]);
 
   return (
-    <View style={{ padding: 2 }}>
-      <View>
+    <ViewContainerStatic style={{ padding: 2 }}>
+      <ViewContainerStatic>
         <DebouncedInput
           value={globalFilter ?? ""}
           onChange={(value) => setGlobalFilter(String(value))}
@@ -653,31 +641,30 @@ const TableViewMobile = (props: any) => {
           }}
           placeholder="Search all columns..."
         />
-      </View>
-      <View style={{ height: 2 }} />
+      </ViewContainerStatic>
+      <ViewContainerStatic style={{ height: 2 }} />
       {/* Use FlatList to render your table */}
       <FlatList
         data={table.getRowModel().rows}
         keyExtractor={(row) => row.id.toString()}
         renderItem={({ item: row }) => (
-          <View key={row.id}>
+          <ViewContainerStatic key={row.id}>
             {row.getVisibleCells().map((cell) => (
-              <Text key={cell.id}>
+              <ViewTypographyText key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </Text>
+              </ViewTypographyText>
             ))}
-          </View>
+          </ViewContainerStatic>
         )}
       />
-      <View style={{ height: 2 }} />
-      <View
+      <ViewContainerStatic style={{ height: 2 }} />
+      <ViewContainerRow
         style={{
-          flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <Pressable
+        <ViewButtonPressable
           style={({ pressed }) => ({
             borderColor: pressed ? "gray" : "black",
             borderWidth: 1,
@@ -687,9 +674,9 @@ const TableViewMobile = (props: any) => {
           onPress={() => table.setPageIndex(0)}
           disabled={!table.getCanPreviousPage()}
         >
-          <Text>{"<<"}</Text>
-        </Pressable>
-        <Pressable
+          <ViewTypographyText>{"<<"}</ViewTypographyText>
+        </ViewButtonPressable>
+        <ViewButtonPressable
           style={({ pressed }) => ({
             borderColor: pressed ? "gray" : "black",
             borderWidth: 1,
@@ -699,9 +686,9 @@ const TableViewMobile = (props: any) => {
           onPress={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          <Text>{"<"}</Text>
-        </Pressable>
-        <Pressable
+          <ViewTypographyText>{"<"}</ViewTypographyText>
+        </ViewButtonPressable>
+        <ViewButtonPressable
           style={({ pressed }) => ({
             borderColor: pressed ? "gray" : "black",
             borderWidth: 1,
@@ -711,9 +698,9 @@ const TableViewMobile = (props: any) => {
           onPress={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          <Text>{">"}</Text>
-        </Pressable>
-        <Pressable
+          <ViewTypographyText>{">"}</ViewTypographyText>
+        </ViewButtonPressable>
+        <ViewButtonPressable
           style={({ pressed }) => ({
             borderColor: pressed ? "gray" : "black",
             borderWidth: 1,
@@ -723,15 +710,17 @@ const TableViewMobile = (props: any) => {
           onPress={() => table.setPageIndex(table.getPageCount() - 1)}
           disabled={!table.getCanNextPage()}
         >
-          <Text>{">>"}</Text>
-        </Pressable>
-        <Text>
+          <ViewTypographyText>{">>"}</ViewTypographyText>
+        </ViewButtonPressable>
+        <ViewTypographyText>
           Page {table.getState().pagination.pageIndex + 1} of{" "}
           {table.getPageCount()} |
-        </Text>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text> Go to page:</Text>
-          <TextInput
+        </ViewTypographyText>
+        <ViewContainerRow
+          style={{ alignItems: "center" }}
+        >
+          <ViewTypographyText> Go to page:</ViewTypographyText>
+          <ViewInputText
             value={(table.getState().pagination.pageIndex + 1).toString()}
             onChangeText={(text) => {
               const page = text ? Number(text) - 1 : 0;
@@ -739,17 +728,19 @@ const TableViewMobile = (props: any) => {
             }}
             style={{ borderWidth: 1, borderRadius: 5, padding: 5, width: 50 }}
           />
-        </View>
-        <TextInput
+        </ViewContainerRow>
+        <ViewInputText
           value={table.getState().pagination.pageSize.toString()}
           onChangeText={(text) => {
             table.setPageSize(Number(text));
           }}
           style={{ borderWidth: 1, borderRadius: 5, padding: 5, width: 80 }}
         />
-      </View>
-      <Text>{table.getPrePaginationRowModel().rows.length} Rows</Text>
-      <Pressable
+      </ViewContainerRow>
+      <ViewTypographyText>
+        {table.getPrePaginationRowModel().rows.length} Rows
+      </ViewTypographyText>
+      <ViewButtonPressable
         style={({ pressed }) => ({
           borderColor: pressed ? "gray" : "black",
           borderWidth: 1,
@@ -758,9 +749,9 @@ const TableViewMobile = (props: any) => {
         })}
         onPress={() => rerender()}
       >
-        <Text>Force Rerender</Text>
-      </Pressable>
-      <Pressable
+        <ViewTypographyText>Force Rerender</ViewTypographyText>
+      </ViewButtonPressable>
+      <ViewButtonPressable
         style={({ pressed }) => ({
           borderColor: pressed ? "gray" : "black",
           borderWidth: 1,
@@ -769,9 +760,9 @@ const TableViewMobile = (props: any) => {
         })}
         onPress={() => refreshData()}
       >
-        <Text>Refresh Data</Text>
-      </Pressable>
-    </View>
+        <ViewTypographyText>Refresh Data</ViewTypographyText>
+      </ViewButtonPressable>
+    </ViewContainerStatic>
   );
 };
 
@@ -831,9 +822,9 @@ const TableViewCombined = (props: any) => {
     }
   }, [table.getState().columnFilters[0]?.id]);
   return (
-    <View style={{ padding: 8 }}>
-      <View>
-        <TextInput
+    <ViewContainerStatic style={{ padding: 8 }}>
+      <ViewContainerStatic>
+        <ViewInputText
           value={globalFilter ?? ""}
           onChangeText={(value) => setGlobalFilter(String(value))}
           style={{
@@ -844,53 +835,60 @@ const TableViewCombined = (props: any) => {
           }}
           placeholder="Search all columns..."
         />
-      </View>
-      <View style={{ height: 8 }} />
+      </ViewContainerStatic>
+      <ViewContainerStatic style={{ height: 8 }} />
       {/* ... Table code */}
-      <View
+      <ViewContainerRow
         style={{
-          flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
         }}
       >
-        <View style={{ borderWidth: 1, borderRadius: 4, padding: 8 }}>
+        <ViewContainerStatic
+          style={{ borderWidth: 1, borderRadius: 4, padding: 8 }}
+        >
           <Button
             title="<<"
             onPress={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
           />
-        </View>
-        <View style={{ borderWidth: 1, borderRadius: 4, padding: 8 }}>
+        </ViewContainerStatic>
+        <ViewContainerStatic
+          style={{ borderWidth: 1, borderRadius: 4, padding: 8 }}
+        >
           <Button
             title="<"
             onPress={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           />
-        </View>
+        </ViewContainerStatic>
 
-        <View style={{ borderWidth: 1, borderRadius: 4, padding: 8 }}>
+        <ViewContainerStatic
+          style={{ borderWidth: 1, borderRadius: 4, padding: 8 }}
+        >
           <Button
             title=">"
             onPress={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           />
-        </View>
-        <View style={{ borderWidth: 1, borderRadius: 4, padding: 8 }}>
+        </ViewContainerStatic>
+        <ViewContainerStatic
+          style={{ borderWidth: 1, borderRadius: 4, padding: 8 }}
+        >
           <Button
             title=">>"
             onPress={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
           />
-        </View>
+        </ViewContainerStatic>
         {/* ... (Other buttons and controls) */}
-      </View>
-      <View>
+      </ViewContainerRow>
+      <ViewContainerStatic>
         <Button onPress={() => rerender()} title="Force Rerender" />
-      </View>
-      <View>
+      </ViewContainerStatic>
+      <ViewContainerStatic>
         <Button onPress={() => refreshData()} title="Refresh Data" />
-      </View>
-    </View>
+      </ViewContainerStatic>
+    </ViewContainerStatic>
   );
 };

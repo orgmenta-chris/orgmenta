@@ -1,22 +1,42 @@
 // Manage notifications (/alerts) across all platforms
 
+import { UtilityConstantsMain } from "./constant";
+import { ViewContainerStatic } from "./container";
+import { ViewTypographyText } from "./typography";
+import { ViewButtonPressable } from "./button";
+import { UtilityPlatformMain } from "./platform";
+import { UtilityDeviceMain } from "./device";
 import React, { useState, useEffect, useRef } from "react";
-import { Text, View, Button, Platform } from "react-native";
-import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-import Constants from "expo-constants";
+// import Constants from "expo-constants";
+// import * as Device from "expo-device";
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-  }),
-});
+// HANDLER
 
-const registerForPushNotificationsAsync = async () => {
+export const createNotificationHandler = () => {
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+    }),
+  });
+};
+createNotificationHandler();
+// above was converted from:
+// Notifications.setNotificationHandler({
+//   handleNotification: async () => ({
+//     shouldShowAlert: true,
+//     shouldPlaySound: true,
+//     shouldSetBadge: true,
+//   }),
+// });
+
+// REGISTER
+
+export const asyncNotificationRegister = async () => {
   let token;
-  if (Platform.OS === "android") {
+  if (UtilityPlatformMain.OS === "android") {
     await Notifications.setNotificationChannelAsync("default", {
       name: "default",
       importance: Notifications.AndroidImportance.MAX,
@@ -24,7 +44,7 @@ const registerForPushNotificationsAsync = async () => {
       lightColor: "#FF231F7C",
     });
   }
-  if (Device.isDevice) {
+  if (UtilityDeviceMain.isDevice) {
     const { status: existingStatus } =
       await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
@@ -36,12 +56,11 @@ const registerForPushNotificationsAsync = async () => {
       alert("Failed to get push token for push notification!");
       return;
     }
-    // Learn more about projectId:
-    // https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
+    // Learn more about projectId: https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
     token = (
       await Notifications.getExpoPushTokenAsync({
         // @ts-ignore
-        projectId: Constants.expoConfig.extra.eas.projectId,
+        projectId: UtilityConstantsMain.expoConfig.extra.eas.projectId,
       })
     ).data;
     // console.log(token);
@@ -51,7 +70,9 @@ const registerForPushNotificationsAsync = async () => {
   return token;
 };
 
-export const schedulePushNotification = async (props: any) => {
+// SCHEDULE
+
+export const asyncNotificationSchedule = async (props: any) => {
   const { title, body, data } = props;
   await Notifications.scheduleNotificationAsync({
     content: {
@@ -68,16 +89,16 @@ export interface TypeNotificationBody {
   CustomNotificationBody?: React.ComponentType<any>;
 }
 
-export const UseNotification = (props: TypeNotificationBody) => {
+// EXAMPLE
+
+export const ViewNotificationExample = (props: TypeNotificationBody) => {
   const { testMode, CustomNotificationBody } = props;
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
   useEffect(() => {
-    registerForPushNotificationsAsync().then((token: any) =>
-      setExpoPushToken(token)
-    );
+    asyncNotificationRegister().then((token: any) => setExpoPushToken(token));
     // @ts-ignore
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification: any) => {
@@ -99,7 +120,7 @@ export const UseNotification = (props: TypeNotificationBody) => {
   }, []);
   if (testMode === true && !CustomNotificationBody) {
     return (
-      <View
+      <ViewContainerStatic
         style={{
           flex: 1,
           alignItems: "center",
@@ -107,47 +128,56 @@ export const UseNotification = (props: TypeNotificationBody) => {
           padding: 16,
         }}
       >
-        <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+        <ViewTypographyText style={{ fontSize: 24, fontWeight: "bold" }}>
           Push Notification Example
-        </Text>
-        <Text>Your expo push token:</Text>
-        <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 10 }}>
+        </ViewTypographyText>
+        <ViewTypographyText>Your expo push token:</ViewTypographyText>
+        <ViewTypographyText
+          style={{ fontSize: 18, fontWeight: "bold", marginTop: 10 }}
+        >
           {expoPushToken}
-        </Text>
-        <View style={{ alignItems: "center", justifyContent: "center" }}>
-          <Text style={{ fontSize: 16, fontWeight: "bold", marginTop: 20 }}>
+        </ViewTypographyText>
+        <ViewContainerStatic
+          style={{ alignItems: "center", justifyContent: "center" }}
+        >
+          <ViewTypographyText
+            style={{ fontSize: 16, fontWeight: "bold", marginTop: 20 }}
+          >
             Title:{" "}
             {
               // @ts-ignore
               notification && notification.request.content.title
             }
-          </Text>
-          <Text style={{ fontSize: 16, marginTop: 10 }}>
+          </ViewTypographyText>
+          <ViewTypographyText style={{ fontSize: 16, marginTop: 10 }}>
             Body:{" "}
             {
               // @ts-ignore
               notification && notification.request.content.body
             }
-          </Text>
-          <Text style={{ fontSize: 16, marginTop: 10 }}>
+          </ViewTypographyText>
+          <ViewTypographyText style={{ fontSize: 16, marginTop: 10 }}>
             Data:{" "}
             {
               // @ts-ignore
               notification && JSON.stringify(notification.request.content.data)
             }
-          </Text>
-        </View>
-        <Button
-          title="Press to schedule a notification"
+          </ViewTypographyText>
+        </ViewContainerStatic>
+        <ViewButtonPressable
           onPress={async () => {
-            await schedulePushNotification({
+            await asyncNotificationSchedule({
               title: "You've got mail! 📬",
               body: "Here is the notification body",
               data: { data: "goes here" },
             });
           }}
-        />
-      </View>
+        >
+          <ViewTypographyText>
+            Press to schedule a notification
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      </ViewContainerStatic>
     );
   }
   if (testMode === false && CustomNotificationBody) {
@@ -155,18 +185,22 @@ export const UseNotification = (props: TypeNotificationBody) => {
   }
 };
 
+// REFRESH
 
-export const RefreshButton = () => {
+export const ViewNotificationRefresh = () => {
   const scheduleAndReload = () => {
     Notifications.scheduleNotificationAsync({
       content: {
-        title: 'Refresh',
-        body: 'Press to refresh the app',
+        title: "Refresh",
+        body: "Press to refresh the app",
       },
       trigger: null,
     });
     window.location.reload();
   };
-
-  return <Button title="Send Refresh Notification" onPress={scheduleAndReload} />;
+  return (
+    <ViewButtonPressable onPress={scheduleAndReload}>
+      <ViewTypographyText>Send Refresh Notification</ViewTypographyText>
+    </ViewButtonPressable>
+  );
 };

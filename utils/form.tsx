@@ -1,13 +1,13 @@
 import { ViewContainerScroll } from "./container";
 import { ViewTypographyText } from "./typography";
 import { ViewFieldMain, TypeFieldMain } from "./field";
-import { ReactNode } from "react";
+import { TypeReactNode } from "./react";
 
 // CONTAINER
 
 export interface interfaceFormContainer {
   title?: string;
-  children?: ReactNode;
+  children?: TypeReactNode;
   data?: TypeFieldMain;
 }
 
@@ -29,8 +29,6 @@ export const ViewFormContainer = ({
 
 // A form that shows the correct field type based on a field property in each object
 export const ViewFormDynamic = ({ data, title, formname }: any) => {
-  // console.log(data)
-  // console.log(formname)
   return (
     <ViewFormContainer>
       {!data && (
@@ -55,7 +53,7 @@ export const ViewFormDynamic = ({ data, title, formname }: any) => {
   );
 };
 
-// BUTTONS TODO
+// BUTTONS (TODO)
 // Make a button set (clear/reset, cancel, save) for the forms
 export const ViewFormButtons = ({ data, title }: any) => {
   return (

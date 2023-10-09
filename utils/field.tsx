@@ -1,6 +1,7 @@
 // A field is a data field and associated components (label, privacy shield, buttons, etc.)
 
-import { ViewShieldContainer, useShieldState, TypeShieldState } from "./shield";
+import { useQueryerQuery, TypeQueryerResult } from "./queryer";
+import { ViewShieldContainer, ViewShieldMask} from "./shield";
 import { ViewContainerStatic, ViewContainerRow } from "./container";
 import { ViewFileUpload } from "./file";
 import { ViewIconMain } from "./icon";
@@ -23,11 +24,11 @@ import {
 // A component that displays the correct field component dynamically.
 export const ViewFieldMain = ({ item, formname, entityid }: TypeFieldMain) => {
   // Get the state showing whether the shield (privacy mask) is toggled on:
-  const shieldState = useShieldState([
+  const fieldState = useFieldState([
     formname,
     entityid,
     item.label,
-  ]) as TypeShieldState;
+  ]) as TypeFieldState;
   // Dynamically decide on a field component (Richtext, Integer, Text etc.) from the item's 'component' property:
   const Component =
     mapFieldComponents[item.component] || mapFieldComponents["invalid"]; // this may benefit from usecallback or memoization of some sort?
@@ -40,21 +41,19 @@ export const ViewFieldMain = ({ item, formname, entityid }: TypeFieldMain) => {
         {item?.label || "[No label found]"}:{" "}
       </ViewTypographyLabel>
       <ViewContainerRow style={{ flex: 2, borderWidth: 1 }}>
-        {!shieldState?.data?.shield ? (
+        {!fieldState?.data?.shield && !fieldState?.data?.shieldDefault ? (
+          // If the universal shield is off and the specific individual shield is off, show the field.F
           <Component defaultValue={item.value} />
         ) : (
-          <ViewContainerStatic style={{ flex: 1, backgroundColor: "gray" }} />
+          // Else show the shield (privacy mask)
+          <ViewShieldMask/>
         )}
       </ViewContainerRow>
       <ViewFieldReset
         style={{ borderWidth: 1, borderLeftWidth: 0, borderRightWidth: 0 }}
       />
       <ViewShieldContainer
-        id={[
-          formname,
-          entityid,
-          item.label,
-        ]}
+        id={[formname, entityid, item.label]}
         style={{ borderWidth: 1, borderLeftWidth: 0 }}
       />
     </ViewContainerRow>
@@ -258,15 +257,22 @@ export const mapFieldComponents: any = {
 // A list of the component names
 export const arrayFieldComponents = Object.keys(mapFieldComponents);
 
-export const ViewFieldReset = ({ state, set, style }: any) => {
+// RESET (TODO)
+
+// A button to clear the field value back to its original value
+export const ViewFieldReset = ({ id, style }: any) => {
+  const fieldState = useFieldState(id) as TypeFieldState;
   return (
     <ViewButtonPressable
       style={{
         padding: 5,
-        backgroundColor: state ? "gray" : "lightgray",
+        backgroundColor:
+          fieldState?.data?.defaultValue === fieldState?.data?.currentValue
+            ? "gray"
+            : "lightgray",
         ...style,
       }}
-      onPress={() => set((old: boolean) => !old)}
+      // onPress={() => set((old: boolean) => !old)}
     >
       <ViewIconMain name={"clear"} source={"MaterialIcons"} color={"white"} />
     </ViewButtonPressable>
@@ -282,4 +288,25 @@ export const ViewFieldTabs = ({ id }: any) => {
       {/*  todo (a component that allows you to switch between field components) */}
     </ViewContainerRow>
   );
+};
+
+// STATE
+
+// Stores the properties and values of a field
+export const useFieldState = (id: string[]) => {
+  return useQueryerQuery({
+    queryKey: ["field"].concat(id), // construct the queryKey
+    queryFn: () => null, // No function necessary (as we just want an empty state/cache to use)
+    staleTime: Infinity, // This means the data will never become stale automatically
+    refetchOnWindowFocus: false, // Make sure the state won't reset when tabbing in and out of the app
+  });
+};
+
+export type TypeFieldState = TypeQueryerResult & {
+  data: {
+    defaultValue: string; // the original value for the field
+    currentValue: string; // the current value for the field (if different to the defaultValue)
+    shield?: string; // whether the shield is on or off on the field
+    shieldDefault?: string; // to be used when reverting the shield to the previous state (if the universal shield was enabled)
+  };
 };

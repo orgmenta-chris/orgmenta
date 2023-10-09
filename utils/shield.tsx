@@ -5,11 +5,8 @@ import { ViewContainerStatic } from "./container";
 import { ViewTypographySubsubheading, ViewTypographyText } from "./typography";
 import { ViewButtonPressable } from "./button";
 import { ViewIconMain } from "./icon";
-import {
-  useQueryerClient,
-  useQueryerQuery,
-  TypeQueryerResult,
-} from "./queryer";
+import { useFieldState, TypeFieldState } from "./field";
+import { useQueryerClient } from "./queryer";
 import { useState } from "react";
 
 // CONTAINER
@@ -25,18 +22,18 @@ export const ViewShieldContainer = ({ id }: any) => {
 // (Chris needs to ensure this doesn't cause performance issues - fields cannot look at the same query else they will all constantly update.)
 // (therefore, we need to use a seperate query key for each field - and if 'all' is toggled with the shield, then the function should update ALL the query keys that exist (and are currently active).
 export const ViewShieldButton = ({ id }: { id: string[] }) => {
-  const state = useShieldState(id);
+  const state = useFieldState(id) as TypeFieldState;
   const set = useShieldSet(id);
   return (
     <ViewButtonPressable
       style={{
         padding: 5,
-        backgroundColor: (state?.data as any)?.shield ? "gray" : "lightgray",
+        backgroundColor: state?.data?.shield ? "gray" : "lightgray",
       }}
       onPress={set}
     >
       <ViewIconMain
-        name={(state?.data as any)?.shield ? "shield" : "shield-off"}
+        name={state?.data?.shield ? "shield" : "shield-off"}
         source={"Feather"}
         color={"white"}
       />
@@ -58,26 +55,10 @@ export const useShieldSet = (id: string[]) => {
   };
 };
 
-// STATE
-
-// Get the privacy state of fields
-//(MAYBE MOVE THIS INTO THE ACTUAL FIELD'S STATE (CREATE IN  FIELD.TSX) RATHER THAN HAVING A SEPARATE CACHE?) <-- Shouldn't impact perforamnce measurably, and would keep the field's stuff all in one place.
-export const useShieldState = (id: string[]) => {
-  return useQueryerQuery({
-    queryKey: ["field"].concat(id), // construct the queryKey
-    queryFn: () => null, // No function necessary (as we just want an empty state/cache to use)
-    staleTime: Infinity, // This means the data will never become stale automatically
-    refetchOnWindowFocus: false, // Make sure the state won't reset when tabbing in and out of the app
-  });
-};
-
-export type TypeShieldState = TypeQueryerResult & {
-  data?: { shield?: string };
-};
-
 // UNIVERSAL
 
 // A component to toggle shields across all active fields in the app.
+// TODO: if toggling shield OFF, this should revert the shield back to the DEFUALT value instead of just false.
 export const ViewShieldUniversal = () => {
   const [allState, allSet] = useState(false); // whether the shield is applied universally
   const set = useShieldUniversal(!allState);
@@ -156,4 +137,11 @@ export const useShieldUniversal = (allState: any) => {
         });
       });
   };
+};
+
+// MASK
+
+// The actual shield / cover / mask for the field (if shield is on, then show this redacted field instead of the actual field)
+export const ViewShieldMask = () => {
+  return <ViewContainerStatic style={{ flex: 1, backgroundColor: "gray" }} />;
 };

@@ -1,5 +1,5 @@
 import { useWindowDimensions } from "./window";
-import { ViewModalMain } from "./modal";
+import { ViewModalContainer } from "./modal";
 import {
   Calendar,
   CalendarProps,
@@ -31,14 +31,14 @@ import { useState, ReactElement } from "react";
 export const ViewCalendarContainer = ({ events }: any) => {
   events = examplesCalendarEvent; // testing
   const windowDimensions = useWindowDimensions();
-  const ControlPanel = windowDimensions.width < 768 ? ViewModalMain : View; // Note for Chris as reminder: maybe use this instead of the conditional below, if props play nice with the two types. OR, make ViewModalMain have an inline type.
+  const ControlPanel = windowDimensions.width < 768 ? ViewModalContainer : View; // Note for Chris as reminder: maybe use this instead of the conditional below, if props play nice with the two types. OR, make ViewModalContainer have an inline type.
   return (
     <View
       key={"container"}
       style={{ height: "100%", width: "100%", flexDirection: "row" }}
     >
       {windowDimensions.width < 768 ? (
-        <ViewModalMain>
+        <ViewModalContainer>
           <ViewCalendarButtons />
           <View style={{ height: 200, margin: 10 }}>
             <ViewCalendarPicker />
@@ -46,7 +46,7 @@ export const ViewCalendarContainer = ({ events }: any) => {
           <View style={{ flex: 1, margin: 10 }}>
             <ViewCalendarCalendars />
           </View>
-        </ViewModalMain>
+        </ViewModalContainer>
       ) : (
         <View key={"left-panel"} style={{ flex: 1, width: 100, margin: 20 }}>
           <ViewCalendarButtons />

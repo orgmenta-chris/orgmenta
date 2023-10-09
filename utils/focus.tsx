@@ -1,6 +1,7 @@
 // A 'Focus' is the primary entity being studied / viewed
 
-import { View, Text } from "react-native";
+import { ViewContainerStatic } from "./container";
+import { ViewTypographyText } from "./typography";
 import {
   ViewRouterLink,
   ViewRouterLinkthemed,
@@ -12,11 +13,11 @@ import { data } from "./static";
 
 export const ViewFocusMain = ({}: any) => {
   return (
-    <View style={{ flexDirection: "column" }}>
+    <ViewContainerStatic style={{ flexDirection: "column" }}>
       <ViewFocusHeader />
       {/* <ViewFocusInfo/>
       <ViewFocusTabs/> */}
-    </View>
+    </ViewContainerStatic>
   );
 };
 
@@ -32,7 +33,7 @@ export const ViewFocusHeader = () => {
   const grandparent = data?.find((c) => c.id === parent?.parent);
   const ggrandparent = data?.find((d) => d.id === grandparent?.parent);
   return (
-    <View
+    <ViewContainerStatic
       style={{
         flexDirection: "column",
         borderWidth: 1,
@@ -40,20 +41,20 @@ export const ViewFocusHeader = () => {
       }}
     >
       {/* Title of the current process (breadcrumbs) */}
-      <Text>
+      <ViewTypographyText>
         {ggrandparent?.id && ggrandparent?.id > 9 && (
           <>
             <ViewRouterLinkthemed
               style={{ fontSize: 20 }}
               to={"/entity/" + ggrandparent.nickname}
             >
-              <Text style={{ textDecorationLine: "underline", fontSize: 20 }}>
+              <ViewTypographyText style={{ textDecorationLine: "underline", fontSize: 20 }}>
                 {ggrandparent.display_singular}
-              </Text>
+              </ViewTypographyText>
             </ViewRouterLinkthemed>
-            <View>
-              <Text style={{ fontSize: 20 }}>{" > "}</Text>
-            </View>
+            <ViewContainerStatic>
+              <ViewTypographyText style={{ fontSize: 20 }}>{" > "}</ViewTypographyText>
+            </ViewContainerStatic>
           </>
         )}
         {grandparent?.id && grandparent?.id > 9 && (
@@ -62,13 +63,13 @@ export const ViewFocusHeader = () => {
               style={{ fontSize: 20 }}
               to={"/entity/" + grandparent.nickname}
             >
-              <Text style={{ textDecorationLine: "underline", fontSize: 20 }}>
+              <ViewTypographyText style={{ textDecorationLine: "underline", fontSize: 20 }}>
                 {grandparent.display_singular}
-              </Text>
+              </ViewTypographyText>
             </ViewRouterLinkthemed>
-            <View>
-              <Text style={{ fontSize: 20 }}>{" > "}</Text>
-            </View>
+            <ViewContainerStatic>
+              <ViewTypographyText style={{ fontSize: 20 }}>{" > "}</ViewTypographyText>
+            </ViewContainerStatic>
           </>
         )}
         {parent?.id && parent?.id > 9 && (
@@ -77,13 +78,13 @@ export const ViewFocusHeader = () => {
               style={{ fontSize: 20 }}
               to={"/entity/" + parent.nickname}
             >
-              <Text style={{ textDecorationLine: "underline", fontSize: 20 }}>
+              <ViewTypographyText style={{ textDecorationLine: "underline", fontSize: 20 }}>
                 {parent.display_singular}
-              </Text>
+              </ViewTypographyText>
             </ViewRouterLinkthemed>
-            <View>
-              <Text style={{ fontSize: 20 }}>{" > "}</Text>
-            </View>
+            <ViewContainerStatic>
+              <ViewTypographyText style={{ fontSize: 20 }}>{" > "}</ViewTypographyText>
+            </ViewContainerStatic>
           </>
         )}
         {process?.id && (
@@ -92,14 +93,14 @@ export const ViewFocusHeader = () => {
               style={{ fontSize: 20 }}
               to={"/entity/" + process.nickname}
             >
-              <Text style={{ fontSize: 20, color: "white" }}>
+              <ViewTypographyText style={{ fontSize: 20, color: "white" }}>
                 {process.display_singular}
-              </Text>
+              </ViewTypographyText>
             </ViewRouterLinkthemed>
           </>
         )}
-      </Text>
-    </View>
+      </ViewTypographyText>
+    </ViewContainerStatic>
   );
 };
 
@@ -116,7 +117,7 @@ export const ViewFocusInfo = () => {
   const parent = data?.find((y) => y.id === process?.parent);
   const grandparent = data?.find((z) => z.id === parent?.parent);
   return (
-    <View
+    <ViewContainerStatic
       style={{
         flexDirection: "column",
         borderWidth: 1,
@@ -124,21 +125,21 @@ export const ViewFocusInfo = () => {
         margin: 5,
       }}
     >
-      <View style={{ height: 40, backgroundColor: "lightgray" }}>
-        <Text style={{ fontSize: 16, fontStyle: "italic" }}>
+      <ViewContainerStatic style={{ height: 40, backgroundColor: "lightgray" }}>
+        <ViewTypographyText style={{ fontSize: 16, fontStyle: "italic" }}>
           {process?.description}
-        </Text>
-        <Text style={{ fontSize: 12 }}>{process?.summary}</Text>
-      </View>
-      {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
+        </ViewTypographyText>
+        <ViewTypographyText style={{ fontSize: 12 }}>{process?.summary}</ViewTypographyText>
+      </ViewContainerStatic>
+      {/* <ViewTypographyText style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
             {process.subheading}
-        </Text> */}
+        </ViewTypographyText> */}
       {/* TESTING */}
-      {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
+      {/* <ViewTypographyText style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
           {JSON.stringify({grandparent,parent,process,subprocesses},null,2)}
           {JSON.stringify({process},null,2)}
-      </Text> */}
-    </View>
+      </ViewTypographyText> */}
+    </ViewContainerStatic>
   );
 };
 
@@ -155,7 +156,7 @@ export const ViewFocusTabs = () => {
   const parent = data?.find((y) => y.id === process?.parent);
   const grandparent = data?.find((z) => z.id === parent?.parent);
   return (
-    <View
+    <ViewContainerStatic
       style={{
         flexDirection: "column",
         borderWidth: 1,
@@ -164,7 +165,7 @@ export const ViewFocusTabs = () => {
       }}
     >
       {/* Tabs for each subprocess */}
-      <View style={{ flexDirection: "row", height: 40 }}>
+      <ViewContainerStatic style={{ flexDirection: "row", height: 40 }}>
         {subprocesses?.map((x, i) => (
           <ViewRouterLink
             style={{ flex: 1 }}
@@ -174,12 +175,12 @@ export const ViewFocusTabs = () => {
             {x.display_singular}
           </ViewRouterLink>
         ))}
-      </View>
+      </ViewContainerStatic>
 
       {/* Info on the current process (move this into pods*/}
-      {/* <Text style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}> */}
+      {/* <ViewTypographyText style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}> */}
       {/* {JSON.stringify({division,department,process},null,2)} */}
-      {/* </Text> */}
-    </View>
+      {/* </ViewTypographyText> */}
+    </ViewContainerStatic>
   );
 };

@@ -3,3 +3,5 @@
 
 import * as Device from 'expo-device';
 
+
+export const UtilityDeviceMain = Device;

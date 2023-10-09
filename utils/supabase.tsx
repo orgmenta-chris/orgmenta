@@ -25,8 +25,11 @@ if (__DEV__) {
   supabaseURL = `${STAGING_SUPABASE_URL}`;
   supabaseAnonKey = `${STAGING_SUPABASE_PUBLIC_KEY}`;
 } else {
-  supabaseURL = `${PRODUCTION_SUPABASE_URL}`;
-  supabaseAnonKey = `${PRODUCTION_SUPABASE_PUBLIC_KEY}`;
+  // Testing if netlify issue is due to this
+  supabaseURL = `${STAGING_SUPABASE_URL}`;
+  supabaseAnonKey = `${STAGING_SUPABASE_PUBLIC_KEY}`;
+  // supabaseURL = `${PRODUCTION_SUPABASE_URL}`;
+  // supabaseAnonKey = `${PRODUCTION_SUPABASE_PUBLIC_KEY}`;
 }
 
 export const ExpoUtilityLocalSecurestoreAdapter = {

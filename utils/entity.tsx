@@ -5,7 +5,7 @@ import { ViewContainerStatic } from "./container";
 import { ViewTypographyText } from "./typography";
 import { ViewPageMain } from "./page";
 import { ViewDisplayDynamic } from "./display";
-import { ViewActionTabs } from "./action";
+import { ViewActionTabs, ViewActionPanels } from "./action";
 import { ViewFocusMain } from "./focus";
 import { useAuxiliaryArray } from "./auxiliary";
 import { useSpaceState, TypeSpaceState } from "./space";
@@ -42,6 +42,7 @@ export const ViewEntityPage = () => {
           display={routerPaths?.[3]}
         />
       </ViewContainerStatic>
+      <ViewActionPanels auxiliary={auxiliary} schema={schema} focus={focus} />
       {/* Show the actions tabs/links (e.g. add,edit,copy,delete,share etc.*/}
       <ViewActionTabs auxiliary={auxiliary} schema={schema} focus={focus} />
     </ViewPageMain>

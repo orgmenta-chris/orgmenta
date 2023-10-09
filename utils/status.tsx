@@ -4,7 +4,7 @@
 
 export const arrayStatusMain = [
   "0. New",
-  "1. Response",
+  "1. Response", // or respond / review
   "2. Active",
   "3. Waiting",
   "4. Hold",

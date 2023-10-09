@@ -1,37 +1,14 @@
-import React from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Text, View, Pressable } from "react-native";
 import { ViewIconMain } from "./icon";
 import { getHeaderDimensions } from "./header";
-// import { getStatusbarDimensions } from "./statusbar";
-// import { useWindowDimensions } from "./window";
+import { ViewContainerStatic } from "./container";
+import { ViewTypographyText } from "./typography";
+import { ViewButtonPressable } from "./button";
+import { useQueryerClient, useQueryerQuery } from "./queryer";
 
-// Meta
+// CONTAINER
 
-const metaModalInfo = {
-  description:
-    "A UI widget to appear floating on a different surface to other components",
-  notes:
-    "This modal is an alternative to React Native's own modal component, which has limitations to it that this module solves",
-  todo: [
-    "When pinned, embed the modal (switch off modal mode) into the parent view (i.e. switch off position: absolute)",
-    "Positioning and sizing: Allow for the modal to be rendered in specific sizes and locations via props passed through",
-  ],
-};
-
-// Main (the main modal view - use this comprehensive component to get all of the available modal features)
-
-export type TypeModalMain = {
-  height?: number;
-  margin?: number;
-  padding?: number;
-  pinnable?: boolean;
-  backdrop?: boolean;
-  children: React.ReactNode;
-  [key: string]: any;
-};
-
-export const ViewModalMain = ({
+// The main modal view - use this comprehensive component to get all of the available modal features
+export const ViewModalContainer = ({
   height,
   pinnable,
   collapsible,
@@ -39,7 +16,7 @@ export const ViewModalMain = ({
   modalName,
   backdrop,
   ...rest
-}: TypeModalMain) => {
+}: TypeModalContainer) => {
   const modalState: any = useModalState(modalName);
   if (modalState?.data?.visible) {
     return (
@@ -63,10 +40,21 @@ export const ViewModalMain = ({
   }
 };
 
-// Visibility (whether or not a modal is being shown on screen)
+export type TypeModalContainer = {
+  height?: number;
+  margin?: number;
+  padding?: number;
+  pinnable?: boolean;
+  backdrop?: boolean;
+  children: React.ReactNode;
+  [key: string]: any;
+};
 
+// VISIBILITY
+
+// Whether or not a modal is being shown on screen
 export const useModalVisibility = (modalName: string) => {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryerClient();
   return () => {
     queryClient.setQueryData(["modal", modalName], (oldData: any) => {
       return { ...oldData, visible: !oldData?.visible };
@@ -74,10 +62,11 @@ export const useModalVisibility = (modalName: string) => {
   };
 };
 
-// Pinned (whether or not a modal is embedded into the page, or floating above it on another surface)
+// PINNED
 
+// Whether or not a modal is embedded into the page, or floating above it on another surface
 export const useModalPinned = (modalName: string) => {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryerClient();
   return () => {
     queryClient.setQueryData(["modal", modalName], (oldData: any) => {
       return { ...oldData, pinned: !oldData?.pinned };
@@ -85,11 +74,12 @@ export const useModalPinned = (modalName: string) => {
   };
 };
 
-// State (get the modal state - which has 'pinned', 'visibility' and other properties)
+// STATE
 
+// Get the modal state - which has 'pinned', 'visibility' and other properties
 export const useModalState = (modalName: string) => {
-  // const queryClient = useQueryClient();
-  const query = useQuery({
+  // const queryClient = useQueryerClient();
+  const query = useQueryerQuery({
     queryKey: ["modal", modalName],
     queryFn: () => null,
     // initialData: () => queryClient.getQueryData(['modal', modalName]) || null,
@@ -99,15 +89,16 @@ export const useModalState = (modalName: string) => {
   return query;
 };
 
-// Controls (The modal controls that appear in the modal to pin/unpin, show/hide etc.)
+// CONTROLS
 
+// The modal controls that appear in the modal to pin/unpin, show/hide etc.
 export const ViewModalControls = ({
   modalName,
   pinButton,
   collapseButton,
 }: any) => {
   return (
-    <View
+    <ViewContainerStatic
       style={{
         margin: 5,
         gap: 5,
@@ -117,25 +108,26 @@ export const ViewModalControls = ({
       }}
     >
       {pinButton && (
-        <Pressable onPress={useModalVisibility(modalName)}>
+        <ViewButtonPressable onPress={useModalVisibility(modalName)}>
           <ViewIconMain name={"caretup"} source={"AntDesign"} color="black" />
-        </Pressable>
+        </ViewButtonPressable>
       )}
       {collapseButton && (
-        <Pressable onPress={useModalPinned(modalName)}>
+        <ViewButtonPressable onPress={useModalPinned(modalName)}>
           <ViewIconMain
             name={"pin"}
             source={"MaterialCommunityIcons"}
             color="black"
           />
-        </Pressable>
+        </ViewButtonPressable>
       )}
-    </View>
+    </ViewContainerStatic>
   );
 };
 
-// Body (The modal content container, i.e. the visible part of the modal)
+// BODY
 
+// The modal content container, i.e. the visible part of the modal
 export const ViewModalBody = ({
   height,
   modalName,
@@ -146,11 +138,11 @@ export const ViewModalBody = ({
   bottom,
   width,
   snapto,
-}: TypeModalMain) => {
+}: TypeModalContainer) => {
   const headerDimensions = getHeaderDimensions();
   const topBuffer = top || headerDimensions.height;
   return (
-    <View
+    <ViewContainerStatic
       style={{
         alignSelf: "center",
         backgroundColor: "white",
@@ -174,13 +166,13 @@ export const ViewModalBody = ({
         elevation: 5,
       }}
     >
-      <View style={{ flex: 1 }}>{children}</View>
+      <ViewContainerStatic style={{ flex: 1 }}>{children}</ViewContainerStatic>
       <ViewModalControls
         modalName={modalName}
         pinButton={pinnable}
         collapseButton={collapsible}
       />
-    </View>
+    </ViewContainerStatic>
   );
 };
 
@@ -188,7 +180,7 @@ export const ViewModalBody = ({
 
 export const ViewModalBackdrop = ({ modalName }: any) => {
   return (
-    <Pressable
+    <ViewButtonPressable
       onPress={useModalVisibility(modalName)}
       style={{
         backgroundColor: "rgba(0,0,0,0.2)",
@@ -208,7 +200,9 @@ export const ViewModalState = ({ modalName }: any) => {
   return (
     <>
       <ViewModalToggle />
-      <Text>{JSON.stringify(modalState?.data, null, 2)}</Text>
+      <ViewTypographyText>
+        {JSON.stringify(modalState?.data, null, 2)}
+      </ViewTypographyText>
     </>
   );
 };
@@ -216,8 +210,22 @@ export const ViewModalState = ({ modalName }: any) => {
 // (Example button to toggle the modal state value)
 export const ViewModalToggle = ({ modalName }: any) => {
   return (
-    <Pressable onPress={useModalVisibility(modalName)}>
-      <Text>Toggle</Text>
-    </Pressable>
+    <ViewButtonPressable onPress={useModalVisibility(modalName)}>
+      <ViewTypographyText>Toggle</ViewTypographyText>
+    </ViewButtonPressable>
   );
+};
+
+// META /INFO
+
+// Temp (Chris experimental)
+const metaModalInfo = {
+  description:
+    "A UI widget to appear floating on a different surface to other components",
+  notes:
+    "This modal is an alternative to React Native's own modal component, which has limitations to it that this module solves",
+  todo: [
+    "When pinned, embed the modal (switch off modal mode) into the parent view (i.e. switch off position: absolute)",
+    "Positioning and sizing: Allow for the modal to be rendered in specific sizes and locations via props passed through",
+  ],
 };

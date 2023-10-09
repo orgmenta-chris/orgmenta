@@ -1,12 +1,8 @@
 // An 'Action' (or 'control'?) is something that can be done to an 'Entity'.
 
-import { useEntityCreate } from "./entity";
-import { useModalVisibility } from "./modal";
 import { ViewContainerStatic } from "./container";
-import { ViewInputText } from "./input";
 import { ViewControlMain } from "./control";
 import { ViewFormDynamic } from "./form";
-import { createUuid4 } from "./uuid";
 import { ViewDisplayTabs } from "./display";
 import { ViewIconMain } from "./icon";
 import { ViewFileModal } from "./pdf";
@@ -21,10 +17,7 @@ import {
   ViewRouterRoutes,
   ViewRouterRoute,
   useRouterLocation,
-  useRouterNavigate,
 } from "./router";
-import { arrayTypeMain } from "./type";
-import { arrayStatusMain } from "./status";
 import { Pressable } from "react-native";
 import { useState } from "react";
 
@@ -33,7 +26,7 @@ import { useState } from "react";
 // An action component to show the 'display modes' (Pods, form, table etc.)
 export const ViewActionDisplay = ({}: any) => {
   return (
-    <ViewContainerStatic>
+    <ViewContainerStatic style={{ backgroundColor: "lightgray" }}>
       <ViewActionHeading title={"Displays"} subtitle={"Switch Display Modes"} />
       <ViewDisplayTabs />
     </ViewContainerStatic>
@@ -42,6 +35,7 @@ export const ViewActionDisplay = ({}: any) => {
 
 // Control
 
+// A component for sorting, filtering, grouping (or applying presets that automatically do this)
 export const ViewActionControl = ({}: any) => {
   return (
     <ViewContainerStatic style={{ flexDirection: "column" }}>
@@ -54,257 +48,38 @@ export const ViewActionControl = ({}: any) => {
   );
 };
 
-
 // ADD
 
-// state to keep the form values etc. in.
-// export const useActionAdd = () => {
-//   const queryClient = useQueryClient();
-//   // return () => {
-//   //   queryClient.setQueryData(["modal", modalName], (oldData: any) => {
-//   //     return { ...oldData, visible: !oldData?.visible };
-//   //   });
-//   // };
-// };
-
-export const ViewActionAdd = ({ auxiliary, schema, focus }: any) => {
-  // const test = useActionAdd();
-  const paths = useRouterLocation()?.paths;
-  const category = paths[2];
-  const [state, set] =
-    paths &&
-    useState({
-      id: createUuid4(),
-      title: "",
-      type: "Event",
-      status: "0. New",
-      categories: [category],
-      description: "",
+// A component for creating new entity-relationships
+export const ViewActionAdd = ({ schema, focus }: any) => {
+  schema = schema?.data
+    ?.filter(
+      (x: any) => x.form_field !== "hidden" // Remove 'hidden' fields (fields that are not meant to be shown on the form view)
+    )
+    .map((x: any) => {
+      return {
+        ...x,
+        value: x.valueDefault, // Alias the defaultValue field to be initial value
+      };
     });
-  const create = useEntityCreate(state);
   return (
     <ViewContainerStatic style={{ flexDirection: "column" }}>
       <ViewActionHeading title={"Add"} subtitle={"Create entities"} />
-      {/* <ViewTypographyText style={{ fontStyle: "italic" }}>{testing: JSON.stringify(state)}</ViewTypographyText> */}
-      {/* <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <ViewTypographyText style={{ fontWeight: "700" }}>
-          Title:
-        </ViewTypographyText>
-        <ViewInputText
-          onChangeText={(text) => set((old) => ({ ...old, title: text }))}
-        />
-      </ViewContainerStatic>
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <ViewTypographyText style={{ fontWeight: "700" }}>
-          Type:
-        </ViewTypographyText>
-        {arrayTypeMain?.map((x, i) => (
-          <Pressable
-            key={i}
-            style={{ backgroundColor: "lightblue", margin: 1 }}
-            onPress={() => set((old) => ({ ...old, type: x }))}
-          >
-            <ViewTypographyText>{x}</ViewTypographyText>
-          </Pressable>
-        ))}
-      </ViewContainerStatic>
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <ViewTypographyText style={{ fontWeight: "700" }}>
-          Status:
-        </ViewTypographyText>
-        {arrayStatusMain?.map((x, i) => (
-          <Pressable
-            key={i}
-            style={{ backgroundColor: "lightblue", margin: 1 }}
-            onPress={() => set((old) => ({ ...old, status: x }))}
-          >
-            <ViewTypographyText>{x}</ViewTypographyText>
-          </Pressable>
-        ))}
-      </ViewContainerStatic>
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <ViewTypographyText style={{ fontWeight: "700" }}>
-          Categories:
-        </ViewTypographyText>
-        <ViewInputText
-          defaultValue={category}
-          onChangeText={(text) =>
-            set((old) => ({ ...old, categories: text?.split(",") }))
-          }
-        />
-      </ViewContainerStatic>
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <ViewTypographyText style={{ fontWeight: "700" }}>
-          Description:
-        </ViewTypographyText>
-        <ViewInputText
-          onChangeText={(text) => set((old) => ({ ...old, description: text }))}
-        />
-      </ViewContainerStatic>
-
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <Pressable
-          disabled={!state?.title}
-          style={{ backgroundColor: state?.title ? "lightblue" : "gray" }}
-          onPress={() => {
-            create.mutate();
-            set((old) => ({ ...old, id: createUuid4() }));
-          }}
-        >
-          <ViewTypographyText>Create</ViewTypographyText>
-        </Pressable>
-      </ViewContainerStatic> */}
-      <ViewFormDynamic data={data} />
+      <ViewFormDynamic data={schema} formname={"add"} queryId={"new"} />
     </ViewContainerStatic>
   );
 };
 
 // Edit
 
-export const ViewActionEdit = ({}: any) => {
-  const [titleState, titleSet] = useState("");
-  const [typeState, typeSet] = useState("");
-  const [classState, classSet] = useState("");
-  const [statusState, statusSet] = useState("");
-  const [descriptionState, descriptionSet] = useState("");
+export const ViewActionEdit = ({ schema, focus }: any) => {
+  schema = schema?.data?.filter(
+    (x: any) => x.form_field !== "hidden" // remove 'hidden' fields (fields that are not meant to be shown on the form view)
+  );
   return (
-    <ViewContainerStatic style={{ flexDirection: "column" }}>
+    <ViewContainerStatic style={{ flexDirection: "column", maxHeight: 300 }}>
       <ViewActionHeading title={"Edit"} subtitle={"Update entities"} />
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        {/* The following will be made dynamic by Chris (the static fields are a placeholder) */}
-        <ViewTypographyText>Title</ViewTypographyText>
-        <ViewInputText
-          onChangeText={(value) => titleSet(value)}
-        ></ViewInputText>
-      </ViewContainerStatic>
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <ViewTypographyText>Type</ViewTypographyText>
-        <ViewInputText onChangeText={(value) => typeSet(value)}></ViewInputText>
-      </ViewContainerStatic>
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <ViewTypographyText>Class</ViewTypographyText>
-        <ViewInputText
-          onChangeText={(value) => classSet(value)}
-        ></ViewInputText>
-      </ViewContainerStatic>
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <ViewTypographyText>Status</ViewTypographyText>
-        <Pressable
-          style={{
-            backgroundColor: statusState === "0. New" ? "gray" : "lightblue",
-            margin: 2,
-            padding: 4,
-          }}
-          onPress={() => statusSet("0. New")}
-        >
-          <ViewTypographyText>0. New</ViewTypographyText>
-        </Pressable>
-        <Pressable
-          style={{
-            backgroundColor:
-              statusState === "1. Respond" ? "gray" : "lightblue",
-            margin: 2,
-            padding: 4,
-          }}
-          onPress={() => statusSet("1. Respond")}
-        >
-          <ViewTypographyText>1. Respond</ViewTypographyText>
-        </Pressable>
-        <Pressable
-          style={{
-            backgroundColor: statusState === "2. Active" ? "gray" : "lightblue",
-            margin: 2,
-            padding: 4,
-          }}
-          onPress={() => statusSet("2. Active")}
-        >
-          <ViewTypographyText>2. Active</ViewTypographyText>
-        </Pressable>
-        <Pressable
-          style={{
-            backgroundColor:
-              statusState === "3. Waiting" ? "gray" : "lightblue",
-            margin: 2,
-            padding: 4,
-          }}
-          onPress={() => statusSet("3. Waiting")}
-        >
-          <ViewTypographyText>3. Waiting</ViewTypographyText>
-        </Pressable>
-        <Pressable
-          style={{
-            backgroundColor: statusState === "4. Hold" ? "gray" : "lightblue",
-            margin: 2,
-            padding: 4,
-          }}
-          onPress={() => statusSet("4. Hold")}
-        >
-          <ViewTypographyText>4. Hold</ViewTypographyText>
-        </Pressable>
-        <Pressable
-          style={{
-            backgroundColor:
-              statusState === "5. Evaluate" ? "gray" : "lightblue",
-            margin: 2,
-            padding: 4,
-          }}
-          onPress={() => statusSet("5. Evaluate")}
-        >
-          <ViewTypographyText>5. Evaluate</ViewTypographyText>
-        </Pressable>
-        <Pressable
-          style={{
-            backgroundColor:
-              statusState === "6. Cancelled" ? "gray" : "lightblue",
-            margin: 2,
-            padding: 4,
-          }}
-          onPress={() => statusSet("6. Cancelled")}
-        >
-          <ViewTypographyText>6. Cancelled</ViewTypographyText>
-        </Pressable>
-        <Pressable
-          style={{
-            backgroundColor:
-              statusState === "7. Complete" ? "gray" : "lightblue",
-            margin: 2,
-            padding: 4,
-          }}
-          onPress={() => statusSet("7. Complete")}
-        >
-          <ViewTypographyText>7. Complete</ViewTypographyText>
-        </Pressable>
-      </ViewContainerStatic>
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <ViewTypographyText>Description</ViewTypographyText>
-        <ViewInputText
-          onChangeText={(value) => descriptionSet(value)}
-        ></ViewInputText>
-      </ViewContainerStatic>
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <Pressable
-          style={{ backgroundColor: "lightblue" }}
-          onPress={() =>
-            console.log({
-              title: titleState,
-              type: typeState,
-              class: classState,
-              status: statusState,
-              description: descriptionState,
-            })
-          }
-        >
-          <ViewTypographyText>Create</ViewTypographyText>
-        </Pressable>
-      </ViewContainerStatic>
-      {/* <ViewContainerStatic style={{flexDirection:'row'}}>
-        <ViewTypographyText>Testing:</ViewTypographyText>
-        <ViewTypographyText>{titleState}</ViewTypographyText>
-        <ViewTypographyText>{typeState}</ViewTypographyText>
-        <ViewTypographyText>{classState}</ViewTypographyText> 
-        <ViewTypographyText>{statusState}</ViewTypographyText>
-        <ViewTypographyText>{descriptionState}</ViewTypographyText>
-      </ViewContainerStatic> */}
+      <ViewFormDynamic data={schema} formname={"add"} queryId={"edit"} />
     </ViewContainerStatic>
   );
 };
@@ -374,7 +149,7 @@ export const ViewActionExport = ({}: any) => {
       />
       <ViewContainerStatic style={{ flexDirection: "row", margin: 10 }}>
         <Pressable
-          onPress={() => console.log('ViewActionExport print button: todo')}
+          onPress={() => console.log("ViewActionExport print button: todo")}
           style={{ margin: 5 }}
         >
           <ViewIconMain
@@ -434,7 +209,7 @@ export const optionsActionTabs = [
   {
     title: "Sync",
     iconName: "sync",
-    iconSource: "OctIcons",
+    iconSource: "MaterialIcons",
     description: "sync and database storage status",
   },
   {
@@ -463,32 +238,51 @@ export const optionsActionTabs = [
   },
 ];
 
-export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
-  const paths = useRouterLocation().paths;
+export const ViewActionPanels = ({
+  auxiliary,
+  schema,
+  focus,
+  display,
+}: any) => {
   return (
     <ViewContainerStatic
-      style={{ flexDirection: "column", backgroundColor: "lightgray" }}
+      style={{
+        flexDirection: "column",
+        backgroundColor: "lightgray",
+        minHeight: 40, // for some reason, this is necessary on mobile or the component doesn't has 0 height despite children having heights
+        maxHeight: "50%", // until we implement dragging the topbar of the panel up and down - Chris has some experimental code to test this with.
+      }}
     >
       <ViewRouterRoutes>
         <ViewRouterRoute path="display" element={<ViewActionDisplay />} />
         <ViewRouterRoute path="control" element={<ViewActionControl />} />
         <ViewRouterRoute
           path="/add"
-          element={
-            <ViewActionAdd
-              auxiliary={auxiliary}
-              schema={schema}
-              focus={focus}
-            />
-          }
+          element={<ViewActionAdd schema={schema} focus={focus} />}
         />
-        <ViewRouterRoute path="edit" element={<ViewActionEdit />} />
+        <ViewRouterRoute
+          path="edit"
+          element={<ViewActionEdit schema={schema} focus={focus} />}
+        />
         <ViewRouterRoute path="sync" element={<ViewActionSync />} />
         <ViewRouterRoute path="share" element={<ViewActionShare />} />
         <ViewRouterRoute path="template" element={<ViewActionTemplate />} />
         <ViewRouterRoute path="link" element={<ViewActionLink />} />
         <ViewRouterRoute path="export" element={<ViewActionExport />} />
       </ViewRouterRoutes>
+    </ViewContainerStatic>
+  );
+};
+
+export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
+  const paths = useRouterLocation().paths;
+  return (
+    <ViewContainerStatic
+      style={{
+        flexDirection: "column",
+        backgroundColor: "lightgray",
+      }}
+    >
       <ViewContainerStatic style={{ flexDirection: "row" }}>
         {optionsActionTabs?.map((x, i) => (
           <ViewRouterLinkthemed

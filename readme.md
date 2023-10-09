@@ -73,6 +73,11 @@
 
 # Development
 
+## Multi-platform
+
+- Never develop two different components (one web, one mobile) without explicit discussion and acceptance.
+- Never use divs, lowercase components, or other components that will not work on react-native.
+
 ## Typescript
 
 - If VScode is not recognising a package's types (i.e. the package is installed but imports are still underlined with a 'Cannot find module '@azure/react-native-msal' or its corresponding type declarations' error) then type `TypeScript: Restart TS Server` into the VSCode Command Palette and select it from the dropdown.

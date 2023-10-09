@@ -1,6 +1,6 @@
 // 'Browse' is search functionality, with optional 'quick-add' to convert the search term to a new entity.
 
-import { ViewModalMain } from "./modal";
+import { ViewModalContainer } from "./modal";
 import { ViewRouterLinkthemed } from "./router";
 import { instanceSupabaseClient } from "./supabase";
 import { ViewContainerStatic, ViewContainerScroll } from "./container";
@@ -83,7 +83,7 @@ export const ViewBrowseModal = (props: any) => {
   const [search, set] = useState("");
   const browseArray = useBrowseArray({ searchterm: search });
   return (
-    <ViewModalMain
+    <ViewModalContainer
       modalName={"browse"}
       snapto={"right"}
       backdrop
@@ -93,7 +93,7 @@ export const ViewBrowseModal = (props: any) => {
       <ViewBrowseNavigation />
       <ViewBrowseSchemas />
       <ViewBrowseSearch />
-    </ViewModalMain>
+    </ViewModalContainer>
   );
 };
 

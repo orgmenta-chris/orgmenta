@@ -41,12 +41,12 @@ export const ViewFieldMain = ({ item, formname, entityid }: TypeFieldMain) => {
         {item?.label || "[No label found]"}:{" "}
       </ViewTypographyLabel>
       <ViewContainerRow style={{ flex: 2, borderWidth: 1 }}>
-        {!fieldState?.data?.shield && !fieldState?.data?.shieldDefault ? (
-          // If the universal shield is off and the specific individual shield is off, show the field.F
-          <Component defaultValue={item.value} />
-        ) : (
-          // Else show the shield (privacy mask)
+        {fieldState?.data?.shieldIndividual ? (
+          // If the universal or individual shields are on, obfuscate the field
           <ViewShieldMask/>
+        ) : (
+          // Else show the field
+          <Component valueDefault={item.value} />
         )}
       </ViewContainerRow>
       <ViewFieldReset
@@ -70,14 +70,14 @@ export type TypeFieldItem = {
   [x: string]: any; // catch-all (fields are dynamic)
   label: string;
   value?: any;
-  defaultValue?: any;
+  valueDefault?: any;
   placeholder?: any;
   options?: any[];
   component?: any; // type of field, e.g. ViewInputText
 };
 
 // A default component if a 'field' wasn't specified for a field
-export const ViewFieldInvalid = ({ defaultValue }: any) => {
+export const ViewFieldInvalid = ({ valueDefault }: any) => {
   return (
     <ViewTypographyTextthemed
       style={{
@@ -88,13 +88,13 @@ export const ViewFieldInvalid = ({ defaultValue }: any) => {
         color: "black",
       }}
     >
-      FIELD INCORRECT OR MISSING {defaultValue}
+      FIELD INCORRECT OR MISSING {valueDefault}
     </ViewTypographyTextthemed>
   );
 };
 
 // A default component if a 'field' wasn't specified for a field
-export const ViewFieldFilepickerandlist = ({ defaultValue, secure }: any) => {
+export const ViewFieldFilepickerandlist = ({ valueDefault, secure }: any) => {
   return (
     <ViewContainerStatic
       style={{
@@ -108,7 +108,7 @@ export const ViewFieldFilepickerandlist = ({ defaultValue, secure }: any) => {
 };
 
 // secure field
-export const ViewFieldSecure = ({ defaultValue, secure }: any) => {
+export const ViewFieldSecure = ({ valueDefault, secure }: any) => {
   return (
     <ViewContainerRow
       style={{
@@ -118,7 +118,7 @@ export const ViewFieldSecure = ({ defaultValue, secure }: any) => {
     >
       <ViewInputSecure
         style={{ padding: 5, flex: 1 }}
-        defaultValue={defaultValue}
+        defaultValue={valueDefault}
         secure={secure}
       />
     </ViewContainerRow>
@@ -126,16 +126,16 @@ export const ViewFieldSecure = ({ defaultValue, secure }: any) => {
 };
 
 // A non-editable text field
-export const ViewFieldText = ({ defaultValue, secure }: any) => {
+export const ViewFieldText = ({ valueDefault, secure }: any) => {
   return (
     <ViewTypographyTextthemed style={{ height: 35 }}>
-      {secure ? "*****" : defaultValue}
+      {secure ? "*****" : valueDefault}
     </ViewTypographyTextthemed>
   );
 };
 
 // A non-editable text field
-export const ViewFieldInput = ({ defaultValue, secure }: any) => {
+export const ViewFieldInput = ({ valueDefault, secure }: any) => {
   return (
     <ViewInputText
       // secureTextEntry={secure}
@@ -145,34 +145,34 @@ export const ViewFieldInput = ({ defaultValue, secure }: any) => {
         padding: 5,
         backgroundColor: "white",
       }}
-      defaultValue={defaultValue}
+      defaultValue={valueDefault}
     />
   );
 };
 
 // A non-editable text field
-export const ViewFieldRelationship = ({ defaultValue, secure }: any) => {
+export const ViewFieldRelationship = ({ valueDefault, secure }: any) => {
   return (
     <ViewTypographyTextthemed style={{ color: "blue" }}>
-      ['RELATIONSHIP:']{defaultValue}
+      ['RELATIONSHIP:']{valueDefault}
     </ViewTypographyTextthemed>
   );
 };
 // A non-editable text field
-export const ViewFieldPicker = ({ defaultValue, secure }: any) => {
+export const ViewFieldPicker = ({ valueDefault, secure }: any) => {
   return (
     <ViewTypographyTextthemed style={{ color: "blue" }}>
-      ['PICKER:']{defaultValue}
+      ['PICKER:']{valueDefault}
     </ViewTypographyTextthemed>
   );
 };
 // A non-editable text field
-export const ViewFieldRichtext = ({ defaultValue, secure }: any) => {
-  return <ViewInputRichmain defaultValue={defaultValue} />;
+export const ViewFieldRichtext = ({ valueDefault, secure }: any) => {
+  return <ViewInputRichmain defaultValue={valueDefault} />;
 };
 
 // Decimal
-export const ViewFieldDecimal = ({ defaultValue, secure }: any) => {
+export const ViewFieldDecimal = ({ valueDefault, secure }: any) => {
   return (
     <ViewInputDecimal
       // secureTextEntry={secure}
@@ -181,13 +181,13 @@ export const ViewFieldDecimal = ({ defaultValue, secure }: any) => {
         padding: 5,
         backgroundColor: "white",
       }}
-      defaultValue={defaultValue}
+      defaultValue={valueDefault}
     />
   );
 };
 
 // Integer
-export const ViewFieldInteger = ({ defaultValue, secure }: any) => {
+export const ViewFieldInteger = ({ valueDefault, secure }: any) => {
   return (
     <ViewInputInteger
       // secureTextEntry={secure}
@@ -196,13 +196,13 @@ export const ViewFieldInteger = ({ defaultValue, secure }: any) => {
         padding: 5,
         backgroundColor: "white",
       }}
-      defaultValue={defaultValue}
+      defaultValue={valueDefault}
     />
   );
 };
 
 // Numeric
-export const ViewFieldDatetime = ({ defaultValue, secure }: any) => {
+export const ViewFieldDatetime = ({ valueDefault, secure }: any) => {
   return (
     <ViewTypographyTextthemed
       style={{
@@ -212,13 +212,13 @@ export const ViewFieldDatetime = ({ defaultValue, secure }: any) => {
         backgroundColor: "white",
       }}
     >
-      ['DATETIME']{defaultValue}
+      ['DATETIME']{valueDefault}
     </ViewTypographyTextthemed>
   );
 };
 
 // Button
-export const ViewFieldButton = ({ defaultValue, secure }: any) => {
+export const ViewFieldButton = ({ valueDefault, secure }: any) => {
   return (
     <ViewButtonPressable
       style={{
@@ -229,7 +229,7 @@ export const ViewFieldButton = ({ defaultValue, secure }: any) => {
         padding: 5,
       }}
     >
-      <ViewTypographyText>{defaultValue}</ViewTypographyText>
+      <ViewTypographyText>{valueDefault}</ViewTypographyText>
     </ViewButtonPressable>
   );
 };
@@ -262,18 +262,20 @@ export const arrayFieldComponents = Object.keys(mapFieldComponents);
 // A button to clear the field value back to its original value
 export const ViewFieldReset = ({ id, style }: any) => {
   const fieldState = useFieldState(id) as TypeFieldState;
+  const fieldSet = useFieldState(id) as TypeFieldState;
   return (
     <ViewButtonPressable
       style={{
         padding: 5,
         backgroundColor:
-          fieldState?.data?.defaultValue === fieldState?.data?.currentValue
+          fieldState?.data?.valueDefault === fieldState?.data?.valueCurrent
             ? "gray"
             : "lightgray",
         ...style,
       }}
-      // onPress={() => set((old: boolean) => !old)}
-    >
+      // onPress={() => UPDATE THE FIELD STATE HERE BACK TO ITS DEFAULT VALUE}
+      // onPress={() => UPDATE THE FIELD STATE HERE BACK TO ITS DEFAULT VALUE}
+      >
       <ViewIconMain name={"clear"} source={"MaterialIcons"} color={"white"} />
     </ViewButtonPressable>
   );
@@ -304,9 +306,10 @@ export const useFieldState = (id: string[]) => {
 
 export type TypeFieldState = TypeQueryerResult & {
   data: {
-    defaultValue: string; // the original value for the field
-    currentValue: string; // the current value for the field (if different to the defaultValue)
-    shield?: string; // whether the shield is on or off on the field
-    shieldDefault?: string; // to be used when reverting the shield to the previous state (if the universal shield was enabled)
+    valueDefault: any; // the original value for the field
+    valueCurrent: any; // the current value for the field (if different to the valueDefault)
+    shieldUniversal?: string; // whether the shield is on or off app-wide
+    shieldIndividual?: string; //  whether the shield is on or off on the field
+    shieldPrevious?: string; // to be used when reverting the shield to the previous state (if the universal shield was enabled)
   };
 };

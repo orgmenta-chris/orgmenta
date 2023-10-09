@@ -16,7 +16,6 @@ export const ViewFormContainer = ({
   children,
   title,
 }: interfaceFormContainer) => {
-  // console.log(children?[1].map(x=>x.props))
   return (
     <ViewContainerScroll style={{ margin: 5 }}>
       {title && <ViewTypographyText>{title}</ViewTypographyText>}

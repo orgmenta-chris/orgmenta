@@ -11,12 +11,14 @@ import { ViewSoundPlayer, ViewSoundRecorder } from "./audio";
 import { ViewVideoPlayer } from "./video";
 import { ViewScreenRecorder } from "./recorder";
 import { ViewHelpContainer } from "./help";
+import { deleteQueryerQuery } from "./queryer";
 import { ViewContainerScroll } from "./container";
 import { ViewShieldButton, ViewShieldUniversal } from "./shield";
 import { TypeNotificationBody, ViewNotificationExample } from "./notification"; // Chris to check naming conventions. Also need to check how to use this?
 
 export const ViewTestPage = () => {
   const aux = useAuxiliaryArray({ filter_array: [] });
+  // deleteQueryerQuery() //deletes ALL cached queries
   return __DEV__ ? (
     <ViewPageMain>
       <ViewContainerScroll>

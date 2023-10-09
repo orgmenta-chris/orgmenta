@@ -413,7 +413,7 @@ export type TypeSpaceState = {
 };
 
 export const useSpaceState = (id: any) => {
-  // const queryClient = useQueryerClient();
+  // const queryerClient = useQueryerClient();
   const query = useQueryerQuery({
     queryKey: id,
     queryFn: () => null,
@@ -585,10 +585,10 @@ export const useSpaceSet = (
   queryKey: string[],
   newData: (id: string, title: string, spacename: string) => any
 ) => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   return (passedId: string, passedTitle: string, passedspacename: string) => {
     const resolvedData = newData(passedId, passedTitle, passedspacename);
-    queryClient.setQueryData(queryKey, (oldData: any) => {
+    queryerClient.setQueryData(queryKey, (oldData: any) => {
       if (JSON.stringify(oldData) === JSON.stringify(resolvedData)) {
         return oldData;
       }

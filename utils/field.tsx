@@ -6,14 +6,14 @@ import {
   TypeQueryerResult,
 } from "./queryer";
 import { ViewShieldButton, ViewShieldMask } from "./shield";
+import { ViewFileUpload } from "./file";
+import { ViewIconMain } from "./icon";
+import { ViewButtonPressable } from "./button";
 import {
   ViewContainerStatic,
   ViewContainerRow,
   ViewContainerScroll,
 } from "./container";
-import { ViewFileUpload } from "./file";
-import { ViewIconMain } from "./icon";
-import { ViewButtonPressable } from "./button";
 import {
   ViewInputRichmain,
   ViewInputText,
@@ -26,7 +26,6 @@ import {
   ViewTypographyTextthemed,
   ViewTypographyLabel,
 } from "./typography";
-import { useState } from "react";
 
 // DYNAMIC
 
@@ -43,10 +42,10 @@ export const ViewFieldDynamic = ({
   const fieldState = useFieldState([
     formname,
     queryId,
-    item.label,
+    item.attribute_name,
   ]) as TypeFieldState;
   // get the set function to upate the state:
-  const fieldSet = useFieldSet([formname, queryId, item.label]);
+  const fieldSet = useFieldSet([formname, queryId, item.attribute_name]);
   // Dynamically decide on a field component (Richtext, Integer, Text etc.) from the item's 'component' property:
   const Component =
     mapFieldComponents[item.component as string] ||
@@ -378,11 +377,11 @@ export type TypeFieldState = TypeQueryerResult & {
 
 // Set field properties of the field useQuery
 export const useFieldSet = (id: string[]) => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   return (setValueFunction: () => any) => {
     const value = setValueFunction();
-    queryClient.setQueryData(["field"].concat(id), (oldData: any) => {
-      console.log("useFieldSet", oldData, value);
+    queryerClient.setQueryData(["field"].concat(id), (oldData: any) => {
+      // console.log("useFieldSet", oldData, value);
       return {
         ...oldData,
         value: value,

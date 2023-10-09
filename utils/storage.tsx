@@ -103,13 +103,13 @@ export const uploadDocument = async ({ name, file }: documentToBeUploaded) => {
 };
 
 export const useStorageUpload = ({ name, file }: documentToBeUploaded) => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   const mutation = useQueryerMutation(
     ["files", "create"],
     () => uploadDocument({ name, file }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([["bucket"], ["files", "array"]]);
+        queryerClient.invalidateQueries([["bucket"], ["files", "array"]]);
       },
     }
   );

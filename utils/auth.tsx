@@ -59,7 +59,7 @@ export const useAuthSignup = ({
   password,
   confirmPassword,
 }: TypeAuthSignup) => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   if (password !== confirmPassword) {
     console.error("Passwords do not match");
   }
@@ -68,7 +68,7 @@ export const useAuthSignup = ({
     () => requestAuthSignup({ email, password }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["auth", "session"]);
+        queryerClient.invalidateQueries(["auth", "session"]);
       },
     }
   );
@@ -182,10 +182,10 @@ export const requestAuthSignout = async () => {
 
 // hook to wrap requestAuthSignout
 export const useAuthSignout = () => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   return useQueryerMutation(["auth", "signout"], () => requestAuthSignout(), {
     onSuccess: () => {
-      queryClient.invalidateQueries(["auth", "session"]);
+      queryerClient.invalidateQueries(["auth", "session"]);
     },
   });
 };
@@ -297,13 +297,13 @@ export const requestAuthSignin = async ({
 
 // hook to wrap requestAuthSignin
 export const useAuthSignin = ({ email, password }: TypeAuthSignin) => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   return useQueryerMutation(
     ["auth", "signin"],
     () => requestAuthSignin({ email, password }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["auth", "session"]);
+        queryerClient.invalidateQueries(["auth", "session"]);
       },
     }
   );

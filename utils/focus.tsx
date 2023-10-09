@@ -37,7 +37,7 @@ export const ViewFocusHeader = () => {
       style={{
         flexDirection: "column",
         borderWidth: 1,
-        margin: 5,
+        padding: 5,
       }}
     >
       {/* Title of the current process (breadcrumbs) */}

@@ -53,9 +53,9 @@ export const ViewShieldButton = ({ id, style }: { id: string[], style:any }) => 
 
 // Set the privacy state of fields (toggle the shieldUniversal value)
 export const useShieldSet = (id: string[]) => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   return () => {
-    queryClient.setQueryData(["field"].concat(id), (oldData: any) => {
+    queryerClient.setQueryData(["field"].concat(id), (oldData: any) => {
       return {
         ...oldData,
         shieldIndividual: !oldData?.shieldIndividual,
@@ -138,14 +138,14 @@ export const ViewShieldUniversal = () => {
 // todo: maybe use useFieldSet (i.e. abstract out the logic in here)
 // todo: add functionality here to set a main 'universal' state so that we can replace the useState in. OR, use a 'useUserState'/'useUserState' instead.
 export const useShieldUniversal = (universalState: any) => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   return () => {
-    queryClient
+    queryerClient
       .getQueryCache()
       .findAll(["field"]) // for any state that has the 'field' root
       .forEach(({ queryKey }) => {
         // go through and toggle the shield
-        queryClient.setQueryData(queryKey, (oldData: any) => {
+        queryerClient.setQueryData(queryKey, (oldData: any) => {
           return {
             ...oldData,
             shieldUniversal: oldData?.shieldUniversal ? false : true,

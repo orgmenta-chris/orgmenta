@@ -135,7 +135,7 @@ export const ViewAttributeMain = memo(() => {
 
 export const useAttributeUnioned = (classArray: any) => {
   const queryKey: (string | number)[] = ["attributes", "unioned", classArray];
-  const searchArray = ["All", "Entity","value"].concat(classArray).join(",");
+  const searchArray = ["All", "Entity", "value"].concat(classArray).join(",");
   const queryFn = async () => {
     const response = await instanceSupabaseClient
       .from("attributes_unioned")
@@ -145,14 +145,31 @@ export const useAttributeUnioned = (classArray: any) => {
     // .or(`class.cd.['Entity'],class.cd.["${attribute_class}"]`);
     // .or(`class.cd.{'${classValue}'}`); // match at least one value from the search array (or if null, assume that it is a universal attribute )
     // .or(`class.is.null, class.cd.{${searchArray}}`) // match at least one value from the search array (or if null, assume that it is a universal attribute )
-    return response?.data?.map((x) => (x = {
-       ...x, 
-      queryId: x.id, // For storing in field state/cache
-      label: x.focus_columns.options_max>0 ?  x.focus_columns.display_plural : x.focus_columns.display_singular,
-      form_field: x.focus_columns.form_field,
-      valueDefault: x.focus_columns.options_default,
-      valueOptions: x.focus_columns.options,
-     }));
+    return response?.data?.map(
+      (x) =>
+        (x = {
+          ...x,
+          queryId: x.id, // For storing in field state/cache
+          // the following are mapped here rather than done in the supabase view (for the time being)
+          // because they vary depending on whether it's a field, form, table etc. using it.
+          // Eventually we will split out the attributes_unioned view into dedicated, relevant views per type.
+          label:
+            x.focus_columns.options_max > 0
+              ? x.focus_columns.display_plural
+              : x.focus_columns.display_singular,
+          attribute_name:
+            x.storage_location === "relationships"
+              ? x.id
+              : x.storage_location === "entities"
+              ? x.focus_columns.name_singular
+              : x.storage_location === "entities"
+              ? "entitites." + x.focus_columns.name_singular
+              : "CALCULATED." + x.focus_columns.name_singular,
+          form_field: x.focus_columns.form_field,
+          valueDefault: x.focus_columns.options_default,
+          valueOptions: x.focus_columns.options,
+        })
+    );
   };
   const query = useQueryerQuery<any, Error>(queryKey, queryFn, {
     enabled: true,

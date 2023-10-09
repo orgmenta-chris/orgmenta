@@ -8,6 +8,14 @@ import { ViewAttributeMain } from "./utils/attribute";
 import { ViewRouterLostpage } from "./utils/router";
 import { ViewWindowContainer } from "./utils/window";
 import { ViewQueryerProvider } from "./utils/queryer";
+import { ViewStatusbarMain } from "./utils/statusbar";
+import { ViewBookmarkModal } from "./utils/bookmark";
+import { ViewOrgmentaModal } from "./utils/orgmenta";
+import { ViewBrowseModal } from "./utils/browse";
+import { ViewSpaceModal } from "./utils/space";
+import { ViewUserPage, ViewUserModal } from "./utils/user";
+import { ViewLandingPage } from "./utils/landing";
+import { ViewTestPage } from "./utils/test";
 import {
   ViewRouterProvider,
   ViewRouterRoutes,
@@ -34,14 +42,6 @@ import {
   ViewOrgmentaEnhancements,
   ViewOrgmentaPartner,
 } from "./utils/orgmenta";
-import { ViewStatusbarMain } from "./utils/statusbar";
-import { ViewBookmarkModal } from "./utils/bookmark";
-import { ViewOrgmentaModal } from "./utils/orgmenta";
-import { ViewBrowseModal } from "./utils/browse";
-import { ViewSpaceModal } from "./utils/space";
-import { ViewUserPage, ViewUserModal } from "./utils/user";
-import { ViewLandingPage } from "./utils/landing";
-import { ViewTestPage } from "./utils/test";
 import { ViewStripeWrappermain } from "./utils/stripe-test";
 import { useState } from "react";
 // import { msalInstance } from "./api/authConfig"; // msal-react is not immediately compatible with react-native. We need https://www.npmjs.com/package/react-native-msal.

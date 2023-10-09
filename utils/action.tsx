@@ -2,7 +2,7 @@
 
 import { useEntityCreate } from "./entity";
 import { useModalVisibility } from "./modal";
-import { ViewContainerStatic } from "./container";
+import { ViewContainerStatic, ViewContainerScroll } from "./container";
 import { ViewInputText } from "./input";
 import { ViewControlMain } from "./control";
 import { ViewFormDynamic } from "./form";
@@ -42,6 +42,7 @@ export const ViewActionDisplay = ({}: any) => {
 
 // Control
 
+// A component for sorting, filtering, grouping (or applying presets that automatically do this)
 export const ViewActionControl = ({}: any) => {
   return (
     <ViewContainerStatic style={{ flexDirection: "column" }}>
@@ -54,108 +55,68 @@ export const ViewActionControl = ({}: any) => {
   );
 };
 
-
 // ADD
 
-// state to keep the form values etc. in.
-// export const useActionAdd = () => {
-//   const queryClient = useQueryClient();
-//   // return () => {
-//   //   queryClient.setQueryData(["modal", modalName], (oldData: any) => {
-//   //     return { ...oldData, visible: !oldData?.visible };
-//   //   });
-//   // };
-// };
-
+// A component for creating new entity-relationships
 export const ViewActionAdd = ({ auxiliary, schema, focus }: any) => {
   // const test = useActionAdd();
   const paths = useRouterLocation()?.paths;
   const category = paths[2];
   const [state, set] =
     paths &&
-    useState({
-      id: createUuid4(),
-      title: "",
-      type: "Event",
-      status: "0. New",
-      categories: [category],
-      description: "",
-    });
-  const create = useEntityCreate(state);
+    useState([
+      {
+        display_singular: "Submit",
+        value: "Save",
+        form_field: "button",
+      },
+      {
+        display_singular: "ID",
+        value: createUuid4(),
+        form_field: "text",
+      },
+      {
+        display_singular: "Title",
+        value: "",
+        form_field: "input",
+      },
+      {
+        display_singular: "Type",
+        value: "Item",
+        form_field: "input",
+      },
+      {
+        display_singular: "Class",
+        value: "",
+        form_field: "input",
+      },
+      // {
+      //   display_singular: "Priority",
+      //   value: "",
+      //   form_field: "numeric",
+      // },
+      {
+        display_singular: "test",
+        value: "",
+        form_field: "hidden",
+      },
+      {
+        display_singular: "Categories",
+        value: [category],
+        form_field: "input",
+      },
+      {
+        display_singular: "Description",
+        value: "",
+        form_field: "richtext",
+      },
+    ]);
+  const create = useEntityCreate(state as any);
   return (
-    <ViewContainerStatic style={{ flexDirection: "column" }}>
+    <ViewContainerScroll style={{ flexDirection: "column" }}>
       <ViewActionHeading title={"Add"} subtitle={"Create entities"} />
-      {/* <ViewTypographyText style={{ fontStyle: "italic" }}>{testing: JSON.stringify(state)}</ViewTypographyText> */}
-      {/* <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <ViewTypographyText style={{ fontWeight: "700" }}>
-          Title:
-        </ViewTypographyText>
-        <ViewInputText
-          onChangeText={(text) => set((old) => ({ ...old, title: text }))}
-        />
-      </ViewContainerStatic>
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <ViewTypographyText style={{ fontWeight: "700" }}>
-          Type:
-        </ViewTypographyText>
-        {arrayTypeMain?.map((x, i) => (
-          <Pressable
-            key={i}
-            style={{ backgroundColor: "lightblue", margin: 1 }}
-            onPress={() => set((old) => ({ ...old, type: x }))}
-          >
-            <ViewTypographyText>{x}</ViewTypographyText>
-          </Pressable>
-        ))}
-      </ViewContainerStatic>
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <ViewTypographyText style={{ fontWeight: "700" }}>
-          Status:
-        </ViewTypographyText>
-        {arrayStatusMain?.map((x, i) => (
-          <Pressable
-            key={i}
-            style={{ backgroundColor: "lightblue", margin: 1 }}
-            onPress={() => set((old) => ({ ...old, status: x }))}
-          >
-            <ViewTypographyText>{x}</ViewTypographyText>
-          </Pressable>
-        ))}
-      </ViewContainerStatic>
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <ViewTypographyText style={{ fontWeight: "700" }}>
-          Categories:
-        </ViewTypographyText>
-        <ViewInputText
-          defaultValue={category}
-          onChangeText={(text) =>
-            set((old) => ({ ...old, categories: text?.split(",") }))
-          }
-        />
-      </ViewContainerStatic>
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <ViewTypographyText style={{ fontWeight: "700" }}>
-          Description:
-        </ViewTypographyText>
-        <ViewInputText
-          onChangeText={(text) => set((old) => ({ ...old, description: text }))}
-        />
-      </ViewContainerStatic>
-
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
-        <Pressable
-          disabled={!state?.title}
-          style={{ backgroundColor: state?.title ? "lightblue" : "gray" }}
-          onPress={() => {
-            create.mutate();
-            set((old) => ({ ...old, id: createUuid4() }));
-          }}
-        >
-          <ViewTypographyText>Create</ViewTypographyText>
-        </Pressable>
-      </ViewContainerStatic> */}
-      <ViewFormDynamic data={data} />
-    </ViewContainerStatic>
+      <ViewFormDynamic data={state} formname={'add'} entityid={'new'}/>
+    </ViewContainerScroll>
   );
 };
 
@@ -297,14 +258,6 @@ export const ViewActionEdit = ({}: any) => {
           <ViewTypographyText>Create</ViewTypographyText>
         </Pressable>
       </ViewContainerStatic>
-      {/* <ViewContainerStatic style={{flexDirection:'row'}}>
-        <ViewTypographyText>Testing:</ViewTypographyText>
-        <ViewTypographyText>{titleState}</ViewTypographyText>
-        <ViewTypographyText>{typeState}</ViewTypographyText>
-        <ViewTypographyText>{classState}</ViewTypographyText> 
-        <ViewTypographyText>{statusState}</ViewTypographyText>
-        <ViewTypographyText>{descriptionState}</ViewTypographyText>
-      </ViewContainerStatic> */}
     </ViewContainerStatic>
   );
 };
@@ -374,7 +327,7 @@ export const ViewActionExport = ({}: any) => {
       />
       <ViewContainerStatic style={{ flexDirection: "row", margin: 10 }}>
         <Pressable
-          onPress={() => console.log('ViewActionExport print button: todo')}
+          onPress={() => console.log("ViewActionExport print button: todo")}
           style={{ margin: 5 }}
         >
           <ViewIconMain
@@ -467,28 +420,36 @@ export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
   const paths = useRouterLocation().paths;
   return (
     <ViewContainerStatic
-      style={{ flexDirection: "column", backgroundColor: "lightgray" }}
+      style={{
+        flexDirection: "column",
+        backgroundColor: "lightgray",
+        maxHeight: "50%" // until we implement dragging the topbar of the panel up and down - Chris has some experimental code to test this with.
+      }}
     >
-      <ViewRouterRoutes>
-        <ViewRouterRoute path="display" element={<ViewActionDisplay />} />
-        <ViewRouterRoute path="control" element={<ViewActionControl />} />
-        <ViewRouterRoute
-          path="/add"
-          element={
-            <ViewActionAdd
-              auxiliary={auxiliary}
-              schema={schema}
-              focus={focus}
-            />
-          }
-        />
-        <ViewRouterRoute path="edit" element={<ViewActionEdit />} />
-        <ViewRouterRoute path="sync" element={<ViewActionSync />} />
-        <ViewRouterRoute path="share" element={<ViewActionShare />} />
-        <ViewRouterRoute path="template" element={<ViewActionTemplate />} />
-        <ViewRouterRoute path="link" element={<ViewActionLink />} />
-        <ViewRouterRoute path="export" element={<ViewActionExport />} />
-      </ViewRouterRoutes>
+      <ViewContainerStatic
+        style={{ flexDirection: "column",flex:1}}
+      >
+        <ViewRouterRoutes>
+          <ViewRouterRoute path="display" element={<ViewActionDisplay />} />
+          <ViewRouterRoute path="control" element={<ViewActionControl />} />
+          <ViewRouterRoute
+            path="/add"
+            element={
+              <ViewActionAdd
+                auxiliary={auxiliary}
+                schema={schema}
+                focus={focus}
+              />
+            }
+          />
+          <ViewRouterRoute path="edit" element={<ViewActionEdit />} />
+          <ViewRouterRoute path="sync" element={<ViewActionSync />} />
+          <ViewRouterRoute path="share" element={<ViewActionShare />} />
+          <ViewRouterRoute path="template" element={<ViewActionTemplate />} />
+          <ViewRouterRoute path="link" element={<ViewActionLink />} />
+          <ViewRouterRoute path="export" element={<ViewActionExport />} />
+        </ViewRouterRoutes>
+      </ViewContainerStatic>
       <ViewContainerStatic style={{ flexDirection: "row" }}>
         {optionsActionTabs?.map((x, i) => (
           <ViewRouterLinkthemed

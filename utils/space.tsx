@@ -4,7 +4,7 @@ import { useWindowDimensions } from "./window";
 import { useModalVisibility } from "./modal";
 import { createMetaInfo } from "./meta";
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
-import { ViewModalMain } from "./modal";
+import { ViewModalContainer } from "./modal";
 import { ViewPageMain } from "./page";
 import { ViewContainerStatic, ViewContainerScroll } from "./container";
 import { ViewRouterLinkthemed } from "./router";
@@ -385,7 +385,7 @@ export const ViewSpaceTable = ({ ...Input }) => {
 
 export const ViewSpaceModal = (props: any) => {
   return (
-    <ViewModalMain
+    <ViewModalContainer
       modalName={"space"}
       snapto={"left"}
       backdrop
@@ -398,7 +398,7 @@ export const ViewSpaceModal = (props: any) => {
         <ViewSpaceLinks />
         <ViewSpaceNotifications />
       </ViewContainerScroll>
-    </ViewModalMain>
+    </ViewModalContainer>
   );
 };
 

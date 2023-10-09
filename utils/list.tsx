@@ -9,16 +9,38 @@ import { ViewTypographyText } from "./typography";
 
 // MAIN
 
-export const ViewListMain = ({ data=[] }: any) => {
-  // console.log('data',data)
+export const ViewListMain = ({ data = [] }: any) => {
+  // console.log("data", data);
+  // console.log('aux0', data?.[0]);
   return (
-    <ViewContainerScroll style={{flex:1, backgroundColor:'white'}}>
+    <ViewContainerScroll style={{ flex: 1, backgroundColor: "white" }}>
       {data?.map((x: any, i: number) => (
         <ViewContainerStatic
           key={i}
-          style={{ flex: 1, margin: 5, backgroundColor: "gray", minHeight: 50 }}
+          style={{
+            flex: 1,
+            margin: 5,
+            backgroundColor: "gray",
+            minHeight: 100,
+          }}
         >
-          <ViewTypographyText style={{ color: "white" }}>{x.entities.title}</ViewTypographyText>
+          {x.entities &&
+            Object.keys(x.entities)?.map((y, j) => (
+              <ViewTypographyText key={j} style={{ color: "white" }}>
+                {y}: {x.entities?.[y]}
+              </ViewTypographyText>
+            ))}
+          {x.relationships &&
+            Object.keys(x.relationships)?.map((y, j) => (
+              <ViewContainerStatic key={j + "a"}>
+                <ViewTypographyText style={{ color: "white" }}>
+                  {`${y}: ${x.relationships?.[y]?.[0] === null ? 0 : x.relationships?.[y]?.length}`}
+                </ViewTypographyText>
+                <ViewTypographyText>
+                  {JSON.stringify(x.relationships?.[y])}
+                </ViewTypographyText>
+              </ViewContainerStatic>
+            ))}
         </ViewContainerStatic>
       ))}
     </ViewContainerScroll>

@@ -11,7 +11,7 @@ import {
   ViewTypographySubsubheading,
   ViewTypographyText,
 } from "./typography";
-import { ViewModalMain } from "./modal";
+import { ViewModalContainer } from "./modal";
 import { ViewCardExpandable } from "./card";
 import { ViewRouterLinkthemed } from "./router";
 import { ViewContainerScroll, ViewContainerStatic } from "./container";
@@ -23,6 +23,7 @@ import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { useAttributeUnioned } from "./attribute";
 import { useQueryerQuery } from "./queryer";
 import { useWindowDimensions } from "./window";
+import { ViewShieldUniversal } from "./shield";
 import { useModalVisibility } from "./modal";
 import {
   useAuthSession,
@@ -84,7 +85,7 @@ export const ViewUserAttributes = () => {
 
 export const ViewUserModal = (props: any) => {
   return (
-    <ViewModalMain
+    <ViewModalContainer
       modalName={"user"}
       snapto={"right"}
       backdrop
@@ -101,7 +102,7 @@ export const ViewUserModal = (props: any) => {
         <ViewUserComms />
         <ViewUserDevice />
       </ViewContainerScroll>
-    </ViewModalMain>
+    </ViewModalContainer>
   );
 };
 
@@ -130,8 +131,7 @@ export const ViewUserActivity = () => {
 
 // Widget to show cookie/tracking/privacy options
 export const ViewUserPrivacy = () => {
-  const [shieldState, shieldSet] = useState(true);
-  const [infoState, infoSet] = useState(false);
+  // const [infoState, infoSet] = useState(false); // info for the shield. move into shield.tsx.
   return (
     <ViewCardExpandable
       startExpanded
@@ -139,60 +139,7 @@ export const ViewUserPrivacy = () => {
       body={
         <>
           <ViewContainerStatic style={{ flexDirection: "row", flex: 1 }}>
-            <ViewButtonPressable
-              style={{
-                flexDirection: "row",
-                padding: 5,
-                flex: 1,
-                height: 50,
-                backgroundColor: shieldState ? "gray" : "lightgray",
-              }}
-              onPress={() => shieldSet((old) => !old)}
-            >
-              <ViewTypographySubsubheading
-                selectable={false}
-                style={{ flex: 1 }}
-              >
-                Privacy Shield:
-              </ViewTypographySubsubheading>
-              <ViewIconMain
-                name={shieldState ? "shield" : "shield-off"}
-                source={"Feather"}
-                color={"white"}
-              />
-            </ViewButtonPressable>
-            <ViewButtonPressable
-              style={{
-                flexDirection: "row",
-                padding: 5,
-                height: 50,
-              }}
-              onPress={() => infoSet((old) => !old)}
-              onHoverIn={() => infoSet(true)}
-              onHoverOut={() => infoSet(false)}
-            >
-              <ViewIconMain name={"info"} source={"Feather"} color={"black"} />
-              {/* todo: fix opacity (coming from a parent somewhere?) */}
-              {infoState && (
-                <ViewContainerStatic
-                  style={{
-                    position: "absolute",
-                    backgroundColor: "rgba(211,211,211, 1)",
-                    bottom: -50,
-                    left: -125,
-                    width: 175,
-                    height: 50,
-                  }}
-                >
-                  <ViewTypographyText>
-                    Shield is{" "}
-                    {shieldState
-                      ? "ON. Your fields are hidden in the UI (TODO)"
-                      : "OFF. Your fields are visible in the UI. (TODO)"}
-                  </ViewTypographyText>
-                </ViewContainerStatic>
-              )}
-            </ViewButtonPressable>
+            <ViewShieldUniversal />
           </ViewContainerStatic>
           <ViewTypographyText>[cookies & tracking]</ViewTypographyText>
         </>

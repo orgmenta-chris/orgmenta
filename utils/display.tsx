@@ -43,6 +43,7 @@ export const ViewDisplayList = (props: any) => {
   const auxiliary = props.auxiliary;
   // const aux = auxiliary?.data?.filter(x=>x.relationships && Object.keys(x.relationships)?.length>0 )
   // console.log('aux', auxiliary?.data?.filter(x=>x.relationships))
+  // console.log('aux0', auxiliary?.data?.[0]);
   return <ViewListMain data={auxiliary?.data} />;
 };
 
@@ -74,8 +75,6 @@ export const ViewDisplayPod = (props: any) => {
 // Form
 
 export const ViewDisplayForm = (props: any) => {
-  // Chris todo: auxiliary data doesn't have relationship ids yet, so 'if(oldItem.focus_columns.cell_field==='relationship'){' does nothing yet
-  // create the appropriate schema for the form
   let data: any = useMemo(() => {
     let items: any = [];
     if (props.schema && props.focus.data && props.auxiliary) {
@@ -93,11 +92,10 @@ export const ViewDisplayForm = (props: any) => {
         delete newItem.auxiliary_columns;
         items.push(newItem);
       });
-
       return items;
     }
   }, [props.schema, props.focus.data, props.auxiliary]);
-  return <ViewFormDynamic data={data} />;
+  return <ViewFormDynamic data={data} formname={'form'}/>;
 };
 
 // Table

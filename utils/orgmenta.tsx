@@ -7,7 +7,7 @@ import {
   ViewTypographyText,
 } from "./typography";
 import { ViewPageMain } from "./page";
-import { ViewModalMain } from "./modal";
+import { ViewModalContainer } from "./modal";
 import { ViewRouterLink, ViewRouterLinkthemed } from "./router";
 import { ViewHeaderMain, ViewHeaderSection } from "./header";
 import { ViewSpaceWidget } from "./space";
@@ -73,7 +73,7 @@ export const ViewOrgmentaHeader = () => {
 export const ViewOrgmentaModal = (props: any) => {
   // Modal for the header of Orgmenta site
   return (
-    <ViewModalMain modalName={"orgmenta"} backdrop height={200} width={"100%"}>
+    <ViewModalContainer modalName={"orgmenta"} backdrop height={200} width={"100%"}>
       <ViewContainerStatic style={{ flexDirection: "row" }}>
         {/* App Links Column */}
         <ViewContainerStatic style={{ flex: 1, alignItems: "center" }}>
@@ -319,7 +319,7 @@ export const ViewOrgmentaModal = (props: any) => {
           </ViewRouterLink>
         </ViewContainerStatic>
       </ViewContainerStatic>
-    </ViewModalMain>
+    </ViewModalContainer>
   );
 };
 
@@ -1200,8 +1200,8 @@ export const ViewOrgmentaWidget = () => {
         }}
         source={
           widgetHover
-            ? require("../assets/logo/full/white.png")
-            : require("../assets/logo/symbol/white.png")
+            ? require("../assets/logo/full/white-small.png")
+            : require("../assets/logo/symbol/white-small.png")
         }
       />
     </ViewButtonPressable>

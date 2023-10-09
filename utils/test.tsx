@@ -1,5 +1,5 @@
 import { ViewPageMain } from "./page";
-import { ViewTypographyHeading } from "./typography";
+import { ViewTypographyHeading, ViewTypographyText } from "./typography";
 import { ViewInputRichmain } from "./input";
 import { useAuxiliaryArray } from "./auxiliary";
 import { ViewCryptoExample } from "./crypto";
@@ -7,24 +7,19 @@ import { ViewVaultExample } from "./vault";
 import { ViewSvgArrowmain, ViewSvgArrowhead } from "./svg";
 import { ViewBarcodeReader, ViewCameraMain } from "./camera";
 import { ViewClipboardCopy } from "./clipboard";
-import { TypeNotificationBody, UseNotification } from "./notification";
 import { ViewSoundPlayer, ViewSoundRecorder } from "./audio";
 import { ViewVideoPlayer } from "./video";
 import { ViewScreenRecorder } from "./recorder";
 import { ViewHelpContainer } from "./help";
-
-import { Text, ScrollView } from "react-native";
+import { ViewContainerScroll } from "./container";
+import { ViewShieldContainer, ViewShieldUniversal } from "./shield";
+import { TypeNotificationBody, UseNotification } from "./notification"; // Chris to check naming conventions. Also need to check how to use this?
 
 export const ViewTestPage = () => {
   const aux = useAuxiliaryArray({ filter_array: [] });
   return __DEV__ ? (
     <ViewPageMain>
-      <ScrollView>
-        <ViewHelpContainer to={"testing123"} />
-        <ViewTypographyHeading>Testing</ViewTypographyHeading>
-        <Text>ViewTestPage Placeholder</Text>
-        <Text>{JSON.stringify(aux, null, 2)}</Text>
-        <ViewInputRichmain />
+      <ViewContainerScroll>
 
         {/* Barcode Scanner (working) */}
         {/* <ViewBarcodeReader /> */}
@@ -40,21 +35,35 @@ export const ViewTestPage = () => {
           // {...notificationBody} 
         /> */}
 
-        <Text>Example Sound Player:</Text>
-        <ViewSoundPlayer />
+        {/* <ViewTypographyText>Example Sound Player:</ViewTypographyText>
+        <ViewSoundPlayer /> */}
 
-        <Text>Example Sound Recorder:</Text>
-        <ViewSoundRecorder />
+        {/* <ViewTypographyText>Example Sound Recorder:</ViewTypographyText>
+        <ViewSoundRecorder /> */}
 
         {/* Play video (working) */}
-        <ViewVideoPlayer />
+        {/* <ViewVideoPlayer /> */}
 
-        {/* Screen Recorder CG (NOT working yet)*/}
+        {/* Screen Recorder Chris (NOT working yet)*/}
         {/* <ViewScreenRecorder/> */}
 
-        {/* Crypto CG (NOT working yet)*/}
+        {/* Crypto Chris (NOT working yet)*/}
         {/* <ViewCryptoExample/> */}
-      </ScrollView>
+        
+        {/* Shield Chris (Working) */}
+        {/* <ViewShieldUniversal/>
+        <ViewShieldContainer id={'test1'} />
+        <ViewShieldContainer id={'test2'} /> */}
+
+        {/* Help Chris (in progress ) */}
+        {/* <ViewHelpContainer to={"testing123"} />
+        <ViewTypographyHeading>Testing</ViewTypographyHeading> */}
+
+        {/* Richtext Chris (in progress) */}
+        {/* <ViewInputRichmain /> */}
+
+
+      </ViewContainerScroll>
     </ViewPageMain>
   ) : (
     <ViewTypographyHeading>Access Denied</ViewTypographyHeading>

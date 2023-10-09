@@ -27,7 +27,7 @@ export const ViewTypographyTextthemed = ({
   const isStyleObject = validateObjectIsobject(style as TextStyle);
   const stylesheetMerged = mergeStylesheetMain(
     theme?.style,
-    isStyleObject ? (style as TextStyle) : {}
+    isStyleObject ? (style as any) : {}
   );
   const propsMerged = { ...theme, ...rest, style: stylesheetMerged };
   return (
@@ -48,7 +48,7 @@ export const ViewTypographyHeading = ({
   const isStyleObject = validateObjectIsobject(style as TextStyle);
   const stylesheetMerged = mergeStylesheetMain(
     theme?.style,
-    isStyleObject ? (style as TextStyle) : {}
+    isStyleObject ? (style as any) : {}
   );
   const propsMerged = { ...theme, ...rest, style: stylesheetMerged };
   return (
@@ -69,7 +69,7 @@ export const ViewTypographySubheading = ({
   const isStyleObject = validateObjectIsobject(style as TextStyle);
   const stylesheetMerged = mergeStylesheetMain(
     theme?.style,
-    isStyleObject ? (style as TextStyle) : {}
+    isStyleObject ? (style as any) : {}
   );
   const propsMerged = { ...theme, ...rest, style: stylesheetMerged };
   return (
@@ -90,7 +90,7 @@ export const ViewTypographySubsubheading = ({
   const isStyleObject = validateObjectIsobject(style as TextStyle);
   const stylesheetMerged = mergeStylesheetMain(
     theme?.style,
-    isStyleObject ? (style as TextStyle) : {}
+    isStyleObject ? (style as any) : {}
   );
   const propsMerged = { ...theme, ...rest, style: stylesheetMerged };
   return (
@@ -100,3 +100,13 @@ export const ViewTypographySubsubheading = ({
     </Text>
   );
 };
+
+
+// LABEL
+
+export const ViewTypographyLabel = ({ style, ...props }: TypeTypographyLabel) => {
+  // Just a normal Text, but not selectable (more convinient that using ViewTypographyText and specifying selectable)
+  return <ViewTypographyText {...props} style={[style, { flexDirection: "row" }]} />;
+};
+
+export type TypeTypographyLabel = TypeTypographyText;

@@ -10,7 +10,7 @@
 // })();
 // This may be useful for cross-platform code sharing.\
 
-import { useEffect } from "react";
+import { useReactEffect } from "./react";
 import { Platform, PlatformStatic } from "react-native";
 import "react-native-url-polyfill/auto"; // https://www.npmjs.com/package/react-native-url-polyfill (needed for react-native to work with supabase and possibly other packages.). This solves any 'URL.hostname is not implemented' issues.
 
@@ -19,24 +19,26 @@ export const UtilityPlatformMain = Platform;
 export type TypePlatformMain = PlatformStatic;
 
 export const usePlatformCssweb = () => {
-  useEffect(() => {
+  useReactEffect(() => {
     if (UtilityPlatformMain.OS === "web") {
       const style = document.createElement("style");
       style.innerHTML = `
-        /* REMOVE STANDARD SCROLLBAR (to replace with styling instead of removing completely) */
+        /* FONTS */
         body {
           font-family: 'Roboto';
         }
-        ::-webkit-scrollbar {
-          display: none;
-        }
-        /* REMOVE WEBPAGE HEADER AND FOOTER FOR PRINTING */
-        /* Hide the page header */
+        /* SCROLLBAR (to replace with styling instead of removing completely) */
+        /* Commented out for testing. */
+        // ::-webkit-scrollbar {
+        //   display: none;
+        // }
+        /* WEBPAGE HEADER AND FOOTER */
+        /* Hide the page header (date, page title) so it doesn't show while printing the page */
         @page {
           size: auto; /* Set the page size to 'auto' */
           margin: 0mm; /* Set margins to zero */
         }
-        /* Hide the page footer */
+        /* Hide the page footer (page number) so it doesn't show while printing the page */
         @page :footer {
           display: none;
         }

@@ -1,16 +1,16 @@
 // Currently is Orgmenta landing page rather than generalised component
 
-import { useWindowDimensions } from "./window";
-import { ViewContainerScroll, ViewContainerStatic } from "./container";
-import { ViewImageMain } from "./image";
-import { ViewInquiryMain } from "./inquiry";
-import { ViewOrgmentaBackground } from "./orgmenta";
 import {
   ViewTypographyHeading,
   ViewTypographyTextthemed,
   ViewTypographyText,
 } from "./typography";
-import { useEffect, useState } from "react";
+import { ViewContainerScroll, ViewContainerStatic } from "./container";
+import { ViewImageMain } from "./image";
+import { ViewInquiryMain } from "./inquiry";
+import { ViewOrgmentaBackground } from "./orgmenta";
+import { useWindowDimensions } from "./window";
+import { useReactEffect, useReactState } from "./react";
 
 export const ViewLandingPage = () => {
   const windowDimensions = useWindowDimensions();
@@ -91,9 +91,9 @@ export const ViewLandingPage = () => {
 
 // temp
 const CompanytypeSwitcher: React.FC = () => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useReactState(0);
   const texts = ["IT Company", "MSP", "MSSP", "VAR", "TSP", "OED"];
-  useEffect(() => {
+  useReactEffect(() => {
     const timer = setInterval(() => {
       setIndex((prevIndex: any) => (prevIndex + 1) % texts.length);
     }, 3000);

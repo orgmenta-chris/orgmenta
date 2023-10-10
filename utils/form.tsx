@@ -28,7 +28,7 @@ export interface interfaceFormContainer {
 export const ViewFormDynamic = ({ data, formname }: TypeFormDynamic) => {
   const formState = useFormState([formname]);
   return (
-    <ViewContainerStatic style={{}}>
+    <ViewContainerStatic>
       <ViewContainerStatic>
         {!data ? (
           <ViewTypographyText>
@@ -38,7 +38,7 @@ export const ViewFormDynamic = ({ data, formname }: TypeFormDynamic) => {
           <ViewFormButtons formState={formState} />
         )}
       </ViewContainerStatic>
-      <ViewContainerScroll style={{ height: 300 }}>
+      <ViewContainerScroll style={{ height: 350 }}>
         {isArrayNonempty(data) &&
           data?.map((item: any, i: number) => (
             <ViewFieldDynamic
@@ -65,6 +65,7 @@ export type TypeFormDynamic = {
 // BUTTONS (TODO)
 // Make a button set (clear/reset, cancel, save) for the forms
 export const ViewFormButtons = ({ data, title, formState }: any) => {
+  console.log('formState',formState)
   //(move these into separate function(s) when done)
   let relationships = [];
   let entities = [];
@@ -117,6 +118,17 @@ export const ViewFormButtons = ({ data, title, formState }: any) => {
       >
         <ViewTypographyText>SaveWithReview</ViewTypographyText>
       </ViewButtonPressable>
+      <ViewButtonPressable
+        disabled={formState?.length === 0}
+        onPress={() => ""}
+        style={{
+          margin: 5,
+          padding: 5,
+          backgroundColor: formState?.length > 0 ? "lightblue" : "gray",
+        }}
+      >
+        <ViewTypographyText>TOGGLE:_CLEAR_FORM_ON_SUBMIT</ViewTypographyText>
+      </ViewButtonPressable>
     </ViewContainerRow>
   );
 };
@@ -129,9 +141,9 @@ export const useFormState = (id: string[]) => {
   const formState = queryerClient
     .getQueryCache()
     .findAll(["field"].concat(id))
-    .filter((query) => !!(query.state.data as any)?.value)
+    .filter((query) => !!(query.state.data as any)?.value || !!(query.state.data as any)?.valueDefault)
     .map((query) => {
-      return { [query.queryKey[3] as string]: (query.state.data as any).value };
+      return { [query.queryKey[3] as string]: (query.state.data as any).value }; // only return the attribute name and value (for now. may need other things like validation later.)
     });
   // console.log("formState", formState);
   return formState;

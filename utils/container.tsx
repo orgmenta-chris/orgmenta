@@ -1,6 +1,6 @@
 // Placeholder (no theme/styling yet introduced.)
 
-import { ScrollView, ScrollViewProps, View, ViewProps } from "react-native";
+import { ScrollView, ScrollViewProps, View, ViewProps, ViewStyle } from "react-native";
 
 // SCROLL
 

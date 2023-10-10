@@ -2,8 +2,10 @@
 
 import { ViewRouterLink } from "./router";
 import { ViewIconMain } from "./icon";
-import { useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { ViewTypographyText } from "./typography";
+import { ViewContainerStatic, ViewContainerRow } from "./container";
+import { ViewButtonPressable } from "./button";
+import { useReactState } from "./react";
 
 // Main
 
@@ -17,10 +19,10 @@ export const ViewWidgetMain = ({
   backgroundColor,
   height = 20,
 }: any) => {
-  const [showOptions, setOptions] = useState(false);
-  const [showInfo, setInfo] = useState(false);
+  const [showOptions, setOptions] = useReactState(false);
+  const [showInfo, setInfo] = useReactState(false);
   return (
-    <Pressable
+    <ViewButtonPressable
       // onPress={()=>setOptions((oldValue)=>!oldValue)}
       // onHoverIn={()=>setOptions((oldValue)=>true)}
       // onHoverOut={()=>setOptions((oldValue)=>false)}
@@ -37,9 +39,8 @@ export const ViewWidgetMain = ({
 
       {/* Widget Info (show on hover / press of the info icon) */}
       {showInfo && (
-        <View
+        <ViewContainerRow
           style={{
-            flexDirection: "row",
             backgroundColor: "gray",
             position: "absolute",
             top: 0,
@@ -47,27 +48,26 @@ export const ViewWidgetMain = ({
             width: "100%",
           }}
         >
-          <Text style={{ padding: 5 }}>{title}</Text>
-          <Text style={{ fontStyle: "italic", padding: 5 }}>{summary}</Text>
-        </View>
+          <ViewTypographyText style={{ padding: 5 }}>{title}</ViewTypographyText>
+          <ViewTypographyText style={{ fontStyle: "italic", padding: 5 }}>{summary}</ViewTypographyText>
+        </ViewContainerRow>
       )}
 
       {/* Widget icons (show on hover / press of the entire widget) */}
       {showOptions && (
-        <View
+        <ViewContainerRow
           style={{
             position: "absolute",
-            flexDirection: "row",
             top: 0,
             width: "100%",
           }}
         >
           {/* Divider */}
-          <View style={{ flexGrow: 1 }}></View>
+          <ViewContainerStatic style={{ flexGrow: 1 }}></ViewContainerStatic>
 
           {/* Info */}
           {(title || summary) && (
-            <Pressable
+            <ViewButtonPressable
               onHoverIn={() => {
                 setOptions(true);
                 setInfo(true);
@@ -87,12 +87,12 @@ export const ViewWidgetMain = ({
                 color={"white"}
                 size={15}
               />
-            </Pressable>
+            </ViewButtonPressable>
           )}
 
           {/* Help / Documentation */}
           {help && (
-            <Pressable
+            <ViewButtonPressable
               onHoverIn={() => {
                 setOptions((oldValue) => true);
               }}
@@ -109,12 +109,12 @@ export const ViewWidgetMain = ({
                   size={15}
                 />
               </ViewRouterLink>
-            </Pressable>
+            </ViewButtonPressable>
           )}
 
           {/* Collapse / Expand */}
           {collapsible && (
-            <Pressable
+            <ViewButtonPressable
               onHoverIn={() => {
                 setOptions((oldValue) => true);
               }}
@@ -126,11 +126,11 @@ export const ViewWidgetMain = ({
                 color={"white"}
                 size={15}
               />
-            </Pressable>
+            </ViewButtonPressable>
           )}
 
           {/* Menu Icon */}
-          <Pressable
+          <ViewButtonPressable
             onHoverIn={() => {
               setOptions((oldValue) => true);
             }}
@@ -143,9 +143,9 @@ export const ViewWidgetMain = ({
               size={12}
               padding={2}
             />
-          </Pressable>
-        </View>
+          </ViewButtonPressable>
+        </ViewContainerRow>
       )}
-    </Pressable>
+    </ViewButtonPressable>
   );
 };

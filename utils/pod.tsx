@@ -4,7 +4,7 @@
 // E.g. on the 'invoicing' category entity, you could pin an 'unsent invoices count' widget to to this display.
 
 import { ViewRouterLink, useRouterLocation } from "./router";
-import { ViewContainerStatic } from "./container";
+import { ViewContainerStatic, ViewContainerColumn, ViewContainerRow } from "./container";
 import { ViewTypographyText } from "./typography";
 import { data } from "./static";
 
@@ -30,9 +30,8 @@ export const ViewPodList = ({ items, children }: any) => {
 export const ViewPodExample = () => {
   // Temporary examplepod
   return (
-    <ViewContainerStatic
+    <ViewContainerColumn
       style={{
-        flexDirection: "column",
         margin: 5,
       }}
     >
@@ -44,7 +43,7 @@ export const ViewPodExample = () => {
           To be replaced with dynamic pods using db data
         </ViewTypographyText>
       </ViewContainerStatic>
-    </ViewContainerStatic>
+    </ViewContainerColumn>
   );
 };
 
@@ -59,9 +58,8 @@ export const ViewPodInfo = () => {
   const process = data?.find((x) => x.nickname === path[2]);
   const parent = data?.find((y) => y.id === process?.parent);
   return (
-    <ViewContainerStatic
+    <ViewContainerColumn
       style={{
-        flexDirection: "column",
         margin: 5,
       }}
     >
@@ -71,7 +69,7 @@ export const ViewPodInfo = () => {
         </ViewTypographyText>
         <ViewTypographyText style={{ fontSize: 12 }}>{process?.summary}</ViewTypographyText>
       </ViewContainerStatic>
-    </ViewContainerStatic>
+    </ViewContainerColumn>
   );
 };
 
@@ -87,14 +85,13 @@ export const ViewPodTabs = () => {
   const subprocesses = process && data.filter((x) => x.parent === process.id);
   const parent = data?.find((y) => y.id === process?.parent);
   return (
-    <ViewContainerStatic
+    <ViewContainerColumn
       style={{
-        flexDirection: "column",
         margin: 5,
       }}
     >
       {/* Tabs for each subprocess */}
-      <ViewContainerStatic style={{ flexDirection: "row", height: 40 }}>
+      <ViewContainerRow style={{ height: 40 }}>
         {subprocesses?.map((x, i) => (
           <ViewRouterLink
             style={{ flex: 1 }}
@@ -104,7 +101,7 @@ export const ViewPodTabs = () => {
             <ViewTypographyText>{x.display_singular}</ViewTypographyText>
           </ViewRouterLink>
         ))}
-      </ViewContainerStatic>
-    </ViewContainerStatic>
+      </ViewContainerRow>
+    </ViewContainerColumn>
   );
 };

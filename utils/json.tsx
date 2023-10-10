@@ -1,7 +1,7 @@
-import JSONTree from "react-native-json-tree";
 import { ViewContainerStatic } from "./container";
 import { ViewTypographyText } from "./typography";
-import { Pressable } from "react-native";
+import { ViewButtonPressable } from "./button";
+import JSONTree from "react-native-json-tree";
 
 // CONTAINER
 
@@ -53,7 +53,7 @@ export const ViewJsonMain = ({ data }: any) => {
         nestedNodeLabel: ({ style }, nodeType, expanded) => ({
           style: {
             ...style,
-            textTransform: expanded ? "uppercase" : style.textTransform,
+            textTransform: expanded ? "uppercase" : (style as any).textTransform,
           },
         }),
       }}
@@ -67,7 +67,7 @@ export const ViewJsonMain = ({ data }: any) => {
 export const ViewJsonControls = ({ data }: any) => {
   return (
     <ViewContainerStatic style={{ height: 40 }}>
-      <Pressable onPress={() => console.log("todo")}>
+      <ViewButtonPressable onPress={() => console.log("todo")}>
         <ViewTypographyText
           style={{
             color: "blue",
@@ -77,7 +77,7 @@ export const ViewJsonControls = ({ data }: any) => {
         >
           Expand/Collapse All Button (todo)
         </ViewTypographyText>
-      </Pressable>
+      </ViewButtonPressable>
     </ViewContainerStatic>
   );
 };

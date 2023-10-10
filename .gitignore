@@ -90,6 +90,5 @@ yarn-error.*
 /utils/table-old.tsx
 sql
 .env-backup.txt
-
 .env
-env
+articles

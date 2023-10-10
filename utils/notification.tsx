@@ -6,7 +6,7 @@ import { ViewTypographyText } from "./typography";
 import { ViewButtonPressable } from "./button";
 import { UtilityPlatformMain } from "./platform";
 import { UtilityDeviceMain } from "./device";
-import React, { useState, useEffect, useRef } from "react";
+import { TypeReactComponent, useReactState, useReactEffect, useReactRef } from "./react";
 import * as Notifications from "expo-notifications";
 // import Constants from "expo-constants";
 // import * as Device from "expo-device";
@@ -86,18 +86,18 @@ export const asyncNotificationSchedule = async (props: any) => {
 
 export interface TypeNotificationBody {
   testMode: boolean;
-  CustomNotificationBody?: React.ComponentType<any>;
+  CustomNotificationBody?: TypeReactComponent;
 }
 
 // EXAMPLE
 
 export const ViewNotificationExample = (props: TypeNotificationBody) => {
   const { testMode, CustomNotificationBody } = props;
-  const [expoPushToken, setExpoPushToken] = useState("");
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
-  useEffect(() => {
+  const [expoPushToken, setExpoPushToken] = useReactState("");
+  const [notification, setNotification] = useReactState(false);
+  const notificationListener = useReactRef();
+  const responseListener = useReactRef();
+  useReactEffect(() => {
     asyncNotificationRegister().then((token: any) => setExpoPushToken(token));
     // @ts-ignore
     notificationListener.current =

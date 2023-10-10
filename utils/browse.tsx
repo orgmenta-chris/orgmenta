@@ -15,7 +15,7 @@ import { ViewInputText } from "./input";
 import { ViewButtonPressable } from "./button";
 import { ViewPageMain } from "./page";
 import { useQueryerQuery } from "./queryer";
-import { useState } from "react";
+import { useReactState } from "./react";
 import { useWindowDimensions } from "./window";
 import { useModalVisibility } from "./modal";
 
@@ -80,7 +80,7 @@ export const useBrowseArray = ({ searchterm }: any) => {
 // Modal
 
 export const ViewBrowseModal = (props: any) => {
-  const [search, set] = useState("");
+  const [search, set] = useReactState("");
   const browseArray = useBrowseArray({ searchterm: search });
   return (
     <ViewModalContainer
@@ -100,7 +100,7 @@ export const ViewBrowseModal = (props: any) => {
 // Search
 
 export const ViewBrowseSearch = (props: any) => {
-  const [search, set] = useState("");
+  const [search, set] = useReactState("");
   const browseArray = useBrowseArray({ searchterm: search });
   return (
     <ViewCardExpandable
@@ -212,7 +212,7 @@ export const ViewBrowseNavigation = () => {
 // Tabs
 
 export const ViewBrowseTabs = ({}: any) => {
-  const [state, set] = useState("all");
+  const [state, set] = useReactState("all");
   return (
     <ViewContainerScroll
       horizontal

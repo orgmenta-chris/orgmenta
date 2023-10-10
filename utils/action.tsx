@@ -1,9 +1,9 @@
 // An 'Action' (or 'control'?) is something that can be done to an 'Entity'.
 
-import { ViewContainerStatic } from "./container";
 import { ViewControlMain } from "./control";
 import { ViewFormDynamic } from "./form";
 import { ViewDisplayTabs } from "./display";
+import { ViewButtonPressable } from "./button";
 import { ViewIconMain } from "./icon";
 import { ViewFileModal } from "./pdf";
 import { ViewHelpContainer } from "./help";
@@ -13,13 +13,17 @@ import {
   ViewTypographySubsubheading,
 } from "./typography";
 import {
+  ViewContainerStatic,
+  ViewContainerColumn,
+  ViewContainerRow,
+} from "./container";
+import {
   ViewRouterLinkthemed,
   ViewRouterRoutes,
   ViewRouterRoute,
   useRouterLocation,
 } from "./router";
-import { Pressable } from "react-native";
-import { useState } from "react";
+import { useReactState } from "./react";
 
 // Display
 
@@ -52,6 +56,7 @@ export const ViewActionControl = ({}: any) => {
 
 // A component for creating new entity-relationships
 export const ViewActionAdd = ({ schema, focus }: any) => {
+  const paths = useRouterLocation().paths;
   schema = schema?.data
     ?.filter(
       (x: any) => x.form_field !== "hidden" // Remove 'hidden' fields (fields that are not meant to be shown on the form view)
@@ -59,13 +64,15 @@ export const ViewActionAdd = ({ schema, focus }: any) => {
     .map((x: any) => {
       return {
         ...x,
-        value: x.valueDefault, // Alias the defaultValue field to be initial value
+        valueDefault: x.label === "Category" ? paths[2] // If category then put in the current category from the url
+        : x.valueDefault, // Else alias the defaultValue field to be initial value
       };
     });
+
   return (
     <ViewContainerStatic style={{ flexDirection: "column" }}>
       <ViewActionHeading title={"Add"} subtitle={"Create entities"} />
-      <ViewFormDynamic data={schema} formname={"add"} queryId={"new"} />
+      <ViewFormDynamic data={schema} formname={"add"} />
     </ViewContainerStatic>
   );
 };
@@ -79,7 +86,7 @@ export const ViewActionEdit = ({ schema, focus }: any) => {
   return (
     <ViewContainerStatic style={{ flexDirection: "column", maxHeight: 300 }}>
       <ViewActionHeading title={"Edit"} subtitle={"Update entities"} />
-      <ViewFormDynamic data={schema} formname={"add"} queryId={"edit"} />
+      <ViewFormDynamic data={schema} formname={"add"} />
     </ViewContainerStatic>
   );
 };
@@ -140,42 +147,66 @@ export const ViewActionLink = ({}: any) => {
 // Export
 
 export const ViewActionExport = ({}: any) => {
-  const [statePdfModal, setPdfModal] = useState(false);
+  const [statePdfModal, setPdfModal] = useReactState(false);
   return (
-    <ViewContainerStatic style={{ flexDirection: "column" }}>
+    <ViewContainerColumn style={{ flex: 1 }}>
       <ViewActionHeading
         title={"Export"}
         subtitle={"Download, export and backup entities"}
       />
-      <ViewContainerStatic style={{ flexDirection: "row", margin: 10 }}>
-        <Pressable
-          onPress={() => console.log("ViewActionExport print button: todo")}
-          style={{ margin: 5 }}
-        >
-          <ViewIconMain
-            name={"ios-print-outline"}
-            source={"Ionicons"}
-            color={"black"}
-            size={24}
+      <ViewContainerRow style={{ flex: 1 }}>
+        <ViewContainerStatic style={{ flexDirection: "row", margin: 10 }}>
+          <ViewButtonPressable
+            onPress={() => console.log("ViewActionExport print button: todo")}
+            style={{ margin: 5 }}
+          >
+            <ViewIconMain
+              name={"ios-print-outline"}
+              source={"Ionicons"}
+              color={"black"}
+              size={24}
+            />
+          </ViewButtonPressable>
+          <ViewButtonPressable
+            onPress={() => setPdfModal((old) => !old)}
+            style={{ margin: 5 }}
+          >
+            <ViewIconMain
+              name={"pdffile1"}
+              source={"AntDesign"}
+              color={"black"}
+              size={24}
+            />
+          </ViewButtonPressable>
+          <ViewFileModal
+            statePdfModal={statePdfModal}
+            setPdfModal={() => setPdfModal((old) => !old)}
           />
-        </Pressable>
-        <Pressable
-          onPress={() => setPdfModal((old) => !old)}
-          style={{ margin: 5 }}
-        >
-          <ViewIconMain
-            name={"pdffile1"}
-            source={"AntDesign"}
-            color={"black"}
-            size={24}
-          />
-        </Pressable>
-        <ViewFileModal
-          statePdfModal={statePdfModal}
-          setPdfModal={() => setPdfModal((old) => !old)}
-        />
-      </ViewContainerStatic>
-    </ViewContainerStatic>
+        </ViewContainerStatic>
+        <ViewContainerRow>
+          <ViewButtonPressable
+            onPress={() => ""}
+            style={{ margin: 5, backgroundColor: "lightblue" }}
+          >
+            <ViewTypographyText>
+              Webonly:Toggle-PageHeaders(defaultFalse)
+            </ViewTypographyText>
+          </ViewButtonPressable>
+          <ViewButtonPressable
+            onPress={() => ""}
+            style={{ margin: 5, backgroundColor: "lightblue" }}
+          >
+            <ViewTypographyText>
+              Toggle-IncludeFrameOrJustTheDisplayView
+            </ViewTypographyText>
+          </ViewButtonPressable>
+        </ViewContainerRow>
+        <ViewContainerRow />
+      </ViewContainerRow>
+      <ViewContainerRow>
+        <ViewTypographyText>Preview will go here.</ViewTypographyText>
+      </ViewContainerRow>
+    </ViewContainerColumn>
   );
 };
 
@@ -250,7 +281,7 @@ export const ViewActionPanels = ({
         flexDirection: "column",
         backgroundColor: "lightgray",
         minHeight: 40, // for some reason, this is necessary on mobile or the component doesn't has 0 height despite children having heights
-        maxHeight: "50%", // until we implement dragging the topbar of the panel up and down - Chris has some experimental code to test this with.
+        // maxHeight: "90%", // until we implement dragging the topbar of the panel up and down - Chris has some experimental code to test this with.
       }}
     >
       <ViewRouterRoutes>

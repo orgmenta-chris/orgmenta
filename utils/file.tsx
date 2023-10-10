@@ -1,12 +1,12 @@
 // using expo-document-picker: https://docs.expo.dev/versions/latest/sdk/document-picker/
 
 import { doCsvParse, TypeCsvParse } from "./csv";
-import { useStorageUpload } from "./storage";
 import { ViewContainerStatic } from "./container";
 import { ViewTypographyText } from "./typography";
+import { ViewButtonPressable } from "./button";
+import { useStorageUpload } from "./storage";
+import { useReactEffect, useReactState } from "./react";
 import { useQueryerClient, useQueryerMutation } from "./queryer"; // Todo CG: maybe store in here instead of state? Would prevent issues if the user exited then reentered the app / would persist the data between sessions.
-import { useEffect, useState } from "react";
-import { Pressable, Button } from "react-native";
 import * as DocPicker from "expo-document-picker";
 
 // Picker (pick a file from local)
@@ -32,7 +32,9 @@ export const ViewFilePicker = (props: any) => {
   };
   return (
     <ViewContainerStatic>
-      <Button title="Pick a Document" onPress={pickDocument} />
+      <ViewButtonPressable onPress={pickDocument}>
+        <ViewTypographyText>Pick a Document</ViewTypographyText>
+      </ViewButtonPressable>
     </ViewContainerStatic>
   );
 };
@@ -63,7 +65,7 @@ export const ViewFileUpload = ({}: any) => {
             })}
           </ViewContainerStatic>
         )}
-        <Pressable
+        <ViewButtonPressable
           style={{
             padding: 5,
             borderWidth: 1,
@@ -74,14 +76,14 @@ export const ViewFileUpload = ({}: any) => {
           onPress={() => request.upload.mutate()}
         >
           <ViewTypographyText>Upload</ViewTypographyText>
-        </Pressable>
+        </ViewButtonPressable>
       </ViewContainerStatic>
     </ViewContainerStatic>
   );
 };
 
 export const requestFileUpload = () => {
-  const [pickedDocument, setPickedDocument] = useState([]);
+  const [pickedDocument, setPickedDocument] = useReactState([]);
   const upload = useStorageUpload({
     name: "exampledocument",
     file: pickedDocument[0],
@@ -108,7 +110,7 @@ export const requestFileUpload = () => {
     },
   };
   // Currently assumes we are uploading a csv (so need to change this if it is a diff. file type?)
-  useEffect(() => {
+  useReactEffect(() => {
     doCsvParse(pickedDocument, config);
   }, [pickedDocument]);
   return {
@@ -124,7 +126,7 @@ export const requestFileUpload = () => {
 
 // A document picker and uploader to supabase storage (proof of concept)
 export const ViewFileExample = ({}: any) => {
-  const [pickedDocument, setPickedDocument] = useState([]);
+  const [pickedDocument, setPickedDocument] = useReactState([]);
   const upload = useStorageUpload({
     name: "exampledocument",
     file: pickedDocument[0],
@@ -150,7 +152,7 @@ export const ViewFileExample = ({}: any) => {
       throw new Error(error);
     },
   };
-  useEffect(() => {
+  useReactEffect(() => {
     doCsvParse(pickedDocument, config);
   }, [pickedDocument]);
   return (
@@ -185,11 +187,12 @@ export const ViewFileExample = ({}: any) => {
         </ViewContainerStatic>
       )}
       <ViewContainerStatic style={{ marginTop: 10 }}>
-        <Button
-          title="Upload Document"
+        <ViewButtonPressable
           disabled={pickedDocument.length === 0}
           onPress={() => upload.mutate()}
-        />
+        >
+          <ViewTypographyText>Upload Document</ViewTypographyText>
+        </ViewButtonPressable>
       </ViewContainerStatic>
     </ViewContainerStatic>
   );

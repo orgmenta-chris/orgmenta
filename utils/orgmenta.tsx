@@ -1,6 +1,7 @@
 // Module for the Orgmenta website.
 // This file may be split out into separate modules: Orgmentacompany, Orgmentaproduct, Orgmentacommunity.
 
+import { useReactEffect, useReactState } from "./react";
 import {
   ViewTypographyHeading,
   ViewTypographySubheading,
@@ -23,11 +24,11 @@ import { mapTypeMain } from "./type";
 import { useModalVisibility } from "./modal";
 import { useWindowDimensions } from "./window";
 import { useThemeToken } from "./theme";
+import { articlesTemp } from "../articles/_general";
 import {
   features,
   requirements,
   pricingTemp,
-  articlesTemp,
   procedures,
   paradigms,
   checklist,
@@ -40,8 +41,6 @@ import {
 // The home page will ideally just show a demo space + product information/ sales pitch, and a guest user if not logged in.
 // If logged in, then it should also show the user a dropdown asking them if they want to set a default page when logged in.
 import { UseNewStripeWrapperFunctions } from "./stripe";
-import { useEffect, useState } from "react";
-
 
 // HEADER
 
@@ -73,7 +72,12 @@ export const ViewOrgmentaHeader = () => {
 export const ViewOrgmentaModal = (props: any) => {
   // Modal for the header of Orgmenta site
   return (
-    <ViewModalContainer modalName={"orgmenta"} backdrop height={200} width={"100%"}>
+    <ViewModalContainer
+      modalName={"orgmenta"}
+      backdrop
+      height={200}
+      width={"100%"}
+    >
       <ViewContainerStatic style={{ flexDirection: "row" }}>
         {/* App Links Column */}
         <ViewContainerStatic style={{ flex: 1, alignItems: "center" }}>
@@ -556,15 +560,15 @@ export const ViewOrgmentaHome = ({}: any) => {
   const windowDimensions = useWindowDimensions();
   // temp switcher
   const CompanytypeSwitcher: React.FC = () => {
-    const [index, setIndex] = useState(0);
+    const [index, setIndex] = useReactState(0);
     const texts = ["IT Company", "MSP", "MSSP", "VAR", "TSP", "OED"];
-    useEffect(() => {
+    useReactEffect(() => {
       const timer = setInterval(() => {
         setIndex((prevIndex: any) => (prevIndex + 1) % texts.length);
       }, 3000);
       return () => clearInterval(timer);
     }, []);
-  
+
     return <ViewTypographyText>{texts[index]}</ViewTypographyText>;
   };
   return (
@@ -594,7 +598,8 @@ export const ViewOrgmentaHome = ({}: any) => {
         />
         <ViewTypographyText style={{ textAlign: "center", fontSize: 20 }}>
           The BOS (Business Operating System) / ERP (Enterprise Resource
-          Planning) / PSA (Professional Services Automation)
+          Planning) / PSA (Professional Services Automation) / BMS (Business
+          Management System)
         </ViewTypographyText>
         <ViewTypographyText
           style={{
@@ -992,7 +997,9 @@ export const ViewOrgmentaHome = ({}: any) => {
           </ViewContainerStatic>
 
           {/* temp spacer */}
-          <ViewContainerStatic style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}>
+          <ViewContainerStatic
+            style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}
+          >
             <ViewContainerStatic
               style={{
                 backgroundColor: "rgba(0, 0, 0, 0.1)",
@@ -1002,29 +1009,43 @@ export const ViewOrgmentaHome = ({}: any) => {
                 width: "100%",
               }}
             >
-              <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+              <ViewTypographyText
+                style={{ fontWeight: "800", color: "#0c4a73" }}
+              >
                 Contact Form
               </ViewTypographyText>
               <ViewInquiryMain />
-              <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+              <ViewTypographyText
+                style={{ fontWeight: "800", color: "#0c4a73" }}
+              >
                 Overview
               </ViewTypographyText>
-              <ViewTypographyText>Clear, transparent pricing</ViewTypographyText>
+              <ViewTypographyText>
+                Clear, transparent pricing
+              </ViewTypographyText>
               <ViewTypographyText>
                 No mandatory demo or sales pressure, just sign up and use it
               </ViewTypographyText>
-              <ViewTypographyText>(But sign up for a demo here if you want one [link])</ViewTypographyText>
+              <ViewTypographyText>
+                (But sign up for a demo here if you want one [link])
+              </ViewTypographyText>
               <ViewTypographyText>
                 Dedicated Account Manager who will never abandon you or charge
                 for their time
               </ViewTypographyText>
               <ViewTypographyText>24/7 Support</ViewTypographyText>
-              <ViewTypographyText>Consulting packages available for bespoke requests</ViewTypographyText>
-              <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+              <ViewTypographyText>
+                Consulting packages available for bespoke requests
+              </ViewTypographyText>
+              <ViewTypographyText
+                style={{ fontWeight: "800", color: "#0c4a73" }}
+              >
                 Pricing
               </ViewTypographyText>
               <ViewTypographyText>xyz</ViewTypographyText>
-              <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+              <ViewTypographyText
+                style={{ fontWeight: "800", color: "#0c4a73" }}
+              >
                 Entity Types
               </ViewTypographyText>
               <ViewTypographyText>
@@ -1039,24 +1060,40 @@ export const ViewOrgmentaHome = ({}: any) => {
                 to any location, to any reference, to any item
               </ViewTypographyText>
               <ViewTypographyText>(Example screenshot here)</ViewTypographyText>
-              <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+              <ViewTypographyText
+                style={{ fontWeight: "800", color: "#0c4a73" }}
+              >
                 Features
               </ViewTypographyText>
               <ViewTypographyText>Business Management</ViewTypographyText>
-              <ViewTypographyText>Projects & Service Tickets</ViewTypographyText>
+              <ViewTypographyText>
+                Projects & Service Tickets
+              </ViewTypographyText>
               <ViewTypographyText>Accounting & Finance</ViewTypographyText>
-              <ViewTypographyText>Procurement and stock management</ViewTypographyText>
-              <ViewTypographyText>Invoice your agreements and sales to your customers</ViewTypographyText>
-              <ViewTypographyText>Employee management and productivity</ViewTypographyText>
-              <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+              <ViewTypographyText>
+                Procurement and stock management
+              </ViewTypographyText>
+              <ViewTypographyText>
+                Invoice your agreements and sales to your customers
+              </ViewTypographyText>
+              <ViewTypographyText>
+                Employee management and productivity
+              </ViewTypographyText>
+              <ViewTypographyText
+                style={{ fontWeight: "800", color: "#0c4a73" }}
+              >
                 Benefits
               </ViewTypographyText>
               <ViewTypographyText>
                 Integrated Services (outsource your work to on-demand technical
                 experts)
               </ViewTypographyText>
-              <ViewTypographyText>MSP Community (peer/expert discussions and groups)</ViewTypographyText>
-              <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+              <ViewTypographyText>
+                MSP Community (peer/expert discussions and groups)
+              </ViewTypographyText>
+              <ViewTypographyText
+                style={{ fontWeight: "800", color: "#0c4a73" }}
+              >
                 Integrations
               </ViewTypographyText>
               {arrayIndustryProducts
@@ -1064,7 +1101,9 @@ export const ViewOrgmentaHome = ({}: any) => {
                 .map((x, i) => (
                   <ViewTypographyText key={i}>{x.title}</ViewTypographyText>
                 ))}
-              <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+              <ViewTypographyText
+                style={{ fontWeight: "800", color: "#0c4a73" }}
+              >
                 Contact Form
               </ViewTypographyText>
               <ViewInquiryMain />
@@ -1086,7 +1125,9 @@ export const ViewOrgmentaHome = ({}: any) => {
           }}
         >
           <ViewRouterLinkthemed to="test">
-            <ViewTypographyText style={{ width: 400, height: 40, backgroundColor: "green" }}>
+            <ViewTypographyText
+              style={{ width: 400, height: 40, backgroundColor: "green" }}
+            >
               TESTING PAGE
             </ViewTypographyText>
           </ViewRouterLinkthemed>
@@ -1094,7 +1135,7 @@ export const ViewOrgmentaHome = ({}: any) => {
       )}
     </ViewOrgmentaBackground>
   );
-}
+};
 
 // COMMNUNITY PAGES
 
@@ -1114,7 +1155,10 @@ export const ViewOrgmentaForums = ({}: any) => {
     <ViewPageMain>
       <ViewContainerScroll>
         <ViewTypographyHeading>Forums</ViewTypographyHeading>
-        <ViewTypographyText>ViewOrgmentaForums placeholder - Community forums / discussion boards go here</ViewTypographyText>
+        <ViewTypographyText>
+          ViewOrgmentaForums placeholder - Community forums / discussion boards
+          go here
+        </ViewTypographyText>
       </ViewContainerScroll>
     </ViewPageMain>
   );
@@ -1183,7 +1227,7 @@ export const ViewOrgmentaBackground = ({ children }: any) => {
 
 export const ViewOrgmentaWidget = () => {
   // const orgmentaActive = useOrgmentaActive({}) as TypeOrgmentaActive;
-  const [widgetHover, setWidgetHover] = useState(false);
+  const [widgetHover, setWidgetHover] = useReactState(false);
   return (
     <ViewButtonPressable
       style={{ flexDirection: "row", justifyContent: "center", height: "100%" }}
@@ -1206,4 +1250,4 @@ export const ViewOrgmentaWidget = () => {
       />
     </ViewButtonPressable>
   );
-}
+};

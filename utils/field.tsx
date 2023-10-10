@@ -6,13 +6,17 @@ import {
   TypeQueryerResult,
 } from "./queryer";
 import { ViewShieldButton, ViewShieldMask } from "./shield";
+import { ViewClipboardCopy } from "./clipboard";
+import { ViewSyncButton } from "./sync";
 import { ViewFileUpload } from "./file";
 import { ViewIconMain } from "./icon";
 import { ViewButtonPressable } from "./button";
+import { useReactEffect } from "./react";
 import {
   ViewContainerStatic,
   ViewContainerRow,
   ViewContainerScroll,
+  ViewContainerColumn,
 } from "./container";
 import {
   ViewInputRichmain,
@@ -36,7 +40,6 @@ export const ViewFieldDynamic = ({
   queryId,
 }: TypeFieldDynamic) => {
   // a useState to hold any value change from the child field (which then automatically runs fieldSet if it changes)
-  // console.log(fieldState);
   // const [valueState, valueSet] = useState(item.value);
   // Get the state for the field:
   const fieldState = useFieldState([
@@ -46,6 +49,14 @@ export const ViewFieldDynamic = ({
   ]) as TypeFieldState;
   // get the set function to upate the state:
   const fieldSet = useFieldSet([formname, queryId, item.attribute_name]);
+  const updateName = () => {
+    fieldSet("defaultValue", () => item.valueDefault);
+  };
+  // temp prepopulation of fieldState
+  useReactEffect(() => {// Temp (this should not be run every component load).    
+    // console.log(item.attribute_name, item.valueDefault);
+    fieldSet("defaultValue", () => item.valueDefault);
+  }, []); // set the initial value into the form
   // Dynamically decide on a field component (Richtext, Integer, Text etc.) from the item's 'component' property:
   const Component =
     mapFieldComponents[item.component as string] ||
@@ -65,19 +76,25 @@ export const ViewFieldDynamic = ({
         ) : (
           // Else show the field
           <Component
-            state={(fieldState?.data as any)?.value}
+            state={fieldState?.data}
             set={fieldSet}
-            valueDefault={item.value} // remove these once in state
+            valueDefault={item.valueDefault} // remove these once in state
             valueOptions={item.valueOptions} // remove these once in state
           />
         )}
       </ViewContainerRow>
-      <ViewFieldReset
-        style={{ borderWidth: 1, borderLeftWidth: 0, borderRightWidth: 0 }}
+      <ViewFieldReset style={{ borderWidth: 1, borderLeftWidth: 0 }} />
+      <ViewClipboardCopy
+        id={[formname, queryId, item.attribute_name]}
+        style={{ borderWidth: 1, borderLeftWidth: 0 }}
+      />
+      <ViewSyncButton
+        id={[formname, queryId, item.attribute_name]}
+        style={{ borderWidth: 1, borderLeftWidth: 0 }}
       />
       <ViewShieldButton
-        id={[formname, queryId, item.label]}
-        style={{ borderWidth: 1 }}
+        id={[formname, queryId, item.attribute_name]}
+        style={{ borderWidth: 1, borderLeftWidth: 0 }}
       />
     </ViewContainerRow>
   );
@@ -98,7 +115,7 @@ export type TypeFieldDynamic = {
 };
 
 // A default component if a 'field' wasn't specified for a field
-export const ViewFieldInvalid = ({ valueDefault }: any) => {
+export const ViewFieldInvalid = ({ valueDefault, state }: any) => {
   return (
     <ViewTypographyTextthemed
       style={{
@@ -115,7 +132,12 @@ export const ViewFieldInvalid = ({ valueDefault }: any) => {
 };
 
 // A default component if a 'field' wasn't specified for a field
-export const ViewFieldFilepickerandlist = ({ valueDefault, secure }: any) => {
+export const ViewFieldFilepickerandlist = ({
+  valueDefault,
+  secure,
+  state,
+  set,
+}: any) => {
   return (
     <ViewContainerStatic
       style={{
@@ -129,15 +151,19 @@ export const ViewFieldFilepickerandlist = ({ valueDefault, secure }: any) => {
 };
 
 // secure field
-export const ViewFieldSecure = ({ valueDefault, secure }: any) => {
+export const ViewFieldSecure = ({ valueDefault, secure, state, set }: any) => {
   return (
     <ViewContainerRow
       style={{
         height: 35,
+        flex: 1,
         backgroundColor: "white",
       }}
     >
       <ViewInputSecure
+        onChangeText={(value: string | number) => {
+          set("value", () => value);
+        }}
         style={{ padding: 5, flex: 1 }}
         defaultValue={valueDefault}
         secure={secure}
@@ -147,21 +173,24 @@ export const ViewFieldSecure = ({ valueDefault, secure }: any) => {
 };
 
 // A non-editable text field
-export const ViewFieldText = ({ valueDefault, secure }: any) => {
+export const ViewFieldText = ({ valueDefault, secure, state }: any) => {
   return (
-    <ViewTypographyTextthemed style={{ height: 35 }}>
+    <ViewTypographyTextthemed style={{ height: 35, flex: 1 }}>
       {secure ? "*****" : valueDefault}
     </ViewTypographyTextthemed>
   );
 };
 
 // A non-editable text field
-export const ViewFieldInput = ({ valueDefault, secure }: any) => {
+export const ViewFieldInput = ({ valueDefault, secure, state, set }: any) => {
   return (
     <ViewInputText
-      // secureTextEntry={secure}
+      onChangeText={(value: string) => {
+        set("value", () => value);
+      }}
       style={{
         flexDirection: "row",
+        flex: 1,
         height: 35,
         padding: 5,
         backgroundColor: "white",
@@ -172,11 +201,24 @@ export const ViewFieldInput = ({ valueDefault, secure }: any) => {
 };
 
 // A non-editable text field
-export const ViewFieldRelationship = ({ valueDefault, secure }: any) => {
+export const ViewFieldRelationship = ({
+  valueDefault,
+  secure,
+  state,
+  set,
+}: any) => {
   return (
-    <ViewTypographyTextthemed style={{ color: "blue" }}>
-      ['RELATIONSHIP:']{valueDefault}
-    </ViewTypographyTextthemed>
+    <ViewContainerColumn>
+      <ViewTypographyTextthemed style={{ color: "blue", flex: 1 }}>
+        RelationshipsPicker/SearchHere
+      </ViewTypographyTextthemed>
+      <ViewTypographyTextthemed style={{ color: "blue", flex: 1 }}>
+        RelationshipsListHere
+      </ViewTypographyTextthemed>
+      <ViewTypographyTextthemed style={{ color: "blue", flex: 1 }}>
+        {`(valueDefault: ${valueDefault})`}
+      </ViewTypographyTextthemed>
+    </ViewContainerColumn>
   );
 };
 
@@ -187,22 +229,37 @@ export const ViewFieldPicker = ({
   secure,
 }: any) => {
   return (
-    <ViewTypographyTextthemed style={{ color: "blue" }}>
+    <ViewTypographyTextthemed style={{ color: "blue", flex: 1 }}>
       ['PICKER:']{valueDefault}
     </ViewTypographyTextthemed>
   );
 };
 
 // A non-editable text field
-export const ViewFieldRichtext = ({ valueDefault, secure }: any) => {
-  return <ViewInputRichmain defaultValue={valueDefault} />;
+export const ViewFieldRichtext = ({
+  valueDefault,
+  secure,
+  state,
+  set,
+}: any) => {
+  return (
+    <ViewInputRichmain
+      style={{ flex: 1 }}
+      onChangeText={(value: string) => {
+        set("value", () => value);
+      }}
+      defaultValue={valueDefault}
+    />
+  );
 };
 
 // Decimal
-export const ViewFieldDecimal = ({ valueDefault, secure }: any) => {
+export const ViewFieldDecimal = ({ valueDefault, secure, state, set }: any) => {
   return (
     <ViewInputDecimal
-      // secureTextEntry={secure}
+      onChangeText={(value: string | number) => {
+        set("value", () => value);
+      }}
       style={{
         height: 35,
         padding: 5,
@@ -214,9 +271,12 @@ export const ViewFieldDecimal = ({ valueDefault, secure }: any) => {
 };
 
 // Integer
-export const ViewFieldInteger = ({ valueDefault, secure }: any) => {
+export const ViewFieldInteger = ({ valueDefault, secure, state, set }: any) => {
   return (
     <ViewInputInteger
+      onChangeText={(value: string | number) => {
+        set("value", () => value);
+      }}
       // secureTextEntry={secure}
       style={{
         height: 35,
@@ -229,11 +289,17 @@ export const ViewFieldInteger = ({ valueDefault, secure }: any) => {
 };
 
 // Numeric
-export const ViewFieldDatetime = ({ valueDefault, secure }: any) => {
+export const ViewFieldDatetime = ({
+  valueDefault,
+  secure,
+  state,
+  set,
+}: any) => {
   return (
     <ViewTypographyTextthemed
       style={{
         flexDirection: "row",
+        flex: 1,
         height: 35,
         padding: 5,
         backgroundColor: "white",
@@ -245,12 +311,14 @@ export const ViewFieldDatetime = ({ valueDefault, secure }: any) => {
 };
 
 // Button
-export const ViewFieldButton = ({ valueDefault, secure }: any) => {
+export const ViewFieldButton = ({ valueDefault, secure, state, set }: any) => {
   return (
     <ViewButtonPressable
+      onPress={() => {
+        set("value", () => !state.value);
+      }}
       style={{
         flexDirection: "row",
-
         backgroundColor: "lightblue",
         height: 35,
         padding: 5,
@@ -270,16 +338,17 @@ export const ViewFieldButtongroup = ({
 }: any) => {
   return (
     <ViewContainerScroll horizontal style={{ padding: 2 }}>
+      {/* replace this with a 'ViewButtonGroup' component? (with multiselect prop true or false) */}
       {valueOptions?.map((x: any, i: string) => (
         <ViewButtonPressable
           key={i}
           onPress={() => {
-            set(() => x);
+            set("value", () => x);
           }}
           style={{
             flexDirection: "row",
             margin: 5,
-            backgroundColor: x === state ? "gray" : "lightblue", //change to look at the state/cache
+            backgroundColor: x === state?.value ? "gray" : "lightblue", //change to look at the state/cache
             height: 35,
             padding: 5,
           }}
@@ -288,6 +357,30 @@ export const ViewFieldButtongroup = ({
         </ViewButtonPressable>
       ))}
     </ViewContainerScroll>
+  );
+};
+
+// CALCULATED
+export const ViewFieldCalculated = ({
+  valueDefault,
+  secure,
+  state,
+  set,
+  style,
+}: any) => {
+  return (
+    <ViewContainerStatic
+      style={{
+        flexDirection: "row",
+        height: 35,
+        padding: 5,
+        ...style,
+      }}
+    >
+      <ViewTypographyTextthemed style={{ color: "blue", flex: 1 }}>
+        [CALCULATED FIELD]:
+      </ViewTypographyTextthemed>
+    </ViewContainerStatic>
   );
 };
 
@@ -309,6 +402,7 @@ export const mapFieldComponents: any = {
   datetime: ViewFieldDatetime,
   button: ViewFieldButton,
   buttongroup: ViewFieldButtongroup,
+  calculated: ViewFieldCalculated,
   dropdown: ViewTypographyText,
   toggles: ViewTypographyText,
 };
@@ -335,7 +429,11 @@ export const ViewFieldReset = ({ id, style }: any) => {
       // onPress={() => UPDATE THE FIELD STATE HERE BACK TO ITS DEFAULT VALUE}
       // onPress={() => UPDATE THE FIELD STATE HERE BACK TO ITS DEFAULT VALUE}
     >
-      <ViewIconMain name={"clear"} source={"MaterialIcons"} color={"white"} />
+      <ViewIconMain
+        name={"undo-variant"}
+        source={"MaterialCommunityIcons"}
+        color={"white"}
+      />
     </ViewButtonPressable>
   );
 };
@@ -376,16 +474,33 @@ export type TypeFieldState = TypeQueryerResult & {
 // SET
 
 // Set field properties of the field useQuery
+// export const useFieldSet = (id: string[]) => {
+//   const queryerClient = useQueryerClient();
+//   return (setValueFunction: () => any) => {
+//     const value = setValueFunction();
+//     queryerClient.setQueryData(["field"].concat(id), (oldData: any) => {
+//       // console.log("useFieldSet", oldData, value);
+//       return {
+//         ...oldData,
+//         value: value,
+//       };
+//     });
+//   };
+// };
 export const useFieldSet = (id: string[]) => {
+  // console.log('useFieldSet invoked')
   const queryerClient = useQueryerClient();
-  return (setValueFunction: () => any) => {
+  return (keyName: string, setValueFunction: () => any) => {
     const value = setValueFunction();
-    queryerClient.setQueryData(["field"].concat(id), (oldData: any) => {
-      // console.log("useFieldSet", oldData, value);
-      return {
-        ...oldData,
-        value: value,
-      };
-    });
+    // console.log('useFieldSet called',keyName,value)
+    queryerClient.setQueryData(
+      ["field"].concat(id),
+      (oldData: Record<string, any>) => {
+        return {
+          ...oldData,
+          [keyName]: value,
+        };
+      }
+    );
   };
-}
+};

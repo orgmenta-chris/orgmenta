@@ -2,19 +2,21 @@
 // Components will have info icons that the user can click on for assistance (and link to a help page?)
 // Need to absract the bar (to 'toolbar'), the info (to 'info') and settings (to 'settings)
 
-import { useState } from "react";
+import { useReactState } from "./react";
 import { ViewContainerStatic } from "./container";
 import { ViewTypographyText } from "./typography";
-import { ViewIconMain } from "./icon";
+import { ViewButtonPressable } from "./button";
 import { ViewRouterLinkthemed } from "./router";
-import { Pressable } from "react-native";
+import { ViewIconMain } from "./icon";
 
 // POPUP
 
 export const ViewHelpPopup = ({ children, state }: any) => {
   return (
     <ViewContainerStatic>
-      <ViewTypographyText>Maybe just use a UI library's tooltip for this rather than spinning own</ViewTypographyText>
+      <ViewTypographyText>
+        Maybe just use a UI library's tooltip for this rather than spinning own
+      </ViewTypographyText>
       <ViewTypographyText>{children}</ViewTypographyText>
     </ViewContainerStatic>
   );
@@ -33,13 +35,13 @@ export const ViewHelpIcons = ({ children, set, to }: any) => {
         // justifyContent: "space-around",
       }}
     >
-      <Pressable
+      <ViewButtonPressable
         style={{
           margin: 5,
         }}
         // NOT YET IMPLEMENTED (need to abstract this out and get the tooltip outside of the parent component)
         // onPress={() => set((old: any) => !old)}
-        // onHoverIn={() => set(true)} 
+        // onHoverIn={() => set(true)}
         // onHoverOut={() => set(false)}
       >
         <ViewIconMain
@@ -47,7 +49,7 @@ export const ViewHelpIcons = ({ children, set, to }: any) => {
           source={"Entypo"}
           color={"gray"}
         />
-      </Pressable>
+      </ViewButtonPressable>
       <ViewRouterLinkthemed
         style={{
           margin: 5,
@@ -60,13 +62,13 @@ export const ViewHelpIcons = ({ children, set, to }: any) => {
           color={"gray"}
         />
       </ViewRouterLinkthemed>
-      <Pressable
+      <ViewButtonPressable
         style={{
           margin: 5,
         }}
         // NOT YET IMPLEMENTED (need to abstract this out and need to get the 'more'/settings widget outside of the parent component)
         // onPress={() => set((old: any) => !old)}
-        // onHoverIn={() => set(true)} 
+        // onHoverIn={() => set(true)}
         // onHoverOut={() => set(false)}
       >
         <ViewIconMain
@@ -74,9 +76,9 @@ export const ViewHelpIcons = ({ children, set, to }: any) => {
           source={"Ionicons"}
           color={"gray"}
           size={26}
-          style={{top:-2  }}
+          style={{ top: -2 }}
         />
-      </Pressable>
+      </ViewButtonPressable>
     </ViewContainerStatic>
   );
 };
@@ -84,7 +86,7 @@ export const ViewHelpIcons = ({ children, set, to }: any) => {
 // CONTAINER
 
 export const ViewHelpContainer = ({ children, to }: any) => {
-  const [state, set] = useState(false);
+  const [state, set] = useReactState(false);
   return (
     <ViewContainerStatic>
       <ViewHelpIcons set={set} to={to} />

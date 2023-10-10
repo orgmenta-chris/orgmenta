@@ -1,13 +1,17 @@
 //  An 'Attribute' is a property that an entity has.
 
-import { ViewPageMain } from "./page";
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { useQueryerMutation, useQueryerQuery } from "./queryer";
+import { ViewPageMain } from "./page";
 import { ViewContainerStatic, ViewContainerScroll } from "./container";
 import { ViewTypographyHeading, ViewTypographyText } from "./typography";
 import { ViewRouterLink, ViewRouterRoutes, ViewRouterRoute } from "./router";
-
-import { useState, memo, useEffect, useReducer } from "react";
+import {
+  useReactState,
+  WrapperReactMemo,
+  useReactEffect,
+  useReactReducer,
+} from "./react";
 import { useTableColumns } from "../components/displays/table/table";
 import {
   createColumnHelper,
@@ -72,7 +76,7 @@ export const useAttributeMain = ({}: any) => {
   return query;
 };
 
-export const ViewAttributeMain = memo(() => {
+export const ViewAttributeMain = WrapperReactMemo(() => {
   // Chris is going to enhance this placeholder component
   const array = useAttributeMain({});
   const attributeColumnNames = [
@@ -166,7 +170,7 @@ export const useAttributeUnioned = (classArray: any) => {
               ? "entitites." + x.focus_columns.name_singular
               : "CALCULATED." + x.focus_columns.name_singular,
           form_field: x.focus_columns.form_field,
-          valueDefault: x.focus_columns.options_default,
+          valueDefault: x.focus_columns.options_default?.[0],
           valueOptions: x.focus_columns.options,
         })
     );
@@ -174,10 +178,11 @@ export const useAttributeUnioned = (classArray: any) => {
   const query = useQueryerQuery<any, Error>(queryKey, queryFn, {
     enabled: true,
   });
+  console.log(query?.data?.length);
   return query;
 };
 
-export const ViewAttributeUnioned = memo(() => {
+export const ViewAttributeUnioned = WrapperReactMemo(() => {
   const array = useAttributeUnioned(["Entity"]);
   const attributeColumnNames = [
     "id",
@@ -206,14 +211,14 @@ export const ViewAttributeUnioned = memo(() => {
 export const ViewAttributeTable = ({ ...Input }) => {
   const columns = Input.columns;
   const [columnResizeMode, setColumnResizeMode] =
-    useState<ColumnResizeMode>("onChange");
-  const [data, setData] = useState([]); // When data is provided, set the data to state
-  useEffect(() => {
+    useReactState<ColumnResizeMode>("onChange");
+  const [data, setData] = useReactState([]); // When data is provided, set the data to state
+  useReactEffect(() => {
     if (Input?.data) {
       setData(Input.data);
     }
   }, [Input?.data]);
-  const rerender = useReducer(() => ({}), {})[1];
+  const rerender = useReactReducer(() => ({}), {})[1];
   const table = useReactTable({
     data,
     columns,

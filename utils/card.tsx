@@ -1,18 +1,19 @@
 import {
-  ViewTypographySubsubheading,
   ViewTypographySubheading,
+  ViewTypographyText,
 } from "../utils/typography";
 import { ViewRouterLinkthemed } from "../utils/router";
 import { ViewIconMain } from "../utils/icon";
-import { useState } from "react";
-import { View, Pressable, Text } from "react-native";
+import { ViewButtonPressable } from "./button";
+import { ViewContainerStatic } from "./container";
+import { useReactState } from "./react";
 
 // Expandable
 
 export const ViewCardExpandable = (props: any) => {
-  const [expanded, expandedToggle] = useState(props.startExpanded);
+  const [expanded, expandedToggle] = useReactState(props.startExpanded);
   return (
-    <View
+    <ViewContainerStatic
       style={{
         flex: props.flex,
         padding: 5,
@@ -20,34 +21,38 @@ export const ViewCardExpandable = (props: any) => {
       }}
     >
       {/* Header */}
-      <View style={{ flexDirection: "row", alignItems: "center", padding: 5 }}>
+      <ViewContainerStatic
+        style={{ flexDirection: "row", alignItems: "center", padding: 5 }}
+      >
         {/* Header Title */}
-        <View style={{ flex: 1 }}>
+        <ViewContainerStatic style={{ flex: 1 }}>
           {props.headerlink ? (
             <ViewCardHeaderlink {...props} />
           ) : (
             <ViewCardHeaderplain {...props} expandedToggle={expandedToggle} />
           )}
-        </View>
+        </ViewContainerStatic>
         {/* Header Icon */}
-        <Pressable
+        <ViewButtonPressable
           onPress={() => expandedToggle((oldValue: any) => !oldValue)}
           style={{ flexDirection: "row", alignItems: "center", padding: 5 }}
         >
           <ViewIconMain
-            name={expanded ? "caretup" : "caretdown"}
+            name={expanded ? "caretdown" : "caretright"}
             source={"AntDesign"}
             color={"gray"}
           />
-        </Pressable>
-      </View>
+        </ViewButtonPressable>
+      </ViewContainerStatic>
       {/* Body */}
       {expanded && (
-        <View style={{ flex: 1, padding: 10 }}>
-          {props.body || <Text>CardBody Missing</Text>}
-        </View>
+        <ViewContainerStatic style={{ flex: 1, padding: 10 }}>
+          {props.body || (
+            <ViewTypographyText>CardBody Missing</ViewTypographyText>
+          )}
+        </ViewContainerStatic>
       )}
-    </View>
+    </ViewContainerStatic>
   );
 };
 
@@ -55,28 +60,32 @@ export const ViewCardExpandable = (props: any) => {
 
 export const ViewCardMain = (props: any) => {
   return (
-    <View
+    <ViewContainerStatic
       style={{
         padding: 5,
         flexDirection: "column",
       }}
     >
       {/* Header */}
-      <View style={{ flexDirection: "row", alignItems: "center", padding: 5 }}>
+      <ViewContainerStatic
+        style={{ flexDirection: "row", alignItems: "center", padding: 5 }}
+      >
         {/* Header Title */}
-        <View style={{ flex: 1 }}>
+        <ViewContainerStatic style={{ flex: 1 }}>
           {props.headerlink ? (
             <ViewCardHeaderlink {...props} />
           ) : (
             <ViewCardHeaderplain {...props} />
           )}
-        </View>
-      </View>
+        </ViewContainerStatic>
+      </ViewContainerStatic>
       {/* Body */}
-      <View style={{ flex: 1, padding: 10 }}>
-        {props.body || <Text>CardBody Missing</Text>}
-      </View>
-    </View>
+      <ViewContainerStatic style={{ flex: 1, padding: 10 }}>
+        {props.body || (
+          <ViewTypographyText>CardBody Missing</ViewTypographyText>
+        )}
+      </ViewContainerStatic>
+    </ViewContainerStatic>
   );
 };
 
@@ -84,20 +93,20 @@ export const ViewCardMain = (props: any) => {
 
 export const ViewCardHeaderplain = (props: any) => {
   return (
-    <Pressable
+    <ViewButtonPressable
       onPress={() => props.expandedToggle((oldValue: any) => !oldValue)}
       style={{ flexDirection: "row", alignItems: "center", padding: 5 }}
     >
       <ViewTypographySubheading selectable={false} numberOfLines={1}>
         {props.header || "Card Header Missing"}
       </ViewTypographySubheading>
-    </Pressable>
+    </ViewButtonPressable>
   );
 };
 
 export const ViewCardHeaderlink = (props: any) => {
   return (
-    <View style={{ flex: 1 }}>
+    <ViewContainerStatic style={{ flex: 1 }}>
       <ViewRouterLinkthemed
         style={{
           flex: 3,
@@ -109,6 +118,6 @@ export const ViewCardHeaderlink = (props: any) => {
           {props.header}
         </ViewTypographySubheading>
       </ViewRouterLinkthemed>
-    </View>
+    </ViewContainerStatic>
   );
 };

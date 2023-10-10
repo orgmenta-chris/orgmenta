@@ -92,7 +92,7 @@
 - We just use .tsx instead of any .ts or .js files (just for ease, standardisation, and to make it easier to add components to it later if needed)
 - We don't need to import react (i.e. don't worry about doing `import React from 'react`) - It's not needed in React v17 onwards ( the new JSX Transform allows you to use JSX without importing the React object).
 
-## Naming Convention
+## Conventions
 
 ### Overview
 
@@ -142,6 +142,9 @@
 ### Modules (base)
 
 - The base of all declarations must equal the name of the file (but with a capitalized first letter)
+- All module names must be singular
+  - E.g. notification instead of notifications.
+  - But note that some pluralisation doesn't necessarily mean that the module is not singular. E.g. 'contents' refers to a single table of contents.
 
 ### Units (suffix)
 

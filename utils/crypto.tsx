@@ -4,8 +4,10 @@
 // If crypto.js is not compatible (it should be) then we could use crypto-es instead (simple drop in replacement).
 // see https://stackoverflow.com/questions/60733815/how-to-encrypt-data-in-react-native-using-expo
 
-import { useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { ViewContainerStatic } from "./container";
+import { ViewTypographyText } from "./typography";
+import { ViewButtonPressable } from "./button";
+import { useReactState } from "./react";
 import * as Crypto from "expo-crypto";
 import CryptoJS from "crypto-js";
 
@@ -36,8 +38,8 @@ export const asyncCryptoHash = async (cipherText: string): Promise<string> => {
 };
 
 export const ViewCryptoExample = () => {
-  const [hash, setHash] = useState<string | null>(null);
-  const [aes, setAes] = useState<string | null>(null);
+  const [hash, setHash] = useReactState<string | null>(null);
+  const [aes, setAes] = useReactState<string | null>(null);
   const secretKey = "YourSecretKeyHere";
   const textToEncrypt = "Sensitive Data";
   const handleHash = async () => {
@@ -55,29 +57,29 @@ export const ViewCryptoExample = () => {
     }
   };
   return (
-    <View style={{ height: 400, width: 400, backgroundColor: "red" }}>
-      <Text>Crypto Module Example</Text>
-      <Pressable
+    <ViewContainerStatic style={{ height: 400, width: 400, backgroundColor: "red" }}>
+      <ViewTypographyText>Crypto Module Example</ViewTypographyText>
+      <ViewButtonPressable
         style={{ backgroundColor: "green", padding: 10 }}
         onPress={handleHash}
       >
-        <Text>Test Hash</Text>
-      </Pressable>
-      <Pressable
+        <ViewTypographyText>Test Hash</ViewTypographyText>
+      </ViewButtonPressable>
+      <ViewButtonPressable
         style={{ backgroundColor: "blue", padding: 10 }}
         onPress={handleEncrypt}
       >
-        <Text>Encrypt</Text>
-      </Pressable>
-      <Pressable
+        <ViewTypographyText>Encrypt</ViewTypographyText>
+      </ViewButtonPressable>
+      <ViewButtonPressable
         style={{ backgroundColor: "yellow", padding: 10 }}
         onPress={handleDecrypt}
       >
-        <Text>Decrypt</Text>
-      </Pressable>
-      <Text>AES: {aes}</Text>
-      <Text>Hash: {hash}</Text>
-      <Text>-- END --</Text>
-    </View>
+        <ViewTypographyText>Decrypt</ViewTypographyText>
+      </ViewButtonPressable>
+      <ViewTypographyText>AES: {aes}</ViewTypographyText>
+      <ViewTypographyText>Hash: {hash}</ViewTypographyText>
+      <ViewTypographyText>-- END --</ViewTypographyText>
+    </ViewContainerStatic>
   );
 };

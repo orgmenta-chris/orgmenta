@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
-import { View, Button, Platform, Text } from "react-native";
+import { useReactEffect, useReactState } from "./react";
+import { ViewContainerStatic } from "./container";
+import { ViewTypographyText } from "./typography";
+import { ViewButtonPressable } from "./button";
+import { UtilityPlatformMain } from "./platform";
 import { Audio } from "expo-av";
 
 // Player
 
 export const ViewSoundPlayer = () => {
-  const [audioFile, setAudioFile] = useState<any | null>(null);
-  const { playSound, stopSound, clearSound, isPlaying } = useSoundPlayer(audioFile);
+  const [audioFile, setAudioFile] = useReactState<any | null>(null);
+  const { playSound, stopSound, clearSound, isPlaying } =
+    useSoundPlayer(audioFile);
 
-  useEffect(() => {
+  useReactEffect(() => {
     setAudioFile(require("../assets/Hello.mp3"));
     return () => {
       clearSound();
@@ -16,7 +20,7 @@ export const ViewSoundPlayer = () => {
   }, []);
 
   return (
-    <View
+    <ViewContainerStatic
       style={{
         flex: 1,
         justifyContent: "center",
@@ -26,20 +30,31 @@ export const ViewSoundPlayer = () => {
         marginVertical: 10,
       }}
     >
-      <Button disabled={isPlaying || !audioFile} title="Play Sound" onPress={playSound} />
-      <Button disabled={!isPlaying} title="Stop Sound" onPress={stopSound} />
-      <Button title="Clear Sound" onPress={() => {
-        clearSound();
-        setAudioFile(null);
-      }} disabled={!audioFile} />
-
-    </View>
+      <ViewButtonPressable
+        disabled={isPlaying || !audioFile}
+        onPress={playSound}
+      >
+        <ViewTypographyText>Play Sound</ViewTypographyText>
+      </ViewButtonPressable>
+      <ViewButtonPressable disabled={!isPlaying} onPress={stopSound}>
+        <ViewTypographyText>Stop Sound</ViewTypographyText>
+      </ViewButtonPressable>
+      <ViewButtonPressable
+        onPress={() => {
+          clearSound();
+          setAudioFile(null);
+        }}
+        disabled={!audioFile}
+      >
+        <ViewTypographyText>Clear Sound</ViewTypographyText>
+      </ViewButtonPressable>
+    </ViewContainerStatic>
   );
 };
 
 export const useSoundPlayer = (audioFile: any) => {
-  const [sound, setSound] = useState<Audio.Sound | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [sound, setSound] = useReactState<Audio.Sound | null>(null);
+  const [isPlaying, setIsPlaying] = useReactState(false);
 
   const playSound = async () => {
     setIsPlaying(true);
@@ -65,7 +80,7 @@ export const useSoundPlayer = (audioFile: any) => {
     }
   };
 
-  useEffect(() => {
+  useReactEffect(() => {
     return () => {
       if (sound) {
         sound.unloadAsync();
@@ -79,38 +94,66 @@ export const useSoundPlayer = (audioFile: any) => {
 // Recorder
 
 export const ViewSoundRecorder = () => {
-  const { recording, startRecording, stopRecording, clearRecording, getURI, uri } = useSoundRecording();
+  const {
+    recording,
+    startRecording,
+    stopRecording,
+    clearRecording,
+    // getURI,
+    uri,
+  } = useSoundRecording();
   const { playSound, stopSound, isPlaying } = useSoundPlayer({ uri });
   return (
-    <View style={{ flex: 1, flexDirection: 'row' }}>
-      <Button
-        title={"Start Recording"}
+    <ViewContainerStatic style={{ flex: 1, flexDirection: "row" }}>
+      <ViewButtonPressable
         onPress={startRecording}
         disabled={!!recording}
-      />
-      <Button
-        title={"Stop Recording"}
+      >
+        <ViewTypographyText>Start Recording</ViewTypographyText>
+      </ViewButtonPressable>
+      <ViewButtonPressable
         onPress={stopRecording}
         disabled={!recording}
-      />
-      <Text>{JSON.stringify(getURI)}</Text>
-      <Button disabled={!uri || isPlaying} title="Play Recording" onPress={playSound} />
-      <Button disabled={!uri || !isPlaying} title="Stop Playback" onPress={stopSound} />
-      <Button disabled={!uri} title="Clear Recording" onPress={clearRecording} />
-    </View>
+      >
+        <ViewTypographyText>Stop Recording</ViewTypographyText>
+      </ViewButtonPressable>
+      {/* <ViewTypographyText>{JSON.stringify(getURI)}</ViewTypographyText> */}
+      <ViewButtonPressable
+        disabled={!uri || isPlaying}
+        onPress={playSound}
+      >
+        <ViewTypographyText>Play Recording</ViewTypographyText>
+      </ViewButtonPressable>
+      <ViewButtonPressable
+        disabled={!uri || !isPlaying}
+        onPress={stopSound}
+      >
+        <ViewTypographyText>Stop Playback</ViewTypographyText>
+      </ViewButtonPressable>
+      <ViewButtonPressable
+        disabled={!uri}
+        onPress={clearRecording}
+      >
+        <ViewTypographyText>Clear Recording</ViewTypographyText>
+      </ViewButtonPressable>
+    </ViewContainerStatic>
   );
 };
 
 export const useSoundRecording = () => {
-  const [recording, setRecording] = useState<Audio.Recording | MediaRecorder | null>(null);
-  const [uri, setUri] = useState<string | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [recording, setRecording] = useReactState<
+    Audio.Recording | MediaRecorder | null
+  >(null);
+  const [uri, setUri] = useReactState<string | null>(null);
+  const [isPlaying, setIsPlaying] = useReactState(false);
 
   const startRecording = async () => {
     setIsPlaying(true); // Set to true when recording starts
     try {
-      if (Platform.OS === 'web') {
-        const mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      if (UtilityPlatformMain.OS === "web") {
+        const mediaStream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        });
         const mediaRecorder = new MediaRecorder(mediaStream);
         const chunks: any[] = [];
         mediaRecorder.ondataavailable = (event) => {
@@ -118,7 +161,7 @@ export const useSoundRecording = () => {
         };
 
         mediaRecorder.onstop = () => {
-          const audioBlob = new Blob(chunks, { type: 'audio/wav' });
+          const audioBlob = new Blob(chunks, { type: "audio/wav" });
           const audioUrl = URL.createObjectURL(audioBlob);
           setUri(audioUrl);
         };
@@ -144,7 +187,7 @@ export const useSoundRecording = () => {
   const stopRecording = async () => {
     setIsPlaying(false); // Set to false when recording stops
     try {
-      if (Platform.OS === 'web') {
+      if (UtilityPlatformMain.OS === "web") {
         if (recording instanceof MediaRecorder) {
           recording.stop();
         }
@@ -168,20 +211,25 @@ export const useSoundRecording = () => {
     setUri(null);
   };
 
-  return { recording, startRecording, stopRecording, clearRecording, isPlaying, uri };
+  return {
+    recording,
+    startRecording,
+    stopRecording,
+    clearRecording,
+    isPlaying,
+    uri,
+  };
 };
 
-
-
 // export const useSoundRecording = () => {
-//   const [recording, setRecording] = useState<Audio.Recording | MediaRecorder | null>(null);
-//   const [uri, setUri] = useState<string | null>(null);
-//   const [isPlaying, setIsPlaying] = useState(false);
+//   const [recording, setRecording] = useReactState<Audio.Recording | MediaRecorder | null>(null);
+//   const [uri, setUri] = useReactState<string | null>(null);
+//   const [isPlaying, setIsPlaying] = useReactState(false);
 
 //   const startRecording = async () => {
 //     try {
 
-//       if (Platform.OS === 'web') {
+//       if (UtilityPlatformMain.OS === 'web') {
 //         const mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
 //         const mediaRecorder = new MediaRecorder(mediaStream);
 //         const chunks: any[] = [];
@@ -216,7 +264,7 @@ export const useSoundRecording = () => {
 
 //   const stopRecording = async () => {
 //     try {
-//       if (Platform.OS === 'web') {
+//       if (UtilityPlatformMain.OS === 'web') {
 //         if (recording instanceof MediaRecorder) {
 //           recording.stop();
 //         }

@@ -5,8 +5,8 @@
 // (e.g. ViewDisplayTable transforms entities data, then provides them to the table component from table.js )
 
 import { ViewContainerStatic, ViewContainerScroll } from "./container";
-import { ViewTypographyText } from "./typography";
 import { ViewRouterLinkthemed, useRouterLocation } from "./router";
+import { ViewTypographyText } from "./typography";
 import { ViewFormDynamic } from "./form";
 import { ViewListMain } from "./list";
 import { ViewChartMain } from "./chart";
@@ -18,18 +18,28 @@ import { ViewPodContainer, ViewPodInfo, ViewPodList, ViewPodTabs } from "./pod";
 import { ViewIconMain } from "./icon";
 import { ViewJsonContainer, objectJsonExample } from "./json";
 import { UtilityPlatformMain } from "./platform";
-
-import { memo, useEffect, useMemo, useState } from "react";
+import {
+  WrapperReactMemo,
+  useReactEffect,
+  useReactMemo,
+  useReactState,
+} from "./react";
 import ViewMapWeb from "../components/displays/maps/ViewDisplayMaps";
 import { Map, Marker, GeoJson } from "pigeon-maps";
-import { ViewTableContainer, Person, UseDisplayTable, fuzzySort, makeData } from "./table";
+import {
+  ViewTableContainer,
+  Person,
+  UseDisplayTable,
+  fuzzySort,
+  makeData,
+} from "./table";
 import { ColumnDef } from "@tanstack/react-table";
 // import { Map as ImmutableMap } from "immutable";
 
 // DYNAMIC
 
 // Select the correct display component depending on what is requested with the 'display' prop.
-export const ViewDisplayDynamic = memo(
+export const ViewDisplayDynamic = WrapperReactMemo(
   ({ auxiliary, schema, focus, display }: any) => {
     // The main display component that switches between different components
     const Component = mapDisplayComponents[display || "list"]; // may need to memoize/useCallback this
@@ -75,7 +85,7 @@ export const ViewDisplayPod = (props: any) => {
 // Form
 
 export const ViewDisplayForm = (props: any) => {
-  let data: any = useMemo(() => {
+  let data: any = useReactMemo(() => {
     let items: any = [];
     if (props.schema && props.focus.data && props.auxiliary) {
       props?.schema?.data?.forEach((oldItem: any) => {
@@ -88,7 +98,7 @@ export const ViewDisplayForm = (props: any) => {
           newItem.table = "entities";
           newItem.value = newItem[newItem.name_singular];
         }
-        newItem.queryId = newItem.id+newItem.side // Create a unique id to store in field state/cache
+        newItem.queryId = newItem.id + newItem.side; // Create a unique id to store in field state/cache
         delete newItem.focus_columns;
         delete newItem.auxiliary_columns;
         items.push(newItem);
@@ -96,7 +106,7 @@ export const ViewDisplayForm = (props: any) => {
       return items;
     }
   }, [props.schema, props.focus.data, props.auxiliary]);
-  return <ViewFormDynamic data={data} formname={'form'}/>;
+  return <ViewFormDynamic data={data} formname={"form"} />;
 };
 
 // Table
@@ -124,7 +134,7 @@ export const ViewDisplayCalendar = (props: any) => {
 export const ViewDisplayTimeline = (props: any) => {
   return (
     <ViewContainerStatic style={{ height: "100%" }}>
-      <ViewTimelineContainer/>
+      <ViewTimelineContainer />
     </ViewContainerStatic>
   );
 };
@@ -134,7 +144,7 @@ export const ViewDisplayTimeline = (props: any) => {
 // Also add the data into a useQuery so that it caches everything (including the image if possible?)
 export const ViewDisplayMaps = (props: any) => {
   const { customerAddress } = props; // this data could be geocoded into lat and long coordinates for them to be rendered on the map
-  const [worldMapJSON, setWorldMapJSON] = useState(null);
+  const [worldMapJSON, setWorldMapJSON] = useReactState(null);
   const fetchWorldMap = async () => {
     try {
       const response = await fetch(
@@ -153,7 +163,7 @@ export const ViewDisplayMaps = (props: any) => {
   const goeCodeAddresses = () => {
     // todo
   };
-  useEffect(() => {
+  useReactEffect(() => {
     fetchWorldMap();
   }, []);
   return UtilityPlatformMain.OS !== "web" ? (

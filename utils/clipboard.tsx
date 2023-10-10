@@ -1,10 +1,72 @@
-import { useState } from "react";
-import { View, Text, Button, TextInput } from "react-native";
+import { useReactState } from "./react";
+import { ViewButtonPressable } from "./button";
+import { ViewContainerStatic } from "./container";
+import { ViewTypographyText } from "./typography";
+import { ViewInputText } from "./input";
+import { ViewIconMain } from "./icon";
 import * as Clipboard from "expo-clipboard";
 
-export const ViewClipboardCopy = ({}: any) => {
-  const [copiedText, setCopiedText] = useState("");
-  const [sampleText, setSampleText] = useState(
+// COPY
+
+export const asyncClipboardCopy = async (text: string) => {
+  await Clipboard.setStringAsync(text);
+};
+
+export const ViewClipboardCopy = ({ text, style }: TypeClipboardCopy) => {
+  return (
+    <ViewButtonPressable
+      style={{
+        padding: 5,
+        backgroundColor: "gray",
+        ...style,
+      }}
+      onPress={() => asyncClipboardCopy(text)}
+    >
+      <ViewIconMain name={"copy"} source={"Feather"} color="white" />
+    </ViewButtonPressable>
+  );
+};
+
+export type TypeClipboardCopy = {
+  text: string;
+  style: any;
+};
+
+// PASTE
+
+export const asyncClipboardPaste = async () => {
+  return await Clipboard.getStringAsync();
+};
+
+// TEXT
+
+export const ViewClipboardPaste = ({ text, style }: TypeClipboardPaste) => {
+  return (
+    <ViewButtonPressable
+      style={{
+        padding: 5,
+        backgroundColor: "gray",
+        ...style,
+      }}
+      onPress={asyncClipboardPaste}
+    >
+      <ViewIconMain name={"paste"} source={"Feather"} color="white" />
+    </ViewButtonPressable>
+  );
+};
+
+export type TypeClipboardPaste = {
+  text: string;
+  style: any;
+};
+
+/////////////////////////////////////
+
+// EXAMPLE (to format / remove / use for reference/testing of above components)
+
+export const ViewClipboardExample = ({}: any) => {
+  const [copiedText, setCopiedText] = useReactState("");
+  const [sampleText, setSampleText] = useReactState(
     "This is sample text you can edit. Copy to clipboard"
   );
 
@@ -18,7 +80,7 @@ export const ViewClipboardCopy = ({}: any) => {
   };
 
   return (
-    <View
+    <ViewContainerStatic
       style={{
         flex: 1,
         justifyContent: "center",
@@ -26,7 +88,7 @@ export const ViewClipboardCopy = ({}: any) => {
         backgroundColor: "#f0f0f0",
       }}
     >
-      <TextInput
+      <ViewInputText
         style={{
           height: 40,
           margin: 12,
@@ -41,11 +103,14 @@ export const ViewClipboardCopy = ({}: any) => {
         keyboardType="numeric"
       />
 
-      <Button title="Copy to clipboard" onPress={copyToClipboard} />
-      <Text style={{ marginVertical: 5 }}></Text>
-      <Button title="View copied text" onPress={fetchCopiedText} />
+      <ViewButtonPressable onPress={copyToClipboard}>
+        <ViewTypographyText>Copy to clipboard</ViewTypographyText>
+      </ViewButtonPressable>
+      <ViewButtonPressable onPress={fetchCopiedText}>
+        <ViewTypographyText>View copied text"</ViewTypographyText>
+      </ViewButtonPressable>
 
-      <Text
+      <ViewTypographyText
         style={{
           fontSize: 20,
           marginVertical: 10,
@@ -54,7 +119,11 @@ export const ViewClipboardCopy = ({}: any) => {
         }}
       >
         {copiedText}
-      </Text>
-    </View>
+      </ViewTypographyText>
+    </ViewContainerStatic>
   );
+};
+
+export const ViewCopyIcon = ({}: any) => {
+  return <ViewIconMain name={"copy"} source={"Feather"} color="black" />;
 };

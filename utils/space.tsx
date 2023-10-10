@@ -217,7 +217,7 @@ export const useSpaceArray = (spacename?: any, categories?: any) => {
 // todo
 export const ViewSpaceArray = () => {
   const array = useSpaceArray({});
-  const attributeColumnNames = [
+  const spaceColumnNames = [
     "id",
     "created_at",
     "db_android_allowed",
@@ -229,7 +229,7 @@ export const ViewSpaceArray = () => {
     "name_store_singular",
     "name_store_plural",
   ];
-  const columns = useTableColumns(attributeColumnNames);
+  const columns = useTableColumns(spaceColumnNames);
   return (
     <ViewContainerStatic>
       <ViewTypographyText style={{ fontWeight: "700" }}>

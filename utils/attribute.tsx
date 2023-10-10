@@ -3,7 +3,11 @@
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { useQueryerMutation, useQueryerQuery } from "./queryer";
 import { ViewPageMain } from "./page";
-import { ViewContainerStatic, ViewContainerScroll } from "./container";
+import {
+  ViewContainerStatic,
+  ViewContainerScroll,
+  ViewContainerRow,
+} from "./container";
 import { ViewTypographyHeading, ViewTypographyText } from "./typography";
 import { ViewRouterLink, ViewRouterRoutes, ViewRouterRoute } from "./router";
 import {
@@ -21,6 +25,8 @@ import {
   ColumnResizeMode,
   ColumnDef,
 } from "@tanstack/react-table";
+import { ViewInputText } from "./input";
+import { ViewButtonPressable } from "./button";
 
 // PAGE
 
@@ -39,6 +45,7 @@ export const ViewAttributePage = () => {
       <ViewRouterRoutes>
         <ViewRouterRoute path="main" element={<ViewAttributeMain />} />
         <ViewRouterRoute path="unioned" element={<ViewAttributeUnioned />} />
+        <ViewRouterRoute path="create" element={<ViewAttributeCreate />} />
       </ViewRouterRoutes>
       {/* <ViewAttributeMain/> */}
     </ViewPageMain>
@@ -60,6 +67,37 @@ export const useAttributeCreate = (props: any) => {
   );
 };
 
+export const ViewAttributeCreate = ({ ...rest }: any) => {
+  const [state, set] = useReactState({});
+  return (
+    <ViewContainerStatic>
+      <ViewTypographyHeading>Create New Attribute</ViewTypographyHeading>
+      <ViewButtonPressable
+        disabled={Object.keys(state).length===0}
+        onPress={() => useAttributeCreate(state)}
+      >
+        <ViewTypographyText>Submit</ViewTypographyText>
+      </ViewButtonPressable>
+      <ViewTypographyText>{JSON.stringify(state)}</ViewTypographyText>
+      <ViewContainerScroll>
+        {attributeColumnNames.map((x: string, i: number) => {
+          return (
+            <ViewContainerRow key={i}>
+              <ViewTypographyText style={{ flex: 1 }}>{x}</ViewTypographyText>
+              <ViewInputText
+                onChangeText={(newText) =>
+                  set((oldValue) => ({ ...oldValue, [x]: newText }))
+                }
+                style={{ flex: 2, borderWidth: 1 }}
+              />
+            </ViewContainerRow>
+          );
+        })}
+      </ViewContainerScroll>
+    </ViewContainerStatic>
+  );
+};
+
 // MAIN
 
 // Get the standard entities table contents (not unioned)
@@ -76,56 +114,76 @@ export const useAttributeMain = ({}: any) => {
   return query;
 };
 
+export const attributeColumnNames = [
+  // static for now but will use useAttributesArray in the future
+  "id",
+  "status",
+  "created_at",
+  "updated_at",
+  "created_by",
+  "updated_by",
+  /////
+  "storage_location",
+  /////
+  "a_name_singular",
+  "a_name_plural",
+  "a_display_singular",
+  "a_display_plural",
+  /////
+  "a_description",
+  /////
+  "a_table_sort",
+  "a_table_width",
+  /////
+  "a_cell_field",
+  /////
+  "a_filter_field",
+  "a_filter_sort",
+  "a_filter_width",
+  /////
+  "a_form_field",
+  "a_form_width",
+  "a_form_sort",
+  /////
+  "a_options",
+  "a_options_min",
+  "a_options_max",
+  "a_options_default",
+  /////
+  "a_templates",
+  /////
+  "b_name_singular",
+  "b_name_plural",
+  "b_display_singular",
+  "b_display_plural",
+  /////
+  "b_description",
+  /////
+  "b_table_sort",
+  "b_table_width",
+  /////
+  "b_cell_field",
+  /////
+  "b_filter_field",
+  "b_filter_sort",
+  "b_filter_width",
+
+  /////
+  "b_form_field",
+  "b_form_width",
+  "b_form_sort",
+  /////
+  "b_options",
+  "b_options_min",
+  "b_options_max",
+  "b_options_default",
+  /////
+  "b_templates",
+];
+
 export const ViewAttributeMain = WrapperReactMemo(() => {
   // Chris is going to enhance this placeholder component
   const array = useAttributeMain({});
-  const attributeColumnNames = [
-    // static for now but will use useAttributesArray in the future
-    "id",
-    "status",
-    "a_name_singular",
-    "a_name_plural",
-    "a_display_singular",
-    "a_display_plural",
-    "created_at",
-    "updated_at",
-    "b_name_singular",
-    "b_name_plural",
-    "b_display_singular",
-    "b_display_plural",
-    "updated_by",
-    "a_cell_field",
-    "a_filter_field",
-    "b_cell_field",
-    "b_filter_field",
-    "created_by",
-    "a_table_sort",
-    "b_table_sort",
-    "a_filter_sort",
-    "b_filter_sort",
-    "a_table_width",
-    "b_table_width",
-    "a_filter_width",
-    "b_filter_width",
-    "a_form_field",
-    "a_form_width",
-    "a_form_sort",
-    "b_form_field",
-    "b_form_width",
-    "b_form_sort",
-    "a_options",
-    "b_options",
-    "a_description",
-    "b_description",
-    "a_options_min",
-    "b_options_min",
-    "a_options_max",
-    "b_options_max",
-    "a_options_default",
-    "b_options_default",
-    "a_templates",
-    "b_templates",
-  ];
   const columns = useTableColumns(attributeColumnNames);
   return (
     <>

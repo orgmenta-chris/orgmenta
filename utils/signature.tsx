@@ -25,17 +25,17 @@ export const ViewSignatureCanvas = ({ text, onOK }: any) => {
 
   // Called after end of stroke
   const handleEnd = () => {
-    ref.current.readSignature();
+    (ref as any).current.readSignature();
   };
 
   // Called after ref.current.getData()
-  const handleData = (data) => {
+  const handleData = (data:any) => {
     console.log(data);
   };
 
   return (
     <SignatureScreen
-      ref={ref}
+      // ref={ref}
       onEnd={handleEnd}
       onOK={handleOK}
       onEmpty={handleEmpty}

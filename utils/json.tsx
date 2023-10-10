@@ -1,4 +1,8 @@
-import { ViewContainerStatic } from "./container";
+import {
+  ViewContainerScroll,
+  ViewContainerStatic,
+  ViewContainerColumn,
+} from "./container";
 import { ViewTypographyText } from "./typography";
 import { ViewButtonPressable } from "./button";
 import JSONTree from "react-native-json-tree";
@@ -8,12 +12,14 @@ import JSONTree from "react-native-json-tree";
 // A compilation of Json views
 export const ViewJsonContainer = ({ data }: any) => {
   return (
-    <ViewContainerStatic style={{flexDirection:'column'}}>
-      <ViewJsonMain data={data}/>
-      <ViewJsonControls/>
-    </ViewContainerStatic>
-  )
-}
+    <ViewContainerColumn style={{ flex: 1 }}>
+      <ViewJsonControls />
+      <ViewContainerScroll>
+        <ViewJsonMain data={data} />
+      </ViewContainerScroll>
+    </ViewContainerColumn>
+  );
+};
 
 // MAIN
 
@@ -44,16 +50,18 @@ export const ViewJsonMain = ({ data }: any) => {
       data={data}
       theme={{
         extend: theme,
-        // underline keys for literal values
         valueLabel: {
-          textDecoration: "underline",
+          // width:150
+          // textDecoration: "underline", // underline keys for literal values
         },
         // switch key for objects to uppercase when object is expanded.
         // `nestedNodeLabel` receives additional arguments `expanded` and `keyPath`
         nestedNodeLabel: ({ style }, nodeType, expanded) => ({
           style: {
             ...style,
-            textTransform: expanded ? "uppercase" : (style as any).textTransform,
+            // textTransform: expanded
+            //   ? "uppercase"
+            //   : (style as any).textTransform,
           },
         }),
       }}
@@ -67,11 +75,9 @@ export const ViewJsonMain = ({ data }: any) => {
 export const ViewJsonControls = ({ data }: any) => {
   return (
     <ViewContainerStatic style={{ height: 40 }}>
-      <ViewButtonPressable onPress={() => console.log("todo")}>
+      <ViewButtonPressable disabled onPress={() => console.log("todo")}>
         <ViewTypographyText
           style={{
-            color: "blue",
-            textDecorationStyle: "solid",
             textAlign: "center",
           }}
         >

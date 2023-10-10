@@ -85,7 +85,7 @@ export const ViewDisplayPod = (props: any) => {
 // Form
 
 export const ViewDisplayForm = (props: any) => {
-  let data: any = useReactMemo(() => {
+  let dataTransformed: any = useReactMemo(() => {
     let items: any = [];
     if (props.schema && props.focus.data && props.auxiliary) {
       props?.schema?.data?.forEach((oldItem: any) => {
@@ -106,7 +106,7 @@ export const ViewDisplayForm = (props: any) => {
       return items;
     }
   }, [props.schema, props.focus.data, props.auxiliary]);
-  return <ViewFormDynamic data={data} formname={"form"} />;
+  return <ViewFormDynamic data={dataTransformed} formname={"form"} />;
 };
 
 // Table
@@ -245,11 +245,32 @@ export const ViewDisplaySpacial = (props: any) => {
 // JSON
 
 export const ViewDisplayJson = (props: any) => {
+  let dataTransformed: any = useReactMemo(() => {
+    let items: any = [];
+    if (props.schema && props.focus.data && props.auxiliary) {
+      props?.schema?.data?.forEach((oldItem: any) => {
+        let newItem = { ...oldItem, ...oldItem.auxiliary_columns };
+        // if the attribute is 'relationship' we know that it is in the relationship table instead of being a column on the entity table.
+        if (oldItem.focus_columns.cell_field === "relationship") {
+          newItem.table = "relationships";
+          newItem.value = "(relationships)"; // props.auxiliary.data to be filtered here (todo)'
+        } else {
+          newItem.table = "entities";
+          newItem.value = newItem[newItem.name_singular];
+        }
+        newItem.queryId = newItem.id + newItem.side; // Create a unique id to store in field state/cache
+        delete newItem.focus_columns;
+        delete newItem.auxiliary_columns;
+        items.push(newItem);
+      });
+      return items;
+    }
+  }, [props.schema, props.focus.data, props.auxiliary]);
   return (
-    <ViewContainerStatic>
-      <ViewTypographyText>ViewDisplayJson Placeholder</ViewTypographyText>
-      <ViewJsonContainer data={objectJsonExample} />
-    </ViewContainerStatic>
+    <ViewJsonContainer
+      data={dataTransformed}
+      // data={objectJsonExample}
+    />
   );
 };
 

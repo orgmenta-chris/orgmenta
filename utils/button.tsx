@@ -9,10 +9,19 @@ import { Pressable, PressableProps } from "react-native";
 // export const ViewButtonPressable = Pressable;
 
 // Provide default styling if none specified (TODO: use theme proper.)
-export const ViewButtonPressable = ({ children, style, ...rest }: any) => {
+export const ViewButtonPressable = ({
+  disabled,
+  children,
+  style,
+  ...rest
+}: any) => {
   style = style || { backgroundColor: "lightblue", margin: 2, padding: 5 };
   return (
-    <Pressable style={style} {...rest}>
+    <Pressable
+      style={style}
+      disabled={disabled} // hook 'disabled' prop up to styles once theming is in place
+      {...rest}
+    >
       {children}
     </Pressable>
   );

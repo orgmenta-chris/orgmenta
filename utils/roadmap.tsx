@@ -1282,29 +1282,34 @@ export const requirements: {
       "The system must support up to 10,000 concurrent users without degrading performance below acceptable levels.",
   },
   {
+    title: "Encrypted Data",
     category: "Security",
     description:
       "All customer data must be encrypted using at least AES-256 encryption.",
   },
   {
+    title: "Failure Rate",
     category: "Reliability",
     description:
       "The system must have a Mean Time Between Failures (MTBF) of 500 hours or more.",
   },
   {
+    title: "Exports",
     category: "Input/Output",
     description:
       "The software must allow for the export of customer data in both CSV and XML formats.",
   },
   {
+    title: "Field validation",
     category: "Data Integrity",
     description:
-      "The software must validate all customer email addresses before saving.",
+      "The software must validate all fields (live) before saving.",
   },
   {
+    title: "Rapid Entry",
     category: "Usability",
     description:
-      "Users must be able to complete the data entry for a new customer record within three minutes.",
+      "Users must be able to complete the data entry for a new entity (e.g. a new customer record) within three minutes.",
   },
 ];
 
@@ -2291,6 +2296,7 @@ export const arrayIndustryProducts: {
     priority: 3,
   },
   { title: "Sage", categories: ["Finance"], integrations: [], priority: 3 },
+  { title: "https://www.kimai.org/ - just for comparison. see https://www.kimai.org/store/", categories: ["Finance, TimeTracking"], integrations: [], priority: 10 },
   {
     title: "Zoho",
     categories: ["Finance", "Office Software"],
@@ -3265,7 +3271,6 @@ export const orgmentaTerritories: {
     language_primary: "Hindi",
     language_secondary: "Bengali",
     language_tertiary: "English",
-    language_quaternary: "",
     remaining: "?m",
   },
   {

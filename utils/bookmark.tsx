@@ -193,7 +193,7 @@ export const ViewBookmarkWidget = () => {
           numberOfLines={1}
           style={{ minWidth: "100%", paddingLeft: 10, color: "white" }}
         >
-          {bookmarksActive?.data?.title}
+          {(bookmarksActive as any)?.data?.title}
         </ViewTypographyLabel>
       )}
     </ViewButtonPressable>

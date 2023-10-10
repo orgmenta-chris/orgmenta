@@ -85,7 +85,7 @@ export const ViewFieldDynamic = ({
       </ViewContainerRow>
       <ViewFieldReset style={{ borderWidth: 1, borderLeftWidth: 0 }} />
       <ViewClipboardCopy
-        id={[formname, queryId, item.attribute_name]}
+        text={(fieldState?.data as any)?.value}
         style={{ borderWidth: 1, borderLeftWidth: 0 }}
       />
       <ViewSyncButton

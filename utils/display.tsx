@@ -42,7 +42,7 @@ import { ColumnDef } from "@tanstack/react-table";
 export const ViewDisplayDynamic = WrapperReactMemo(
   ({ auxiliary, schema, focus, display }: any) => {
     // The main display component that switches between different components
-    const Component = mapDisplayComponents[display || "list"]; // may need to memoize/useCallback this
+    const Component = objectDisplayComponents[display || "list"]; // may need to memoize/useCallback this
     return <Component auxiliary={auxiliary} schema={schema} focus={focus} />;
   }
 );
@@ -285,7 +285,7 @@ export const ViewDisplayPath = (props: any) => {
 
 // Components
 
-export const mapDisplayComponents: any = {
+export const objectDisplayComponents: any = {
   pods: ViewDisplayPod,
   form: ViewDisplayForm,
   list: ViewDisplayList,

@@ -18,7 +18,7 @@ export interface interfaceApiSource {
     };
 }
 
-export const mapApiSource = {
+export const objectApiSource = {
   // an object containing API properties
   example: {
     url: "https://jobsearch4.p.rapidapi.com/api/v2/Jobs/Latest",
@@ -81,5 +81,5 @@ export const ViewApiItems = ({ source }: interfaceApiItems) => {
 
 export const ExampleApiItems = () => {
   // Example usage of ViewApiItems, useApiItems and requestApiItems
-  return <ViewApiItems source={mapApiSource["example"]} />;
+  return <ViewApiItems source={objectApiSource["example"]} />;
 };

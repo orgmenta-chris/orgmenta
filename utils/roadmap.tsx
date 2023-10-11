@@ -1729,7 +1729,7 @@ export const arrayCompetitors: {
     title: "ConnectWise Manage/PSA",
     industry: "IT",
     url: "https://www.connectwise.com",
-  },
+  }, 
   { id: 3, title: "Autotask", industry: "IT", url: "https://www.autotask.com" },
   { id: 4, title: "SAP", industry: "agnostic", url: "https://www.sap.com" },
   {
@@ -1976,7 +1976,7 @@ export const arrayIndustryProducts: {
     priority: 4,
   },
   {
-    title: "ConnectWise PSA (Manage)",
+    title: "ConnectWise PSA (Manage) / Asio",
     categories: ["PSA"],
     integrations: ["Import / Export"],
     priority: 2,
@@ -2054,6 +2054,12 @@ export const arrayIndustryProducts: {
     priority: 4,
   },
   {
+    title: "https://equals.com/",
+    categories: ["Spreadsheets, Productivity"],
+    integrations: [],
+    priority: 4,
+  },
+  {
     title: "Bitdefender",
     categories: ["Cybersecurity"],
     integrations: [],
@@ -2066,7 +2072,7 @@ export const arrayIndustryProducts: {
     priority: 4,
   },
   { title: "Salesforce", categories: ["CRM"], integrations: [], priority: 4 },
-  { title: "HubSpot", categories: ["CRM"], integrations: [], priority: 4 },
+  { title: "HubSpot", categories: ["CRM"], integrations: [], priority: 3 },
   {
     title: "Zendesk",
     categories: ["Customer Support"],

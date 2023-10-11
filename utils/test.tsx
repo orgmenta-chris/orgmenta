@@ -37,7 +37,7 @@ export const ViewTestPage = () => {
           testMode
           // {...notificationBody}
         />
-<ViewAttributeCreate/>
+        <ViewAttributeCreate />
         {/* <ViewTypographyText>Example Sound Player:</ViewTypographyText>
         <ViewSoundPlayer /> */}
 

@@ -397,7 +397,7 @@ export const mapFieldComponents: any = {
   // richtext: ViewFieldRichtext, // todo
   richtext: ViewFieldInvalid,
   picker: ViewFieldPicker,
-  numeric: ViewFieldDecimal, // change all values in attributes table to 'decimal' then change the name here too.
+  numeric: ViewFieldDecimal, // change all relevant values in attributes table to 'decimal' then change the name here too.
   integer: ViewFieldInteger,
   datetime: ViewFieldDatetime,
   button: ViewFieldButton,

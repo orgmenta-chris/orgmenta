@@ -3,9 +3,17 @@
 // This display is resizable 'pods' that can be moved around on a grid, pinned etc.
 // E.g. on the 'invoicing' category entity, you could pin an 'unsent invoices count' widget to to this display.
 
+import {
+  ViewContainerStatic,
+  ViewContainerColumn,
+  ViewContainerRow,
+} from "./container";
 import { ViewRouterLink, useRouterLocation } from "./router";
-import { ViewContainerStatic } from "./container";
+import { ViewListMain } from "./list";
 import { ViewTypographyText } from "./typography";
+import { useAuxiliaryArray } from "./auxiliary";
+import { useSpaceState, TypeSpaceState } from "./space";
+import { useEntitySingle } from "./entity";
 import { data } from "./static";
 
 // Main
@@ -14,6 +22,7 @@ export const ViewPodContainer = ({ items, children }: any) => {
   return (
     <ViewContainerStatic>
       {children}
+      <ViewPodsCategoryrelated />
       {/* <Text>{JSON.stringify({items})}</Text> */}
     </ViewContainerStatic>
   );
@@ -30,9 +39,8 @@ export const ViewPodList = ({ items, children }: any) => {
 export const ViewPodExample = () => {
   // Temporary examplepod
   return (
-    <ViewContainerStatic
+    <ViewContainerColumn
       style={{
-        flexDirection: "column",
         margin: 5,
       }}
     >
@@ -44,7 +52,7 @@ export const ViewPodExample = () => {
           To be replaced with dynamic pods using db data
         </ViewTypographyText>
       </ViewContainerStatic>
-    </ViewContainerStatic>
+    </ViewContainerColumn>
   );
 };
 
@@ -59,9 +67,8 @@ export const ViewPodInfo = () => {
   const process = data?.find((x) => x.nickname === path[2]);
   const parent = data?.find((y) => y.id === process?.parent);
   return (
-    <ViewContainerStatic
+    <ViewContainerColumn
       style={{
-        flexDirection: "column",
         margin: 5,
       }}
     >
@@ -69,9 +76,11 @@ export const ViewPodInfo = () => {
         <ViewTypographyText style={{ fontSize: 14, fontStyle: "italic" }}>
           {process?.description}
         </ViewTypographyText>
-        <ViewTypographyText style={{ fontSize: 12 }}>{process?.summary}</ViewTypographyText>
+        <ViewTypographyText style={{ fontSize: 12 }}>
+          {process?.summary}
+        </ViewTypographyText>
       </ViewContainerStatic>
-    </ViewContainerStatic>
+    </ViewContainerColumn>
   );
 };
 
@@ -87,14 +96,13 @@ export const ViewPodTabs = () => {
   const subprocesses = process && data.filter((x) => x.parent === process.id);
   const parent = data?.find((y) => y.id === process?.parent);
   return (
-    <ViewContainerStatic
+    <ViewContainerColumn
       style={{
-        flexDirection: "column",
         margin: 5,
       }}
     >
       {/* Tabs for each subprocess */}
-      <ViewContainerStatic style={{ flexDirection: "row", height: 40 }}>
+      <ViewContainerRow style={{ height: 40 }}>
         {subprocesses?.map((x, i) => (
           <ViewRouterLink
             style={{ flex: 1 }}
@@ -104,7 +112,28 @@ export const ViewPodTabs = () => {
             <ViewTypographyText>{x.display_singular}</ViewTypographyText>
           </ViewRouterLink>
         ))}
-      </ViewContainerStatic>
+      </ViewContainerRow>
+    </ViewContainerColumn>
+  );
+};
+
+// CATEGORYRELATED TEMP
+export const ViewPodsCategoryrelated = (props: any) => {
+  const spaceSelected = useSpaceState(["space", "selected"]);
+  const routerPaths = useRouterLocation()?.paths;
+  const auxiliary = useAuxiliaryArray({
+    space_name: (spaceSelected as TypeSpaceState)?.data?.spacename,
+    filters_array: [], //todo
+    column_names: [], //todo
+  });
+  console.log("focus", focus);
+  const auxiliaryRelated = auxiliary?.data?.filter((x: any) =>
+    x.entities.categories?.includes(routerPaths[2])
+  );
+  // console.log('auxiliary',auxiliary?.data?.map((x:any)=>x.entities.categories))
+  return (
+    <ViewContainerStatic style={{ flex: 1, maxHeight: 400 }}>
+      <ViewListMain data={auxiliaryRelated} />
     </ViewContainerStatic>
   );
 };

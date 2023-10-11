@@ -51,6 +51,18 @@ export const useQueryerMutation = useMutation;
 
 export const useQueryerQuery = useQuery;
 
+export const deleteQueryerQuery = (queryKeys?:any) => {
+  const queryerClient = new ClassQueryerClient();
+  if(queryKeys){
+    queryerClient.removeQueries(queryKeys) // delete specified cached queries (not tested)
+  }else{
+    queryerClient.clear();
+    queryerClient.invalidateQueries();
+  }
+};
+
+
+
 // RESULTS
 
 export type TypeQueryerResult = UseQueryResult
@@ -58,3 +70,4 @@ export type TypeQueryerResult = UseQueryResult
 // OPTIONS
 
 export type TypeQueryerOptions<TData = unknown, TError = unknown> = UseQueryOptions<TData, TError>;
+

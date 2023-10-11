@@ -1,18 +1,23 @@
 // A 'space' is a bucket to hold an organisation, group, non-profit, department or personal space.
 
+import { useReactState, useReactEffect } from "./react";
 import { useWindowDimensions } from "./window";
 import { useModalVisibility } from "./modal";
 import { createMetaInfo } from "./meta";
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { ViewModalContainer } from "./modal";
 import { ViewPageMain } from "./page";
-import { ViewContainerStatic, ViewContainerScroll } from "./container";
 import { ViewRouterLinkthemed } from "./router";
 import { ViewCardExpandable } from "./card";
 import { ViewIconMain } from "./icon";
 import { ViewButtonPressable } from "./button";
-import { ViewTypographyText } from "./typography";
 import {
+  ViewContainerStatic,
+  ViewContainerScroll,
+  ViewContainerRow,
+} from "./container";
+import {
+  ViewTypographyText,
   ViewTypographyHeading,
   ViewTypographyTextthemed,
   ViewTypographySubsubheading,
@@ -23,7 +28,6 @@ import {
   useQueryerClient,
   TypeQueryerOptions,
 } from "./queryer";
-
 import { useTableColumns } from "../components/displays/table/table";
 import {
   createColumnHelper,
@@ -34,7 +38,6 @@ import {
   ColumnDef,
   TableOptions,
 } from "@tanstack/react-table";
-import { useState, useEffect } from "react";
 
 // PAGE
 
@@ -214,7 +217,7 @@ export const useSpaceArray = (spacename?: any, categories?: any) => {
 // todo
 export const ViewSpaceArray = () => {
   const array = useSpaceArray({});
-  const attributeColumnNames = [
+  const spaceColumnNames = [
     "id",
     "created_at",
     "db_android_allowed",
@@ -226,7 +229,7 @@ export const ViewSpaceArray = () => {
     "name_store_singular",
     "name_store_plural",
   ];
-  const columns = useTableColumns(attributeColumnNames);
+  const columns = useTableColumns(spaceColumnNames);
   return (
     <ViewContainerStatic>
       <ViewTypographyText style={{ fontWeight: "700" }}>
@@ -307,10 +310,10 @@ export const ViewSpaceTable = ({ ...Input }) => {
   // This is currently a hardocded basic table, but will use the proper modular table component built by Loisa
   const columns = Input.columns;
   const [columnResizeMode, setColumnResizeMode] =
-    useState<ColumnResizeMode>("onChange");
+    useReactState<ColumnResizeMode>("onChange");
   // When data is provided, set the data to state
-  const [data, setData] = useState([]);
-  useEffect(() => {
+  const [data, setData] = useReactState([]);
+  useReactEffect(() => {
     if (Input?.data) {
       setData(Input.data);
     }
@@ -333,9 +336,8 @@ export const ViewSpaceTable = ({ ...Input }) => {
         >
           <ViewContainerStatic>
             {table.getHeaderGroups().map((headerGroup, hgroupIndex) => (
-              <ViewContainerStatic
+              <ViewContainerRow
                 key={headerGroup.id}
-                style={{ flexDirection: "row" }}
               >
                 {headerGroup.headers.map((header, headerIndex) => (
                   <ViewContainerStatic key={headerIndex}>
@@ -356,14 +358,11 @@ export const ViewSpaceTable = ({ ...Input }) => {
                     </ViewTypographyText>
                   </ViewContainerStatic>
                 ))}
-              </ViewContainerStatic>
+              </ViewContainerRow>
             ))}
           </ViewContainerStatic>
           {table.getRowModel().rows.map((row) => (
-            <ViewContainerStatic
-              key={row.id}
-              style={{ flexDirection: "row", width: 100 }}
-            >
+            <ViewContainerRow key={row.id} style={{ width: 100 }}>
               {row.getVisibleCells().map((cell, cellIndex) => (
                 <ViewTypographyText
                   key={cell.id}
@@ -372,7 +371,7 @@ export const ViewSpaceTable = ({ ...Input }) => {
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </ViewTypographyText>
               ))}
-            </ViewContainerStatic>
+            </ViewContainerRow>
           ))}
         </ViewContainerScroll>
       </ViewContainerStatic>
@@ -413,7 +412,7 @@ export type TypeSpaceState = {
 };
 
 export const useSpaceState = (id: any) => {
-  // const queryClient = useQueryerClient();
+  // const queryerClient = useQueryerClient();
   const query = useQueryerQuery({
     queryKey: id,
     queryFn: () => null,
@@ -585,10 +584,10 @@ export const useSpaceSet = (
   queryKey: string[],
   newData: (id: string, title: string, spacename: string) => any
 ) => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   return (passedId: string, passedTitle: string, passedspacename: string) => {
     const resolvedData = newData(passedId, passedTitle, passedspacename);
-    queryClient.setQueryData(queryKey, (oldData: any) => {
+    queryerClient.setQueryData(queryKey, (oldData: any) => {
       if (JSON.stringify(oldData) === JSON.stringify(resolvedData)) {
         return oldData;
       }

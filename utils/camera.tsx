@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { useReactState, useReactEffect } from "./react";
+import { ViewContainerStatic } from "./container";
+import { ViewButtonPressable } from "./button";
+import { ViewTypographyText } from "./typography";
+import { UtilityStylesheetMain } from "./stylesheet";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Camera, CameraType } from "expo-camera";
 
 export const ViewBarcodeReader = ({}: any) => {
-  const [scanned, setScanned] = useState(false);
-  const [hasPermission, setHasPermission] = useState(null);
-  const [startCamera, setStartCamera] = React.useState(false);
+  const [scanned, setScanned] = useReactState(false);
+  const [hasPermission, setHasPermission] = useReactState(null);
+  const [startCamera, setStartCamera] = useReactState(false);
 
   const __startCamera = async () => {
     const { status } = await Camera.getCameraPermissionsAsync();
@@ -23,7 +26,7 @@ export const ViewBarcodeReader = ({}: any) => {
     setHasPermission(status === "granted");
   };
 
-  useEffect(() => {
+  useReactEffect(() => {
     __startCamera();
     getBarCodeScannerPermissions();
   }, []);
@@ -34,14 +37,16 @@ export const ViewBarcodeReader = ({}: any) => {
   };
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
+    return (
+      <ViewTypographyText>Requesting for camera permission</ViewTypographyText>
+    );
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+    return <ViewTypographyText>No access to camera</ViewTypographyText>;
   }
 
   return (
-    <View
+    <ViewContainerStatic
       style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
     >
       {startCamera && (
@@ -60,20 +65,24 @@ export const ViewBarcodeReader = ({}: any) => {
       )}
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
+        style={UtilityStylesheetMain.absoluteFillObject}
       />
       {scanned ? (
-        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
+        <ViewButtonPressable onPress={() => setScanned(false)}>
+          <ViewTypographyText>Tap to Scan Again</ViewTypographyText>
+        </ViewButtonPressable>
       ) : (
-        <Button title="Scan Bar Code / QR Code" disabled={true} />
+        <ViewButtonPressable disabled={true}>
+          <ViewTypographyText>Scan Bar Code / QR Code</ViewTypographyText>
+        </ViewButtonPressable>
       )}
-    </View>
+    </ViewContainerStatic>
   );
 };
 
 export const ViewCameraMain = ({}: any) => {
-  const [type, setType] = useState(CameraType.back);
-  const [startCamera, setStartCamera] = React.useState(false);
+  const [type, setType] = useReactState(CameraType.back);
+  const [startCamera, setStartCamera] = useReactState(false);
 
   let camera: Camera;
 
@@ -101,11 +110,11 @@ export const ViewCameraMain = ({}: any) => {
   };
 
   return (
-    <View
+    <ViewContainerStatic
       style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
     >
       {startCamera && (
-        <View style={{ marginBottom: 10 }}>
+        <ViewContainerStatic style={{ marginBottom: 10 }}>
           <Camera
             style={{
               flex: 1,
@@ -119,11 +128,11 @@ export const ViewCameraMain = ({}: any) => {
               camera = r;
             }}
           ></Camera>
-          <Button title="Flip Camera" onPress={toggleCameraType} />
-        </View>
+          <ViewButtonPressable onPress={toggleCameraType}><ViewTypographyText>Flip Camera</ViewTypographyText></ViewButtonPressable>
+        </ViewContainerStatic>
       )}
 
-      <View
+      <ViewContainerStatic
         style={{
           backgroundColor: "transparent",
           flexDirection: "row",
@@ -132,11 +141,14 @@ export const ViewCameraMain = ({}: any) => {
           gap: 5,
         }}
       >
-        {startCamera && <Button title="Take Picture" onPress={__takePicture} />}
-        {!startCamera && (
-          <Button title="Start Camera" onPress={__startCamera} />
+        {startCamera && (
+          <ViewButtonPressable onPress={__takePicture}>
+          <ViewTypographyText>Take Picture</ViewTypographyText></ViewButtonPressable>
         )}
-      </View>
-    </View>
+        {!startCamera && (
+          <ViewButtonPressable onPress={__startCamera}><ViewTypographyText>Start Camera</ViewTypographyText></ViewButtonPressable>
+        )}
+      </ViewContainerStatic>
+    </ViewContainerStatic>
   );
 };

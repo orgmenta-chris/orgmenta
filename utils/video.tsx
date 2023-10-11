@@ -1,14 +1,16 @@
-import { useState, useRef } from "react";
-import { View, Button } from "react-native";
+import { useReactState, useReactRef } from "./react";
+import { ViewTypographyText } from "./typography";
+import { ViewButtonPressable } from "./button";
+import { ViewContainerStatic, ViewContainerRow } from "./container";
 import { Video, ResizeMode } from "expo-av";
 
 // PLAYER
 
 export const ViewVideoPlayer = ({ uri }: any) => {
-  const video = useRef(null);
-  const [status, setStatus] = useState({});
+  const video = useReactRef(null);
+  const [status, setStatus] = useReactState({});
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <ViewContainerStatic style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Video
         ref={video}
         style={{ width: 300, height: 200 }}
@@ -20,29 +22,29 @@ export const ViewVideoPlayer = ({ uri }: any) => {
         isLooping
         onPlaybackStatusUpdate={(status) => setStatus(() => status)}
       />
-      <View
+      <ViewContainerRow
         style={{
-          flexDirection: "row",
           justifyContent: "center",
           marginTop: 20,
         }}
       >
-        <Button
-          title={(status as any).isPlaying ? "Pause" : "Play"}
+        <ViewButtonPressable
           onPress={() =>
             (status as any).isPlaying
               ? (video.current as any).pauseAsync()
               : (video.current as any).playAsync()
           }
-        />
-      </View>
-    </View>
+        ><ViewTypographyText>{(status as any).isPlaying ? "Pause" : "Play"}</ViewTypographyText>
+        </ViewButtonPressable>
+
+      </ViewContainerRow>
+    </ViewContainerStatic>
   );
 };
 
 // EXAMPLE
 
-// Test Video Player View
+// Test Video Player ViewContainerStatic
 export const ViewVideoExamole = () => {
   return (
     <ViewVideoPlayer

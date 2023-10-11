@@ -9,7 +9,7 @@
 // />
 
 import * as Font from "expo-font";
-import { memo } from "react";
+import { WrapperReactMemo } from "./react";
 import { ViewStyle } from "react-native";
 import {
   AntDesign,
@@ -70,7 +70,7 @@ export interface interfaceIconMain {
   style?: ViewStyle;
 }
 
-export const ViewIconMain: React.FC<interfaceIconMain> = memo(
+export const ViewIconMain: React.FC<interfaceIconMain> = WrapperReactMemo(
   ({ source, name, size = 22, color = "white", padding, style }) => {
     const Icon = mapIconComponents[source] || mapIconComponents["Ionicons"];
     return (

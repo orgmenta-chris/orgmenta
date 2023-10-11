@@ -214,20 +214,22 @@ export const useEntitySchema = () => {
 };
 
 // An example component to show how we can use useEntitySchema
-export const ViewEntitySchema = (props: any) => {
-  const schema = props.schema;
-  return (
-    <ViewContainerStatic style={{ flexDirection: "column" }}>
-      <ViewTypographyText>ViewEntitySchema</ViewTypographyText>
-      {schema?.data?.map((x: any, i: number) => (
-        <ViewContainerStatic key={i} style={{ margin: 5 }}>
-          {/* <ViewTypographyText style={{margin:4}}>{Object.keys(x)}</ViewTypographyText> */}
-          <ViewTypographyText>
-            {x.focus_columns.display_singular}
-          </ViewTypographyText>
-          {/* <ViewTypographyText>{x.auxiliary_columns.display_singular}</ViewTypographyText> */}
-        </ViewContainerStatic>
-      ))}
-    </ViewContainerStatic>
-  );
-};
+// NOT IN USE
+// export const ViewEntitySchema = (props: any) => {
+//   const schema = props.schema;
+//   return (
+//     <ViewContainerStatic style={{ flexDirection: "column" }}>
+//       <ViewTypographyText>ViewEntitySchema</ViewTypographyText>
+//       {schema?.data?.map((x: any, i: number) => (
+//         <ViewContainerStatic key={i} style={{ margin: 5 }}>
+//           {/* <ViewTypographyText style={{margin:4}}>{Object.keys(x)}</ViewTypographyText> */}
+//           <ViewTypographyText>
+//             {/* CHRIS WILL DELETING THIS FIELD IN USEATTRIBUTESUNIONED - CHRIS TO MAKE SURE THIS IS UPDATED / ADDED AS A PROPER FIELD IF NEEDED */}
+//             {x.focus_columns.display_singular}
+//           </ViewTypographyText>
+//           {/* <ViewTypographyText>{x.auxiliary_columns.display_singular}</ViewTypographyText> */}
+//         </ViewContainerStatic>
+//       ))}
+//     </ViewContainerStatic>
+//   );
+// };

@@ -1,20 +1,17 @@
 // 'Bookmarks' are links to categories, pinned or other saved entity views.
 
-import {
-  ViewTypographySubsubheading,
-  ViewTypographyLabel,
-} from "./typography";
+import { ViewTypographySubsubheading, ViewTypographyLabel } from "./typography";
 import { ViewModalContainer } from "./modal";
 import { ViewCardExpandable } from "./card";
 import { ViewIconMain } from "./icon";
 import { ViewRouterLinkthemed } from "./router";
 import { ViewContainerStatic, ViewContainerScroll } from "./container";
 import { ViewButtonPressable } from "./button";
+import { useReactState } from "./react";
 import { useWindowDimensions } from "./window";
 import { useModalVisibility } from "./modal";
 import { useQueryerQuery, TypeQueryerOptions } from "./queryer";
 import { data } from "./static";
-import { useState } from "react";
 
 // Modal
 
@@ -71,7 +68,7 @@ export const ViewBookmarkModal = (props: any) => {
 };
 
 export const ViewBookmarkTabs = ({}: any) => {
-  const [state, set] = useState("modules");
+  const [state, set] = useReactState("modules");
   return (
     <ViewContainerScroll
       horizontal
@@ -196,7 +193,7 @@ export const ViewBookmarkWidget = () => {
           numberOfLines={1}
           style={{ minWidth: "100%", paddingLeft: 10, color: "white" }}
         >
-          {bookmarksActive?.data?.title}
+          {(bookmarksActive as any)?.data?.title}
         </ViewTypographyLabel>
       )}
     </ViewButtonPressable>

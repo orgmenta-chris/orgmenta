@@ -7,8 +7,11 @@
 // We could also add https://docs.expo.dev/versions/latest/sdk/screen-capture/ in order to prevent certain pages from being captured
 // e.g. to help with security certification (iso:27001 etc.) we might want to prevent recording on any page with a password, unless the password is hidden.
 
-import { useState } from 'react';
-import { Platform, View, Pressable, Text } from 'react-native';
+import { useReactState } from './react';
+import { ViewContainerStatic } from './container';
+import { ViewTypographyText } from './typography';
+import { ViewButtonPressable } from './button';
+import { UtilityPlatformMain } from './platform';
 import RecordScreen from 'react-native-record-screen';
 
 let mediaRecorder: MediaRecorder | null = null;
@@ -43,7 +46,7 @@ export const stopWebRecording = () => {
 
 // Start recording
 export const startRecording = async () => {
-  if (Platform.OS === 'web') {
+  if (UtilityPlatformMain.OS === 'web') {
     await startWebRecording();
   } else {
     try {
@@ -56,7 +59,7 @@ export const startRecording = async () => {
 
 // Stop recording
 export const stopRecording = async () => {
-  if (Platform.OS === 'web') {
+  if (UtilityPlatformMain.OS === 'web') {
     stopWebRecording();
   } else {
     try {
@@ -68,10 +71,10 @@ export const stopRecording = async () => {
 };
 
 export const ViewScreenRecorder = () => {
-  const [status, setStatus] = useState<{ isRecording?: boolean }>({});
+  const [status, setStatus] = useReactState<{ isRecording?: boolean }>({});
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Pressable
+    <ViewContainerStatic style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <ViewButtonPressable
         onPress={async () => {
           if (status.isRecording) {
             await stopRecording();
@@ -82,8 +85,8 @@ export const ViewScreenRecorder = () => {
           }
         }}
       >
-        <Text>{status.isRecording ? 'Stop' : 'Start'}</Text>
-      </Pressable>
-    </View>
+        <ViewTypographyText>{status.isRecording ? 'Stop' : 'Start'}</ViewTypographyText>
+      </ViewButtonPressable>
+    </ViewContainerStatic>
   );
 };

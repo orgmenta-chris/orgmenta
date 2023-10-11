@@ -2,13 +2,13 @@
 // includes the window itself, its dimensions, safe area view,
 // USED TO INCLUDE: a (mobile-only) status bar. <-- MOVED TO STATUSBAR.TSX
 
+import { getStatusbarDimensions } from "./statusbar";
+import { ViewContainerStatic } from "./container";
 import {
-  View,
   Dimensions,
   useWindowDimensions as originalUseWindowDimensions,
   SafeAreaView,
 } from "react-native";
-import { getStatusbarDimensions } from "./statusbar";
 
 // CONTAINER
 
@@ -17,7 +17,7 @@ export const ViewWindowContainer = (props: any) => {
   const statusbarDimensions = getStatusbarDimensions();
   return (
     <ViewWindowSafearea style={{ flex: 1, backgroundColor: "gray" }}>
-      <View
+      <ViewContainerStatic
         style={{
           height: windowDimensions.height + statusbarDimensions.height,
           width: "100%",
@@ -25,7 +25,7 @@ export const ViewWindowContainer = (props: any) => {
         }}
       >
         {props.children}
-      </View>
+      </ViewContainerStatic>
     </ViewWindowSafearea>
   );
 };

@@ -11,19 +11,23 @@ import {
   ViewTypographySubsubheading,
   ViewTypographyText,
 } from "./typography";
+import {
+  ViewContainerScroll,
+  ViewContainerStatic,
+  ViewContainerRow,
+} from "./container";
 import { ViewModalContainer } from "./modal";
 import { ViewCardExpandable } from "./card";
 import { ViewRouterLinkthemed } from "./router";
-import { ViewContainerScroll, ViewContainerStatic } from "./container";
 import { ViewButtonPressable } from "./button";
 import { ViewIconMain } from "./icon";
 import { ViewPageMain } from "./page";
 import { ViewDisplayDynamic } from "./display";
+import { ViewShieldUniversal } from "./shield";
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { useAttributeUnioned } from "./attribute";
 import { useQueryerQuery } from "./queryer";
 import { useWindowDimensions } from "./window";
-import { ViewShieldUniversal } from "./shield";
 import { useModalVisibility } from "./modal";
 import {
   useAuthSession,
@@ -31,7 +35,7 @@ import {
   ViewAuthSignin,
   ViewAuthSignup,
 } from "./auth";
-import { useState } from "react";
+import { useReactState } from "./react";
 // import MSAL from "../../../auth/msal";
 
 // PAGE
@@ -131,7 +135,7 @@ export const ViewUserActivity = () => {
 
 // Widget to show cookie/tracking/privacy options
 export const ViewUserPrivacy = () => {
-  // const [infoState, infoSet] = useState(false); // info for the shield. move into shield.tsx.
+  // const [infoState, infoSet] = useReactState(false); // info for the shield. move into shield.tsx.
   return (
     <ViewCardExpandable
       startExpanded
@@ -242,15 +246,12 @@ export const ViewUserSignin = () => {
     { tab: "Sign in", component: <ViewAuthSignin /> },
     { tab: "Sign up", component: <ViewAuthSignup /> },
   ];
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useReactState(0);
   return (
     <>
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
+      <ViewContainerRow>
         {tabs.map((content, index) => (
-          <ViewContainerStatic
-            key={index}
-            style={{ flexDirection: "row", flex: 1 }}
-          >
+          <ViewContainerRow key={index} style={{ flex: 1 }}>
             <ViewButtonPressable
               key={index}
               style={{
@@ -274,9 +275,9 @@ export const ViewUserSignin = () => {
                 {content.tab}
               </ViewTypographyText>
             </ViewButtonPressable>
-          </ViewContainerStatic>
+          </ViewContainerRow>
         ))}
-      </ViewContainerStatic>
+      </ViewContainerRow>
       <ViewContainerStatic>{tabs[activeTab].component}</ViewContainerStatic>
     </>
   );
@@ -285,7 +286,7 @@ export const ViewUserSignin = () => {
 export const ViewUserSession = () => {
   const auth = useAuthSession();
   const signout = useAuthSignout();
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useReactState(0);
   const tabs = [
     { tab: "Sign in", component: <ViewAuthSignin /> },
     { tab: "Sign up", component: <ViewAuthSignup /> },

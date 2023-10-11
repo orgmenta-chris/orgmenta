@@ -1,11 +1,11 @@
 //https://www.npmjs.com/package/react-native-signature-canvas
 // https://github.com/YanYuanFE/react-native-signature-canvas/issues/203 (update issue to resolve)
 
-import { useRef } from "react";
+import { useReactRef } from "./react";
 import SignatureScreen from "react-native-signature-canvas";
 
 export const ViewSignatureCanvas = ({ text, onOK }: any) => {
-  const ref = useRef();
+  const ref = useReactRef();
 
   // Called after ref.current.readSignature() reads a non-empty base64 string
   const handleOK = (signature: any) => {
@@ -25,17 +25,17 @@ export const ViewSignatureCanvas = ({ text, onOK }: any) => {
 
   // Called after end of stroke
   const handleEnd = () => {
-    ref.current.readSignature();
+    (ref as any).current.readSignature();
   };
 
   // Called after ref.current.getData()
-  const handleData = (data) => {
+  const handleData = (data:any) => {
     console.log(data);
   };
 
   return (
     <SignatureScreen
-      ref={ref}
+      // ref={ref}
       onEnd={handleEnd}
       onOK={handleOK}
       onEmpty={handleEmpty}

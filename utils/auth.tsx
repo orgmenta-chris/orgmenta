@@ -7,12 +7,12 @@ import { ViewIndicatorSpinner } from "./indicator";
 import { ViewInputText } from "./input";
 import { ViewButtonPressable } from "./button";
 import { UtilityStylesheetMain } from "./stylesheet";
+import { useReactState } from "./react";
 import {
   useQueryerMutation,
   useQueryerQuery,
   useQueryerClient,
 } from "./queryer";
-import { useState } from "react";
 
 // STYLES (to be moved to theme once developed)
 
@@ -59,7 +59,7 @@ export const useAuthSignup = ({
   password,
   confirmPassword,
 }: TypeAuthSignup) => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   if (password !== confirmPassword) {
     console.error("Passwords do not match");
   }
@@ -68,16 +68,16 @@ export const useAuthSignup = ({
     () => requestAuthSignup({ email, password }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["auth", "session"]);
+        queryerClient.invalidateQueries(["auth", "session"]);
       },
     }
   );
 };
 
 export const ViewAuthSignup = () => {
-  const [usernameState, usernameUpdate] = useState("");
-  const [passwordState, passwordUpdate] = useState("");
-  const [confirmPasswordState, confirmPasswordUpdate] = useState("");
+  const [usernameState, usernameUpdate] = useReactState("");
+  const [passwordState, passwordUpdate] = useReactState("");
+  const [confirmPasswordState, confirmPasswordUpdate] = useReactState("");
   const signup = useAuthSignup({
     email: usernameState,
     password: passwordState,
@@ -182,10 +182,10 @@ export const requestAuthSignout = async () => {
 
 // hook to wrap requestAuthSignout
 export const useAuthSignout = () => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   return useQueryerMutation(["auth", "signout"], () => requestAuthSignout(), {
     onSuccess: () => {
-      queryClient.invalidateQueries(["auth", "session"]);
+      queryerClient.invalidateQueries(["auth", "session"]);
     },
   });
 };
@@ -193,8 +193,8 @@ export const useAuthSignout = () => {
 // SIGNIN (The View is complete, the others are placeholders that are no longer up to date. abstract out of the view into them)
 
 export const ViewAuthSignin = () => {
-  const [usernameState, usernameUpdate] = useState("");
-  const [passwordState, passwordUpdate] = useState("");
+  const [usernameState, usernameUpdate] = useReactState("");
+  const [passwordState, passwordUpdate] = useReactState("");
 
   const signin = useAuthSignin({
     email: usernameState,
@@ -297,13 +297,13 @@ export const requestAuthSignin = async ({
 
 // hook to wrap requestAuthSignin
 export const useAuthSignin = ({ email, password }: TypeAuthSignin) => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   return useQueryerMutation(
     ["auth", "signin"],
     () => requestAuthSignin({ email, password }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["auth", "session"]);
+        queryerClient.invalidateQueries(["auth", "session"]);
       },
     }
   );

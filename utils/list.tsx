@@ -10,8 +10,6 @@ import { ViewTypographyText } from "./typography";
 // MAIN
 
 export const ViewListMain = ({ data = [] }: any) => {
-  // console.log("data", data);
-  // console.log('aux0', data?.[0]);
   return (
     <ViewContainerScroll style={{ flex: 1, backgroundColor: "white" }}>
       {data?.map((x: any, i: number) => (
@@ -21,10 +19,16 @@ export const ViewListMain = ({ data = [] }: any) => {
             flex: 1,
             margin: 5,
             backgroundColor: "gray",
-            minHeight: 100,
+            // minHeight: 100,
           }}
         >
-          {x.entities &&
+        <ViewTypographyText style={{ color: "white", padding: 5 }}>
+              {x.entities?.title}
+        </ViewTypographyText>
+          <ViewTypographyText style={{ color: "white", padding: 5 }}>
+                {x.entities?.status} | {x.entities?.type}
+          </ViewTypographyText>
+          {/* {x.entities &&
             Object.keys(x.entities)?.map((y, j) => (
               <ViewTypographyText key={j} style={{ color: "white" }}>
                 {y}: {x.entities?.[y]}
@@ -40,7 +44,7 @@ export const ViewListMain = ({ data = [] }: any) => {
                   {JSON.stringify(x.relationships?.[y])}
                 </ViewTypographyText>
               </ViewContainerStatic>
-            ))}
+            ))} */}
         </ViewContainerStatic>
       ))}
     </ViewContainerScroll>

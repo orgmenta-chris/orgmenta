@@ -5,8 +5,8 @@
 // (e.g. ViewDisplayTable transforms entities data, then provides them to the table component from table.js )
 
 import { ViewContainerStatic, ViewContainerScroll } from "./container";
-import { ViewTypographyText } from "./typography";
 import { ViewRouterLinkthemed, useRouterLocation } from "./router";
+import { ViewTypographyText } from "./typography";
 import { ViewFormDynamic } from "./form";
 import { ViewListMain } from "./list";
 import { ViewChartMain } from "./chart";
@@ -18,21 +18,31 @@ import { ViewPodContainer, ViewPodInfo, ViewPodList, ViewPodTabs } from "./pod";
 import { ViewIconMain } from "./icon";
 import { ViewJsonContainer, objectJsonExample } from "./json";
 import { UtilityPlatformMain } from "./platform";
-
-import { memo, useEffect, useMemo, useState } from "react";
+import {
+  WrapperReactMemo,
+  useReactEffect,
+  useReactMemo,
+  useReactState,
+} from "./react";
 import ViewMapWeb from "../components/displays/maps/ViewDisplayMaps";
 import { Map, Marker, GeoJson } from "pigeon-maps";
-import { ViewTableContainer, Person, UseDisplayTable, fuzzySort, makeData } from "./table";
+import {
+  ViewTableContainer,
+  Person,
+  UseDisplayTable,
+  fuzzySort,
+  makeData,
+} from "./table";
 import { ColumnDef } from "@tanstack/react-table";
 // import { Map as ImmutableMap } from "immutable";
 
 // DYNAMIC
 
 // Select the correct display component depending on what is requested with the 'display' prop.
-export const ViewDisplayDynamic = memo(
+export const ViewDisplayDynamic = WrapperReactMemo(
   ({ auxiliary, schema, focus, display }: any) => {
     // The main display component that switches between different components
-    const Component = mapDisplayComponents[display || "list"]; // may need to memoize/useCallback this
+    const Component = objectDisplayComponents[display || "list"]; // may need to memoize/useCallback this
     return <Component auxiliary={auxiliary} schema={schema} focus={focus} />;
   }
 );
@@ -64,7 +74,7 @@ export const ViewDisplayPod = (props: any) => {
     <ViewPodContainer items={auxiliary} schema={schema.data}>
       <ViewPodInfo />
       <ViewPodTabs />
-      <ViewPodList title={"Example List Pod"} data={auxiliary.data} />
+      {/* <ViewPodList title={"Example List Pod"} data={auxiliary.data} /> */}
       {/* <ViewPodExample />
       <ViewPodExample />
       <ViewPodExample /> */}
@@ -75,7 +85,7 @@ export const ViewDisplayPod = (props: any) => {
 // Form
 
 export const ViewDisplayForm = (props: any) => {
-  let data: any = useMemo(() => {
+  let dataTransformed: any = useReactMemo(() => {
     let items: any = [];
     if (props.schema && props.focus.data && props.auxiliary) {
       props?.schema?.data?.forEach((oldItem: any) => {
@@ -88,7 +98,7 @@ export const ViewDisplayForm = (props: any) => {
           newItem.table = "entities";
           newItem.value = newItem[newItem.name_singular];
         }
-        newItem.queryId = newItem.id+newItem.side // Create a unique id to store in field state/cache
+        newItem.queryId = newItem.id + newItem.side; // Create a unique id to store in field state/cache
         delete newItem.focus_columns;
         delete newItem.auxiliary_columns;
         items.push(newItem);
@@ -96,7 +106,7 @@ export const ViewDisplayForm = (props: any) => {
       return items;
     }
   }, [props.schema, props.focus.data, props.auxiliary]);
-  return <ViewFormDynamic data={data} formname={'form'}/>;
+  return <ViewFormDynamic data={dataTransformed} formname={"form"} />;
 };
 
 // Table
@@ -124,7 +134,7 @@ export const ViewDisplayCalendar = (props: any) => {
 export const ViewDisplayTimeline = (props: any) => {
   return (
     <ViewContainerStatic style={{ height: "100%" }}>
-      <ViewTimelineContainer/>
+      <ViewTimelineContainer />
     </ViewContainerStatic>
   );
 };
@@ -134,7 +144,7 @@ export const ViewDisplayTimeline = (props: any) => {
 // Also add the data into a useQuery so that it caches everything (including the image if possible?)
 export const ViewDisplayMaps = (props: any) => {
   const { customerAddress } = props; // this data could be geocoded into lat and long coordinates for them to be rendered on the map
-  const [worldMapJSON, setWorldMapJSON] = useState(null);
+  const [worldMapJSON, setWorldMapJSON] = useReactState(null);
   const fetchWorldMap = async () => {
     try {
       const response = await fetch(
@@ -153,7 +163,7 @@ export const ViewDisplayMaps = (props: any) => {
   const goeCodeAddresses = () => {
     // todo
   };
-  useEffect(() => {
+  useReactEffect(() => {
     fetchWorldMap();
   }, []);
   return UtilityPlatformMain.OS !== "web" ? (
@@ -235,11 +245,32 @@ export const ViewDisplaySpacial = (props: any) => {
 // JSON
 
 export const ViewDisplayJson = (props: any) => {
+  let dataTransformed: any = useReactMemo(() => {
+    let items: any = [];
+    if (props.schema && props.focus.data && props.auxiliary) {
+      props?.schema?.data?.forEach((oldItem: any) => {
+        let newItem = { ...oldItem, ...oldItem.auxiliary_columns };
+        // if the attribute is 'relationship' we know that it is in the relationship table instead of being a column on the entity table.
+        if (oldItem.focus_columns.cell_field === "relationship") {
+          newItem.table = "relationships";
+          newItem.value = "(relationships)"; // props.auxiliary.data to be filtered here (todo)'
+        } else {
+          newItem.table = "entities";
+          newItem.value = newItem[newItem.name_singular];
+        }
+        newItem.queryId = newItem.id + newItem.side; // Create a unique id to store in field state/cache
+        delete newItem.focus_columns;
+        delete newItem.auxiliary_columns;
+        items.push(newItem);
+      });
+      return items;
+    }
+  }, [props.schema, props.focus.data, props.auxiliary]);
   return (
-    <ViewContainerStatic>
-      <ViewTypographyText>ViewDisplayJson Placeholder</ViewTypographyText>
-      <ViewJsonContainer data={objectJsonExample} />
-    </ViewContainerStatic>
+    <ViewJsonContainer
+      data={dataTransformed}
+      // data={objectJsonExample}
+    />
   );
 };
 
@@ -254,7 +285,7 @@ export const ViewDisplayPath = (props: any) => {
 
 // Components
 
-export const mapDisplayComponents: any = {
+export const objectDisplayComponents: any = {
   pods: ViewDisplayPod,
   form: ViewDisplayForm,
   list: ViewDisplayList,

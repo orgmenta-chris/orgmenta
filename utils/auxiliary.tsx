@@ -1,10 +1,13 @@
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { useQueryerQuery } from "./queryer";
+import { filter } from "underscore";
 
 export const useAuxiliaryArray = ({
   space_name = "blueprints",
-  filters,
   column_names = [],
+  column_sorts = [], // asc/desc
+  filter_columns = [], // which columns to filter
+  filter_values = [], // values to filter
 }: any) => {
   // Add core column names (currently has some tests in it, remove before go-live)
   column_names = column_names.concat([
@@ -20,8 +23,10 @@ export const useAuxiliaryArray = ({
     // "NON-EXISTING-COLUMN",
     // "",
   ]);
+  filter_columns = filter_columns || ['categories']
+  filter_columns = filter_columns || ['categories']
   // console.info("useAuxiliaryArray columns", column_names);
-  const queryKey = ["auxiliary", space_name, filters, 'test8'];
+  const queryKey = ["auxiliary", space_name, column_names, filter_columns];
   const queryFn = async () =>
     requestAuxiliaryArray({ space_name, column_names });
   const query = useQueryerQuery(queryKey, queryFn, { enabled: true });
@@ -33,6 +38,7 @@ export const requestAuxiliaryArray = async ({
   space_name,
   column_names,
 }: any) => {
+  // const { data, error } = await instanceSupabaseClient.rpc("auxiliary6", { //auxiliary6 is WORKING
   const { data, error } = await instanceSupabaseClient.rpc("auxiliary6", {
     space_name,
     column_names,
@@ -42,3 +48,12 @@ export const requestAuxiliaryArray = async ({
   }
   return data;
 };
+
+
+const testRpcRequest = [
+  {column: 'id', filter:null,order:null},
+  {column: 'title', filter:null,order:null},
+  {column: 'status', filter:null,order:'desc'},
+  {column: 'categories', filter:['product-catalog-solutions'],order:null},
+  {column: 'priority', filter:null,order:null},
+]

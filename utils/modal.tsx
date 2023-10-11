@@ -54,9 +54,9 @@ export type TypeModalContainer = {
 
 // Whether or not a modal is being shown on screen
 export const useModalVisibility = (modalName: string) => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   return () => {
-    queryClient.setQueryData(["modal", modalName], (oldData: any) => {
+    queryerClient.setQueryData(["modal", modalName], (oldData: any) => {
       return { ...oldData, visible: !oldData?.visible };
     });
   };
@@ -66,9 +66,9 @@ export const useModalVisibility = (modalName: string) => {
 
 // Whether or not a modal is embedded into the page, or floating above it on another surface
 export const useModalPinned = (modalName: string) => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   return () => {
-    queryClient.setQueryData(["modal", modalName], (oldData: any) => {
+    queryerClient.setQueryData(["modal", modalName], (oldData: any) => {
       return { ...oldData, pinned: !oldData?.pinned };
     });
   };
@@ -78,11 +78,11 @@ export const useModalPinned = (modalName: string) => {
 
 // Get the modal state - which has 'pinned', 'visibility' and other properties
 export const useModalState = (modalName: string) => {
-  // const queryClient = useQueryerClient();
+  // const queryerClient = useQueryerClient();
   const query = useQueryerQuery({
     queryKey: ["modal", modalName],
     queryFn: () => null,
-    // initialData: () => queryClient.getQueryData(['modal', modalName]) || null,
+    // initialData: () => queryerClient.getQueryData(['modal', modalName]) || null,
     // staleTime: Infinity // This means the data will never become stale automatically
     refetchOnWindowFocus: false,
   });

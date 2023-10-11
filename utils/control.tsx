@@ -1,29 +1,29 @@
 // A 'Control' is a filtering, sorting, grouping, or presets of entity display data.
 // Chris todo
 
-import { ViewContainerStatic } from "./container";
-import { ViewTypographySubheading, ViewTypographyText } from "./typography";
+import { ViewFormDynamic } from "./form";
+import { useReactMemo } from "./react";
+import { ViewContainerStatic, ViewContainerColumn } from "./container";
+import { ViewTypographySubheading, ViewTypographySubsubheading, ViewTypographyText } from "./typography";
 import { ViewPresetOptions } from "./preset";
+import { useRouterLocation } from "./router";
+import { useEntitySingle, useEntitySchema } from "./entity";
+import { useSpaceState } from "./space";
 
 // Main
 
 export const ViewControlMain = ({}: any) => {
-  return (
-    <ViewContainerStatic
-      style={{ flexDirection: "row", gap: 10, borderWidth: 1 }}
-    >
-      <ViewTypographyText>
-        (Presets, Filters, Sorting, Grouping)
-      </ViewTypographyText>
-      {/*
-      <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Presets<ViewPresetOptions/></Text>
-      
-        
-      <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Group</Text>
-
-            <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Sort</Text>
-
-      <Text style={{flexDirection:'row', gap:10, borderWidth:1}}>Filter</Text> */}
-    </ViewContainerStatic>
-  );
+  //
+  // these will be needed later for defaults etc.:
+  //
+  // const spaceSelected = useSpaceState(["space", "selected"]);
+  // const routerPaths = useRouterLocation()?.paths;
+  // const focus = useEntitySingle({ entityFocus: routerPaths?.[2] });
+  // const schema = useEntitySchema();
+  //
+  // Map the data ready to pass into the dynamic form:
+  let data: any = useReactMemo(() => {
+      // map attributes for filtering (use the focus_column.filter properties for this)
+  }, []);
+  return <ViewFormDynamic data={data} formname={'control'}/>;
 };

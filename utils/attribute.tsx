@@ -1,13 +1,21 @@
 //  An 'Attribute' is a property that an entity has.
 
-import { ViewPageMain } from "./page";
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { useQueryerMutation, useQueryerQuery } from "./queryer";
-import { ViewContainerStatic, ViewContainerScroll } from "./container";
+import { ViewPageMain } from "./page";
+import {
+  ViewContainerStatic,
+  ViewContainerScroll,
+  ViewContainerRow,
+} from "./container";
 import { ViewTypographyHeading, ViewTypographyText } from "./typography";
 import { ViewRouterLink, ViewRouterRoutes, ViewRouterRoute } from "./router";
-
-import { useState, memo, useEffect, useReducer } from "react";
+import {
+  useReactState,
+  WrapperReactMemo,
+  useReactEffect,
+  useReactReducer,
+} from "./react";
 import { useTableColumns } from "../components/displays/table/table";
 import {
   createColumnHelper,
@@ -17,6 +25,8 @@ import {
   ColumnResizeMode,
   ColumnDef,
 } from "@tanstack/react-table";
+import { ViewInputText } from "./input";
+import { ViewButtonPressable } from "./button";
 
 // PAGE
 
@@ -35,6 +45,7 @@ export const ViewAttributePage = () => {
       <ViewRouterRoutes>
         <ViewRouterRoute path="main" element={<ViewAttributeMain />} />
         <ViewRouterRoute path="unioned" element={<ViewAttributeUnioned />} />
+        <ViewRouterRoute path="create" element={<ViewAttributeCreate />} />
       </ViewRouterRoutes>
       {/* <ViewAttributeMain/> */}
     </ViewPageMain>
@@ -56,6 +67,37 @@ export const useAttributeCreate = (props: any) => {
   );
 };
 
+export const ViewAttributeCreate = ({ ...rest }: any) => {
+  const [state, set] = useReactState({});
+  return (
+    <ViewContainerStatic>
+      <ViewTypographyHeading>Create New Attribute</ViewTypographyHeading>
+      <ViewButtonPressable
+        disabled={Object.keys(state).length===0}
+        onPress={() => useAttributeCreate(state)}
+      >
+        <ViewTypographyText>Submit</ViewTypographyText>
+      </ViewButtonPressable>
+      <ViewTypographyText>{JSON.stringify(state)}</ViewTypographyText>
+      <ViewContainerScroll>
+        {attributeColumnNames.map((x: string, i: number) => {
+          return (
+            <ViewContainerRow key={i}>
+              <ViewTypographyText style={{ flex: 1 }}>{x}</ViewTypographyText>
+              <ViewInputText
+                onChangeText={(newText) =>
+                  set((oldValue) => ({ ...oldValue, [x]: newText }))
+                }
+                style={{ flex: 2, borderWidth: 1 }}
+              />
+            </ViewContainerRow>
+          );
+        })}
+      </ViewContainerScroll>
+    </ViewContainerStatic>
+  );
+};
+
 // MAIN
 
 // Get the standard entities table contents (not unioned)
@@ -72,56 +114,76 @@ export const useAttributeMain = ({}: any) => {
   return query;
 };
 
-export const ViewAttributeMain = memo(() => {
+export const attributeColumnNames = [
+  // static for now but will use useAttributesArray in the future
+  "id",
+  "status",
+  "created_at",
+  "updated_at",
+  "created_by",
+  "updated_by",
+  /////
+  "storage_location",
+  /////
+  "a_name_singular",
+  "a_name_plural",
+  "a_display_singular",
+  "a_display_plural",
+  /////
+  "a_description",
+  /////
+  "a_table_sort",
+  "a_table_width",
+  /////
+  "a_cell_field",
+  /////
+  "a_filter_field",
+  "a_filter_sort",
+  "a_filter_width",
+  /////
+  "a_form_field",
+  "a_form_width",
+  "a_form_sort",
+  /////
+  "a_options",
+  "a_options_min",
+  "a_options_max",
+  "a_options_default",
+  /////
+  "a_templates",
+  /////
+  "b_name_singular",
+  "b_name_plural",
+  "b_display_singular",
+  "b_display_plural",
+  /////
+  "b_description",
+  /////
+  "b_table_sort",
+  "b_table_width",
+  /////
+  "b_cell_field",
+  /////
+  "b_filter_field",
+  "b_filter_sort",
+  "b_filter_width",
+
+  /////
+  "b_form_field",
+  "b_form_width",
+  "b_form_sort",
+  /////
+  "b_options",
+  "b_options_min",
+  "b_options_max",
+  "b_options_default",
+  /////
+  "b_templates",
+];
+
+export const ViewAttributeMain = WrapperReactMemo(() => {
   // Chris is going to enhance this placeholder component
   const array = useAttributeMain({});
-  const attributeColumnNames = [
-    // static for now but will use useAttributesArray in the future
-    "id",
-    "status",
-    "a_name_singular",
-    "a_name_plural",
-    "a_display_singular",
-    "a_display_plural",
-    "created_at",
-    "updated_at",
-    "b_name_singular",
-    "b_name_plural",
-    "b_display_singular",
-    "b_display_plural",
-    "updated_by",
-    "a_cell_field",
-    "a_filter_field",
-    "b_cell_field",
-    "b_filter_field",
-    "created_by",
-    "a_table_sort",
-    "b_table_sort",
-    "a_filter_sort",
-    "b_filter_sort",
-    "a_table_width",
-    "b_table_width",
-    "a_filter_width",
-    "b_filter_width",
-    "a_form_field",
-    "a_form_width",
-    "a_form_sort",
-    "b_form_field",
-    "b_form_width",
-    "b_form_sort",
-    "a_options",
-    "b_options",
-    "a_description",
-    "b_description",
-    "a_options_min",
-    "b_options_min",
-    "a_options_max",
-    "b_options_max",
-    "a_options_default",
-    "b_options_default",
-    "a_templates",
-    "b_templates",
-  ];
   const columns = useTableColumns(attributeColumnNames);
   return (
     <>
@@ -135,7 +197,7 @@ export const ViewAttributeMain = memo(() => {
 
 export const useAttributeUnioned = (classArray: any) => {
   const queryKey: (string | number)[] = ["attributes", "unioned", classArray];
-  const searchArray = ["All", "Entity","value"].concat(classArray).join(",");
+  const searchArray = ["All", "Entity", "value"].concat(classArray).join(",");
   const queryFn = async () => {
     const response = await instanceSupabaseClient
       .from("attributes_unioned")
@@ -145,22 +207,40 @@ export const useAttributeUnioned = (classArray: any) => {
     // .or(`class.cd.['Entity'],class.cd.["${attribute_class}"]`);
     // .or(`class.cd.{'${classValue}'}`); // match at least one value from the search array (or if null, assume that it is a universal attribute )
     // .or(`class.is.null, class.cd.{${searchArray}}`) // match at least one value from the search array (or if null, assume that it is a universal attribute )
-    return response?.data?.map((x) => (x = {
-       ...x, 
-      queryId: x.id, // For storing in field state/cache
-      label: x.focus_columns.options_max>0 ?  x.focus_columns.display_plural : x.focus_columns.display_singular,
-      form_field: x.focus_columns.form_field,
-      valueDefault: x.focus_columns.options_default,
-      valueOptions: x.focus_columns.options,
-     }));
+    return response?.data?.map(
+      (x) =>
+        (x = {
+          ...x,
+          queryId: x.id, // For storing in field state/cache
+          // the following are mapped here rather than done in the supabase view (for the time being)
+          // because they vary depending on whether it's a field, form, table etc. using it.
+          // Eventually we will split out the attributes_unioned view into dedicated, relevant views per type.
+          label:
+            x.focus_columns.options_max > 0
+              ? x.focus_columns.display_plural
+              : x.focus_columns.display_singular,
+          attribute_name:
+            x.storage_location === "relationships"
+              ? x.id
+              : x.storage_location === "entities"
+              ? x.focus_columns.name_singular
+              : x.storage_location === "entities"
+              ? "entitites." + x.focus_columns.name_singular
+              : "CALCULATED." + x.focus_columns.name_singular,
+          form_field: x.focus_columns.form_field,
+          valueDefault: x.focus_columns.options_default?.[0],
+          valueOptions: x.focus_columns.options,
+        })
+    );
   };
   const query = useQueryerQuery<any, Error>(queryKey, queryFn, {
     enabled: true,
   });
+  console.log(query?.data?.length);
   return query;
 };
 
-export const ViewAttributeUnioned = memo(() => {
+export const ViewAttributeUnioned = WrapperReactMemo(() => {
   const array = useAttributeUnioned(["Entity"]);
   const attributeColumnNames = [
     "id",
@@ -189,14 +269,14 @@ export const ViewAttributeUnioned = memo(() => {
 export const ViewAttributeTable = ({ ...Input }) => {
   const columns = Input.columns;
   const [columnResizeMode, setColumnResizeMode] =
-    useState<ColumnResizeMode>("onChange");
-  const [data, setData] = useState([]); // When data is provided, set the data to state
-  useEffect(() => {
+    useReactState<ColumnResizeMode>("onChange");
+  const [data, setData] = useReactState([]); // When data is provided, set the data to state
+  useReactEffect(() => {
     if (Input?.data) {
       setData(Input.data);
     }
   }, [Input?.data]);
-  const rerender = useReducer(() => ({}), {})[1];
+  const rerender = useReactReducer(() => ({}), {})[1];
   const table = useReactTable({
     data,
     columns,

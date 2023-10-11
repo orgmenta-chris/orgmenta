@@ -11,16 +11,18 @@ import { ViewSoundPlayer, ViewSoundRecorder } from "./audio";
 import { ViewVideoPlayer } from "./video";
 import { ViewScreenRecorder } from "./recorder";
 import { ViewHelpContainer } from "./help";
+import { deleteQueryerQuery } from "./queryer";
 import { ViewContainerScroll } from "./container";
 import { ViewShieldButton, ViewShieldUniversal } from "./shield";
 import { TypeNotificationBody, ViewNotificationExample } from "./notification"; // Chris to check naming conventions. Also need to check how to use this?
+import { ViewAttributeCreate } from "./attribute";
 
 export const ViewTestPage = () => {
   const aux = useAuxiliaryArray({ filter_array: [] });
+  // deleteQueryerQuery() //deletes ALL cached queries
   return __DEV__ ? (
     <ViewPageMain>
       <ViewContainerScroll>
-
         {/* Barcode Scanner (working) */}
         {/* <ViewBarcodeReader /> */}
 
@@ -31,10 +33,11 @@ export const ViewTestPage = () => {
         {/* <ViewClipboardCopy /> */}
 
         {/* Notification component (working) */}
-        <ViewNotificationExample testMode
-          // {...notificationBody} 
+        <ViewNotificationExample
+          testMode
+          // {...notificationBody}
         />
-
+        <ViewAttributeCreate />
         {/* <ViewTypographyText>Example Sound Player:</ViewTypographyText>
         <ViewSoundPlayer /> */}
 
@@ -49,7 +52,7 @@ export const ViewTestPage = () => {
 
         {/* Crypto Chris (NOT working yet)*/}
         {/* <ViewCryptoExample/> */}
-        
+
         {/* Shield Chris (Working) */}
         {/* <ViewShieldUniversal/>
         <ViewShieldButton id={'test1'} />
@@ -61,8 +64,6 @@ export const ViewTestPage = () => {
 
         {/* Richtext Chris (in progress) */}
         {/* <ViewInputRichmain /> */}
-
-
       </ViewContainerScroll>
     </ViewPageMain>
   ) : (

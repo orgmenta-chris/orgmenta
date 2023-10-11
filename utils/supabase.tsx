@@ -152,14 +152,14 @@ export async function requestSupabaseTablerows(tableName: string) {
 }
 
 export const useSupabaseTable = (tableName: string) => {
-  // const queryClient = useQueryClient();
+  // const queryerClient = useQueryClient();
   return useQueryerMutation(
     ["entity", "create"],
     () => requestSupabaseTablerows(tableName),
     {
       //todo
       onSuccess: () => {
-        // queryClient.invalidateQueries([]);
+        // queryerClient.invalidateQueries([]);
         // refetch();
       },
     }

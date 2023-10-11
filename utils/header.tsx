@@ -1,13 +1,12 @@
 import { getStatusbarDimensions } from "./statusbar";
 import { UtilityPlatformMain } from "./platform";
 import { ViewContainerStatic } from "./container";
-
-import { ReactNode } from "react";
+import { TypeReactNode } from "./react";
 
 // Main
 
 type TypeHeaderMain = {
-    children: ReactNode;
+    children: TypeReactNode;
 };
 
 // full Header component (currently hardcoded, no props)
@@ -59,7 +58,7 @@ export const getHeaderDimensions = () => {
 
 // Sections for the header
 export type TypeHeaderSection = {
-    children: ReactNode;
+    children: TypeReactNode;
     flex?: number;
     padding?: number;
 };

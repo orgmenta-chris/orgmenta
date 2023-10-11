@@ -2,13 +2,20 @@
 // Current issue: when printing on web, webpage headers and footers (date, page number, page title) are printed.
 // A potential workaround for this is to use pdf-lib (example implementation below.)
 
+import { UtilityPlatformMain } from "./platform";
+import { ViewTypographyText } from "./typography";
+import {
+  ViewContainerStatic,
+  ViewContainerRow,
+  ViewContainerColumn,
+} from "./container";
+import { ViewButtonPressable } from "./button";
 import { asyncShareOpen } from "./share";
 import { asyncPrintFile } from "./print";
 import { useWindowDimensions } from "./window";
-import { UtilityPlatformMain } from "./platform";
 import RenderHtml from "react-native-render-html";
-import { PDFDocument, rgb, Color } from "pdf-lib";
-import { TextInput, View, Text, Pressable, Button, Modal } from "react-native";
+import { Modal } from "react-native";
+import { PDFDocument, rgb, Color } from "pdf-lib"; // possible future 'invoice generation' alternative depending on limitations of current solution.
 
 export const examplePdfHtml = {
   html: `
@@ -33,7 +40,7 @@ export const examplePdfHtml = {
     `,
 };
 
-export const asyncPdfOpenwindow = async (source: any, title:any='test') => {
+export const asyncPdfOpenwindow = async (source: any, title: any = "test") => {
   const newWindow: any = window.open("", "_blank"); // may replace this in the future with an actual orgmenta url (that doesn't have any header/components other than the pdf contents)
   newWindow.document.open();
   newWindow.document.write(source.html);
@@ -78,18 +85,18 @@ export const ViewFileModal = ({ statePdfModal, setPdfModal }: any) => {
   const source = examplePdfHtml;
   const { width } = useWindowDimensions();
   return (
-    <View style={{ flexDirection: "column" }}>
+    <ViewContainerColumn>
       <Modal
         animationType="slide" // You can use 'slide', 'fade', or 'none'
         transparent={true} // Make the modal background transparent
         visible={statePdfModal}
         onRequestClose={setPdfModal} // Android back button behavior
       >
-        <View
+        <ViewContainerStatic
           key={"pdf-container"}
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          <View
+          <ViewContainerStatic
             key={"pdf-body"}
             style={{
               flex: 1,
@@ -98,7 +105,7 @@ export const ViewFileModal = ({ statePdfModal, setPdfModal }: any) => {
               backgroundColor: "rgba(0, 0, 0, 0.5)",
             }}
           >
-            <View
+            <ViewContainerStatic
               style={{
                 backgroundColor: "white",
                 padding: 10,
@@ -106,9 +113,9 @@ export const ViewFileModal = ({ statePdfModal, setPdfModal }: any) => {
               }}
             >
               <RenderHtml contentWidth={width} source={source} />
-            </View>
-            <View key={"pdf-buttons"} style={{ flexDirection: "row" }}>
-              <Pressable
+            </ViewContainerStatic>
+            <ViewContainerRow key={"pdf-buttons"}>
+              <ViewButtonPressable
                 style={{
                   backgroundColor: "#127ab9",
                   margin: 10,
@@ -117,14 +124,14 @@ export const ViewFileModal = ({ statePdfModal, setPdfModal }: any) => {
                 }}
                 onPress={() => asyncPdfPrint(source)}
               >
-                <Text style={{ color: "white" }}>
+                <ViewTypographyText style={{ color: "white" }}>
                   {UtilityPlatformMain.OS === "web"
                     ? "Save Document"
                     : "Share Document"}
-                </Text>
-              </Pressable>
+                </ViewTypographyText>
+              </ViewButtonPressable>
               {UtilityPlatformMain.OS === "web" && (
-                <Pressable
+                <ViewButtonPressable
                   style={{
                     backgroundColor: "#127ab9",
                     margin: 10,
@@ -133,10 +140,12 @@ export const ViewFileModal = ({ statePdfModal, setPdfModal }: any) => {
                   }}
                   onPress={() => asyncPdfOpenwindow(source)}
                 >
-                  <Text style={{ color: "white" }}>Open In New Window</Text>
-                </Pressable>
+                  <ViewTypographyText style={{ color: "white" }}>
+                    Open In New Window
+                  </ViewTypographyText>
+                </ViewButtonPressable>
               )}
-              <Pressable
+              <ViewButtonPressable
                 style={{
                   backgroundColor: "#127ab9",
                   margin: 10,
@@ -145,12 +154,14 @@ export const ViewFileModal = ({ statePdfModal, setPdfModal }: any) => {
                 }}
                 onPress={setPdfModal}
               >
-                <Text style={{ color: "white" }}>Close</Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
+                <ViewTypographyText style={{ color: "white" }}>
+                  Close
+                </ViewTypographyText>
+              </ViewButtonPressable>
+            </ViewContainerRow>
+          </ViewContainerStatic>
+        </ViewContainerStatic>
       </Modal>
-    </View>
+    </ViewContainerColumn>
   );
 };

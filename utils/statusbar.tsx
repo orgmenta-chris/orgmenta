@@ -1,8 +1,9 @@
 // A 'statusbar' is a mobile-only top bar (ios, android, apple TV etc.). It is not present on web.
 
-import { StatusBarProps, StatusBar } from "expo-status-bar";
 import { UtilityPlatformMain } from "./platform";
-import { StatusBar as StatusbarRN, Dimensions, View } from "react-native";
+import { ViewContainerStatic } from "./container";
+import { StatusBarProps, StatusBar } from "expo-status-bar";
+import { StatusBar as StatusbarRN } from "react-native";
 
 // Main
 
@@ -28,7 +29,7 @@ export const ViewStatusbarDimensions = (props: TypeStatusbarMain) => {
   return (
     <>
       {props.buffer && UtilityPlatformMain.OS !== "web" && (
-        <View
+        <ViewContainerStatic
           style={{
             height: statusbarDimensions.height,
             paddingTop: statusbarDimensions.padding,

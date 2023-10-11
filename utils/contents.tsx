@@ -1,22 +1,23 @@
 // Placeholder.
 // 'Contents' will be anchor elements and a table of contents, to be used in a page.
 
-import { Text, View } from "react-native";
+import { ViewContainerStatic } from "./container";
+import { ViewTypographyText } from "./typography";
 
 export const ViewContentsTable = ({ children }: any) => {
   return (
-    <View>
-      <Text>ViewContentsTable placeholder</Text>
-      <Text>{children}</Text>
-    </View>
+    <ViewContainerStatic>
+      <ViewTypographyText>ViewContentsTable placeholder</ViewTypographyText>
+      <ViewTypographyText>{children}</ViewTypographyText>
+    </ViewContainerStatic>
   );
 };
 
 export const ViewContentsAnchor = ({ children }: any) => {
   return (
-    <View>
-      <Text>ViewContentsAnchor placeholder</Text>
-      <Text>{children}</Text>
-    </View>
+    <ViewContainerStatic>
+      <ViewTypographyText>ViewContentsAnchor placeholder</ViewTypographyText>
+      <ViewTypographyText>{children}</ViewTypographyText>
+    </ViewContainerStatic>
   );
 };

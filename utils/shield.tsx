@@ -1,14 +1,15 @@
 // A 'shield' refers to a 'privacy mask' or 'redacted information', i.e. a cover or cloak / privacy shield on password fields, secure data etc.
 // This is a front-end feature only, and is available to the user.
 // A manager of a space will be able to set the default in supabase (e.g. 'By default, obscure the title field. By default, do not obscure the priority field')
+// Set the mask to redact or temporarily hide a field, or to collapse it (e.g. a Richtext field will be reduced to a single row height.)
 
-import { ViewContainerStatic } from "./container";
+import { ViewContainerStatic, ViewContainerRow } from "./container";
 import { ViewTypographySubsubheading, ViewTypographyText } from "./typography";
 import { ViewButtonPressable } from "./button";
 import { ViewIconMain } from "./icon";
 import { useFieldState, TypeFieldState } from "./field";
 import { useQueryerClient } from "./queryer";
-import { useState } from "react";
+import { useReactState } from "./react";
 
 // CONTAINER
 
@@ -22,9 +23,13 @@ import { useState } from "react";
 // PRESSABLE
 
 // Click to toggle shield on/off. If 'all' is passed in the 'field' prop, it will toggle all fields.
-// (Chris needs to ensure this doesn't cause performance issues - fields cannot look at the same query else they will all constantly update.)
-// (therefore, we need to use a seperate query key for each field - and if 'all' is toggled with the shield, then the function should update ALL the query keys that exist (and are currently active).
-export const ViewShieldButton = ({ id, style }: { id: string[], style:any }) => {
+export const ViewShieldButton = ({
+  id,
+  style,
+}: {
+  id: string[];
+  style: any;
+}) => {
   const fieldState = useFieldState(id) as TypeFieldState;
   const fieldSet = useShieldSet(id);
   return (
@@ -34,7 +39,7 @@ export const ViewShieldButton = ({ id, style }: { id: string[], style:any }) => 
         backgroundColor: fieldState?.data?.shieldIndividual
           ? "gray"
           : "lightgray",
-        ...style
+        ...style,
       }}
       onPress={fieldSet}
     >
@@ -53,9 +58,9 @@ export const ViewShieldButton = ({ id, style }: { id: string[], style:any }) => 
 
 // Set the privacy state of fields (toggle the shieldUniversal value)
 export const useShieldSet = (id: string[]) => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   return () => {
-    queryClient.setQueryData(["field"].concat(id), (oldData: any) => {
+    queryerClient.setQueryData(["field"].concat(id), (oldData: any) => {
       return {
         ...oldData,
         shieldIndividual: !oldData?.shieldIndividual,
@@ -69,12 +74,12 @@ export const useShieldSet = (id: string[]) => {
 
 // A component to toggle shields across all active fields in the app.
 export const ViewShieldUniversal = () => {
-  // todo: change this useState to a useQuery so that it will persist when the modal is opened and closed.
-  const [universalState, universalSet] = useState(false); // whether the shield is applied universally
+  // todo: change this useReactState to a useQuery so that it will persist when the modal is opened and closed.
+  const [universalState, universalSet] = useReactState(false); // whether the shield is applied universally
   const individualSet = useShieldUniversal(!universalState); // hook to set the shield for all fields
-  const [infoState, infoSet] = useState(false); // whether the shield 'info tooltip' is currently visible
+  const [infoState, infoSet] = useReactState(false); // whether the shield 'info tooltip' is currently visible
   return (
-    <ViewContainerStatic style={{ flexDirection: "row", flex: 1 }}>
+    <ViewContainerRow style={{ flex: 1 }}>
       <ViewTypographySubsubheading
         numberOfLines={1}
         selectable={false}
@@ -130,22 +135,22 @@ export const ViewShieldUniversal = () => {
           </ViewContainerStatic>
         )}
       </ViewButtonPressable>
-    </ViewContainerStatic>
+    </ViewContainerRow>
   );
 };
 
 // When the universal button is clicked, ALL field shields will be toggled throughout the app.
 // todo: maybe use useFieldSet (i.e. abstract out the logic in here)
-// todo: add functionality here to set a main 'universal' state so that we can replace the useState in. OR, use a 'useUserState'/'useUserState' instead.
+// todo: add functionality here to set a main 'universal' state so that we can replace the useReactState in. OR, use a 'useUserState'/'useUserState' instead.
 export const useShieldUniversal = (universalState: any) => {
-  const queryClient = useQueryerClient();
+  const queryerClient = useQueryerClient();
   return () => {
-    queryClient
+    queryerClient
       .getQueryCache()
       .findAll(["field"]) // for any state that has the 'field' root
       .forEach(({ queryKey }) => {
         // go through and toggle the shield
-        queryClient.setQueryData(queryKey, (oldData: any) => {
+        queryerClient.setQueryData(queryKey, (oldData: any) => {
           return {
             ...oldData,
             shieldUniversal: oldData?.shieldUniversal ? false : true,
@@ -160,5 +165,9 @@ export const useShieldUniversal = (universalState: any) => {
 
 // The actual shield / cover / mask for the field (if shield is on, then show this redacted field instead of the actual field)
 export const ViewShieldMask = () => {
-  return <ViewContainerStatic style={{ flex: 1, backgroundColor: "black" }} />;
+  return (
+    <ViewContainerStatic
+      style={{ flex: 1, backgroundColor: "gray", height: 35 }}
+    />
+  );
 };

@@ -91,4 +91,3 @@ yarn-error.*
 sql
 .env-backup.txt
 .env
-articles

@@ -74,7 +74,7 @@ export const ViewDisplayPod = (props: any) => {
     <ViewPodContainer items={auxiliary} schema={schema.data}>
       <ViewPodInfo />
       <ViewPodTabs />
-      <ViewPodList title={"Example List Pod"} data={auxiliary.data} />
+      {/* <ViewPodList title={"Example List Pod"} data={auxiliary.data} /> */}
       {/* <ViewPodExample />
       <ViewPodExample />
       <ViewPodExample /> */}

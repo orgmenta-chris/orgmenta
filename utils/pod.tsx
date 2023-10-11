@@ -3,9 +3,17 @@
 // This display is resizable 'pods' that can be moved around on a grid, pinned etc.
 // E.g. on the 'invoicing' category entity, you could pin an 'unsent invoices count' widget to to this display.
 
+import {
+  ViewContainerStatic,
+  ViewContainerColumn,
+  ViewContainerRow,
+} from "./container";
 import { ViewRouterLink, useRouterLocation } from "./router";
-import { ViewContainerStatic, ViewContainerColumn, ViewContainerRow } from "./container";
+import { ViewListMain } from "./list";
 import { ViewTypographyText } from "./typography";
+import { useAuxiliaryArray } from "./auxiliary";
+import { useSpaceState, TypeSpaceState } from "./space";
+import { useEntitySingle } from "./entity";
 import { data } from "./static";
 
 // Main
@@ -14,6 +22,7 @@ export const ViewPodContainer = ({ items, children }: any) => {
   return (
     <ViewContainerStatic>
       {children}
+      <ViewPodsCategoryrelated />
       {/* <Text>{JSON.stringify({items})}</Text> */}
     </ViewContainerStatic>
   );
@@ -67,7 +76,9 @@ export const ViewPodInfo = () => {
         <ViewTypographyText style={{ fontSize: 14, fontStyle: "italic" }}>
           {process?.description}
         </ViewTypographyText>
-        <ViewTypographyText style={{ fontSize: 12 }}>{process?.summary}</ViewTypographyText>
+        <ViewTypographyText style={{ fontSize: 12 }}>
+          {process?.summary}
+        </ViewTypographyText>
       </ViewContainerStatic>
     </ViewContainerColumn>
   );
@@ -103,5 +114,26 @@ export const ViewPodTabs = () => {
         ))}
       </ViewContainerRow>
     </ViewContainerColumn>
+  );
+};
+
+// CATEGORYRELATED TEMP
+export const ViewPodsCategoryrelated = (props: any) => {
+  const spaceSelected = useSpaceState(["space", "selected"]);
+  const routerPaths = useRouterLocation()?.paths;
+  const auxiliary = useAuxiliaryArray({
+    space_name: (spaceSelected as TypeSpaceState)?.data?.spacename,
+    filters_array: [], //todo
+    column_names: [], //todo
+  });
+  console.log("focus", focus);
+  const auxiliaryRelated = auxiliary?.data?.filter((x: any) =>
+    x.entities.categories?.includes(routerPaths[2])
+  );
+  // console.log('auxiliary',auxiliary?.data?.map((x:any)=>x.entities.categories))
+  return (
+    <ViewContainerStatic style={{ flex: 1, maxHeight: 400 }}>
+      <ViewListMain data={auxiliaryRelated} />
+    </ViewContainerStatic>
   );
 };

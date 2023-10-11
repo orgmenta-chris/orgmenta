@@ -11,7 +11,7 @@ export const mapDeclarationType: Record<string, { id: string, prefix: string, de
   },
   "remote data request": {
     id: "todo",
-    prefix: "use",
+    prefix: "",
     description: "React Hook",
     notes: "Remote data requests must start with 'request' (lowercase)",
     rule: ""

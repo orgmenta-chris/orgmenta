@@ -1,3 +1,3 @@
 // Placeholder
 // Priority 3
-// Automtaion integration (like zapier)
+// Automation integration (like zapier)

@@ -2117,6 +2117,12 @@ export const arrayIndustryProducts: {
     priority: 4,
   },
   {
+    title: "Naverisk",
+    categories: ["RMM"],
+    integrations: [""],
+    priority:4,
+  },
+  {
     title: "Pax8",
     categories: ["Vendors"],
     integrations: ["Contract/Agreement Sync", "Product Catalog sync"],

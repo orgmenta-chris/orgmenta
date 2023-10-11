@@ -1,7 +1,7 @@
 
 // 
 
-const mapDeclarationTypes: Record<string, { id: string, prefix: string, description: string, notes: string, rule: string }> = {
+export const mapDeclarationType: Record<string, { id: string, prefix: string, description: string, notes: string, rule: string }> = {
   "hook": {
     id: "todo",
     prefix: "use",
@@ -88,11 +88,11 @@ const mapDeclarationTypes: Record<string, { id: string, prefix: string, descript
   }
 };
 
-export const arrayDeclarationItems: string[] = Object.keys(mapEmailServices);
+export const arrayDeclarationType: string[] = Object.keys(mapDeclarationType);
 
 
 // RULES
 
 // todo
-// export const mapDeclarationRules = {
+// export const mapDeclarationRule = {
 // }

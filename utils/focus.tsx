@@ -1,7 +1,8 @@
 // A 'Focus' is the primary entity being studied / viewed
 
-import { ViewContainerStatic } from "./container";
+import { ViewContainerRow, ViewContainerStatic } from "./container";
 import { ViewTypographyText } from "./typography";
+import { ViewContextContainer } from "./context";
 import {
   ViewRouterLink,
   ViewRouterLinkthemed,
@@ -33,74 +34,89 @@ export const ViewFocusHeader = () => {
   const grandparent = data?.find((c) => c.id === parent?.parent);
   const ggrandparent = data?.find((d) => d.id === grandparent?.parent);
   return (
-    <ViewContainerStatic
+    <ViewContainerRow
       style={{
         flexDirection: "column",
         borderWidth: 1,
         padding: 5,
       }}
     >
-      {/* Title of the current process (breadcrumbs) */}
-      <ViewTypographyText>
-        {ggrandparent?.id && ggrandparent?.id > 9 && (
-          <>
-            <ViewRouterLinkthemed
-              style={{ fontSize: 20 }}
-              to={"/entity/" + ggrandparent.nickname}
-            >
-              <ViewTypographyText style={{ textDecorationLine: "underline", fontSize: 20 }}>
-                {ggrandparent.display_singular}
-              </ViewTypographyText>
-            </ViewRouterLinkthemed>
-            <ViewContainerStatic>
-              <ViewTypographyText style={{ fontSize: 20 }}>{" > "}</ViewTypographyText>
-            </ViewContainerStatic>
-          </>
-        )}
-        {grandparent?.id && grandparent?.id > 9 && (
-          <>
-            <ViewRouterLinkthemed
-              style={{ fontSize: 20 }}
-              to={"/entity/" + grandparent.nickname}
-            >
-              <ViewTypographyText style={{ textDecorationLine: "underline", fontSize: 20 }}>
-                {grandparent.display_singular}
-              </ViewTypographyText>
-            </ViewRouterLinkthemed>
-            <ViewContainerStatic>
-              <ViewTypographyText style={{ fontSize: 20 }}>{" > "}</ViewTypographyText>
-            </ViewContainerStatic>
-          </>
-        )}
-        {parent?.id && parent?.id > 9 && (
-          <>
-            <ViewRouterLinkthemed
-              style={{ fontSize: 20 }}
-              to={"/entity/" + parent.nickname}
-            >
-              <ViewTypographyText style={{ textDecorationLine: "underline", fontSize: 20 }}>
-                {parent.display_singular}
-              </ViewTypographyText>
-            </ViewRouterLinkthemed>
-            <ViewContainerStatic>
-              <ViewTypographyText style={{ fontSize: 20 }}>{" > "}</ViewTypographyText>
-            </ViewContainerStatic>
-          </>
-        )}
-        {process?.id && (
-          <>
-            <ViewRouterLinkthemed
-              style={{ fontSize: 20 }}
-              to={"/entity/" + process.nickname}
-            >
-              <ViewTypographyText style={{ fontSize: 20, color: "white" }}>
-                {process.display_singular}
-              </ViewTypographyText>
-            </ViewRouterLinkthemed>
-          </>
-        )}
-      </ViewTypographyText>
-    </ViewContainerStatic>
+      <ViewContainerStatic style={{ flex: 1 }}>
+        {/* Title of the current process (breadcrumbs) */}
+        <ViewTypographyText>
+          {ggrandparent?.id && ggrandparent?.id > 9 && (
+            <>
+              <ViewRouterLinkthemed
+                style={{ fontSize: 20 }}
+                to={"/entity/" + ggrandparent.nickname}
+              >
+                <ViewTypographyText
+                  style={{ textDecorationLine: "underline", fontSize: 20 }}
+                >
+                  {ggrandparent.display_singular}
+                </ViewTypographyText>
+              </ViewRouterLinkthemed>
+              <ViewContainerStatic>
+                <ViewTypographyText style={{ fontSize: 20 }}>
+                  {" > "}
+                </ViewTypographyText>
+              </ViewContainerStatic>
+            </>
+          )}
+          {grandparent?.id && grandparent?.id > 9 && (
+            <>
+              <ViewRouterLinkthemed
+                style={{ fontSize: 20 }}
+                to={"/entity/" + grandparent.nickname}
+              >
+                <ViewTypographyText
+                  style={{ textDecorationLine: "underline", fontSize: 20 }}
+                >
+                  {grandparent.display_singular}
+                </ViewTypographyText>
+              </ViewRouterLinkthemed>
+              <ViewContainerStatic>
+                <ViewTypographyText style={{ fontSize: 20 }}>
+                  {" > "}
+                </ViewTypographyText>
+              </ViewContainerStatic>
+            </>
+          )}
+          {parent?.id && parent?.id > 9 && (
+            <>
+              <ViewRouterLinkthemed
+                style={{ fontSize: 20 }}
+                to={"/entity/" + parent.nickname}
+              >
+                <ViewTypographyText
+                  style={{ textDecorationLine: "underline", fontSize: 20 }}
+                >
+                  {parent.display_singular}
+                </ViewTypographyText>
+              </ViewRouterLinkthemed>
+              <ViewContainerStatic>
+                <ViewTypographyText style={{ fontSize: 20 }}>
+                  {" > "}
+                </ViewTypographyText>
+              </ViewContainerStatic>
+            </>
+          )}
+          {process?.id && (
+            <>
+              <ViewRouterLinkthemed
+                style={{ fontSize: 20 }}
+                to={"/entity/" + process.nickname}
+              >
+                <ViewTypographyText style={{ fontSize: 20, color: "white" }}>
+                  {process.display_singular}
+                </ViewTypographyText>
+              </ViewRouterLinkthemed>
+            </>
+          )}
+        </ViewTypographyText>
+      </ViewContainerStatic>
+      <ViewContextContainer />
+    </ViewContainerRow>
   );
 };
 
@@ -129,7 +145,9 @@ export const ViewFocusInfo = () => {
         <ViewTypographyText style={{ fontSize: 16, fontStyle: "italic" }}>
           {process?.description}
         </ViewTypographyText>
-        <ViewTypographyText style={{ fontSize: 12 }}>{process?.summary}</ViewTypographyText>
+        <ViewTypographyText style={{ fontSize: 12 }}>
+          {process?.summary}
+        </ViewTypographyText>
       </ViewContainerStatic>
       {/* <ViewTypographyText style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}>
             {process.subheading}

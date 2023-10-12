@@ -15,6 +15,9 @@ export const data: {
     status: "3. Active",
     name_singular: "business",
     display_singular: "Business",
+    description: "Your Business in a Box. End-to-end data and services in one intuitive, unified platform",
+    summary: "Your Business in a Box. End-to-end data and services in one intuitive, unified platform",
+    notes: `
     summary: "Your Business in a Box. End-to-end data and services in one intuitive, unified platform",
     body: "<-- Select a service for more information or to sign up",
     description:
@@ -23,7 +26,7 @@ export const data: {
       "Orgmenta's expert staff will package, automate and augment each area of your business",
     subheading3: "Business In a Box",
     calltoaction:
-      "More comprehensive, expert, understandable and neater solutions than if you did it inhouse",
+      "More comprehensive, expert, understandable and neater solutions than if you did it inhouse"`,
     nickname: "business",
   },
   {

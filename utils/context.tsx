@@ -1,27 +1,52 @@
 // A context bar is a small utility bar that has help/info/preference icons.
 
-import { ViewContainerColumn, ViewContainerRow, ViewContainerStatic } from "./container";
+import {
+  ViewContainerColumn,
+  ViewContainerRow,
+} from "./container";
 import { ViewTypographyText } from "./typography";
 import { ViewInfoButton } from "./info";
 import { ViewPreferenceButton, ViewPreferencePopup } from "./preference";
 import { ViewHelpButton, ViewHelpPopup } from "./help";
-
 import { useReactState } from "./react";
+import { ViewButtonPressable } from "./button";
+import { ViewIconMain } from "./icon";
 
 // CONTAINER
 
 export const ViewContextContainer = ({ children, to }: any) => {
+  const [showState, showSet] = useReactState(false);
   const [state, set] = useReactState(false);
   return (
-    <ViewContainerRow style={{backgroundColor:'white'}}>
+    <ViewContainerRow style={{ backgroundColor: "white", height: 35 }}>
       {/* Buttons */}
-      <ViewHelpButton set={set} to={to} />
-      <ViewInfoButton set={set} to={to} />
-      <ViewPreferenceButton set={set} to={to} />
+      {showState && <ViewHelpButton set={set} to={to} />}
+      {showState && <ViewInfoButton set={set} to={to} />}
+      {showState && <ViewPreferenceButton set={set} to={to} />}
       {/* Popup */}
       {state && <ViewHelpPopup children={children} state={state} />}
       {state && <ViewPreferencePopup children={children} state={state} />}
+      {/* Toggle */}
+      <ViewContextButton showSet={showSet} />
     </ViewContainerRow>
+  );
+};
+
+// BUTTON
+
+export const ViewContextButton = ({ showSet }: any) => {
+  // Toggles whether you can see the buttons
+  return (
+    <ViewButtonPressable
+      style={{ backgroundColor: "white", marginTop: 5 }}
+      onPress={() => showSet((old: any) => !old)}
+    >
+      <ViewIconMain
+        name={"dots-three-vertical"}
+        source={"Entypo"}
+        color={"gray"}
+      />
+    </ViewButtonPressable>
   );
 };
 
@@ -32,23 +57,22 @@ export const useContextState = () => {
   return { data: { enabled: true } };
 };
 
-
 // UNIVERSAL
 
 export const ViewContextUniversal = ({ children, to }: any) => {
   // A component to set the help/info/preferences universally across the app.
   return (
     <ViewContainerColumn>
-    <ViewContainerRow style={{backgroundColor:'white'}}>
-      <ViewHelpButton set={'todo'}/>
+      <ViewContainerRow style={{ backgroundColor: "white" }}>
+        <ViewHelpButton set={"todo"} />
         <ViewTypographyText>Toggle/Universal Help</ViewTypographyText>
-    </ViewContainerRow>
-      <ViewContainerRow style={{backgroundColor:'white'}}>
-        <ViewInfoButton set={'todo'} />
+      </ViewContainerRow>
+      <ViewContainerRow style={{ backgroundColor: "white" }}>
+        <ViewInfoButton set={"todo"} />
         <ViewTypographyText>Toggle/Universal Info</ViewTypographyText>
       </ViewContainerRow>
-      <ViewContainerRow style={{backgroundColor:'white'}}>
-        <ViewPreferenceButton set={'todo'} />
+      <ViewContainerRow style={{ backgroundColor: "white" }}>
+        <ViewPreferenceButton set={"todo"} />
         <ViewTypographyText>Toggle/Universal Preferences</ViewTypographyText>
       </ViewContainerRow>
     </ViewContainerColumn>

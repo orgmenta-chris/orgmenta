@@ -367,7 +367,7 @@ export const ViewActionHeading = ({ title, subtitle }: any) => {
       >
         {subtitle}
       </ViewTypographySubsubheading>
-      <ViewHelpContainer />
+      <ViewContextContainer  />
     </ViewContainerStatic>
   );
 };

@@ -36,6 +36,7 @@ import {
   ViewAuthSignup,
 } from "./auth";
 import { useReactState } from "./react";
+import { ViewContextUniversal } from "./context";
 // import MSAL from "../../../auth/msal";
 
 // PAGE
@@ -104,6 +105,7 @@ export const ViewUserModal = (props: any) => {
         <ViewUserActivity />
         <ViewUserNotifications />
         <ViewUserComms />
+        <ViewUserContext />
         <ViewUserDevice />
       </ViewContainerScroll>
     </ViewModalContainer>
@@ -183,6 +185,23 @@ export const ViewUserComms = () => {
           <ViewTypographyText>
             [Link to all messages (user/userid/messages)]
           </ViewTypographyText>
+        </>
+      }
+    />
+  );
+};
+
+// CONTEXT
+
+export const ViewUserContext = () => {
+  // A component to set the help/info/preferences universally across the app.
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Context"}
+      body={
+        <>
+          <ViewContextUniversal/>
         </>
       }
     />

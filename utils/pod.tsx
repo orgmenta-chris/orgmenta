@@ -11,39 +11,46 @@ import {
 } from "./container";
 import { ViewRouterLink, useRouterLocation } from "./router";
 import { ViewListMain } from "./list";
-import { ViewTypographySubheading, ViewTypographyText } from "./typography";
+import {
+  ViewTypographyHeading,
+  ViewTypographySubheading,
+  ViewTypographySubsubheading,
+  ViewTypographyText,
+} from "./typography";
 import { useAuxiliaryArray } from "./auxiliary";
 import { useSpaceState, TypeSpaceState } from "./space";
-import { useEntitySingle } from "./entity";
 import { data } from "./static";
 import { useAuthSession } from "./auth";
 import { ViewContextContainer, useContextState } from "./context";
+import { useHelpState } from "./help";
+import { useWindowDimensions } from "./window";
+import { useEntitySingle } from "./entity";
 
 // CONTAINER
 
 export const ViewPodContainer = ({ items, children }: any) => {
   // A comtainer to show all enabled 'pods' (widgets for the 'front page of a business module')
   const isGuest = useAuthSession()?.data?.currentUser === "Guest";
-  const helpEnabled = useContextState()?.data?.enabled;
+  const helpEnabled = useHelpState()?.data?.enabled;
   const salesEnabled = true; // to do
   return (
     <ViewContainerScroll style={{ flex: 1 }}>
       <ViewPodInfo />
       <ViewPodTabs />
-      {(isGuest || salesEnabled) && <ViewPodSalescopy />}
+      {(isGuest || salesEnabled) && <ViewPodOverview />}
       {(isGuest || helpEnabled) && <ViewPodGuides />}
       <ViewPodCategoryrelated />
     </ViewContainerScroll>
   );
 };
 
-// List
+// LIST
 
 export const ViewPodList = ({ items, children }: any) => {
   return <ViewTypographyText>ViewPodList (todo)</ViewTypographyText>;
 };
 
-// Example
+// EXAMPLE
 
 export const ViewPodExample = () => {
   // Temporary examplepod
@@ -77,21 +84,21 @@ export const ViewPodInfo = () => {
   const helpEnabled = useContextState()?.data?.enabled;
   const salesEnabled = true; // to do
   return (
-    <ViewContainerColumn
-      style={{
-        margin: 5,
-        borderWidth:1,
-      }}
+    <ViewContainerRow
+      style={{ flex: 1, margin: 5, borderWidth: 1, height: 35 }}
     >
-      <ViewContainerStatic style={{ backgroundColor: "lightgray" }}>
-        <ViewTypographyText style={{ fontSize: 14, fontStyle: "italic" }}>
-          {process?.description}
-        </ViewTypographyText>
-        <ViewTypographyText style={{ fontSize: 12 }}>
-          {process?.summary}
-        </ViewTypographyText>
-      </ViewContainerStatic>
-    </ViewContainerColumn>
+      <ViewContainerColumn style={{ flex: 1 }}>
+        <ViewContainerStatic style={{}}>
+          <ViewTypographyText style={{ fontSize: 14, fontStyle: "italic" }}>
+            {process?.description}
+          </ViewTypographyText>
+          <ViewTypographyText style={{ fontSize: 12 }}>
+            {process?.summary}
+          </ViewTypographyText>
+        </ViewContainerStatic>
+      </ViewContainerColumn>
+      <ViewContextContainer />
+    </ViewContainerRow>
   );
 };
 
@@ -113,7 +120,7 @@ export const ViewPodTabs = () => {
       }}
     >
       {/* Tabs for each subprocess */}
-      <ViewContainerRow style={{ height: 20 }}>
+      <ViewContainerRow style={{ height: 35 }}>
         {subprocesses?.map((x, i) => (
           <ViewRouterLink
             style={{ flex: 1 }}
@@ -123,6 +130,7 @@ export const ViewPodTabs = () => {
             <ViewTypographyText>{x.display_singular}</ViewTypographyText>
           </ViewRouterLink>
         ))}
+        <ViewContextContainer />
       </ViewContainerRow>
     </ViewContainerColumn>
   );
@@ -147,9 +155,12 @@ export const ViewPodCategoryrelated = (props: any) => {
         borderWidth: 1,
       }}
     >
-      <ViewTypographySubheading>
-        Related Items (temp, uses static categories)
-      </ViewTypographySubheading>
+      <ViewContainerRow>
+        <ViewTypographySubheading style={{ flex: 1 }}>
+          Related Items (temp, uses static categories)
+        </ViewTypographySubheading>
+        <ViewContextContainer />
+      </ViewContainerRow>
       <ViewListMain data={auxiliaryRelated} />
     </ViewContainerStatic>
   );
@@ -164,14 +175,23 @@ export const ViewPodGuides = (props: any) => {
         borderWidth: 1,
       }}
     >
-      <ViewTypographySubheading>Guides</ViewTypographySubheading>
+      <ViewContainerRow>
+        <ViewTypographySubheading style={{ flex: 1 }}>
+          Guides
+        </ViewTypographySubheading>
+        <ViewContextContainer />
+      </ViewContainerRow>
       <ViewTypographyText>Show related guides here.</ViewTypographyText>
     </ViewContainerStatic>
   );
 };
 
 // GUIDE
-export const ViewPodSalescopy = (props: any) => {
+export const ViewPodOverview = (props: any) => {
+  const windowHeight = useWindowDimensions().width;
+  const categoryPath = useRouterLocation().paths[2];
+  const categoryInfo = data?.find((x) => x.nickname === categoryPath)!;
+  const categoryChildren = data?.filter((x) => x.parent === categoryInfo.id);
   // A pod for the sales pitch to each specific module.
   // SHOW THIS IF USER IS NOT LOGGED IN.
   return (
@@ -180,22 +200,55 @@ export const ViewPodSalescopy = (props: any) => {
         borderWidth: 1,
         margin: 5,
         backgroundColor: "lightgreen",
-        maxHeight: "100%",
-        height: "100%",
+        maxHeight: windowHeight / 2 - 130, // temp, to get dimensions of the parentparent container instead
+        height: windowHeight / 2 - 130, // temp, to get dimensions of the parentparent container instead
       }}
     >
+      <ViewContainerRow>
+        <ViewTypographySubheading style={{ flex: 1}}>
+          Overview
+        </ViewTypographySubheading>
+
+        <ViewContextContainer />
+      </ViewContainerRow>
+
       <ViewTypographyText>
         ^--- These are the submodules (explain each, get data from the
         categories array)
       </ViewTypographyText>
-      <ViewTypographySubheading>
-        SALESPITCH FOR THE MODULE
-      </ViewTypographySubheading>
-      <ViewTypographySubheading>
+      <ViewTypographyText>SALESPITCH FOR THE MODULE</ViewTypographyText>
+      <ViewTypographyText>
         Sales pitch here using the data from the module object (static.tsx for
         the time being) here. Above the fold in the pods screen. point to
         relevant areas of the screen an explain them.
+      </ViewTypographyText>
+      <ViewTypographyHeading style={{ flex: 1, textAlign: "center" }}>
+        {categoryInfo.display_singular}
+      </ViewTypographyHeading>
+      <ViewTypographySubheading style={{ flex: 1, textAlign: "center" }}>
+        {categoryInfo.summary}
       </ViewTypographySubheading>
+      <ViewContainerColumn style={{ marginVertical: 10 }}>
+        {categoryChildren?.map((x, i) => (
+          <ViewContainerColumn key={i}>
+            <ViewTypographySubsubheading
+              style={{ flex: 1, textAlign: "center" }}
+            >
+              {x.display_singular}
+            </ViewTypographySubsubheading>
+            <ViewTypographyText style={{ flex: 1, textAlign: "center" }}>
+              {x.summary}
+            </ViewTypographyText>
+          </ViewContainerColumn>
+        ))}
+      </ViewContainerColumn>
+      <ViewTypographyText>
+        {JSON.stringify(categoryInfo, null, 2)}
+      </ViewTypographyText>
+      <ViewTypographySubheading>SUBCATS</ViewTypographySubheading>
+      <ViewTypographyText>
+        {JSON.stringify(categoryChildren, null, 2)}
+      </ViewTypographyText>
       <ViewTypographyText>
         V--- You're in the 'Pods' display at the moment, but you can switch the
         display to view the module with different display types here

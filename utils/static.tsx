@@ -280,7 +280,8 @@ export const data: {
     parent: 111,
     status: "5. Hold",
     name_singular: "domain",
-    display_singular: "Domain (or expertise, if we need the domain keyword reserved for domain purchases",
+    display_singular:
+      "Domain (or expertise, if we need the domain keyword reserved for domain purchases",
     description: "Consultation with industry experts",
     summary:
       "Bring expert consultation in for specialist advice (e.g. data center employees for a server move project)",
@@ -1956,6 +1957,7 @@ export const data: {
     display_singular: "Blueprints",
     summary:
       "Configuration of descriptions, serialisation, price, cost and other product fields",
+    description: "Configure your product templates",
     nickname: "product-catalog-patterns-blueprints",
   },
   {
@@ -1964,7 +1966,8 @@ export const data: {
     status: "0. New",
     name_singular: "mapping",
     display_singular: "Mapping",
-    description:
+    description: "Map your product attributes to any other business module",
+    summary:
       "Link product categories to other modules (components to accounts>payable, produce to accounts>receivable etc.",
     nickname: "product-catalog-patterns-mapping",
   },
@@ -1975,7 +1978,7 @@ export const data: {
     name_singular: "solutions",
     display_singular: "Solutions",
     summary: "The endproduct for the customer or internal use",
-    summary: "An assembly of components",
+    description: "An assembly of components",
     nickname: "product-catalog-solutions",
   },
   {
@@ -2018,8 +2021,7 @@ export const data: {
     display_singular: "User Roles",
     description:
       "Stakeholder Groups that are affected. These compile all of the roles involved in user stories/ that have requested features / that have requirements",
-    summary:
-      "",
+    summary: "",
     nickname: "product-catalog-solutions-usecases-userroles",
   },
   {
@@ -2497,7 +2499,8 @@ export const data: {
     name_singular: "monitoring",
     display_singular: "Monitoring",
     description: "monitoring deployed products",
-    summary: 'Automatic and manual monitoring, alerting to threshold triggers, and provide feedback and information to internal & external stakeholders.',
+    summary:
+      "Automatic and manual monitoring, alerting to threshold triggers, and provide feedback and information to internal & external stakeholders.",
     nickname: "deployment-usage-monitoring",
   },
   {
@@ -2507,7 +2510,8 @@ export const data: {
     name_singular: "thresholds",
     display_singular: "Thresholds",
     description: "Maintaining appropriate triggers for alerts",
-    summary: 'Set thresholds to alert you of multi-user outages, single user issues, changes to environments, external news, or anything that is related to the operation of the deployed product.',
+    summary:
+      "Set thresholds to alert you of multi-user outages, single user issues, changes to environments, external news, or anything that is related to the operation of the deployed product.",
     nickname: "deployment-usage-monitoring-thresholds",
   },
   {
@@ -2517,7 +2521,8 @@ export const data: {
     name_singular: "alerts",
     display_singular: "Alerts",
     description: "Receive and disseminate alerts",
-    summary: 'get alerts, and pass them onto stakeholders as appropriate. For example, wide scale outages. Log as a fault automatically or manually where needed.',
+    summary:
+      "get alerts, and pass them onto stakeholders as appropriate. For example, wide scale outages. Log as a fault automatically or manually where needed.",
     nickname: "deployment-usage-monitoring-alerts",
   },
   {
@@ -3754,8 +3759,7 @@ export const data: {
     status: "0. New",
     name_singular: "project",
     display_singular: "Project",
-    summary:
-      "Service Desk & Projects",
+    summary: "Service Desk & Projects",
     description:
       "Management of all the production (all work/tasks) that is undertaken in the business.\nTrack all of your projects & service tickets, with optional best practice libraries (ITIL, PMBOK, Prince2, ISO:9001, etc.)",
     nickname: "project",

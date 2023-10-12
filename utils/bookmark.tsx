@@ -31,38 +31,37 @@ export const ViewBookmarkModal = (props: any) => {
           marginBottom: 5,
         }}
       >
-        {
-          data // temporary array that contains all the navigation objects (will be changed to using supabase entities later)
-            .filter(
-              (x) => (x.status === "3. Active" || __DEV__) && x.parent === 1
-            ) // if in production, only show active modules
-            .map((x, i) => (
-              <ViewCardExpandable
-                key={x.id || i}
-                header={x.display_singular}
-                headerlink={"entity/" + x.nickname}
-                body={data
-                  .filter(
-                    (y) =>
-                      (y.status === "3. Active" || __DEV__) && y.parent === x.id
-                  )
-                  .map((y, i) => (
-                    <ViewRouterLinkthemed
-                      style={{ textDecoration: "none", margin: 5 }}
-                      to={"entity/" + y.nickname}
-                      key={"a" + y.id + i}
-                    >
-                      <ViewTypographySubsubheading>
-                        {y.display_singular}
-                      </ViewTypographySubsubheading>
-                    </ViewRouterLinkthemed>
-                  ))}
-              />
-            ))
-        }
+        {data // temporary array that contains all the navigation objects (will be changed to using supabase entities later)
+          .filter(
+            (x) => (x.status === "3. Active" || __DEV__) && x.parent === 1
+          ) // if in production, only show active modules
+          .map((x, i) => (
+            <ViewCardExpandable
+              key={x.id || i}
+              header={x.display_singular}
+              headerlink={"entity/" + x.nickname}
+              body={data
+                .filter(
+                  (y) =>
+                    (y.status === "3. Active" || __DEV__) && y.parent === x.id
+                )
+                .map((y, i) => (
+                  <ViewRouterLinkthemed
+                    style={{ textDecoration: "none", margin: 5 }}
+                    to={"entity/" + y.nickname}
+                    key={"a" + y.id + i}
+                  >
+                    <ViewTypographySubsubheading>
+                      {y.display_singular}
+                    </ViewTypographySubsubheading>
+                  </ViewRouterLinkthemed>
+                ))}
+            />
+          ))}
       </ViewContainerScroll>
       <ViewContainerStatic>
-        <ViewBookmarkTabs /><ViewHelpContainer/>
+        <ViewBookmarkTabs />
+        <ViewContextContainer />
       </ViewContainerStatic>
     </ViewModalContainer>
   );

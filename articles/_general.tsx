@@ -532,4 +532,22 @@ export const articlesTemp: {
     - Or, you can just write the code, hover over the declaration tag in the function you wrote (where it is underlined red), and click 'quick-fix'> import missing...
     `,
   },
+  {
+    topic: "Codebase structures - 'Think in Modules'",
+    notes: `
+    (To be proven/disproven)
+    // Notes
+    (Should mention MVC and other methodologies)
+    (Perhaps make the case that we have lost the benefits of structure that things like MVC previously brought)
+    //HYPOTHESIS
+    The environment of online tutorials is biased towards smaller/starter projects.
+    These tutorials deal with scaling issues 'too early'.
+    Due to this, they split out codebases into components, utils etc.
+    However, this doesn't scale to enterprise level.
+    If you have components/pricing, utils/pricing etc. you end up with folders with identical filenames but with functionality split.
+    Instead, we should 'think in modules'
+    Each file/folder at the top level, each with a module per function. 
+    Each module has utils, components etc. See article naming conventions for declarations, on how to then keep that clean
+    `,
+  },
 ];

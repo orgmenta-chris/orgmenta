@@ -9,7 +9,11 @@ import {
   ViewContainerRow,
   ViewContainerScroll,
 } from "./container";
-import { ViewRouterLink, useRouterLocation } from "./router";
+import {
+  ViewRouterLink,
+  ViewRouterLinkthemed,
+  useRouterLocation,
+} from "./router";
 import { ViewListMain } from "./list";
 import {
   ViewTypographyHeading,
@@ -25,6 +29,7 @@ import { ViewContextContainer, useContextState } from "./context";
 import { useHelpState } from "./help";
 import { useWindowDimensions } from "./window";
 import { useEntitySingle } from "./entity";
+import { ViewButtonLink } from "./button";
 
 // CONTAINER
 
@@ -190,8 +195,8 @@ export const ViewPodGuides = (props: any) => {
 export const ViewPodOverview = (props: any) => {
   const windowHeight = useWindowDimensions().width;
   const categoryPath = useRouterLocation().paths[2];
-  const categoryInfo = data?.find((x) => x.nickname === categoryPath)!;
-  const categoryChildren = data?.filter((x) => x.parent === categoryInfo.id);
+  const categoryInfo = data?.find((x) => x?.nickname === categoryPath)!;
+  const categoryChildren = data?.filter((x) => x?.parent === categoryInfo?.id);
   // A pod for the sales pitch to each specific module.
   // SHOW THIS IF USER IS NOT LOGGED IN.
   return (
@@ -205,7 +210,7 @@ export const ViewPodOverview = (props: any) => {
       }}
     >
       <ViewContainerRow>
-        <ViewTypographySubheading style={{ flex: 1}}>
+        <ViewTypographySubheading style={{ flex: 1 }}>
           Overview
         </ViewTypographySubheading>
 
@@ -223,25 +228,23 @@ export const ViewPodOverview = (props: any) => {
         relevant areas of the screen an explain them.
       </ViewTypographyText>
       <ViewTypographyHeading style={{ flex: 1, textAlign: "center" }}>
-        {categoryInfo.display_singular}
+        {categoryInfo?.display_singular}
       </ViewTypographyHeading>
-      <ViewTypographySubheading style={{ flex: 1, textAlign: "center" }}>
-        {categoryInfo.summary}
+      <ViewTypographySubheading
+        style={{ flex: 1, textAlign: "center", fontStyle: "italic" }}
+      >
+        {categoryInfo?.summary}
       </ViewTypographySubheading>
-      <ViewContainerColumn style={{ marginVertical: 10 }}>
+      <ViewContainerStatic style={{ marginVertical: 10 }}>
         {categoryChildren?.map((x, i) => (
-          <ViewContainerColumn key={i}>
-            <ViewTypographySubsubheading
-              style={{ flex: 1, textAlign: "center" }}
-            >
-              {x.display_singular}
-            </ViewTypographySubsubheading>
-            <ViewTypographyText style={{ flex: 1, textAlign: "center" }}>
-              {x.summary}
-            </ViewTypographyText>
-          </ViewContainerColumn>
+          <ViewButtonLink
+            to={`/entity/${x.nickname}`}
+            key={i}
+            buttonText={x.display_singular}
+            buttonSubtext={x.summary}
+          />
         ))}
-      </ViewContainerColumn>
+      </ViewContainerStatic>
       <ViewTypographyText>
         {JSON.stringify(categoryInfo, null, 2)}
       </ViewTypographyText>

@@ -24,7 +24,7 @@ import {
 } from "./container";
 import { ViewBrowseWidget } from "./browse";
 import { ViewBookmarkWidget } from "./bookmark";
-import { ViewButtonPressable } from "./button";
+import { ViewButtonLink, ViewButtonPressable } from "./button";
 import { ViewInquiryMain } from "./inquiry";
 import { ViewSvgMain, ViewSvgPath, ViewSvgGroup } from "./svg";
 import { mapTypeMain } from "./type";
@@ -346,7 +346,7 @@ export const ViewOrgmentaPricing = ({}: any) => {
       <ViewContainerScroll>
         <ViewTypographyHeading>Pricing</ViewTypographyHeading>
         <ViewTypographyText>ViewOrgmentaPricing placeholder</ViewTypographyText>
-        <ViewPricingContainer/>
+        <ViewPricingContainer />
         <ViewTypographyText>
           {JSON.stringify(pricingTemp, null, 2)}
         </ViewTypographyText>
@@ -532,7 +532,7 @@ export const ViewOrgmentaSocials = ({}: any) => {
           Feed of social media posts here 
           `}
         </ViewTypographyText>
-        <ViewShareContainer/>
+        <ViewShareContainer />
       </ViewContainerScroll>
     </ViewPageMain>
   );
@@ -569,7 +569,7 @@ export const ViewOrgmentaHome = ({}: any) => {
     <ViewOrgmentaBackground>
       <ViewContainerScroll
         style={{
-          padding: 10,
+          // padding: 10,
           flexDirection: "column",
           flex: 1,
           width: "100%",
@@ -619,10 +619,11 @@ export const ViewOrgmentaNews = ({}: any) => {
 export const ViewOrgmentaForums = ({}: any) => {
   return (
     <ViewPageMain>
-        <ViewTypographyText>
-          ViewOrgmentaForums placeholder - Community forums / discussion boards go here
-        </ViewTypographyText>
-        <ViewForumContainer forumTitle={'Forums'}/>
+      <ViewTypographyText>
+        ViewOrgmentaForums placeholder - Community forums / discussion boards go
+        here
+      </ViewTypographyText>
+      <ViewForumContainer forumTitle={"Forums"} />
     </ViewPageMain>
   );
 };
@@ -777,7 +778,10 @@ export const ViewOrgmentaNavigationoverview = () => {
   // Point to User, Spaces etc. and briefly explain the app.
   const windowDimensions = useWindowDimensions();
   return (
-    <ViewContainerStatic key={"navigation_overview"}>
+    <ViewContainerStatic
+      key={"navigation_overview"}
+      style={{ margin: 15, padding: 10, height: windowDimensions.height - 80 }}
+    >
       <ViewContainerStatic
         key={"navigation_toprow"}
         style={{ flexDirection: "row" }}
@@ -925,7 +929,7 @@ export const ViewOrgmentaNavigationoverview = () => {
               strokeWidth="15"
               fill="none"
             />
-            <ViewSvgGroup transform="scale(-1, 1) translate(-100, 0) rotate(20 50 40)">
+            <ViewSvgGroup transform="scale(-1, 1) translate(-80, 0) rotate(20 50 40)">
               <ViewSvgPath
                 d="M50,10 L40,30 L50,10 L60,30 L50,10"
                 stroke="#22b2e4"
@@ -984,14 +988,14 @@ export const ViewOrgmentaNavigationoverview = () => {
             height="1200"
             viewBox="0 0 100 600"
           >
-            <ViewSvgGroup transform="scale(-1, 1) translate(-100, 0)">
+            <ViewSvgGroup transform="scale(-1, 1) translate(-80, 0)">
               <ViewSvgPath
                 d="M20,540 C97.5,390 97.5,210 63,22.5"
                 stroke="#22b2e4"
                 strokeWidth="5"
                 fill="none"
               />
-              <ViewSvgGroup transform="scale(-1, 1) translate(-100, 0) rotate(20 37 22.5)">
+              <ViewSvgGroup transform="scale(-1, 1) translate(-80, 0) rotate(20 37 22.5)">
                 <ViewSvgPath
                   d="M37,22.5 L27,42.5 L37,22.5 L47,42.5 L37,22.5"
                   stroke="#22b2e4"
@@ -1124,7 +1128,7 @@ export const ViewOrgmentaNavigationoverview = () => {
               strokeWidth="5"
               fill="none"
             />
-            <ViewSvgGroup transform="scale(1, -1) translate(0, -100)">
+            <ViewSvgGroup transform="scale(1, -1) translate(0, -80)">
               <ViewSvgPath
                 d="M50,10 L40,30 L50,10 L60,30 L50,10"
                 stroke="#22b2e4"
@@ -1143,31 +1147,48 @@ export const ViewOrgmentaFrameworkoverview = () => {
   const windowDimensions = useWindowDimensions();
   return (
     <ViewContainerStatic
-      style={{ height: windowDimensions.height, backgroundColor: "white" }}
+      style={{ margin: 15, padding: 10, height: windowDimensions.height - 80 }}
     >
+      <ViewTypographyHeading
+        style={{ 
+          textAlign: "center",
+          fontStyle: "italic",
+          flex: 1,width: "100%",
+          backgroundColor: "lightgray", }}
+      >
+        Modules Overview
+      </ViewTypographyHeading>
+      <ViewTypographySubsubheading
+        style={{
+          textAlign: "center",
+          fontStyle: "italic",
+          flex: 1,
+          backgroundColor: "lightgray",
+        }}
+      >
+        Click on a module to see the demo and features overview
+      </ViewTypographySubsubheading>
       {data
         ?.filter((x) => x.parent === 1)
         ?.map((x: any, i: number) => (
-          <ViewContainerStatic key={i}>
-            <ViewTypographySubheading style={{ flex: 1 }}>
-              {x.display_singular}
-            </ViewTypographySubheading>
-            <ViewTypographySubsubheading style={{ flex: 1 }}>
-              {x.summary}
-            </ViewTypographySubsubheading>
-          </ViewContainerStatic>
+          <ViewButtonLink
+            to={`./entity/${x.nickname}`}
+            key={i}
+            buttonText={x.display_singular}
+            buttonSubtext={x.summary}
+          />
         ))}
     </ViewContainerStatic>
   );
 };
 
 export const ViewOrgmentaProductoverview = () => {
+  const windowDimensions = useWindowDimensions();
   return (
-    <ViewContainerStatic key={"product_overview"}>
-      <ViewContainerStatic
-        style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}
-      >
-        <ViewContainerStatic
+    <ViewContainerStatic
+      style={{ margin: 15, padding: 10, height: windowDimensions.height - 80, backgroundColor: "rgba(255,255,255, 0.9)" }}
+    >
+      {/* <ViewContainerStatic
           style={{
             backgroundColor: "rgba(0, 0, 0, 0.1)",
             borderColor: "rgba(0, 0, 0, 0.15)",
@@ -1175,90 +1196,85 @@ export const ViewOrgmentaProductoverview = () => {
             flexDirection: "column",
             width: "100%",
           }}
-        >
-          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
-            Contact Form
-          </ViewTypographyText>
-          <ViewInquiryMain />
-          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
-            Overview
-          </ViewTypographyText>
-          <ViewTypographyText>Clear, transparent pricing</ViewTypographyText>
-          <ViewTypographyText>
-            No mandatory demo or sales pressure, just sign up and use it
-          </ViewTypographyText>
-          <ViewTypographyText>
-            (But sign up for a demo here if you want one [link])
-          </ViewTypographyText>
-          <ViewTypographyText>
-            Dedicated Account Manager who will never abandon you or charge for
-            their time
-          </ViewTypographyText>
-          <ViewTypographyText>24/7 Support</ViewTypographyText>
-          <ViewTypographyText>
-            Consulting packages available for bespoke requests
-          </ViewTypographyText>
-          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
-            Pricing
-          </ViewTypographyText>
-          <ViewTypographyText>xyz</ViewTypographyText>
-          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
-            Entity Types
-          </ViewTypographyText>
-          <ViewTypographyText>
-            All your entities and their relationships brought into the hub
-          </ViewTypographyText>
-          <ViewTypographyText style={{ fontStyle: "italic" }}>
-            {mapTypeMain.map((x, i) => x.display_plural).join(" <--> ")}
-          </ViewTypographyText>
-          <ViewTypographyText>Link Anything To Anything</ViewTypographyText>
-          <ViewTypographyText>
-            No restrictions - link any contact, to any event, to any task, to
-            any location, to any reference, to any item
-          </ViewTypographyText>
-          <ViewTypographyText>(Example screenshot here)</ViewTypographyText>
-          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
-            Features
-          </ViewTypographyText>
-          <ViewTypographyText>Business Management</ViewTypographyText>
-          <ViewTypographyText>Projects & Service Tickets</ViewTypographyText>
-          <ViewTypographyText>Accounting & Finance</ViewTypographyText>
-          <ViewTypographyText>
-            Procurement and stock management
-          </ViewTypographyText>
-          <ViewTypographyText>
-            Invoice your agreements and sales to your customers
-          </ViewTypographyText>
-          <ViewTypographyText>
-            Employee management and productivity
-          </ViewTypographyText>
-          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
-            Benefits
-          </ViewTypographyText>
-          <ViewTypographyText>
-            Integrated Services (outsource your work to on-demand technical
-            experts)
-          </ViewTypographyText>
-          <ViewTypographyText>
-            MSP Community (peer/expert discussions and groups)
-          </ViewTypographyText>
-          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
-            Integrations
-          </ViewTypographyText>
-          {arrayIndustryProducts
-            .filter((x) => x.priority < 3)
-            .map((x, i) => (
-              <ViewTypographyText key={i}>{x.title}</ViewTypographyText>
-            ))}
-          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
-            Contact Form
-          </ViewTypographyText>
-          <ViewInquiryMain />
-          {/* Test Stripe/supbase db functions (working) */}
-          {/* <UseStripeFunctions /> */}
-          <UseNewStripeWrapperFunctions />
-        </ViewContainerStatic>
-      </ViewContainerStatic>
+        > */}
+      <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+        Contact Form
+      </ViewTypographyText>
+      <ViewInquiryMain />
+      <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+        Overview
+      </ViewTypographyText>
+      <ViewTypographyText>Clear, transparent pricing</ViewTypographyText>
+      <ViewTypographyText>
+        No mandatory demo or sales pressure, just sign up and use it
+      </ViewTypographyText>
+      <ViewTypographyText>
+        (But sign up for a demo here if you want one [link])
+      </ViewTypographyText>
+      <ViewTypographyText>
+        Dedicated Account Manager who will never abandon you or charge for their
+        time
+      </ViewTypographyText>
+      <ViewTypographyText>24/7 Support</ViewTypographyText>
+      <ViewTypographyText>
+        Consulting packages available for bespoke requests
+      </ViewTypographyText>
+      <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+        Pricing
+      </ViewTypographyText>
+      <ViewTypographyText>xyz</ViewTypographyText>
+      <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+        Entity Types
+      </ViewTypographyText>
+      <ViewTypographyText>
+        All your entities and their relationships brought into the hub
+      </ViewTypographyText>
+      <ViewTypographyText style={{ fontStyle: "italic" }}>
+        {mapTypeMain.map((x, i) => x.display_plural).join(" <--> ")}
+      </ViewTypographyText>
+      <ViewTypographyText>Link Anything To Anything</ViewTypographyText>
+      <ViewTypographyText>
+        No restrictions - link any contact, to any event, to any task, to any
+        location, to any reference, to any item
+      </ViewTypographyText>
+      <ViewTypographyText>(Example screenshot here)</ViewTypographyText>
+      <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+        Features
+      </ViewTypographyText>
+      <ViewTypographyText>Business Management</ViewTypographyText>
+      <ViewTypographyText>Projects & Service Tickets</ViewTypographyText>
+      <ViewTypographyText>Accounting & Finance</ViewTypographyText>
+      <ViewTypographyText>Procurement and stock management</ViewTypographyText>
+      <ViewTypographyText>
+        Invoice your agreements and sales to your customers
+      </ViewTypographyText>
+      <ViewTypographyText>
+        Employee management and productivity
+      </ViewTypographyText>
+      <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+        Benefits
+      </ViewTypographyText>
+      <ViewTypographyText>
+        Integrated Services (outsource your work to on-demand technical experts)
+      </ViewTypographyText>
+      <ViewTypographyText>
+        MSP Community (peer/expert discussions and groups)
+      </ViewTypographyText>
+      <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+        Integrations
+      </ViewTypographyText>
+      {arrayIndustryProducts
+        .filter((x) => x.priority < 3)
+        .map((x, i) => (
+          <ViewTypographyText key={i}>{x.title}</ViewTypographyText>
+        ))}
+      <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+        Contact Form
+      </ViewTypographyText>
+      <ViewInquiryMain />
+      {/* Test Stripe/supbase db functions (working) */}
+      {/* <UseStripeFunctions /> */}
+      <UseNewStripeWrapperFunctions />
     </ViewContainerStatic>
   );
 };

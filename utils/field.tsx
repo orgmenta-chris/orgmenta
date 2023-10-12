@@ -493,7 +493,7 @@ export type TypeFieldState = TypeQueryerResult & {
 export const useFieldSet = (id: string[]) => {
   // console.log('useFieldSet invoked')
   const queryerClient = useQueryerClient();
-  return (keyName: string, setValueFunction: () => any) => {
+  const querySet = (keyName: string, setValueFunction: () => any) => {
     const value = setValueFunction();
     // console.log('useFieldSet called',keyName,value)
     queryerClient.setQueryData(
@@ -506,4 +506,7 @@ export const useFieldSet = (id: string[]) => {
       }
     );
   };
+  queryerClient.invalidateQueries(["field"].concat(id));
+  return querySet
 };
+

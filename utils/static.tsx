@@ -1,5 +1,3 @@
-import { string } from "./string";
-
 export const data: {
   id: number;
   parent: number | null;
@@ -12,31 +10,12 @@ export const data: {
   notes?: string;
 }[] = [
   {
-    id: 3,
-    parent: null,
-    status: "3. Active",
-    name_singular: "world",
-    display_singular: "World",
-    description: "World, environment and universe",
-    nickname: "world",
-  },
-  {
-    id: 4,
-    parent: null,
-    status: "3. Active",
-    name_singular: "state",
-    display_singular: "State",
-    description: "Goverment and the commons",
-    nickname: "state",
-  },
-  {
     id: 1,
     parent: null,
     status: "3. Active",
     name_singular: "business",
     display_singular: "Business",
-    tagline: "Your Business in a Box",
-    summary: "End-to-end data and services in one intuitive, unified platform",
+    summary: "Your Business in a Box. End-to-end data and services in one intuitive, unified platform",
     body: "<-- Select a service for more information or to sign up",
     description:
       "Collate and manage all areas of your business in simplified, powerful modules",
@@ -66,12 +45,12 @@ export const data: {
     description: "Your business model and plan",
     summary:
       "End-to-end business planning, from intitial idea through to implementation plans",
-    notes: [
+    notes: `[
       "Business plan etc.",
       "This summarises things from other modules",
       " - e.g. it provides a summary of finances/investment etc. from the Accounts area",
       "- e.g. it provides a summary of the market and the company's positioning from the Market area",
-    ],
+    ]`,
     nickname: "governance-model",
   },
   {
@@ -80,7 +59,10 @@ export const data: {
     status: "5. Hold",
     name_singular: "plan",
     display_singular: "Plan",
-    description: `"Business Plan"
+    description: "Create your business plan and use it to keep the business aiming in the right direction",
+    summary:
+      "End-to-end business planning, from intitial idea through to implementation plans",
+    notes: `"Business Plan"
     Choosing the business offering
     Red blue ocean
     Something that won't burn you out, won't make you hate it, dont mind hobby being no longer a hobby, sustainable <--https://old.reddit.com/r/smallbusiness/comments/171myh4/why_do_people_keep_trying_to_open_restaurants/
@@ -103,7 +85,7 @@ export const data: {
     name_singular: "mission",
     display_singular: "Mission",
     description:
-      "Mission statement / a clear summary of the purpose of the business",
+      "Manage your mission statement / a clear summary of the purpose of the business",
     summary:
       "Analygous to a peer reviewed scientific paper having an 'abstract'",
     nickname: "governance-model-plan-mission",
@@ -170,6 +152,7 @@ export const data: {
     name_singular: "structure",
     display_singular: "Structure",
     description: "Business structure / hierarchy",
+    summary: null,
     nickname: "governance-model-structure",
   },
   {
@@ -212,9 +195,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "jurisdictions",
     display_singular: "Jurisdictions",
-    description:
+    summary:
       "Where you are operating (unions, countries, states, counties, markets)",
-    summary: "",
+    description: null,
     nickname: "governance-model-jurisdictions",
   },
   {
@@ -223,7 +206,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "roadmap",
     display_singular: "Roadmap",
-    description: "Your company roadmap and timeline",
+    description: null,
+    summary: "Your company roadmap and timeline",
     nickname: "governance-model-roadmap",
   },
   {
@@ -232,7 +216,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "growth",
     display_singular: "Growth",
-    description: "",
+    summary: null,
+    description: null,
     nickname: "governance-model-growth",
   },
   {
@@ -241,7 +226,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "counsel",
     display_singular: "Counsel",
-    description: "Advice and consultation from specialist areas",
+    description: null,
+    summary: "Advice and consultation from specialist areas",
     nickname: "governance-counsel",
   },
   {
@@ -315,6 +301,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "incorporation",
     display_singular: "Incorporation",
+    summary: null,
     description:
       "Incorporation and/or getting permission/permits to operate. Form a business if needed, in order to provide services to a certain jurisdiction.",
     nickname: "governance-regulation-incorporation",
@@ -325,6 +312,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "general-licensing",
     display_singular: "General Licensing",
+    summary: null,
+    description: null,
     nickname: "regulation-incorporation-general-licensing",
   },
   {
@@ -333,7 +322,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "license",
     display_singular: "Business License",
-    description: "General business license",
+    summary: "General business license",
+    description: null,
     nickname: "incorporation-general-licensing-license",
   },
   {
@@ -342,6 +332,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "trading-name-license",
     display_singular: "Trading Name License",
+    summary: null,
     description: "License to trade as a name other than the legal entity name",
     nickname: "incorporation-general-licensing-trading-name-license",
   },
@@ -351,6 +342,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "employer-identification",
     display_singular: "Employer Identification",
+    summary: null,
     description:
       "E.g. EIN (US) - a number required for businesses with employees, certain types of legal structures, or other specific criteria",
     nickname: "incorporation-general-licensing-employer-identification",
@@ -361,7 +353,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "tax-licenses",
     display_singular: "Tax Licenses",
-    description: "",
+    summary: null,
+    description: null,
     nickname: "regulation-incorporation-tax-licenses",
   },
   {
@@ -370,6 +363,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "sales-license",
     display_singular: "Sales License",
+    summary: null,
     description:
       "Sales tax permit/license in order to collect/remit sales taxes to state or local government.",
     nickname: "incorporation-tax-licenses-sales-license",
@@ -380,7 +374,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "labor-licensing",
     display_singular: "Labor Licensing",
-    description: "",
+    summary: null,
+    description: null,
     nickname: "regulation-incorporation-labor-licensing",
   },
   {
@@ -389,6 +384,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "unemployment-insurance",
     display_singular: "Unemployment Insurance",
+    summary: null,
     description:
       "Some local/federal governments require business with employees to register and pay into the state/federal unemployment insurance fund.",
     nickname: "incorporation-labor-licensing-unemployment-insurance",
@@ -399,6 +395,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "workers-compensation-insurance",
     display_singular: "Workers Compensation Insurance",
+    summary: null,
     description:
       "Businesses with employees are usually required to carry workers' compensation insurance to cover work-related injuries or illnesses.",
     nickname: "incorporation-labor-licensing-workers-compensation-insurance",
@@ -409,6 +406,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "workers-compensation-insurance",
     display_singular: "Workers Compensation Insurance",
+    summary: null,
     description:
       "Businesses with employees are usually required to carry workers' compensation insurance to cover work-related injuries or illnesses.",
     nickname: "incorporation-labor-licensing-workers-compensation-insurance",
@@ -419,7 +417,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "operating-licensing",
     display_singular: "Operating Licensing",
-    description: "",
+    summary: null,
+    description: null,
     nickname: "regulation-incorporation-operating-licensing",
   },
   {
@@ -428,6 +427,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "health-licensing",
     display_singular: "Health Licensing",
+    summary: null,
     description:
       "health and safety, e.g. food regulations, for personnel, customers and other stakeholders interacting with the organisation",
     nickname: "incorporation-operating-licensing-health-licensing",
@@ -438,7 +438,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "health-licensing",
     display_singular: "Health Licensing",
-    description: "health and safety, e.g. food regulations, safety",
+    summary: "Health and safety, e.g. food regulations, safety",
+    description: null,
     nickname: "incorporation-operating-licensing-health-licensing",
   },
   {
@@ -447,7 +448,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "industry-licensing",
     display_singular: "Industry Licensing",
-    description:
+    description: null,
+    summary:
       "Licenses and permits required to provide specific goods/services or to operate in a specific industry",
     nickname: "regulation-incorporation-industry-licensing",
   },
@@ -457,6 +459,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "occupational-licensing",
     display_singular: "Occupational Licensing",
+    summary: null,
     description:
       "Certain professions, such as accountants, doctors, lawyers, architects, and electricians, may require professional or occupational licenses to operate legally.",
     nickname: "incorporation-industry-licensing-occupational-licensing",
@@ -467,7 +470,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "auditing",
     display_singular: "Auditing",
-    description: "Internal and external auditing",
+    description: null,
+    summary: "Internal and external auditing",
     nickname: "governance-regulation-auditing",
   },
   {
@@ -476,7 +480,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "accreditation",
     display_singular: "Accreditation",
-    description: "Licenses, Awards, Certification and Standards",
+    description: null,
+    summary: "Licenses, Awards, Certification and Standards",
     nickname: "governance-regulation-accreditation",
   },
   {
@@ -485,6 +490,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "submissions",
     display_singular: "Submissions",
+    summary: null,
     description:
       "Submitting reports / data as directed by governmental departments and other bodies",
     nickname: "governance-regulation-submissions",
@@ -495,7 +501,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "z",
     display_singular: "z",
-    description: "",
+    summary: null,
+    description: null,
     nickname: "governance-regulation-z",
   },
   {
@@ -504,7 +511,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "metrics",
     display_singular: "Metrics",
-    description: "Your company roadmap and timeline",
+    description: null,
+    summary: "Your company roadmap and timeline",
     nickname: "governance-metrics",
   },
   {
@@ -526,9 +534,9 @@ export const data: {
     description: "Management and Executive decision making",
     summary:
       "Standardise and supercharge your decision making throughout the business",
-    notes: [
+    notes:` [
       "Includes executive meeting setup, task management setup (e.g. Traction Tools, L10 meetings, etc.)",
-    ],
+    ]`,
     nickname: "governance-executive",
   },
   {
@@ -537,7 +545,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "board",
     display_singular: "Board",
-    description: "Board of directors and shareholder management",
+    description: null,
+    summary: "Board of directors and shareholder management",
     nickname: "governance-executive-board",
   },
   {
@@ -546,7 +555,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "management",
     display_singular: "Management",
-    description: "",
+    summary: null,
+    description: null,
     nickname: "governance-executive-management",
   },
   {
@@ -555,7 +565,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "stakeholdermanagement",
     display_singular: "Stakeholder Management",
-    description: "",
+    summary: null,
+    description: null,
     nickname: "governance-executive-management-stakeholdermanagement",
   },
   {
@@ -564,6 +575,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "accountability",
     display_singular: "Accountability",
+    summary: null,
     description: "Mechanisms for assigning and tracking responsibilities",
     nickname: "governance-executive-accountability",
   },
@@ -574,6 +586,7 @@ export const data: {
     name_singular: "reports",
     display_singular: "Reports",
     description: "Report creations for the business's decision making",
+    summary: null,
     nickname: "governance-executive-reports",
   },
   {
@@ -583,6 +596,7 @@ export const data: {
     name_singular: "decisions",
     display_singular: "Decisions",
     description: "Decision Making",
+    summary: null,
     nickname: "governance-executive-decisions",
   },
   {
@@ -612,19 +626,21 @@ export const data: {
     status: "0. New",
     name_singular: "chart",
     display_singular: "Chart",
+    summary: null,
     description:
       "Chart of Accounts, Budgets and other layouts, including the P&L and balance sheet",
-    features: [
-      "Report Setup & Maintenance, Balance Sheet, P&L layouts, custom reports",
-      "Budgeting and KPI management",
-      "Monthly Reports: P&L, Balance Sheet, Cash Flow Statement",
-    ],
+    notes: `
     guides: [
       "Chart of Accounts Setup: COGs & Revenue P&L Accounts",
       "Chart of Accounts Setup: Prepayments, Downpayments and Deposit Balance Sheet accounts, and triggers+transactions to move them to the P&L",
       "",
     ],
-    notes: [
+    [
+      features: [
+        "Report Setup & Maintenance, Balance Sheet, P&L layouts, custom reports",
+        "Budgeting and KPI management",
+        "Monthly Reports: P&L, Balance Sheet, Cash Flow Statement",
+      ],
       "Ensure COGs accounts have corresponding revenue accounts, and that items are all onbilled to customers",
       "Set up deposit/prepayment/downpayment accounts",
       "Set up suspense / catch-all accounts",
@@ -652,7 +668,7 @@ export const data: {
             "Fees and commissions you receive from third party vendors providing products or services to your clients.",
         },
       },
-    ],
+    ]`,
     nickname: "accounts-ledger-chart",
   },
   {
@@ -661,7 +677,8 @@ export const data: {
     status: "0. New",
     name_singular: "accounts",
     display_singular: "Accounts",
-    description: "Individual accounts in the Chart of Accounts",
+    description:null,
+    summary: "Individual accounts in the Chart of Accounts",
     nickname: "accounts-ledger-budgets-accounts",
   },
   {
@@ -670,7 +687,8 @@ export const data: {
     status: "0. New",
     name_singular: "groupings",
     display_singular: "Grouping",
-    description: "Buckets for your chart of accounts",
+    description:null,
+    summary: "Buckets for your chart of accounts",
     nickname: "accounts-ledger-budgets-groupings",
   },
   {
@@ -679,7 +697,8 @@ export const data: {
     status: "0. New",
     name_singular: "schedules",
     display_singular: "Schedules",
-    description: "depreciation and amortization schedules",
+    description:null,
+    summary: "Depreciation and amortization schedules",
     nickname: "accounts-ledger-budgets-schedules",
   },
   {
@@ -703,15 +722,16 @@ export const data: {
     status: "0. New",
     name_singular: "bookkeeping",
     display_singular: "Bookkeeping",
+    summary:null,
     description: "Daily accural based bookkeeping",
-    services: [
+    notes: `[
       "Reconciliations & Coding of Transactions, including bank statement reconciliation",
       "Manual & Recurring Journalling to allocate lines between the Balance Sheet and P&L accounts",
       "Management of Suspense, Prepayment, Downpayment, Inventory, Clearing and other aseet & liability accounts",
       "Management of revenue and expense accounts",
       "End of Month finalisation and reporting",
       "Manual journalling",
-    ],
+    ]`,
     nickname: "accounts-ledger-bookkeeping",
   },
   {
@@ -720,14 +740,15 @@ export const data: {
     status: "0. New",
     name_singular: "mapping",
     display_singular: "Mapping",
+    summary:null,
     description:
       "Map your products, revenue streams, expenditure types, inventory categories and payroll items to the correct places in your Chart of Accounts",
-    process: [
+    notes: `[
       "Map revenue streams",
       "Map product categories/types and inventory adjustments",
       "Map expenditure types",
       "Map payroll items (reimbursements, expenses, commissions, overtime)",
-    ],
+    ]`,
     nickname: "ledger-bookkeeping-mapping",
   },
   {
@@ -736,6 +757,8 @@ export const data: {
     status: "0. New",
     name_singular: "bank-reconciliation",
     display_singular: "Bank Reconciliation",
+    summary:null,
+    description:null,
     notes: "match/code transactions to bank statement lines",
     nickname: "ledger-bookkeeping-bank-reconciliation",
   },
@@ -963,16 +986,16 @@ export const data: {
     status: "0. New",
     name_singular: "debtor_setup",
     display_singular: "Debtor Setup",
-    summary: "",
+    summary:null,
     description: "Set up / registration of the debtor's details in the system",
-    process: [
+    notes:` [
       "Set up any customers (and other companies that may owe you money) as debtors",
       "Reconcile all debtors across applications/systems/",
       "Categorise debtors (by revenue stream, market etc.)",
       "Set up and maintain debtor information",
       "Monthly report summarises the debtor list",
       "Any need for discussion is derived and put on the meeting agenda",
-    ],
+    ]`,
     nickname: "receivables-debtors-debtor_setup",
   },
   {
@@ -981,6 +1004,7 @@ export const data: {
     status: "0. New",
     name_singular: "debtor_details",
     display_singular: "Debtor Details",
+    summary:null,
     description:
       "Ensure all debtors are entered. Reconcile debtors between your platforms to ensure all exist & match",
     nickname: "debtors-debtor_setup-debtor_details",
@@ -991,6 +1015,7 @@ export const data: {
     status: "0. New",
     name_singular: "debtor_status",
     display_singular: "Debtor Status",
+    summary:null,
     description:
       "Move the debtor to 'Approved' status to allow items to be billed to it / add items to the approved billings list",
     nickname: "debtors-debtor_setup-debtor_status",
@@ -1001,7 +1026,8 @@ export const data: {
     status: "0. New",
     name_singular: "debtor_approvals",
     display_singular: "Debtor Approvals",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "debtors-debtor_setup-debtor_approvals",
   },
   {
@@ -1041,6 +1067,7 @@ export const data: {
     status: "0. New",
     name_singular: "billing_setup",
     display_singular: "Billing Setup",
+    summary:null,
     description: "Set up / maintain billing methods for the debtor",
     nickname: "receivables-debtors-billing_setup",
   },
@@ -1050,6 +1077,7 @@ export const data: {
     status: "0. New",
     name_singular: "billing_methods",
     display_singular: "Billing Methods",
+    summary:null,
     description:
       "Make payment methods available to the customer (with use of Systems>Applications)",
     nickname: "debtors-billing_setup-billing_methods",
@@ -1060,6 +1088,7 @@ export const data: {
     status: "0. New",
     name_singular: "billing_authority",
     display_singular: "Billing Authority",
+    summary:null,
     description:
       "Getting direct debit / payment authority signoff from debtors if needed",
     nickname: "debtors-billing_setup-billing_authority",
@@ -1070,6 +1099,7 @@ export const data: {
     status: "0. New",
     name_singular: "billing_automation",
     display_singular: "Billing Automation",
+    summary:null,
     description:
       "If approved by the debtor, configure auto debit for invoice types/conditions",
     nickname: "debtors-billing_setup-billing_automation",
@@ -1092,6 +1122,7 @@ export const data: {
     status: "0. New",
     name_singular: "charges",
     display_singular: "Charges",
+    summary:null,
     description:
       "Contracts and recurring billables, ad hoc labour/charges and other products/expenses to bill",
     nickname: "accounts-receivables-charges",
@@ -1169,6 +1200,7 @@ export const data: {
     name_singular: "template",
     display_singular: "Template",
     description: "Template recurring / expected invoices",
+    summary:null,
     notes: "create invoice templates etc.",
     nickname: "receivables-invoicing-template",
   },
@@ -1178,6 +1210,7 @@ export const data: {
     status: "0. New",
     name_singular: "generate",
     display_singular: "Generate",
+    summary:null,
     description: "Generate invoices",
     nickname: "receivables-invoicing-generate",
   },
@@ -1187,6 +1220,7 @@ export const data: {
     status: "0. New",
     name_singular: "verify",
     display_singular: "Verify",
+    summary:null,
     description:
       "Match the invoice against quotes etc. to validate it as correct. Get approval on it.",
     nickname: "receivables-invoicing-verify",
@@ -1211,6 +1245,7 @@ export const data: {
     status: "0. New",
     name_singular: "issue",
     display_singular: "Issue",
+    summary:null,
     description:
       "Issue the invoice by sending it to the 'attention to' contact / bill-to organisation",
     nickname: "receivables-invoicing-issue",
@@ -1318,6 +1353,7 @@ export const data: {
     status: "0. New",
     name_singular: "statement-preferences",
     display_singular: "Statement Preferences",
+    summary:null,
     description:
       "Confirmed statement preference (whether and when to send, what statement template and branding to use, cover letter, etc.) for debtors/ a specific debtor - this might be automated / blanket rule anyway",
     nickname: "collections-statements-or-debtor-balances-statement-preferences",
@@ -1328,6 +1364,7 @@ export const data: {
     status: "0. New",
     name_singular: "statement-enable",
     display_singular: "Statement Enable",
+    summary:null,
     description: "Enable/disable statements for debtors or a specific debtor",
     nickname: "collections-statements-or-debtor-balances-statement-enable",
   },
@@ -1337,6 +1374,7 @@ export const data: {
     status: "0. New",
     name_singular: "statements-issue",
     display_singular: "Statements Issue",
+    summary:null,
     description: "Send statements at the prescribed time",
     nickname: "collections-statements-or-debtor-balances-statements-issue",
   },
@@ -1346,11 +1384,9 @@ export const data: {
     status: "0. New",
     name_singular: "settlements",
     display_singular: "Settlements",
-    description: "",
     summary: "Receive and reconcile customer payments",
-    summary:
-      "We manage receiving of payments, and reconcile them to the correct invoices",
-    price_unit: "payment",
+    description:
+      "Manage receiving of payments, and reconcile them to the correct invoices",
     process: [
       "Payment: Help customers to make payment (over the phone or via email / billing platform)",
       "Remittances: Process remittance advices / match to bank statements",
@@ -1402,7 +1438,7 @@ export const data: {
     industries: [],
     platforms: [],
     guides: [],
-    notes: [
+    notes: `[
       "Weekly Report & Meeting",
       "AP Rollover: Ensure that any followups from the previous AP run are actioned in this run",
     ],
@@ -1474,7 +1510,7 @@ export const data: {
         desc: "",
         included: [],
       },
-    },
+    },`,
     nickname: "accounts-payables",
   },
   {
@@ -1483,8 +1519,9 @@ export const data: {
     status: "0. New",
     name_singular: "creditors",
     display_singular: "Creditors",
-    description: "Creditor setup and management",
-    notes: [
+    summary: "Creditor setup and management",
+    description: null,
+    notes:` [
       "Collate, audit and categorise your list of suppliers",
       "Configure and manage vendor billing portals",
       "Lines of credit / financing / payment plans applied for and maintained",
@@ -1499,7 +1536,7 @@ export const data: {
       "Assign all suppliers to payment method groups and bill approval requirements",
       "Liaise with vendors to set up supplier billing portals, bill recipients, remittance recipients, direct debit etc.",
       "Monthly reconciliation of supplier statements",
-    ],
+    ]`,
     nickname: "accounts-payables-creditors",
   },
   {
@@ -1508,6 +1545,7 @@ export const data: {
     status: "0. New",
     name_singular: "repository-management",
     display_singular: "Repository Management",
+    summary:null,
     description:
       "Configure and maintain your creditor information repository (e.g. Xero as the 'source of truth'). Takes vendor information from the Supplier Vendor list.",
     nickname: "payables-creditors-repository-management",
@@ -1518,6 +1556,7 @@ export const data: {
     status: "0. New",
     name_singular: "payment-methods",
     display_singular: "Payment Methods",
+    summary:null,
     description:
       "Assign all suppliers to payment method groups and bill approval requirements",
     nickname: "payables-creditors-payment-methods",
@@ -1528,7 +1567,8 @@ export const data: {
     status: "0. New",
     name_singular: "credit-lines",
     display_singular: "Credit Lines",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "payables-creditors-credit-lines",
   },
   {
@@ -1537,6 +1577,7 @@ export const data: {
     status: "0. New",
     name_singular: "integrations",
     display_singular: "Integrations",
+    summary:null,
     description:
       "Liaise with vendors to set up supplier billing portals, bill recipients, remittance recipients, direct debit etc.",
     nickname: "payables-creditors-integrations",
@@ -1547,6 +1588,7 @@ export const data: {
     status: "0. New",
     name_singular: "reconciliations",
     display_singular: "Reconciliations",
+    summary:null,
     description: "(Monthly/[timeframe]) reconciliation of supplier statements",
     nickname: "payables-creditors-reconciliations",
   },
@@ -1633,6 +1675,7 @@ export const data: {
     status: "0. New",
     name_singular: "template",
     display_singular: "Template",
+    summary:null,
     description:
       "Template recurring / expected bills, e.g. from a purchase order or recurring subscription",
     nickname: "payables-bills-template",
@@ -1643,6 +1686,7 @@ export const data: {
     status: "0. New",
     name_singular: "obtain",
     display_singular: "Obtain",
+    summary:null,
     description: "Obtain a bill from a supplier",
     notes:
       "receive the bill automatically (preferred) via system (preferred) or by email. Else retreive the bill from a vendor portal. Else request the bill from the supplier",
@@ -1654,6 +1698,7 @@ export const data: {
     status: "0. New",
     name_singular: "enter",
     display_singular: "Enter",
+    summary:null,
     description: "Enter bill into the system",
     notes:
       "enter the bill into the system (update the template that has been generated for it",
@@ -1665,6 +1710,7 @@ export const data: {
     status: "0. New",
     name_singular: "verify",
     display_singular: "Verify",
+    summary:null,
     description: "Validate the bill and its attributes",
     notes: "Compare the bill (three way match) and then approve it",
     nickname: "payables-bills-verify",
@@ -1807,7 +1853,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "finance",
     display_singular: "Finance",
-    description: "Management of cash, assets and liabilities",
+    description:null,
+    summary: "Management of cash, assets and liabilities",
     nickname: "accounts-finance",
   },
   {
@@ -1816,8 +1863,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "investment",
     display_singular: "Investment",
+    summary:null,
     description:
-      "issuing securities and providing advice on mergers and acquisitions.",
+      "Issuing securities and providing advice on mergers and acquisitions.",
     nickname: "accounts-finance-investment",
   },
   {
@@ -1826,6 +1874,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "treasury",
     display_singular: "Treasury",
+    summary:null,
+    description:null,
     nickname: "accounts-finance-treasury",
   },
   {
@@ -1834,6 +1884,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "financing",
     display_singular: "Financing",
+    summary:null,
     description: "Loans and other forms of financing",
     nickname: "accounts-finance-financing",
   },
@@ -1843,6 +1894,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "banking",
     display_singular: "Banking",
+    summary:null,
+    description:null,
     nickname: "accounts-finance-banking",
   },
   {
@@ -1851,6 +1904,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "compliance",
     display_singular: "Compliance",
+    summary:null,
     description:
       "End of month/year closures, P&L, Balance Sheet, Accounting compliance, tax submissions",
     nickname: "accounts-compliance",
@@ -1873,6 +1927,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "tax",
     display_singular: "Tax",
+    summary:null,
+    description:null,
     nickname: "accounts-compliance-tax",
   },
   {
@@ -1881,6 +1937,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "registration",
     display_singular: "Registration",
+    summary:null,
     description: "Registration for GST/VAT/Payroll tax etc.",
     nickname: "compliance-tax-registration",
   },
@@ -1890,6 +1947,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "filing",
     display_singular: "Filing",
+    summary:null,
     description:
       "Tax Returns (tax reporting) - BAS/IAS (Australia), Form 941 / Employer's Quarterly Federal Tax Return (USA), Pay As You Earn (PAYE) / Employer Annual Return (form P35) and VAT Return (UK) etc.",
     nickname: "compliance-tax-filing",
@@ -1900,6 +1958,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "regulation",
     display_singular: "Regulation",
+    summary:null,
+    description:null,
     nickname: "accounts-compliance-regulation",
   },
   {
@@ -1908,6 +1968,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "auditing",
     display_singular: "Auditing",
+    summary:null,
+    description:null,
     nickname: "accounts-compliance-auditing",
   },
   {
@@ -1929,6 +1991,7 @@ export const data: {
     name_singular: "catalog",
     display_singular: "Catalog",
     description: "Maintaining and categorising the Product Catalog",
+    summary: "Internal and synced Product Lists",
     nickname: "product-catalog",
   },
   {
@@ -1938,6 +2001,7 @@ export const data: {
     name_singular: "patterns",
     display_singular: "Patterns",
     summary: "Templating the catalog",
+    description: "Create templates, fields and automation for yoru product catalog",
     nickname: "product-catalog-patterns",
   },
   {
@@ -1946,7 +2010,9 @@ export const data: {
     status: "0. New",
     name_singular: "classification",
     display_singular: "Classification",
+    description:null,
     summary: "Product types, categories and classes",
+    // description: "",
     nickname: "product-catalog-patterns-classification",
   },
   {
@@ -2114,7 +2180,8 @@ export const data: {
     status: "0. New",
     name_singular: "couplings",
     display_singular: "Couplings",
-    description:
+    description: "Link components and dependencies to other parts of the catalog, and the business at large",
+    summary:
       "Joins/interfaces that a component has, that allows it to interface or join another component",
     nickname: "product-catalog-parts-couplings",
   },
@@ -2124,7 +2191,8 @@ export const data: {
     status: "0. New",
     name_singular: "entries",
     display_singular: "Entries",
-    description:
+    description: "Enter and manage products that you stock or use",
+    summary:
       "Instances of products added into the catalog and fields filled",
     nickname: "product-catalog-entries",
   },
@@ -2136,7 +2204,7 @@ export const data: {
     display_singular: "Retirals",
     description: "Product end of life, upgrade paths and deactivation.",
     summary:
-      "Track the need for catalog products to be cycled/changed (e.g. obsolescense or unavailability). This may trigger the procuct>decomissioning procedure (e.g. retrievals of deployed customer equipment)",
+      "Manage product decommisions -Track the need for catalog products to be cycled/changed (e.g. obsolescense or unavailability). This may trigger the procuct>decomissioning procedure (e.g. retrievals of deployed customer equipment)",
     nickname: "product-catalog-retirals",
   },
   {
@@ -2146,7 +2214,7 @@ export const data: {
     name_singular: "procurement",
     display_singular: "Procurement",
     description: "Purchase requests & Purchase orders",
-    summary: null,
+    summary: 'Procure products from suppliers',
     nickname: "product-procurement",
   },
   {
@@ -2156,11 +2224,8 @@ export const data: {
     name_singular: "requests",
     display_singular: "Requests",
     summary: "Purchasing request management and approvals",
-    price_unit: "product",
     description:
       "Process and sanitise the purchase requests queue. Purchase preapprovals based on conditions you set. Request other approvals from you.",
-    features: {},
-    industries: {},
     process: [
       "Verify purchase requests as necessary and with required attributes",
       "Reject requests / request further information where required",
@@ -2175,6 +2240,7 @@ export const data: {
     name_singular: "recognition",
     display_singular: "Recognition",
     description: "Product Needs Recognition",
+    summary: 'Automatically list any products that may be needed',
     nickname: "procurement-requests-recognition",
   },
   {
@@ -2183,7 +2249,8 @@ export const data: {
     status: "0. New",
     name_singular: "requisition",
     display_singular: "Requisition",
-    description: "Purchase Requisition",
+    description: "Purchase Requisitions confirmations",
+    summary: 'Confirm the need to purchase the items being requested by your team',
     nickname: "procurement-requests-requisition",
   },
   {
@@ -2192,6 +2259,7 @@ export const data: {
     status: "0. New",
     name_singular: "review",
     display_singular: "Review",
+    summary: 'Reviews and approvals of product requests',
     description: "Inspect request and approve or deny as necessary",
     notes:
       "Inspection can be undertaken by multiple interested parties, e.g. the Finance team for budgetary reasons, the Procurement team for supply & logistics, etc.",
@@ -2203,6 +2271,7 @@ export const data: {
     status: "0. New",
     name_singular: "tenders",
     display_singular: "Tenders",
+    summary: 'Announce the need for products to (potential) suppliers',
     description:
       "Requests for quotes from suppliers, or selection from the suppliers that you already have terms with.",
     nickname: "procurement-requests-tenders",
@@ -2213,9 +2282,9 @@ export const data: {
     status: "0. New",
     name_singular: "purchase",
     display_singular: "Purchase",
-    description: "Price/Product matching between vendors, placing orders",
-    overview:
-      "Managing purchase orders and backorders, maintaining your procurement/backorder report with ETAs and tracking info.",
+    summary: "Price/Product matching between vendors, placing orders",
+    description:
+      "Manage purchase orders and backorders, maintain your procurement/backorder report with ETAs and track info.",
     process: [
       "Batch Purchase Requests & create Purchase Orders",
       "Compare pricing between suppliers",
@@ -2231,6 +2300,7 @@ export const data: {
     status: "0. New",
     name_singular: "orders",
     display_singular: "Orders",
+    summary: "Purchase order creation and submission to suppliers",
     description:
       "Creation of the Product Purchase Order (PO). This is converted from the approved Product Requests Requisition (with the vendor that had their Request for Quote - RFQ - chosen.",
     notes:
@@ -2243,6 +2313,7 @@ export const data: {
     status: "0. New",
     name_singular: "placement",
     display_singular: "Placement",
+    summary: "Submission of the order to the supplier",
     description:
       "Submit the PO to the vendor, bid on an auction, etc., i.e. officially request/submit the purchase to go ahead.",
     notes:
@@ -2255,8 +2326,9 @@ export const data: {
     status: "0. New",
     name_singular: "confirmation",
     display_singular: "Confirmation",
+    summary: "Receiving confirmation of orders fromt the supplier",
     description:
-      "Vendor acceptance / rejection / suggested changes to the purchase order",
+      "Receive Vendor acceptance / rejection / suggested changes to the purchase order",
     notes:
       "A) (Preferred): integration between your and your vendor's system. B) submit on vendor platform. C) email the request to the vendor. D) Verbally place order with vendor",
     nickname: "procurement-purchase-confirmation",
@@ -2267,7 +2339,8 @@ export const data: {
     status: "0. New",
     name_singular: "backorders",
     display_singular: "Backorders",
-    description: "The items that have not been dispatched",
+    summary: "The items that have not been dispatched",
+    description: "Manage items that the vendor has not yet shipped",
     nickname: "procurement-purchase-backorders",
   },
   {
@@ -2276,8 +2349,9 @@ export const data: {
     status: "0. New",
     name_singular: "transit",
     display_singular: "Transit",
+    summary: "The items that have been dispatched but have not yet arrived",
     description:
-      "The items that have been dispatched and are in transit, i.e. on board for delivery. This should be tracked (on a digital map, with audit logs, etc.)",
+      "Track the items that have been dispatched and are in transit, i.e. on board for delivery. Tracked on a digital map, with audit logs and status updates.",
     nickname: "procurement-purchase-transit",
   },
   {
@@ -2286,6 +2360,7 @@ export const data: {
     status: "0. New",
     name_singular: "receiving",
     display_singular: "Receiving",
+    summary: "Accepting delivery of shipped items",
     description:
       "Verify and accept delivery of stock, and trigger supplier bills for payment and onbilling to customers",
     process: [
@@ -2301,6 +2376,7 @@ export const data: {
     status: "0. New",
     name_singular: "collect",
     display_singular: "Collect",
+    summary: "The items reach your business",
     description:
       "Meet the package. If a physical delivery, then the courier (mailworker, transit company etc.) may or may not need to be in attendance of the package at the same time as the receiver.",
     nickname: "procurement-receiving-collect",
@@ -2311,6 +2387,7 @@ export const data: {
     status: "0. New",
     name_singular: "inspect",
     display_singular: "Inspect",
+    summary: "Confirmation that the items are as requested and as per needs / required quality",
     description:
       "The delivery must match the delivery docket (packing slip). and the items on the order. They must also match the standards / quality expected. If the delivery doesn't pass the inspection, they can be refused (do not accept) or accepted but with return to supplier queued.",
     nickname: "procurement-receiving-inspect",
@@ -2321,7 +2398,8 @@ export const data: {
     status: "0. New",
     name_singular: "accept",
     display_singular: "Accept",
-    description: "Sign for and take posession of the delivery",
+    summary: "Signing off on deliveries if acceptable",
+    description: "If the items are acceptable, sign for and take posession of the delivery",
     nickname: "procurement-receiving-accept",
   },
   {
@@ -2332,7 +2410,7 @@ export const data: {
     display_singular: "Stow",
     description:
       "Log/Chronicle/File the delivery details and add the stock to the warehouse",
-    summary: "The quantity is added to the warehouse inventory",
+    summary: "Adding items to the warehouse inventory",
     nickname: "procurement-receiving-stow",
   },
   {
@@ -2352,7 +2430,8 @@ export const data: {
     status: "0. New",
     name_singular: "warehousing",
     display_singular: "Warehousing",
-    description: "Inventory Management",
+    summary: "Inventory Management",
+    description: "Manage of Warehouses, warehouse areas and stock",
     nickname: "product-warehousing",
   },
   {
@@ -2371,7 +2450,8 @@ export const data: {
     status: "0. New",
     name_singular: "inventory",
     display_singular: "Inventory",
-    description: "Management of held stock",
+    summary:"Management of held stock",
+    description: "Manage, move and audit your currently held items",
     nickname: "product-warehousing-inventory",
   },
   {
@@ -2380,6 +2460,7 @@ export const data: {
     status: "0. New",
     name_singular: "transfers",
     display_singular: "Transfers",
+    summary: "Movement of stock between warehouse areas",
     description: "Transfer items in, out and between warehouse areas",
     nickname: "product-warehousing-transfers",
   },
@@ -2389,6 +2470,7 @@ export const data: {
     status: "0. New",
     name_singular: "stocktake",
     display_singular: "Stocktake",
+    summary: "Auditing of held stock",
     description: "Inventory count and reconciliation management",
     nickname: "product-warehousing-stocktake",
   },
@@ -2398,6 +2480,7 @@ export const data: {
     status: "0. New",
     name_singular: "counts",
     display_singular: "Counts",
+    summary: "Reconciliation of inventory item quantities",
     description:
       "Undertake a reconciliation of held stock (compare database against actuals)",
     nickname: "warehousing-stocktake-counts",
@@ -2408,7 +2491,8 @@ export const data: {
     status: "0. New",
     name_singular: "adjustments",
     display_singular: "Adjustments",
-    description: "Inventory count and reconciliation management",
+    description: "Adjust stock quantities up or down to reflect reality, e.g. when dealing with damaged or lost products",
+    summary: "Changes to product item counts",
     nickname: "product-warehousing-adjustments",
   },
   {
@@ -2417,6 +2501,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "deployment",
     display_singular: "Deployment",
+    summary: "Deploying items from stock into production",
     description:
       "Handover of the the product, and usage/consumption by the user",
     nickname: "product-deployment",
@@ -2427,7 +2512,8 @@ export const data: {
     status: "0. New",
     name_singular: "picking",
     display_singular: "Picking",
-    description: "taking items from inventory (picking or adjusting stock)",
+    summary: "Claiming items from inventory for specific purposes",
+    description: "Take items from inventory (picking or adjusting stock)",
     nickname: "product-deployment-picking",
   },
   {
@@ -2436,6 +2522,7 @@ export const data: {
     status: "0. New",
     name_singular: "withdraw",
     display_singular: "Withdraw",
+    summary: "Actual removal of the product from the warehouse",
     description:
       "physically pick the item (if physical) from the warehouse and mark it as picked/taken from the digital warehouse.",
     nickname: "deployment-picking-withdraw",
@@ -2446,6 +2533,7 @@ export const data: {
     status: "0. New",
     name_singular: "assembly",
     display_singular: "Assembly",
+    summary: "Construction and configuration of the picked items",
     description:
       "assembling and configuring components / preparation of the product before being provided to the consumer",
     nickname: "product-deployment-assembly",
@@ -2456,6 +2544,7 @@ export const data: {
     status: "0. New",
     name_singular: "shipping",
     display_singular: "Shipping",
+    summary: "Movement of items from the business to the end user location",
     description:
       "transfering the item (physically, virtually and in terms of ownership) to the consumer",
     nickname: "product-deployment-shipping",
@@ -2466,8 +2555,8 @@ export const data: {
     status: "0. New",
     name_singular: "installation",
     display_singular: "Installation",
-    description: "Go-live of the product",
-    summary:
+    summary: "Go-live of the product",
+    description:
       "Recording/activating the configuration, transfer of product ownership and responsibility",
     nickname: "product-deployment-installation",
   },
@@ -2488,8 +2577,9 @@ export const data: {
     status: "0. New",
     name_singular: "function",
     display_singular: "Function",
+    summary: "Usage of the product in production",
     description:
-      "Intended usage of the product by the consumer, and any necessary support for it",
+      "Intended usage of the product by the end user/ consumer, and any necessary support for it",
     nickname: "deployment-usage-function",
   },
   {
@@ -2531,6 +2621,7 @@ export const data: {
     status: "0. New",
     name_singular: "maintenance",
     display_singular: "Maintenance",
+    summary: "Planned changes to items in production",
     description:
       "Performing maintenance (at schedule times, upon request of the user, or when there is a product alert",
     nickname: "deployment-usage-maintenance",
@@ -2541,8 +2632,9 @@ export const data: {
     status: "0. New",
     name_singular: "faults",
     display_singular: "Faults",
+    summary: "Unplanned issues with items in production",
     description:
-      "Assisting with / resolving any unintended issues with the product",
+      "Acknowledge, assist with and resolve any unintended issues with the product",
     nickname: "deployment-usage-faults",
   },
   {
@@ -2551,7 +2643,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "decommission",
     display_singular: "Decommission",
-    description: "RMAs, Replacements, Recalls, EOLs, Retreivals and Disposals",
+    summary: "Removing items from production",
+    description: "Manage RMAs, Replacements, Recalls, EOLs, Retreivals and Disposals",
     nickname: "product-decommission",
   },
   {
@@ -2560,7 +2653,8 @@ export const data: {
     status: "0. New",
     name_singular: "deactivations",
     display_singular: "Deactivations",
-    summary: "announcing product end of life, turning off functionality",
+    description:"Announcing product end of life, turning off functionality",
+    summary: "Switch-off of items in production",
     nickname: "product-decommission-deactivations",
   },
   {
@@ -2569,7 +2663,8 @@ export const data: {
     status: "0. New",
     name_singular: "replacements",
     display_singular: "Replacements",
-    summary: "Organising an upgrade path for the old product",
+    description: "Upgrade Paths & Product Replacements",
+    summary: "Organising and deploying an upgrade path for the old product",
     nickname: "product-decommission-replacements",
   },
   {
@@ -2578,6 +2673,7 @@ export const data: {
     status: "0. New",
     name_singular: "retrievals",
     display_singular: "Retrievals",
+    description: "Reappropriate items from production back to full ownership by the business",
     summary: "Getting products back from the customer where necessary",
     nickname: "product-decommission-retrievals",
   },
@@ -2613,7 +2709,8 @@ export const data: {
     status: "0. New",
     name_singular: "lifecycle",
     display_singular: "Lifecycle",
-    description:
+    description: "Manage customer relationships through onboarding to offboarding",
+    summary:
       "Prospective, Onboarding, Active, Watchlist and Offboarding client relationships",
     nickname: "customer-lifecycle",
   },
@@ -2623,7 +2720,8 @@ export const data: {
     status: "0. New",
     name_singular: "prospects",
     display_singular: "Prospects",
-    summary: "",
+    description: "Manage potential customers, clients and users/consumers",
+    summary: "Potential Customers",
     process: [
       "Capture all prospects and leads through all channels, forms etc.",
       "Enter prospects into the CRM as soon as they become known",
@@ -2637,7 +2735,8 @@ export const data: {
     status: "0. New",
     name_singular: "onboarding",
     display_singular: "Onboarding",
-    summary: "",
+    summary: "Customers officially joining the business",
+    description: "Manage onboarding checklists and fully integrate with your new customer",
     process: [
       "Maintain the customer onboarding process",
       "Move Prospective customers into Onboarding status as soon as proposals are successfully signed off",
@@ -2652,6 +2751,7 @@ export const data: {
     status: "0. New",
     name_singular: "retention",
     display_singular: "Retention",
+    description: "Maintain healthy business relationships with customers",
     summary: "Management of your active customers",
     process: [
       "Move Onboarding customers into Retention/active status as soon as the onboarding process is complete",
@@ -2665,7 +2765,8 @@ export const data: {
     status: "0. New",
     name_singular: "watchlist",
     display_singular: "Watchlist",
-    summary: "",
+    description: "Manage customer threats and mitigate any issues or risk of offboarding",
+    summary: "Tracking customers that are not receiving the service they want",
     process: [
       "Set up and maintain the Watchlist triggers and procedures",
       "Move customers onto the Watchlist (from active status) if any red flags are triggered",
@@ -2680,7 +2781,8 @@ export const data: {
     status: "0. New",
     name_singular: "offboarding",
     display_singular: "Offboarding",
-    summary: "",
+    summary: "Customers that leaving / not extending the business relationship",
+    description: "Help handover of customer relationships that are ending",
     process: [
       "Set up and maintain the Watchlist triggers and procedures",
       "Move the customer to Offboarding status when it becomes known that the relationship will be terminated",
@@ -2697,7 +2799,8 @@ export const data: {
     status: "0. New",
     name_singular: "sales",
     display_singular: "Sales",
-    description: "Leads, Quoting, Propsals and Commitment",
+    summary: "Leads, Quoting, Proposals and Commitment",
+    description: "Create opportunities from Leads, and use proposals to make deals with your customers",
     nickname: "customer-sales",
   },
   {
@@ -2706,6 +2809,8 @@ export const data: {
     status: "0. New",
     name_singular: "leads",
     display_singular: "Leads",
+    summary: "Track prospective sales",
+    description: "Process potential customer deals and derive quotes/proposals from them",
     nickname: "customer-sales-leads",
   },
   {
@@ -2714,6 +2819,8 @@ export const data: {
     status: "0. New",
     name_singular: "quotes",
     display_singular: "Quotes",
+    summary: "Manage offers to the customer",
+    description: "Issue price & scope quotes to customers",
     nickname: "customer-sales-quotes",
   },
   {
@@ -2722,6 +2829,8 @@ export const data: {
     status: "0. New",
     name_singular: "proposals",
     display_singular: "Proposals",
+    description: "Manage solution proposals with the customer",
+    summary: null,
     nickname: "customer-sales-proposals",
   },
   {
@@ -2730,6 +2839,8 @@ export const data: {
     status: "0. New",
     name_singular: "commitment",
     display_singular: "Commitment",
+    description: null,
+    summary: 'Getting confirmation and signoff on deals',
     nickname: "customer-sales-commitment",
   },
   {
@@ -2738,7 +2849,8 @@ export const data: {
     status: "0. New",
     name_singular: "relationships",
     display_singular: "Relationships",
-    description: "Delivery, Support, Service, Disputes and Help",
+    summary: 'Delivery, Support, Service, Disputes and Help',
+    description: "Manage customer relationships, agreements/contracts and services rendered",
     nickname: "customer-relationships",
   },
   {
@@ -2747,7 +2859,8 @@ export const data: {
     status: "0. New",
     name_singular: "agreements",
     display_singular: "Agreements",
-    description: "Delivery, Support, Service, Disputes and Help",
+    summary:"Customer contracts",
+    description: "Manage agreements, agreement items and other commitments to the customer",
     nickname: "customer-relationships",
   },
   {
@@ -2756,6 +2869,8 @@ export const data: {
     status: "0. New",
     name_singular: "support",
     display_singular: "Support",
+    summary:"Customer support assistance",
+    description:"Provide services and support to your customers",
     nickname: "customer-relationships-support",
   },
   {
@@ -2764,6 +2879,8 @@ export const data: {
     status: "0. New",
     name_singular: "information",
     display_singular: "Information",
+    summary:"Manage customer information",
+    description:"Keep client data comprehensive and maintained",
     included: [
       "site management (address and location changes)",
       "contact management (people, roles and contact methods)",
@@ -2778,6 +2895,7 @@ export const data: {
     status: "0. New",
     name_singular: "disputes",
     display_singular: "Disputes",
+    summary:"Pre-empting, Avoiding, Acknowledging and Mitigating disagreements with the customer",
     description:
       "managing customer queries and issues. This may trigger the customer being moved to the 'watchlist' queue.",
     nickname: "customer-relationships-disputes",
@@ -2788,7 +2906,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "success",
     display_singular: "Success",
-    description: "Customer Experience, Pulse and Development",
+    description:"Making sure that your services are adding appropriate value and enabling the customer",
+    summary: "Customer Experience, Pulse and Development",
     nickname: "customer-success",
   },
   {
@@ -2797,7 +2916,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "reviews",
     display_singular: "Reviews",
-    description: "QBRs (Quarterly business reviews), ",
+    description:"Undertake reviews of the customer and your relationshp with them",
+    summary: "QBRs (Quarterly business reviews), and other assessments",
     nickname: "customer-success",
   },
   {
@@ -2806,6 +2926,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "programs",
     display_singular: "Programs",
+    summary: null,
     description:
       "Loyalty, Rewards and Incentives for sales, referrals and other customer interactions",
     nickname: "customer-programs",
@@ -2826,6 +2947,7 @@ export const data: {
     status: "0. New",
     name_singular: "chain",
     display_singular: "Chain",
+    summary: 'Supply chain managment',
     description: "Map the supply chain",
     nickname: "supplier-chain",
   },
@@ -2835,6 +2957,7 @@ export const data: {
     status: "0. New",
     name_singular: "affiliations",
     display_singular: "Affiliations",
+    summary: 'Supplier Relationships',
     description:
       "Credit applications with vendors, supplier payment methods/verifications and portals/integrations",
     nickname: "supplier-affiliations",
@@ -2845,12 +2968,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "partnership",
     display_singular: "Partnership",
-    price_unit: "application",
+    summary: 'Supplier Relationship contracts',
     description:
       "Apply for vendor accounts and lines of credit, establish partner relationships",
-    features: {},
-    industries: {},
-    process: {},
     billing: {
       startup: {
         title: "Startup",
@@ -2905,6 +3025,7 @@ export const data: {
     status: "0. New",
     name_singular: "purchases",
     display_singular: "Purchases",
+    summary: 'Management of orders placed with the supplier',
     description:
       "Purchasing products/services/subscriptions/licenses from vendors",
     nickname: "supplier-purchases",
@@ -2915,6 +3036,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "support",
     display_singular: "Support",
+    summary: 'Obtaining assistance from suppliers',
     description:
       "RMAs, supplier services engagement, vendor help and other assistance",
     nickname: "supplier-support",
@@ -2925,6 +3047,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "assistance",
     display_singular: "Assistance",
+    summary: 'Ways in which the supplier assists your business',
     description:
       "Partner programs & engagement initiatives, collaborations and other supplier alliances",
     nickname: "supplier-support-assistance",
@@ -2935,7 +3058,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "warranty",
     display_singular: "Warranty",
-    description: "",
+    summary: null,
+    description: null,
     nickname: "supplier-support-warranty",
   },
   {
@@ -2944,7 +3068,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "returns",
     display_singular: "Returns",
-    description: "",
+    summary: 'Return of products to suppliers',
+    description: 'Organise and track product returns',
     nickname: "supplier-support-returns",
   },
   {
@@ -2953,6 +3078,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "programs",
     display_singular: "Programs",
+    summary: 'Partner/Supplier programs',
     description:
       "Partner programs & engagement initiatives, collaborations and other supplier alliances",
     nickname: "supplier-programs",
@@ -2963,6 +3089,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "performance",
     display_singular: "Performance",
+    summary: 'Partner/Supplier performance',
     description: "Supplier SLAs and analysis",
     nickname: "supplier-performance",
   },
@@ -2982,7 +3109,8 @@ export const data: {
     status: "0. New",
     name_singular: "employment",
     display_singular: "Employment",
-    description: "Human Resource Planning and recruitment",
+    description: null,
+    summary: "Human Resource Planning and recruitment",
     nickname: "personnel-employment",
   },
   {
@@ -3044,7 +3172,8 @@ export const data: {
     status: "0. New",
     name_singular: "recruitment",
     display_singular: "Recruitment",
-    description: "Advertise, shortlist and hire for roles",
+    description: null,
+    summary: "Advertise, shortlist and hire for roles",
     nickname: "personnel-employment-recruitment",
   },
   {
@@ -3053,7 +3182,8 @@ export const data: {
     status: "0. New",
     name_singular: "placements",
     display_singular: "Placements",
-    description: "Appointments to positions: Promotions, transfers etc.",
+    description: null,
+    summary: "Appointments to positions: Promotions, transfers etc.",
     nickname: "personnel-employment-placements",
   },
   {
@@ -3062,7 +3192,8 @@ export const data: {
     status: "0. New",
     name_singular: "preferments",
     display_singular: "Preferments",
-    description: "Promotions and appointments to positions",
+    description: null,
+    summary: "Promotions and appointments to positions",
     nickname: "employment-placements-preferments",
   },
   {
@@ -3071,7 +3202,8 @@ export const data: {
     status: "0. New",
     name_singular: "transfers",
     display_singular: "Transfers",
-    description:
+    description: null,
+    summary:
       "Location/responsibility transfers, changes to responsibilities",
     nickname: "employment-placements-transfers",
   },
@@ -3081,7 +3213,8 @@ export const data: {
     status: "0. New",
     name_singular: "secondments",
     display_singular: "Secondments",
-    description: "Temporary changes to responsibilities",
+    description: null,
+    summary: "Temporary changes to responsibilities",
     nickname: "employment-placements-secondments",
   },
   {
@@ -3090,7 +3223,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "development",
     display_singular: "Development",
-    description: "Employee training, development and progression opportunities",
+    description: null,
+    summary: "Employee training, development and progression opportunities",
     nickname: "personnel-development",
   },
   {
@@ -3110,7 +3244,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "tracking",
     display_singular: "Tracking",
-    description: "Performance tracking",
+    description: null,
+    summary: "Performance tracking",
     nickname: "personnel-development-performance-tracking",
   },
   {
@@ -3119,7 +3254,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "management",
     display_singular: "Management",
-    description: "Performance management",
+    description: null,
+    summary: "Performance management and improvement",
     nickname: "personnel-development-performance-management",
   },
   {
@@ -3128,7 +3264,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "reviews",
     display_singular: "Reviews",
-    description: "Performance reviews",
+    description: null,
+    summary: "Performance reviews",
     nickname: "personnel-development-performance-reviews",
   },
   {
@@ -3149,7 +3286,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "y",
     display_singular: "y",
-    description: "",
+    summary: null,
+    description: null,
     nickname: "personnel-development-performance-y",
   },
   {
@@ -3190,7 +3328,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "pathways",
     display_singular: "Pathways",
-    description: "Skills & Certifications",
+    description: "Foster personnel skills and maintain a directory for resource planning",
+    summary: "Skills & Certifications",
     nickname: "personnel-development-skills",
   },
   {
@@ -3199,6 +3338,7 @@ export const data: {
     status: "0. New",
     name_singular: "retirements",
     display_singular: "Retirements",
+    summary: "Personnel leaving the business",
     description:
       "Firing, resignations, redundancies, layoffs and other classes of employee termination",
     nickname: "personnel-employment-retirements",
@@ -3210,6 +3350,7 @@ export const data: {
     name_singular: "attendance",
     display_singular: "Attendance",
     description: "Employee availability, attendance and timesheets",
+    summary: null,
     features: [
       "Set up and maintain rosters",
       "Process and approve employee timesheets",
@@ -3234,6 +3375,7 @@ export const data: {
     status: "0. New",
     name_singular: "leave",
     display_singular: "Leave",
+    summary: "Personnel time off",
     description:
       "Time off in Lieu (TOIL), Bank/Public Holidays, Personal/Sick, Annual, Carers, Compassionate, Gardening Leave, Parental, Unpaid, Sabbatical, Suspensions and other types of Leave",
     nickname: "personnel-attendance-leave",
@@ -3244,7 +3386,8 @@ export const data: {
     status: "0. New",
     name_singular: "overtime",
     display_singular: "Overtime",
-    description: "overtime and on-call",
+    description: "Manage on-call rosters or unplanned overtime",
+    summary: "overtime and on-call",
     nickname: "personnel-attendance-overtime",
   },
   {
@@ -3253,7 +3396,8 @@ export const data: {
     status: "0. New",
     name_singular: "timesheets",
     display_singular: "Timesheets",
-    description: "",
+    summary: null,
+    description: 'Tracing, Submissions and Approvals of Timesheets',
     nickname: "personnel-attendance-timesheets",
   },
   {
@@ -3262,7 +3406,8 @@ export const data: {
     status: "0. New",
     name_singular: "timeentries",
     display_singular: "Time Entries",
-    description: "",
+    summary: null,
+    description: 'Enter records of work done',
     nickname: "personnel-attendance-timesheets-timeentries",
   },
   {
@@ -3271,7 +3416,8 @@ export const data: {
     status: "0. New",
     name_singular: "timesheetsubmissions",
     display_singular: "Timesheet Submissions",
-    description: "",
+    summary: null,
+    description: null,
     nickname: "personnel-attendance-timesheets-timesheetsubmissions",
   },
   {
@@ -3280,7 +3426,8 @@ export const data: {
     status: "0. New",
     name_singular: "timesheetapprovals",
     display_singular: "Timesheet Approvals",
-    description: "Multi Level timesheet approvals from line managers",
+    description: null,
+    summary: "Timesheet approvals from line manager(s)",
     notes:
       "Often the line manager will evaluate from an employee performance perspective, and the billing manager will review from a billing suitability perspective",
     nickname: "personnel-attendance-timesheets-timesheetapprovals",
@@ -3291,7 +3438,8 @@ export const data: {
     status: "0. New",
     name_singular: "payroll",
     display_singular: "Payroll",
-    description:
+    description: null,
+    summary:
       "Payroll, commissions, incentive schemes, salary packaging, bonuses, backpays, expenses, pensions/superannuation/401ks, reimbursements, allowances and other forms of compensation",
     nickname: "personnel-payroll",
   },
@@ -3301,6 +3449,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "compensation",
     display_singular: "Compensation",
+    summary: null,
     description:
       "Employee packages. Wages, salary, allowances, commissions, bonuses and other (performance based or otherwise) compensation",
     nickname: "personnel-payroll-compensation",
@@ -3311,6 +3460,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "annuities",
     display_singular: "Annuities",
+    summary: null,
     description:
       "Employee retirement and investment plans/contributions (Workplace Pension Plan: Pensions / 401ks / Superannuation), Personal Pension Plans: 403(b) and other employee investments, etc.",
     nickname: "personnel-payroll-annuities",
@@ -3321,6 +3471,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "garnishments",
     display_singular: "Garnishments",
+    summary: null,
     description:
       "personal tax repayments, levies, liens, loan repayments and other garnishments",
     nickname: "personnel-payroll-garnishments",
@@ -3331,6 +3482,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "taxes",
     display_singular: "Taxes",
+    summary: 'Personnel Taxation',
     description:
       "Deductions that are made from an employee's pay to fund federal, state, and local government programs. These deductions include income tax, FICA (Social Security and Medicare) taxes, and any other taxes required by law.",
     nickname: "personnel-payroll-taxes",
@@ -3341,6 +3493,8 @@ export const data: {
     status: "0. New",
     name_singular: "payrun",
     display_singular: "Payrun",
+    summary: 'Paying your employees',
+    description: null,
     price_unit: "employee",
     billing: {
       startup: {
@@ -3396,6 +3550,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "wages",
     display_singular: "Wages",
+    summary: null,
     description:
       "Calculation of gross pay, including hourly/time based wages, salary, salary packaging, overtime wages, on-call fees",
     nickname: "payroll-payrun-wages",
@@ -3406,6 +3561,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "benefits",
     display_singular: "Benefits",
+    summary: null,
     description:
       "Any non-wage form of compensation that an employer provides to its employees, in addition to their base salary",
     notes:
@@ -3418,6 +3574,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "deductions",
     display_singular: "Deductions",
+    summary: null,
     description:
       "Deductions for taxes, benefits, and other items are subtracted from gross pay",
     nickname: "payroll-payrun-deductions",
@@ -3428,7 +3585,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "payslips",
     display_singular: "Payslips",
-    description: "Pay slips / pay stubs",
+    description: null,
+    summary: "Pay slips / pay stubs",
     nickname: "payroll-payrun-payslips",
   },
   {
@@ -3437,7 +3595,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "distributions",
     display_singular: "Distributions",
-    description:
+    description: null,
+    summary:
       "Distribution of pay: Disbursements to employees, and allocations for setting aside pay",
     notes:
       "Disbursement is a term that generally refers to the process of paying out or distributing funds, typically from an organization or business, to its employees, suppliers or other parties. In the context of a pay run, disbursement refers to the distribution of the calculated net pay or any other forms of compensation such as bonuses, reimbursements or benefits, to the employees.\nIt can also encompass the distribution of funds to other parties such as vendors, banks, and government agencies for taxes, loans, and other obligations.\nIt can be used to refer to the physical act of distributing funds, as well as the transfer of funds from the employer's accounts to the employee's account through direct deposit, wire transfer, paper checks or other means of payment.\nIt's worth noting that, 'disbursement' usually refers to money being paid out, while 'allocation' or 'distribution' refers to money being set aside. Although it's not always the case and it depends on the context.",
@@ -3449,7 +3608,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "welfare",
     display_singular: "Welfare",
-    description:
+    description: null,
+    summary:
       "Employee wellbeing and assisting unions/employee support organisations/other third parties",
     nickname: "personnel-welfare",
   },
@@ -3459,7 +3619,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "assignments",
     display_singular: "Assignments",
-    description: "",
+    description: null,
+    summary: null,
     nickname: "personnel-assignments",
   },
   {
@@ -3468,7 +3629,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "teams",
     display_singular: "Teams",
-    description: "",
+    description: null,
+    summary: null,
     nickname: "personnel-assignments-teams",
   },
   {
@@ -3477,7 +3639,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "meetings",
     display_singular: "Meetings",
-    description: "",
+    description: null,
+    summary: null,
     nickname: "personnel-assignments-meetings",
   },
   {
@@ -3486,7 +3649,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "deliverables",
     display_singular: "Deliverables",
-    description: "events/tasks/deliverables/work",
+    description: null,
+    summary: "Events / Tasks / Deliverables / Work",
     nickname: "personnel-assignments-deliverables",
   },
   {
@@ -3506,12 +3670,11 @@ export const data: {
     status: "5. Hold",
     name_singular: "safety",
     display_singular: "Safety",
-    description: "Health & Safety",
+    summary: "Health & Safety",
+    description: null,
     nickname: "personnel-welfare-safety",
-    notes:
-      "also referred to as OHS, OH&S, OSH, H&S and other formats depending on the country",
-    ISSUE:
-      "scope is an issue here, because it's not just Personnel that is affected - Other stakeholders are too. This would make more sense in Systems.",
+    notes: `also referred to as OHS, OH&S, OSH, H&S and other formats depending on the country.
+      scope is an issue here, because it's not just Personnel that is affected - Other stakeholders are too. This would make more sense in Systems.`
   },
   {
     id: 16300,
@@ -3519,7 +3682,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "emergencies",
     display_singular: "Emergencies",
-    description: "Emergency procedures",
+    description: null,
+    summary: "Emergency procedures",
     nickname: "personnel-welfare-safety-emergencies",
   },
   {
@@ -3528,7 +3692,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "checks",
     display_singular: "Checks",
-    description: "Routine inspections and OHS checklists",
+    description: null,
+    summary: "Routine inspections and OHS checklists",
     nickname: "personnel-welfare-safety-checks",
   },
   {
@@ -3537,7 +3702,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "incidents",
     display_singular: "Incidents",
-    description: "Incident reporting",
+    description: null,
+    summary: "Incident reporting",
     nickname: "personnel-welfare-safety-incidents",
   },
   {
@@ -3546,7 +3712,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "x",
     display_singular: "x",
-    description: "",
+    description: null,
+    summary: null,
     nickname: "personnel-welfare-safety-x",
   },
   {
@@ -3555,7 +3722,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "y",
     display_singular: "y",
-    description: "",
+    description: null,
+    summary: null,
     nickname: "personnel-welfare-safety-y",
   },
   {
@@ -3564,8 +3732,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "wellness",
     display_singular: "Wellness",
-    description: "Employee Wellness programs",
-    summary:
+    summary: "Employee Wellness programs",
+    description:
       "Creating and implementing initiatives and programs that support the physical, mental, and emotional well-being of employees. This can include things like on-site fitness facilities, wellness challenges, and mental health resources.",
     nickname: "personnel-welfare-wellness",
   },
@@ -3618,6 +3786,7 @@ export const data: {
     status: "0. New",
     name_singular: "brands",
     display_singular: "Brands",
+    summary: null,
     description: "Your company brand, USP, image, logo and design guidelines",
     nickname: "market-brands",
   },
@@ -3627,7 +3796,8 @@ export const data: {
     status: "0. New",
     name_singular: "graphics",
     display_singular: "Graphics",
-    description: "logos etc.",
+    summary: 'Logos and other design assets',
+    description: null,
     nickname: "market-brands-graphics",
   },
   {
@@ -3636,7 +3806,8 @@ export const data: {
     status: "0. New",
     name_singular: "assets",
     display_singular: "Assets",
-    description: "Domains etc.",
+    summary: 'Domains and other assets',
+    description: null,
     nickname: "market-brands-assets",
   },
   {
@@ -3645,6 +3816,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "industry",
     display_singular: "Industry",
+    summary: null,
     description:
       "Manage and research relevant entities and stakeholders within the market",
     nickname: "market-industry",
@@ -3655,7 +3827,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "landscape",
     display_singular: "Landscape",
-    description:
+    description: null,
+    summary:
       "A map/list of the competitors and other industry players to be aware of",
     references: ["link to governance > model", "link to market > research"],
     nickname: "market-industry-landscape",
@@ -3666,7 +3839,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "promotions",
     display_singular: "Promotions",
-    description: "Market campaign management, advertising and lead funnelling",
+    description: null,
+    summary: "Market campaign management, advertising and lead funnelling",
     nickname: "market-promotions",
     notes:
       "Leads generated here will link to the Customer > Sales > Lead process",
@@ -3677,6 +3851,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "campaigns",
     display_singular: "Campaigns",
+    summary: null,
+    description: null,
     nickname: "market-promotions-campaigns",
   },
   {
@@ -3685,7 +3861,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "research",
     display_singular: "Research",
-    description:
+    description: null,
+    summary:
       "Data collection and analysis of your company reputation, markets and competitors",
     nickname: "market-research",
   },
@@ -3695,25 +3872,25 @@ export const data: {
     status: "0. New",
     name_singular: "engagement",
     display_singular: "Engagement",
-    description:
+    description: null,
+    summary:
       "Content Marketing: Media, event management and community engagement",
-    process: [
-      "Create and maintain social media profiles",
-      "Create and maintain social media calendar",
-      "Design social media posts",
-      "Obtain approval on posts",
-      "Schedule posts",
-      "Publish posts (manually or automatically)",
-      "Provide live report on posts and analytics",
-    ],
-    features: [],
-    notes: [
-      "Tiktok video posts (see *here* for how we do this, and *here* if you want media creation too)",
-      "Facebook text/video posts (see *here* for how we do this, and *here* if you want media creation too)",
-      "Twitter text/video posts (see *here* for how we do this, and *here* if you want media creation too)",
-      "Instagram text/video posts (see *here* for how we do this, and *here* if you want media creation too)",
-      "Youtube video posts (see *here* for how we do this, and *here* if you want media creation too)",
-    ],
+    notes:`
+      PROCESS:
+        "Create and maintain social media profiles",
+        "Create and maintain social media calendar",
+        "Design social media posts",
+        "Obtain approval on posts",
+        "Schedule posts",
+        "Publish posts (manually or automatically)",
+        "Provide live report on posts and analytics",
+      OTHER NOTES:
+        "Tiktok video posts (see *here* for how we do this, and *here* if you want media creation too)
+        "Facebook text/video posts (see *here* for how we do this, and *here* if you want media creation too)
+        "Twitter text/video posts (see *here* for how we do this, and *here* if you want media creation too)
+        "Instagram text/video posts (see *here* for how we do this, and *here* if you want media creation too)
+        "Youtube video posts (see *here* for how we do this, and *here* if you want media creation too)
+    `,
     nickname: "market-engagement",
   },
   {
@@ -3722,6 +3899,8 @@ export const data: {
     status: "0. New",
     name_singular: "channels",
     display_singular: "Channels",
+    summary: null,
+    description: null,
     process: [1, 2, 3],
     nickname: "market-engagement-channels",
   },
@@ -3731,7 +3910,8 @@ export const data: {
     status: "0. New",
     name_singular: "posts",
     display_singular: "Posts",
-    process: [1, 2, 3],
+    summary: null,
+    description: null,
     nickname: "market-engagement-posts",
   },
   {
@@ -3740,7 +3920,8 @@ export const data: {
     status: "0. New",
     name_singular: "calendar",
     display_singular: "Calendar",
-    process: [1, 2, 3],
+    summary: null,
+    description: null,
     nickname: "market-engagement-calendar",
   },
   {
@@ -3749,8 +3930,8 @@ export const data: {
     status: "0. New",
     name_singular: "engagement",
     display_singular: "Engagement",
-    description: "Engaging with the community, replying to posts comments etc.",
-    process: [1, 2, 3],
+    summary: "Engaging with the community, replying to posts comments etc.",
+    description: null,
     nickname: "market-engagement-engagement",
   },
   {
@@ -3770,7 +3951,8 @@ export const data: {
     status: "0. New",
     name_singular: "control",
     display_singular: "Control",
-    description: "Project control, quality and change management",
+    description: null,
+    summary: "Project control, quality and change management",
     nickname: "project-control",
   },
   {
@@ -3779,7 +3961,8 @@ export const data: {
     status: "0. New",
     name_singular: "quality",
     display_singular: "Quality",
-    description: "Quality Assurance and Control",
+    description: null,
+    summary: "Quality Assurance and Control",
     nickname: "project-control-quality",
   },
   {
@@ -3788,7 +3971,8 @@ export const data: {
     status: "0. New",
     name_singular: "qualitycontrol",
     display_singular: "Quality Control",
-    description: "",
+    description: null,
+    summary: null,
     nickname: "project-control-quality-qualitycontrol",
   },
   {
@@ -3797,7 +3981,8 @@ export const data: {
     status: "0. New",
     name_singular: "qualityassurance",
     display_singular: "Quality Assurance",
-    description: "",
+    description: null,
+    summary: null,
     nickname: "project-control-quality-qualityassurance",
   },
   {
@@ -3806,7 +3991,8 @@ export const data: {
     status: "0. New",
     name_singular: "changes",
     display_singular: "Changes",
-    description: "Change Requests and Management",
+    description: null,
+    summary: "Change Requests and Management",
     nickname: "project-control-changes",
   },
   {
@@ -3818,10 +4004,10 @@ export const data: {
     summary:
       "Project progress monitoring, using data from project-planning-schedule and other modules",
     description: "Project monitoring, progress & status management / plotting",
-    references: [
+    notes: `[
       "https://prince2.wiki/theme/progress/",
       "https://www.pmi.org/learning/library/anatomy-highly-effective-status-report-2198",
-    ],
+    ]`,
     nickname: "project-control-progress",
   },
   {
@@ -3830,6 +4016,7 @@ export const data: {
     status: "0. New",
     name_singular: "projection",
     display_singular: "Projection",
+    description: null,
     summary: "Project forecasting",
     nickname: "project-control-projection",
   },
@@ -3839,6 +4026,8 @@ export const data: {
     status: "0. New",
     name_singular: "risk",
     display_singular: "Risk",
+    description: null,
+    summary: null,
     nickname: "project-control-risk",
   },
   {
@@ -3847,17 +4036,15 @@ export const data: {
     status: "0. New",
     name_singular: "response",
     display_singular: "Response",
+    summary: null,
     description:
       "Project stakeholder management, requirements analysis and communications",
-    summary: [
+    notes:` [
       "Triage requests (internally or externally created), set up projects and bundle tasks",
       "Process incoming communications and reply to stakeholders",
       "Maintain stakeholder lists for all tasks",
       "Maintain production coordination report",
-    ],
-    features: [],
-    pricing:
-      "23 hours allocated (1 per working day) = $230/month divided by #tickets / triage elements",
+    ]`,
     nickname: "project-response",
   },
   {
@@ -3866,6 +4053,7 @@ export const data: {
     status: "0. New",
     name_singular: "initiation",
     display_singular: "Initiation",
+    description: null,
     summary: "project/ticket initialisation (auto or manual)",
     references: [
       "see pmbok planning stage part 1, and other libraries/standards",
@@ -3879,6 +4067,7 @@ export const data: {
     name_singular: "templating",
     display_singular: "Templating",
     summary: "Templates for recurring tickets or pattern matching",
+    description: null,
     notes:
       "The aim is to preemptively capture all expected incoming tickets, via templating",
     nickname: "response-initiation-templating",
@@ -3890,6 +4079,7 @@ export const data: {
     name_singular: "triage",
     display_singular: "Triage",
     summary: "urgency and impact evaluation + queuing",
+    description: null,
     process: [
       "Review an item",
       "Create/ List entities/link entities and relationships from it (e.g. derive new contacts, tasks etc.)",
@@ -3906,7 +4096,7 @@ export const data: {
     display_singular: "Companies",
     summary:
       "select relevant groups/organisations/companies. Create them if they don't exist",
-    process: [],
+    description: null,
     nickname: "response-triage-ticket-companies",
   },
   {
@@ -3915,6 +4105,7 @@ export const data: {
     status: "0. New",
     name_singular: "ticket-categorisation",
     display_singular: "Categorisation",
+    description: null,
     summary:
       "Categorise the issue with types (request, incident, change, problem), subtypes etc.",
     nickname: "response-triage-ticket-categorisation",
@@ -3925,6 +4116,7 @@ export const data: {
     status: "0. New",
     name_singular: "ticket-prioritization",
     display_singular: "Prioritization",
+    description: null,
     summary:
       "Set the impact and urgency. The SLA/SLO (Service Level Agreement / Objectives - Response times) should ideally be set automatically from the prioritization, else set manually.",
     nickname: "response-triage-ticket-prioritization",
@@ -3935,12 +4127,15 @@ export const data: {
     status: "0. New",
     name_singular: "stakeholders",
     display_singular: "Stakeholders",
+    description: null,
+    summary: null,
     nickname: "project-response-stakeholders",
   },
   {
     id: 18120,
     parent: 1812,
     status: "0. New",
+    description: null,
     name_singular: "stakeholderidentification",
     display_singular: "Stakeholder Identification",
     summary: "Add any relevant stakeholders to the ticket",
@@ -3952,6 +4147,7 @@ export const data: {
     status: "0. New",
     name_singular: "stakeholderlist",
     display_singular: "Stakeholderlist",
+    description: null,
     summary: "Maintain the stakeholder list",
     nickname: "project-response-stakeholders-stakeholderlist",
   },
@@ -3974,6 +4170,7 @@ export const data: {
     name_singular: "assignprocesses",
     display_singular: "Assign Processes",
     description: "Attach documentation to the ticket.",
+    summary: null,
     notes:
       "Attach customer-specific documentation (this should be followed first) and general documentation (used as a fallback for tasks if there is no customer-specific process for a task",
     nickname: "project-response-requirements-assignprocesses",
@@ -3985,6 +4182,7 @@ export const data: {
     name_singular: "establishrequirements",
     display_singular: "Establish Requirements",
     description: "List the necessary requirements",
+    summary: null,
     nickname: "project-response-requirements-establishrequirements",
   },
   {
@@ -3993,6 +4191,8 @@ export const data: {
     status: "0. New",
     name_singular: "communications",
     display_singular: "Communications",
+    summary: null,
+    description: null,
     nickname: "project-response-communications",
   },
   {
@@ -4001,7 +4201,8 @@ export const data: {
     status: "0. New",
     name_singular: "planning",
     display_singular: "Planning",
-    description: "Project designing, resource allocation and scheduling",
+    description: null,
+    summary: "Project designing, resource allocation and scheduling",
     nickname: "project-planning",
   },
   {
@@ -4056,7 +4257,7 @@ export const data: {
     description: "Guiding principles intended to simplify reasoning",
     summary: "Anchoring, Representativeness, Availability and other heuristics",
     nickname: "project-planning-investigations-logic-heuristics",
-    notes: [
+    notes: `[
       "Anchoring: The tendency to rely too heavily on the first piece of information encountered when making decisions. Often seen in negotiations, where the first offer sets the stage for the rest of the discussion. ",
       "Reciprocity Norm: A social heuristic that encourages people to respond to a positive action with another positive action, encouraging mutual benefit. Often used in social engineering and sales tactics.",
       "Representativeness Heuristic: Judges probabilities based on how similar an outcome is to a known stereotype or representative case, often ignoring base rates or statistical information.",
@@ -4064,7 +4265,7 @@ export const data: {
       "Axioms",
       "Laws (e.g., Law of Non-Contradiction, Law of Excluded Middle)",
       "etc.",
-    ],
+    ]`,
   },
   {
     id: 182021,
@@ -4073,7 +4274,7 @@ export const data: {
     name_singular: "axioms",
     display_singular: "Axioms",
     description: "Rules",
-    summary: "",
+    summary: null,
     nickname: "project-planning-investigations-logic-axioms",
   },
   {
@@ -4113,10 +4314,11 @@ export const data: {
     id: 1821,
     parent: 182,
     status: "0. New",
-    name_singular: "funcionality",
+    name_singular: "functionality",
     display_singular: "Functionality",
+    description:null,
     summary: "Lay out the necessary user stories / use cases / features",
-    nickname: "project-planning-features",
+    nickname: "project-planning-functionality",
   },
   {
     id: 1822,
@@ -4124,7 +4326,8 @@ export const data: {
     status: "0. New",
     name_singular: "designs",
     display_singular: "Designs",
-    summary: "proposals for a solution consisting of deliverables",
+    description:null,
+    summary: "Proposals for a solution consisting of deliverables",
     nickname: "project-planning-designs",
   },
   {
@@ -4133,7 +4336,8 @@ export const data: {
     status: "0. New",
     name_singular: "resourcing",
     display_singular: "Resourcing",
-    summary: "request & allocate resources for the project/ticket",
+    summary:null,
+    description: "Request & allocate resources for the project/ticket",
     nickname: "project-planning-resourcing",
   },
   {
@@ -4152,7 +4356,8 @@ export const data: {
     status: "0. New",
     name_singular: "execution",
     display_singular: "Execution",
-    description: "Project implementation & installations",
+    description:null,
+    summary: "Project implementation & installations",
     nickname: "project-execution",
   },
   {
@@ -4161,6 +4366,7 @@ export const data: {
     status: "0. New",
     name_singular: "fulfilment",
     display_singular: "Fulfilment",
+    description:null,
     summary: "delivering the resources as stated in the design phase",
     nickname: "project-execution-fulfilment",
   },
@@ -4168,14 +4374,18 @@ export const data: {
     id: 1831,
     parent: 183,
     status: "0. New",
-    name_singular: "",
-    display_singular: "",
-    nickname: "project-execution-",
+    name_singular: "x",
+    display_singular: "x",
+    description:null,
+    summary:null,
+    nickname: "project-execution-x",
   },
   {
     id: 1832,
     parent: 183,
     status: "0. New",
+    description:null,
+    summary:null,
     name_singular: "documentation",
     display_singular: "Documentation",
     nickname: "project-execution-documentation",
@@ -4269,6 +4479,8 @@ export const data: {
     status: "0. New",
     name_singular: "rollbacks",
     display_singular: "Rollbacks",
+    description:null,
+    summary:null,
     nickname: "project-execution-testing-rollbacks",
   },
   {
@@ -4277,7 +4489,8 @@ export const data: {
     status: "0. New",
     name_singular: "evaluation",
     display_singular: "Evaluation",
-    description: "Reporting, Analysis, Handover, Documentation, Training",
+    description:null,
+    summary: "Reporting, Analysis, Handover, Documentation, Training",
     references: ["See pmbok project closure (and other libraries)"],
     nickname: "project-evaluation",
   },
@@ -4287,6 +4500,7 @@ export const data: {
     status: "0. New",
     name_singular: "handover",
     display_singular: "Handover",
+    summary:null,
     description:
       "Project documentation, training, handover, acceptance, evaluation and closure",
     nickname: "project-evaluation-handover",
@@ -4308,7 +4522,7 @@ export const data: {
     status: "0. New",
     name_singular: "induction",
     display_singular: "Induction",
-    description: "",
+    description:null,
     summary:
       "Training users/teams that are inheriting or using the project deliverables",
     nickname: "project-evaluation-handover-training",
@@ -4319,7 +4533,8 @@ export const data: {
     status: "0. New",
     name_singular: "analysis",
     display_singular: "Analysis",
-    description:
+    description:null,
+    summary:
       "Reporting and analysis of work done, including lessons learned",
     nickname: "project-evaluation-analysis",
   },
@@ -4329,6 +4544,8 @@ export const data: {
     status: "0. New",
     name_singular: "x",
     display_singular: "x",
+    summary:null,
+    description:null,
     nickname: "project-evaluation-x",
   },
   {
@@ -4337,6 +4554,8 @@ export const data: {
     status: "0. New",
     name_singular: "y",
     display_singular: "y",
+    summary:null,
+    description:null,
     nickname: "project-evaluation-y",
   },
   {
@@ -4345,7 +4564,8 @@ export const data: {
     status: "0. New",
     name_singular: "closure",
     display_singular: "Closure",
-    description:
+    description:null,
+    summary:
       "Acceptance and closure of the work done (by all stakeholders)",
     nickname: "project-evaluation-closure",
   },
@@ -4355,7 +4575,7 @@ export const data: {
     status: "0. New",
     name_singular: "release",
     display_singular: "Release",
-    description: "Release resources",
+    summary: "Release of resources from the project/ticket",
     description:
       "Formally release resources from the project, including suppliers, team members, tools and unused consumables.",
     nickname: "project-evaluation-closure-release",
@@ -4377,7 +4597,8 @@ export const data: {
     status: "0. New",
     name_singular: "checklist",
     display_singular: "Checklist",
-    description: "completion and compliance checklist",
+    description:null,
+    summary: "Completion and compliance checklist",
     nickname: "project-evaluation-closure-checklist",
   },
   {
@@ -4386,8 +4607,8 @@ export const data: {
     status: "0. New",
     name_singular: "signoff",
     display_singular: "Signoff",
-    description: "Acceptance and signoff from all stakeholders",
-    summary: "",
+    description:null,
+    summary: "Acceptance and signoff from all stakeholders",
     nickname: "project-evaluation-closure-signoff",
   },
   {
@@ -4419,6 +4640,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "AUTOMATION+WORKFLOWS",
     display_singular: "AUTOMATION+WORKFLOWS",
+    summary:null,
     description: "Add in automation and workflows (to be confirmed where)",
     nickname: "system-AUTOMATION+WORKFLOWS",
   },
@@ -4429,12 +4651,13 @@ export const data: {
     name_singular: "OFFERINGS-MOVETOGOVERNANCEORACCOUNTS?",
     display_singular: "OFFERINGS-MOVETOGOVERNANCEORACCOUNTS?",
     description: "Management of your company offerings (products / services)",
-    summary: [
+    summary:null,
+    notes: `[
       "Work with you to establish and maintain core offerings (products & services)",
       "Set and maintain rates, and schedule pricing reviews annually or more frequently",
       "Maintain customer/marketing facing offerings & pricing materials",
       "Provide reporting on core offerings and their successes/issues",
-    ],
+    ]`,
     nickname: "system-offerings",
   },
   {
@@ -4604,7 +4827,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "instructions",
     display_singular: "Instructions",
-    description: "work instructions for step by step guides",
+    description:null,
+    summary: "work instructions for step by step guides",
     nickname: "system-process-instructions",
   },
   {
@@ -4613,6 +4837,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "procedures",
     display_singular: "Procedures",
+    summary:null,
+    description:null,
     nickname: "system-process-procedures",
   },
   {
@@ -4621,6 +4847,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "procedures",
     display_singular: "Procedures",
+    summary:null,
+    description:null,
     nickname: "system-process-processes",
   },
   {
@@ -4629,7 +4857,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "policies",
     display_singular: "Policies",
-    process: [],
+    summary:null,
+    description:null,
     nickname: "system-process-policies",
   },
   {
@@ -4640,7 +4869,7 @@ export const data: {
     display_singular: "Manual",
     description:
       "the collation of all processes into a single reference point for all stakeholders (stakeholder types are authorised to view specific docs or parts of docs)",
-    process: [],
+    summary:null,
     nickname: "system-process-manual",
   },
   {
@@ -4649,7 +4878,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "technology",
     display_singular: "Technology",
-    description: `Your business software, hardware and infrastructure stack. 
+    summary:null,
+    description:null,
+    notes: `Your business software, hardware and infrastructure stack. 
     ADD 'DOWNTIME' TO A SUBMODULE HERE OR IN PRODUCT:
     If we become aware of (external but also internal) product with current downtime (from outage detectors - see product>deployment>usage>monitoring) or impending downtime (via alerts, emails or banners on websites), it should be added in (automatically where possible).
     Then it should automatically (via templates, if enabled) create tasks to inform stakeholders (internal or otherwise)
@@ -4663,6 +4894,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "applications",
     display_singular: "Applications",
+    summary:null,
+    description:null,
     nickname: "system-technology-applications",
   },
   {
@@ -4701,8 +4934,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "lineofbusiness",
     display_singular: "Line Of Business",
+    description:null,
     nickname: "system-technology-applications-lineofbusiness",
-    description: "LOB & industry specific software",
+    summary: "LOB & industry specific software",
   },
   {
     id: 1921,
@@ -4710,6 +4944,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "hosting",
     display_singular: "Hosting",
+    summary:null,
+    description:null,
     nickname: "system-technology-hosting",
   },
   {
@@ -4718,6 +4954,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "storage",
     display_singular: "Storage",
+    summary:null,
+    description:null,
     nickname: "system-technology-hosting-storage",
   },
   {
@@ -4726,6 +4964,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "websites",
     display_singular: "Websites",
+    summary:null,
+    description:null,
     nickname: "system-technology-hosting-websites",
   },
   {
@@ -4734,8 +4974,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "ecommerce",
     display_singular: "Ecommerce",
+    description:null,
     nickname: "system-technology-hosting-websites-ecommerce",
-    description: "Online stores",
+    summary: "Online stores",
   },
   {
     id: 192111,
@@ -4744,7 +4985,8 @@ export const data: {
     name_singular: "corporate",
     display_singular: "Corporate",
     nickname: "system-technology-hosting-websites-corporate",
-    description:
+    description:null,
+    summary:
       "Landing pages, company information and general online presence",
   },
   {
@@ -4753,8 +4995,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "blog",
     display_singular: "Blog",
+    description:null,
     nickname: "system-technology-hosting-websites-blog",
-    description: "Posts, news, magazines and other content",
+    summary: "Posts, news, magazines and other content",
   },
   {
     id: 1921113,
@@ -4762,8 +5005,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "forum",
     display_singular: "Forum",
+    description:null,
     nickname: "system-technology-hosting-websites-forum",
-    description:
+    summary:
       "discussions, user generated content and other community engagement",
   },
   {
@@ -4772,8 +5016,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "repository",
     display_singular: "Repository",
+    description:null,
     nickname: "system-technology-hosting-websites-repository",
-    description: "media, data and other accessible content storage",
+    summary: "media, data and other accessible content storage",
   },
   {
     id: 19212,
@@ -4781,8 +5026,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "access",
     display_singular: "Access",
-    description: "",
-    summary: "",
+    description:null,
+    summary:null,
     nickname: "system-technology-hosting-access",
   },
   {
@@ -4791,6 +5036,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "authentication",
     display_singular: "Authentication",
+    description:null,
+    summary:null,
     nickname: "system-technology-hosting-access-authentication",
   },
   {
@@ -4799,6 +5046,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "network",
     display_singular: "Network",
+    description:null,
+    summary:null,
     nickname: "system-technology-network",
   },
   {
@@ -4809,6 +5058,7 @@ export const data: {
     display_singular: "Servers",
     nickname: "system-technology-network-servers",
     summary: "onsite, remote or co-lo servers",
+    description:null,
   },
   {
     id: 19221,
@@ -4818,6 +5068,7 @@ export const data: {
     display_singular: "LAN",
     nickname: "system-technology-network-lan",
     summary: "local area networks",
+    description:null,
   },
   {
     id: 19222,
@@ -4825,6 +5076,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "wan",
     display_singular: "WAN",
+    description:null,
     nickname: "system-technology-network-wan",
     summary: "wide area network access, routers, internet links, 5G failovers",
   },
@@ -4832,6 +5084,8 @@ export const data: {
     id: 19223,
     parent: 1922,
     status: "5. Hold",
+    description:null,
+    summary:null,
     name_singular: "cabling&wireless&switching",
     display_singular: "Cabling & Wireless & Switching",
     nickname: "system-technology-network-cabling&wireless&switching",
@@ -4846,9 +5100,9 @@ export const data: {
       "Disaster Recovery and preventuion of interruptions to operations",
     summary:
       "Disaster prevention, fire protection, backups, test restores, live recovery, snapshots and file retrieval",
-    notes: [
+    notes: `[
       "Accounting package backup: Xero/Control C (https://www.control-c.com/), Quickbooks (https://quickbooks.intuit.com/ca/resources/finance-accounting/how-to-back-up-quickbooks-for-your-small-business/), myob (https://help.myob.com/wiki/display/ar/Back+up+your+company+file) etc.",
-    ],
+    ]`,
     nickname: "system-technology-continuation",
   },
   {
@@ -4856,6 +5110,8 @@ export const data: {
     parent: 1923,
     status: "5. Hold",
     name_singular: "backups",
+    description:null,
+    summary:null,
     display_singular: "Backups",
     nickname: "system-technology-continuation-backups",
   },
@@ -4865,6 +5121,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "recovery",
     display_singular: "Recovery",
+    description:'Snapshot or granular restoration for business continuity',
+    summary:'Disaster Recovery',
     nickname: "system-technology-continuation-recovery",
   },
   {
@@ -4884,7 +5142,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "resources",
     display_singular: "Resources",
-    description: "Facilities, consumables, roles and other resources",
+    description:null,
+    summary: "Facilities, consumables, roles and other resources",
     nickname: "system-resources",
   },
   {
@@ -4893,7 +5152,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "facilities",
     display_singular: "Facilities",
-    description: "Management of all sites, infrastructure and internal tools",
+    description:null,
+    summary: "Management of all sites, infrastructure and internal tools",
     nickname: "system-resources-facilities",
   },
   {
@@ -4902,6 +5162,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "sites",
     display_singular: "Sites",
+    summary:null,
     description: "Manage all of your sites/addresses",
     nickname: "system-resources-facilities-sites",
   },
@@ -4911,7 +5172,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "furnishings",
     display_singular: "Furnishings",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "system-resources-facilities-furnishings",
   },
   {
@@ -4920,6 +5182,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "features",
     display_singular: "Features",
+    summary:null,
     description:
       "Manage the features available to your sites (e.g conference rooms)",
     nickname: "system-resources-facilities-features",
@@ -4930,7 +5193,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "consumables",
     display_singular: "Consumables",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "system-resources-consumables",
   },
   {
@@ -4939,7 +5203,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "tools",
     display_singular: "Tools",
-    description: "tools & equipment",
+    description: "Tools & equipment",
     summary: "hardware",
     nickname: "system-resources-consumables",
   },
@@ -4959,14 +5223,14 @@ export const data: {
     status: "5. Hold",
     name_singular: "data",
     display_singular: "DATA_MOVEINTOPROCESS?",
-    description: "",
-    summary: "",
+    summary:null,
+    description:null,
     nickname: "system-data",
-    process: [
+    notes: `[
       "sync (ensure data is synchronising between applications / repositories)",
       "audit (data should be reviewed annually - Items not used in the last FY can be archived. Items not used within 7/10/as-per-legislation years can be destroyed)",
       "maintenance (BAU process of updating items as the need becomes known. includes tagging/categorising where useful",
-    ],
+    ]`,
   },
   {
     id: 1940,
@@ -4974,6 +5238,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "data",
     display_singular: "Data",
+    summary:null,
+    description:null,
     nickname: "system-data-data",
   },
   {
@@ -4982,6 +5248,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "information",
     display_singular: "Information",
+    summary:null,
+    description:null,
     nickname: "system-data-information",
   },
   {
@@ -4990,6 +5258,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "knowledge",
     display_singular: "Knowledge",
+    summary:null,
+    description:null,
     nickname: "system-data-knowledge",
   },
   {
@@ -4998,6 +5268,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "wisdom",
     display_singular: "Wisdom",
+    summary:null,
+    description:null,
     nickname: "system-data-wisdom",
   },
   {
@@ -5006,7 +5278,8 @@ export const data: {
     status: "3. Active",
     name_singular: "personal",
     display_singular: "Personal",
-    description: "Yourself",
+    summary: "Yourself",
+    description: "Manage personal items & coordination",
     nickname: "personal",
   },
   {
@@ -5015,8 +5288,8 @@ export const data: {
     status: "3. Active",
     name_singular: "wellbeing",
     display_singular: "Wellbeing",
-    active: "hiring consultant",
-    description: "Self / Personal",
+    summary: "Self / Personal welfare and care",
+    description:null,
     nickname: "wellbeing",
   },
   {
@@ -5025,7 +5298,8 @@ export const data: {
     status: "3. Active",
     name_singular: "health",
     display_singular: "Health",
-    description: "Healthcare & Medical",
+    summary: "Healthcare & Medical",
+    description:null,
     nickname: "wellbeing-health",
   },
   {
@@ -5034,7 +5308,8 @@ export const data: {
     status: "3. Active",
     name_singular: "hygiene",
     display_singular: "Hygiene",
-    description: "Personal care",
+    summary: "Personal care",
+    description:null,
     nickname: "wellbeing-health-hygiene",
   },
   {
@@ -5043,6 +5318,8 @@ export const data: {
     status: "3. Active",
     name_singular: "medical",
     display_singular: "Medical",
+    summary:null,
+    description:null,
     nickname: "wellbeing-health-medical",
   },
   {
@@ -5051,6 +5328,8 @@ export const data: {
     status: "3. Active",
     name_singular: "rest",
     display_singular: "Rest",
+    summary:null,
+    description:null,
     nickname: "wellbeing-health-rest",
   },
   {
@@ -5059,6 +5338,8 @@ export const data: {
     status: "3. Active",
     name_singular: "sexual",
     display_singular: "Sexual",
+    summary:null,
+    description:null,
     nickname: "wellbeing-health-sexual",
   },
   {
@@ -5067,6 +5348,8 @@ export const data: {
     status: "3. Active",
     name_singular: "vices",
     display_singular: "Vices",
+    summary:null,
+    description:null,
     nickname: "wellbeing-health-vices",
   },
   {
@@ -5075,7 +5358,8 @@ export const data: {
     status: "3. Active",
     name_singular: "fitness",
     display_singular: "Fitness",
-    description: "Personal training, body fitness, exercise",
+    summary: "Personal training, body fitness, exercise",
+    description:null,
     nickname: "wellbeing-fitness",
   },
   {
@@ -5084,7 +5368,8 @@ export const data: {
     status: "3. Active",
     name_singular: "mental",
     display_singular: "Mental",
-    description: "mind",
+    summary: "mind",
+    description:null,
     nickname: "wellbeing-mental",
   },
   {
@@ -5094,6 +5379,7 @@ export const data: {
     name_singular: "nutrition",
     display_singular: "Nutrition",
     description: "Food & Drink",
+    summary:null,
     nickname: "wellbeing-nutrition",
   },
   {
@@ -5102,6 +5388,7 @@ export const data: {
     status: "3. Active",
     name_singular: "style",
     display_singular: "Style",
+    summary:null,
     description: "Fashion, clothing and accessories",
     nickname: "wellbeing-style",
   },
@@ -5111,6 +5398,7 @@ export const data: {
     status: "3. Active",
     name_singular: "estate",
     display_singular: "Estate",
+    summary:null,
     description: "Property & Inventory",
     nickname: "estate",
   },
@@ -5120,7 +5408,8 @@ export const data: {
     status: "3. Active",
     name_singular: "possessions",
     display_singular: "Possessions",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "estate-possessions",
   },
   {
@@ -5129,7 +5418,8 @@ export const data: {
     status: "3. Active",
     name_singular: "finance",
     display_singular: "Finance",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "estate-finance",
   },
   {
@@ -5138,6 +5428,7 @@ export const data: {
     status: "3. Active",
     name_singular: "organisation",
     display_singular: "Organisation",
+    summary:null,
     description:
       "Administration, planning, structure, data processing and other coordination",
     nickname: "organisation",
@@ -5148,7 +5439,8 @@ export const data: {
     status: "3. Active",
     name_singular: "system",
     display_singular: "System",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "organisation-system",
   },
   {
@@ -5157,7 +5449,8 @@ export const data: {
     status: "3. Active",
     name_singular: "tax",
     display_singular: "Tax",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "organisation-tax",
   },
   {
@@ -5166,7 +5459,8 @@ export const data: {
     status: "3. Active",
     name_singular: "livingadmin",
     display_singular: "livingadmin",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "organisation-livingadmin",
   },
   {
@@ -5175,7 +5469,8 @@ export const data: {
     status: "3. Active",
     name_singular: "acommodation",
     display_singular: "Acommodation",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "organisation-acommodation",
   },
   {
@@ -5184,7 +5479,8 @@ export const data: {
     status: "3. Active",
     name_singular: "travel",
     display_singular: "Travel",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "organisation-travel",
   },
   {
@@ -5193,7 +5489,8 @@ export const data: {
     status: "3. Active",
     name_singular: "admin",
     display_singular: "Admin",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "organisation-admin",
   },
   {
@@ -5202,7 +5499,8 @@ export const data: {
     status: "3. Active",
     name_singular: "journal",
     display_singular: "Journal",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "organisation-journal",
   },
   {
@@ -5211,7 +5509,8 @@ export const data: {
     status: "3. Active",
     name_singular: "relationships",
     display_singular: "Relationships",
-    description: "Social",
+    summary: "Social",
+    description:null,
     nickname: "relationships",
   },
   {
@@ -5220,7 +5519,8 @@ export const data: {
     status: "3. Active",
     name_singular: "communications",
     display_singular: "Communications",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "relationships-communications",
   },
   {
@@ -5229,7 +5529,8 @@ export const data: {
     status: "3. Active",
     name_singular: "world",
     display_singular: "World",
-    description: "Community, charity, government",
+    description:null,
+    summary: "Community, charity, government",
     nickname: "world",
   },
   {
@@ -5238,7 +5539,8 @@ export const data: {
     status: "3. Active",
     name_singular: "leisure",
     display_singular: "Leisure",
-    description: "Recreation, hobbies, interests, pastimes, activites",
+    description:null,
+    summary: "Recreation, hobbies, interests, pastimes, activites",
     nickname: "leisure",
   },
   {
@@ -5247,7 +5549,8 @@ export const data: {
     status: "3. Active",
     name_singular: "media",
     display_singular: "Media",
-    description: "Music, film etc.",
+    summary: "Music, film etc.",
+    description:null,
     nickname: "leisure-media",
   },
   {
@@ -5256,7 +5559,8 @@ export const data: {
     status: "3. Active",
     name_singular: "activities",
     display_singular: "Activities",
-    description: "Sport and activities",
+    summary: "Sport and activities",
+    description:null,
     nickname: "leisure-activities",
   },
   {
@@ -5265,7 +5569,8 @@ export const data: {
     status: "3. Active",
     name_singular: "learning",
     display_singular: "Learning",
-    description: "Education",
+    summary: "Education",
+    description:null,
     nickname: "learning",
   },
   {
@@ -5274,7 +5579,8 @@ export const data: {
     status: "3. Active",
     name_singular: "work",
     display_singular: "Work",
-    description: "Business & Income",
+    description:null,
+    summary: "Business & Income",
     nickname: "work",
   },
   {
@@ -5283,7 +5589,8 @@ export const data: {
     status: "3. Active",
     name_singular: "jobseeking",
     display_singular: "Jobseeking",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "work-jobseeking",
   },
   {
@@ -5292,7 +5599,8 @@ export const data: {
     status: "3. Active",
     name_singular: "resume",
     display_singular: "Resume",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "work-jobseeking-resume",
   },
   {
@@ -5301,7 +5609,8 @@ export const data: {
     status: "3. Active",
     name_singular: "referees",
     display_singular: "Referees",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "work-jobseeking-resume-referees",
   },
   {
@@ -5310,7 +5619,8 @@ export const data: {
     status: "3. Active",
     name_singular: "submissions",
     display_singular: "Submissions",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "work-jobseeking-submissions",
   },
   {
@@ -5319,7 +5629,8 @@ export const data: {
     status: "3. Active",
     name_singular: "interviews",
     display_singular: "Interviews",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "work-jobseeking-interviews",
   },
   {
@@ -5328,8 +5639,9 @@ export const data: {
     status: "3. Active",
     name_singular: "offers",
     display_singular: "Offers",
+    summary:null,
     description:
-      "employment contract offered, reviewed and accepted/rejected/negotiated",
+      "Employment contract offered, reviewed and accepted/rejected/negotiated",
     nickname: "work-jobseeking-offers",
   },
   {
@@ -5338,7 +5650,8 @@ export const data: {
     status: "3. Active",
     name_singular: "employers",
     display_singular: "Employers",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "work-employers",
   },
   {
@@ -5347,7 +5660,8 @@ export const data: {
     status: "3. Active",
     name_singular: "jobs",
     display_singular: "Jobs",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "work-jobs",
   },
   {
@@ -5356,7 +5670,8 @@ export const data: {
     status: "3. Active",
     name_singular: "income",
     display_singular: "Income",
-    description: "",
+    summary:null,
+    description:null,
     nickname: "work-income",
   },
   {
@@ -5365,7 +5680,8 @@ export const data: {
     status: "3. Hold",
     name_singular: "progression",
     display_singular: "Progression",
-    description: "career opportuniies and development",
+    description:null,
+    summary: "career opportuniies and development",
     nickname: "work-progression",
   },
   {
@@ -5374,7 +5690,8 @@ export const data: {
     status: "3. Active",
     name_singular: "objectives",
     display_singular: "Objectives",
-    description: "Goals/Aims/Targets and their substeps",
+    description:null,
+    summary: "Goals/Aims/Targets and their substeps",
     nickname: "objectives",
   },
   {
@@ -5383,7 +5700,8 @@ export const data: {
     status: "3. Active",
     name_singular: "purpose",
     display_singular: "Purpose",
-    description: "Spirituality, purpose, desires",
+    description:null,
+    summary: "Spirituality, purpose, desires",
     nickname: "objectives-purpose",
   },
   {
@@ -5392,7 +5710,8 @@ export const data: {
     status: "3. Active",
     name_singular: "aims",
     display_singular: "Aims",
-    description: "How to achieve purposes",
+    summary: "How to achieve purposes",
+    description:null,
     nickname: "objectives-aims",
   },
   {
@@ -5401,7 +5720,8 @@ export const data: {
     status: "3. Active",
     name_singular: "projects",
     display_singular: "Projects",
-    description: "how to achieve aims",
+    summary: "how to achieve aims",
+    description:null,
     nickname: "objectives-projects",
   },
   {
@@ -5410,7 +5730,8 @@ export const data: {
     status: "3. Active",
     name_singular: "assessment",
     display_singular: "Assessment",
-    description:
+    description:null,
+    summary:
       "how to reflect on / interpret projects and how successful / on track they are",
     nickname: "objectives-assessment",
   },
@@ -5420,9 +5741,30 @@ export const data: {
     status: "3. Active",
     name_singular: "overview",
     display_singular: "Overview",
-    description:
+    description:null,
+    summary:
       "how to reflect on / interpret projects and how successful / on track they are",
     nickname: "overview",
+  },
+  {
+    id: 3,
+    parent: null,
+    status: "3. Active",
+    name_singular: "world",
+    display_singular: "World",
+    summary: "World, environment and universe",
+    description: "Manage interaction with the earth & environment",
+    nickname: "world",
+  },
+  {
+    id: 4,
+    parent: null,
+    status: "3. Active",
+    name_singular: "state",
+    display_singular: "State",
+    summary: "Goverment and the commons",
+    description: "Manage Governmental and Community issues & interactions",
+    nickname: "state",
   },
 ];
 

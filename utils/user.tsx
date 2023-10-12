@@ -29,6 +29,7 @@ import { useAttributeUnioned } from "./attribute";
 import { useQueryerQuery } from "./queryer";
 import { useWindowDimensions } from "./window";
 import { useModalVisibility } from "./modal";
+import { ViewTabButton } from "./tab";
 import {
   useAuthSession,
   useAuthSignout,
@@ -271,6 +272,11 @@ export const ViewUserSignin = () => {
       <ViewContainerRow>
         {tabs.map((content, index) => (
           <ViewContainerRow key={index} style={{ flex: 1 }}>
+            {/* <ViewTabButton
+              onPress={() => handleTabPress(index)}
+              tabIndex={index}
+              tabText={content}
+            /> */}
             <ViewButtonPressable
               key={index}
               style={{

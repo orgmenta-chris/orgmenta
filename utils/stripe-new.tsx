@@ -6,7 +6,8 @@ import {
   STAGING_STRIPE_SECRET_KEY,
   STAGING_STRIPE_PUBLISHABLE_KEY,
 } from "@env";
-import { VaultGetSecret } from "./vault";
+import { requestVaultItem } from "./vault";
+import { UtilityPlatformMain } from "./platform";
 
 let publishableKey: any;
 let secretKey: any;
@@ -15,8 +16,8 @@ if (__DEV__) {
   publishableKey = `${STAGING_STRIPE_PUBLISHABLE_KEY}`;
   secretKey = `${STAGING_STRIPE_SECRET_KEY}`;
 } else {
-  publishableKey = VaultGetSecret("PRODUCTION_STRIPE_PUBLISHABLE_KEY");
-  secretKey = VaultGetSecret("PRODUCTION_STRIPE_SECRET_KEY");
+  publishableKey = requestVaultItem("PRODUCTION_STRIPE_PUBLISHABLE_KEY");
+  secretKey = requestVaultItem("PRODUCTION_STRIPE_SECRET_KEY");
 }
 
 const stripeURL = "https://api.stripe.com/v1";
@@ -870,4 +871,317 @@ export const UseNewStripeWrapperFunctions = ({}: any) => {
       ))}
     </View>
   );
+};
+
+if (__DEV__) {
+  publishableKey = `${STAGING_STRIPE_PUBLISHABLE_KEY}`;
+  secretKey = `${STAGING_STRIPE_SECRET_KEY}`;
+} else {
+  publishableKey = requestVaultItem("PRODUCTION_STRIPE_PUBLISHABLE_KEY");
+  secretKey = requestVaultItem("PRODUCTION_STRIPE_SECRET_KEY");
+}
+
+export const StripeCreatePaymentIntent = async (props: any) => {
+  const { amount, currency, customer, description } = props;
+
+  // @ts-ignore
+  const paymentIntentData = new URLSearchParams({
+    amount,
+    currency,
+    customer,
+    description,
+    "automatic_payment_methods[enabled]": true,
+  });
+
+  try {
+    const response = await fetch(`${stripeURL}/payment_intents`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: paymentIntentData.toString(),
+    });
+
+    if (response.ok) {
+      const paymentIntent = await response.json();
+      console.log("Payment Intent created:", paymentIntent);
+    } else {
+      console.error("Error creating Payment Intent:", response.statusText);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+};
+
+export const StripeConfirmPaymentIntent = async (props: any) => {
+  const { paymentIntentId, paymentMethodId, recipientEmail } = props;
+
+  const confirmPaymentData = new URLSearchParams({
+    payment_method: paymentMethodId,
+    receipt_email: recipientEmail,
+  });
+
+  try {
+    const response = await fetch(
+      `${stripeURL}/payment_intents/${paymentIntentId}/confirm`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${secretKey}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: confirmPaymentData.toString(),
+      }
+    );
+
+    if (response.ok) {
+      const confirmedPaymentIntent = await response.json();
+      console.log("Payment Intent confirmed:", confirmedPaymentIntent);
+    } else {
+      console.error("Error confirming Payment Intent:", response.statusText);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+};
+
+export const StripeCancelPaymentIntent = async (props: any) => {
+  const { paymentIntentId } = props;
+
+  try {
+    const response = await fetch(
+      `${stripeURL}/payment_intents/${paymentIntentId}/cancel`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${secretKey}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      const canceledPaymentIntent = await response.json();
+      console.log("Payment Intent canceled:", canceledPaymentIntent);
+    } else {
+      console.error("Error canceling Payment Intent:", response.statusText);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+};
+
+export const StripeCreateSetupIntent = async (props: any) => {
+  const {
+    customer,
+    description,
+    paymentMethod,
+    automaticPaymentMethodsEnabled,
+  } = props;
+
+  // @ts-ignore
+  const setupIntentData = new URLSearchParams({
+    customer,
+    description,
+    payment_method: paymentMethod,
+    "automatic_payment_methods[enabled]": false,
+  });
+
+  try {
+    const response = await fetch(`${stripeURL}/setup_intents`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: setupIntentData.toString(),
+    });
+
+    if (response.ok) {
+      const setupIntent = await response.json();
+      console.log("Setup Intent created:", setupIntent);
+    } else {
+      console.error("Error creating Setup Intent:", response.statusText);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+};
+
+const StripeCreateSession = async (props: any) => {
+  const {
+    success_url,
+    cancel_url,
+    line_items,
+    client_reference_id,
+    mode,
+    currency,
+    customer,
+    customer_email,
+  } = props;
+
+  const sessionData = new URLSearchParams({
+    success_url,
+    cancel_url,
+    "line_items[0][price]": line_items.price,
+    "line_items[0][quantity]": line_items.quantity,
+    client_reference_id,
+    mode,
+    currency,
+    customer,
+    customer_email,
+  });
+
+  try {
+    const response = await fetch(`${stripeURL}/checkout/sessions`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: sessionData.toString(),
+    });
+
+    if (response.ok) {
+      const session = await response.json();
+      console.log("Session created:", session);
+    } else {
+      console.error("Error creating session:", response.statusText);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+};
+
+const StripeExpireSession = async (props: any) => {
+  const { session_id } = props;
+
+  try {
+    const response = await fetch(
+      `${stripeURL}/checkout/sessions/${session_id}/expire`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${secretKey}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      console.log("Session expired successfully.");
+    } else {
+      console.error("Error expiring session:", response.statusText);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+};
+
+const StripeCreateLink = async (props: any) => {
+  const { line_items } = props;
+
+  const linkData = new URLSearchParams({
+    "line_items[0][price]": line_items.price,
+    "line_items[0][quantity]": line_items.quantity,
+  });
+
+  try {
+    const response = await fetch(`${stripeURL}/payment_links`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: linkData.toString(),
+    });
+
+    if (response.ok) {
+      const link = await response.json();
+      console.log("Link created:", link);
+    } else {
+      console.error("Error creating link:", response.statusText);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+};
+
+const StripeExpireLink = async (props: any) => {
+  const { link_id } = props;
+
+  try {
+    const response = await fetch(`${stripeURL}/payment_links/${link_id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+      body: "active=false",
+    });
+
+    if (response.ok) {
+      console.log("Link expired successfully.");
+    } else {
+      console.error("Error expiring link:", response.statusText);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+};
+
+
+const StripeCreateSchedule = async (props: any) => {
+  const { customer, start_date, end_behavior, phases } = props;
+
+  const scheduleData = new URLSearchParams({
+    customer,
+    start_date,
+    end_behavior,
+    "phases[0][items][0][price]": phases[0].items[0].price,
+    "phases[0][items][0][quantity]": phases[0].items[0].quantity,
+    "phases[0][iterations]": phases[0].iterations,
+  });
+
+  try {
+    const response = await fetch(`${stripeURL}/subscription_schedules`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: scheduleData.toString(),
+    });
+
+    if (response.ok) {
+      const schedule = await response.json();
+      console.log("Schedule created:", schedule);
+    } else {
+      console.error("Error creating schedule:", response.statusText);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+};
+
+const StripeCancelSchedule = async (props: any) => {
+  const { schedule_id } = props;
+
+  try {
+    const response = await fetch(
+      `${stripeURL}/subscription_schedules/${schedule_id}/cancel`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${secretKey}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      console.log("Schedule canceled successfully.");
+    } else {
+      console.error("Error canceling schedule:", response.statusText);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
 };

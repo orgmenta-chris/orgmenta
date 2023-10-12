@@ -22,7 +22,6 @@ export const validateObjectHasvalues = (value: any): boolean => {
     _.isObject(value) &&
     _.some(value, (v: any) => v !== undefined && v !== null)
   );
-
   // Expected behaviour:
   // const a = {test: 'example'} // returns TRUE
   // const a = {test: null} // returns false
@@ -32,4 +31,8 @@ export const validateObjectHasvalues = (value: any): boolean => {
   // const e = undefined // returns false
   // const f = null // returns false
   // const g = {test: {}} // returns TRUE
+};
+
+export const doObjectMerge = (objArray: Array<Record<string, any>>): Record<string, any> => {
+  return _.extend({}, ...objArray);
 };

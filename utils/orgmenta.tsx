@@ -6,15 +6,22 @@ import {
   ViewTypographyHeading,
   ViewTypographySubheading,
   ViewTypographyText,
+  ViewTypographySubsubheading,
+  ViewTypographyCycling,
 } from "./typography";
 import { ViewPageMain } from "./page";
+import { ViewRoadmapContainer } from "./roadmap";
 import { ViewModalContainer } from "./modal";
 import { ViewRouterLink, ViewRouterLinkthemed } from "./router";
 import { ViewHeaderMain, ViewHeaderSection } from "./header";
 import { ViewSpaceWidget } from "./space";
 import { ViewUserWidget } from "./user";
 import { ViewImageMain, ViewImageBackground } from "./image";
-import { ViewContainerStatic, ViewContainerScroll } from "./container";
+import {
+  ViewContainerStatic,
+  ViewContainerScroll,
+  ViewContainerRow,
+} from "./container";
 import { ViewBrowseWidget } from "./browse";
 import { ViewBookmarkWidget } from "./bookmark";
 import { ViewButtonPressable } from "./button";
@@ -24,10 +31,11 @@ import { mapTypeMain } from "./type";
 import { useModalVisibility } from "./modal";
 import { useWindowDimensions } from "./window";
 import { useThemeToken } from "./theme";
+import { data } from "./static";
 import { articlesTemp } from "../articles/_general";
 import {
   features,
-  requirements,
+  arrayHubRequirementsTemp,
   pricingTemp,
   procedures,
   paradigms,
@@ -37,10 +45,13 @@ import {
   arrayCompetitors,
   needs,
   devworkflow,
-} from "./roadmap";
+} from "./hub";
 // The home page will ideally just show a demo space + product information/ sales pitch, and a guest user if not logged in.
 // If logged in, then it should also show the user a dropdown asking them if they want to set a default page when logged in.
 import { UseNewStripeWrapperFunctions } from "./stripe";
+import { ViewForumContainer } from "./forum";
+import { ViewShareContainer } from "./share";
+import { ViewPricingContainer } from "./pricing";
 
 // HEADER
 
@@ -335,6 +346,7 @@ export const ViewOrgmentaPricing = ({}: any) => {
       <ViewContainerScroll>
         <ViewTypographyHeading>Pricing</ViewTypographyHeading>
         <ViewTypographyText>ViewOrgmentaPricing placeholder</ViewTypographyText>
+        <ViewPricingContainer/>
         <ViewTypographyText>
           {JSON.stringify(pricingTemp, null, 2)}
         </ViewTypographyText>
@@ -346,23 +358,15 @@ export const ViewOrgmentaPricing = ({}: any) => {
 export const ViewOrgmentaRoadmap = ({}: any) => {
   return (
     <ViewPageMain>
-      <ViewContainerScroll>
-        <ViewTypographyHeading>Roadmap</ViewTypographyHeading>
-        <ViewTypographyText>
-          {`Roadmap timeline (Title, summary + priorities, dates etc.) here.\n(Info comes from Orgmenta's space > System/Governance? > Offerings > Roadmap\n\n`}
-          {JSON.stringify(
-            [
-              { features },
-              { requirements },
-              { procedures },
-              { paradigms },
-              { checklist },
-            ],
-            null,
-            2
-          )}
-        </ViewTypographyText>
-      </ViewContainerScroll>
+      <ViewRoadmapContainer
+        roadmap={[
+          { features },
+          { arrayHubRequirementsTemp },
+          { procedures },
+          { paradigms },
+          { checklist },
+        ]}
+      />
     </ViewPageMain>
   );
 };
@@ -427,6 +431,9 @@ export const ViewOrgmentaFeatures = ({}: any) => {
     <ViewPageMain>
       <ViewContainerScroll>
         <ViewTypographyHeading>Features</ViewTypographyHeading>
+        <ViewTypographySubsubheading>
+          Login to upvote or request a feature (placeholder)
+        </ViewTypographySubsubheading>
         <ViewTypographySubheading>P1</ViewTypographySubheading>
         {features
           .filter((x) => x.priority === 1)
@@ -525,6 +532,7 @@ export const ViewOrgmentaSocials = ({}: any) => {
           Feed of social media posts here 
           `}
         </ViewTypographyText>
+        <ViewShareContainer/>
       </ViewContainerScroll>
     </ViewPageMain>
   );
@@ -557,65 +565,8 @@ export const ViewOrgmentaPartner = ({}: any) => {
 };
 
 export const ViewOrgmentaHome = ({}: any) => {
-  const windowDimensions = useWindowDimensions();
-  // temp switcher
-  const CompanytypeSwitcher: React.FC = () => {
-    const [index, setIndex] = useReactState(0);
-    const texts = ["IT Company", "MSP", "MSSP", "VAR", "TSP", "OED"];
-    useReactEffect(() => {
-      const timer = setInterval(() => {
-        setIndex((prevIndex: any) => (prevIndex + 1) % texts.length);
-      }, 3000);
-      return () => clearInterval(timer);
-    }, []);
-
-    return <ViewTypographyText>{texts[index]}</ViewTypographyText>;
-  };
   return (
     <ViewOrgmentaBackground>
-      <ViewContainerStatic
-        style={{
-          margin: 90,
-          backgroundColor: "rgba(255, 255, 255, 0.9)",
-          borderRadius: 5,
-          position: "absolute",
-          aspectRatio: 13 / 2,
-          width: windowDimensions.width / 2 + 40,
-          padding: 10,
-          height: 250,
-          alignSelf: "center",
-          justifyContent: "center",
-          top: windowDimensions.height / 2 - 220,
-        }}
-      >
-        <ViewImageMain
-          style={{
-            resizeMode: "contain",
-            width: "100%",
-            height: 80,
-          }}
-          source={require("../assets/logo/full/color_cropped.png")}
-        />
-        <ViewTypographyText style={{ textAlign: "center", fontSize: 20 }}>
-          The BOS (Business Operating System) / ERP (Enterprise Resource
-          Planning) / PSA (Professional Services Automation) / BMS (Business
-          Management System)
-        </ViewTypographyText>
-        <ViewTypographyText
-          style={{
-            textAlign: "center",
-            fontSize: 13,
-            paddingTop: 10,
-            fontStyle: "italic",
-          }}
-        >
-          {`Build, automate and manage your \n`}
-          <ViewTypographyText style={{ fontWeight: "500", color: "#0c4a73" }}>
-            <CompanytypeSwitcher />
-          </ViewTypographyText>
-          {`\nfrom a single pane of glass`}
-        </ViewTypographyText>
-      </ViewContainerStatic>
       <ViewContainerScroll
         style={{
           padding: 10,
@@ -625,495 +576,10 @@ export const ViewOrgmentaHome = ({}: any) => {
           height: "100%",
         }}
       >
-        {/* <ViewContainerStatic
-          key={"test"}
-          style={{
-            height: windowDimensions.height - 80,
-            backgroundColor: "green",
-          }}
-        ></ViewContainerStatic> */}
-
-        <ViewContainerStatic key={"product_overview"}>
-          <ViewContainerStatic
-            key={"product_toprow"}
-            style={{ top: -5, flexDirection: "row" }}
-          >
-            <ViewContainerStatic
-              key={"orgmenta"}
-              style={{
-                flex: 1,
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <ViewSvgMain
-                key={"orgmenta_arrow"}
-                width="100"
-                height="100"
-                style={{ alignSelf: "center" }}
-                viewBox="0 0 100 100"
-              >
-                <ViewSvgPath
-                  d="M50,50 L50,10"
-                  stroke="#22b2e4"
-                  strokeWidth="5"
-                  fill="none"
-                />
-                <ViewSvgPath
-                  d="M50,10 L40,30 L50,10 L60,30 L50,10"
-                  stroke="#22b2e4"
-                  strokeWidth="5"
-                  fill="#22b2e4"
-                />
-              </ViewSvgMain>
-              <ViewTypographyText
-                style={{
-                  top: -45,
-                  minHeight: 70,
-                  borderRadius: 5,
-                  textAlign: "center",
-                  padding: 5,
-                  alignItems: "center",
-                  backgroundColor: "rgba(255, 255, 255, 0.9)",
-                  width: 175,
-                  left: 0,
-                  flex: 1,
-                  fontSize: 14,
-                }}
-              >
-                {`Explore the App,\nCompany and Community\nwith `}
-                <ViewTypographyText
-                  style={{
-                    fontWeight: "800",
-                    color: "#0c4a73",
-                  }}
-                >
-                  Site
-                </ViewTypographyText>
-              </ViewTypographyText>
-            </ViewContainerStatic>
-          </ViewContainerStatic>
-
-          <ViewContainerStatic
-            key={"product_secondrow"}
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              top: -165,
-            }}
-          >
-            <ViewContainerStatic
-              key={"bookmark"}
-              style={{
-                left: "5%",
-                flex: 1,
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <ViewSvgMain
-                key={"bookmark_arrow"}
-                style={{ left: -30 }}
-                width="100"
-                height="150"
-                viewBox="0 0 100 400"
-              >
-                <ViewSvgPath
-                  d="M80,360 C35,260 35,140 58,15"
-                  stroke="#22b2e4"
-                  strokeWidth="15"
-                  fill="none"
-                />
-                {/* Extended Curved Arrow line */}
-                <ViewSvgGroup transform="rotate(20 50 40)">
-                  <ViewSvgPath
-                    d="M50,10 L40,30 L50,10 L60,30 L50,10"
-                    stroke="#22b2e4"
-                    strokeWidth="15"
-                    fill="#22b2e4"
-                  />
-                </ViewSvgGroup>
-                {/* Rotated Arrowhead */}
-              </ViewSvgMain>
-              <ViewTypographyText
-                style={{
-                  top: -15,
-                  minHeight: 70,
-                  borderRadius: 5,
-                  textAlign: "center",
-                  padding: 5,
-                  alignItems: "center",
-                  backgroundColor: "rgba(255, 255, 255, 0.9)",
-                  width: 150,
-                  left: 0,
-                  flex: 1,
-                  fontSize: 14,
-                }}
-              >
-                {`Navigate to your\nbusiness modules \nwith `}
-                <ViewTypographyText
-                  style={{
-                    fontWeight: "800",
-                    color: "#0c4a73",
-                  }}
-                >
-                  Bookmarks
-                </ViewTypographyText>
-              </ViewTypographyText>
-            </ViewContainerStatic>
-            <ViewContainerStatic
-              key={"browse"}
-              style={{
-                right: "5%",
-                flex: 1,
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <ViewSvgMain
-                key={"browse_arrow"}
-                style={{ right: -30 }}
-                width="100"
-                height="150"
-                viewBox="0 0 100 400"
-              >
-                <ViewSvgPath
-                  d="M20,360 C65,260 65,140 42,15"
-                  stroke="#22b2e4"
-                  strokeWidth="15"
-                  fill="none"
-                />
-                <ViewSvgGroup transform="scale(-1, 1) translate(-100, 0) rotate(20 50 40)">
-                  <ViewSvgPath
-                    d="M50,10 L40,30 L50,10 L60,30 L50,10"
-                    stroke="#22b2e4"
-                    strokeWidth="15"
-                    fill="#22b2e4"
-                  />
-                </ViewSvgGroup>
-              </ViewSvgMain>
-              <ViewTypographyText
-                style={{
-                  top: -15,
-                  minHeight: 70,
-                  borderRadius: 5,
-                  textAlign: "center",
-                  padding: 5,
-                  alignItems: "center",
-                  backgroundColor: "rgba(255, 255, 255, 0.9)",
-                  width: 150,
-                  left: 0,
-                  flex: 1,
-                  fontSize: 14,
-                }}
-              >
-                {`Universal search\nand quick-add\nwith `}
-                <ViewTypographyText
-                  style={{
-                    fontWeight: "800",
-                    color: "#0c4a73",
-                  }}
-                >
-                  Browse
-                </ViewTypographyText>
-              </ViewTypographyText>
-            </ViewContainerStatic>
-          </ViewContainerStatic>
-
-          <ViewContainerStatic
-            key={"product_thirdrow"}
-            style={{
-              top: -710,
-              flexDirection: "row",
-              width: "100%",
-            }}
-          >
-            <ViewContainerStatic
-              key={"space"}
-              style={{
-                flex: 1,
-                left: -50,
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <ViewSvgMain
-                key={"user_arrow"}
-                width="100"
-                height="1200"
-                viewBox="0 0 100 600"
-              >
-                <ViewSvgGroup transform="scale(-1, 1) translate(-100, 0)">
-                  <ViewSvgPath
-                    d="M20,540 C97.5,390 97.5,210 63,22.5"
-                    stroke="#22b2e4"
-                    strokeWidth="5"
-                    fill="none"
-                  />
-                  <ViewSvgGroup transform="scale(-1, 1) translate(-100, 0) rotate(20 37 22.5)">
-                    <ViewSvgPath
-                      d="M37,22.5 L27,42.5 L37,22.5 L47,42.5 L37,22.5"
-                      stroke="#22b2e4"
-                      strokeWidth="5"
-                      fill="#22b2e4"
-                    />
-                  </ViewSvgGroup>
-                </ViewSvgGroup>
-              </ViewSvgMain>
-              <ViewTypographyText
-                style={{
-                  minHeight: 70,
-                  top: -370,
-                  left: 50,
-                  borderRadius: 5,
-                  textAlign: "center",
-                  padding: 5,
-                  alignItems: "center",
-                  backgroundColor: "rgba(255, 255, 255, 0.9)",
-                  width: 175,
-                  flex: 1,
-                  fontSize: 14,
-                }}
-              >
-                {`Manage your organisations & members \nwith `}
-                <ViewTypographyText
-                  style={{
-                    fontWeight: "800",
-                    color: "#0c4a73",
-                  }}
-                >
-                  Spaces
-                </ViewTypographyText>
-              </ViewTypographyText>
-            </ViewContainerStatic>
-            <ViewContainerStatic
-              key={"user"}
-              style={{
-                flex: 1,
-                right: -50,
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <ViewSvgMain
-                key={"user_arrow"}
-                width="100"
-                height="1200"
-                viewBox="0 0 100 600"
-              >
-                <ViewSvgPath
-                  d="M20,540 C97.5,390 97.5,210 63,22.5"
-                  stroke="#22b2e4"
-                  strokeWidth="5"
-                  fill="none"
-                />
-                <ViewSvgGroup transform="scale(-1, 1) translate(-126, 0) rotate(20 63 22.5)">
-                  <ViewSvgPath
-                    d="M63,22.5 L53,42.5 L63,22.5 L73,42.5 L63,22.5"
-                    stroke="#22b2e4"
-                    strokeWidth="5"
-                    fill="#22b2e4"
-                  />
-                </ViewSvgGroup>
-              </ViewSvgMain>
-              <ViewTypographyText
-                style={{
-                  minHeight: 70,
-                  top: -370,
-                  right: 50,
-                  borderRadius: 5,
-                  textAlign: "center",
-                  padding: 5,
-                  alignItems: "center",
-                  backgroundColor: "rgba(255, 255, 255, 0.9)",
-                  width: 175,
-                  flex: 1,
-                  fontSize: 14,
-                }}
-              >
-                {`Manage your \naccount & activity\nwith `}
-                <ViewTypographyText
-                  style={{
-                    fontWeight: "800",
-                    color: "#0c4a73",
-                  }}
-                >
-                  Users
-                </ViewTypographyText>
-              </ViewTypographyText>
-            </ViewContainerStatic>
-          </ViewContainerStatic>
-
-          <ViewContainerStatic
-            key={"product_bottomrow"}
-            style={{ top: -1110, flexDirection: "row" }}
-          >
-            <ViewContainerStatic
-              key={"more"}
-              style={{
-                flex: 1,
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <ViewTypographyText
-                style={{
-                  top: 50,
-                  minHeight: 20,
-                  borderRadius: 5,
-                  textAlign: "center",
-                  padding: 5,
-                  alignItems: "center",
-                  backgroundColor: "rgba(255, 255, 255, 0.9)",
-                  width: 175,
-                  left: 0,
-                  flex: 1,
-                  fontSize: 14,
-                }}
-              >{`Or scroll down for\nmore information`}</ViewTypographyText>
-              <ViewSvgMain
-                key={"orgmenta_arrow_flipped"}
-                width="100"
-                height="100"
-                style={{ alignSelf: "center" }}
-                viewBox="0 0 100 100"
-              >
-                <ViewSvgPath
-                  d="M50,50 L50,90"
-                  stroke="#22b2e4"
-                  strokeWidth="5"
-                  fill="none"
-                />
-                <ViewSvgGroup transform="scale(1, -1) translate(0, -100)">
-                  <ViewSvgPath
-                    d="M50,10 L40,30 L50,10 L60,30 L50,10"
-                    stroke="#22b2e4"
-                    strokeWidth="5"
-                    fill="#22b2e4"
-                  />
-                </ViewSvgGroup>
-              </ViewSvgMain>
-            </ViewContainerStatic>
-          </ViewContainerStatic>
-
-          {/* temp spacer */}
-          <ViewContainerStatic
-            style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}
-          >
-            <ViewContainerStatic
-              style={{
-                backgroundColor: "rgba(0, 0, 0, 0.1)",
-                borderColor: "rgba(0, 0, 0, 0.15)",
-                borderWidth: 1,
-                flexDirection: "column",
-                width: "100%",
-              }}
-            >
-              <ViewTypographyText
-                style={{ fontWeight: "800", color: "#0c4a73" }}
-              >
-                Contact Form
-              </ViewTypographyText>
-              <ViewInquiryMain />
-              <ViewTypographyText
-                style={{ fontWeight: "800", color: "#0c4a73" }}
-              >
-                Overview
-              </ViewTypographyText>
-              <ViewTypographyText>
-                Clear, transparent pricing
-              </ViewTypographyText>
-              <ViewTypographyText>
-                No mandatory demo or sales pressure, just sign up and use it
-              </ViewTypographyText>
-              <ViewTypographyText>
-                (But sign up for a demo here if you want one [link])
-              </ViewTypographyText>
-              <ViewTypographyText>
-                Dedicated Account Manager who will never abandon you or charge
-                for their time
-              </ViewTypographyText>
-              <ViewTypographyText>24/7 Support</ViewTypographyText>
-              <ViewTypographyText>
-                Consulting packages available for bespoke requests
-              </ViewTypographyText>
-              <ViewTypographyText
-                style={{ fontWeight: "800", color: "#0c4a73" }}
-              >
-                Pricing
-              </ViewTypographyText>
-              <ViewTypographyText>xyz</ViewTypographyText>
-              <ViewTypographyText
-                style={{ fontWeight: "800", color: "#0c4a73" }}
-              >
-                Entity Types
-              </ViewTypographyText>
-              <ViewTypographyText>
-                All your entities and their relationships brought into the hub
-              </ViewTypographyText>
-              <ViewTypographyText style={{ fontStyle: "italic" }}>
-                {mapTypeMain.map((x, i) => x.display_plural).join(" <--> ")}
-              </ViewTypographyText>
-              <ViewTypographyText>Link Anything To Anything</ViewTypographyText>
-              <ViewTypographyText>
-                No restrictions - link any contact, to any event, to any task,
-                to any location, to any reference, to any item
-              </ViewTypographyText>
-              <ViewTypographyText>(Example screenshot here)</ViewTypographyText>
-              <ViewTypographyText
-                style={{ fontWeight: "800", color: "#0c4a73" }}
-              >
-                Features
-              </ViewTypographyText>
-              <ViewTypographyText>Business Management</ViewTypographyText>
-              <ViewTypographyText>
-                Projects & Service Tickets
-              </ViewTypographyText>
-              <ViewTypographyText>Accounting & Finance</ViewTypographyText>
-              <ViewTypographyText>
-                Procurement and stock management
-              </ViewTypographyText>
-              <ViewTypographyText>
-                Invoice your agreements and sales to your customers
-              </ViewTypographyText>
-              <ViewTypographyText>
-                Employee management and productivity
-              </ViewTypographyText>
-              <ViewTypographyText
-                style={{ fontWeight: "800", color: "#0c4a73" }}
-              >
-                Benefits
-              </ViewTypographyText>
-              <ViewTypographyText>
-                Integrated Services (outsource your work to on-demand technical
-                experts)
-              </ViewTypographyText>
-              <ViewTypographyText>
-                MSP Community (peer/expert discussions and groups)
-              </ViewTypographyText>
-              <ViewTypographyText
-                style={{ fontWeight: "800", color: "#0c4a73" }}
-              >
-                Integrations
-              </ViewTypographyText>
-              {arrayIndustryProducts
-                .filter((x) => x.priority < 3)
-                .map((x, i) => (
-                  <ViewTypographyText key={i}>{x.title}</ViewTypographyText>
-                ))}
-              <ViewTypographyText
-                style={{ fontWeight: "800", color: "#0c4a73" }}
-              >
-                Contact Form
-              </ViewTypographyText>
-              <ViewInquiryMain />
-              {/* Test Stripe/supbase db functions (working) */}
-              {/* <UseStripeFunctions /> */}
-              <UseNewStripeWrapperFunctions />
-            </ViewContainerStatic>
-          </ViewContainerStatic>
-          <ViewContainerStatic style={{ height: 1000 }} />
-        </ViewContainerStatic>
+        <ViewOrgmentaHero />
+        <ViewOrgmentaNavigationoverview />
+        <ViewOrgmentaFrameworkoverview />
+        <ViewOrgmentaProductoverview />
       </ViewContainerScroll>
       {/* Test Link (temp) */}
       {__DEV__ && (
@@ -1153,13 +619,10 @@ export const ViewOrgmentaNews = ({}: any) => {
 export const ViewOrgmentaForums = ({}: any) => {
   return (
     <ViewPageMain>
-      <ViewContainerScroll>
-        <ViewTypographyHeading>Forums</ViewTypographyHeading>
         <ViewTypographyText>
-          ViewOrgmentaForums placeholder - Community forums / discussion boards
-          go here
+          ViewOrgmentaForums placeholder - Community forums / discussion boards go here
         </ViewTypographyText>
-      </ViewContainerScroll>
+        <ViewForumContainer forumTitle={'Forums'}/>
     </ViewPageMain>
   );
 };
@@ -1226,14 +689,19 @@ export const ViewOrgmentaBackground = ({ children }: any) => {
 // WIDGET
 
 export const ViewOrgmentaWidget = () => {
-  // const orgmentaActive = useOrgmentaActive({}) as TypeOrgmentaActive;
+  const showModal = useModalVisibility("orgmenta");
   const [widgetHover, setWidgetHover] = useReactState(false);
   return (
     <ViewButtonPressable
       style={{ flexDirection: "row", justifyContent: "center", height: "100%" }}
       onPress={useModalVisibility("orgmenta")}
-      onHoverIn={() => setWidgetHover(true)}
-      onHoverOut={() => setWidgetHover(false)}
+      onHoverIn={() => {
+        setWidgetHover(true);
+        showModal();
+      }}
+      onHoverOut={() => {
+        setWidgetHover(false);
+      }}
     >
       <ViewImageMain
         resizeMode={"cover"}
@@ -1249,5 +717,548 @@ export const ViewOrgmentaWidget = () => {
         }
       />
     </ViewButtonPressable>
+  );
+};
+
+// WIDGET
+
+export const ViewOrgmentaHero = () => {
+  // A main logo + call to action / tagline / summary
+  const windowDimensions = useWindowDimensions();
+  return (
+    <ViewContainerStatic
+      style={{
+        margin: 90,
+        backgroundColor: "rgba(255, 255, 255, 0.9)",
+        borderRadius: 5,
+        position: "absolute",
+        aspectRatio: 13 / 2,
+        width: windowDimensions.width / 2 + 40,
+        padding: 10,
+        height: 250,
+        alignSelf: "center",
+        justifyContent: "center",
+        top: windowDimensions.height / 2 - 220,
+      }}
+    >
+      <ViewImageMain
+        style={{
+          resizeMode: "contain",
+          width: "100%",
+          height: 80,
+        }}
+        source={require("../assets/logo/full/color_cropped.png")}
+      />
+      <ViewTypographyText style={{ textAlign: "center", fontSize: 20 }}>
+        The BOS (Business Operating System) / ERP (Enterprise Resource Planning)
+        / PSA (Professional Services Automation) / BMS (Business Management
+        System)
+      </ViewTypographyText>
+      <ViewTypographyText
+        style={{
+          textAlign: "center",
+          fontSize: 13,
+          paddingTop: 10,
+          fontStyle: "italic",
+        }}
+      >
+        {`Build, automate and manage your \n`}
+        <ViewTypographyCycling
+          style={{ fontWeight: "500", color: "#0c4a73" }}
+          texts={["IT Company", "MSP", "MSSP", "VAR", "TSP", "OED"]}
+        />
+        {`\nfrom a single pane of glass`}
+      </ViewTypographyText>
+    </ViewContainerStatic>
+  );
+};
+
+export const ViewOrgmentaNavigationoverview = () => {
+  // Point to User, Spaces etc. and briefly explain the app.
+  const windowDimensions = useWindowDimensions();
+  return (
+    <ViewContainerStatic key={"navigation_overview"}>
+      <ViewContainerStatic
+        key={"navigation_toprow"}
+        style={{ flexDirection: "row" }}
+      >
+        <ViewContainerStatic
+          style={{
+            flex: 1,
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <ViewSvgMain
+            key={"orgmenta_arrow"}
+            width="100"
+            height="100"
+            style={{ alignSelf: "center" }}
+            viewBox="0 0 100 100"
+          >
+            <ViewSvgPath
+              d="M50,50 L50,10"
+              stroke="#22b2e4"
+              strokeWidth="5"
+              fill="none"
+            />
+            <ViewSvgPath
+              d="M50,10 L40,30 L50,10 L60,30 L50,10"
+              stroke="#22b2e4"
+              strokeWidth="5"
+              fill="#22b2e4"
+            />
+          </ViewSvgMain>
+          <ViewTypographyText
+            style={{
+              top: -45,
+              minHeight: 70,
+              borderRadius: 5,
+              textAlign: "center",
+              padding: 5,
+              alignItems: "center",
+              backgroundColor: "rgba(255, 255, 255, 0.9)",
+              width: 175,
+              left: 0,
+              flex: 1,
+              fontSize: 14,
+            }}
+          >
+            {`Explore the App,\nCompany and Community\nwith `}
+            <ViewTypographyText
+              style={{
+                fontWeight: "800",
+                color: "#0c4a73",
+              }}
+            >
+              Site
+            </ViewTypographyText>
+          </ViewTypographyText>
+        </ViewContainerStatic>
+      </ViewContainerStatic>
+      <ViewContainerStatic
+        key={"navigation_secondrow"}
+        style={{
+          flexDirection: "row",
+          width: "100%",
+          top: -165,
+        }}
+      >
+        <ViewContainerStatic
+          key={"bookmark"}
+          style={{
+            left: "5%",
+            flex: 1,
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <ViewSvgMain
+            key={"bookmark_arrow"}
+            style={{ left: -30 }}
+            width="100"
+            height="150"
+            viewBox="0 0 100 400"
+          >
+            <ViewSvgPath
+              d="M80,360 C35,260 35,140 58,15"
+              stroke="#22b2e4"
+              strokeWidth="15"
+              fill="none"
+            />
+            {/* Extended Curved Arrow line */}
+            <ViewSvgGroup transform="rotate(20 50 40)">
+              <ViewSvgPath
+                d="M50,10 L40,30 L50,10 L60,30 L50,10"
+                stroke="#22b2e4"
+                strokeWidth="15"
+                fill="#22b2e4"
+              />
+            </ViewSvgGroup>
+            {/* Rotated Arrowhead */}
+          </ViewSvgMain>
+          <ViewTypographyText
+            style={{
+              top: -15,
+              minHeight: 70,
+              borderRadius: 5,
+              textAlign: "center",
+              padding: 5,
+              alignItems: "center",
+              backgroundColor: "rgba(255, 255, 255, 0.9)",
+              width: 150,
+              left: 0,
+              flex: 1,
+              fontSize: 14,
+            }}
+          >
+            {`Navigate to your\nbusiness modules \nwith `}
+            <ViewTypographyText
+              style={{
+                fontWeight: "800",
+                color: "#0c4a73",
+              }}
+            >
+              Bookmarks
+            </ViewTypographyText>
+          </ViewTypographyText>
+        </ViewContainerStatic>
+        <ViewContainerStatic
+          key={"browse"}
+          style={{
+            right: "5%",
+            flex: 1,
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <ViewSvgMain
+            key={"browse_arrow"}
+            style={{ right: -30 }}
+            width="100"
+            height="150"
+            viewBox="0 0 100 400"
+          >
+            <ViewSvgPath
+              d="M20,360 C65,260 65,140 42,15"
+              stroke="#22b2e4"
+              strokeWidth="15"
+              fill="none"
+            />
+            <ViewSvgGroup transform="scale(-1, 1) translate(-100, 0) rotate(20 50 40)">
+              <ViewSvgPath
+                d="M50,10 L40,30 L50,10 L60,30 L50,10"
+                stroke="#22b2e4"
+                strokeWidth="15"
+                fill="#22b2e4"
+              />
+            </ViewSvgGroup>
+          </ViewSvgMain>
+          <ViewTypographyText
+            style={{
+              top: -15,
+              minHeight: 70,
+              borderRadius: 5,
+              textAlign: "center",
+              padding: 5,
+              alignItems: "center",
+              backgroundColor: "rgba(255, 255, 255, 0.9)",
+              width: 150,
+              left: 0,
+              flex: 1,
+              fontSize: 14,
+            }}
+          >
+            {`Universal search\nand quick-add\nwith `}
+            <ViewTypographyText
+              style={{
+                fontWeight: "800",
+                color: "#0c4a73",
+              }}
+            >
+              Browse
+            </ViewTypographyText>
+          </ViewTypographyText>
+        </ViewContainerStatic>
+      </ViewContainerStatic>
+      <ViewContainerStatic
+        key={"navigation_thirdrow"}
+        style={{
+          top: -710,
+          flexDirection: "row",
+          width: "100%",
+        }}
+      >
+        <ViewContainerStatic
+          key={"space"}
+          style={{
+            flex: 1,
+            left: -50,
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <ViewSvgMain
+            key={"user_arrow"}
+            width="100"
+            height="1200"
+            viewBox="0 0 100 600"
+          >
+            <ViewSvgGroup transform="scale(-1, 1) translate(-100, 0)">
+              <ViewSvgPath
+                d="M20,540 C97.5,390 97.5,210 63,22.5"
+                stroke="#22b2e4"
+                strokeWidth="5"
+                fill="none"
+              />
+              <ViewSvgGroup transform="scale(-1, 1) translate(-100, 0) rotate(20 37 22.5)">
+                <ViewSvgPath
+                  d="M37,22.5 L27,42.5 L37,22.5 L47,42.5 L37,22.5"
+                  stroke="#22b2e4"
+                  strokeWidth="5"
+                  fill="#22b2e4"
+                />
+              </ViewSvgGroup>
+            </ViewSvgGroup>
+          </ViewSvgMain>
+          <ViewTypographyText
+            style={{
+              minHeight: 70,
+              top: -370,
+              left: 50,
+              borderRadius: 5,
+              textAlign: "center",
+              padding: 5,
+              alignItems: "center",
+              backgroundColor: "rgba(255, 255, 255, 0.9)",
+              width: 175,
+              flex: 1,
+              fontSize: 14,
+            }}
+          >
+            {`Manage your organisations & members \nwith `}
+            <ViewTypographyText
+              style={{
+                fontWeight: "800",
+                color: "#0c4a73",
+              }}
+            >
+              Spaces
+            </ViewTypographyText>
+          </ViewTypographyText>
+        </ViewContainerStatic>
+        <ViewContainerStatic
+          key={"user"}
+          style={{
+            flex: 1,
+            right: -50,
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <ViewSvgMain
+            key={"user_arrow"}
+            width="100"
+            height="1200"
+            viewBox="0 0 100 600"
+          >
+            <ViewSvgPath
+              d="M20,540 C97.5,390 97.5,210 63,22.5"
+              stroke="#22b2e4"
+              strokeWidth="5"
+              fill="none"
+            />
+            <ViewSvgGroup transform="scale(-1, 1) translate(-126, 0) rotate(20 63 22.5)">
+              <ViewSvgPath
+                d="M63,22.5 L53,42.5 L63,22.5 L73,42.5 L63,22.5"
+                stroke="#22b2e4"
+                strokeWidth="5"
+                fill="#22b2e4"
+              />
+            </ViewSvgGroup>
+          </ViewSvgMain>
+          <ViewTypographyText
+            style={{
+              minHeight: 70,
+              top: -370,
+              right: 50,
+              borderRadius: 5,
+              textAlign: "center",
+              padding: 5,
+              alignItems: "center",
+              backgroundColor: "rgba(255, 255, 255, 0.9)",
+              width: 175,
+              flex: 1,
+              fontSize: 14,
+            }}
+          >
+            {`Manage your \naccount & activity\nwith `}
+            <ViewTypographyText
+              style={{
+                fontWeight: "800",
+                color: "#0c4a73",
+              }}
+            >
+              Users
+            </ViewTypographyText>
+          </ViewTypographyText>
+        </ViewContainerStatic>
+      </ViewContainerStatic>
+      <ViewContainerStatic
+        key={"navigation_bottomrow"}
+        style={{ top: -1110, flexDirection: "row" }}
+      >
+        <ViewContainerStatic
+          key={"more"}
+          style={{
+            flex: 1,
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <ViewTypographyText
+            style={{
+              top: 50,
+              minHeight: 20,
+              borderRadius: 5,
+              textAlign: "center",
+              padding: 5,
+              alignItems: "center",
+              backgroundColor: "rgba(255, 255, 255, 0.9)",
+              width: 175,
+              left: 0,
+              flex: 1,
+              fontSize: 14,
+            }}
+          >{`Or scroll down for\nmore information`}</ViewTypographyText>
+          <ViewSvgMain
+            key={"orgmenta_arrow_flipped"}
+            width="100"
+            height="100"
+            style={{ alignSelf: "center" }}
+            viewBox="0 0 100 100"
+          >
+            <ViewSvgPath
+              d="M50,50 L50,90"
+              stroke="#22b2e4"
+              strokeWidth="5"
+              fill="none"
+            />
+            <ViewSvgGroup transform="scale(1, -1) translate(0, -100)">
+              <ViewSvgPath
+                d="M50,10 L40,30 L50,10 L60,30 L50,10"
+                stroke="#22b2e4"
+                strokeWidth="5"
+                fill="#22b2e4"
+              />
+            </ViewSvgGroup>
+          </ViewSvgMain>
+        </ViewContainerStatic>
+      </ViewContainerStatic>
+    </ViewContainerStatic>
+  );
+};
+
+export const ViewOrgmentaFrameworkoverview = () => {
+  const windowDimensions = useWindowDimensions();
+  return (
+    <ViewContainerStatic
+      style={{ height: windowDimensions.height, backgroundColor: "white" }}
+    >
+      {data
+        ?.filter((x) => x.parent === 1)
+        ?.map((x: any, i: number) => (
+          <ViewContainerStatic key={i}>
+            <ViewTypographySubheading style={{ flex: 1 }}>
+              {x.display_singular}
+            </ViewTypographySubheading>
+            <ViewTypographySubsubheading style={{ flex: 1 }}>
+              {x.summary}
+            </ViewTypographySubsubheading>
+          </ViewContainerStatic>
+        ))}
+    </ViewContainerStatic>
+  );
+};
+
+export const ViewOrgmentaProductoverview = () => {
+  return (
+    <ViewContainerStatic key={"product_overview"}>
+      <ViewContainerStatic
+        style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}
+      >
+        <ViewContainerStatic
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0.1)",
+            borderColor: "rgba(0, 0, 0, 0.15)",
+            borderWidth: 1,
+            flexDirection: "column",
+            width: "100%",
+          }}
+        >
+          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+            Contact Form
+          </ViewTypographyText>
+          <ViewInquiryMain />
+          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+            Overview
+          </ViewTypographyText>
+          <ViewTypographyText>Clear, transparent pricing</ViewTypographyText>
+          <ViewTypographyText>
+            No mandatory demo or sales pressure, just sign up and use it
+          </ViewTypographyText>
+          <ViewTypographyText>
+            (But sign up for a demo here if you want one [link])
+          </ViewTypographyText>
+          <ViewTypographyText>
+            Dedicated Account Manager who will never abandon you or charge for
+            their time
+          </ViewTypographyText>
+          <ViewTypographyText>24/7 Support</ViewTypographyText>
+          <ViewTypographyText>
+            Consulting packages available for bespoke requests
+          </ViewTypographyText>
+          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+            Pricing
+          </ViewTypographyText>
+          <ViewTypographyText>xyz</ViewTypographyText>
+          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+            Entity Types
+          </ViewTypographyText>
+          <ViewTypographyText>
+            All your entities and their relationships brought into the hub
+          </ViewTypographyText>
+          <ViewTypographyText style={{ fontStyle: "italic" }}>
+            {mapTypeMain.map((x, i) => x.display_plural).join(" <--> ")}
+          </ViewTypographyText>
+          <ViewTypographyText>Link Anything To Anything</ViewTypographyText>
+          <ViewTypographyText>
+            No restrictions - link any contact, to any event, to any task, to
+            any location, to any reference, to any item
+          </ViewTypographyText>
+          <ViewTypographyText>(Example screenshot here)</ViewTypographyText>
+          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+            Features
+          </ViewTypographyText>
+          <ViewTypographyText>Business Management</ViewTypographyText>
+          <ViewTypographyText>Projects & Service Tickets</ViewTypographyText>
+          <ViewTypographyText>Accounting & Finance</ViewTypographyText>
+          <ViewTypographyText>
+            Procurement and stock management
+          </ViewTypographyText>
+          <ViewTypographyText>
+            Invoice your agreements and sales to your customers
+          </ViewTypographyText>
+          <ViewTypographyText>
+            Employee management and productivity
+          </ViewTypographyText>
+          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+            Benefits
+          </ViewTypographyText>
+          <ViewTypographyText>
+            Integrated Services (outsource your work to on-demand technical
+            experts)
+          </ViewTypographyText>
+          <ViewTypographyText>
+            MSP Community (peer/expert discussions and groups)
+          </ViewTypographyText>
+          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+            Integrations
+          </ViewTypographyText>
+          {arrayIndustryProducts
+            .filter((x) => x.priority < 3)
+            .map((x, i) => (
+              <ViewTypographyText key={i}>{x.title}</ViewTypographyText>
+            ))}
+          <ViewTypographyText style={{ fontWeight: "800", color: "#0c4a73" }}>
+            Contact Form
+          </ViewTypographyText>
+          <ViewInquiryMain />
+          {/* Test Stripe/supbase db functions (working) */}
+          {/* <UseStripeFunctions /> */}
+          <UseNewStripeWrapperFunctions />
+        </ViewContainerStatic>
+      </ViewContainerStatic>
+    </ViewContainerStatic>
   );
 };

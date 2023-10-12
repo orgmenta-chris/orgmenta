@@ -524,4 +524,12 @@ export const articlesTemp: {
     topic: "We need a long-term guarantee mediator / long term escrow to hold companies accountable to promises",
     notes: `e.g. google pixel`,
   },
+  {
+    topic: "How to use the codebase",
+    notes: `
+    //IMPORTING
+    - Show how to import declarations with autocomplete if you know where you are importing from.
+    - Or, you can just write the code, hover over the declaration tag in the function you wrote (where it is underlined red), and click 'quick-fix'> import missing...
+    `,
+  },
 ];

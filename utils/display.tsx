@@ -72,8 +72,6 @@ export const ViewDisplayPod = (props: any) => {
   const data = "make focus into an array and concat with aux";
   return (
     <ViewPodContainer items={auxiliary} schema={schema.data}>
-      <ViewPodInfo />
-      <ViewPodTabs />
       {/* <ViewPodList title={"Example List Pod"} data={auxiliary.data} /> */}
       {/* <ViewPodExample />
       <ViewPodExample />

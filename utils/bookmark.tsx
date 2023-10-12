@@ -4,6 +4,7 @@ import { ViewTypographySubsubheading, ViewTypographyLabel } from "./typography";
 import { ViewModalContainer } from "./modal";
 import { ViewCardExpandable } from "./card";
 import { ViewIconMain } from "./icon";
+import { ViewContextContainer } from "./context";
 import { ViewRouterLinkthemed } from "./router";
 import { ViewContainerStatic, ViewContainerScroll } from "./container";
 import { ViewButtonPressable } from "./button";
@@ -57,11 +58,11 @@ export const ViewBookmarkModal = (props: any) => {
                     </ViewRouterLinkthemed>
                   ))}
               />
-            )) // display the name only (temporary, to be replaced with link)
+            ))
         }
       </ViewContainerScroll>
       <ViewContainerStatic>
-        <ViewBookmarkTabs />
+        <ViewBookmarkTabs /><ViewHelpContainer/>
       </ViewContainerStatic>
     </ViewModalContainer>
   );

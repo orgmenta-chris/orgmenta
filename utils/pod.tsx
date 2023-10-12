@@ -7,24 +7,33 @@ import {
   ViewContainerStatic,
   ViewContainerColumn,
   ViewContainerRow,
+  ViewContainerScroll,
 } from "./container";
 import { ViewRouterLink, useRouterLocation } from "./router";
 import { ViewListMain } from "./list";
-import { ViewTypographyText } from "./typography";
+import { ViewTypographySubheading, ViewTypographyText } from "./typography";
 import { useAuxiliaryArray } from "./auxiliary";
 import { useSpaceState, TypeSpaceState } from "./space";
 import { useEntitySingle } from "./entity";
 import { data } from "./static";
+import { useAuthSession } from "./auth";
+import { ViewContextContainer, useContextState } from "./context";
 
-// Main
+// CONTAINER
 
 export const ViewPodContainer = ({ items, children }: any) => {
+  // A comtainer to show all enabled 'pods' (widgets for the 'front page of a business module')
+  const isGuest = useAuthSession()?.data?.currentUser === "Guest";
+  const helpEnabled = useContextState()?.data?.enabled;
+  const salesEnabled = true; // to do
   return (
-    <ViewContainerStatic>
-      {children}
-      <ViewPodsCategoryrelated />
-      {/* <Text>{JSON.stringify({items})}</Text> */}
-    </ViewContainerStatic>
+    <ViewContainerScroll style={{ flex: 1 }}>
+      <ViewPodInfo />
+      <ViewPodTabs />
+      {(isGuest || salesEnabled) && <ViewPodSalescopy />}
+      {(isGuest || helpEnabled) && <ViewPodGuides />}
+      <ViewPodCategoryrelated />
+    </ViewContainerScroll>
   );
 };
 
@@ -56,20 +65,22 @@ export const ViewPodExample = () => {
   );
 };
 
-// Title
+// INFO
 
 // A pod to show information on the currently selected entity
 // This is using static data for categories only at the moment (e.g. Accounts-Payables-Bills), but will eventually be a dynamic component using  db data.
 export const ViewPodInfo = () => {
-  // At the moment, this shows static info for categories (e.g. governance > model > plan) from static.js
-  // But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
+  // At the moment, this shows static info for categories (e.g. governance > model > plan) from static.js. But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
   const path = useRouterLocation()?.paths;
   const process = data?.find((x) => x.nickname === path[2]);
-  const parent = data?.find((y) => y.id === process?.parent);
+  const isGuest = useAuthSession()?.data?.currentUser === "Guest";
+  const helpEnabled = useContextState()?.data?.enabled;
+  const salesEnabled = true; // to do
   return (
     <ViewContainerColumn
       style={{
         margin: 5,
+        borderWidth:1,
       }}
     >
       <ViewContainerStatic style={{ backgroundColor: "lightgray" }}>
@@ -84,7 +95,7 @@ export const ViewPodInfo = () => {
   );
 };
 
-// Tabs
+// TABS
 
 // A component to show entity 'tabs' (e.g. Accounts > Payables > Bills/Payments/etc)
 // This is using static data for categories only at the moment, but will eventually be a dynamic component using  db data.
@@ -94,15 +105,15 @@ export const ViewPodTabs = () => {
   const path = useRouterLocation()?.paths;
   const process = data?.find((x) => x.nickname === path[2]);
   const subprocesses = process && data.filter((x) => x.parent === process.id);
-  const parent = data?.find((y) => y.id === process?.parent);
   return (
     <ViewContainerColumn
       style={{
         margin: 5,
+        borderWidth: 1,
       }}
     >
       {/* Tabs for each subprocess */}
-      <ViewContainerRow style={{ height: 40 }}>
+      <ViewContainerRow style={{ height: 20 }}>
         {subprocesses?.map((x, i) => (
           <ViewRouterLink
             style={{ flex: 1 }}
@@ -118,7 +129,7 @@ export const ViewPodTabs = () => {
 };
 
 // CATEGORYRELATED TEMP
-export const ViewPodsCategoryrelated = (props: any) => {
+export const ViewPodCategoryrelated = (props: any) => {
   const spaceSelected = useSpaceState(["space", "selected"]);
   const routerPaths = useRouterLocation()?.paths;
   const auxiliary = useAuxiliaryArray({
@@ -126,14 +137,69 @@ export const ViewPodsCategoryrelated = (props: any) => {
     filters_array: [], //todo
     column_names: [], //todo
   });
-  console.log("focus", focus);
   const auxiliaryRelated = auxiliary?.data?.filter((x: any) =>
     x.entities.categories?.includes(routerPaths[2])
   );
-  // console.log('auxiliary',auxiliary?.data?.map((x:any)=>x.entities.categories))
   return (
-    <ViewContainerStatic style={{ flex: 1, maxHeight: 400 }}>
+    <ViewContainerStatic
+      style={{
+        margin: 5,
+        borderWidth: 1,
+      }}
+    >
+      <ViewTypographySubheading>
+        Related Items (temp, uses static categories)
+      </ViewTypographySubheading>
       <ViewListMain data={auxiliaryRelated} />
+    </ViewContainerStatic>
+  );
+};
+
+// GUIDE
+export const ViewPodGuides = (props: any) => {
+  return (
+    <ViewContainerStatic
+      style={{
+        margin: 5,
+        borderWidth: 1,
+      }}
+    >
+      <ViewTypographySubheading>Guides</ViewTypographySubheading>
+      <ViewTypographyText>Show related guides here.</ViewTypographyText>
+    </ViewContainerStatic>
+  );
+};
+
+// GUIDE
+export const ViewPodSalescopy = (props: any) => {
+  // A pod for the sales pitch to each specific module.
+  // SHOW THIS IF USER IS NOT LOGGED IN.
+  return (
+    <ViewContainerStatic
+      style={{
+        borderWidth: 1,
+        margin: 5,
+        backgroundColor: "lightgreen",
+        maxHeight: "100%",
+        height: "100%",
+      }}
+    >
+      <ViewTypographyText>
+        ^--- These are the submodules (explain each, get data from the
+        categories array)
+      </ViewTypographyText>
+      <ViewTypographySubheading>
+        SALESPITCH FOR THE MODULE
+      </ViewTypographySubheading>
+      <ViewTypographySubheading>
+        Sales pitch here using the data from the module object (static.tsx for
+        the time being) here. Above the fold in the pods screen. point to
+        relevant areas of the screen an explain them.
+      </ViewTypographySubheading>
+      <ViewTypographyText>
+        V--- You're in the 'Pods' display at the moment, but you can switch the
+        display to view the module with different display types here
+      </ViewTypographyText>
     </ViewContainerStatic>
   );
 };

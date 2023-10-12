@@ -1,8 +1,8 @@
 import { useThemeToken, TypeThemeMain } from "./theme";
 import { validateObjectIsobject } from "./object";
 import { mergeStylesheetMain } from "./stylesheet";
+import { useReactState, useReactEffect } from "./react";
 import { Text, TextProps, TextStyle, StyleProp } from "react-native";
-
 // Main
 
 export type TypeTypographyText = TextProps;
@@ -101,12 +101,38 @@ export const ViewTypographySubsubheading = ({
   );
 };
 
-
 // LABEL
 
-export const ViewTypographyLabel = ({ style, ...props }: TypeTypographyLabel) => {
+export const ViewTypographyLabel = ({
+  style,
+  ...props
+}: TypeTypographyLabel) => {
   // Just a normal Text, but not selectable (more convinient that using ViewTypographyText and specifying selectable)
-  return <ViewTypographyText {...props} style={[style, { flexDirection: "row" }]} />;
+  return (
+    <ViewTypographyText {...props} style={[style, { flexDirection: "row" }]} />
+  );
 };
 
 export type TypeTypographyLabel = TypeTypographyText;
+
+// CYCLING
+
+export const ViewTypographyCycling = ({
+  texts,
+  ...rest
+}: TypeTypographyCycling) => {
+  // Text that cycles through multiple options (no animation, just cycles through an array of values).
+  const [index, setIndex] = useReactState(0);
+  useReactEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prevIndex: any) => (prevIndex + 1) % texts.length);
+    }, 1500);
+    return () => clearInterval(timer);
+  }, []);
+  return <ViewTypographyText {...rest}>{texts[index]}</ViewTypographyText>;
+};
+
+export type TypeTypographyCycling = TypeTypographyText & {
+  texts: string[];
+  style: TextStyle;
+};

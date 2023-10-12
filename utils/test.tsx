@@ -10,8 +10,8 @@ import { ViewClipboardCopy } from "./clipboard";
 import { ViewSoundPlayer, ViewSoundRecorder } from "./audio";
 import { ViewVideoPlayer } from "./video";
 import { ViewScreenRecorder } from "./recorder";
-import { ViewHelpContainer } from "./help";
-import { deleteQueryerQuery } from "./queryer";
+import { ViewContextContainer } from "./context";
+import { deleteQueryerQuery, useQueryerClient} from "./queryer";
 import { ViewContainerScroll } from "./container";
 import { ViewShieldButton, ViewShieldUniversal } from "./shield";
 import { TypeNotificationBody, ViewNotificationExample } from "./notification"; // Chris to check naming conventions. Also need to check how to use this?
@@ -20,6 +20,7 @@ import { ViewAttributeCreate } from "./attribute";
 export const ViewTestPage = () => {
   const aux = useAuxiliaryArray({ filter_array: [] });
   // deleteQueryerQuery() //deletes ALL cached queries
+  // const queryerClient = useQueryerClient();
   return __DEV__ ? (
     <ViewPageMain>
       <ViewContainerScroll>

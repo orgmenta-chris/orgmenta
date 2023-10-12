@@ -1,6 +1,4 @@
-// help module.
-// Components will have info icons that the user can click on for assistance (and link to a help page?)
-// Need to absract the bar (to 'toolbar'), the info (to 'info') and settings (to 'settings)
+// A preference is a specific setting for the UI.
 
 import { useReactState } from "./react";
 import { ViewContainerStatic } from "./container";
@@ -11,20 +9,18 @@ import { ViewIconMain } from "./icon";
 
 // POPUP
 
-export const ViewHelpPopup = ({ children, state }: any) => {
+export const ViewPreferencePopup = ({ children, state }: any) => {
   return (
     <ViewContainerStatic>
-      <ViewTypographyText>
-        Maybe just use a UI library's tooltip for this rather than spinning own
-      </ViewTypographyText>
+      <ViewTypographyText>todo</ViewTypographyText>
       <ViewTypographyText>{children}</ViewTypographyText>
     </ViewContainerStatic>
   );
 };
 
-// ICONS
+// BUTTON
 
-export const ViewHelpButton = ({ children, set, to }: any) => {
+export const ViewPreferenceButton = ({ children, set, to }: any) => {
   return (
     <ViewButtonPressable
       style={{
@@ -36,9 +32,11 @@ export const ViewHelpButton = ({ children, set, to }: any) => {
       // onHoverOut={() => set(false)}
     >
       <ViewIconMain
-        name={"help-with-circle"}
-        source={"Entypo"}
+        name={"ellipsis-horizontal-circle-sharp"}
+        source={"Ionicons"}
         color={"gray"}
+        size={26}
+        style={{ top: -2 }}
       />
     </ViewButtonPressable>
   );
@@ -46,7 +44,7 @@ export const ViewHelpButton = ({ children, set, to }: any) => {
 
 // STATE
 
-export const useHelpState = () => {
+export const usePreferenceState = () => {
   //TODO (just return true for now)
   return { data: { enabled: true } };
 };

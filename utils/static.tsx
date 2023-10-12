@@ -53,6 +53,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "governance",
     display_singular: "Governance",
+    summary: "Management & Business Planning",
     description: "Overarching command and decision making for the business",
     nickname: "governance",
   },
@@ -303,7 +304,7 @@ export const data: {
     display_singular: "Regulation",
     description:
       "Permits, Auditing, accreditation, compliance and adhering to regulations",
-    tagline:
+    summary:
       "A central repository and manager to simplify all incorporatation, certification and regulation requirements",
     nickname: "governance-regulation",
   },
@@ -522,7 +523,7 @@ export const data: {
     name_singular: "executive",
     display_singular: "Executive",
     description: "Management and Executive decision making",
-    tagline:
+    summary:
       "Standardise and supercharge your decision making throughout the business",
     notes: [
       "Includes executive meeting setup, task management setup (e.g. Traction Tools, L10 meetings, etc.)",
@@ -589,6 +590,7 @@ export const data: {
     status: "0. New",
     name_singular: "accounts",
     display_singular: "Accounts",
+    summary: "Invoices, Bills & Finance",
     description: "Organise your business finances",
     nickname: "accounts",
   },
@@ -599,7 +601,7 @@ export const data: {
     name_singular: "ledger",
     display_singular: "Ledger",
     description: "Chart of accounts, bookkeeping and reporting",
-    tagline:
+    summary:
       "Simplify, manage and supercharge your chart of accounts and reporting",
     nickname: "accounts-ledger",
   },
@@ -793,7 +795,7 @@ export const data: {
     status: "0. New",
     name_singular: "receivables",
     display_singular: "Receivables",
-    tagline: "Get your invoices issued and paid on time.",
+    summary: "Get your invoices issued and paid on time.",
     description: "End-to-end revenue operations",
     benefits:
       "Save $1,000s on missed revenue. Have an expert on hand to manage everything for you. Avoid costly in house staff",
@@ -881,7 +883,7 @@ export const data: {
     status: "0. New",
     name_singular: "debtors",
     display_singular: "Debtors",
-    tagline:
+    summary:
       "Monitor and manage debtors, billing setups, payment plans and customer credit risk",
     summary:
       "We collate and update your debtor details, help customers set up billing methods, and manage customer statements and plans",
@@ -1100,7 +1102,7 @@ export const data: {
     name_singular: "pipeline",
     display_singular: "Pipeline",
     price_unit: "line item",
-    tagline: "Identify and maximise all of your potential & missing revenue",
+    summary: "Identify and maximise all of your potential & missing revenue",
     summary: "We predict, sanitize and prepare all of your queued invoicing",
     description:
       "Prediction, sanitisation and preparation of all queued invoicing",
@@ -1124,7 +1126,7 @@ export const data: {
     status: "0. New",
     name_singular: "invoicing",
     display_singular: "Invoicing",
-    tagline:
+    summary:
       "Bill your customers on time and with comprehensive, correct line items",
     subheading2:
       "We issue all of your invoices, downpayments, deposits and prepayments",
@@ -1218,7 +1220,7 @@ export const data: {
     status: "0. New",
     name_singular: "collections",
     display_singular: "Collections",
-    tagline: "Management and collection of owed revenue",
+    summary: "Management and collection of owed revenue",
     summary:
       "We issue invoice reminders, handle invoice queries and manage debtor communications",
     description: "",
@@ -1344,7 +1346,7 @@ export const data: {
     name_singular: "settlements",
     display_singular: "Settlements",
     description: "",
-    tagline: "Receive and reconcile customer payments",
+    summary: "Receive and reconcile customer payments",
     summary:
       "We manage receiving of payments, and reconcile them to the correct invoices",
     price_unit: "payment",
@@ -1377,10 +1379,10 @@ export const data: {
     name_singular: "payables",
     display_singular: "Payables",
     description: "Bills from your suppliers",
-    tagline: "Get your bills entered and paid on time. Stress Free.",
+    summary: "Get your bills entered and paid on time. Stress Free.",
     subheading2:
       "Orgmenta handles your supplier billing, repeating bills, bill entering and payment preparation.",
-    summary: [
+    process: [
       "No more late notices and fees",
       "No more fretting about late payments",
       "All of your bills collated into a simple, stress-free view",
@@ -1853,8 +1855,8 @@ export const data: {
     nickname: "accounts-compliance",
   },
   {
-    id: 124,
-    parent: 12,
+    id: 1240,
+    parent: 124,
     status: "5. Hold",
     name_singular: "conformance",
     display_singular: "Conformance",
@@ -1865,7 +1867,7 @@ export const data: {
     nickname: "accounts-conformance",
   },
   {
-    id: 1240,
+    id: 1241,
     parent: 124,
     status: "5. Hold",
     name_singular: "tax",
@@ -1913,6 +1915,7 @@ export const data: {
     status: "0. New",
     name_singular: "product",
     display_singular: "Product",
+    summary: "Catalog, Inventory & Deployments",
     description:
       "Procure components, assemble them and deliver them to your customer",
     benefits: "",
@@ -2141,7 +2144,7 @@ export const data: {
     name_singular: "procurement",
     display_singular: "Procurement",
     description: "Purchase requests & Purchase orders",
-    tagline: "",
+    summary: null,
     nickname: "product-procurement",
   },
   {
@@ -2150,7 +2153,7 @@ export const data: {
     status: "0. New",
     name_singular: "requests",
     display_singular: "Requests",
-    tagline: "Purchasing request management and approvals",
+    summary: "Purchasing request management and approvals",
     price_unit: "product",
     description:
       "Process and sanitise the purchase requests queue. Purchase preapprovals based on conditions you set. Request other approvals from you.",
@@ -2595,6 +2598,7 @@ export const data: {
     status: "0. New",
     name_singular: "customer",
     display_singular: "Customer",
+    summary: "Onboarding, Sales & Portal",
     description: "Management of your clients / consumers / users",
     nickname: "customer",
   },
@@ -2807,6 +2811,7 @@ export const data: {
     status: "0. New",
     name_singular: "supplier",
     display_singular: "Supplier",
+    summary: "Vendors & Supply Chain",
     description: "Management of partners / suppliers / vendors / manufacturers",
     nickname: "supplier",
   },
@@ -2962,6 +2967,7 @@ export const data: {
     status: "0. New",
     name_singular: "personnel",
     display_singular: "Personnel",
+    summary: "Timesheets, HR & Payroll",
     description: "Employee tools & Human Resources",
     nickname: "personnel",
   },
@@ -3597,6 +3603,7 @@ export const data: {
     status: "0. New",
     name_singular: "market",
     display_singular: "Market",
+    summary: "Campaigns, Engagement and Branding",
     description: "Marketing, branding and community engagement",
     nickname: "market",
   },
@@ -3710,7 +3717,6 @@ export const data: {
     status: "0. New",
     name_singular: "channels",
     display_singular: "Channels",
-    tagline: "TAGLINE",
     process: [1, 2, 3],
     nickname: "market-engagement-channels",
   },
@@ -3720,7 +3726,6 @@ export const data: {
     status: "0. New",
     name_singular: "posts",
     display_singular: "Posts",
-    tagline: "TAGLINE",
     process: [1, 2, 3],
     nickname: "market-engagement-posts",
   },
@@ -3730,7 +3735,6 @@ export const data: {
     status: "0. New",
     name_singular: "calendar",
     display_singular: "Calendar",
-    tagline: "TAGLINE",
     process: [1, 2, 3],
     nickname: "market-engagement-calendar",
   },
@@ -3750,10 +3754,10 @@ export const data: {
     status: "0. New",
     name_singular: "project",
     display_singular: "Project",
-    description:
-      "Management of all the production (all work/tasks) that is undertaken in the business",
     summary:
-      "Track all of your projects & service tickets, with optional best practice libraries (ITIL, PMBOK, Prince2, ISO:9001, etc.)",
+      "Service Desk & Projects",
+    description:
+      "Management of all the production (all work/tasks) that is undertaken in the business.\nTrack all of your projects & service tickets, with optional best practice libraries (ITIL, PMBOK, Prince2, ISO:9001, etc.)",
     nickname: "project",
   },
   {
@@ -4400,6 +4404,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "system",
     display_singular: "System",
+    summary: "Technology, Process and Facilities",
     description:
       "The system that the organisation runs on (IT, Site Management, Office Administration)",
     nickname: "system",

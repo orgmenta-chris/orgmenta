@@ -6,14 +6,17 @@ import {
 import { ViewTypographyText } from "./typography";
 import { ViewButtonPressable } from "./button";
 import { ViewFieldDynamic, TypeFieldDynamic } from "./field";
-import { isArrayNonempty } from "./array";
 import { TypeReactNode } from "./react";
+import { isArrayNonempty } from "./array";
+import { createUuid4 } from "./uuid";
+import { useRouterLocation } from "./router";
 import {
   useQueryerClient,
   useQueryerQuery,
-  TypeQueryerResult,
+  TypeQueryerResult, useQueryerQueries
 } from "./queryer";
-
+import { doObjectMerge } from "./object";
+import { useEntityCreate } from "./entity";
 // CONTAINER
 
 export interface interfaceFormContainer {
@@ -26,7 +29,13 @@ export interface interfaceFormContainer {
 
 // A form that shows the correct field type based on a field property in each object
 export const ViewFormDynamic = ({ data, formname }: TypeFormDynamic) => {
+  const category = useRouterLocation().paths[2]
   const formState = useFormState([formname]);
+  const entityState = createFormState(formState);
+  entityState.id=createUuid4();
+  console.log('formState',formState)
+  console.log('entityState',entityState)
+  const createEntity = useEntityCreate(entityState as any)
   return (
     <ViewContainerStatic>
       <ViewContainerStatic>
@@ -65,7 +74,7 @@ export type TypeFormDynamic = {
 // BUTTONS (TODO)
 // Make a button set (clear/reset, cancel, save) for the forms
 export const ViewFormButtons = ({ data, title, formState }: any) => {
-  console.log('formState',formState)
+  // console.log("formState", formState);
   //(move these into separate function(s) when done)
   let relationships = [];
   let entities = [];
@@ -141,10 +150,54 @@ export const useFormState = (id: string[]) => {
   const formState = queryerClient
     .getQueryCache()
     .findAll(["field"].concat(id))
-    .filter((query) => !!(query.state.data as any)?.value || !!(query.state.data as any)?.valueDefault)
+    .filter(
+      (query) =>
+        // !!(query.state.data as any)?.value ||
+        !!(query.state.data as any)?.valueDefault
+    )
     .map((query) => {
-      return { [query.queryKey[3] as string]: (query.state.data as any).value }; // only return the attribute name and value (for now. may need other things like validation later.)
+      return {...query.state.data, 'attribute': query.queryKey[3] as string}; // only return the attribute name and value (for now. may need other things like validation later.)
     });
+    // .map((query) => {
+    //   return { [query.queryKey[3] as string]: query.state.data}; // only return the attribute name and value (for now. may need other things like validation later.)
+    // });
+  // .map((query) => {
+  //   return { [query.queryKey[3] as string]: (query.state.data as any).value }; // only return the attribute name and value (for now. may need other things like validation later.)
+  // });
   // console.log("formState", formState);
+  console.log('formState',formState)
   return formState;
+};
+
+
+
+
+// export const useFormState = (id: string[]) => {
+//   const queries = useQueryerQueries(
+//     id.map((fieldId) => ({
+//       queryKey: ["field"].concat(fieldId),
+//       queryFn: async () => {
+//         // Fetch logic if any
+//         return null;
+//       },
+//       enabled: false,
+//     }))
+//   );
+
+//   const formState = queries
+//     .filter(
+//       (query) => !!(query.data as any)?.valueDefault
+//     )
+//     .map((query) => {
+//       return { ...query.data, 'attribute': query.queryKey[3] as string };
+//     });
+
+//   return formState;
+// };
+
+export const createFormState = (arr: { value?: any, valueDefault?: any, attribute: string }[]): Record<string, string | null> => {
+  return arr.reduce((acc, obj) => {
+    acc[obj.attribute] = obj.value ?? obj.valueDefault ?? null;
+    return acc;
+  }, {} as Record<string, string | null>);
 };

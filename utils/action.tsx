@@ -6,7 +6,7 @@ import { ViewDisplayTabs } from "./display";
 import { ViewButtonPressable } from "./button";
 import { ViewIconMain } from "./icon";
 import { ViewFileModal } from "./pdf";
-import { ViewHelpContainer } from "./help";
+import { ViewContextContainer } from "./context";
 import {
   ViewTypographyText,
   ViewTypographySubheading,
@@ -64,7 +64,7 @@ export const ViewActionAdd = ({ schema, focus }: any) => {
     .map((x: any) => {
       return {
         ...x,
-        valueDefault: x.label === "Category" ? paths[2] // If category then put in the current category from the url
+        valueDefault: x.label === "Category" ?[ paths[2] ]// If category then put in the current category from the url
         : x.valueDefault, // Else alias the defaultValue field to be initial value
       };
     });

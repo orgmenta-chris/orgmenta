@@ -236,7 +236,7 @@ export const useAttributeUnioned = (classArray: any) => {
   const query = useQueryerQuery<any, Error>(queryKey, queryFn, {
     enabled: true,
   });
-  console.log(query?.data?.length);
+  // console.log(query?.data?.length);
   return query;
 };
 

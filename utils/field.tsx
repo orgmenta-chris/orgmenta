@@ -1,5 +1,7 @@
 // A field is a data field and associated components (label, privacy shield, buttons, etc.)
 
+// todo: 'field groups' to allow you to group fields (e.g. id, title and alias into a 'name' group)
+
 import {
   useQueryerClient,
   useQueryerQuery,
@@ -48,19 +50,20 @@ export const ViewFieldDynamic = ({
     item.attribute_name,
   ]) as TypeFieldState;
   // get the set function to upate the state:
+
   const fieldSet = useFieldSet([formname, queryId, item.attribute_name]);
-  const updateName = () => {
-    fieldSet("defaultValue", () => item.valueDefault);
-  };
+
   // temp prepopulation of fieldState
-  useReactEffect(() => {// Temp (this should not be run every component load).    
+  useReactEffect(() => {
     // console.log(item.attribute_name, item.valueDefault);
-    fieldSet("defaultValue", () => item.valueDefault);
-  }, []); // set the initial value into the form
+    fieldSet("valueDefault", () => item.valueDefault);
+  }, []); // set the defaultValue into the form
+
   // Dynamically decide on a field component (Richtext, Integer, Text etc.) from the item's 'component' property:
   const Component =
     mapFieldComponents[item.component as string] ||
     mapFieldComponents["invalid"]; // this may benefit from usecallback or memoization of some sort?
+
   return (
     <ViewContainerRow style={{ margin: 5 }}>
       <ViewTypographyLabel

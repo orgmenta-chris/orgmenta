@@ -13,14 +13,42 @@
 //https://news.ycombinator.com/item?id=37749608 	Project Management Software Can't Save You (wired.com) (https://www.wired.com/story/project-management-software-productivity/)
 // Address those concerns in the article - how orgmenta solves this, how orgmenta does NOT solve it.
 
-
 export const articlesTemp: {
   // id: number;
   topic: string;
   notes: string;
 }[] = [
   {
-    topic: "We aren't 'IT Providers', and we don't offer 'IT'. We are 'Systems Providers', and we offer 'Systems' / The state and future of our industry's solutions",
+    topic:`Scrollbar design and usability`,
+    notes: `
+    https://news.ycombinator.com/item?id=37864867
+    https://artemis.sh/2023/10/12/scrollbars.html
+    `
+  },
+  {
+    topic:`Reducing clicks in an Enterprise size ERP`,
+    notes: `
+      How do you keep clicks down in such a broad scope application?
+      Nav bar that can be pinned
+      Able to save custom bookmarks+bookmark groups
+      All functionality designed to be at your fingertips
+    `,
+  },
+  {
+    topic:`How to create your own bookmark groups, e.g. create 'service boards' as a group.`,
+    notes: `
+      
+    `,
+  },
+  {
+    topic:`How to connect an integration/api`,
+    notes: `
+      
+    `,
+  },
+  {
+    topic:
+      "We aren't 'IT Providers', and we don't offer 'IT'. We are 'Systems Providers', and we offer 'Systems' / The state and future of our industry's solutions",
     notes: `
     - 'Systems' is an entire division of the business. It is bigger than IT. It is the exoskeleton for the business. It is the system that allows the business to run. 
     - We as an industry are on the right track by moving from break-fix to MSP, vCIO etc.. But we need to zoom out, see the bigger picture, and jump ahead to the logical, correct position. We're running a little behind (and our customers are even further behind, still seeing us as a cost center)
@@ -45,7 +73,8 @@ export const articlesTemp: {
     `,
   },
   {
-    topic: "(...and one article per page/screen of the app, with justifications)",
+    topic:
+      "(...and one article per page/screen of the app, with justifications)",
     notes: `
     `,
   },
@@ -56,13 +85,15 @@ export const articlesTemp: {
     `,
   },
   {
-    topic: "'Holistic design' (/ Top-Down Design / Systemic Design / Systems Thinking / Architectural Design / High-Level Design / Integrated Design)",
+    topic:
+      "'Holistic design' (/ Top-Down Design / Systemic Design / Systems Thinking / Architectural Design / High-Level Design / Integrated Design)",
     notes: `
     See business framework (articles), the idea of a central business framework, the Database design article and paradigms regarding 'customer','supplier' incorrect silo-ing, etc.
     `,
   },
   {
-    topic: "Consistent, always-available 'action panels' for creating, editing, syncing, filtering etc.",
+    topic:
+      "Consistent, always-available 'action panels' for creating, editing, syncing, filtering etc.",
     notes: `(add this to features too)`,
   },
   {
@@ -121,7 +152,8 @@ export const articlesTemp: {
     `,
   },
   {
-    topic: "useQuery for state, cache, db management - a holistic, performent, clean, intuitive paradigm/system compared to propdrilling/",
+    topic:
+      "useQuery for state, cache, db management - a holistic, performent, clean, intuitive paradigm/system compared to propdrilling/",
     notes: `
       
     `,
@@ -521,7 +553,8 @@ export const articlesTemp: {
     notes: `See the notes in updates.tsx`,
   },
   {
-    topic: "We need a long-term guarantee mediator / long term escrow to hold companies accountable to promises",
+    topic:
+      "We need a long-term guarantee mediator / long term escrow to hold companies accountable to promises",
     notes: `e.g. google pixel`,
   },
   {

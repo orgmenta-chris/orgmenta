@@ -43,7 +43,8 @@ export const ViewPodContainer = ({ items, children }: any) => {
       <ViewPodInfo />
       <ViewPodTabs />
       {(isGuest || salesEnabled) && <ViewPodOverview />}
-      {(isGuest || helpEnabled) && <ViewPodGuides />}
+      {(isGuest || salesEnabled) && <ViewPodIntegrations />}
+      {(isGuest || salesEnabled || helpEnabled) && <ViewPodGuides />}
       <ViewPodCategoryrelated />
     </ViewContainerScroll>
   );
@@ -171,27 +172,8 @@ export const ViewPodCategoryrelated = (props: any) => {
   );
 };
 
-// GUIDE
-export const ViewPodGuides = (props: any) => {
-  return (
-    <ViewContainerStatic
-      style={{
-        margin: 5,
-        borderWidth: 1,
-      }}
-    >
-      <ViewContainerRow>
-        <ViewTypographySubheading style={{ flex: 1 }}>
-          Guides
-        </ViewTypographySubheading>
-        <ViewContextContainer />
-      </ViewContainerRow>
-      <ViewTypographyText>Show related guides here.</ViewTypographyText>
-    </ViewContainerStatic>
-  );
-};
 
-// GUIDE
+// OVERVIEW
 export const ViewPodOverview = (props: any) => {
   const windowHeight = useWindowDimensions().width;
   const categoryPath = useRouterLocation().paths[2];
@@ -230,11 +212,11 @@ export const ViewPodOverview = (props: any) => {
       <ViewTypographyHeading style={{ flex: 1, textAlign: "center" }}>
         {categoryInfo?.display_singular}
       </ViewTypographyHeading>
-      <ViewTypographySubheading
+      <ViewTypographySubsubheading
         style={{ flex: 1, textAlign: "center", fontStyle: "italic" }}
       >
         {categoryInfo?.summary}
-      </ViewTypographySubheading>
+      </ViewTypographySubsubheading>
       <ViewContainerStatic style={{ marginVertical: 10 }}>
         {categoryChildren?.map((x, i) => (
           <ViewButtonLink
@@ -245,17 +227,75 @@ export const ViewPodOverview = (props: any) => {
           />
         ))}
       </ViewContainerStatic>
-      <ViewTypographyText>
+      {/* <ViewTypographyText>
         {JSON.stringify(categoryInfo, null, 2)}
       </ViewTypographyText>
       <ViewTypographySubheading>SUBCATS</ViewTypographySubheading>
       <ViewTypographyText>
         {JSON.stringify(categoryChildren, null, 2)}
-      </ViewTypographyText>
+      </ViewTypographyText> */}
       <ViewTypographyText>
         V--- You're in the 'Pods' display at the moment, but you can switch the
         display to view the module with different display types here
       </ViewTypographyText>
+    </ViewContainerStatic>
+  );
+};
+
+// INTEGRATIONS
+export const ViewPodIntegrations = (props: any) => {
+  const windowHeight = useWindowDimensions().width;
+  const categoryPath = useRouterLocation().paths[2];
+  const categoryInfo = data?.find((x) => x?.nickname === categoryPath)!;
+  const categoryChildren = data?.filter((x) => x?.parent === categoryInfo?.id);
+  // A pod for the sales pitch to each specific module.
+  // SHOW THIS IF USER IS NOT LOGGED IN.
+  return (
+    <ViewContainerStatic
+      style={{
+        borderWidth: 1,
+        margin: 5,
+        backgroundColor: "lightgreen",
+        maxHeight: windowHeight / 2 - 130, // temp, to get dimensions of the parentparent container instead
+        height: windowHeight / 2 - 130, // temp, to get dimensions of the parentparent container instead
+      }}
+    >
+    <ViewContainerRow>
+      <ViewTypographySubheading style={{ flex: 1 }}>
+        Integrations
+      </ViewTypographySubheading>
+      <ViewContextContainer />
+    </ViewContainerRow>
+    <ViewTypographyText>Show relevant integrations here.</ViewTypographyText>
+  </ViewContainerStatic>
+  );
+};
+
+// INTEGRATIONS
+export const ViewPodGuides = (props: any) => {
+  const windowHeight = useWindowDimensions().width;
+  const categoryPath = useRouterLocation().paths[2];
+  const categoryInfo = data?.find((x) => x?.nickname === categoryPath)!;
+  const categoryChildren = data?.filter((x) => x?.parent === categoryInfo?.id);
+  // A pod for the sales pitch to each specific module.
+  // SHOW THIS IF USER IS NOT LOGGED IN.
+  return (
+    <ViewContainerStatic
+      style={{
+        borderWidth: 1,
+        margin: 5,
+        backgroundColor: "lightgreen",
+        maxHeight: windowHeight / 2 - 130, // temp, to get dimensions of the parentparent container instead
+        height: windowHeight / 2 - 130, // temp, to get dimensions of the parentparent container instead
+      }}
+    >
+      <ViewContainerRow>
+        <ViewTypographySubheading style={{ flex: 1 }}>
+          Guides
+        </ViewTypographySubheading>
+        <ViewContextContainer />
+      </ViewContainerRow>
+      <ViewTypographyText>Show related guides here.</ViewTypographyText>
     </ViewContainerStatic>
   );
 };

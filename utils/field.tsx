@@ -49,21 +49,24 @@ export const ViewFieldDynamic = ({
     queryId,
     item.attribute_name,
   ]) as TypeFieldState;
+  const formState = useFormState(['formtest'])//temp test
   // get the set function to upate the state:
 
-  const fieldSet = useFieldSet([formname, queryId, item.attribute_name]);
+  // const fieldSet = useFieldSet([formname, queryId, item.attribute_name]);
+  const formSet = useFormSet([formname, queryId, item.attribute_name]);
 
   // temp prepopulation of fieldState
   useReactEffect(() => {
     // console.log(item.attribute_name, item.valueDefault);
-    fieldSet("valueDefault", () => item.valueDefault);
+    // fieldSet(item.attribute_name,"valueDefault", () => item.valueDefault);
+    formSet("valueDefault", () => item.valueDefault, item.attribute_name);
   }, []); // set the defaultValue into the form
 
   // Dynamically decide on a field component (Richtext, Integer, Text etc.) from the item's 'component' property:
   const Component =
     mapFieldComponents[item.component as string] ||
     mapFieldComponents["invalid"]; // this may benefit from usecallback or memoization of some sort?
-
+console.log('formState?.data', formState?.data,)
   return (
     <ViewContainerRow style={{ margin: 5 }}>
       <ViewTypographyLabel
@@ -80,7 +83,9 @@ export const ViewFieldDynamic = ({
           // Else show the field
           <Component
             state={fieldState?.data}
-            set={fieldSet}
+            set={formSet}
+            attributename={item.attribute_name}
+            // set2={formSet}
             valueDefault={item.valueDefault} // remove these once in state
             valueOptions={item.valueOptions} // remove these once in state
           />
@@ -185,11 +190,12 @@ export const ViewFieldText = ({ valueDefault, secure, state }: any) => {
 };
 
 // A non-editable text field
-export const ViewFieldInput = ({ valueDefault, secure, state, set }: any) => {
+export const ViewFieldInput = ({ valueDefault, secure, state, set, attributename }: any) => {
   return (
     <ViewInputText
       onChangeText={(value: string) => {
-        set("value", () => value);
+        // set("value", () => value);
+        set("value", () => value, attributename);
       }}
       style={{
         flexDirection: "row",
@@ -243,13 +249,14 @@ export const ViewFieldRichtext = ({
   valueDefault,
   secure,
   state,
-  set,
+  set,attributename
 }: any) => {
   return (
     <ViewInputRichmain
       style={{ flex: 1 }}
       onChangeText={(value: string) => {
-        set("value", () => value);
+        set("value", () => value, attributename);
+        // set("value", () => value);
       }}
       defaultValue={valueDefault}
     />
@@ -257,11 +264,12 @@ export const ViewFieldRichtext = ({
 };
 
 // Decimal
-export const ViewFieldDecimal = ({ valueDefault, secure, state, set }: any) => {
+export const ViewFieldDecimal = ({ valueDefault, secure, state, set, attributename}: any) => {
   return (
     <ViewInputDecimal
       onChangeText={(value: string | number) => {
-        set("value", () => value);
+        set("value", () => value, attributename);
+        // set("value", () => value);
       }}
       style={{
         height: 35,
@@ -274,11 +282,12 @@ export const ViewFieldDecimal = ({ valueDefault, secure, state, set }: any) => {
 };
 
 // Integer
-export const ViewFieldInteger = ({ valueDefault, secure, state, set }: any) => {
+export const ViewFieldInteger = ({ valueDefault, secure, state, set, attributename }: any) => {
   return (
     <ViewInputInteger
       onChangeText={(value: string | number) => {
-        set("value", () => value);
+        set("value", () => value, attributename);
+        // set("value", () => value);
       }}
       // secureTextEntry={secure}
       style={{
@@ -314,11 +323,12 @@ export const ViewFieldDatetime = ({
 };
 
 // Button
-export const ViewFieldButton = ({ valueDefault, secure, state, set }: any) => {
+export const ViewFieldButton = ({ valueDefault, secure, state, set, attributename }: any) => {
   return (
     <ViewButtonPressable
       onPress={() => {
-        set("value", () => !state.value);
+        set("value", () => !state.value, attributename);
+        // set("value", () => !state.value);
       }}
       style={{
         flexDirection: "row",
@@ -338,6 +348,7 @@ export const ViewFieldButtongroup = ({
   valueOptions,
   state,
   set,
+  attributename
 }: any) => {
   return (
     <ViewContainerScroll horizontal style={{ padding: 2 }}>
@@ -346,7 +357,7 @@ export const ViewFieldButtongroup = ({
         <ViewButtonPressable
           key={i}
           onPress={() => {
-            set("value", () => x);
+            set("value", () => x, attributename);
           }}
           style={{
             flexDirection: "row",
@@ -370,6 +381,7 @@ export const ViewFieldCalculated = ({
   state,
   set,
   style,
+  attributename
 }: any) => {
   return (
     <ViewContainerStatic
@@ -463,6 +475,15 @@ export const useFieldState = (id: string[]) => {
     refetchOnWindowFocus: false, // Make sure the state won't reset when tabbing in and out of the app
   });
 };
+export const useFormState = (id: string[]) => {
+  return useQueryerQuery({
+    queryKey: ["field"], // construct the queryKey
+    queryFn: () => null, // No function necessary (as we just want an empty state/cache to use)
+    staleTime: Infinity, // This means the data will never become stale automatically
+    refetchOnWindowFocus: false, // Make sure the state won't reset when tabbing in and out of the app
+  });
+};
+
 
 export type TypeFieldState = TypeQueryerResult & {
   data: {
@@ -476,26 +497,44 @@ export type TypeFieldState = TypeQueryerResult & {
 
 // SET
 
-// Set field properties of the field useQuery
-// export const useFieldSet = (id: string[]) => {
-//   const queryerClient = useQueryerClient();
-//   return (setValueFunction: () => any) => {
-//     const value = setValueFunction();
-//     queryerClient.setQueryData(["field"].concat(id), (oldData: any) => {
-//       // console.log("useFieldSet", oldData, value);
-//       return {
-//         ...oldData,
-//         value: value,
-//       };
-//     });
-//   };
-// };
-export const useFieldSet = (id: string[]) => {
+export const useFormSet = (id: string[]) => {
   // console.log('useFieldSet invoked')
   const queryerClient = useQueryerClient();
-  const querySet = (keyName: string, setValueFunction: () => any) => {
+  return (keyName: string, setValueFunction: () => any, attributeName:any) => {
     const value = setValueFunction();
-    // console.log('useFieldSet called',keyName,value)
+    console.log('useFormSet called',keyName,value)
+    // The INDIVIDUAL FIELD
+    /* put through valiudation here */
+    queryerClient.setQueryData(
+      ["field"].concat(id),
+      (oldData: Record<string, any>) => {
+        return {
+          ...oldData,
+          [keyName]: value,
+        };
+      }
+    );
+    // The FORM (For submission)
+    queryerClient.setQueryData(
+      ["formtest"],
+      (oldData: Record<string, any>) => {
+        return {
+          ...oldData,
+          [ attributeName ] :{
+            ...oldData?.[attributeName],
+            [keyName]: value,
+          }
+        };
+      }
+    );
+  };
+};
+
+export const useFieldSet = (id: string[]) => {
+  const queryerClient = useQueryerClient();
+  return (keyName: string, setValueFunction: () => any) => {
+    const value = setValueFunction();
+    console.log('useFieldSet called',keyName,value)
     queryerClient.setQueryData(
       ["field"].concat(id),
       (oldData: Record<string, any>) => {
@@ -506,7 +545,5 @@ export const useFieldSet = (id: string[]) => {
       }
     );
   };
-  queryerClient.invalidateQueries(["field"].concat(id));
-  return querySet
 };
 

@@ -289,6 +289,9 @@ type Paradigm = {
 };
 export const paradigms: Paradigm[] = [
   {
+    description: "Avoid dark patterns, anti-patterns, anti-consumer behaviour. https://theconversation.com/dark-patterns-how-online-companies-strive-to-keep-your-money-and-data-when-you-try-to-leave-201620"
+  },
+  {
     description:
       "Data structure: Node-Edge, 2-table paradigm instead of statically defined tables",
   },
@@ -304,6 +307,10 @@ export const paradigms: Paradigm[] = [
   },
   {
     description: "TechStack (react native stack)",
+  },
+  {
+    description:
+      "Any entity can be viewed with any POV (all displays, all types, all statuses, etc.). If this is too confusing, we can add an attribute called 'functionalities' which locks down exactly what each category/module/other_entities has shown in the UI. E.g., you might hide 'messages' and 'maps' from invoicing module",
   },
   {
     description:
@@ -798,6 +805,13 @@ export const arrayIndustryProducts: {
     priority: 4,
   },
   {
+    title: "Rewst",
+    categories: ["MSP Automation"],
+    integrations: [],
+    priority: 2,
+    references:['rewst.io']
+  },
+  {
     title: "ConnectWise PSA (Manage) / Asio",
     categories: ["PSA"],
     integrations: ["Import / Export"],
@@ -844,6 +858,9 @@ export const arrayIndustryProducts: {
     categories: ["Documentation"],
     integrations: [],
     priority: 4,
+    references: [
+      'https://github.com/itglue'
+    ]
   },
   {
     title: "Continuum",
@@ -864,7 +881,7 @@ export const arrayIndustryProducts: {
     priority: 4,
   },
   {
-    title: "ConnectWise Control",
+    title: "ConnectWise Control / Screenconnect",
     categories: ["Remote Access"],
     integrations: [],
     priority: 4,
@@ -937,12 +954,18 @@ export const arrayIndustryProducts: {
     categories: ["Remote Monitoring Systems"],
     integrations: [],
     priority: 4,
+    references:[
+      'https://n-able.com/partnerships/TAP',
+       'https://www.n-able.com/partnerships/technology-alliance-program']
   },
   {
     title: "Naverisk",
     categories: ["RMM"],
     integrations: [""],
     priority:4,
+    references:[
+      'http://kb.naverisk.com/en/articles/6123225-api-reference-guide',
+    ]
   },
   {
     title: "Pax8",

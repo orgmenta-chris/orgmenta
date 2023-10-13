@@ -67,10 +67,6 @@ const mspPricingUNVERIFIED = [
     product: "SolarWinds MSP",
     priceEstimate: "$39 - $99"
   },
-  {
-    product: "SolarWinds MSP",
-    priceEstimate: "$39 - $99"
-  },
 ];
 
 

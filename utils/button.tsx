@@ -97,7 +97,7 @@ export const ViewButtonLink = ({to, buttonText, buttonSubtext, isLoading, ...res
                 {buttonText}
               </ViewTypographySubheading>
               <ViewTypographySubsubheading
-                style={{ flex: 1, textAlign: "center", fontStyle: "italic" }}
+                style={{ color:'red', flex: 1, textAlign: "center", fontStyle: "italic" }}
               >
                 {buttonSubtext}
               </ViewTypographySubsubheading>

@@ -13,8 +13,7 @@ import { useRouterLocation } from "./router";
 import {
   useQueryerClient,
   useQueryerQuery,
-  TypeQueryerResult,
-  useQueryerQueries,
+  TypeQueryerResult, useQueryerQueries
 } from "./queryer";
 import { doObjectMerge } from "./object";
 import { useEntityCreate } from "./entity";
@@ -30,8 +29,8 @@ export interface interfaceFormContainer {
 
 // A form that shows the correct field type based on a field property in each object
 export const ViewFormDynamic = ({ data, formname }: TypeFormDynamic) => {
-  // const test = useTest();
-  // console.log("test", test);
+  // const test= useTest()
+  // console.log('test',test)s
   // const category = useRouterLocation().paths[2]
   const formState = useFormState([formname]);
   // const entityState = createFormState(formState);
@@ -175,35 +174,44 @@ export const ViewFormButtons = ({ data, title, formState }: any) => {
 //   // console.log('formState',formState)
 //   return formState;
 // };
-// gets all of the field states.
-export const useFormState = (id: string[]) => {
-  const queryerClient = useQueryerClient();
-  const formState = queryerClient
-    .getQueryCache()
-    .findAll(["field"].concat(id))
-    .filter(
-      (query) =>
-        // !!(query.state.data as any)?.value ||
-        !!(query.state.data as any)?.valueDefault
-    )
-    .map((query) => {
-      return { ...query.state.data, attribute: query.queryKey[3] as string }; // only return the attribute name and value (for now. may need other things like validation later.)
-    });
-  // .map((query) => {
-  //   return { [query.queryKey[3] as string]: query.state.data}; // only return the attribute name and value (for now. may need other things like validation later.)
-  // });
-  // .map((query) => {
-  //   return { [query.queryKey[3] as string]: (query.state.data as any).value }; // only return the attribute name and value (for now. may need other things like validation later.)
-  // });
-  // const test = useReactMemo(()=>{return formState},[formState])
-  // console.log('test',test)
-  console.log("formState", formState);
-  return formState;
-};
+  // gets all of the field states.
+  export const useFormState = (id: string[]) => {
+    const queryerClient = useQueryerClient();
+    const formState = queryerClient
+      .getQueryCache()
+      .findAll(["field"].concat(id))
+      .filter(
+        (query) =>
+          // !!(query.state.data as any)?.value ||
+          !!(query.state.data as any)?.valueDefault
+      )
+      .map((query) => {
+        return {...query.state.data, 'attribute': query.queryKey[3] as string}; // only return the attribute name and value (for now. may need other things like validation later.)
+      });
+      // .map((query) => {
+      //   return { [query.queryKey[3] as string]: query.state.data}; // only return the attribute name and value (for now. may need other things like validation later.)
+      // });
+    // .map((query) => {
+    //   return { [query.queryKey[3] as string]: (query.state.data as any).value }; // only return the attribute name and value (for now. may need other things like validation later.)
+    // });
+    // const test = useReactMemo(()=>{return formState},[formState])
+    // console.log('test',test)
+      console.log('formState',formState)
+    return formState;
+  };
 
-export const createFormState = (
-  arr: { value?: any; valueDefault?: any; attribute: string }[]
-): Record<string, string | null> => {
+  export const useMemberArray = ({ ...Input }) => {
+    const queryKey: (string | number)[] = [
+      "members",
+      "array",
+      "add_relevant_props_here",
+    ];
+    const query = useQueryerQuery(queryKey, requestMemberArray, { enabled: true });
+    return query;
+  };
+  
+
+export const createFormState = (arr: { value?: any, valueDefault?: any, attribute: string }[]): Record<string, string | null> => {
   return arr.reduce((acc, obj) => {
     acc[obj.attribute] = obj.value ?? obj.valueDefault ?? null;
     return acc;

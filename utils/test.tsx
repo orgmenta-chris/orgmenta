@@ -11,19 +11,21 @@ import { ViewSoundPlayer, ViewSoundRecorder } from "./audio";
 import { ViewVideoPlayer } from "./video";
 import { ViewScreenRecorder } from "./recorder";
 import { ViewContextContainer } from "./context";
-import { deleteQueryerQuery, useQueryerClient} from "./queryer";
+import { deleteQueryerQuery, useQueryerClient } from "./queryer";
 import { ViewContainerScroll } from "./container";
 import { ViewShieldButton, ViewShieldUniversal } from "./shield";
 import { TypeNotificationBody, ViewNotificationExample } from "./notification"; // Chris to check naming conventions. Also need to check how to use this?
 import { ViewAttributeCreate } from "./attribute";
+import { ViewFrameworkPage } from "./module";
+import { doObjectNesting } from "./object";
+import { data } from "./static";
 
 export const ViewTestPage = () => {
-  const aux = useAuxiliaryArray({ filter_array: [] });
-  // deleteQueryerQuery() //deletes ALL cached queries
-  // const queryerClient = useQueryerClient();
+  // const aux = useAuxiliaryArray({ filter_array: [] });
   return __DEV__ ? (
     <ViewPageMain>
-      <ViewContainerScroll>
+    <ViewContainerScroll>
+      <ViewFrameworkPage data={doObjectNesting((data as any)?.filter((x:any)=>(x.id>9 || x.nickname==='business')))?.[0]} />
         {/* Barcode Scanner (working) */}
         {/* <ViewBarcodeReader /> */}
 

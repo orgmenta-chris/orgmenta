@@ -19,6 +19,12 @@ export const articlesTemp: {
   notes: string;
 }[] = [
   {
+    topic:`Contextual help and preferences on all relevant components`,
+    notes: `
+    (i.e. the context container buttons)
+    `
+  },
+  {
     topic:`Scrollbar design and usability`,
     notes: `
     https://news.ycombinator.com/item?id=37864867
@@ -32,6 +38,10 @@ export const articlesTemp: {
       Nav bar that can be pinned
       Able to save custom bookmarks+bookmark groups
       All functionality designed to be at your fingertips
+      // EXAMPLES
+      - 2 clicks to viewing a live demo. Bookmark > click a bookmark.
+      - 1 click to start searching all entities. Browse > start typing (QUERY BUG TO RESOLVE, CLEAR X BUTTON TO ADD)
+      - 1 click to filter modules. Bookmark > start typing (FUNCTIONALITY TO ADD: AUTO EXPAND ITEMS IF THERE ARE RESULTS, CLEAR X BUTTON )
     `,
   },
   {

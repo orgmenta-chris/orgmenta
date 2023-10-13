@@ -196,7 +196,7 @@ export const ViewFormButtons = ({ data, title, formState }: any) => {
     // });
     // const test = useReactMemo(()=>{return formState},[formState])
     // console.log('test',test)
-      console.log('formState',formState)
+      // console.log('formState',formState)
     return formState;
   };
 

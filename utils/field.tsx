@@ -66,7 +66,7 @@ export const ViewFieldDynamic = ({
   const Component =
     mapFieldComponents[item.component as string] ||
     mapFieldComponents["invalid"]; // this may benefit from usecallback or memoization of some sort?
-console.log('formState?.data', formState?.data,)
+  // console.log('formState?.data', formState?.data,)
   return (
     <ViewContainerRow style={{ margin: 5 }}>
       <ViewTypographyLabel
@@ -502,7 +502,7 @@ export const useFormSet = (id: string[]) => {
   const queryerClient = useQueryerClient();
   return (keyName: string, setValueFunction: () => any, attributeName:any) => {
     const value = setValueFunction();
-    console.log('useFormSet called',keyName,value)
+    // console.log('useFormSet called',keyName,value)
     // The INDIVIDUAL FIELD
     /* put through valiudation here */
     queryerClient.setQueryData(

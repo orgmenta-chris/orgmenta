@@ -30,6 +30,7 @@ import { useHelpState } from "./help";
 import { useWindowDimensions } from "./window";
 import { useEntitySingle } from "./entity";
 import { ViewButtonLink } from "./button";
+import { ViewTabLink } from "./tab";
 
 // CONTAINER
 
@@ -45,6 +46,7 @@ export const ViewPodContainer = ({ items, children }: any) => {
       {(isGuest || salesEnabled) && <ViewPodOverview />}
       {(isGuest || salesEnabled) && <ViewPodIntegrations />}
       {(isGuest || salesEnabled || helpEnabled) && <ViewPodGuides />}
+      <ViewPodQuicktemplate/>
       <ViewPodCategoryrelated />
     </ViewContainerScroll>
   );
@@ -80,10 +82,10 @@ export const ViewPodExample = () => {
 
 // INFO
 
-// A pod to show information on the currently selected entity
+// A pod to show submodules for the currently selected entity
 // This is using static data for categories only at the moment (e.g. Accounts-Payables-Bills), but will eventually be a dynamic component using  db data.
 export const ViewPodInfo = () => {
-  // At the moment, this shows static info for categories (e.g. governance > model > plan) from static.js. But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
+  // At the moment, this shows static submodules for categories (e.g. governance > model > plan) from static.js. But it will eventually be able to display subentities for any entity from the database.
   const path = useRouterLocation()?.paths;
   const process = data?.find((x) => x.nickname === path[2]);
   const isGuest = useAuthSession()?.data?.currentUser === "Guest";
@@ -95,12 +97,12 @@ export const ViewPodInfo = () => {
     >
       <ViewContainerColumn style={{ flex: 1 }}>
         <ViewContainerStatic style={{}}>
-          <ViewTypographyText style={{ fontSize: 14, fontStyle: "italic" }}>
+          <ViewTypographySubheading>
             {process?.description}
-          </ViewTypographyText>
-          <ViewTypographyText style={{ fontSize: 12 }}>
+          </ViewTypographySubheading>
+          <ViewTypographySubsubheading>
             {process?.summary}
-          </ViewTypographyText>
+          </ViewTypographySubsubheading>
         </ViewContainerStatic>
       </ViewContainerColumn>
       <ViewContextContainer />
@@ -126,15 +128,20 @@ export const ViewPodTabs = () => {
       }}
     >
       {/* Tabs for each subprocess */}
-      <ViewContainerRow style={{ height: 35 }}>
+      <ViewContainerRow style={{ height: 40 }}>
         {subprocesses?.map((x, i) => (
-          <ViewRouterLink
-            style={{ flex: 1 }}
+          <ViewButtonLink
             key={i}
             to={`/entity/` + x.nickname}
-          >
-            <ViewTypographyText>{x.display_singular}</ViewTypographyText>
-          </ViewRouterLink>
+            buttonText={x.display_singular}
+          />
+          // <ViewRouterLink
+          //   style={{ flex: 1 }}
+          //   key={i}
+          //   to={`/entity/` + x.nickname}
+          // >
+          //   <ViewTypographyText>{x.display_singular}</ViewTypographyText>
+          // </ViewRouterLink>
         ))}
         <ViewContextContainer />
       </ViewContainerRow>
@@ -172,10 +179,9 @@ export const ViewPodCategoryrelated = (props: any) => {
   );
 };
 
-
 // OVERVIEW
 export const ViewPodOverview = (props: any) => {
-  const windowHeight = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
   const categoryPath = useRouterLocation().paths[2];
   const categoryInfo = data?.find((x) => x?.nickname === categoryPath)!;
   const categoryChildren = data?.filter((x) => x?.parent === categoryInfo?.id);
@@ -187,8 +193,8 @@ export const ViewPodOverview = (props: any) => {
         borderWidth: 1,
         margin: 5,
         backgroundColor: "lightgreen",
-        maxHeight: windowHeight / 2 - 130, // temp, to get dimensions of the parentparent container instead
-        height: windowHeight / 2 - 130, // temp, to get dimensions of the parentparent container instead
+        maxHeight: windowHeight-150, // temp, to get dimensions of the parentparent container instead
+        height: windowHeight-150, // temp, to get dimensions of the parentparent container instead
       }}
     >
       <ViewContainerRow>
@@ -244,7 +250,7 @@ export const ViewPodOverview = (props: any) => {
 
 // INTEGRATIONS
 export const ViewPodIntegrations = (props: any) => {
-  const windowHeight = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
   const categoryPath = useRouterLocation().paths[2];
   const categoryInfo = data?.find((x) => x?.nickname === categoryPath)!;
   const categoryChildren = data?.filter((x) => x?.parent === categoryInfo?.id);
@@ -256,24 +262,25 @@ export const ViewPodIntegrations = (props: any) => {
         borderWidth: 1,
         margin: 5,
         backgroundColor: "lightgreen",
-        maxHeight: windowHeight / 2 - 130, // temp, to get dimensions of the parentparent container instead
-        height: windowHeight / 2 - 130, // temp, to get dimensions of the parentparent container instead
+        maxHeight: windowHeight - 130, // temp, to get dimensions of the parentparent container instead
+        height: windowHeight - 130, // temp, to get dimensions of the parentparent container instead
       }}
     >
-    <ViewContainerRow>
-      <ViewTypographySubheading style={{ flex: 1 }}>
-        Integrations
-      </ViewTypographySubheading>
-      <ViewContextContainer />
-    </ViewContainerRow>
-    <ViewTypographyText>Show relevant integrations here.</ViewTypographyText>
-  </ViewContainerStatic>
+      <ViewContainerRow>
+        <ViewTypographySubheading style={{ flex: 1 }}>
+          Integrations
+        </ViewTypographySubheading>
+        <ViewContextContainer />
+      </ViewContainerRow>
+      <ViewTypographyText>Show relevant integrations here.</ViewTypographyText>
+    </ViewContainerStatic>
   );
 };
 
-// INTEGRATIONS
+// GUIDES/DOCS
+
 export const ViewPodGuides = (props: any) => {
-  const windowHeight = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
   const categoryPath = useRouterLocation().paths[2];
   const categoryInfo = data?.find((x) => x?.nickname === categoryPath)!;
   const categoryChildren = data?.filter((x) => x?.parent === categoryInfo?.id);
@@ -296,6 +303,37 @@ export const ViewPodGuides = (props: any) => {
         <ViewContextContainer />
       </ViewContainerRow>
       <ViewTypographyText>Show related guides here.</ViewTypographyText>
+    </ViewContainerStatic>
+  );
+};
+
+// QUICKTEMPLATE
+
+export const ViewPodQuicktemplate = (props: any) => { 
+  // Buttons to run templates/blueprints in order to quickly create items (e.g. 'Create invoice', 'Raise ticket for this issue')
+  const windowHeight = useWindowDimensions().height;
+  const categoryPath = useRouterLocation().paths[2];
+  const categoryInfo = data?.find((x) => x?.nickname === categoryPath)!;
+  const categoryChildren = data?.filter((x) => x?.parent === categoryInfo?.id);
+  // A pod for the sales pitch to each specific module.
+  // SHOW THIS IF USER IS NOT LOGGED IN.
+  return (
+    <ViewContainerStatic
+      style={{
+        borderWidth: 1,
+        margin: 5,
+        backgroundColor: "lightgreen",
+        maxHeight: windowHeight / 2 - 130, // temp, to get dimensions of the parentparent container instead
+        height: windowHeight / 2 - 130, // temp, to get dimensions of the parentparent container instead
+      }}
+    >
+      <ViewContainerRow>
+        <ViewTypographySubheading style={{ flex: 1 }}>
+          QuickTemplates
+        </ViewTypographySubheading>
+        <ViewContextContainer />
+      </ViewContainerRow>
+      <ViewTypographyText>Show quick template buttons here.</ViewTypographyText>
     </ViewContainerStatic>
   );
 };

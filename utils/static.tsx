@@ -7,7 +7,8 @@ export const data: {
   description: string;
   summary: string;
   nickname: string;
-  notes?: string;
+  notes?: any;
+  integration?:any
 }[] = [
   {
     id: 1,
@@ -15,18 +16,18 @@ export const data: {
     status: "3. Active",
     name_singular: "business",
     display_singular: "Business",
-    description: "Your Business in a Box. End-to-end data and services in one intuitive, unified platform",
-    summary: "Your Business in a Box. End-to-end data and services in one intuitive, unified platform",
+    description: "The BOS (Business Operating System) / ERP (Enterprise Resource Planning) / PSA (Professional Services Automation) / BMS (Business Management System)",
+    summary: "Build, automate and manage your [IT Company] from a single pane of glass.",
     notes: `
-    summary: "Your Business in a Box. End-to-end data and services in one intuitive, unified platform",
-    body: "<-- Select a service for more information or to sign up",
-    description:
-      "Collate and manage all areas of your business in simplified, powerful modules",
-    subheading2:
-      "Orgmenta's expert staff will package, automate and augment each area of your business",
-    subheading3: "Business In a Box",
-    calltoaction:
-      "More comprehensive, expert, understandable and neater solutions than if you did it inhouse"`,
+      summary: "Your Business in a Box. End-to-end data and services in one intuitive, unified platform",
+      body: "<-- Select a service for more information or to sign up",
+      description:
+        "Collate and manage all areas of your business in simplified, powerful modules",
+      subheading2:
+        "Orgmenta's expert staff will package, automate and augment each area of your business",
+      subheading3: "Business In a Box",
+      calltoaction:
+        "More comprehensive, expert, understandable and neater solutions than if you did it inhouse"`,
     nickname: "business",
   },
   {
@@ -82,7 +83,7 @@ export const data: {
     nickname: "governance-model-plan",
   },
   {
-    id: 11001,
+    id: 11000,
     parent: 1100,
     status: "5. Hold",
     name_singular: "mission",
@@ -122,7 +123,7 @@ export const data: {
     display_singular: "Justification",
     description:
       "Summary of market research and other proofs of viability/reasons for operating",
-    summary: "",
+    summary: null,
     nickname: "governance-model-plan-justification",
   },
   {
@@ -168,7 +169,7 @@ export const data: {
     summary:
       "C-Corp / LLC / Sole Trader or Proprietorship / Partnership Cooperative / Umbrella & holding corps / Franchise / Non-profit / Charity / etc.",
     nickname: "governance-model-structure-ownership",
-    types: [
+    notes: `[
       "LLC",
       "S-Corp",
       "C-Corp",
@@ -190,7 +191,7 @@ export const data: {
       "B-Corporation",
       "Non Profit",
       "Charity",
-    ],
+    ]`,
   },
   {
     id: 1102,
@@ -239,8 +240,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "legal",
     display_singular: "Legal",
-    description: "",
-    summary: "",
+    description: null,
+    summary: null,
     nickname: "governance-counsel-legal",
   },
   {
@@ -249,7 +250,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "finance",
     display_singular: "Finance",
-    description: "",
+    description: null,
     summary: "The CFO role (Chief Financial Officer)",
     nickname: "governance-counsel-finance",
   },
@@ -259,7 +260,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "technology",
     display_singular: "Technology",
-    description: "",
+    description: null,
     summary:
       "The CIO role (Chief Information Officer) / CTO (Chief Technology Officer)",
     nickname: "governance-counsel-technology",
@@ -283,7 +284,7 @@ export const data: {
     name_singular: "strategy",
     display_singular: "Strategy",
     description: "Industry, business and marketing experts",
-    summary: "",
+    summary: null,
     nickname: "governance-counsel-strategy",
   },
   {
@@ -525,7 +526,7 @@ export const data: {
     name_singular: "scorecards",
     display_singular: "Scorecards",
     description: "Scorecards from different areas of the business",
-    summary: "",
+    summary: null,
     nickname: "governance-metrics",
   },
   {
@@ -710,13 +711,16 @@ export const data: {
     status: "0. New",
     name_singular: "budgets",
     display_singular: "Budgets",
-    description: "",
-    process: [
-      "Set up P&L layout",
-      "Set up Balance sheet layout",
-      "Set up cash flow forecast layout",
-      "Set up equity layout (shareholder equity report)",
-    ],
+    description: null,
+    summary: null,
+    notes: `
+      process: [
+        "Set up P&L layout",
+        "Set up Balance sheet layout",
+        "Set up cash flow forecast layout",
+        "Set up equity layout (shareholder equity report)",
+      ],
+    `,
     nickname: "accounts-ledger-budgets",
   },
   {
@@ -771,10 +775,12 @@ export const data: {
     status: "0. New",
     name_singular: "adjustments",
     display_singular: "Adjustments",
-    notes: "Acrruals, deferrals, depreciation, amortisation.",
+    summary:"Acrruals, deferrals, depreciation and amortisation.",
+    description:null,
+    notes: `,
     references: [
       "match/code transactionshttps://www.nerdwallet.com/article/small-business/adjusting-entries-accounting#:~:text=An%20adjusting%20entry%20is%20simply,the%20end%20of%20the%20year. to bank statement lines",
-    ],
+    ],`,
     nickname: "ledger-bookkeeping-adjustments",
   },
   {
@@ -783,8 +789,18 @@ export const data: {
     status: "0. New",
     name_singular: "statements",
     display_singular: "Statements",
-    description:
+    description:null,
+    summary:
       "Financial modelling: P&L, balance sheet, CFF and other ledger reporting",
+    nickname: "accounts-ledger-statements",
+    notes: `
+    "IPO layout (Initial public offering model)", //https://the-cfo.io/2019/11/06/what-are-the-different-financial-models/
+    "Discounted Cash Flow (DCF) and LBO Models", // https://www.investopedia.com/terms/d/dcf.asp, https://www.google.com/search?rlz=1C1CHBF_en-GBAU966AU967&q=LBO+Model+vs+dcf&spell=1&sa=X&ved=2ahUKEwjwzKrts6n4AhU_-jgGHeBJAOYQirwEKAB6BAgBEDI&biw=1229&bih=576&dpr=1.56
+    "M&A Model"
+    // "Review asset accounts",
+    // "Review liability accounts",
+    // "Review revenue accounts",
+    // "Review expense accounts",
     process: [
       "Trial balance report",
       "profit & loss layout (P&L report)",
@@ -795,15 +811,7 @@ export const data: {
       "Discounted Cash Flow (DCF) and LBO Models",
       "M&A Model",
     ],
-    nickname: "accounts-ledger-statements",
-    notes: `
-              "IPO layout (Initial public offering model)", //https://the-cfo.io/2019/11/06/what-are-the-different-financial-models/
-              "Discounted Cash Flow (DCF) and LBO Models", // https://www.investopedia.com/terms/d/dcf.asp, https://www.google.com/search?rlz=1C1CHBF_en-GBAU966AU967&q=LBO+Model+vs+dcf&spell=1&sa=X&ved=2ahUKEwjwzKrts6n4AhU_-jgGHeBJAOYQirwEKAB6BAgBEDI&biw=1229&bih=576&dpr=1.56
-              "M&A Model"
-              // "Review asset accounts",
-              // "Review liability accounts",
-              // "Review revenue accounts",
-              // "Review expense accounts",`,
+    `,
   },
   {
     id: 1204,
@@ -811,9 +819,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "finalisations",
     display_singular: "Finalisations",
-    description:
+    description:null,
+    summary:
       "Closing the books: End of month, rollovers for the next month, period locks",
-    process: [],
     nickname: "accounts-ledger-finalisations",
   },
   {
@@ -824,6 +832,7 @@ export const data: {
     display_singular: "Receivables",
     summary: "Get your invoices issued and paid on time.",
     description: "End-to-end revenue operations",
+    notes:`
     benefits:
       "Save $1,000s on missed revenue. Have an expert on hand to manage everything for you. Avoid costly in house staff",
     process: {
@@ -901,7 +910,7 @@ export const data: {
     guides: {
       onboarding: [{}],
     },
-    notes: {},
+    `,
     nickname: "accounts-receivables",
   },
   {
@@ -912,10 +921,9 @@ export const data: {
     display_singular: "Debtors",
     summary:
       "Monitor and manage debtors, billing setups, payment plans and customer credit risk",
-    summary:
-      "We collate and update your debtor details, help customers set up billing methods, and manage customer statements and plans",
-    description: "Customer statements, payment plan templates, debtor details",
-    price_unit: "debtor",
+    description:
+      "Customer statements, payment plans and other debtor details. Collate and update your debtor details, help customers set up billing methods, and manage customer statements and plans",
+    notes: `price_unit: "debtor",
     process: [
       "Setup: Set up billing for debtors, obtain direct debit authority, assist with payment method configuration",
       "Statements: Send monthly statements to customers (after ensuring all payments are reconciled and credits applied",
@@ -980,7 +988,7 @@ export const data: {
           "Custom integrations",
         ],
       },
-    },
+    },`,
     nickname: "accounts-receivables-debtors",
   },
   {
@@ -1050,8 +1058,8 @@ export const data: {
     status: "0. New",
     name_singular: "risk",
     display_singular: "Risk",
-    summary: "",
-    description: "",
+    summary: null,
+    description: null,
     nickname: "receivables-debtors-risk",
   },
   {
@@ -1060,8 +1068,8 @@ export const data: {
     status: "0. New",
     name_singular: "payment-plans",
     display_singular: "Payment Plans",
-    summary: "",
-    description: "",
+    summary: null,
+    description: null,
     nickname: "debtors-risk-payment-plans",
   },
   {
@@ -1125,7 +1133,7 @@ export const data: {
     status: "0. New",
     name_singular: "charges",
     display_singular: "Charges",
-    summary:null,
+    summary:'Automatic queuing of billable items',
     description:
       "Contracts and recurring billables, ad hoc labour/charges and other products/expenses to bill",
     nickname: "accounts-receivables-charges",
@@ -1136,23 +1144,23 @@ export const data: {
     status: "0. New",
     name_singular: "pipeline",
     display_singular: "Pipeline",
-    price_unit: "line item",
     summary: "Identify and maximise all of your potential & missing revenue",
-    summary: "We predict, sanitize and prepare all of your queued invoicing",
     description:
       "Prediction, sanitisation and preparation of all queued invoicing",
-    process: [
-      "Identification: Maintain your invoicing pipeline in a clear, collated queue, with forecasted revenue figures",
-      "Reconciliations: Update agreements and billing items according to customer usage, quantity changes and new charges.",
-      "Preparation: Process items ready for invoicing according to conditions",
-      "Sanitization: Adjust / tidy items according to rules, and push items back to the owner as necessary",
-      "Matching: Match items to quotes and conditions, apply charges and ensure everything is captured for onbilling",
-    ],
-    notes: [
+    notes:` 
+    summary2: "We predict, sanitize and prepare all of your queued invoicing",
+      price_unit: "line item",
+      process: [
+        "Identification: Maintain your invoicing pipeline in a clear, collated queue, with forecasted revenue figures",
+        "Reconciliations: Update agreements and billing items according to customer usage, quantity changes and new charges.",
+        "Preparation: Process items ready for invoicing according to conditions",
+        "Sanitization: Adjust / tidy items according to rules, and push items back to the owner as necessary",
+        "Matching: Match items to quotes and conditions, apply charges and ensure everything is captured for onbilling",
+      ],[
       "If you charge ad hoc labour, in what increments? (e.g. round up to the nearest 15 minutes)",
       "If you charge ad hoc labour, what are standard working hours (e.g. after hours rates before 8am and after 5pm",
       "For hardware, what shipping do you charge (e.g. onbill any vendor shipping at cost, standard margin applied, or standard flat rates per weight class)",
-    ],
+    ]`,
     nickname: "receivables-charges-pipeline",
   },
   {
@@ -1163,37 +1171,37 @@ export const data: {
     display_singular: "Invoicing",
     summary:
       "Bill your customers on time and with comprehensive, correct line items",
-    subheading2:
-      "We issue all of your invoices, downpayments, deposits and prepayments",
     description: "Issuing invoices to customers",
-    summary:
-      "Line items (Deposits/downpayments + products + charges + adjustments + discounts + tax + credits) are generated, processed, approved and invoiced to the customer",
-    price_unit: "invoice",
-    overview: [
-      "Line item processing and extras",
-      "Invoice generation",
-      "Invoice approval",
-      "Invoice syncing to necessary platforms",
-      "Apply any open credits/adjustments before sending invoices",
-      "Check all open accounts communications with customers before sending invoices",
-      "Send invoices with appropriate cover emails",
-    ],
-    process: [
-      "Templates: Maintain invoice & email templates, and other invoice attributes",
-      "Prepayments: Draft deposits, down payments and other advance payments",
-      "Invoices: Draft invoices according to rules/contracts/quotes",
-      "Preparation: Apply invoicing rules and templates, shipping charges and other line items",
-      "Credits: Apply any credit that  the customer has on file",
-      "Approvals: Submit invoices to you for approval (optional)",
-      "Issue: Send approved invoices",
-    ],
-    types: [
-      "Prepayments (deposits, downpayments)",
-      "Charges (products, services, shipping, fees, additions)",
-      "Adjustments (discounts, special offers, pricing rules)",
-      "Tax (sales tax)",
-      "Credits (credit notes / refunds)",
-    ],
+    notes: `
+      summary2:
+        "Line items (Deposits/downpayments + products + charges + adjustments + discounts + tax + credits) are generated, processed, approved and invoiced to the customer",
+      subheading2: "We issue all of your invoices, downpayments, deposits and prepayments",
+      price_unit: "invoice",
+      overview: [
+        "Line item processing and extras",
+        "Invoice generation",
+        "Invoice approval",
+        "Invoice syncing to necessary platforms",
+        "Apply any open credits/adjustments before sending invoices",
+        "Check all open accounts communications with customers before sending invoices",
+        "Send invoices with appropriate cover emails",
+      ],
+      process: [
+        "Templates: Maintain invoice & email templates, and other invoice attributes",
+        "Prepayments: Draft deposits, down payments and other advance payments",
+        "Invoices: Draft invoices according to rules/contracts/quotes",
+        "Preparation: Apply invoicing rules and templates, shipping charges and other line items",
+        "Credits: Apply any credit that  the customer has on file",
+        "Approvals: Submit invoices to you for approval (optional)",
+        "Issue: Send approved invoices",
+      ],
+      types: [
+        "Prepayments (deposits, downpayments)",
+        "Charges (products, services, shipping, fees, additions)",
+        "Adjustments (discounts, special offers, pricing rules)",
+        "Tax (sales tax)",
+        "Credits (credit notes / refunds)",
+      ],`,
     nickname: "accounts-receivables-invoicing",
   },
   {
@@ -1234,10 +1242,13 @@ export const data: {
     status: "0. New",
     name_singular: "ammendment",
     display_singular: "Ammendment",
-    name_plural: "ammendments",
-    display_plural: "Ammendments",
-    name_verb: "ammend",
-    display_verb: "Ammend",
+    notes: {
+      display_plural: "Ammendments",
+      name_verb: "ammend",
+      display_verb: "Ammend",
+      name_plural: "ammendments"
+    },
+    summary:null,
     description:
       "Issue the invoice by sending it to the 'attention to' contact / bill-to organisation",
     nickname: "receivables-invoicing-ammendment",
@@ -1260,82 +1271,83 @@ export const data: {
     name_singular: "collections",
     display_singular: "Collections",
     summary: "Management and collection of owed revenue",
-    summary:
-      "We issue invoice reminders, handle invoice queries and manage debtor communications",
-    description: "",
-    price_unit: "invoice",
-    features: {},
-    industries: {},
-    process: [
-      "Queries: Resolve and answer any customer invoice queries (response: <1 business day)",
-      "Credits: Ensure all open credits/adjustments are applied to open invoices",
-      "Reminders: Maintain and trigger customer reminders (automatic and manual)",
-      "Followups: Action any unresponded reminders and overdue invoices",
-      "Reporting: Maintain collections information on the Receivables report",
-    ],
-    overview: [
-      "Set expected payment dates on open invoices",
-      "Maintain overdue payment templates",
-      "Issue overdue payment templates",
-      "Provide a collections report with recommended actions",
-    ],
-    billing: {
-      startup: {
-        title: "Startup",
-        price_month: 200,
-        priceyear: 2000,
-        priceaddition: "$1 per additional invoice",
-        included: [
-          "Setup of your purchase requests process",
-          "Processing & sanitisation of up to 100 invoices",
-          "Monthly collections report",
-          "Keep documentation updated with changes",
-        ],
+    description: null,
+    notes: `
+      summary2:
+        "We issue invoice reminders, handle invoice queries and manage debtor communications",
+      price_unit: "invoice",
+      features: {},
+      industries: {},
+      process: [
+        "Queries: Resolve and answer any customer invoice queries (response: <1 business day)",
+        "Credits: Ensure all open credits/adjustments are applied to open invoices",
+        "Reminders: Maintain and trigger customer reminders (automatic and manual)",
+        "Followups: Action any unresponded reminders and overdue invoices",
+        "Reporting: Maintain collections information on the Receivables report",
+      ],
+      overview: [
+        "Set expected payment dates on open invoices",
+        "Maintain overdue payment templates",
+        "Issue overdue payment templates",
+        "Provide a collections report with recommended actions",
+      ],
+      billing: {
+        startup: {
+          title: "Startup",
+          price_month: 200,
+          priceyear: 2000,
+          priceaddition: "$1 per additional invoice",
+          included: [
+            "Setup of your purchase requests process",
+            "Processing & sanitisation of up to 100 invoices",
+            "Monthly collections report",
+            "Keep documentation updated with changes",
+          ],
+        },
+        business: {
+          title: "Business",
+          price_month: 1000,
+          priceyear: 10000,
+          priceaddition: "$1 per additional invoice",
+          included: [
+            "Everything from the Startup package, and...",
+            "Processing & sanitisation of up to 200 invoices",
+            "Weekly collections report",
+            "Keep documentation updated with changes",
+          ],
+        },
+        corporation: {
+          title: "Corporation",
+          price_month: 5000,
+          priceyear: 50000,
+          priceaddition: "$1 per additional invoice",
+          included: [
+            "Everything from the Business package, and...",
+            "Processing & sanitisation of up to 200 invoices",
+            null,
+            "Daily collections report",
+            "Keep documentation updated with changes",
+          ],
+        },
+        enterprise: {
+          title: "Enterprise",
+          price_month: 10000,
+          priceyear: 100000,
+          included: [
+            "Everything from the Corporation package, and...",
+            "Enterprise level support",
+            "Custom integrations",
+            "Keep documentation updated with changes",
+          ],
+        },
       },
-      business: {
-        title: "Business",
-        price_month: 1000,
-        priceyear: 10000,
-        priceaddition: "$1 per additional invoice",
-        included: [
-          "Everything from the Startup package, and...",
-          "Processing & sanitisation of up to 200 invoices",
-          "Weekly collections report",
-          "Keep documentation updated with changes",
-        ],
-      },
-      corporation: {
-        title: "Corporation",
-        price_month: 5000,
-        priceyear: 50000,
-        priceaddition: "$1 per additional invoice",
-        included: [
-          "Everything from the Business package, and...",
-          "Processing & sanitisation of up to 200 invoices",
-          null,
-          "Daily collections report",
-          "Keep documentation updated with changes",
-        ],
-      },
-      enterprise: {
-        title: "Enterprise",
-        price_month: 10000,
-        priceyear: 100000,
-        included: [
-          "Everything from the Corporation package, and...",
-          "Enterprise level support",
-          "Custom integrations",
-          "Keep documentation updated with changes",
-        ],
-      },
-    },
-    types: [
-      "Reminders (auto emails, requests for payment)",
-      "Warnings (overdue advice)",
-      "Notices (service cutoffs, credit hold)",
-      "Demands (Demand for payment, payment deadline)",
-      "Escalation (Bad Debt, Debt Collection Agency engagement",
-    ],
+      types: [
+        "Reminders (auto emails, requests for payment)",
+        "Warnings (overdue advice)",
+        "Notices (service cutoffs, credit hold)",
+        "Demands (Demand for payment, payment deadline)",
+        "Escalation (Bad Debt, Debt Collection Agency engagement",
+      ],`,
     nickname: "accounts-receivables-collections",
   },
   {
@@ -1390,13 +1402,13 @@ export const data: {
     summary: "Receive and reconcile customer payments",
     description:
       "Manage receiving of payments, and reconcile them to the correct invoices",
-    process: [
+    notes: `[
       "Payment: Help customers to make payment (over the phone or via email / billing platform)",
       "Remittances: Process remittance advices / match to bank statements",
       "Reconcilations: Reconcile payments to the relevant invoices, and ensure line items are reconciled in the P&L correctly",
       "Followups: deposit/downpayment received (or any invoice payment) - alert/trigger any work that was on hold waiting for payment (e.g. product orders or jobs that required 50% downpayment/deposit)",
       "Reporting: Maintain remittance information on the receivables report",
-    ],
+    ]`,
     nickname: "accounts-receivables-settlements",
   },
   {
@@ -1405,11 +1417,13 @@ export const data: {
     status: "0. New",
     name_singular: "overpayments",
     display_singular: "Overpayments",
-    process: [
+    summary: null,
+    description: null,
+    notes: `[
       "Record any overpaymnets (reconcile bank statement lines to overpayments if the customer has no balance due).",
       "Contact the customer if needed advising that we will kepe it on file and apply it to next invoices (preferred) or refund it to the customer",
       "Go through the overpayments list each week/month. Discuss any unresolved ones. Any action needed? Progress being made / it's being used up?",
-    ],
+    ]`,
     nickname: "receivables-settlements-overpayments",
   },
   {
@@ -1420,7 +1434,7 @@ export const data: {
     display_singular: "Payables",
     description: "Bills from your suppliers",
     summary: "Get your bills entered and paid on time. Stress Free.",
-    subheading2:
+    notes:`
       "Orgmenta handles your supplier billing, repeating bills, bill entering and payment preparation.",
     process: [
       "No more late notices and fees",
@@ -1441,7 +1455,7 @@ export const data: {
     industries: [],
     platforms: [],
     guides: [],
-    notes: `[
+    [
       "Weekly Report & Meeting",
       "AP Rollover: Ensure that any followups from the previous AP run are actioned in this run",
     ],
@@ -1602,12 +1616,13 @@ export const data: {
     name_singular: "forecast",
     display_singular: "Forecast",
     description: "Payables templating, repeating bills and planning",
-    process: [
+    summary: 'Automatic queuing of billable items',
+    notes: `[
       "Set up bill templates",
       "Set up bank rules",
       "Set up approval routing",
       "Set up and maintain repeating bills and payment bank rules",
-    ],
+    ]`,
     nickname: "accounts-payables-forecast",
   },
   {
@@ -1616,60 +1631,62 @@ export const data: {
     status: "0. New",
     name_singular: "bills",
     display_singular: "Bills",
+    summary:null,
     description: "Verifying and entering supplier charges",
-    price_unit: "line item",
-    process: [
-      "Verify incoming supplier bills as genuine (inc. three-way match)",
-      "Enter bills into your accounting package",
-      "Code each line item to the correct location in the Chart of Accounts",
-      "Maintain bill & charges data on the live payables report",
-    ],
-    billing: {
-      startup: {
-        title: "Startup",
-        price_month: 200,
-        priceyear: 2000,
-        priceaddition: "$5 per additional line item",
-        included: [
-          "Setup of your purchase requests process",
-          "Processing & sanitisation of up to 100 line items",
-          "Monthly bills report",
-        ],
-      },
-      business: {
-        title: "Business",
-        price_month: 1000,
-        priceyear: 10000,
-        priceaddition: "$5 per additional line item",
-        included: [
-          "Everything from the Startup package, and...",
-          "Processing & sanitisation of up to 200 line items",
-          "Weekly bills report",
-        ],
-      },
-      corporation: {
-        title: "Corporation",
-        price_month: 5000,
-        priceyear: 50000,
-        priceaddition: "$5 per additional line item",
-        included: [
-          "Everything from the Business package, and...",
-          "Processing & sanitisation of up to 200 line items",
-          null,
-          "Daily bills report",
-        ],
-      },
-      enterprise: {
-        title: "Enterprise",
-        price_month: 10000,
-        priceyear: 100000,
-        included: [
-          "Everything from the Corporation package, and...",
-          "Enterprise level support",
-          "Custom integrations",
-        ],
-      },
-    },
+    notes: `
+      price_unit: "line item",
+      process: [
+        "Verify incoming supplier bills as genuine (inc. three-way match)",
+        "Enter bills into your accounting package",
+        "Code each line item to the correct location in the Chart of Accounts",
+        "Maintain bill & charges data on the live payables report",
+      ],
+      billing: {
+        startup: {
+          title: "Startup",
+          price_month: 200,
+          priceyear: 2000,
+          priceaddition: "$5 per additional line item",
+          included: [
+            "Setup of your purchase requests process",
+            "Processing & sanitisation of up to 100 line items",
+            "Monthly bills report",
+          ],
+        },
+        business: {
+          title: "Business",
+          price_month: 1000,
+          priceyear: 10000,
+          priceaddition: "$5 per additional line item",
+          included: [
+            "Everything from the Startup package, and...",
+            "Processing & sanitisation of up to 200 line items",
+            "Weekly bills report",
+          ],
+        },
+        corporation: {
+          title: "Corporation",
+          price_month: 5000,
+          priceyear: 50000,
+          priceaddition: "$5 per additional line item",
+          included: [
+            "Everything from the Business package, and...",
+            "Processing & sanitisation of up to 200 line items",
+            null,
+            "Daily bills report",
+          ],
+        },
+        enterprise: {
+          title: "Enterprise",
+          price_month: 10000,
+          priceyear: 100000,
+          included: [
+            "Everything from the Corporation package, and...",
+            "Enterprise level support",
+            "Custom integrations",
+          ],
+        },
+      },`,
     nickname: "accounts-payables-bills",
   },
   {
@@ -1724,63 +1741,65 @@ export const data: {
     status: "0. New",
     name_singular: "payments",
     display_singular: "Payments",
+    summary: null,
     description:
       "Obtaining approval for bills, and maintaining a payment timetable, make payments",
-    price_unit: "bill",
-    features: {},
-    industries: {},
-    process: [
-      "Confirm payment methods for each bill/supplier",
-      "Preapprove bills depending on conditions set by yourself",
-      "Obtain your approval on any necessary bills",
-      "Schedule payments based on payment method and cash flow",
-      "Maintain bill schedules & approvals information on your Payables report",
-    ],
-    billing: {
-      startup: {
-        title: "Startup",
-        price_month: 100,
-        priceyear: 1000,
-        priceaddition: "$2 per additional bill",
-        included: [
-          "Setup of your Payables Scheduling process",
-          "Approvals and scheduling of up to 20 bills",
-          "Monthly AP report provided, and payment approvals obtained from you",
-        ],
-      },
-      business: {
-        title: "Business",
-        price_month: 500,
-        priceyear: 5000,
-        priceaddition: "$2 per additional bill",
-        included: [
-          "Everything from the Startup package, and...",
-          "Approvals and scheduling of up to 100 bills",
-          "Weekly AP report provided, and payment approvals obtained from you",
-        ],
-      },
-      corporation: {
-        title: "Corporation",
-        price_month: 2000,
-        priceyear: 20000,
-        priceaddition: "$2 per additional bill",
-        included: [
-          "Everything from the Business package, and...",
-          "Approvals and scheduling of up to 200 bills",
-          "Daily AP report provided, and payment approvals obtained from you",
-        ],
-      },
-      enterprise: {
-        title: "Enterprise",
-        price_month: 50000,
-        priceyear: 50000,
-        included: [
-          "Everything from the Corporation package, and...",
-          "Enterprise level support",
-          "Custom integrations",
-        ],
-      },
-    },
+    notes: `
+      price_unit: "bill",
+      features: {},
+      industries: {},
+      process: [
+        "Confirm payment methods for each bill/supplier",
+        "Preapprove bills depending on conditions set by yourself",
+        "Obtain your approval on any necessary bills",
+        "Schedule payments based on payment method and cash flow",
+        "Maintain bill schedules & approvals information on your Payables report",
+      ],
+      billing: {
+        startup: {
+          title: "Startup",
+          price_month: 100,
+          priceyear: 1000,
+          priceaddition: "$2 per additional bill",
+          included: [
+            "Setup of your Payables Scheduling process",
+            "Approvals and scheduling of up to 20 bills",
+            "Monthly AP report provided, and payment approvals obtained from you",
+          ],
+        },
+        business: {
+          title: "Business",
+          price_month: 500,
+          priceyear: 5000,
+          priceaddition: "$2 per additional bill",
+          included: [
+            "Everything from the Startup package, and...",
+            "Approvals and scheduling of up to 100 bills",
+            "Weekly AP report provided, and payment approvals obtained from you",
+          ],
+        },
+        corporation: {
+          title: "Corporation",
+          price_month: 2000,
+          priceyear: 20000,
+          priceaddition: "$2 per additional bill",
+          included: [
+            "Everything from the Business package, and...",
+            "Approvals and scheduling of up to 200 bills",
+            "Daily AP report provided, and payment approvals obtained from you",
+          ],
+        },
+        enterprise: {
+          title: "Enterprise",
+          price_month: 50000,
+          priceyear: 50000,
+          included: [
+            "Everything from the Corporation package, and...",
+            "Enterprise level support",
+            "Custom integrations",
+          ],
+        },
+      },`,
     nickname: "accounts-payables-payments",
   },
   {
@@ -1791,63 +1810,65 @@ export const data: {
     display_singular: "Receipt",
     description:
       "Reconcile the payment (bank statement line) against the transaction (bill line item) and close off the bill if paid",
-    price_unit: "payment",
-    overview: {},
-    features: {},
-    industries: {},
-    process: [
-      "Check that autodebited payments have gone through. Follow up with vendors for any issues",
-      "Ensure supplier codes / invoice numbers / other bill references are set correctly",
-      "Batch EFT/ACH payments, upload to bank (or provide to you to upload) - Dependent on bank features",
-      "Make payments according to payment group (Wire/International transfer, CC payment, Bank/online transfers, etc.",
-      "Maintain payments information in your Payables report",
-    ],
-    billing: {
-      startup: {
-        title: "Startup",
-        price_month: 200,
-        priceyear: 2000,
-        priceaddition: "$1 per additional request",
-        included: [
-          "Setup of your purchase requests process",
-          "Processing & sanitisation of up to 100 bills",
-          "Monthly payments report",
-        ],
-      },
-      business: {
-        title: "Business",
-        price_month: 1000,
-        priceyear: 10000,
-        priceaddition: "$1 per additional request",
-        included: [
-          "Everything from the Startup package, and...",
-          "Processing & sanitisation of up to 200 bills",
-          "Weekly payments report",
-        ],
-      },
-      corporation: {
-        title: "Corporation",
-        price_month: 5000,
-        priceyear: 50000,
-        priceaddition: "$1 per additional request",
-        included: [
-          "Everything from the Business package, and...",
-          "Processing & sanitisation of up to 200 bills",
-          null,
-          "Daily payments report",
-        ],
-      },
-      enterprise: {
-        title: "Enterprise",
-        price_month: 10000,
-        priceyear: 100000,
-        included: [
-          "Everything from the Corporation package, and...",
-          "Enterprise level support",
-          "Custom integrations",
-        ],
-      },
-    },
+    summary:null,
+    notes: `
+      price_unit: "payment",
+      overview: {},
+      features: {},
+      industries: {},
+      process: [
+        "Check that autodebited payments have gone through. Follow up with vendors for any issues",
+        "Ensure supplier codes / invoice numbers / other bill references are set correctly",
+        "Batch EFT/ACH payments, upload to bank (or provide to you to upload) - Dependent on bank features",
+        "Make payments according to payment group (Wire/International transfer, CC payment, Bank/online transfers, etc.",
+        "Maintain payments information in your Payables report",
+      ],
+      billing: {
+        startup: {
+          title: "Startup",
+          price_month: 200,
+          priceyear: 2000,
+          priceaddition: "$1 per additional request",
+          included: [
+            "Setup of your purchase requests process",
+            "Processing & sanitisation of up to 100 bills",
+            "Monthly payments report",
+          ],
+        },
+        business: {
+          title: "Business",
+          price_month: 1000,
+          priceyear: 10000,
+          priceaddition: "$1 per additional request",
+          included: [
+            "Everything from the Startup package, and...",
+            "Processing & sanitisation of up to 200 bills",
+            "Weekly payments report",
+          ],
+        },
+        corporation: {
+          title: "Corporation",
+          price_month: 5000,
+          priceyear: 50000,
+          priceaddition: "$1 per additional request",
+          included: [
+            "Everything from the Business package, and...",
+            "Processing & sanitisation of up to 200 bills",
+            null,
+            "Daily payments report",
+          ],
+        },
+        enterprise: {
+          title: "Enterprise",
+          price_month: 10000,
+          priceyear: 100000,
+          included: [
+            "Everything from the Corporation package, and...",
+            "Enterprise level support",
+            "Custom integrations",
+          ],
+        },
+      },`,
     nickname: "accounts-payables-receipt",
   },
   {
@@ -2015,7 +2036,6 @@ export const data: {
     display_singular: "Classification",
     description:null,
     summary: "Product types, categories and classes",
-    // description: "",
     nickname: "product-catalog-patterns-classification",
   },
   {
@@ -2090,7 +2110,7 @@ export const data: {
     display_singular: "User Roles",
     description:
       "Stakeholder Groups that are affected. These compile all of the roles involved in user stories/ that have requested features / that have requirements",
-    summary: "",
+    summary: null,
     nickname: "product-catalog-solutions-usecases-userroles",
   },
   {
@@ -2152,7 +2172,7 @@ export const data: {
     name_singular: "pieces",
     display_singular: "Pieces",
     description: "The consituent parts/components",
-    summary: "",
+    summary: null,
     nickname: "product-catalog-parts-pieces",
   },
   {
@@ -2229,11 +2249,11 @@ export const data: {
     summary: "Purchasing request management and approvals",
     description:
       "Process and sanitise the purchase requests queue. Purchase preapprovals based on conditions you set. Request other approvals from you.",
-    process: [
+    notes: `[
       "Verify purchase requests as necessary and with required attributes",
       "Reject requests / request further information where required",
       "Approve purchase requests for procurement",
-    ],
+    ]`,
     nickname: "product-procurement-requests",
   },
   {
@@ -2288,13 +2308,13 @@ export const data: {
     summary: "Price/Product matching between vendors, placing orders",
     description:
       "Manage purchase orders and backorders, maintain your procurement/backorder report with ETAs and track info.",
-    process: [
+    notes: `[
       "Batch Purchase Requests & create Purchase Orders",
       "Compare pricing between suppliers",
       "Check stock availability",
       "Place orders with suppliers",
       "Populate and maintain order & tracking information on the Purchase Orders",
-    ],
+    ]`,
     nickname: "product-procurement-purchase",
   },
   {
@@ -2366,11 +2386,11 @@ export const data: {
     summary: "Accepting delivery of shipped items",
     description:
       "Verify and accept delivery of stock, and trigger supplier bills for payment and onbilling to customers",
-    process: [
+    notes: `[
       "Obtain delivery dockets from you and confirm receipt",
       "Validate and accept stock into inventory with serial numnbers and other attributes",
       "Trigger supplier bill matching & approvals as ready to be paid",
-    ],
+    ]`,
     nickname: "product-procurement-receiving",
   },
   {
@@ -2686,14 +2706,16 @@ export const data: {
     status: "0. New",
     name_singular: "disposals",
     display_singular: "Disposals",
+    description: null,
     summary:
       "Purging/archiving old products, and organising physical disposal/destruction where necessary",
+    notes:{
     included: [
       "Organisation of physical disposals (e.g. e-waste collection, skips, standard garabage collection calendar)",
       "Sensitive information destruction",
       "Archiving / deleting old information",
       "Scheduling deletion of information according to retention regulations",
-    ],
+    ]},
     nickname: "product-decommission-disposals",
   },
   {
@@ -2725,11 +2747,11 @@ export const data: {
     display_singular: "Prospects",
     description: "Manage potential customers, clients and users/consumers",
     summary: "Potential Customers",
-    process: [
+    notes: `[
       "Capture all prospects and leads through all channels, forms etc.",
       "Enter prospects into the CRM as soon as they become known",
       "",
-    ],
+    ]`,
     nickname: "customer-lifecycle-prospects",
   },
   {
@@ -2740,12 +2762,12 @@ export const data: {
     display_singular: "Onboarding",
     summary: "Customers officially joining the business",
     description: "Manage onboarding checklists and fully integrate with your new customer",
-    process: [
+    notes: `[
       "Maintain the customer onboarding process",
       "Move Prospective customers into Onboarding status as soon as proposals are successfully signed off",
       "Capture all necessary customer information",
       "Liaise with customers for any needed onboarding assistance",
-    ],
+    ]`,
     nickname: "customer-lifecycle-onboarding",
   },
   {
@@ -2756,10 +2778,10 @@ export const data: {
     display_singular: "Retention",
     description: "Maintain healthy business relationships with customers",
     summary: "Management of your active customers",
-    process: [
+    notes: `[
       "Move Onboarding customers into Retention/active status as soon as the onboarding process is complete",
       "Maintain the customer management procedures",
-    ],
+    ]`,
     nickname: "customer-lifecycle-retention",
   },
   {
@@ -2770,12 +2792,12 @@ export const data: {
     display_singular: "Watchlist",
     description: "Manage customer threats and mitigate any issues or risk of offboarding",
     summary: "Tracking customers that are not receiving the service they want",
-    process: [
+    notes: `[
       "Set up and maintain the Watchlist triggers and procedures",
       "Move customers onto the Watchlist (from active status) if any red flags are triggered",
       "Assist to resolve watchlist issues, with the aim of improving the health of the customer relationship",
       "Move customers to 'Active' if the relationship is deemed repaired and the customer deemed not to be a risk",
-    ],
+    ]`,
     nickname: "customer-lifecycle-watchlist",
   },
   {
@@ -2786,14 +2808,14 @@ export const data: {
     display_singular: "Offboarding",
     summary: "Customers that leaving / not extending the business relationship",
     description: "Help handover of customer relationships that are ending",
-    process: [
+    notes: `[
       "Set up and maintain the Watchlist triggers and procedures",
       "Move the customer to Offboarding status when it becomes known that the relationship will be terminated",
       "Undertake offboarding steps",
       "Finalise contracts/agreements/billing",
       "Assist with handover of information to the customer and third parties",
       "Archive the customer when fully offboarded",
-    ],
+    ]`,
     nickname: "customer-lifecycle-offboarding",
   },
   {
@@ -2884,12 +2906,12 @@ export const data: {
     display_singular: "Information",
     summary:"Manage customer information",
     description:"Keep client data comprehensive and maintained",
-    included: [
+    notes: `included: [
       "site management (address and location changes)",
       "contact management (people, roles and contact methods)",
       "preferences management (notes, instructions and special information)",
       "agreements (service level agreements, KPIs and rules)",
-    ],
+    ]`,
     nickname: "customer-relationships-information",
   },
   {
@@ -2974,52 +2996,54 @@ export const data: {
     summary: 'Supplier Relationship contracts',
     description:
       "Apply for vendor accounts and lines of credit, establish partner relationships",
-    billing: {
-      startup: {
-        title: "Startup",
-        price_month: 200,
-        priceyear: 2000,
-        priceaddition: "$5 per additional bill",
-        included: [
-          "Setup of your purchase requests process",
-          "Processing & sanitisation of up to 100 bills",
-          "Monthly invoicing report",
-        ],
-      },
-      business: {
-        title: "Business",
-        price_month: 1000,
-        priceyear: 10000,
-        priceaddition: "$5 per additional bill",
-        included: [
-          "Everything from the Startup package, and...",
-          "Processing & sanitisation of up to 200 bills",
-          "Weekly invoicing report",
-        ],
-      },
-      corporation: {
-        title: "Corporation",
-        price_month: 5000,
-        priceyear: 50000,
-        priceaddition: "$5 per additional bill",
-        included: [
-          "Everything from the Business package, and...",
-          "Processing & sanitisation of up to 200 bills",
-          null,
-          "Daily invoicing report",
-        ],
-      },
-      enterprise: {
-        title: "Enterprise",
-        price_month: 10000,
-        priceyear: 100000,
-        included: [
-          "Everything from the Corporation package, and...",
-          "Enterprise level support",
-          "Custom integrations",
-        ],
-      },
-    },
+    notes:`
+      billing: {
+        startup: {
+          title: "Startup",
+          price_month: 200,
+          priceyear: 2000,
+          priceaddition: "$5 per additional bill",
+          included: [
+            "Setup of your purchase requests process",
+            "Processing & sanitisation of up to 100 bills",
+            "Monthly invoicing report",
+          ],
+        },
+        business: {
+          title: "Business",
+          price_month: 1000,
+          priceyear: 10000,
+          priceaddition: "$5 per additional bill",
+          included: [
+            "Everything from the Startup package, and...",
+            "Processing & sanitisation of up to 200 bills",
+            "Weekly invoicing report",
+          ],
+        },
+        corporation: {
+          title: "Corporation",
+          price_month: 5000,
+          priceyear: 50000,
+          priceaddition: "$5 per additional bill",
+          included: [
+            "Everything from the Business package, and...",
+            "Processing & sanitisation of up to 200 bills",
+            null,
+            "Daily invoicing report",
+          ],
+        },
+        enterprise: {
+          title: "Enterprise",
+          price_month: 10000,
+          priceyear: 100000,
+          included: [
+            "Everything from the Corporation package, and...",
+            "Enterprise level support",
+            "Custom integrations",
+          ],
+        },
+      }
+    `,
     nickname: "supplier-affiliations-partnership",
   },
   {
@@ -3209,7 +3233,7 @@ export const data: {
     summary: null,
     nickname: "personnel-employment-recruitment-onboardpersonnel",
     notes:`
-    https://www.blaze.tech/post/unraveling-the-true-cost-of-onboarding-a-new-employee
+      https://www.blaze.tech/post/unraveling-the-true-cost-of-onboarding-a-new-employee
     `
   },
   {
@@ -3581,53 +3605,55 @@ export const data: {
     display_singular: "Payrun",
     summary: 'Paying your employees',
     description: null,
-    price_unit: "employee",
-    billing: {
-      startup: {
-        title: "Startup",
-        price_month: 100,
-        priceyear: 1000,
-        priceaddition: "$10 per additional employee",
-        included: [
-          "Setup of your Payroll > Payrun process",
-          "Approvals and scheduling of up to 10 employees",
-          "Monthly AP report provided, and payment approvals obtained from you",
-        ],
-      },
-      business: {
-        title: "Business",
-        price_month: 500,
-        priceyear: 5000,
-        priceaddition: "$8 per additional employee",
-        included: [
-          "Everything from the Startup package, and...",
-          "Approvals and scheduling of up to 60 employees",
-          "Weekly AP report provided, and payment approvals obtained from you",
-        ],
-      },
-      corporation: {
-        title: "Corporation",
-        price_month: 2000,
-        priceyear: 20000,
-        priceaddition: "$6 per additional employee",
-        included: [
-          "Everything from the Business package, and...",
-          "Approvals and scheduling of up to 200 bills",
-          "Daily AP report provided, and payment approvals obtained from you",
-        ],
-      },
-      enterprise: {
-        title: "Enterprise",
-        price_month: 50000,
-        priceyear: 50000,
-        priceaddition: "$4 per additional employee",
-        included: [
-          "Everything from the Corporation package, and...",
-          "Enterprise level support",
-          "Custom integrations",
-        ],
-      },
-    },
+    notes:`
+      price_unit: "employee",
+      billing: {
+        startup: {
+          title: "Startup",
+          price_month: 100,
+          priceyear: 1000,
+          priceaddition: "$10 per additional employee",
+          included: [
+            "Setup of your Payroll > Payrun process",
+            "Approvals and scheduling of up to 10 employees",
+            "Monthly AP report provided, and payment approvals obtained from you",
+          ],
+        },
+        business: {
+          title: "Business",
+          price_month: 500,
+          priceyear: 5000,
+          priceaddition: "$8 per additional employee",
+          included: [
+            "Everything from the Startup package, and...",
+            "Approvals and scheduling of up to 60 employees",
+            "Weekly AP report provided, and payment approvals obtained from you",
+          ],
+        },
+        corporation: {
+          title: "Corporation",
+          price_month: 2000,
+          priceyear: 20000,
+          priceaddition: "$6 per additional employee",
+          included: [
+            "Everything from the Business package, and...",
+            "Approvals and scheduling of up to 200 bills",
+            "Daily AP report provided, and payment approvals obtained from you",
+          ],
+        },
+        enterprise: {
+          title: "Enterprise",
+          price_month: 50000,
+          priceyear: 50000,
+          priceaddition: "$4 per additional employee",
+          included: [
+            "Everything from the Corporation package, and...",
+            "Enterprise level support",
+            "Custom integrations",
+          ],
+        },
+      }
+    `,
     nickname: "personnel-payroll-payrun",
   },
   {
@@ -3987,7 +4013,6 @@ export const data: {
     display_singular: "Channels",
     summary: null,
     description: null,
-    process: [1, 2, 3],
     nickname: "market-engagement-channels",
   },
   {
@@ -4166,12 +4191,12 @@ export const data: {
     display_singular: "Triage",
     summary: "urgency and impact evaluation + queuing",
     description: null,
-    process: [
+    notes: `[
       "Review an item",
       "Create/ List entities/link entities and relationships from it (e.g. derive new contacts, tasks etc.)",
       "Undertake any immediate tasks",
       "Update any stakeholders / reply where appropriate",
-    ],
+    ]`,
     nickname: "project-response-triage",
   },
   {
@@ -4393,7 +4418,7 @@ export const data: {
     display_singular: "Proofs",
     description:
       "Proof techniques, Arguments and other justifications/validations",
-    summary: "",
+    summary: null,
     nickname: "project-planning-investigations-logic-proofs",
   },
   {
@@ -4899,12 +4924,14 @@ export const data: {
     display_singular: "Process",
     description:
       "Your business manual and official source of truth for all operations",
-    summary: [
-      "Create and maintain a company manual, compiling all business processes into a single source of truth",
-      "Maintain business processes, submit change requests, obtain approval for procedure changes",
-      "Maintain company dictionary/language https://howtoprofessionallysay.akashrajpurohit.com/",
-    ],
-    process: ["procedures", "knowledgebase", "changes", "training"],
+    summary:null,
+    notes: `
+      summary: [
+        "Create and maintain a company manual, compiling all business processes into a single source of truth",
+        "Maintain business processes, submit change requests, obtain approval for procedure changes",
+        "Maintain company dictionary/language https://howtoprofessionallysay.akashrajpurohit.com/",
+      ],
+      process: ["procedures", "knowledgebase", "changes", "training"],`,
     nickname: "system-process",
   },
   {
@@ -4914,7 +4941,7 @@ export const data: {
     name_singular: "instructions",
     display_singular: "Instructions",
     description:null,
-    summary: "work instructions for step by step guides",
+    summary: "Work instructions for step by step guides",
     nickname: "system-process-instructions",
   },
   {
@@ -5002,7 +5029,7 @@ export const data: {
     display_singular: "Utility",
     nickname: "system-technology-applications-utility",
     description: "System and Performance Tools",
-    summary: "",
+    summary: null,
   },
   {
     id: 19202,
@@ -5853,6 +5880,8 @@ export const data: {
     nickname: "state",
   },
 ];
+
+// TRANSFORMATIONS
 
 // console.info('data',data.filter(x=>!x.display_singular))
 // const newData = data.map((x,i)=>x={

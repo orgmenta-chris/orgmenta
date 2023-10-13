@@ -34,7 +34,16 @@ import {
   makeData,
 } from "./table";
 import { ColumnDef } from "@tanstack/react-table";
+import { Type } from "@stripe/stripe-react-native/lib/typescript/src/types/Token";
 // import { Map as ImmutableMap } from "immutable";
+
+// MAIN
+
+export type TypeDisplayMain = {
+  schema: any,
+  focus: any,
+  auxiliary:any,
+}
 
 // DYNAMIC
 
@@ -48,6 +57,7 @@ export const ViewDisplayDynamic = WrapperReactMemo(
 );
 
 // LIST
+
 export const ViewDisplayList = (props: any) => {
   // const focus = props.focus;
   const auxiliary = props.auxiliary;
@@ -65,7 +75,9 @@ export const ViewDisplayChart = (props: any) => {
   return <ViewChartMain data={auxiliary?.data} />;
 };
 
-export const ViewDisplayPod = (props: any) => {
+// PODS
+
+export const ViewDisplayPods = (props: any) => {
   const schema = props.schema;
   const auxiliary = props.auxiliary;
   const focus = props.focus;
@@ -80,10 +92,18 @@ export const ViewDisplayPod = (props: any) => {
   );
 };
 
-// Form
+// FORM
 
-export const ViewDisplayForm = (props: any) => {
-  let dataTransformed: any = useReactMemo(() => {
+export const ViewDisplayForm = (props: TypeDisplayForm) => {
+  // A component to show entity data in a 'form' display
+  const dataTransformed = transformDisplayForm(props);
+  return <ViewFormDynamic data={dataTransformed} formname={"form"} />;
+};
+
+export const transformDisplayForm = (props: TypeDisplayForm) => {
+  // Tranform the (focus, auxiliary and attribute) data specifically for the Form display.
+  // Some of this functionality (any functionality that is not specific to 'form' and needs to be prepped in the same way in all other displays) will be moved to the rpc function query in supabase, else the relevant rpc hooks in this codebase)
+  return useReactMemo(() => {
     let items: any = [];
     if (props.schema && props.focus.data && props.auxiliary) {
       props?.schema?.data?.forEach((oldItem: any) => {
@@ -104,10 +124,11 @@ export const ViewDisplayForm = (props: any) => {
       return items;
     }
   }, [props.schema, props.focus.data, props.auxiliary]);
-  return <ViewFormDynamic data={dataTransformed} formname={"form"} />;
 };
 
-// Table
+export type TypeDisplayForm = TypeDisplayMain;
+
+// TABLE
 
 export const ViewDisplayTable = (props: any) => {
   return (
@@ -117,7 +138,7 @@ export const ViewDisplayTable = (props: any) => {
   );
 };
 
-// Calendar
+// CALENDAR
 
 export const ViewDisplayCalendar = (props: any) => {
   return (
@@ -128,7 +149,8 @@ export const ViewDisplayCalendar = (props: any) => {
   );
 };
 
-// Timeline
+// TIMELINE
+
 export const ViewDisplayTimeline = (props: any) => {
   return (
     <ViewContainerStatic style={{ height: "100%" }}>
@@ -242,8 +264,20 @@ export const ViewDisplaySpacial = (props: any) => {
 
 // JSON
 
-export const ViewDisplayJson = (props: any) => {
-  let dataTransformed: any = useReactMemo(() => {
+export const ViewDisplayJson = (props: TypeDisplayJson) => {
+  const dataTransformed = transformDisplayForm(props);
+  return (
+    <ViewJsonContainer
+      data={dataTransformed}
+      // data={objectJsonExample}
+    />
+  );
+};
+
+export const transformDisplayJson = (props: TypeDisplayJson) => {
+  // Tranform the (focus, auxiliary and attribute) data specifically for the Form display.
+  // Some of this functionality (any functionality that is not specific to 'form' and needs to be prepped in the same way in all other displays) will be moved to the rpc function query in supabase, else the relevant rpc hooks in this codebase)
+  return useReactMemo(() => {
     let items: any = [];
     if (props.schema && props.focus.data && props.auxiliary) {
       props?.schema?.data?.forEach((oldItem: any) => {
@@ -264,13 +298,11 @@ export const ViewDisplayJson = (props: any) => {
       return items;
     }
   }, [props.schema, props.focus.data, props.auxiliary]);
-  return (
-    <ViewJsonContainer
-      data={dataTransformed}
-      // data={objectJsonExample}
-    />
-  );
 };
+
+export type TypeDisplayJson = TypeDisplayMain;
+
+// PATH
 
 export const ViewDisplayPath = (props: any) => {
   return (
@@ -281,10 +313,10 @@ export const ViewDisplayPath = (props: any) => {
   );
 };
 
-// Components
+// COMPONENTS
 
 export const objectDisplayComponents: any = {
-  pods: ViewDisplayPod,
+  pods: ViewDisplayPods,
   form: ViewDisplayForm,
   list: ViewDisplayList,
   table: ViewDisplayTable,
@@ -301,7 +333,7 @@ export const objectDisplayComponents: any = {
   spacial: ViewDisplaySpacial,
 };
 
-// Options
+// OPTIONS
 
 export const optionsDisplayMain = [
   { title: "Pods", iconName: "view-quilt", iconSource: "MaterialIcons" },
@@ -341,7 +373,7 @@ export const optionsDisplayMain = [
   },
 ];
 
-// Tabs
+// TABS
 
 export const ViewDisplayTabs = ({}: any) => {
   const display = useRouterLocation()?.paths[3];

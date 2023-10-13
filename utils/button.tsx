@@ -1,11 +1,15 @@
 // Placeholder for pressable shared/enhanced functionality & styling.
 // Note: react-native button and touchable opacity are no longer supported, please ensure Pressable is used
 
-import { Pressable, PressableProps } from "react-native";
+import {
+  ViewTypographySubheading,
+  ViewTypographySubsubheading,
+  ViewTypographyText,
+} from "./typography";
 import { ViewIndicatorSpinner } from "./indicator";
-import { ViewTypographySubheading, ViewTypographySubsubheading, ViewTypographyText } from "./typography";
-import { ViewContainerColumn, ViewContainerStatic } from "./container";
+import { ViewContainerStatic } from "./container";
 import { ViewRouterLinkthemed } from "./router";
+import { Pressable, PressableProps } from "react-native";
 
 // PRESSABLE
 
@@ -13,7 +17,7 @@ import { ViewRouterLinkthemed } from "./router";
 // export const ViewButtonPressable = Pressable;
 
 // Provide default styling if none specified (TODO: use theme proper.)
-export const ViewButtonPressable:any = ({
+export const ViewButtonPressable: any = ({
   disabled,
   children,
   style,
@@ -33,10 +37,13 @@ export const ViewButtonPressable:any = ({
 
 export type TypeButtonPressable = PressableProps;
 
-
 // CONTAINER
 // Temp/placeholder
-export const ViewButtonContainer = ({ buttonText, isLoading, ...rest }: any) => {
+export const ViewButtonContainer = ({
+  buttonText,
+  isLoading,
+  ...rest
+}: any) => {
   return (
     <ViewButtonPressable
       style={{
@@ -69,39 +76,45 @@ export const ViewButtonContainer = ({ buttonText, isLoading, ...rest }: any) => 
     </ViewButtonPressable>
   );
 };
+
 // Example usage (not tested yet)
-{/* <ViewButtonContainer
+{
+  /* <ViewButtonContainer
 onPress={() => signin.mutate()}
 title={`Sign In`}
 isLoading={signin.isLoading}
-/> */}
-
+/> */
+}
 
 // Alternative button (CG assigned, placeholder)
-export const ViewButtonLink = ({to, buttonText, buttonSubtext, isLoading, ...rest }: any) => {
+export const ViewButtonLink = ({
+  to,
+  buttonText,
+  buttonSubtext,
+  isLoading,
+  ...rest
+}: any) => {
   return (
-          <ViewRouterLinkthemed to={to}>
-            <ViewContainerStatic
-              style={{
-                flex: 1,
-                height: 50,
-                margin: 10,
-                marginHorizontal: "20%",
-                borderRadius: 5,
-                backgroundColor: "white",
-              }}
-            >
-              <ViewTypographySubheading
-                style={{ flex: 1, textAlign: "center" }}
-              >
-                {buttonText}
-              </ViewTypographySubheading>
-              <ViewTypographySubsubheading
-                style={{ color:'red', flex: 1, textAlign: "center", fontStyle: "italic" }}
-              >
-                {buttonSubtext}
-              </ViewTypographySubsubheading>
-            </ViewContainerStatic>
-          </ViewRouterLinkthemed>
+    <ViewRouterLinkthemed to={to} style={{ flex: 1 }}>
+      <ViewContainerStatic
+        style={{
+          flex: 1,
+          height: 30,
+          margin: 5,
+          // marginHorizontal: 5,
+          borderRadius: 5,
+          backgroundColor: "white",
+        }}
+      >
+        <ViewTypographySubheading style={{ flex: 1, textAlign: "center" }}>
+          {buttonText}
+        </ViewTypographySubheading>
+        <ViewTypographySubsubheading
+          style={{ flex: 1, textAlign: "center", fontStyle: "italic" }}
+        >
+          {buttonSubtext}
+        </ViewTypographySubsubheading>
+      </ViewContainerStatic>
+    </ViewRouterLinkthemed>
   );
 };

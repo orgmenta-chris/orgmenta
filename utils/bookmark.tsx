@@ -6,17 +6,23 @@ import { ViewCardExpandable } from "./card";
 import { ViewIconMain } from "./icon";
 import { ViewContextContainer } from "./context";
 import { ViewRouterLinkthemed } from "./router";
-import { ViewContainerStatic, ViewContainerScroll } from "./container";
+import {
+  ViewContainerStatic,
+  ViewContainerScroll,
+  ViewContainerRow,
+} from "./container";
 import { ViewButtonPressable } from "./button";
 import { useReactState } from "./react";
 import { useWindowDimensions } from "./window";
 import { useModalVisibility } from "./modal";
 import { useQueryerQuery, TypeQueryerOptions } from "./queryer";
 import { data } from "./static";
+import { ViewInputText } from "./input";
 
 // Modal
 
 export const ViewBookmarkModal = (props: any) => {
+  const [filterState, filterSet] = useReactState("");
   return (
     <ViewModalContainer
       modalName={"bookmark"}
@@ -43,7 +49,7 @@ export const ViewBookmarkModal = (props: any) => {
               body={data
                 .filter(
                   (y) =>
-                    (y.status === "3. Active" || __DEV__) && y.parent === x.id
+                    (y.status === "3. Active" || __DEV__) && y.parent === x.id  && y.name_singular?.includes(filterState.toLowerCase())
                 )
                 .map((y, i) => (
                   <ViewRouterLinkthemed
@@ -61,6 +67,12 @@ export const ViewBookmarkModal = (props: any) => {
       </ViewContainerScroll>
       <ViewContainerStatic>
         <ViewBookmarkTabs />
+        <ViewContainerRow>
+          <ViewTypographyLabel style={{ fontSize: 11 }}>
+            Filter:
+          </ViewTypographyLabel>
+          <ViewInputText autoFocus onChangeText={(text:string)=>filterSet(text)} style={{borderWidth:1}} />
+        </ViewContainerRow>
         <ViewContextContainer />
       </ViewContainerStatic>
     </ViewModalContainer>

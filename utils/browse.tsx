@@ -57,14 +57,14 @@ export type TypeBrowseActive = any; // placeholder
 
 export const useBrowseArray = ({ searchterm }: any) => {
   const queryKey: (string | number)[] = [
-    "attributes",
-    "main",
-    "all",
+    "browse",
+    "entities",
     searchterm,
   ];
   const queryFn = async () => {
     const query = instanceSupabaseClient.from("entities_orgmenta").select();
     if (searchterm) {
+      console.log('searchterm',searchterm)
       query.ilike("title", `%${searchterm}%`);
     }
     query.range(0, 9); //temp arbitrary limit of 10 (todo: pass variables in here to get proper pagination)
@@ -74,6 +74,7 @@ export const useBrowseArray = ({ searchterm }: any) => {
   const query = useQueryerQuery<any, Error>(queryKey, queryFn, {
     enabled: true,
   });
+  // console.log('query',query)
   return query;
 };
 
@@ -81,7 +82,6 @@ export const useBrowseArray = ({ searchterm }: any) => {
 
 export const ViewBrowseModal = (props: any) => {
   const [search, set] = useReactState("");
-  const browseArray = useBrowseArray({ searchterm: search });
   return (
     <ViewModalContainer
       modalName={"browse"}
@@ -116,6 +116,7 @@ export const ViewBrowseSearch = (props: any) => {
               <ViewTypographyText style={{ flex: 2 }}>{`Search: `}</ViewTypographyText>
               <ViewContainerStatic>
                 <ViewInputText
+                  autoFocus
                   style={{
                     flex: 3,
                     backgroundColor: "white",

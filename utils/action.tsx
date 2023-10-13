@@ -31,7 +31,13 @@ import { useReactState } from "./react";
 export const ViewActionDisplay = ({}: any) => {
   return (
     <ViewContainerStatic style={{ backgroundColor: "lightgray" }}>
-      <ViewActionHeading title={"Displays"} subtitle={"Switch Display Modes"} />
+      <ViewContainerRow>
+        <ViewActionHeading
+          title={"Displays"}
+          subtitle={"Switch Display Modes"}
+        />
+        <ViewContextContainer />
+      </ViewContainerRow>
       <ViewDisplayTabs />
     </ViewContainerStatic>
   );
@@ -64,8 +70,10 @@ export const ViewActionAdd = ({ schema, focus }: any) => {
     .map((x: any) => {
       return {
         ...x,
-        valueDefault: x.label === "Category" ?[ paths[2] ]// If category then put in the current category from the url
-        : x.valueDefault, // Else alias the defaultValue field to be initial value
+        valueDefault:
+          x.label === "Category"
+            ? [paths[2]] // If category then put in the current category from the url
+            : x.valueDefault, // Else alias the defaultValue field to be initial value
       };
     });
 
@@ -314,7 +322,7 @@ export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
         backgroundColor: "lightgray",
       }}
     >
-      <ViewContainerStatic style={{ flexDirection: "row" }}>
+      <ViewContainerRow style={{ flexDirection: "row" }}>
         {optionsActionTabs?.map((x, i) => (
           <ViewRouterLinkthemed
             to={x.title.toLowerCase()}
@@ -344,14 +352,15 @@ export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
             </ViewContainerStatic>
           </ViewRouterLinkthemed>
         ))}
-      </ViewContainerStatic>
+        <ViewContextContainer />
+      </ViewContainerRow>
     </ViewContainerStatic>
   );
 };
 
 export const ViewActionHeading = ({ title, subtitle }: any) => {
   return (
-    <ViewContainerStatic style={{ flexDirection: "row" }}>
+    <ViewContainerRow style={{ flex: 1 }}>
       <ViewTypographySubheading
         style={{ margin: 10, textAlignVertical: "bottom" }}
       >
@@ -367,7 +376,6 @@ export const ViewActionHeading = ({ title, subtitle }: any) => {
       >
         {subtitle}
       </ViewTypographySubsubheading>
-      <ViewContextContainer  />
-    </ViewContainerStatic>
+    </ViewContainerRow>
   );
 };

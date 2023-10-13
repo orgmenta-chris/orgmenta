@@ -27,8 +27,8 @@ export const articlesTemp: {
   {
     topic:`Scrollbar design and usability`,
     notes: `
-    https://news.ycombinator.com/item?id=37864867
-    https://artemis.sh/2023/10/12/scrollbars.html
+      https://news.ycombinator.com/item?id=37864867
+      https://artemis.sh/2023/10/12/scrollbars.html
     `
   },
   {
@@ -40,8 +40,14 @@ export const articlesTemp: {
       All functionality designed to be at your fingertips
       // EXAMPLES
       - 2 clicks to viewing a live demo. Bookmark > click a bookmark.
-      - 1 click to start searching all entities. Browse > start typing (QUERY BUG TO RESOLVE, CLEAR X BUTTON TO ADD)
+      - 1 click+type to start searching all entities. Browse > start typing (QUERY BUG TO RESOLVE, CLEAR X BUTTON TO ADD)
       - 1 click to filter modules. Bookmark > start typing (FUNCTIONALITY TO ADD: AUTO EXPAND ITEMS IF THERE ARE RESULTS, CLEAR X BUTTON )
+      - 1 click to switch display mode. From entities page: click display. (or if viewing a different action panel, 2 clicks.)
+      - 1 click+type to filter. From entities page: click controls > start typing.
+      - 1 click+type+returnkey+returnkey to create item. From entities page: click + > start typing title (AUTOFOCUS TODO) > click return to view summary (FOCUS TODO), then return again submit (TODO)
+      - 2 clicks to go into private mode (privacy shield). UserWidget>Click privacy shield.
+      - 2 clicks to sign out. UserWidget>Click signout.
+      - X clicks to create time entry. Click bookmarks>tools>time entry>start typing (autofocus todo)> press return for summary (todo), press return again to submit (todo)
     `,
   },
   {

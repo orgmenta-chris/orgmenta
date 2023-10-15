@@ -39,7 +39,7 @@ export const ViewFormDynamic = ({ data, formname }: TypeFormDynamic) => {
   // console.log('entityState',entityState)
   // const createEntity = useEntityCreate(entityState as any)
   return (
-    <ViewContainerStatic>
+    <ViewContainerStatic  style={{flex: 1}}>
       <ViewContainerStatic>
         {!data ? (
           <ViewTypographyText>

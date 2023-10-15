@@ -34,7 +34,7 @@ export const ViewPreferenceButton = ({ children, set, to }: any) => {
       <ViewIconMain
         name={"ellipsis-horizontal-circle-sharp"}
         source={"Ionicons"}
-        color={"gray"}
+        color={"rgba(80,80,80,1)"}
         size={26}
         style={{ top: -2 }}
       />

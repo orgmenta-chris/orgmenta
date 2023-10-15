@@ -22,7 +22,7 @@ export const ViewInfoButton = ({ children, set, to }: any) => {
         <ViewIconMain
           name={"info-with-circle"}
           source={"Entypo"}
-          color={"gray"}
+          color={"rgba(80,80,80,1)"}
         />
       </ViewButtonPressable>
   );

@@ -9,6 +9,8 @@ export const data: {
   nickname: string;
   notes?: any;
   integration?: any;
+  icon_name?: string;
+  icon_source?: string;
 }[] = [
   {
     id: 1,
@@ -41,6 +43,8 @@ export const data: {
     summary: "Management & Business Planning",
     description: "Overarching command and decision making for the business",
     nickname: "governance",
+    icon_name: "finance",
+    icon_source: "MaterialCommunityIcons",
   },
   {
     id: 110,
@@ -614,6 +618,8 @@ export const data: {
     summary: "Invoices, Bills & Finance",
     description: "Organise your business finances",
     nickname: "accounts",
+    icon_name: "dollar",
+    icon_source: "FontAwesome",
   },
   {
     id: 120,
@@ -2011,6 +2017,8 @@ export const data: {
     description:
       "Procure components, assemble them and deliver them to your customer",
     nickname: "product",
+    icon_name: "package",
+    icon_source: "Feather"
   },
   {
     id: 130,
@@ -2146,7 +2154,7 @@ export const data: {
     display_singular: "Constituents",
     description: "Which components make up the product, and how",
     summary:
-      "This maps the Product>Catalog>Components to the end product, i.e. 'how the parts fit together",
+      "This maps the Product>Catalog>Components to the end product, i.e. 'how the parts fit together'",
     nickname: "product-catalog-solutions-constituents",
   },
   {
@@ -2739,6 +2747,8 @@ export const data: {
     summary: "Onboarding, Sales & Portal",
     description: "Management of your clients / consumers / users",
     nickname: "customer",
+    icon_name: "customerservice",
+    icon_source: "AntDesign",
   },
   {
     id: 140,
@@ -2974,7 +2984,7 @@ export const data: {
     name_singular: "programs",
     display_singular: "Programs",
     summary: null,
-    description:
+    description: 
       "Loyalty, Rewards and Incentives for sales, referrals and other customer interactions",
     nickname: "customer-programs",
   },
@@ -2987,6 +2997,8 @@ export const data: {
     summary: "Vendors & Supply Chain",
     description: "Management of partners / suppliers / vendors / manufacturers",
     nickname: "supplier",
+    icon_name: "factory",
+    icon_source: "MaterialCommunityIcons",
   },
   {
     id: 150,
@@ -3151,6 +3163,8 @@ export const data: {
     summary: "Timesheets, HR & Payroll",
     description: "Employee tools & Human Resources",
     nickname: "personnel",
+    icon_name: "people",
+    icon_source: "OctIcons"
   },
   {
     id: 160,
@@ -3912,9 +3926,11 @@ export const data: {
     status: "0. New",
     name_singular: "market",
     display_singular: "Market",
-    summary: "Campaigns, Engagement and Branding",
+    summary: "Research, Campaigns, Engagement and Branding",
     description: "Marketing, branding and community engagement",
     nickname: "market",
+    icon_name: "campaign",
+    icon_source: "MaterialIcons",
   },
   {
     id: 170,
@@ -3945,6 +3961,16 @@ export const data: {
     summary: "Domains and other assets",
     description: null,
     nickname: "market-brands-assets",
+  },
+  {
+    id: 1702,
+    parent: 170,
+    status: "0. New",
+    name_singular: "usp",
+    display_singular: "USP",
+    summary: "Unique Selling Points",
+    description: null,
+    nickname: "market-brands-usp",
   },
   {
     id: 171,
@@ -4073,12 +4099,14 @@ export const data: {
     id: 18,
     parent: 1,
     status: "0. New",
-    name_singular: "project",
-    display_singular: "Project",
+    name_singular: "operations",
+    display_singular: "Operations",
     summary: "Service Desk & Projects",
     description:
       "Management of all the production (all work/tasks) that is undertaken in the business.\nTrack all of your projects & service tickets, with optional best practice libraries (ITIL, PMBOK, Prince2, ISO:9001, etc.)",
-    nickname: "project",
+    nickname: "operations",
+    icon_name: 'ticket',
+    icon_source: 'Entypo'
   },
   {
     id: 180,
@@ -4088,7 +4116,7 @@ export const data: {
     display_singular: "Control",
     description: null,
     summary: "Project control, quality and change management",
-    nickname: "project-control",
+    nickname: "operations-control",
   },
   {
     id: 1800,
@@ -4098,7 +4126,7 @@ export const data: {
     display_singular: "Quality",
     description: null,
     summary: "Quality Assurance and Control",
-    nickname: "project-control-quality",
+    nickname: "operations-control-quality",
   },
   {
     id: 18000,
@@ -4108,7 +4136,7 @@ export const data: {
     display_singular: "Quality Control",
     description: null,
     summary: null,
-    nickname: "project-control-quality-qualitycontrol",
+    nickname: "operations-control-quality-qualitycontrol",
   },
   {
     id: 18001,
@@ -4118,7 +4146,7 @@ export const data: {
     display_singular: "Quality Assurance",
     description: null,
     summary: null,
-    nickname: "project-control-quality-qualityassurance",
+    nickname: "operations-control-quality-qualityassurance",
   },
   {
     id: 1801,
@@ -4128,7 +4156,7 @@ export const data: {
     display_singular: "Changes",
     description: null,
     summary: "Change Requests and Management",
-    nickname: "project-control-changes",
+    nickname: "operations-control-changes",
   },
   {
     id: 1802,
@@ -4137,13 +4165,13 @@ export const data: {
     name_singular: "progress",
     display_singular: "Progress",
     summary:
-      "Project progress monitoring, using data from project-planning-schedule and other modules",
+      "Project progress monitoring, using data from operations-planning-schedule and other modules",
     description: "Project monitoring, progress & status management / plotting",
     notes: `[
       "https://prince2.wiki/theme/progress/",
       "https://www.pmi.org/learning/library/anatomy-highly-effective-status-report-2198",
     ]`,
-    nickname: "project-control-progress",
+    nickname: "operations-control-progress",
   },
   {
     id: 1803,
@@ -4153,7 +4181,7 @@ export const data: {
     display_singular: "Projection",
     description: null,
     summary: "Project forecasting",
-    nickname: "project-control-projection",
+    nickname: "operations-control-projection",
   },
   {
     id: 1804,
@@ -4162,8 +4190,8 @@ export const data: {
     name_singular: "risk",
     display_singular: "Risk",
     description: null,
-    summary: null,
-    nickname: "project-control-risk",
+    summary: "Risk assessment and mitigation",
+    nickname: "operations-control-risk",
   },
   {
     id: 181,
@@ -4171,16 +4199,16 @@ export const data: {
     status: "0. New",
     name_singular: "response",
     display_singular: "Response",
-    summary: null,
-    description:
-      "Project stakeholder management, requirements analysis and communications",
+    description: null,
+    summary:
+      "Stakeholder management, requirements analysis and communications",
     notes: ` [
       "Triage requests (internally or externally created), set up projects and bundle tasks",
       "Process incoming communications and reply to stakeholders",
       "Maintain stakeholder lists for all tasks",
       "Maintain production coordination report",
     ]`,
-    nickname: "project-response",
+    nickname: "operations-response",
   },
   {
     id: 1810,
@@ -4193,7 +4221,7 @@ export const data: {
     references: [
       "see pmbok planning stage part 1, and other libraries/standards",
     ],
-    nickname: "project-response-initiation",
+    nickname: "operations-response-initiation",
   },
   {
     id: 18101,
@@ -4221,7 +4249,7 @@ export const data: {
       "Undertake any immediate tasks",
       "Update any stakeholders / reply where appropriate",
     ]`,
-    nickname: "project-response-triage",
+    nickname: "operations-response-triage",
   },
   {
     id: 18110,
@@ -4251,9 +4279,9 @@ export const data: {
     status: "0. New",
     name_singular: "ticket-prioritization",
     display_singular: "Prioritization",
-    description: null,
+    description: "Set the impact and urgency to determine the priority",
     summary:
-      "Set the impact and urgency. The SLA/SLO (Service Level Agreement / Objectives - Response times) should ideally be set automatically from the prioritization, else set manually.",
+      "Apply The SLA/SLO (Service Level Agreement / Objectives) for response goals",
     nickname: "response-triage-ticket-prioritization",
   },
   {
@@ -4264,7 +4292,7 @@ export const data: {
     display_singular: "Stakeholders",
     description: null,
     summary: null,
-    nickname: "project-response-stakeholders",
+    nickname: "operations-response-stakeholders",
   },
   {
     id: 18120,
@@ -4274,7 +4302,7 @@ export const data: {
     name_singular: "stakeholderidentification",
     display_singular: "Stakeholder Identification",
     summary: "Add any relevant stakeholders to the ticket",
-    nickname: "project-response-stakeholders-stakeholderidentification",
+    nickname: "operations-response-stakeholders-stakeholderidentification",
   },
   {
     id: 18120,
@@ -4284,7 +4312,7 @@ export const data: {
     display_singular: "Stakeholderlist",
     description: null,
     summary: "Maintain the stakeholder list",
-    nickname: "project-response-stakeholders-stakeholderlist",
+    nickname: "operations-response-stakeholders-stakeholderlist",
   },
   {
     id: 1813,
@@ -4296,7 +4324,7 @@ export const data: {
       "A list of requirements is maintained throughout the project lifespan, and stakeholders are consulted to ensure accuracy and alignment",
     summary:
       "Maintain a requirements list for use in Project > Planning and other modules",
-    nickname: "project-response-requirements",
+    nickname: "operations-response-requirements",
   },
   {
     id: 18130,
@@ -4308,7 +4336,7 @@ export const data: {
     summary: null,
     notes:
       "Attach customer-specific documentation (this should be followed first) and general documentation (used as a fallback for tasks if there is no customer-specific process for a task",
-    nickname: "project-response-requirements-assignprocesses",
+    nickname: "operations-response-requirements-assignprocesses",
   },
   {
     id: 18131,
@@ -4318,7 +4346,7 @@ export const data: {
     display_singular: "Establish Requirements",
     description: "List the necessary requirements",
     summary: null,
-    nickname: "project-response-requirements-establishrequirements",
+    nickname: "operations-response-requirements-establishrequirements",
   },
   {
     id: 1814,
@@ -4328,7 +4356,7 @@ export const data: {
     display_singular: "Communications",
     summary: null,
     description: null,
-    nickname: "project-response-communications",
+    nickname: "operations-response-communications",
   },
   {
     id: 182,
@@ -4337,8 +4365,8 @@ export const data: {
     name_singular: "planning",
     display_singular: "Planning",
     description: null,
-    summary: "Project designing, resource allocation and scheduling",
-    nickname: "project-planning",
+    summary: "Designing, resource allocation and scheduling",
+    nickname: "operations-planning",
   },
   {
     id: 1820,
@@ -4349,7 +4377,7 @@ export const data: {
     description: "Research into the problem and requirements",
     summary:
       "Initial troubleshooting, first call resolution attempts, investigation into the problem, verifying and deriving from requirements",
-    nickname: "project-planning-investigations",
+    nickname: "operations-planning-investigations",
   },
   {
     id: 18200,
@@ -4359,7 +4387,7 @@ export const data: {
     display_singular: "Gather",
     description: "Collect all needs/requirements/information",
     summary: "Collate all of the things that need to be solved",
-    nickname: "project-planning-investigations-gather",
+    nickname: "operations-planning-investigations-gather",
   },
   {
     id: 18201,
@@ -4369,7 +4397,7 @@ export const data: {
     display_singular: "Scope",
     description: "Define the scope of the project",
     summary: "Analygous to PMBOK scope management",
-    nickname: "project-planning-investigations-scope",
+    nickname: "operations-planning-investigations-scope",
   },
   {
     id: 18202,
@@ -4381,7 +4409,7 @@ export const data: {
       "Use cognitive tools to clarify, verify or validate requirements",
     summary:
       "Elements of Critical Thinking / Concepts in Argumentation and Reasoning.",
-    nickname: "project-planning-investigations-logic",
+    nickname: "operations-planning-investigations-logic",
   },
   {
     id: 182020,
@@ -4391,7 +4419,7 @@ export const data: {
     display_singular: "Heuristics ",
     description: "Guiding principles intended to simplify reasoning",
     summary: "Anchoring, Representativeness, Availability and other heuristics",
-    nickname: "project-planning-investigations-logic-heuristics",
+    nickname: "operations-planning-investigations-logic-heuristics",
     notes: `[
       "Anchoring: The tendency to rely too heavily on the first piece of information encountered when making decisions. Often seen in negotiations, where the first offer sets the stage for the rest of the discussion. ",
       "Reciprocity Norm: A social heuristic that encourages people to respond to a positive action with another positive action, encouraging mutual benefit. Often used in social engineering and sales tactics.",
@@ -4410,7 +4438,7 @@ export const data: {
     display_singular: "Axioms",
     description: "Rules",
     summary: null,
-    nickname: "project-planning-investigations-logic-axioms",
+    nickname: "operations-planning-investigations-logic-axioms",
   },
   {
     id: 182022,
@@ -4422,7 +4450,7 @@ export const data: {
       "Fallacies, biases and other errors in reasoning, misleading or deceptive arguments.",
     summary:
       "Also includes paradoxes, tautologies, Dilemmas, Conundrums, Antinomies, Anomalies, Enigmas",
-    nickname: "project-planning-investigations-logic-fallacies",
+    nickname: "operations-planning-investigations-logic-fallacies",
   },
   {
     id: 182023,
@@ -4432,7 +4460,7 @@ export const data: {
     display_singular: "Inferrences",
     description: "Conclusions reached on the basis of evidence and reasoning",
     summary: "Formal Systems, Rules of Inferrence, syllogisms etc.",
-    nickname: "project-planning-investigations-logic-inferrences",
+    nickname: "operations-planning-investigations-logic-inferrences",
   },
   {
     id: 182024,
@@ -4443,7 +4471,7 @@ export const data: {
     description:
       "Proof techniques, Arguments and other justifications/validations",
     summary: null,
-    nickname: "project-planning-investigations-logic-proofs",
+    nickname: "operations-planning-investigations-logic-proofs",
   },
   {
     id: 1821,
@@ -4453,7 +4481,7 @@ export const data: {
     display_singular: "Functionality",
     description: null,
     summary: "Lay out the necessary user stories / use cases / features",
-    nickname: "project-planning-functionality",
+    nickname: "operations-planning-functionality",
   },
   {
     id: 1822,
@@ -4463,7 +4491,7 @@ export const data: {
     display_singular: "Designs",
     description: null,
     summary: "Proposals for a solution consisting of deliverables",
-    nickname: "project-planning-designs",
+    nickname: "operations-planning-designs",
   },
   {
     id: 1823,
@@ -4473,7 +4501,7 @@ export const data: {
     display_singular: "Resourcing",
     summary: null,
     description: "Request & allocate resources for the project/ticket",
-    nickname: "project-planning-resourcing",
+    nickname: "operations-planning-resourcing",
   },
   {
     id: 1824,
@@ -4483,7 +4511,7 @@ export const data: {
     display_singular: "Schedule",
     description: "Calendaring all resources (Plotting resources against time)",
     summary: "Allocate resources in order to schedule the Project>Execution",
-    nickname: "project-planning-schedule",
+    nickname: "operations-planning-schedule",
   },
   {
     id: 183,
@@ -4492,8 +4520,8 @@ export const data: {
     name_singular: "execution",
     display_singular: "Execution",
     description: null,
-    summary: "Project implementation & installations",
-    nickname: "project-execution",
+    summary: "Implementation & installations",
+    nickname: "operations-execution",
   },
   {
     id: 1830,
@@ -4503,7 +4531,7 @@ export const data: {
     display_singular: "Fulfilment",
     description: null,
     summary: "delivering the resources as stated in the design phase",
-    nickname: "project-execution-fulfilment",
+    nickname: "operations-execution-fulfilment",
   },
   {
     id: 1831,
@@ -4513,7 +4541,7 @@ export const data: {
     display_singular: "x",
     description: null,
     summary: null,
-    nickname: "project-execution-x",
+    nickname: "operations-execution-x",
   },
   {
     id: 1832,
@@ -4523,7 +4551,7 @@ export const data: {
     summary: null,
     name_singular: "documentation",
     display_singular: "Documentation",
-    nickname: "project-execution-documentation",
+    nickname: "operations-execution-documentation",
   },
   {
     id: 1833,
@@ -4534,7 +4562,7 @@ export const data: {
     description: "Implement the deliverable",
     summary:
       "With change approval where necessary (Project>Control>Change), undertake the installation/deployment of the product.",
-    nickname: "project-execution-implementation",
+    nickname: "operations-execution-implementation",
   },
   {
     id: 1834,
@@ -4545,7 +4573,7 @@ export const data: {
     description: "Tests and validation for the solution/deliverable",
     summary:
       "Tests and validation, rollbacks for failed tests, monitoring periods to confirm fixes",
-    nickname: "project-execution-testing",
+    nickname: "operations-execution-testing",
   },
   {
     id: 18340,
@@ -4606,7 +4634,7 @@ export const data: {
       V-Model Testing: Validation and Verification model.
         Parallel Development and Testing Phases
     `,
-    nickname: "project-execution-testing-tests",
+    nickname: "operations-execution-testing-tests",
   },
   {
     id: 18341,
@@ -4616,7 +4644,7 @@ export const data: {
     display_singular: "Rollbacks",
     description: null,
     summary: null,
-    nickname: "project-execution-testing-rollbacks",
+    nickname: "operations-execution-testing-rollbacks",
   },
   {
     id: 184,
@@ -4627,7 +4655,7 @@ export const data: {
     description: null,
     summary: "Reporting, Analysis, Handover, Documentation, Training",
     references: ["See pmbok project closure (and other libraries)"],
-    nickname: "project-evaluation",
+    nickname: "operations-evaluation",
   },
   {
     id: 1840,
@@ -4638,7 +4666,7 @@ export const data: {
     summary: null,
     description:
       "Project documentation, training, handover, acceptance, evaluation and closure",
-    nickname: "project-evaluation-handover",
+    nickname: "operations-evaluation-handover",
   },
   {
     id: 18400,
@@ -4649,7 +4677,7 @@ export const data: {
     summary: "Final pack of materials provided to the successor team",
     description:
       "All materials collated and handed over to the BAU team / end user / third party / other successor",
-    nickname: "project-evaluation-handover-package",
+    nickname: "operations-evaluation-handover-package",
   },
   {
     id: 18401,
@@ -4660,7 +4688,7 @@ export const data: {
     description: null,
     summary:
       "Training users/teams that are inheriting or using the project deliverables",
-    nickname: "project-evaluation-handover-training",
+    nickname: "operations-evaluation-handover-training",
   },
   {
     id: 1841,
@@ -4670,7 +4698,7 @@ export const data: {
     display_singular: "Analysis",
     description: null,
     summary: "Reporting and analysis of work done, including lessons learned",
-    nickname: "project-evaluation-analysis",
+    nickname: "operations-evaluation-analysis",
   },
   {
     id: 1842,
@@ -4680,7 +4708,7 @@ export const data: {
     display_singular: "x",
     summary: null,
     description: null,
-    nickname: "project-evaluation-x",
+    nickname: "operations-evaluation-x",
   },
   {
     id: 1843,
@@ -4690,7 +4718,7 @@ export const data: {
     display_singular: "y",
     summary: null,
     description: null,
-    nickname: "project-evaluation-y",
+    nickname: "operations-evaluation-y",
   },
   {
     id: 1844,
@@ -4700,7 +4728,7 @@ export const data: {
     display_singular: "Closure",
     description: null,
     summary: "Acceptance and closure of the work done (by all stakeholders)",
-    nickname: "project-evaluation-closure",
+    nickname: "operations-evaluation-closure",
   },
   {
     id: 18440,
@@ -4711,7 +4739,7 @@ export const data: {
     summary: "Release of resources from the project/ticket",
     description:
       "Formally release resources from the project, including suppliers, team members, tools and unused consumables.",
-    nickname: "project-evaluation-closure-release",
+    nickname: "operations-evaluation-closure-release",
   },
   {
     id: 18441,
@@ -4721,8 +4749,8 @@ export const data: {
     display_singular: "Archiving",
     description: "File away any completed entities",
     summary:
-      "Storing all project-related documents, codes, and other deliverables in a systematic manner for future reference.",
-    nickname: "project-evaluation-closure-archiving",
+      "Storing all operations-related documents, codes, and other deliverables in a systematic manner for future reference.",
+    nickname: "operations-evaluation-closure-archiving",
   },
   {
     id: 18442,
@@ -4732,7 +4760,7 @@ export const data: {
     display_singular: "Checklist",
     description: null,
     summary: "Completion and compliance checklist",
-    nickname: "project-evaluation-closure-checklist",
+    nickname: "operations-evaluation-closure-checklist",
   },
   {
     id: 18443,
@@ -4742,7 +4770,7 @@ export const data: {
     display_singular: "Signoff",
     description: null,
     summary: "Acceptance and signoff from all stakeholders",
-    nickname: "project-evaluation-closure-signoff",
+    nickname: "operations-evaluation-closure-signoff",
   },
   {
     id: 18444,
@@ -4754,7 +4782,7 @@ export const data: {
       "Close remaining entities and move the project from Evaluate to Complete",
     summary:
       "Ensure all tickets, phases and the project itself are closed with no necessary followup",
-    nickname: "project-evaluation-closure-completion",
+    nickname: "operations-evaluation-closure-completion",
   },
   {
     id: 19,
@@ -4766,6 +4794,8 @@ export const data: {
     description:
       "The system that the organisation runs on (IT, Site Management, Office Administration)",
     nickname: "system",
+    icon_name: "gears",
+    icon_source: "FontAwesome",
   },
   {
     id: 190,

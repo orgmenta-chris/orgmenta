@@ -19,6 +19,20 @@ export const articlesTemp: {
   notes: string;
 }[] = [
   {
+    topic:`Colors`,
+    notes: `
+    In light mode, nothing is pure white (255,255,255) - Largely 1) as white on black is not the best contrast for reading (citation), and 2) because backlit screens are getting more powerful, and white screens are practically lights.
+    Thing that are not interactable are grey.
+    `
+  },
+  {
+    topic:`Flat design, skeumorphism and the future of UI/UX design`,
+    notes: `
+    We (developers in general) still use skeumorphism, we just have toned it down. But 'elevation', 'layers' and button hovers etc. still use this to some extent.
+    Flat design has been overused in the last 5 years, and we (Orgmenta) expect a slight adjustment in the following 5 years in order to bring back some indication of what can be interacted with.
+    `
+  },
+  {
     topic:`Contextual help and preferences on all relevant components`,
     notes: `
     (i.e. the context container buttons)

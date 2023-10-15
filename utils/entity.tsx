@@ -30,10 +30,10 @@ export const ViewEntityPage = () => {
   const schema = useEntitySchema();
   return (
     <ViewPageMain>
-      {/* Flex View to keep Action tabs at the bottom of the screen */}
+      {/* Show the 'focus' entity (the primary record being viewed) */}
+      <ViewFocusMain />
+      {/* View for Focus Entities (Flex View to keep Action tabs at the bottom of the screen) */}
       <ViewContainerStatic style={{ flex: 1 }}>
-        {/* Show the 'focus' entity (the primary record being viewed) */}
-        <ViewFocusMain />
         {/* Show the 'auxiliary' entities (secondary records being viewed, possibly related to the focus) in whichever mode is selected, e.g. Calendar, Table etc. */}
         <ViewDisplayDynamic
           auxiliary={auxiliary}
@@ -42,9 +42,23 @@ export const ViewEntityPage = () => {
           display={routerPaths?.[3]}
         />
       </ViewContainerStatic>
-      <ViewActionPanels auxiliary={auxiliary} schema={schema} focus={focus} />
-      {/* Show the actions tabs/links (e.g. add,edit,copy,delete,share etc.*/}
-      <ViewActionTabs auxiliary={auxiliary} schema={schema} focus={focus} />
+      {/* View for Actions */}
+      <ViewContainerStatic
+        style={{
+          borderTopWidth: 1,
+          padding: 5,
+          borderColor: "rgba(180,180,180,1)",
+          borderTopLeftRadius: 10,
+          borderTopRightRadius: 10,
+          flexDirection: "column",
+          backgroundColor: "lightgray",
+          minHeight: 40,
+        }}
+      >
+        <ViewActionPanels auxiliary={auxiliary} schema={schema} focus={focus} />
+        {/* Show the actions tabs/links (e.g. add,edit,copy,delete,share etc.*/}
+        <ViewActionTabs auxiliary={auxiliary} schema={schema} focus={focus} />
+      </ViewContainerStatic>
     </ViewPageMain>
   );
 };

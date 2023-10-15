@@ -38,7 +38,7 @@ export const ViewHelpButton = ({ children, set, to }: any) => {
       <ViewIconMain
         name={"help-with-circle"}
         source={"Entypo"}
-        color={"gray"}
+        color={"rgba(80,80,80,1)"}
       />
     </ViewButtonPressable>
   );

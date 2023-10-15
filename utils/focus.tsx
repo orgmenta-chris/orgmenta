@@ -14,7 +14,7 @@ import { data } from "./static";
 
 export const ViewFocusMain = ({}: any) => {
   return (
-    <ViewContainerStatic style={{ flexDirection: "column" }}>
+    <ViewContainerStatic style={{ flexDirection: "column"}}>
       <ViewFocusHeader />
       {/* <ViewFocusInfo/>
       <ViewFocusTabs/> */}
@@ -35,15 +35,18 @@ export const ViewFocusHeader = () => {
   const ggrandparent = data?.find((d) => d.id === grandparent?.parent);
   return (
     <ViewContainerRow
-      style={{
+      style={{paddingLeft:10,
         flexDirection: "column",
-        borderWidth: 1,
-        padding: 5,
+        // borderWidth: 1,
+        borderBottomWidth: 1,
+        borderColor: "rgba(180,180,180,1)",
+        // padding: 5,
       }}
     >
-      <ViewContainerStatic style={{ flex: 1 }}>
+      <ViewContainerStatic style={{ flex: 1, 
+        justifyContent:'center' }}>
         {/* Title of the current process (breadcrumbs) */}
-        <ViewTypographyText>
+        <ViewTypographyText >
           {ggrandparent?.id && ggrandparent?.id > 9 && (
             <>
               <ViewRouterLinkthemed
@@ -107,7 +110,7 @@ export const ViewFocusHeader = () => {
                 style={{ fontSize: 20 }}
                 to={"/entity/" + process.nickname}
               >
-                <ViewTypographyText style={{ fontSize: 20, color: "white" }}>
+                <ViewTypographyText style={{ fontSize: 20, fontWeight:"600" }}>
                   {process.display_singular}
                 </ViewTypographyText>
               </ViewRouterLinkthemed>

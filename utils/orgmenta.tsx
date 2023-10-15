@@ -30,7 +30,6 @@ import { ViewSvgMain, ViewSvgPath, ViewSvgGroup } from "./svg";
 import { mapTypeMain } from "./type";
 import { useModalVisibility } from "./modal";
 import { useWindowDimensions } from "./window";
-import { useThemeToken } from "./theme";
 import { data } from "./static";
 import { articlesTemp } from "../articles/_general";
 import {
@@ -52,6 +51,7 @@ import { UseNewStripeWrapperFunctions } from "./stripe";
 import { ViewForumContainer } from "./forum";
 import { ViewShareContainer } from "./share";
 import { ViewPricingContainer } from "./pricing";
+import { useThemeToken } from "./theme";
 
 // HEADER
 
@@ -360,6 +360,9 @@ export const ViewOrgmentaRoadmap = ({}: any) => {
     <ViewPageMain>
       <ViewRoadmapContainer
         roadmap={[
+          {
+            todo: "Link all roadmap items to the correct business modules (e.g. you can see what is upcoming for the Finance module)",
+          },
           { features },
           { arrayHubRequirementsTemp },
           { procedures },
@@ -1150,11 +1153,13 @@ export const ViewOrgmentaFrameworkoverview = () => {
       style={{ margin: 15, padding: 10, height: windowDimensions.height - 80 }}
     >
       <ViewTypographyHeading
-        style={{ 
+        style={{
           textAlign: "center",
           fontStyle: "italic",
-          flex: 1,width: "100%",
-          backgroundColor: "lightgray", }}
+          flex: 1,
+          width: "100%",
+          backgroundColor: "lightgray",
+        }}
       >
         Modules Overview
       </ViewTypographyHeading>
@@ -1168,16 +1173,20 @@ export const ViewOrgmentaFrameworkoverview = () => {
       >
         Click on a module to see the demo and features overview
       </ViewTypographySubsubheading>
-      {data
-        ?.filter((x) => x.parent === 1)
-        ?.map((x: any, i: number) => (
-          <ViewButtonLink
-            to={`./entity/${x.nickname}`}
-            key={i}
-            buttonText={x.display_singular}
-            buttonSubtext={x.summary}
-          />
-        ))}
+      <ViewContainerStatic style={{ width: 400 }}>
+        {data
+          ?.filter((x) => x.parent === 1)
+          ?.map((x: any, i: number) => (
+            <ViewButtonLink
+              to={`./entity/${x.nickname}`}
+              key={i}
+              buttonText={x.display_singular}
+              buttonSubtext={x.summary}
+              button_name={x.icon_name}
+              button_source={x.icon_source}
+            />
+          ))}
+      </ViewContainerStatic>
     </ViewContainerStatic>
   );
 };
@@ -1186,7 +1195,12 @@ export const ViewOrgmentaProductoverview = () => {
   const windowDimensions = useWindowDimensions();
   return (
     <ViewContainerStatic
-      style={{ margin: 15, padding: 10, height: windowDimensions.height - 80, backgroundColor: "rgba(255,255,255, 0.9)" }}
+      style={{
+        margin: 15,
+        padding: 10,
+        height: windowDimensions.height - 80,
+        backgroundColor: "rgba(255,255,255, 0.9)",
+      }}
     >
       {/* <ViewContainerStatic
           style={{

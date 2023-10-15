@@ -81,7 +81,12 @@ export const ViewBookmarkModal = (props: any) => {
           <ViewInputText
             autoFocus
             onChangeText={(text: string) => filterSet(text)}
-            style={{ borderWidth: 1 }}
+            style={{ borderWidth: 1, flex:1}}
+          />
+          <ViewIconMain
+            name={"undo-variant"}
+            source={"MaterialCommunityIcons"}
+            color={"black"}
           />
         </ViewContainerRow>
         <ViewContextContainer />
@@ -178,6 +183,23 @@ export const ViewBookmarkTabs = ({}: any) => {
           </ViewTypographyLabel>
         </ViewContainerStatic>
       </ViewButtonPressable>
+      {/* <ViewButtonPressable
+        style={{
+          padding: 5,
+          flex: 1,
+          width: 50,
+          height: 50,
+          backgroundColor: state === "tools" ? "gray" : "lightgray",
+        }}
+        onPress={() => set("tools")}
+      >
+        <ViewContainerStatic style={{ alignItems: "center", flex: 1 }}>
+          <ViewIconMain name={"view-column"} source={"MaterialIcons"} color={"white"} />
+          <ViewTypographyLabel style={{ fontSize: 11 }}>
+            Boards
+          </ViewTypographyLabel>
+        </ViewContainerStatic>
+      </ViewButtonPressable> */}
     </ViewContainerScroll>
   );
 };

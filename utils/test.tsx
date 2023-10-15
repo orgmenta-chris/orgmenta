@@ -12,20 +12,41 @@ import { ViewVideoPlayer } from "./video";
 import { ViewScreenRecorder } from "./recorder";
 import { ViewContextContainer } from "./context";
 import { deleteQueryerQuery, useQueryerClient } from "./queryer";
-import { ViewContainerScroll } from "./container";
+import { ViewContainerRow, ViewContainerScroll } from "./container";
 import { ViewShieldButton, ViewShieldUniversal } from "./shield";
 import { TypeNotificationBody, ViewNotificationExample } from "./notification"; // Chris to check naming conventions. Also need to check how to use this?
 import { ViewAttributeCreate } from "./attribute";
 import { ViewFrameworkPage } from "./module";
 import { doObjectNesting } from "./object";
 import { data } from "./static";
+import { useBrowseArray } from "./browse";
+import {
+  ViewPackageItem,
+  UtilityPackageList,
+  filterPackageList,
+} from "./package";
 
 export const ViewTestPage = () => {
-  // const aux = useAuxiliaryArray({ filter_array: [] });
+  // // const aux = useAuxiliaryArray({ filter_array: [] });
+  // const packageDeclarations = UtilityPackageList["action"];
+  // if (!packageDeclarations) {
+  //   console.error(`Module ${packageDeclarations} not found`);
+  //   return null;
+  // }
+  // console.log("package", packageDeclarations);
   return __DEV__ ? (
     <ViewPageMain>
-    <ViewContainerScroll>
-      <ViewFrameworkPage data={doObjectNesting((data as any)?.filter((x:any)=>(x.id>9 || x.nickname==='business')))?.[0]} />
+      <ViewContainerScroll>
+        {/* <ViewPackageItem packageName="action" /> */}
+        <ViewFrameworkPage
+          data={
+            doObjectNesting(
+              (data as any)?.filter(
+                (x: any) => x.id > 9 || x.nickname === "business"
+              )
+            )?.[0]
+          }
+        />
         {/* Barcode Scanner (working) */}
         {/* <ViewBarcodeReader /> */}
 

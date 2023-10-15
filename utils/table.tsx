@@ -111,7 +111,7 @@ export const ViewTableContainer = (props: any) => {
     refreshData,
   };
   return (
-    <ViewContainerStatic style={{ maxHeight: 400 }}>
+    <ViewContainerStatic style={{ maxHeight: 400, flex: 1 }}>
       <UseDisplayTable tableData={tableData} />
     </ViewContainerStatic>
   );
@@ -445,7 +445,7 @@ const TableViewWeb = (props: any) => {
 
   return (
     <div className="p-2">
-      <ViewContainerStatic>
+      <ViewContainerStatic style={{flex: 1}}>
         <DebouncedInput
           value={globalFilter ?? ""}
           onChange={(value) => setGlobalFilter(String(value))}
@@ -628,7 +628,7 @@ const TableViewMobile = (props: any) => {
   }, [table.getState().columnFilters[0]?.id]);
 
   return (
-    <ViewContainerStatic style={{ padding: 2 }}>
+    <ViewContainerStatic style={{ padding: 2, flex: 1}}>
       <ViewContainerStatic>
         <DebouncedInput
           value={globalFilter ?? ""}

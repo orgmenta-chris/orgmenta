@@ -46,7 +46,7 @@ export const ViewPodContainer = ({ items, children }: any) => {
       {(isGuest || salesEnabled) && <ViewPodOverview />}
       {(isGuest || salesEnabled) && <ViewPodIntegrations />}
       {(isGuest || salesEnabled || helpEnabled) && <ViewPodGuides />}
-      <ViewPodQuicktemplate/>
+      <ViewPodPresets/>
       <ViewPodCategoryrelated />
     </ViewContainerScroll>
   );
@@ -93,7 +93,7 @@ export const ViewPodInfo = () => {
   const salesEnabled = true; // to do
   return (
     <ViewContainerRow
-      style={{ flex: 1, margin: 5, borderWidth: 1, height: 35 }}
+      style={{ flex: 1, margin: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: "rgba(200,200,200,1)", height: 35 }}
     >
       <ViewContainerColumn style={{ flex: 1 }}>
         <ViewContainerStatic style={{}}>
@@ -122,12 +122,10 @@ export const ViewPodTabs = () => {
   const subprocesses = process && data.filter((x) => x.parent === process.id);
   return (
     <ViewContainerColumn
-      style={{
-        margin: 5,
-        borderWidth: 1,
+      style={{ flex: 1,  margin: 10, paddingBottom: 10,  borderBottomWidth: 1, borderColor: "rgba(200,200,200,1)", height: 35
       }}
     >
-      {/* Tabs for each subprocess */}
+      {/* Tabs for each submodule */}
       <ViewContainerRow style={{ height: 40 }}>
         {subprocesses?.map((x, i) => (
           <ViewButtonLink
@@ -135,13 +133,6 @@ export const ViewPodTabs = () => {
             to={`/entity/` + x.nickname}
             buttonText={x.display_singular}
           />
-          // <ViewRouterLink
-          //   style={{ flex: 1 }}
-          //   key={i}
-          //   to={`/entity/` + x.nickname}
-          // >
-          //   <ViewTypographyText>{x.display_singular}</ViewTypographyText>
-          // </ViewRouterLink>
         ))}
         <ViewContextContainer />
       </ViewContainerRow>
@@ -168,7 +159,7 @@ export const ViewPodCategoryrelated = (props: any) => {
         borderWidth: 1,
       }}
     >
-      <ViewContainerRow>
+      <ViewContainerRow >
         <ViewTypographySubheading style={{ flex: 1 }}>
           Related Items (temp, uses static categories)
         </ViewTypographySubheading>
@@ -309,7 +300,7 @@ export const ViewPodGuides = (props: any) => {
 
 // QUICKTEMPLATE
 
-export const ViewPodQuicktemplate = (props: any) => { 
+export const ViewPodPresets = (props: any) => { 
   // Buttons to run templates/blueprints in order to quickly create items (e.g. 'Create invoice', 'Raise ticket for this issue')
   const windowHeight = useWindowDimensions().height;
   const categoryPath = useRouterLocation().paths[2];
@@ -329,7 +320,7 @@ export const ViewPodQuicktemplate = (props: any) => {
     >
       <ViewContainerRow>
         <ViewTypographySubheading style={{ flex: 1 }}>
-          QuickTemplates
+          Presets (QuickTemplates)
         </ViewTypographySubheading>
         <ViewContextContainer />
       </ViewContainerRow>

@@ -16,6 +16,7 @@ export const useAuxiliaryArray = ({
     "status",
     "title",
     "categories",
+    "values",
     "38a15ab6-c1ad-47cf-803c-5446e2214601", // entity 'has' another entity
     // Test fields:
     "d0205b0b-3d78-4e77-8071-a53b65e7aa3a",

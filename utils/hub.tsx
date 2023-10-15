@@ -124,8 +124,7 @@ export const arrayHubRequirementsTemp: {
   {
     title: "Field validation",
     category: "Data Integrity",
-    description:
-      "The software must validate all fields (live) before saving.",
+    description: "The software must validate all fields (live) before saving.",
   },
   {
     title: "Rapid Entry",
@@ -289,7 +288,8 @@ type Paradigm = {
 };
 export const paradigms: Paradigm[] = [
   {
-    description: "Avoid dark patterns, anti-patterns, anti-consumer behaviour. https://theconversation.com/dark-patterns-how-online-companies-strive-to-keep-your-money-and-data-when-you-try-to-leave-201620"
+    description:
+      "Avoid dark patterns, anti-patterns, anti-consumer behaviour. https://theconversation.com/dark-patterns-how-online-companies-strive-to-keep-your-money-and-data-when-you-try-to-leave-201620",
   },
   {
     description:
@@ -558,7 +558,7 @@ export const arrayCompetitors: {
     title: "ConnectWise Manage/PSA",
     industry: "IT",
     url: "https://www.connectwise.com",
-  }, 
+  },
   { id: 3, title: "Autotask", industry: "IT", url: "https://www.autotask.com" },
   { id: 4, title: "SAP", industry: "agnostic", url: "https://www.sap.com" },
   {
@@ -658,7 +658,7 @@ export const arrayIndustryProducts: {
     title: "email, sms etc",
     categories: [],
     integrations: [],
-    priority: 2 ,
+    priority: 2,
   },
   {
     title: "PagerDuty",
@@ -809,7 +809,7 @@ export const arrayIndustryProducts: {
     categories: ["MSP Automation"],
     integrations: [],
     priority: 2,
-    references:['rewst.io']
+    references: ["rewst.io"],
   },
   {
     title: "ConnectWise PSA (Manage) / Asio",
@@ -858,9 +858,7 @@ export const arrayIndustryProducts: {
     categories: ["Documentation"],
     integrations: [],
     priority: 4,
-    references: [
-      'https://github.com/itglue'
-    ]
+    references: ["https://github.com/itglue"],
   },
   {
     title: "Continuum",
@@ -954,18 +952,19 @@ export const arrayIndustryProducts: {
     categories: ["Remote Monitoring Systems"],
     integrations: [],
     priority: 4,
-    references:[
-      'https://n-able.com/partnerships/TAP',
-       'https://www.n-able.com/partnerships/technology-alliance-program']
+    references: [
+      "https://n-able.com/partnerships/TAP",
+      "https://www.n-able.com/partnerships/technology-alliance-program",
+    ],
   },
   {
     title: "Naverisk",
     categories: ["RMM"],
     integrations: [""],
-    priority:4,
-    references:[
-      'http://kb.naverisk.com/en/articles/6123225-api-reference-guide',
-    ]
+    priority: 4,
+    references: [
+      "http://kb.naverisk.com/en/articles/6123225-api-reference-guide",
+    ],
   },
   {
     title: "Pax8",
@@ -1153,7 +1152,13 @@ export const arrayIndustryProducts: {
     priority: 3,
   },
   { title: "Sage", categories: ["Finance"], integrations: [], priority: 3 },
-  { title: "https://www.kimai.org/ - just for comparison. see https://www.kimai.org/store/", categories: ["Finance, TimeTracking"], integrations: [], priority: 10 },
+  {
+    title:
+      "https://www.kimai.org/ - just for comparison. see https://www.kimai.org/store/",
+    categories: ["Finance, TimeTracking"],
+    integrations: [],
+    priority: 10,
+  },
   {
     title: "Zoho",
     categories: ["Finance", "Office Software"],
@@ -2502,7 +2507,8 @@ export const tenets: {
     id: 7,
     axioms: [9],
     title: "Data import and export",
-    description: "The export part of this is an obligation that companies of a certain size must offer. See the axiom.",
+    description:
+      "The export part of this is an obligation that companies of a certain size must offer. See the axiom.",
   },
 ];
 
@@ -2551,8 +2557,33 @@ export const imperatives: {
   },
 ];
 
+export const heuristics: any = {
+  agreeing: {
+    description:
+      "Do you agree / align with common thought or not - And what does this mean / should it be challenged",
+    notes: [
+      `Where you you stand in the 'overton window' on this topic?`,
+      `Are you being a sheep, if you agree?`,
+      `Are you just being contrarian, if you don't agree?`,
+      `If you are on an extreme of the scale, then why don't you align with common thought?`,
+      `If you are on the extreme, then this is a red flag to examine.`,
+      `Usually, 'correctness' should be expected to be someone on the bell curve of common thought.`,
+      `This is analygous to the 'jelly bean theory', where a larger group of people should converge on a more accurate estimate.`,
+      `However - If the entire group is biased or is missing some information, then the bell curve may be skewed in a direction.`,
+      `So, the challenge is to discover any missing arguments. If none are found, then perhaps it is an indication that the bell curve is roughly accurate`,
+    ],
+  },
+  control: {
+    description: "Is something actually within your control or not?",
+    notes: [
+      `If something is genuinely out of your control, then employ stoicism and focus on what actually is within your control.`,
+      `But examine if it really is outside of your control or not.`,
+      `And if it is outside of your control, are its effects so great? Many people let the wind knock them off their feet.`,
+      `Employ personnel agency and awareness.`,
+    ],
+  },
+};
 // Business proccesses must then adhere to imperitives.
-
 
 export const pricingTemp = {
   sole: {
@@ -2596,6 +2627,53 @@ export const stepsTemp: {
   },
   {
     title: "Sync occurs / entity created / relationship created",
+  },
+];
+
+export const stepTypesTemp: {
+  id?: number;
+  title: string;
+  description?: string;
+}[] = [
+  {
+    id:0,
+    title: "Link",
+    description: "Navigate To",
+  },
+  {
+    id:1,
+    title: "Button",
+    description: "Click",
+  },
+  {
+    id:2,
+    title: "View",
+    description: "Show a component",
+  },
+  {
+    id:3,
+    title: "Create Entity",
+  },
+  {
+    id:4,
+    title: "Create Relationship",
+  },
+  {
+    id:5,
+    title: "Search Entities",
+  },
+  {
+    id:6,
+    title: "Search Relationships",
+  },
+  {
+    id:7,
+    title: "Conditional",
+    description: "If/Then/Else",
+  },
+  {
+    id:8,
+    title: "Run Function",
   },
 ];
 
@@ -6690,7 +6768,6 @@ export const feature_usecase_userrole_rels = [
     a: "38a15ab6-c1ad-47cf-803c-5446e2214601",
   },
 ];
-
 
 // USER ROLES Static - NOW IN SUPABASE (AND SEE STATIC NEWUSERROLES ARRAY)
 // export const user_roles: {

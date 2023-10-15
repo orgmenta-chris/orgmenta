@@ -16,7 +16,7 @@ export const ViewWindowContainer = (props: any) => {
   const windowDimensions = useWindowDimensions();
   const statusbarDimensions = getStatusbarDimensions();
   return (
-    <ViewWindowSafearea style={{ flex: 1, backgroundColor: "gray" }}>
+    <ViewWindowSafearea style={{ flex: 1, backgroundColor: "rgba(232,232,232,1)" }}>
       <ViewContainerStatic
         style={{
           height: windowDimensions.height + statusbarDimensions.height,

@@ -9,19 +9,6 @@ import { ViewButtonPressable } from "./button";
 import { ViewRouterLinkthemed } from "./router";
 import { ViewIconMain } from "./icon";
 
-// POPUP
-
-export const ViewHelpPopup = ({ children, state }: any) => {
-  return (
-    <ViewContainerStatic>
-      <ViewTypographyText>
-        Maybe just use a UI library's tooltip for this rather than spinning own
-      </ViewTypographyText>
-      <ViewTypographyText>{children}</ViewTypographyText>
-    </ViewContainerStatic>
-  );
-};
-
 // ICONS
 
 export const ViewHelpButton = ({ children, set, to }: any) => {
@@ -31,7 +18,7 @@ export const ViewHelpButton = ({ children, set, to }: any) => {
         margin: 5,
       }}
       // NOT YET IMPLEMENTED (need to abstract this out and get the tooltip outside of the parent component)
-      // onPress={() => set((old: any) => !old)}
+      // onPress={() => set((old: boolean) => !old)}
       // onHoverIn={() => set(true)}
       // onHoverOut={() => set(false)}
     >

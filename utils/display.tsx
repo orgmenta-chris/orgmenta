@@ -92,6 +92,13 @@ export const ViewDisplayPods = (props: any) => {
   );
 };
 
+//todo
+// export const metaDisplayPods = () =>{
+//   return {
+//     description: "The 'Pod' container holds custom widgets for the current Focus/Entity-Relationships."
+//   }
+// }
+
 // FORM
 
 export const ViewDisplayForm = (props: TypeDisplayForm) => {

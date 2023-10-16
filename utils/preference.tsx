@@ -27,7 +27,7 @@ export const ViewPreferenceButton = ({ children, set, to }: any) => {
         margin: 5,
       }}
       // NOT YET IMPLEMENTED (need to abstract this out and get the tooltip outside of the parent component)
-      // onPress={() => set((old: any) => !old)}
+      // onPress={() => set((old: boolean) => !old)}
       // onHoverIn={() => set(true)}
       // onHoverOut={() => set(false)}
     >

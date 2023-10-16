@@ -1,5 +1,4 @@
 // A field is a data field and associated components (label, privacy shield, buttons, etc.)
-
 // todo: 'field groups' to allow you to group fields (e.g. id, title and alias into a 'name' group)
 
 import {

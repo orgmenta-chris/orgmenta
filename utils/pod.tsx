@@ -31,6 +31,7 @@ import { useWindowDimensions } from "./window";
 import { useEntitySingle } from "./entity";
 import { ViewButtonLink } from "./button";
 import { ViewTabLink } from "./tab";
+import { useReactState } from "./react";
 
 // CONTAINER
 
@@ -43,10 +44,10 @@ export const ViewPodContainer = ({ items, children }: any) => {
     <ViewContainerScroll style={{ flex: 1 }}>
       <ViewPodInfo />
       <ViewPodTabs />
-      {(isGuest || salesEnabled) && <ViewPodOverview />}
+      {(isGuest || salesEnabled) && <ViewPodSalespitch />}
       {(isGuest || salesEnabled) && <ViewPodIntegrations />}
       {(isGuest || salesEnabled || helpEnabled) && <ViewPodGuides />}
-      <ViewPodPresets/>
+      <ViewPodPresets />
       <ViewPodCategoryrelated />
     </ViewContainerScroll>
   );
@@ -93,7 +94,14 @@ export const ViewPodInfo = () => {
   const salesEnabled = true; // to do
   return (
     <ViewContainerRow
-      style={{ flex: 1, margin: 10, paddingBottom: 10, borderBottomWidth: 1, borderColor: "rgba(200,200,200,1)", height: 35 }}
+      style={{
+        // flex: 1,
+        margin: 10,
+        paddingBottom: 10,
+        borderBottomWidth: 1,
+        borderColor: "rgba(200,200,200,1)",
+        height: 60,
+      }}
     >
       <ViewContainerColumn style={{ flex: 1 }}>
         <ViewContainerStatic style={{}}>
@@ -105,9 +113,16 @@ export const ViewPodInfo = () => {
           </ViewTypographySubsubheading>
         </ViewContainerStatic>
       </ViewContainerColumn>
-      <ViewContextContainer />
+      <ViewContextContainer infoText={metaPodInfo().description} />
     </ViewContainerRow>
   );
+};
+
+export const metaPodInfo = () => {
+  return {
+    description:
+      "The 'Info' Pod shows submodules for the Focus (currently selected entity)",
+  };
 };
 
 // TABS
@@ -117,30 +132,76 @@ export const ViewPodInfo = () => {
 export const ViewPodTabs = () => {
   // At the moment, this shows breadcrumbs for categories (e.g. governance > model > plan) from static.js
   // But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
+  const windowHeight = useWindowDimensions().height;
+  const [expandState, expandSet] = useReactState(true);
   const path = useRouterLocation()?.paths;
   const process = data?.find((x) => x.nickname === path[2]);
   const subprocesses = process && data.filter((x) => x.parent === process.id);
   return (
     <ViewContainerColumn
-      style={{ flex: 1,  margin: 10, paddingBottom: 10,  borderBottomWidth: 1, borderColor: "rgba(200,200,200,1)", height: 35
+      style={{
+        margin: 10,
+        paddingBottom: 10,
+        borderBottomWidth: 1,
+        borderColor: "rgba(200,200,200,1)",
+        height: expandState ? windowHeight - 400 : 60,
+        minHeight: expandState ? windowHeight - 400 : 60,
+        maxHeight: expandState ? windowHeight - 400 : 60,
       }}
     >
       {/* Tabs for each submodule */}
       <ViewContainerRow style={{ height: 40 }}>
-        {subprocesses?.map((x, i) => (
-          <ViewButtonLink
-            key={i}
-            to={`/entity/` + x.nickname}
-            buttonText={x.display_singular}
-          />
-        ))}
-        <ViewContextContainer />
+        {!expandState ? (
+          subprocesses?.map((x, i) => (
+            <ViewButtonLink
+              key={i}
+              to={`/entity/` + x.nickname}
+              buttonText={x.display_singular}
+            />
+          ))
+        ) : (
+          <ViewTypographySubheading style={{ flex: 1 }}>
+            SubModules
+          </ViewTypographySubheading>
+        )}
+        <ViewContextContainer
+          expandSet={expandSet}
+          expandState={expandState}
+          infoText={metaPodTabs().description}
+        />
       </ViewContainerRow>
+      {expandState && (
+        <ViewContainerStatic style={{ flex: 1}}>
+          {subprocesses?.map((x, i) => (
+            <ViewContainerRow key={i}>
+              <ViewContainerColumn style={{flex: 1}}>
+                <ViewButtonLink
+                  to={`/entity/${x.nickname}`}
+                  buttonText={x.display_singular}
+                  buttonSubtext={x.summary}
+                />
+              </ViewContainerColumn>
+              <ViewContainerColumn style={{flex: 1}}>
+                <ViewTypographyText>
+                  (todo: add summary of submodule entities here)
+                </ViewTypographyText>
+              </ViewContainerColumn>
+            </ViewContainerRow>
+          ))}
+        </ViewContainerStatic>
+      )}
     </ViewContainerColumn>
   );
 };
 
+export const metaPodTabs = () => {
+  return {
+    description: "The 'Tabs' Pod shows links to SubModules / SubEntities",
+  };
+};
+
 // CATEGORYRELATED TEMP
+
 export const ViewPodCategoryrelated = (props: any) => {
   const spaceSelected = useSpaceState(["space", "selected"]);
   const routerPaths = useRouterLocation()?.paths;
@@ -159,7 +220,7 @@ export const ViewPodCategoryrelated = (props: any) => {
         borderWidth: 1,
       }}
     >
-      <ViewContainerRow >
+      <ViewContainerRow>
         <ViewTypographySubheading style={{ flex: 1 }}>
           Related Items (temp, uses static categories)
         </ViewTypographySubheading>
@@ -171,7 +232,8 @@ export const ViewPodCategoryrelated = (props: any) => {
 };
 
 // OVERVIEW
-export const ViewPodOverview = (props: any) => {
+
+export const ViewPodSalespitch = (props: any) => {
   const windowHeight = useWindowDimensions().height;
   const categoryPath = useRouterLocation().paths[2];
   const categoryInfo = data?.find((x) => x?.nickname === categoryPath)!;
@@ -184,13 +246,13 @@ export const ViewPodOverview = (props: any) => {
         borderWidth: 1,
         margin: 5,
         backgroundColor: "lightgreen",
-        maxHeight: windowHeight-150, // temp, to get dimensions of the parentparent container instead
-        height: windowHeight-150, // temp, to get dimensions of the parentparent container instead
+        maxHeight: windowHeight - 400, // temp, to get dimensions of the parentparent container instead
+        height: windowHeight - 400, // temp, to get dimensions of the parentparent container instead
       }}
     >
       <ViewContainerRow>
         <ViewTypographySubheading style={{ flex: 1 }}>
-          Overview
+          Salespitch
         </ViewTypographySubheading>
 
         <ViewContextContainer />
@@ -214,16 +276,6 @@ export const ViewPodOverview = (props: any) => {
       >
         {categoryInfo?.summary}
       </ViewTypographySubsubheading>
-      <ViewContainerStatic style={{ marginVertical: 10 }}>
-        {categoryChildren?.map((x, i) => (
-          <ViewButtonLink
-            to={`/entity/${x.nickname}`}
-            key={i}
-            buttonText={x.display_singular}
-            buttonSubtext={x.summary}
-          />
-        ))}
-      </ViewContainerStatic>
       {/* <ViewTypographyText>
         {JSON.stringify(categoryInfo, null, 2)}
       </ViewTypographyText>
@@ -253,19 +305,26 @@ export const ViewPodIntegrations = (props: any) => {
         borderWidth: 1,
         margin: 5,
         backgroundColor: "lightgreen",
-        maxHeight: windowHeight - 130, // temp, to get dimensions of the parentparent container instead
-        height: windowHeight - 130, // temp, to get dimensions of the parentparent container instead
+        maxHeight: windowHeight - 400, // temp, to get dimensions of the parentparent container instead
+        height: windowHeight - 400, // temp, to get dimensions of the parentparent container instead
       }}
     >
       <ViewContainerRow>
         <ViewTypographySubheading style={{ flex: 1 }}>
           Integrations
         </ViewTypographySubheading>
-        <ViewContextContainer />
+        <ViewContextContainer infoText={metaPodIntegrations().description} />
       </ViewContainerRow>
       <ViewTypographyText>Show relevant integrations here.</ViewTypographyText>
     </ViewContainerStatic>
   );
+};
+
+export const metaPodIntegrations = () => {
+  return {
+    description:
+      "The 'Integrations' Pod shows third party tools that are integrated with the current Module/Entity",
+  };
 };
 
 // GUIDES/DOCS
@@ -291,16 +350,23 @@ export const ViewPodGuides = (props: any) => {
         <ViewTypographySubheading style={{ flex: 1 }}>
           Guides
         </ViewTypographySubheading>
-        <ViewContextContainer />
+        <ViewContextContainer infoText={metaPodGuides().description} />
       </ViewContainerRow>
       <ViewTypographyText>Show related guides here.</ViewTypographyText>
     </ViewContainerStatic>
   );
 };
 
+export const metaPodGuides = () => {
+  return {
+    description:
+      "The 'Guides' Pod shows articles and how-to guides for the current Module/Entity",
+  };
+};
+
 // QUICKTEMPLATE
 
-export const ViewPodPresets = (props: any) => { 
+export const ViewPodPresets = (props: any) => {
   // Buttons to run templates/blueprints in order to quickly create items (e.g. 'Create invoice', 'Raise ticket for this issue')
   const windowHeight = useWindowDimensions().height;
   const categoryPath = useRouterLocation().paths[2];
@@ -322,9 +388,16 @@ export const ViewPodPresets = (props: any) => {
         <ViewTypographySubheading style={{ flex: 1 }}>
           Presets (QuickTemplates)
         </ViewTypographySubheading>
-        <ViewContextContainer />
+        <ViewContextContainer infoText={metaPodPresets().description} />
       </ViewContainerRow>
       <ViewTypographyText>Show quick template buttons here.</ViewTypographyText>
     </ViewContainerStatic>
   );
+};
+
+export const metaPodPresets = () => {
+  return {
+    description:
+      "The 'Presets' Pod shows buttons for applying presets and running related rules",
+  };
 };

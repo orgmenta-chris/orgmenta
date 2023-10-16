@@ -275,13 +275,13 @@ export const data: {
     id: 1113,
     parent: 111,
     status: "5. Hold",
-    name_singular: "domain",
+    name_singular: "niche",
     display_singular:
-      "Domain (or expertise, if we need the domain keyword reserved for domain purchases",
-    description: "Consultation with industry experts",
+      "Niche",
+    description: "Consultation with industry experts / Knowledge in specific domains",
     summary:
       "Bring expert consultation in for specialist advice (e.g. data center employees for a server move project)",
-    nickname: "governance-counsel-domain",
+    nickname: "governance-counsel-niche",
   },
   {
     id: 1114,

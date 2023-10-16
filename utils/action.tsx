@@ -1,4 +1,4 @@
-// An 'Action' (or 'control'?) is something that can be done to an 'Entity'.
+// An 'Action' is something that can be done to an 'Entity'.
 
 import { ViewControlMain } from "./control";
 import { ViewFormDynamic } from "./form";
@@ -34,11 +34,18 @@ export const ViewActionDisplay = ({}: any) => {
         <ViewActionHeader
           title={"Displays"}
           subtitle={"Switch Display Modes"}
+          infoText={metaActionDisplay().description}
         />
       <ViewDisplayTabs />
     </ViewContainerStatic>
   );
 };
+
+export const metaActionDisplay = () =>{
+  return {
+    description: "The 'Display' Action Panel allows you to switch between different modes, in order to view your Entity/Module in different data displays"
+  }
+}
 
 // CONTROL
 
@@ -49,11 +56,18 @@ export const ViewActionControl = ({}: any) => {
       <ViewActionHeader
         title={"Control"}
         subtitle={"Presets, Filters, Grouping and Sorting"}
+        infoText={metaActionControl().description}
       />
       <ViewControlMain />
     </ViewContainerStatic>
   );
 };
+
+export const metaActionControl = () =>{
+  return {
+    description: "The 'Control' Action Panel allows you to apply presets, filter, group and sort the Module/Entity data"
+  }
+}
 
 // ADD
 
@@ -142,11 +156,18 @@ export const ViewActionLink = ({}: any) => {
       <ViewActionHeader
         title={"Link"}
         subtitle={"Create / manage entity relationships"}
+        infoText={metaActionLink().description}
       />
       <ViewTypographyText>ViewActionLink placeholder</ViewTypographyText>
     </ViewContainerStatic>
   );
 };
+
+export const metaActionLink = () =>{
+  return {
+    description: "Relate entities to one another with Relationships"
+  }
+}
 
 // EXPORT
 
@@ -213,6 +234,12 @@ export const ViewActionExport = ({}: any) => {
     </ViewContainerColumn>
   );
 };
+
+export const metaActionExport = () =>{
+  return {
+    description: "Download, export and backup entities"
+  }
+}
 
 // PANELS
 
@@ -359,15 +386,21 @@ export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
             </ViewContainerStatic>
           </ViewRouterLinkthemed>
         ))}
-        <ViewContextContainer />
+        <ViewContextContainer infoText={metaActionTabs()?.description} />
       </ViewContainerRow>
     </ViewContainerStatic>
   );
 };
 
+export const metaActionTabs = () =>{
+  return {
+    description: "An 'Action' is an operation that can be done to Entities & Relationships."
+  }
+}
+
 // HEADER
 
-export const ViewActionHeader = ({ title, subtitle, children, to }: any) => {
+export const ViewActionHeader = ({ title, subtitle, children, to, infoText }: any) => {
   return (
     <ViewContainerRow>
       <ViewTypographySubheading
@@ -385,7 +418,7 @@ export const ViewActionHeader = ({ title, subtitle, children, to }: any) => {
       >
         {subtitle}
       </ViewTypographySubsubheading>
-      <ViewContextContainer to={to}>{children}</ViewContextContainer>
+      <ViewContextContainer infoText={infoText} to={to}>{children}</ViewContextContainer>
     </ViewContainerRow>
   );
 };

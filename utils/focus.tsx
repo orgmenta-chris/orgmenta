@@ -118,10 +118,16 @@ export const ViewFocusHeader = () => {
           )}
         </ViewTypographyText>
       </ViewContainerStatic>
-      <ViewContextContainer />
+      <ViewContextContainer infoText={metaFocusHeader().description} />
     </ViewContainerRow>
   );
 };
+
+export const metaFocusHeader = () =>{
+  return {
+    description: "Header, title and breadcrumbs for the current Module/Focus"
+  }
+}
 
 // Title
 

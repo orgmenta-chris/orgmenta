@@ -1,10 +1,10 @@
 import { ViewContainerColumn } from "./container";
-import { ViewTypographyHeading, ViewTypographyText } from "./typography";
+import { ViewTypographySubheading, ViewTypographyText } from "./typography";
 
-export const ViewIntegrationContainer = () => {
+export const ViewIntegrationSection = () => {
   return (
     <ViewContainerColumn>
-      <ViewTypographyHeading>Integrations</ViewTypographyHeading>
+      <ViewTypographySubheading>Integrations</ViewTypographySubheading>
       <ViewTypographyText>(todo)</ViewTypographyText>
     </ViewContainerColumn>
   );

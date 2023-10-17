@@ -1044,6 +1044,12 @@ export const arrayIndustryProducts: {
     priority: 2,
   },
   {
+    title: "Appriver (aka Zix).",
+    categories: ["Vendors"],
+    integrations: ["Contract/Agreement Sync", "Product Catalog sync"],
+    priority: 2,
+  },
+  {
     title: "Avnet",
     categories: ["Vendors"],
     integrations: ["Contract/Agreement Sync", "Product Catalog sync"],

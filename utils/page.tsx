@@ -20,6 +20,7 @@ export const ViewPageMain = ({ children, marginEnabled = true }: any) => {
 };
 
 export const ViewPageSection = ({ children }: any) => {
+  // Placeholder.
   // const windowDimensions = useWindowDimensions();
   return (
     <ViewContainerStatic

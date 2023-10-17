@@ -340,3 +340,12 @@ export const ViewAttributeTable = ({ ...Input }) => {
     </ViewContainerStatic>
   );
 };
+
+export const ViewAttributeSection = ({}) => {
+  return (
+    <ViewContainerStatic>
+      <ViewTypographyText style={{ fontWeight: "700" }}>Attributes</ViewTypographyText>
+      <ViewTypographyText>todo</ViewTypographyText>
+    </ViewContainerStatic>
+  );
+};

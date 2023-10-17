@@ -10,7 +10,7 @@ import { ViewPageMain, ViewPageSection } from "./page";
 import { ViewCardExpandable } from "./card";
 import { ViewIconMain } from "./icon";
 import { ViewButtonPressable } from "./button";
-import { ViewIntegrationContainer } from "./integration";
+import { ViewIntegrationSection } from "./integration";
 import {
   ViewRouterLinkthemed,
   ViewRouterRoute,
@@ -26,6 +26,7 @@ import {
   ViewTypographyHeading,
   ViewTypographyTextthemed,
   ViewTypographySubsubheading,
+  ViewTypographySubheading,
 } from "./typography";
 import {
   useQueryerQuery,
@@ -43,16 +44,19 @@ import {
   ColumnDef,
   TableOptions,
 } from "@tanstack/react-table";
+import { ViewMemberSection } from "./member";
+import { ViewBillingSection } from "./billing";
+import { ViewAttributeSection } from "./attribute";
 
 // PAGE
 
 export const ViewSpacePage = () => {
   return (
     <ViewPageMain>
+      <ViewTypographyHeading>Spaces</ViewTypographyHeading>
       <ViewSpaceLinks />
       <ViewSpaceCurrent />
       {/* <ViewContainerScroll>
-        <ViewTypographyHeading>Spaces</ViewTypographyHeading> 
         <ViewSpaceSwitch />
         <ViewSpaceArray />
       </ViewContainerScroll> */}
@@ -65,6 +69,9 @@ export const ViewSpacePage = () => {
           path="integrations"
           element={<ViewSpaceIntegrations />}
         />
+        <ViewRouterRoute path="members" element={<ViewSpaceMembers />} />
+        <ViewRouterRoute path="billing" element={<ViewSpaceBilling />} />
+        <ViewRouterRoute path="attributes" element={<ViewSpaceAttributes />} />
       </ViewRouterRoutes>
     </ViewPageMain>
   );
@@ -485,7 +492,7 @@ export const ViewSpaceCurrent = (props: any) => {
                 to={`/spaces/${spaceActive.data.selected}/billing`}
               >
                 <ViewTypographySubsubheading selectable={false}>
-                  Subscription & Billing
+                  Billing
                 </ViewTypographySubsubheading>
               </ViewRouterLinkthemed>
               <ViewRouterLinkthemed
@@ -608,11 +615,42 @@ export const ViewSpaceNotifications = () => {
 
 // INTEGRATIONS
 
-// Widget to show the recent notifications/logs for that user (e.g system alerts, logs for changes to entities that the user is 'following'/assinged to, etc.
 export const ViewSpaceIntegrations = () => {
   return (
     <ViewPageSection>
-      <ViewIntegrationContainer></ViewIntegrationContainer>
+      <ViewIntegrationSection/>
+    </ViewPageSection>
+  );
+};
+
+// ATTRIBUTES
+
+export const ViewSpaceAttributes = () => {
+  return (
+    <ViewPageSection>
+      <ViewAttributeSection />
+    </ViewPageSection>
+  );
+};
+
+// MEMBERS
+
+export const ViewSpaceMembers = () => {
+  return (
+    <ViewPageSection>
+      <ViewMemberSection />
+    </ViewPageSection>
+  );
+};
+
+// BILLING
+
+// Widget to show the recent notifications/logs for that user (e.g system alerts, logs for changes to entities that the user is 'following'/assinged to, etc.
+export const ViewSpaceBilling = () => {
+  return (
+    <ViewPageSection>
+      <ViewTypographySubheading>Orgmenta subscriptions & billing to go here</ViewTypographySubheading>
+      <ViewBillingSection />
     </ViewPageSection>
   );
 };

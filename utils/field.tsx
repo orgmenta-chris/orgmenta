@@ -48,7 +48,7 @@ export const ViewFieldDynamic = ({
     queryId,
     item.attribute_name,
   ]) as TypeFieldState;
-  const formState = useFormState(['formtest'])//temp test
+  const formState = useFormState([formname])//temp test
   // get the set function to upate the state:
 
   // const fieldSet = useFieldSet([formname, queryId, item.attribute_name]);
@@ -476,7 +476,7 @@ export const useFieldState = (id: string[]) => {
 };
 export const useFormState = (id: string[]) => {
   return useQueryerQuery({
-    queryKey: ["field"], // construct the queryKey
+    queryKey: ["field"].concat(['add']), // construct the queryKey
     queryFn: () => null, // No function necessary (as we just want an empty state/cache to use)
     staleTime: Infinity, // This means the data will never become stale automatically
     refetchOnWindowFocus: false, // Make sure the state won't reset when tabbing in and out of the app
@@ -504,18 +504,19 @@ export const useFormSet = (id: string[]) => {
     // console.log('useFormSet called',keyName,value)
     // The INDIVIDUAL FIELD
     /* put through valiudation here */
+    // queryerClient.setQueryData(
+    //   ["field"].concat(id),
+    //   (oldData: Record<string, any>) => {
+    //     return {
+    //       ...oldData,
+    //       [keyName]: value,
+    //     };
+    //   }
+    // );
+    // console.log('id',id)
+    // The FORM (All the fields, for submission)
     queryerClient.setQueryData(
-      ["field"].concat(id),
-      (oldData: Record<string, any>) => {
-        return {
-          ...oldData,
-          [keyName]: value,
-        };
-      }
-    );
-    // The FORM (For submission)
-    queryerClient.setQueryData(
-      ["formtest"],
+      ["form",id[0]],
       (oldData: Record<string, any>) => {
         return {
           ...oldData,

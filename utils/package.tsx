@@ -5,6 +5,31 @@ import { ViewContainerStatic } from "./container";
 import { ViewTypographyText } from "./typography";
 import { TypeReactComponent } from "./react";
 
+// C todo. To list available packages. (web solution needed.)
+// import { Platform } from 'react-native';
+// let RNFS;
+// if (Platform.OS !== 'web') {
+//   //todo
+// }
+// export const listFiles = async (folderPath: string): Promise<string[] | null> => {
+//   if (Platform.OS === 'web') {
+//     // This part will only work in a Node.js environment, not in the browser.
+//     try {
+//       return readdirSync(folderPath);
+//     } catch (error) {
+//       return null;
+//     }
+//   } else {
+//     // This part will work on mobile using React Native.
+//     try {
+//       const result = await RNFS.readDir(folderPath);
+//       return result.map((fileInfo: any) => fileInfo.name);
+//     } catch (error) {
+//       return null;
+//     }
+//   }
+// };
+
 export const UtilityPackageList: { [key: string]: any } = {
   accessibility: require("./accessibility"),
   action: require("./action"),

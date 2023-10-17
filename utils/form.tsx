@@ -47,7 +47,7 @@ export const ViewFormDynamic = ({ data, formname }: TypeFormDynamic) => {
             -- No data has been passed to this form component --
           </ViewTypographyText>
         ) : (
-          <ViewFormButtons formState={formState} />
+          <ViewFormButtons formName={formname} />
         )}
       </ViewContainerStatic>
       <ViewContainerScroll style={{ height: 350 }}>
@@ -76,13 +76,24 @@ export type TypeFormDynamic = {
 
 // BUTTONS (TODO)
 // Make a button set (clear/reset, cancel, save) for the forms
-export const ViewFormButtons = ({ data, title, formState }: any) => {
-  // console.log("formState", formState);
-  //(move these into separate function(s) when done)
+export const ViewFormButtons = ({ data, title, formName }: any) => {
+  // Get the state for the relevant form
+  const formState = useFormState([formName]);
+  console.log('formState', formState)
+  // Filter the state to only show properties that have a value or a valueDefault:
+  // const filteredObj = Object.fromEntries(
+  //   Object.entries(formState?.data as any).filter(([_key, subObj]) => ((subObj as any).value !==undefined || (subObj as any).valueDefault !==undefined ))
+  // );
+  const filteredObj = Object.fromEntries(
+    Object.entries((formState?.data as unknown) as Record<string, { value?: any; valueDefault?: any }>)
+      .filter(([_key, subObj]) => subObj.value !== undefined || subObj.valueDefault !== undefined)
+      .map(([key, subObj]) => [key, subObj.value ?? subObj.valueDefault])
+  );
+
   let relationships = [];
   let entities = [];
   const buttonsEnabled =
-    formState?.length === 0 &&
+    (formState?.data as any)?.length === 0 &&
     Object.keys(formState).includes("title") &&
     "etc";
   const validateEntries = (data: any) => {};
@@ -95,57 +106,72 @@ export const ViewFormButtons = ({ data, title, formState }: any) => {
   // });
   const submit = "mutationgoeshere";
   const clear = "mutationgoeshere";
-  return (
+  return (<>
     <ViewContainerRow>
       <ViewButtonPressable
-        disabled={formState?.length === 0}
+        disabled={(formState?.data as any)?.length === 0}
         onPress={() => ""}
         style={{
           margin: 5,
           padding: 5,
-          backgroundColor: formState?.length > 0 ? "lightblue" : "gray",
+          backgroundColor: (formState?.data as any)?.length > 0 ? "lightblue" : "gray",
         }}
       >
         <ViewTypographyText>Clear/Reset</ViewTypographyText>
       </ViewButtonPressable>
       <ViewButtonPressable
-        disabled={formState?.length === 0}
+        disabled={(formState?.data as any)?.length === 0}
         onPress={() => ""}
         style={{
           margin: 5,
           padding: 5,
-          backgroundColor: formState?.length > 0 ? "lightblue" : "gray",
+          backgroundColor: (formState?.data as any)?.length > 0 ? "lightblue" : "gray",
         }}
       >
         <ViewTypographyText>SaveWithoutReview</ViewTypographyText>
       </ViewButtonPressable>
       <ViewButtonPressable
-        disabled={formState?.length === 0}
+        disabled={(formState?.data as any)?.length === 0}
         onPress={() => ""}
         style={{
           margin: 5,
           padding: 5,
-          backgroundColor: formState?.length > 0 ? "lightblue" : "gray",
+          backgroundColor: (formState?.data as any)?.length > 0 ? "lightblue" : "gray",
         }}
       >
         <ViewTypographyText>SaveWithReview</ViewTypographyText>
       </ViewButtonPressable>
       <ViewButtonPressable
-        disabled={formState?.length === 0}
+        disabled={(formState?.data as any)?.length === 0}
         onPress={() => ""}
         style={{
           margin: 5,
           padding: 5,
-          backgroundColor: formState?.length > 0 ? "lightblue" : "gray",
+          backgroundColor:(formState?.data as any)?.length > 0 ? "lightblue" : "gray",
         }}
       >
         <ViewTypographyText>TOGGLE:_CLEAR_FORM_ON_SUBMIT</ViewTypographyText>
       </ViewButtonPressable>
     </ViewContainerRow>
+    <ViewContainerRow>
+      <ViewTypographyText>
+        {JSON.stringify(filteredObj)}
+      </ViewTypographyText>
+    </ViewContainerRow>
+    </>
   );
 };
 
 // STATE
+
+export const useFormState = (id: string[]) => {
+  return useQueryerQuery({
+    queryKey: ["form"].concat(id), // construct the queryKey
+    queryFn: () => null, // No function necessary (as we just want an empty state/cache to use)
+    staleTime: Infinity, // This means the data will never become stale automatically
+    refetchOnWindowFocus: false, // Make sure the state won't reset when tabbing in and out of the app
+  });
+};
 
 // // // gets all of the field states.
 // export const useFormState = (id: string[]) => {
@@ -176,51 +202,39 @@ export const ViewFormButtons = ({ data, title, formState }: any) => {
 //   return formState;
 // };
 // gets all of the field states.
-export const useFormState = (id: string[]) => {
-  const queryerClient = useQueryerClient();
-  const formState = queryerClient
-    .getQueryCache()
-    .findAll(["field"].concat(id))
-    .filter(
-      (query) =>
-        // !!(query.state.data as any)?.value ||
-        !!(query.state.data as any)?.valueDefault
-    )
-    .map((query) => {
-      return {
-        ...(query.state as any).data,
-        attribute: query.queryKey[3] as string,
-      }; // only return the attribute name and value (for now. may need other things like validation later.)
-    });
-    // .map((query) => {
-    //   return { [query.queryKey[3] as string]: query.state.data}; // only return the attribute name and value (for now. may need other things like validation later.)
-    // });
-    // .map((query) => {
-    //   return { [query.queryKey[3] as string]: (query.state.data as any).value }; // only return the attribute name and value (for now. may need other things like validation later.)
-    // });
-    // const test = useReactMemo(()=>{return formState},[formState])
-    // console.log('test',test)
-    // console.log('formState',formState)
-  return formState;
-};
-
-// export const useMemberArray = ({ ...Input }) => {
-//   const queryKey: (string | number)[] = [
-//     "members",
-//     "array",
-//     "add_relevant_props_here",
-//   ];
-//   const query = useQueryerQuery(queryKey, requestMemberArray, {
-//     enabled: true,
-//   });
-//   return query;
+// export const useFormState = (id: string[]) => {
+//   const queryerClient = useQueryerClient();
+//   const formState = queryerClient
+//     .getQueryCache()
+//     .findAll(["field"].concat(id))
+//     .filter(
+//       (query) =>
+//         // !!(query.state.data as any)?.value ||
+//         !!(query.state.data as any)?.valueDefault
+//     )
+//     .map((query) => {
+//       return {
+//         ...(query.state as any).data,
+//         attribute: query.queryKey[3] as string,
+//       }; // only return the attribute name and value (for now. may need other things like validation later.)
+//     });
+//     // .map((query) => {
+//     //   return { [query.queryKey[3] as string]: query.state.data}; // only return the attribute name and value (for now. may need other things like validation later.)
+//     // });
+//     // .map((query) => {
+//     //   return { [query.queryKey[3] as string]: (query.state.data as any).value }; // only return the attribute name and value (for now. may need other things like validation later.)
+//     // });
+//     // const test = useReactMemo(()=>{return formState},[formState])
+//     // console.log('test',test)
+//     // console.log('formState',formState)
+//   return formState;
 // };
 
-export const createFormState = (
-  arr: { value?: any; valueDefault?: any; attribute: string }[]
-): Record<string, string | null> => {
-  return arr.reduce((acc, obj) => {
-    acc[obj.attribute] = obj.value ?? obj.valueDefault ?? null;
-    return acc;
-  }, {} as Record<string, string | null>);
-};
+// export const createFormState = (
+//   arr: { value?: any; valueDefault?: any; attribute: string }[]
+// ): Record<string, string | null> => {
+//   return arr.reduce((acc, obj) => {
+//     acc[obj.attribute] = obj.value ?? obj.valueDefault ?? null;
+//     return acc;
+//   }, {} as Record<string, string | null>);
+// };

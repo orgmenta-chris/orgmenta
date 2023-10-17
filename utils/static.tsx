@@ -2122,7 +2122,7 @@ export const data: {
     name_singular: "user_roles",
     display_singular: "User Roles",
     description:
-      "Compile all of the roles involved in user stories/ that have requested features / that have requirements",
+      "Compile all of the roles involved in user stories / that have requested features / that have requirements",
     summary: "Affected Stakeholder Groups",
     nickname: "product-catalog-solutions-usecases-user_roles",
   },
@@ -2142,8 +2142,9 @@ export const data: {
     status: "0. New",
     name_singular: "features",
     display_singular: "Features",
-    description: "What features the product has",
-    summary: "features can be determined in a Project>Planning>Functionality",
+    summary: "The features that the product needs/has",
+    description: "Plan and track features for implementation",
+    notes: "Features can be determined in a Project>Planning>Functionality",
     nickname: "product-catalog-solutions-features",
   },
   {
@@ -2152,10 +2153,10 @@ export const data: {
     status: "0. New",
     name_singular: "constituents",
     display_singular: "Constituents",
-    description: "Which components make up the product, and how",
-    summary:
-      "This maps the Product>Catalog>Components to the end product, i.e. 'how the parts fit together'",
+    description: "Define which components make up the product, and how",
+    summary: "How the parts fit together",
     nickname: "product-catalog-solutions-constituents",
+    notes: `This maps the Product>Catalog>Components to the end product`
   },
   {
     id: 13014,
@@ -2164,9 +2165,9 @@ export const data: {
     name_singular: "versions",
     display_singular: "Versions",
     description: "Versioning/roadmap/version control of the offering",
-    summary:
-      "This links Projects with Product>Catalog>Solutions>Features, i.e. what development and new versions/subfeatures are planned for this offering",
+    summary: "What development and new versions/subfeatures are planned for this offering",
     nickname: "product-catalog-solutions-versions",
+    notes: `This links Projects with Product>Catalog>Solutions>Features`
   },
   {
     id: 1302,
@@ -2217,7 +2218,7 @@ export const data: {
     name_singular: "couplings",
     display_singular: "Couplings",
     description:
-      "Link components and dependencies to other parts of the catalog, and the business at large",
+      "Link components and dependencies to other parts of the catalog & the business at large",
     summary:
       "Joins/interfaces that a component has, that allows it to interface or join another component",
     nickname: "product-catalog-parts-couplings",
@@ -2238,10 +2239,10 @@ export const data: {
     status: "0. New",
     name_singular: "retirals",
     display_singular: "Retirals",
-    description: "Product end of life, upgrade paths and deactivation.",
-    summary:
-      "Manage product decommisions -Track the need for catalog products to be cycled/changed (e.g. obsolescense or unavailability). This may trigger the procuct>decomissioning procedure (e.g. retrievals of deployed customer equipment)",
+    description: "Product end of life, obsolescence, unavailability, upgrade paths and deactivation.",
+    summary: "Manage product decommissions, and track the need for catalog products to be cycled/changed",
     nickname: "product-catalog-retirals",
+    notes: `This may trigger the procuct>decommissioning procedure (e.g. retrievals of deployed customer equipment)`
   },
   {
     id: 131,

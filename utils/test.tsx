@@ -25,6 +25,7 @@ import {
   UtilityPackageList,
   filterPackageList,
 } from "./package";
+import { ViewKanbanContainer } from "./kanban";
 
 export const ViewTestPage = () => {
   // // const aux = useAuxiliaryArray({ filter_array: [] });
@@ -37,6 +38,7 @@ export const ViewTestPage = () => {
   return __DEV__ ? (
     <ViewPageMain>
       <ViewContainerScroll>
+      <ViewKanbanContainer/>
         {/* <ViewPackageItem packageName="action" /> */}
         <ViewFrameworkPage
           data={

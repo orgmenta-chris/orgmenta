@@ -35,6 +35,7 @@ import {
 } from "./table";
 import { ColumnDef } from "@tanstack/react-table";
 import { Type } from "@stripe/stripe-react-native/lib/typescript/src/types/Token";
+import { ViewKanbanContainer } from "./kanban";
 // import { Map as ImmutableMap } from "immutable";
 
 // MAIN
@@ -224,7 +225,7 @@ export const ViewDisplayMaps = (props: any) => {
 export const ViewDisplayKanban = (props: any) => {
   return (
     <ViewContainerStatic>
-      <ViewTypographyText>ViewDisplayKanban Placeholder</ViewTypographyText>
+      <ViewKanbanContainer/>
     </ViewContainerStatic>
   );
 };

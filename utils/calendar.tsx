@@ -31,7 +31,7 @@ import { useState, ReactElement } from "react";
 export const ViewCalendarContainer = ({ events }: any) => {
   events = examplesCalendarEvent; // testing
   const windowDimensions = useWindowDimensions();
-  const ControlPanel = windowDimensions.width < 768 ? ViewModalContainer : View; // Note for Chris as reminder: maybe use this instead of the conditional below, if props play nice with the two types. OR, make ViewModalContainer have an inline type.
+  const ControlPanel = windowDimensions.width < 768 ? ViewModalContainer : View; // Note for C as reminder: maybe use this instead of the conditional below, if props play nice with the two types. OR, make ViewModalContainer have an inline type.
   return (
     <View
       key={"container"}

@@ -1,3 +1,15 @@
+// This is the (Business) 'Framework'.
+// An item in here is a 'Module' in the framework, which is a type of 'Solution'
+// A 'Solution' has Versions, which are development rollouts of compiled Constituents that meet Requirements in order to fulfil Usecases, which are stacked (as procedures/workflows) to make Fetaures.
+// (See 'Product' module for more information.)
+
+// We will develop the above by picking the lowest level 'Module', creating a Version, and ensuring that they are linked to Requirements, Consituents etc.
+
+// E.g. solution: Accounts > Recievables > Invoicing > Generate;
+// - Filfils usecase "as an AR worker I want to generate invoices with charges"
+// - Has requirements: "Need to generate invoice from existing charges or add new charges on the fly"
+// - Has constituents "run Template called createInvoice, run Template called assignInvoice"
+
 export const data: {
   id: number;
   parent: number | null;
@@ -2132,9 +2144,10 @@ export const data: {
     status: "0. New",
     name_singular: "requirements",
     display_singular: "Requirements",
-    description: "What requirements/needs the end user has for the product",
-    summary: "Requirements can be determined in a Project>Control>Requirements",
+    description: "What needs do stakeholders have for the product?",
+    summary: "Needs that are required to fulfil use cases appropriately",
     nickname: "product-catalog-solutions-requirements",
+    notes: `Requirements can be determined in a Project>Control>Requirements`
   },
   {
     id: 13012,
@@ -2142,7 +2155,7 @@ export const data: {
     status: "0. New",
     name_singular: "features",
     display_singular: "Features",
-    summary: "The features that the product needs/has",
+    summary: "The features (compilations of constituents) that the product needs/has",
     description: "Plan and track features for implementation",
     notes: "Features can be determined in a Project>Planning>Functionality",
     nickname: "product-catalog-solutions-features",
@@ -2154,7 +2167,7 @@ export const data: {
     name_singular: "constituents",
     display_singular: "Constituents",
     description: "Define which components make up the product, and how",
-    summary: "How the parts fit together",
+    summary: "Which parts fit together to make a feature?",
     nickname: "product-catalog-solutions-constituents",
     notes: `This maps the Product>Catalog>Components to the end product`
   },

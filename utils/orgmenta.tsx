@@ -30,13 +30,13 @@ import { ViewSvgMain, ViewSvgPath, ViewSvgGroup } from "./svg";
 import { mapTypeMain } from "./type";
 import { useModalVisibility } from "./modal";
 import { useWindowDimensions } from "./window";
-import { data } from "./static";
+import { data } from "./framework";
 import { articlesTemp } from "../articles/_general";
 import {
   features,
   arrayHubRequirementsTemp,
   pricingTemp,
-  procedures,
+  arrayHubUsecasesTemp,
   paradigms,
   checklist,
   arrayIndustryProducts,
@@ -365,7 +365,7 @@ export const ViewOrgmentaRoadmap = ({}: any) => {
           },
           { features },
           { arrayHubRequirementsTemp },
-          { procedures },
+          { arrayHubUsecasesTemp },
           { paradigms },
           { checklist },
         ]}

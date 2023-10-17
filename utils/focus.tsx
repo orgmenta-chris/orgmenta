@@ -8,7 +8,7 @@ import {
   ViewRouterLinkthemed,
   useRouterLocation,
 } from "./router";
-import { data } from "./static";
+import { data } from "./framework";
 
 // Main
 

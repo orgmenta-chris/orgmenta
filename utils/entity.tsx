@@ -14,7 +14,7 @@ import {
   useQueryerMutation,
   useQueryerClient,
 } from "./queryer";
-import { data } from "./static";
+import { data } from "./framework";
 
 // PAGE
 
@@ -116,7 +116,7 @@ export async function requestEntitySingle(spacename?: any, categories?: any) {
 export const useEntitySingle = (props: any) => {
   // todo: implement filter_array in query function
   // At the moment, this just uses the categories array (e.g. Accounts > Receivables > Invoices).
-  // But once the categories are in supabase (Chris is working on this), this will be changed to use the useQueryerQuery function.
+  // But once the categories are in supabase (C is working on this), this will be changed to use the useQueryerQuery function.
   const query = {
     data: data
       .filter((x) => x.nickname === props.id)
@@ -238,7 +238,7 @@ export const useEntitySchema = () => {
 //         <ViewContainerStatic key={i} style={{ margin: 5 }}>
 //           {/* <ViewTypographyText style={{margin:4}}>{Object.keys(x)}</ViewTypographyText> */}
 //           <ViewTypographyText>
-//             {/* CHRIS WILL DELETING THIS FIELD IN USEATTRIBUTESUNIONED - CHRIS TO MAKE SURE THIS IS UPDATED / ADDED AS A PROPER FIELD IF NEEDED */}
+//             {/* C  WILL BE DELETING THIS FIELD IN USEATTRIBUTESUNIONED - C to MAKE SURE THIS IS UPDATED / ADDED AS A PROPER FIELD IF NEEDED */}
 //             {x.focus_columns.display_singular}
 //           </ViewTypographyText>
 //           {/* <ViewTypographyText>{x.auxiliary_columns.display_singular}</ViewTypographyText> */}

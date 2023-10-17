@@ -182,7 +182,7 @@ export const attributeColumnNames = [
 ];
 
 export const ViewAttributeMain = WrapperReactMemo(() => {
-  // Chris is going to enhance this placeholder component
+  // C is going to enhance this placeholder component
   const array = useAttributeMain({});
   const columns = useTableColumns(attributeColumnNames);
   return (

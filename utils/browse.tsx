@@ -1,14 +1,14 @@
 // 'Browse' is search functionality, with optional 'quick-add' to convert the search term to a new entity.
 
-import { ViewModalContainer } from "./modal";
-import { ViewRouterLinkthemed } from "./router";
-import { instanceSupabaseClient } from "./supabase";
-import { ViewContainerStatic, ViewContainerScroll } from "./container";
 import {
   ViewTypographyHeading,
   ViewTypographyText,
   ViewTypographySubsubheading,
 } from "./typography";
+import { ViewModalContainer } from "./modal";
+import { ViewRouterLinkthemed } from "./router";
+import { instanceSupabaseClient } from "./supabase";
+import { ViewContainerStatic, ViewContainerScroll, ViewContainerRow } from "./container";
 import { ViewIconMain } from "./icon";
 import { ViewCardExpandable } from "./card";
 import { ViewInputText } from "./input";
@@ -20,7 +20,6 @@ import { useWindowDimensions } from "./window";
 import { useModalVisibility } from "./modal";
 
 // PAGE
-
 
 export const ViewBrowsePage = () => {
   return (
@@ -74,14 +73,12 @@ export const useBrowseArray = ({ searchterm }: any) => {
   const query = useQueryerQuery<any, Error>(queryKey, queryFn, {
     enabled: true,
   });
-  // console.log('query',query)
   return query;
 };
 
 // Modal
 
 export const ViewBrowseModal = (props: any) => {
-  const [search, set] = useReactState("");
   return (
     <ViewModalContainer
       modalName={"browse"}
@@ -110,8 +107,8 @@ export const ViewBrowseSearch = (props: any) => {
       body={
         <ViewContainerStatic style={{ height: "100%" }}>
           <ViewContainerStatic style={{ flex: 1 }}>
-            <ViewContainerStatic
-              style={{ flexDirection: "row", maxHeight: 40, width: "100%" }}
+            <ViewContainerRow
+              style={{ maxHeight: 40, width: "100%" }}
             >
               <ViewTypographyText style={{ flex: 2 }}>{`Search: `}</ViewTypographyText>
               <ViewContainerStatic>
@@ -134,7 +131,7 @@ export const ViewBrowseSearch = (props: any) => {
                 />
                 {/* <ViewTypographyText>(QuickaddButton-todo)</ViewTypographyText> */}
               </ViewButtonPressable>
-            </ViewContainerStatic>
+            </ViewContainerRow>
             <ViewContainerScroll
               style={{ height: "100%", backgroundColor: "gray" }}
             >
@@ -221,7 +218,8 @@ export const ViewBrowseTabs = ({}: any) => {
       style={{
         width: "100%",
         height: 50,
-        flexDirection: "row",
+        flexDirection: "row", 
+        paddingBottom: 80 // otherwise, scrollbar covers it. To be improved (low priority)
       }}
     >
       <ViewButtonPressable
@@ -279,7 +277,7 @@ export const ViewBrowseTabs = ({}: any) => {
         }}
         onPress={() => set("askai")}
       >
-        <ViewContainerStatic style={{ alignItems: "center", flex: 1 }}>
+        <ViewContainerStatic style={{ alignItems: "center", flex: 1}}>
           <ViewIconMain name={"chat"} source={"Entypo"} color={"white"} />
           <ViewTypographyText style={{ fontSize: 11 }}>AskAi</ViewTypographyText>
         </ViewContainerStatic>

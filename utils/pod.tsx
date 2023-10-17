@@ -1,4 +1,4 @@
-// Chris is working on this.
+// C is working on this.
 // It is a form of display (alongside calendar, table etc.).
 // This display is resizable 'pods' that can be moved around on a grid, pinned etc.
 // E.g. on the 'invoicing' category entity, you could pin an 'unsent invoices count' widget to to this display.
@@ -23,7 +23,7 @@ import {
 } from "./typography";
 import { useAuxiliaryArray } from "./auxiliary";
 import { useSpaceState, TypeSpaceState } from "./space";
-import { data } from "./static";
+import { data } from "./framework";
 import { useAuthSession } from "./auth";
 import { ViewContextContainer, useContextState } from "./context";
 import { useHelpState } from "./help";

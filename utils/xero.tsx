@@ -17,7 +17,6 @@
 // Follow https://developer.xero.com/documentation/getting-started-guide/
 // Then, same as done for stripe - get every possibly endpoint into supabase functions
 
-
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
@@ -41,19 +40,73 @@
 // This may (unlikely) require incorporating in every country we do business in.
 // But regardles, it just means that we need to design for adherance to local financial regulations and compliance standards. For Xero, specific terms would be detailed in your agreement with them, which may require varying degrees of regulatory compliance based on the services you're offering.
 
-
 ////////////////////////////////////////////////
 // Phase y (Future / long term)
 
 // When we expand to other markets, we may need to allow 'practices' (accountants, legal firms etc.) to access Xero Practice.
 // But, due to multi-space paradigm, this might not be necessary.
 
+// import { requestVaultItem } from "./vault";
+// import { UtilityPlatformMain } from "./platform";
+// import { instanceSupabaseClient as client } from "./supabase";
 
+// export const stringXeroURL = "https://api.stripe.com/v1";
 
+import {
+  XERO_STAGING_CLIENT_ID,
+  XERO_STAGING_CLIENT_SECRET,
+  XERO_ACCESS_TOKEN,
+  // @ts-ignore
+} from "@env";
 import { requestVaultItem } from "./vault";
-import { UtilityPlatformMain } from "./platform";
-import { instanceSupabaseClient as client } from "./supabase";
+import { Base64 } from "js-base64";
 
-export const stringXeroURL = "https://api.stripe.com/v1";
+let clientID: any = "";
+let clientSecret: any = "";
 
+if (__DEV__) {
+  clientID = XERO_STAGING_CLIENT_ID;
+  clientSecret = XERO_STAGING_CLIENT_SECRET;
+} else {
+  clientID = requestVaultItem("XERO_PRODUCTION_CLIENT_ID");
+  clientSecret = requestVaultItem("XERO_PRODUCTION_CLIENT_SECRET");
+}
 
+export const accessToken = XERO_ACCESS_TOKEN;
+
+export const scopes =
+  "accounting.transactions accounting.transactions.read accounting.reports.read accounting.reports.tenninetynine.read accounting.budgets.read accounting.journals.read accounting.settings accounting.settings.read accounting.contacts accounting.contacts.read accounting.attachments accounting.attachments.read assets assets.read files files.read payroll.employees payroll.employees.read payroll.payruns payroll.payruns.read payroll.payslip payroll.payslip.read payroll.settings payroll.settings.read payroll.timesheets payroll.timesheets.read projects projects.read";
+
+export const XeroRequestAccessToken = async () => {
+  //   console.log(clientID, clientSecret);
+  // Define the token endpoint and credentials
+  const tokenUrl = "https://identity.xero.com/connect/token";
+  const credentials = Base64.encode(`${clientID}:${clientSecret}`);
+
+  // Define the request body parameters
+  const requestBody = new URLSearchParams();
+  requestBody.append("grant_type", "client_credentials");
+  requestBody.append("scope", scopes);
+
+  // Define request options
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Authorization: `Basic ${credentials}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: requestBody,
+  };
+
+  // Make the POST request to the token endpoint
+  try {
+    const response = await fetch(tokenUrl, requestOptions);
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    // Handle any errors here
+    console.error("Error requesting access token:", error);
+    throw error;
+  }
+};

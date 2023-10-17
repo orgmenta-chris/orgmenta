@@ -119,7 +119,7 @@
   - This is a general best effort rule. Sometimes it may be unavoidable.
 - Misc Reserved words
   - Name: Don't use 'name' for properties. Use 'title'. This keeps 'name' as a reserved programming language term. For contacts/people, use 'firstname, middlename, lastname, fullname, nickname' etc. but not just 'name'.
-  - End:  (Chris to evaluate feasiblity of this with Event Calendars etc.) Don't use 'end' for finish times. Keep 'end' as a reserved programming word - Use 'finish' instead.
+  - End:  (C to evaluate feasiblity of this with Event Calendars etc.) Don't use 'end' for finish times. Keep 'end' as a reserved programming word - Use 'finish' instead.
   - (NOT) Start: (maybe 'commence' might be needed for event start times - but in this circumstance, it might be pragmatic to keep using 'start' as it isn't a js reserved word and using other terms for events would be confusing for people, and it wouldn't be possible to break the habit / swap out usage in common parlance).
 
 

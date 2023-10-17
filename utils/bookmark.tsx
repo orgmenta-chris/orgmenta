@@ -17,7 +17,7 @@ import { useReactState } from "./react";
 import { useWindowDimensions } from "./window";
 import { useModalVisibility } from "./modal";
 import { useQueryerQuery, TypeQueryerOptions } from "./queryer";
-import { data } from "./static";
+import { data } from "./framework";
 
 // MODULES
 

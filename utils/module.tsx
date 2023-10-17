@@ -1,6 +1,6 @@
 // 'module' is a reserved word for a unit in the 'Business framework/model/methodology'.
 // For code modules, see 'package'
-// Chris assigned.
+// C assigned.
 
 import { ViewBrowseSearch } from "./browse";
 import { ViewContainerScroll } from "./container";

@@ -52,14 +52,14 @@ export const metaActionDisplay = () =>{
 // A component for sorting, filtering, grouping (or applying presets that automatically do this)
 export const ViewActionControl = ({}: any) => {
   return (
-    <ViewContainerStatic style={{ flexDirection: "column" }}>
+    <ViewContainerColumn>
       <ViewActionHeader
         title={"Control"}
         subtitle={"Presets, Filters, Grouping and Sorting"}
         infoText={metaActionControl().description}
       />
       <ViewControlMain />
-    </ViewContainerStatic>
+    </ViewContainerColumn>
   );
 };
 
@@ -88,10 +88,10 @@ export const ViewActionAdd = ({ schema, focus }: any) => {
       };
     });
   return (
-    <ViewContainerStatic style={{ flexDirection: "column" }}>
+    <ViewContainerColumn>
       <ViewActionHeader title={"Add"} subtitle={"Create entities"} />
       <ViewFormDynamic data={schema} formname={"add"} />
-    </ViewContainerStatic>
+    </ViewContainerColumn>
   );
 };
 
@@ -113,10 +113,10 @@ export const ViewActionEdit = ({ schema, focus }: any) => {
 
 export const ViewActionSync = ({}: any) => {
   return (
-    <ViewContainerStatic style={{ flexDirection: "column" }}>
+    <ViewContainerColumn>
       <ViewActionHeader title={"Sync"} subtitle={"Sync and Backup Entities"} />
       <ViewTypographyText>ViewActionSync placeholder</ViewTypographyText>
-    </ViewContainerStatic>
+    </ViewContainerColumn>
   );
 };
 
@@ -124,13 +124,13 @@ export const ViewActionSync = ({}: any) => {
 
 export const ViewActionShare = ({}: any) => {
   return (
-    <ViewContainerStatic style={{ flexDirection: "column" }}>
+    <ViewContainerColumn>
       <ViewActionHeader
         title={"Share"}
         subtitle={"Share, Forward, or Update Member Access"}
       />
       <ViewTypographyText>ViewActionShare placeholder</ViewTypographyText>
-    </ViewContainerStatic>
+    </ViewContainerColumn>
   );
 };
 
@@ -138,13 +138,13 @@ export const ViewActionShare = ({}: any) => {
 
 export const ViewActionTemplate = ({}: any) => {
   return (
-    <ViewContainerStatic style={{ flexDirection: "column" }}>
+    <ViewContainerColumn>
       <ViewActionHeader
         title={"Templates"}
         subtitle={"Run rules, import blueprints, or apply other templates"}
       />
       <ViewTypographyText>ViewActionTemplate placeholder</ViewTypographyText>
-    </ViewContainerStatic>
+    </ViewContainerColumn>
   );
 };
 
@@ -152,14 +152,14 @@ export const ViewActionTemplate = ({}: any) => {
 
 export const ViewActionLink = ({}: any) => {
   return (
-    <ViewContainerStatic style={{ flexDirection: "column" }}>
+    <ViewContainerColumn>
       <ViewActionHeader
         title={"Link"}
         subtitle={"Create / manage entity relationships"}
         infoText={metaActionLink().description}
       />
       <ViewTypographyText>ViewActionLink placeholder</ViewTypographyText>
-    </ViewContainerStatic>
+    </ViewContainerColumn>
   );
 };
 
@@ -252,15 +252,8 @@ export const ViewActionPanels = ({
   return (
     <ViewContainerStatic
       style={{
-        // margin: 5,
         padding: 5,
-        // borderWidth: 1,
-        // borderColor: "rgba(180,180,180,1)",
-        // borderRadius: 5,
-        // flexDirection: "column",
-        // backgroundColor: "lightgray",
-        minHeight: 40, // for some reason, this is necessary on mobile or the component doesn't has 0 height despite children having heights
-        // maxHeight: "90%", // until we implement dragging the topbar of the panel up and down - Chris has some experimental code to test this with.
+        minHeight: 40,
       }}
     >
       <ViewRouterRoutes>

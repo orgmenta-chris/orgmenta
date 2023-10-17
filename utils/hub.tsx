@@ -1,9 +1,8 @@
 // Placeholder.
-// Chris is trying not to touch this, for simplicitly and keep scope as small as possible for now.
+// C is trying not to touch this, for simplicitly and keep scope as small as possible for now.
 // But to be discussed before go-live, for branding purposes.
 
-// TEMP
-
+// TEMP (should be 'project/product targets' that are linked to versions')
 export const arrayHubTargetsTemp: {
   id: number;
   title: string;
@@ -12,14 +11,14 @@ export const arrayHubTargetsTemp: {
 }[] = [
   {
     id: 1,
-    title: "Implement intial help module",
-    assignedTo: "c",
+    title: "Implement intial help module (help.tsx v1)",
+    assignedTo: "C",
     versions: [1],
   },
   {
     id: 2,
-    title: "Stripe initial packages & integration",
-    assignedTo: "l",
+    title: "Stripe initial packages & integration (stripe.tsx v1)",
+    assignedTo: "L",
     versions: [2],
   },
 ];
@@ -38,8 +37,8 @@ export const arrayHubFeaturesTemp: {
   title: string;
   usecases: number[];
 }[] = [
-  { id: 1, title: "Help Module", usecases: [1] },
-  { id: 2, title: "Stripe Module", usecases: [2, 3] },
+  { id: 1, title: "Help available for any View (Component)", usecases: [1] },
+  { id: 2, title: "Subscribe and manage subscription to Orgmenta", usecases: [2, 3] },
 ];
 
 export const mapHubUsecasesTemp: {
@@ -51,40 +50,18 @@ export const mapHubUsecasesTemp: {
   { id: 3, title: "Pay customer invoice via stripe in orgmenta" },
 ];
 
-export const arrayHubPrioritiesTemp: {
-  priority: number;
-  description: string;
-}[] = [
-  {
-    priority: 1,
-    description: "Needs to be implemented now, hindering other development",
-  },
-  {
-    priority: 2,
-    description: "Needs to be implemented before intial go-live",
-  },
-  {
-    priority: 3,
-    description: "Future Feature",
-  },
-  {
-    priority: 4,
-    description: "Future Feature - long term",
-  },
-  {
-    priority: 5,
-    description:
-      "Very long term / wishlist dependent on orgmenta long term success",
-  },
-];
-
-// Requirements
-
+// Requirements ("Needs that are needed to fulfil use cases (/requests from users and other stakeholders")
 export const arrayHubRequirementsTemp: {
-  category: string;
+  category?: string;
   title: string;
   description: string;
 }[] = [
+  {
+    category: "Usability",
+    title: "Rapidly enter entities",
+    description:
+      "Add form(s) must allow a user to rapidly enter many entities in quick succession, minimising friction",
+  },
   {
     category: "User Satisfaction",
     title: "UI satisfaction",
@@ -132,14 +109,6 @@ export const arrayHubRequirementsTemp: {
     description:
       "Users must be able to complete the data entry for a new entity (e.g. a new customer record) within three minutes.",
   },
-];
-
-// General 'needs' for the system
-
-export const needs: {
-  title: string;
-  description: string;
-}[] = [
   {
     title: `No Data Loss / No impact from data loss`,
     description: `
@@ -223,9 +192,10 @@ export const needs: {
   },
 ];
 
-// Procedures
-// url_params are NOT finalised yet
-export const procedures: {
+// USECASES (these are 'procedures' that users/stakeholders want to undertake/follow)
+// note: url_params are NOT finalised yet
+// note: 'steps' are 'constituents' that are used by passing in props/arguments/variables.
+export const arrayHubUsecasesTemp: {
   title: string;
   description: string;
   steps: string[];
@@ -278,6 +248,35 @@ export const procedures: {
       "orgmenta.com/entity/personnel-attendance-timesheets/pods/add/type=Event&class=TimeEntry&Status=1.New",
   },
 ];
+
+
+export const arrayHubPrioritiesTemp: {
+  priority: number;
+  description: string;
+}[] = [
+  {
+    priority: 1,
+    description: "Needs to be implemented now, hindering other development",
+  },
+  {
+    priority: 2,
+    description: "Needs to be implemented before intial go-live",
+  },
+  {
+    priority: 3,
+    description: "Future Feature",
+  },
+  {
+    priority: 4,
+    description: "Future Feature - long term",
+  },
+  {
+    priority: 5,
+    description:
+      "Very long term / wishlist dependent on orgmenta long term success",
+  },
+];
+
 
 // Paradigms
 // General models / structures that Orgmenta is using.
@@ -2977,7 +2976,7 @@ export const features = [
     title: "History/Undo/Redo",
     status: "0. New",
     description:
-      "Undo (and redo) to any point in entity-relationship histories Chris to design this",
+      "Undo (and redo) to any point in entity-relationship histories C to design this",
     priority: 2,
   },
   {
@@ -6898,7 +6897,7 @@ export const feature_usecase_userrole_rels = [
 //     description:
 //       "Undo (and redo) to any point in entity-relationship histories",
 //     priority: 2,
-//     notes: "Chris to design this",
+//     notes: "C to design this",
 //   },
 //   {
 //     title: "URL Parameters",

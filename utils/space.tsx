@@ -55,8 +55,38 @@ export const ViewSpacePage = () => {
   return (
     <ViewPageMain>
       <ViewTypographyHeading>Spaces</ViewTypographyHeading>
-      <ViewSpaceLinks />
-      <ViewSpaceCurrent />
+      <ViewContainerRow>
+        <ViewRouterLinkthemed to={"notifications"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Notifications
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"integrations"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Integrations
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"data"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Data
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"members"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Members
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"billing"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Billing
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"attributes"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Attributes
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+      </ViewContainerRow>
       {/* <ViewContainerScroll>
         <ViewSpaceSwitch />
         <ViewSpaceArray />
@@ -69,6 +99,10 @@ export const ViewSpacePage = () => {
         <ViewRouterRoute
           path="integrations"
           element={<ViewSpaceIntegrations />}
+        />
+        <ViewRouterRoute
+          path="data"
+          element={<ViewSpaceData />}
         />
         <ViewRouterRoute path="members" element={<ViewSpaceMembers />} />
         <ViewRouterRoute path="billing" element={<ViewSpaceBilling />} />
@@ -638,6 +672,19 @@ export const ViewSpaceAttributes = () => {
   return (
     <ViewPageSection>
       <ViewAttributeSection />
+    </ViewPageSection>
+  );
+};
+
+// DATA
+
+export const ViewSpaceData = () => {
+  return (
+    <ViewPageSection>
+      <ViewTypographySubheading>
+        Backups, imports and exports
+      </ViewTypographySubheading>
+      <ViewTypographySubheading>(todo)</ViewTypographySubheading>
     </ViewPageSection>
   );
 };

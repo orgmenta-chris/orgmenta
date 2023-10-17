@@ -19,6 +19,7 @@ import {
 import { ViewModalContainer } from "./modal";
 import { ViewCardExpandable } from "./card";
 import {
+  ViewRouterLink,
   ViewRouterLinkthemed,
   ViewRouterRoute,
   ViewRouterRoutes,
@@ -49,34 +50,47 @@ import { ViewIntegrationSection } from "./integration";
 // PAGE
 
 export const ViewUserPage = () => {
-  const auth = useAuthSession();
-  const user = useUserSingle(auth?.data?.session?.id);
   return (
     <ViewPageMain>
       <ViewTypographyHeading>User</ViewTypographyHeading>
+      <ViewContainerRow>
+        <ViewRouterLinkthemed to={"authentication"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Authentication
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"profile"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Profile
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"devices"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Devices
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"integrations"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Integrations
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+      </ViewContainerRow>
       <ViewRouterRoutes>
+        <ViewRouterRoute
+          path="authentication"
+          element={<ViewUserAuthentication />}
+        />
+        <ViewRouterRoute
+          path="profile"
+          element={<ViewUserProfile />}
+        />
+        <ViewRouterRoute
+          path="devices"
+          element={<ViewUserDevices />}
+        />
         <ViewRouterRoute
           path="integrations"
           element={<ViewUserIntegrations />}
-        />
-        <ViewRouterRoute
-          path="main-TODO"
-          element={
-            <>
-              <ViewContainerStatic style={{ maxWidth: 500 }}>
-                <ViewTypographyText style={{ marginBottom: 10 }}>
-                  ViewAuthDetails
-                </ViewTypographyText>
-                {auth.data && (
-                  <ViewTypographyText>
-                    Logged in as: {auth?.data?.session?.user?.email}
-                  </ViewTypographyText>
-                )}
-              </ViewContainerStatic>
-              <ViewUserAttributes />
-              <ViewDisplayDynamic />
-            </>
-          }
         />
       </ViewRouterRoutes>
     </ViewPageMain>
@@ -126,7 +140,7 @@ export const ViewUserModal = (props: any) => {
         <ViewUserNotifications />
         <ViewUserComms />
         <ViewUserContext />
-        <ViewUserDevice />
+        <ViewUserDevices />
       </ViewContainerScroll>
     </ViewModalContainer>
   );
@@ -231,7 +245,7 @@ export const ViewUserContext = () => {
 // DEVICE
 
 // Widget to show the devices that the user has logged in with / has preferences shieldSet for.
-export const ViewUserDevice = () => {
+export const ViewUserDevices = () => {
   return (
     <ViewCardExpandable
       startExpanded
@@ -510,6 +524,43 @@ export const ViewUserIntegrations = () => {
           {JSON.stringify(integrationsTemp, null, 2)}
         </ViewTypographyText>
       </ViewContainerScroll>
+    </ViewPageSection>
+  );
+};
+
+export const ViewUserAuthentication = () => {
+  // Placeholder component, todo.
+  const windowDimensions = useWindowDimensions();
+  const auth = useAuthSession();
+  return (
+    <ViewPageSection>
+      <ViewContainerStatic style={{ maxWidth: 500 }}>
+        <ViewTypographyText style={{ marginBottom: 10 }}>
+          Authentication
+        </ViewTypographyText>
+        {auth.data && (
+          <ViewTypographyText>
+            Logged in as: {auth?.data?.session?.user?.email}
+          </ViewTypographyText>
+        )}
+      </ViewContainerStatic>
+      <ViewUserAttributes />
+      <ViewDisplayDynamic />
+    </ViewPageSection>
+  );
+};
+
+// PROFILE
+
+export const ViewUserProfile = () => {
+  return (
+    <ViewPageSection>
+        <ViewTypographyText style={{ marginBottom: 10 }}>
+          profile
+        </ViewTypographyText>
+        <ViewTypographyText>
+          (todo)
+        </ViewTypographyText>
     </ViewPageSection>
   );
 };

@@ -8,7 +8,11 @@ import {
 import { ViewModalContainer } from "./modal";
 import { ViewRouterLinkthemed } from "./router";
 import { instanceSupabaseClient } from "./supabase";
-import { ViewContainerStatic, ViewContainerScroll, ViewContainerRow } from "./container";
+import {
+  ViewContainerStatic,
+  ViewContainerScroll,
+  ViewContainerRow,
+} from "./container";
 import { ViewIconMain } from "./icon";
 import { ViewCardExpandable } from "./card";
 import { ViewInputText } from "./input";
@@ -55,15 +59,11 @@ export type TypeBrowseActive = any; // placeholder
 // Array
 
 export const useBrowseArray = ({ searchterm }: any) => {
-  const queryKey: (string | number)[] = [
-    "browse",
-    "entities",
-    searchterm,
-  ];
+  const queryKey: (string | number)[] = ["browse", "entities", searchterm];
   const queryFn = async () => {
     const query = instanceSupabaseClient.from("entities_orgmenta").select();
     if (searchterm) {
-      console.log('searchterm',searchterm)
+      console.log("searchterm", searchterm);
       query.ilike("title", `%${searchterm}%`);
     }
     query.range(0, 9); //temp arbitrary limit of 10 (todo: pass variables in here to get proper pagination)
@@ -107,10 +107,10 @@ export const ViewBrowseSearch = (props: any) => {
       body={
         <ViewContainerStatic style={{ height: "100%" }}>
           <ViewContainerStatic style={{ flex: 1 }}>
-            <ViewContainerRow
-              style={{ maxHeight: 40, width: "100%" }}
-            >
-              <ViewTypographyText style={{ flex: 2 }}>{`Search: `}</ViewTypographyText>
+            <ViewContainerRow style={{ maxHeight: 40, width: "100%" }}>
+              <ViewTypographyText
+                style={{ flex: 2 }}
+              >{`Search: `}</ViewTypographyText>
               <ViewContainerStatic>
                 <ViewInputText
                   autoFocus
@@ -218,8 +218,8 @@ export const ViewBrowseTabs = ({}: any) => {
       style={{
         width: "100%",
         height: 50,
-        flexDirection: "row", 
-        paddingBottom: 80 // otherwise, scrollbar covers it. To be improved (low priority)
+        flexDirection: "row",
+        paddingBottom: 80, // otherwise, scrollbar covers it. To be improved (low priority)
       }}
     >
       <ViewButtonPressable
@@ -229,13 +229,12 @@ export const ViewBrowseTabs = ({}: any) => {
           width: 50,
           height: 50,
           backgroundColor: state === "all" ? "gray" : "lightgray",
+          alignItems: "center",
         }}
         onPress={() => set("all")}
       >
-        <ViewContainerStatic style={{ alignItems: "center", flex: 1 }}>
-          <ViewIconMain name={"globe"} source={"Entypo"} color={"white"} />
-          <ViewTypographyText style={{ fontSize: 11 }}>All</ViewTypographyText>
-        </ViewContainerStatic>
+        <ViewIconMain name={"globe"} source={"Entypo"} color={"white"} />
+        <ViewTypographyText style={{ fontSize: 11 }}>All</ViewTypographyText>
       </ViewButtonPressable>
       <ViewButtonPressable
         style={{
@@ -244,13 +243,14 @@ export const ViewBrowseTabs = ({}: any) => {
           width: 50,
           height: 50,
           backgroundColor: state === "history" ? "gray" : "lightgray",
+          alignItems: "center",
         }}
         onPress={() => set("history")}
       >
-        <ViewContainerStatic style={{ alignItems: "center", flex: 1 }}>
-          <ViewIconMain name={"history"} source={"Octicons"} color={"white"} />
-          <ViewTypographyText style={{ fontSize: 11 }}>History</ViewTypographyText>
-        </ViewContainerStatic>
+        <ViewIconMain name={"history"} source={"Octicons"} color={"white"} />
+        <ViewTypographyText style={{ fontSize: 11 }}>
+          History
+        </ViewTypographyText>
       </ViewButtonPressable>
       <ViewButtonPressable
         style={{
@@ -259,13 +259,14 @@ export const ViewBrowseTabs = ({}: any) => {
           width: 50,
           height: 50,
           backgroundColor: state === "websearch" ? "gray" : "lightgray",
+          alignItems: "center",
         }}
         onPress={() => set("websearch")}
       >
-        <ViewContainerStatic style={{ alignItems: "center", flex: 1 }}>
-          <ViewIconMain name={"globe"} source={"Octicons"} color={"white"} />
-          <ViewTypographyText style={{ fontSize: 11 }}>Websearch</ViewTypographyText>
-        </ViewContainerStatic>
+        <ViewIconMain name={"globe"} source={"Octicons"} color={"white"} />
+        <ViewTypographyText style={{ fontSize: 11 }}>
+          Websearch
+        </ViewTypographyText>
       </ViewButtonPressable>
       <ViewButtonPressable
         style={{
@@ -274,13 +275,12 @@ export const ViewBrowseTabs = ({}: any) => {
           width: 50,
           height: 50,
           backgroundColor: state === "askai" ? "gray" : "lightgray",
+          alignItems: "center",
         }}
         onPress={() => set("askai")}
       >
-        <ViewContainerStatic style={{ alignItems: "center", flex: 1}}>
-          <ViewIconMain name={"chat"} source={"Entypo"} color={"white"} />
-          <ViewTypographyText style={{ fontSize: 11 }}>AskAi</ViewTypographyText>
-        </ViewContainerStatic>
+        <ViewIconMain name={"chat"} source={"Entypo"} color={"white"} />
+        <ViewTypographyText style={{ fontSize: 11 }}>AskAi</ViewTypographyText>
       </ViewButtonPressable>
     </ViewContainerScroll>
   );

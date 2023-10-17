@@ -31,8 +31,6 @@ export interface interfaceFormContainer {
 
 // A form that shows the correct field type based on a field property in each object
 export const ViewFormDynamic = ({ data, formname }: TypeFormDynamic) => {
-  // const test= useTest()
-  // console.log('test',test)s
   // const category = useRouterLocation().paths[2]
   const formState = useFormState([formname]);
   // const entityState = createFormState(formState);

@@ -6,11 +6,16 @@ import { useModalVisibility } from "./modal";
 import { createMetaInfo } from "./meta";
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { ViewModalContainer } from "./modal";
-import { ViewPageMain } from "./page";
-import { ViewRouterLinkthemed } from "./router";
+import { ViewPageMain, ViewPageSection } from "./page";
 import { ViewCardExpandable } from "./card";
 import { ViewIconMain } from "./icon";
 import { ViewButtonPressable } from "./button";
+import { ViewIntegrationContainer } from "./integration";
+import {
+  ViewRouterLinkthemed,
+  ViewRouterRoute,
+  ViewRouterRoutes,
+} from "./router";
 import {
   ViewContainerStatic,
   ViewContainerScroll,
@@ -44,13 +49,23 @@ import {
 export const ViewSpacePage = () => {
   return (
     <ViewPageMain>
-      <ViewContainerScroll>
-        <ViewTypographyHeading>Spaces</ViewTypographyHeading>
-        <ViewSpaceLinks />
-        <ViewSpaceCurrent />
+      <ViewSpaceLinks />
+      <ViewSpaceCurrent />
+      {/* <ViewContainerScroll>
+        <ViewTypographyHeading>Spaces</ViewTypographyHeading> 
         <ViewSpaceSwitch />
         <ViewSpaceArray />
-      </ViewContainerScroll>
+      </ViewContainerScroll> */}
+      <ViewRouterRoutes>
+        <ViewRouterRoute
+          path="notifications"
+          element={<ViewSpaceNotifications />}
+        />
+        <ViewRouterRoute
+          path="integrations"
+          element={<ViewSpaceIntegrations />}
+        />
+      </ViewRouterRoutes>
     </ViewPageMain>
   );
 };
@@ -336,9 +351,7 @@ export const ViewSpaceTable = ({ ...Input }) => {
         >
           <ViewContainerStatic>
             {table.getHeaderGroups().map((headerGroup, hgroupIndex) => (
-              <ViewContainerRow
-                key={headerGroup.id}
-              >
+              <ViewContainerRow key={headerGroup.id}>
                 {headerGroup.headers.map((header, headerIndex) => (
                   <ViewContainerStatic key={headerIndex}>
                     <ViewTypographyText
@@ -483,6 +496,22 @@ export const ViewSpaceCurrent = (props: any) => {
                   Members
                 </ViewTypographySubsubheading>
               </ViewRouterLinkthemed>
+              <ViewRouterLinkthemed
+                style={{ margin: 5 }}
+                to={`/spaces/all/notifications`}
+              >
+                <ViewTypographySubsubheading selectable={false}>
+                  Notifications
+                </ViewTypographySubsubheading>
+              </ViewRouterLinkthemed>
+              <ViewRouterLinkthemed
+                style={{ margin: 5 }}
+                to={`/spaces/all/integrations`}
+              >
+                <ViewTypographySubsubheading selectable={false}>
+                  Integrations
+                </ViewTypographySubsubheading>
+              </ViewRouterLinkthemed>
             </>
           )
         }
@@ -574,6 +603,17 @@ export const ViewSpaceNotifications = () => {
         </>
       }
     />
+  );
+};
+
+// INTEGRATIONS
+
+// Widget to show the recent notifications/logs for that user (e.g system alerts, logs for changes to entities that the user is 'following'/assinged to, etc.
+export const ViewSpaceIntegrations = () => {
+  return (
+    <ViewPageSection>
+      <ViewIntegrationContainer></ViewIntegrationContainer>
+    </ViewPageSection>
   );
 };
 

@@ -42,7 +42,6 @@ import {
   arrayIndustryProducts,
   competitorFeatures,
   arrayCompetitors,
-  needs,
   devworkflow,
 } from "./hub";
 // The home page will ideally just show a demo space + product information/ sales pitch, and a guest user if not logged in.

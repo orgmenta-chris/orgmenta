@@ -47,6 +47,7 @@ import {
 import { ViewMemberSection } from "./member";
 import { ViewBillingSection } from "./billing";
 import { ViewAttributeSection } from "./attribute";
+import { arrayIndustryProducts } from "./hub";
 
 // PAGE
 
@@ -616,9 +617,17 @@ export const ViewSpaceNotifications = () => {
 // INTEGRATIONS
 
 export const ViewSpaceIntegrations = () => {
+  const integrationsTemp = arrayIndustryProducts.filter(
+    (x) => x.integrations?.length > 0
+  );
   return (
     <ViewPageSection>
-      <ViewIntegrationSection/>
+      <ViewIntegrationSection />
+      <ViewContainerScroll>
+        <ViewTypographyText>
+          {JSON.stringify(integrationsTemp, null, 2)}
+        </ViewTypographyText>
+      </ViewContainerScroll>
     </ViewPageSection>
   );
 };
@@ -649,7 +658,9 @@ export const ViewSpaceMembers = () => {
 export const ViewSpaceBilling = () => {
   return (
     <ViewPageSection>
-      <ViewTypographySubheading>Orgmenta subscriptions & billing to go here</ViewTypographySubheading>
+      <ViewTypographySubheading>
+        Orgmenta subscriptions & billing to go here
+      </ViewTypographySubheading>
       <ViewBillingSection />
     </ViewPageSection>
   );

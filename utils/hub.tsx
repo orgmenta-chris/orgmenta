@@ -38,7 +38,11 @@ export const arrayHubFeaturesTemp: {
   usecases: number[];
 }[] = [
   { id: 1, title: "Help available for any View (Component)", usecases: [1] },
-  { id: 2, title: "Subscribe and manage subscription to Orgmenta", usecases: [2, 3] },
+  {
+    id: 2,
+    title: "Subscribe and manage subscription to Orgmenta",
+    usecases: [2, 3],
+  },
 ];
 
 export const mapHubUsecasesTemp: {
@@ -249,7 +253,6 @@ export const arrayHubUsecasesTemp: {
   },
 ];
 
-
 export const arrayHubPrioritiesTemp: {
   priority: number;
   description: string;
@@ -276,7 +279,6 @@ export const arrayHubPrioritiesTemp: {
       "Very long term / wishlist dependent on orgmenta long term success",
   },
 ];
-
 
 // Paradigms
 // General models / structures that Orgmenta is using.
@@ -937,7 +939,7 @@ export const arrayIndustryProducts: {
   {
     title: "ConnectWise Automate (LabTech)",
     categories: ["Remote Monitoring Systems"],
-    integrations: [],
+    integrations: ["products", "agreements"],
     priority: 4,
   },
   {
@@ -2641,43 +2643,43 @@ export const stepTypesTemp: {
   description?: string;
 }[] = [
   {
-    id:0,
+    id: 0,
     title: "Link",
     description: "Navigate To",
   },
   {
-    id:1,
+    id: 1,
     title: "Button",
     description: "Click",
   },
   {
-    id:2,
+    id: 2,
     title: "View",
     description: "Show a component",
   },
   {
-    id:3,
+    id: 3,
     title: "Create Entity",
   },
   {
-    id:4,
+    id: 4,
     title: "Create Relationship",
   },
   {
-    id:5,
+    id: 5,
     title: "Search Entities",
   },
   {
-    id:6,
+    id: 6,
     title: "Search Relationships",
   },
   {
-    id:7,
+    id: 7,
     title: "Conditional",
     description: "If/Then/Else",
   },
   {
-    id:8,
+    id: 8,
     title: "Run Function",
   },
 ];

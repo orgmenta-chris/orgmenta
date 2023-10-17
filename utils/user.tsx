@@ -18,10 +18,14 @@ import {
 } from "./container";
 import { ViewModalContainer } from "./modal";
 import { ViewCardExpandable } from "./card";
-import { ViewRouterLinkthemed } from "./router";
+import {
+  ViewRouterLinkthemed,
+  ViewRouterRoute,
+  ViewRouterRoutes,
+} from "./router";
 import { ViewButtonPressable } from "./button";
 import { ViewIconMain } from "./icon";
-import { ViewPageMain } from "./page";
+import { ViewPageMain, ViewPageSection } from "./page";
 import { ViewDisplayDynamic } from "./display";
 import { ViewShieldUniversal } from "./shield";
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
@@ -38,6 +42,8 @@ import {
 } from "./auth";
 import { useReactState } from "./react";
 import { ViewContextUniversal } from "./context";
+import { arrayIndustryProducts } from "./hub";
+import { ViewIntegrationSection } from "./integration";
 // import MSAL from "../../../auth/msal";
 
 // PAGE
@@ -48,18 +54,31 @@ export const ViewUserPage = () => {
   return (
     <ViewPageMain>
       <ViewTypographyHeading>User</ViewTypographyHeading>
-      <ViewContainerStatic style={{ maxWidth: 500 }}>
-        <ViewTypographyText style={{ marginBottom: 10 }}>
-          ViewAuthDetails
-        </ViewTypographyText>
-        {auth.data && (
-          <ViewTypographyText>
-            Logged in as: {auth?.data?.session?.user?.email}
-          </ViewTypographyText>
-        )}
-      </ViewContainerStatic>
-      <ViewUserAttributes />
-      <ViewDisplayDynamic />
+      <ViewRouterRoutes>
+        <ViewRouterRoute
+          path="integrations"
+          element={<ViewUserIntegrations />}
+        />
+        <ViewRouterRoute
+          path="main-TODO"
+          element={
+            <>
+              <ViewContainerStatic style={{ maxWidth: 500 }}>
+                <ViewTypographyText style={{ marginBottom: 10 }}>
+                  ViewAuthDetails
+                </ViewTypographyText>
+                {auth.data && (
+                  <ViewTypographyText>
+                    Logged in as: {auth?.data?.session?.user?.email}
+                  </ViewTypographyText>
+                )}
+              </ViewContainerStatic>
+              <ViewUserAttributes />
+              <ViewDisplayDynamic />
+            </>
+          }
+        />
+      </ViewRouterRoutes>
     </ViewPageMain>
   );
 };
@@ -202,7 +221,7 @@ export const ViewUserContext = () => {
       header={"Context"}
       body={
         <>
-          <ViewContextUniversal/>
+          <ViewContextUniversal />
         </>
       }
     />
@@ -474,5 +493,23 @@ export const ViewUserWidget = () => {
         }}
       />
     </ViewButtonPressable>
+  );
+};
+
+export const ViewUserIntegrations = () => {
+  // Placeholder component, todo.
+  const integrationsTemp = arrayIndustryProducts.filter(
+    (x) => x.integrations?.length > 0
+  );
+  const windowDimensions = useWindowDimensions();
+  return (
+    <ViewPageSection>
+      <ViewContainerScroll>
+        <ViewIntegrationSection />
+        <ViewTypographyText>
+          {JSON.stringify(integrationsTemp, null, 2)}
+        </ViewTypographyText>
+      </ViewContainerScroll>
+    </ViewPageSection>
   );
 };

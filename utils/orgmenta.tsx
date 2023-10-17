@@ -9,7 +9,7 @@ import {
   ViewTypographySubsubheading,
   ViewTypographyCycling,
 } from "./typography";
-import { ViewPageMain } from "./page";
+import { ViewPageMain, ViewPageSection } from "./page";
 import { ViewRoadmapContainer } from "./roadmap";
 import { ViewModalContainer } from "./modal";
 import { ViewRouterLink, ViewRouterLinkthemed } from "./router";
@@ -51,6 +51,7 @@ import { ViewForumContainer } from "./forum";
 import { ViewShareContainer } from "./share";
 import { ViewPricingContainer } from "./pricing";
 import { useThemeToken } from "./theme";
+import { ViewIntegrationSection } from "./integration";
 
 // HEADER
 
@@ -167,6 +168,18 @@ export const ViewOrgmentaModal = (props: any) => {
             }}
           >
             Methodologies
+            {/* Standards, Libraries, Frameworks and methodologies */}
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"app/integrations"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            Integrations
             {/* Standards, Libraries, Frameworks and methodologies */}
           </ViewRouterLink>
         </ViewContainerStatic>
@@ -1289,5 +1302,19 @@ export const ViewOrgmentaProductoverview = () => {
       {/* <UseStripeFunctions /> */}
       <UseNewStripeWrapperFunctions />
     </ViewContainerStatic>
+  );
+};
+
+
+export const ViewOrgmentaIntegrations = () => {
+  // Placeholder component, todo.
+  const integrationsTemp = arrayIndustryProducts.filter((x) => x.integrations?.length>0)
+  const windowDimensions = useWindowDimensions();
+  return (
+    <ViewPageSection>
+      <ViewContainerScroll>
+      <ViewIntegrationSection/>
+      <ViewTypographyText>{JSON.stringify(integrationsTemp,null,2)}</ViewTypographyText></ViewContainerScroll>
+    </ViewPageSection>
   );
 };

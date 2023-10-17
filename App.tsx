@@ -1,6 +1,6 @@
 import "react-native-url-polyfill/auto";
 import { usePlatformCssweb } from "./utils/platform";
-import { ViewOrgmentaHome } from "./utils/orgmenta";
+import { ViewOrgmentaHome, ViewOrgmentaIntegrations } from "./utils/orgmenta";
 import { ViewEntityPage } from "./utils/entity";
 import { ViewSpacePage } from "./utils/space";
 import { ViewBrowsePage } from "./utils/browse";
@@ -86,7 +86,7 @@ export default function App() {
                   />
                   <ViewRouterRoute
                     path="app/compare"
-                    element={<ViewOrgmentaCompare />}
+                    element={<ViewOrgmentaCompare />} 
                   />
                   <ViewRouterRoute
                     path="app/industries"
@@ -95,6 +95,10 @@ export default function App() {
                   <ViewRouterRoute
                     path="app/frameworks"
                     element={<ViewOrgmentaFrameworks />}
+                  />
+                  <ViewRouterRoute
+                    path="app/integrations"
+                    element={<ViewOrgmentaIntegrations />}
                   />
                   {/* Company Pages */}
                   <ViewRouterRoute

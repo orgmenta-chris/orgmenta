@@ -36,6 +36,7 @@ import {
   ViewAuthSignup,
 } from "./auth";
 import { useReactState } from "./react";
+import MSAL from "../components/auth/msal";
 // import MSAL from "../../../auth/msal";
 
 // PAGE
@@ -347,6 +348,7 @@ export const ViewUserSession = () => {
                 Signout
               </ViewTypographySubsubheading>
             </ViewButtonPressable>
+            <MSAL />
           </ViewContainerStatic>
         )
       }

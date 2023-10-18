@@ -16,6 +16,7 @@ import { ViewContainerScroll } from "./container";
 import { ViewShieldButton, ViewShieldUniversal } from "./shield";
 import { TypeNotificationBody, ViewNotificationExample } from "./notification"; // Chris to check naming conventions. Also need to check how to use this?
 import { ViewAttributeCreate } from "./attribute";
+import { ViewThreadsComponent } from "./threads";
 
 export const ViewTestPage = () => {
   const aux = useAuxiliaryArray({ filter_array: [] });
@@ -37,7 +38,7 @@ export const ViewTestPage = () => {
           testMode
           // {...notificationBody}
         />
-        <ViewAttributeCreate />
+        {/* <ViewAttributeCreate /> */}
         {/* <ViewTypographyText>Example Sound Player:</ViewTypographyText>
         <ViewSoundPlayer /> */}
 
@@ -64,6 +65,9 @@ export const ViewTestPage = () => {
 
         {/* Richtext Chris (in progress) */}
         {/* <ViewInputRichmain /> */}
+
+        {/* Chat Loisa (in progress) */}
+        <ViewThreadsComponent />
       </ViewContainerScroll>
     </ViewPageMain>
   ) : (

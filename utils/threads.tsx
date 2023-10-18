@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
+import { View } from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
 
 export const ViewThreadsComponent = (props: any) => {
@@ -31,13 +32,15 @@ export const ViewThreadsComponent = (props: any) => {
   }, []);
 
   return (
-    <GiftedChat
-      messages={messages}
-      // @ts-ignore
-      onSend={(messages) => onSend(messages)}
-      user={{
-        _id: 1,
-      }}
-    />
+    <View style={{ height: 500}}>
+      <GiftedChat
+        messages={messages}
+        // @ts-ignore
+        onSend={(messages) => onSend(messages)}
+        user={{
+          _id: 1,
+        }}
+      />
+    </View>
   );
 };

@@ -1,5 +1,5 @@
 import { ViewContainerStatic } from "./container";
-import { useReactState } from "./react";
+import { useReactRef, useReactState } from "./react";
 import { TextInput, TextInputProps, StyleProp } from "react-native";
 import { RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 
@@ -64,9 +64,10 @@ export const ViewInputSecure = (props: any) => {
 // https://github.com/wxik/react-native-rich-editor/tree/master/examples
 
 // Editor -PLACEHOLDER (not implemented yet)
-export const ViewInputRicheditor = ({ defaultValue, height }: any) => {
+export const ViewInputRicheditor = ({ defaultValue, height, ref }: any) => {
   return (
     <RichEditor
+      ref={ref}
       initialContentHTML={defaultValue}
       style={{ minHeight: height || 200 }}
       // editorInitializedCallback={() => {
@@ -85,10 +86,14 @@ export const ViewInputRichmain = ({
   style,
   ...rest
 }: any) => {
+  const richText = useReactRef<RichEditor>(null);
   return (
-    <ViewContainerStatic>
-      <ViewInputRichtoolbar />
+    <ViewContainerStatic style={{flex:1}}>
+      <ViewInputRichtoolbar 
+          editor={richText}
+          />
       <ViewInputRicheditor
+        ref={richText}
         style={{ minHeight: 400, ...style }}
         defaultValue={defaultValue}
       />
@@ -97,6 +102,6 @@ export const ViewInputRichmain = ({
 };
 
 // PLACEHOLDER (not implemented yet)
-export const ViewInputRichtoolbar = ({ ...rest }: any) => {
-  return <RichToolbar />;
+export const ViewInputRichtoolbar = ({ editor, ...rest }: any) => {
+  return <RichToolbar editor={editor} />;
 };

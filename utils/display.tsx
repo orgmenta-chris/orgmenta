@@ -37,7 +37,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Type } from "@stripe/stripe-react-native/lib/typescript/src/types/Token";
 import { ViewKanbanContainer } from "./kanban";
 import { ViewRelationshipsModal } from "./relationships";
-import { ViewThreadsComponent } from "./threads";
+import { ViewThreadComponent } from "./thread";
 // import { Map as ImmutableMap } from "immutable";
 
 // MAIN
@@ -99,13 +99,6 @@ export const ViewDisplayPods = (props: any) => {
     </ViewPodContainer>
   );
 };
-
-//todo
-// export const metaDisplayPods = () =>{
-//   return {
-//     description: "The 'Pod' container holds custom widgets for the current Focus/Entity-Relationships."
-//   }
-// }
 
 // FORM
 
@@ -250,7 +243,7 @@ export const ViewDisplayGantt = (props: any) => {
 export const ViewDisplayThreads = (props: any) => {
   return (
     <ViewContainerStatic>
-      <ViewThreadsComponent/>
+      <ViewThreadComponent/>
     </ViewContainerStatic>
   );
 };

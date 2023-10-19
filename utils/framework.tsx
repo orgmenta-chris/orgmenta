@@ -4213,9 +4213,9 @@ export const data: {
     status: "0. New",
     name_singular: "response",
     display_singular: "Response",
-    description: null,
+    description: "Log and process incoming tickets / tasks",
     summary:
-      "Stakeholder management, requirements analysis and communications",
+      "Triage, stakeholder management, requirements analysis and communications",
     notes: ` [
       "Triage requests (internally or externally created), set up projects and bundle tasks",
       "Process incoming communications and reply to stakeholders",

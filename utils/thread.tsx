@@ -1,8 +1,8 @@
-import React, { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { View } from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
 
-export const ViewThreadsComponent = (props: any) => {
+export const ViewThreadComponent = (props: any) => {
   // whatever arguments/parameters will be needed for this component
   // may be deconstructed from the props object
   const {} = props;

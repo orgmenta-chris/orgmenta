@@ -39,11 +39,12 @@ export const ViewButtonPressable: any = ({
 
 export type TypeButtonPressable = PressableProps;
 
-// CONTAINER
+// TEXT
 
-export const ViewButtonContainer = ({
-  buttonText,
-  isLoading,
+export const ViewButtonText = ({
+  textString,
+  loadingStatus,
+  buttonStyle,
   ...rest
 }: any) => {
   const [shadowState, shadowSet] = useReactState(false);
@@ -51,6 +52,7 @@ export const ViewButtonContainer = ({
     <ViewButtonCore
       style={{
         ...styleButtonMain,
+        ...buttonStyle,
         shadowOffset: { width: 0, height: shadowState ? 5 : 0 },
         shadowOpacity: shadowState ? 0.4 : 0,
         elevation: shadowState ? 2 : 10,
@@ -58,16 +60,17 @@ export const ViewButtonContainer = ({
       {...rest}
     >
       <ViewTypographyText style={{ textAlign: "center" }}>
-        {buttonText}
+        {textString}
       </ViewTypographyText>
       <ViewTypographyText>
-        {isLoading ? <ViewIndicatorSpinner /> : null}
+        {loadingStatus ? <ViewIndicatorSpinner /> : null}
       </ViewTypographyText>
     </ViewButtonCore>
   );
 };
 
-// Alternative button (CG assigned, placeholder)
+// LINK
+
 export const ViewButtonLink = ({
   to,
   buttonText,
@@ -97,11 +100,11 @@ export const ViewButtonLink = ({
             source={button_source}
             color="black"
             size={30}
-            style={{paddingVertical:10}}
+            style={{ paddingVertical: 10 }}
           />
         )}
-        <ViewContainerColumn style={{flex:1}}>
-          <ViewTypographySubheading style={{ flex: 1, textAlign: "center"}}>
+        <ViewContainerColumn style={{ flex: 1 }}>
+          <ViewTypographySubheading style={{ flex: 1, textAlign: "center" }}>
             {buttonText}
           </ViewTypographySubheading>
           <ViewTypographySubsubheading
@@ -115,11 +118,68 @@ export const ViewButtonLink = ({
   );
 };
 
+// ICON
+
+export const ViewButtonIcon = (props: any) => {
+  const { iconSource, iconName, iconColor, iconSize, ...rest } = props;
+  const [shadowState, shadowSet] = useReactState(false);
+  return (
+    <ViewButtonCore
+      style={{
+        ...styleButtonMain,
+        flexDirection: "row",
+        shadowOffset: { width: 0, height: shadowState ? 5 : 0 },
+        shadowOpacity: shadowState ? 0.4 : 0,
+        elevation: shadowState ? 2 : 10,
+      }}
+      onHoverIn={() => shadowSet(true)}
+      onHoverOut={() => shadowSet(false)}
+      {...rest}
+    >
+      <ViewIconMain
+        source={iconSource}
+        name={iconName}
+        color={iconColor}
+        size={iconSize}
+      />
+    </ViewButtonCore>
+  );
+};
+
+// ICONTEXT
+
+export const ViewButtonIcontext = (props: any) => {
+  const {
+    iconSource,
+    iconName,
+    iconSize,
+    iconColor,
+    textString,
+    direction,
+    buttonStyle,
+    ...rest
+  } = props;
+  return (
+    <ViewButtonPressable
+      style={{ ...buttonStyle, flexDirection: direction }}
+      {...rest}
+    >
+      <ViewIconMain
+        source={iconSource}
+        name={iconName}
+        color={iconColor}
+        size={iconSize}
+      />
+      <ViewTypographyText>{textString}</ViewTypographyText>
+    </ViewButtonPressable>
+  );
+};
+
 // MAIN
 
 export const styleButtonMain = {
-  // General style. (Why/Why not) should this use StyleSheet?
-  flex: 1,
+  // General style. Question: (Why/Why not) should this use StyleSheet?
+  // flex: 1,
   margin: 5,
   borderRadius: 5,
   backgroundColor: "#F8F8F8",

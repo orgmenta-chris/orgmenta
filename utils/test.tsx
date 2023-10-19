@@ -26,12 +26,14 @@ import {
   filterPackageList,
 } from "./package";
 import { ViewKanbanContainer } from "./kanban";
-import { ViewThreadsComponent } from "./threads";
+import { ViewThreadComponent } from "./thread";
+import { Example } from "./richtext";
 
 export const ViewTestPage = () => {
   return __DEV__ ? (
     <ViewPageMain>
       <ViewContainerScroll>
+        <Example/>
       <ViewKanbanContainer/>
         <ViewFrameworkPage
           data={
@@ -85,7 +87,7 @@ export const ViewTestPage = () => {
         {/* <ViewInputRichmain /> */}
 
         {/* Chat Loisa (in progress) */}
-        <ViewThreadsComponent />
+        {/* <ViewThreadComponent /> */}
       </ViewContainerScroll>
     </ViewPageMain>
   ) : (

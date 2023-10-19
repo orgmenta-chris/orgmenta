@@ -19,6 +19,17 @@ export const articlesTemp: {
   notes: string;
 }[] = [
   {
+    topic:`Evolutionary vs revolutionary tech / "only incremental innovation needed"`,
+    notes: `
+    examples of what i note are 'done techs', where we're just waiting for things to improve but dont need *new* tech.
+    Google Maps, Project Starline, Photogrammetry: We dont need new tech before we can just zoom aound google maps from any angle (and thus create games etc. in google maps).
+      (The underlying technology for creating 3D, explorable spaces from images (photogrammetry) exists. The limitations are primarily computational power, data storage, and data transfer speeds. As those continue to improve, the experience will become more seamless and widespread.)
+    Drones: We aren't far away from human flight with ducted fans, just waiting for battery-energy-density to go up.
+      (The basic tech for human flight with ducted fans exists (e.g., jetpacks, drone-like personal air vehicles). The primary limitations are battery density, safety measures, and regulatory approvals.)
+    Databases/apps: We don't need any new tech, in fact we don't really need many improvements. We just need the apps to actually be created.
+      `
+  },
+  {
     topic:`Colors`,
     notes: `
     In light mode, nothing is pure white (255,255,255) - Largely 1) as white on black is not the best contrast for reading (citation), and 2) because backlit screens are getting more powerful, and white screens are practically lights.

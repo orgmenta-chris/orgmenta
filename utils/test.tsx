@@ -28,18 +28,10 @@ import {
 import { ViewKanbanContainer } from "./kanban";
 
 export const ViewTestPage = () => {
-  // // const aux = useAuxiliaryArray({ filter_array: [] });
-  // const packageDeclarations = UtilityPackageList["action"];
-  // if (!packageDeclarations) {
-  //   console.error(`Module ${packageDeclarations} not found`);
-  //   return null;
-  // }
-  // console.log("package", packageDeclarations);
   return __DEV__ ? (
     <ViewPageMain>
       <ViewContainerScroll>
       <ViewKanbanContainer/>
-        {/* <ViewPackageItem packageName="action" /> */}
         <ViewFrameworkPage
           data={
             doObjectNesting(

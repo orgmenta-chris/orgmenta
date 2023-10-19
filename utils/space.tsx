@@ -160,8 +160,8 @@ export interface interfaceSpaceSetup {
 }
 
 export async function requestSpaceSetup(space: interfaceSpaceSetup) {
-  //todo
-}
+  //todo. rcps created, call them in individual mutations in useSpaceSetup
+};
 
 export const useSpaceSetup = (props: interfaceSpaceSetup) => {
   //todo

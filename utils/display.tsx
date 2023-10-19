@@ -36,15 +36,16 @@ import {
 import { ColumnDef } from "@tanstack/react-table";
 import { Type } from "@stripe/stripe-react-native/lib/typescript/src/types/Token";
 import { ViewKanbanContainer } from "./kanban";
+import { ViewRelationshipsModal } from "./relationships";
 // import { Map as ImmutableMap } from "immutable";
 
 // MAIN
 
 export type TypeDisplayMain = {
-  schema: any,
-  focus: any,
-  auxiliary:any,
-}
+  schema: any;
+  focus: any;
+  auxiliary: any;
+};
 
 // DYNAMIC
 
@@ -53,7 +54,12 @@ export const ViewDisplayDynamic = WrapperReactMemo(
   ({ auxiliary, schema, focus, display }: any) => {
     // The main display component that switches between different components
     const Component = objectDisplayComponents[display || "list"]; // may need to memoize/useCallback this
-    return <Component auxiliary={auxiliary} schema={schema} focus={focus} />;
+    return (
+      <>
+        <Component auxiliary={auxiliary} schema={schema} focus={focus} />
+        <ViewRelationshipsModal/>
+      </>
+    );
   }
 );
 
@@ -225,7 +231,7 @@ export const ViewDisplayMaps = (props: any) => {
 export const ViewDisplayKanban = (props: any) => {
   return (
     <ViewContainerStatic>
-      <ViewKanbanContainer/>
+      <ViewKanbanContainer />
     </ViewContainerStatic>
   );
 };

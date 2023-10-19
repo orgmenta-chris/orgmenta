@@ -2517,6 +2517,13 @@ export const tenets: {
     description:
       "The export part of this is an obligation that companies of a certain size must offer. See the axiom.",
   },
+  {
+    id: 8,
+    axioms: [],
+    title: "No (or transparent) algorithmic feeds",
+    description:
+      "The negative effects of these range from gaslighty manipulation, through to outright viral spread of malice (https://erinkissane.com/meta-in-myanmar-part-iv-only-connect).",
+  },
 ];
 
 // Imperatives are actionable rules or guidelines that stem from tenets.

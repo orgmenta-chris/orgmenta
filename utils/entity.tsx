@@ -68,7 +68,7 @@ export const ViewEntityPage = () => {
 export async function requestEntityArray(spacename?: any, categories?: any) {
   categories = categories || []; // prevent .join error
   return await instanceSupabaseClient
-    .from(spacename ? `entities_${spacename}` : "entities")
+    .from(spacename && `entities_${spacename}`)
     .select()
     .filter(
       // This will only return entities that have ALL of the items in the array. If we want to change it to 'any in search array' we need to use an rpc instead, or do an 'or' method and go through every category array item.
@@ -161,7 +161,7 @@ export const useEntityCount = ({ filter_array }: any) => {
 // CREATE
 
 export interface interfaceEntityCreate {
-  id: string;
+  id?: string;
   title: string;
   type: string;
   categories: string[];
@@ -174,20 +174,21 @@ export async function validateEntityCreate(entity: interfaceEntityCreate) {
   //todo
 }
 
-export async function requestEntityCreate(entity: interfaceEntityCreate) {
+export async function requestEntityCreate(entity: interfaceEntityCreate, spacename:string) {
+  console.log('entity',entity, spacename)
   return await instanceSupabaseClient
     // .from("entities")
-    .from("entities_orgmenta")
+    .from(spacename && `entities_${spacename}`)
     .insert(entity)
     .then(handleSupabaseResponse as any);
 }
 
-export const useEntityCreate = (props: interfaceEntityCreate) => {
+export const useEntityCreate = (entity: interfaceEntityCreate, spacename:string) => {
   const queryClient = useQueryerClient();
-  const { refetch } = useEntityArray();
+  // const { refetch } = useEntityArray();
   return useQueryerMutation(
     ["entity", "create"],
-    () => requestEntityCreate(props),
+    () => requestEntityCreate(entity, spacename),
     // Future enhancement: Optimistic updates to client side cache.
     // This will need us to determine which of the queries need to be updated - so we need to find 'filter_object' (see useEntityArray query key)
     // {

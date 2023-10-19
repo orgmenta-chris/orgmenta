@@ -10,20 +10,38 @@ import { ViewClipboardCopy } from "./clipboard";
 import { ViewSoundPlayer, ViewSoundRecorder } from "./audio";
 import { ViewVideoPlayer } from "./video";
 import { ViewScreenRecorder } from "./recorder";
-import { ViewHelpContainer } from "./help";
-import { deleteQueryerQuery } from "./queryer";
-import { ViewContainerScroll } from "./container";
+import { ViewContextContainer } from "./context";
+import { deleteQueryerQuery, useQueryerClient } from "./queryer";
+import { ViewContainerRow, ViewContainerScroll } from "./container";
 import { ViewShieldButton, ViewShieldUniversal } from "./shield";
-import { TypeNotificationBody, ViewNotificationExample } from "./notification"; // Chris to check naming conventions. Also need to check how to use this?
+import { TypeNotificationBody, ViewNotificationExample } from "./notification"; // C to check naming conventions. Also need to check how to use this?
 import { ViewAttributeCreate } from "./attribute";
+import { ViewFrameworkPage } from "./module";
+import { doObjectNesting } from "./object";
+import { data } from "./framework";
+import { useBrowseArray } from "./browse";
+import {
+  ViewPackageItem,
+  UtilityPackageList,
+  filterPackageList,
+} from "./package";
+import { ViewKanbanContainer } from "./kanban";
 import { ViewThreadsComponent } from "./threads";
 
 export const ViewTestPage = () => {
-  const aux = useAuxiliaryArray({ filter_array: [] });
-  // deleteQueryerQuery() //deletes ALL cached queries
   return __DEV__ ? (
     <ViewPageMain>
       <ViewContainerScroll>
+      <ViewKanbanContainer/>
+        <ViewFrameworkPage
+          data={
+            doObjectNesting(
+              (data as any)?.filter(
+                (x: any) => x.id > 9 || x.nickname === "business"
+              )
+            )?.[0]
+          }
+        />
         {/* Barcode Scanner (working) */}
         {/* <ViewBarcodeReader /> */}
 
@@ -48,22 +66,22 @@ export const ViewTestPage = () => {
         {/* Play video (working) */}
         {/* <ViewVideoPlayer /> */}
 
-        {/* Screen Recorder Chris (NOT working yet)*/}
+        {/* Screen Recorder C (NOT working yet)*/}
         {/* <ViewScreenRecorder/> */}
 
-        {/* Crypto Chris (NOT working yet)*/}
+        {/* Crypto C (NOT working yet)*/}
         {/* <ViewCryptoExample/> */}
 
-        {/* Shield Chris (Working) */}
+        {/* Shield C (Working) */}
         {/* <ViewShieldUniversal/>
         <ViewShieldButton id={'test1'} />
         <ViewShieldButton id={'test2'} /> */}
 
-        {/* Help Chris (in progress ) */}
+        {/* Help C (in progress ) */}
         {/* <ViewHelpContainer to={"testing123"} />
         <ViewTypographyHeading>Testing</ViewTypographyHeading> */}
 
-        {/* Richtext Chris (in progress) */}
+        {/* Richtext C (in progress) */}
         {/* <ViewInputRichmain /> */}
 
         {/* Chat Loisa (in progress) */}

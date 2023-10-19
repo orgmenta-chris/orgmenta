@@ -16,8 +16,15 @@
 // Autotask
 // et al.
 
+// If it is a call to action / shot across the bow, then it also acts as accountability for us.
+// If we fail in any of these things, then we should be called out on it.
+
 // Well done: 
-// Halo: transparent pricing, optional (I believe) set up fee.
+// Halo: 
+// - transparent pricing, 
+// - optional (I believe) set up fee.
+// - Optional demo, not mandatory
+// - Free trial.
 
 export const justificationArticleBodyAreas = [
   {

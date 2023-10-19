@@ -8,7 +8,7 @@
 // - resizable columns (needs to work with react native touch, so standard react table solutions might not work out of the box here).
 // - pin columns (make columns sticky, either via a property in the  columns array prop, or in the UI by a user pinning the column manually)
 // - allow changes to page size (e.g. show 10/100/200 records) - Low priority, to discuss
-// - filtering (Chris will provide information / show data structures on this one asap. Until then, best to leave this one)
+// - filtering (C will provide information / show data structures on this one asap. Until then, best to leave this one)
 // - show/hide column (low priority, on hold)
 
 

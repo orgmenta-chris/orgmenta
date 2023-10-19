@@ -3,7 +3,7 @@
 // To start with, it will just utilise stripe.
 // Other providers will be added in the future. 
 
-// Something like this (Chris to review and redesign this placeholder stuff):
+// Something like this (C to review and redesign this placeholder stuff):
 
 // interface PaymentMethod {
 //   type: string; // Cash, Card, NFC, etc.

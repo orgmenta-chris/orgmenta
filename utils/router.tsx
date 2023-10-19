@@ -114,7 +114,7 @@ export const ViewRouterLinkthemed = ({
   );
   const propsMerged = { ...theme, ...rest, style: stylesheetMerged };
   return (
-    <ViewRouterLink {...propsMerged}>
+    <ViewRouterLink {...rest} {...propsMerged}>
       {/* ViewTypographyText passed through as children must be within a text element.*/}
       {children}
     </ViewRouterLink>

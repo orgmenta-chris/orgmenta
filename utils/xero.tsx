@@ -58,7 +58,7 @@ import {
   XERO_ACCESS_TOKEN,
   // @ts-ignore
 } from "@env";
-import { requestVaultItem } from "./vault";
+import { VaultGetSecret } from "./vault";
 import { Base64 } from "js-base64";
 
 let clientID: any = "";
@@ -68,8 +68,8 @@ if (__DEV__) {
   clientID = XERO_STAGING_CLIENT_ID;
   clientSecret = XERO_STAGING_CLIENT_SECRET;
 } else {
-  clientID = requestVaultItem("XERO_PRODUCTION_CLIENT_ID");
-  clientSecret = requestVaultItem("XERO_PRODUCTION_CLIENT_SECRET");
+  clientID = VaultGetSecret("XERO_PRODUCTION_CLIENT_ID");
+  clientSecret = VaultGetSecret("XERO_PRODUCTION_CLIENT_SECRET");
 }
 
 export const accessToken = XERO_ACCESS_TOKEN;

@@ -26,6 +26,7 @@ import {
   filterPackageList,
 } from "./package";
 import { ViewKanbanContainer } from "./kanban";
+import { ViewThreadsComponent } from "./threads";
 
 export const ViewTestPage = () => {
   return __DEV__ ? (
@@ -55,7 +56,7 @@ export const ViewTestPage = () => {
           testMode
           // {...notificationBody}
         />
-        <ViewAttributeCreate />
+        {/* <ViewAttributeCreate /> */}
         {/* <ViewTypographyText>Example Sound Player:</ViewTypographyText>
         <ViewSoundPlayer /> */}
 
@@ -82,6 +83,9 @@ export const ViewTestPage = () => {
 
         {/* Richtext C (in progress) */}
         {/* <ViewInputRichmain /> */}
+
+        {/* Chat Loisa (in progress) */}
+        <ViewThreadsComponent />
       </ViewContainerScroll>
     </ViewPageMain>
   ) : (

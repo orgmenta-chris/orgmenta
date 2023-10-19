@@ -37,6 +37,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Type } from "@stripe/stripe-react-native/lib/typescript/src/types/Token";
 import { ViewKanbanContainer } from "./kanban";
 import { ViewRelationshipsModal } from "./relationships";
+import { ViewThreadsComponent } from "./threads";
 // import { Map as ImmutableMap } from "immutable";
 
 // MAIN
@@ -249,7 +250,7 @@ export const ViewDisplayGantt = (props: any) => {
 export const ViewDisplayThreads = (props: any) => {
   return (
     <ViewContainerStatic>
-      <ViewTypographyText>ViewDisplayThreads Placeholder</ViewTypographyText>
+      <ViewThreadsComponent/>
     </ViewContainerStatic>
   );
 };

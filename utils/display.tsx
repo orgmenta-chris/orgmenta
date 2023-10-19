@@ -146,9 +146,7 @@ export type TypeDisplayForm = TypeDisplayMain;
 
 export const ViewDisplayTable = (props: any) => {
   return (
-    <ViewContainerStatic style={{ maxHeight: 400, flex: 1 }}>
-      <ViewTableContainer />
-    </ViewContainerStatic>
+    <ViewTableContainer />
   );
 };
 

@@ -1,4 +1,9 @@
-import { ViewContainerStatic, ViewContainerRow, ViewContainerColumn } from "./container";
+import {
+  ViewContainerStatic,
+  ViewContainerRow,
+  ViewContainerColumn,
+  ViewContainerScroll,
+} from "./container";
 import { ViewTypographyText } from "./typography";
 import { ViewButtonPressable } from "./button";
 import { ViewInputText, TypeInputText, ViewInputInteger } from "./input";
@@ -111,7 +116,7 @@ export const ViewTableContainer = (props: any) => {
     refreshData,
   };
   return (
-    <ViewContainerStatic style={{ maxHeight: 400, flex: 1 }}>
+    <ViewContainerStatic style={{flex: 1 }}>
       <UseDisplayTable tableData={tableData} />
     </ViewContainerStatic>
   );
@@ -221,7 +226,7 @@ export const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
 
 // A debounced input react component
 
-export const DebouncedInput = ({
+export const ViewTableInputdebounced = ({
   value: initialValue,
   onChange,
   debounce = 500,
@@ -288,7 +293,7 @@ export const ViewTableFilter = ({
   if (UtilityPlatformMain.OS === "web") {
     return typeof firstValue === "number" ? (
       <ViewContainerStatic>
-        <DebouncedInput
+        <ViewTableInputdebounced
           type="number"
           min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
           max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
@@ -303,7 +308,7 @@ export const ViewTableFilter = ({
           }`}
           className="w-24 border shadow rounded"
         />
-        <DebouncedInput
+        <ViewTableInputdebounced
           type="number"
           min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
           max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
@@ -326,7 +331,7 @@ export const ViewTableFilter = ({
             <option value={value} key={value} />
           ))}
         </datalist>
-        <DebouncedInput
+        <ViewTableInputdebounced
           type="text"
           value={(columnFilterValue ?? "") as string}
           onChange={(value) => column.setFilterValue(value)}
@@ -340,7 +345,7 @@ export const ViewTableFilter = ({
     return typeof firstValue === "number" ? (
       <ViewContainerStatic>
         <ViewContainerRow style={{ justifyContent: "space-between" }}>
-          <DebouncedInput
+          <ViewTableInputdebounced
             type="numeric" // Set type for numeric input
             value={(columnFilterValue as [number, number])?.[0] ?? ""}
             onChange={(value) =>
@@ -356,7 +361,7 @@ export const ViewTableFilter = ({
             }`}
             style={{ width: 80, borderWidth: 1, borderRadius: 5, padding: 5 }}
           />
-          <DebouncedInput
+          <ViewTableInputdebounced
             type="numeric" // Set type for numeric input
             value={(columnFilterValue as [number, number])?.[1] ?? ""}
             onChange={(value) =>
@@ -392,7 +397,7 @@ export const ViewTableFilter = ({
 
 // Need to use the same code for web and mobile.
 // The tables will need to be changed to retain web styling but be using Views etc. as the mobile one is.
-const TableViewWeb = (props: any) => {
+const ViewTableMain = (props: any) => {
   const { columns, data, refreshData } = props;
 
   const rerender = useReducer(() => ({}), {})[1];
@@ -434,74 +439,72 @@ const TableViewWeb = (props: any) => {
   }, [table.getState().columnFilters[0]?.id]);
 
   return (
-    <ViewContainerStatic>
-      <ViewContainerStatic style={{ flex: 1 }}>
-        <DebouncedInput
+    <ViewContainerStatic style={{flex:1}}>
+      <ViewContainerStatic id={"table_universalfilter"}>
+        <ViewTableInputdebounced
           value={globalFilter ?? ""}
           onChange={(value) => setGlobalFilter(String(value))}
           className="p-2 font-lg shadow border border-block"
           placeholder="Search all columns..."
         />
       </ViewContainerStatic>
-      <ViewContainerStatic>
-        <ViewContainerColumn>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <ViewContainerRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
+      <ViewContainerColumn id={"table_headers"}>
+        {table.getHeaderGroups().map((headerGroup) => (
+          <ViewContainerRow key={headerGroup.id}>
+            {headerGroup.headers.map((header) => {
+              return (
+                <ViewContainerColumn style={{ width: 200 }} key={header.id}>
+                  {header.isPlaceholder ? null : (
+                    <>
+                      <ViewTypographyText
+                        {...{
+                          className: header.column.getCanSort()
+                            ? "cursor-pointer select-none"
+                            : "",
+                          onClick: header.column.getToggleSortingHandler(),
+                        }}
+                      >
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                        {{
+                          asc: " 🔼",
+                          desc: " 🔽",
+                        }[header.column.getIsSorted() as string] ?? null}
+                      </ViewTypographyText>
+                      {header.column.getCanFilter() ? (
+                        <ViewContainerColumn>
+                          <ViewTableFilter
+                            column={header.column}
+                            table={table}
+                          />
+                        </ViewContainerColumn>
+                      ) : null}
+                    </>
+                  )}
+                </ViewContainerColumn>
+              );
+            })}
+          </ViewContainerRow>
+        ))}
+      </ViewContainerColumn>
+      <ViewContainerScroll id={"table_data"} style={{ flex: 1 }}>
+        {table.getRowModel().rows.map((row) => {
+          return (
+            <ViewContainerRow key={row.id}>
+              {row.getVisibleCells().map((cell) => {
                 return (
-                  <ViewContainerColumn style={{width:200}} key={header.id} >
-                    {header.isPlaceholder ? null : (
-                      <>
-                        <ViewTypographyText
-                          {...{
-                            className: header.column.getCanSort()
-                              ? "cursor-pointer select-none"
-                              : "",
-                            onClick: header.column.getToggleSortingHandler(),
-                          }}
-                        >
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                          {{
-                            asc: " 🔼",
-                            desc: " 🔽",
-                          }[header.column.getIsSorted() as string] ?? null}
-                        </ViewTypographyText>
-                        {header.column.getCanFilter() ? (
-                          <ViewContainerColumn>
-                            <ViewTableFilter column={header.column} table={table} />
-                          </ViewContainerColumn>
-                        ) : null}
-                      </>
-                    )}
-                  </ViewContainerColumn>
+                  <ViewContainerStatic style={{ width: 200 }} key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </ViewContainerStatic>
                 );
               })}
             </ViewContainerRow>
-          ))}
-        </ViewContainerColumn>
-        <ViewContainerColumn>
-          {table.getRowModel().rows.map((row) => {
-            return (
-              <ViewContainerRow  key={row.id}>
-                {row.getVisibleCells().map((cell) => {
-                  return (
-                    <ViewContainerStatic style={{width:200}} key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </ViewContainerStatic>
-                  );
-                })}
-              </ViewContainerRow>
-            );
-          })}
-        </ViewContainerColumn>
-      </ViewContainerStatic>
-      <ViewContainerRow>
+          );
+        })}
+      </ViewContainerScroll>
+      <ViewContainerRow id={"table_controls"}>
         <ViewButtonPressable
           onPress={() => table.setPageIndex(0)}
           disabled={!table.getCanPreviousPage()}
@@ -612,7 +615,7 @@ const TableViewMobile = (props: any) => {
   return (
     <ViewContainerStatic style={{ padding: 2, flex: 1 }}>
       <ViewContainerStatic>
-        <DebouncedInput
+        <ViewTableInputdebounced
           value={globalFilter ?? ""}
           onChange={(value) => setGlobalFilter(String(value))}
           style={{
@@ -753,7 +756,7 @@ const TableViewMobile = (props: any) => {
 export const UseDisplayTable =
   UtilityPlatformMain.OS === "web"
     ? ({ tableData }: any) => {
-        return <TableViewWeb {...tableData} />;
+        return <ViewTableMain {...tableData} />;
       }
     : ({ tableData }: any) => {
         return <TableViewMobile {...tableData} />;

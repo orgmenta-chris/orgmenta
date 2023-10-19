@@ -24,6 +24,7 @@ import {
   useRouterLocation,
 } from "./router";
 import { useReactState } from "./react";
+import { ViewTypeTabs } from "./type";
 
 // DISPLAY
 
@@ -44,6 +45,29 @@ export const ViewActionDisplay = ({}: any) => {
 export const metaActionDisplay = () =>{
   return {
     description: "The 'Display' Action Panel allows you to switch between different modes, in order to view your Entity/Module in different data displays"
+  }
+}
+
+
+// TYPES
+
+// An action component to show the 'display modes' (Pods, form, table etc.)
+export const ViewActionTypes = ({}: any) => {
+  return (
+    <ViewContainerStatic>
+        <ViewActionHeader
+          title={"Types"}
+          subtitle={"Switch between Entity Types"}
+          infoText={metaActionTypes().description}
+        />
+      <ViewTypeTabs />
+    </ViewContainerStatic>
+  );
+};
+
+export const metaActionTypes = () =>{
+  return {
+    description: "The 'Types' Action Panel allows you to switch between entity types (Events, Items, Locations etc.) and classes (Subtypes)"
   }
 }
 
@@ -258,6 +282,7 @@ export const ViewActionPanels = ({
     >
       <ViewRouterRoutes>
         <ViewRouterRoute path="display" element={<ViewActionDisplay />} />
+        <ViewRouterRoute path="types" element={<ViewActionTypes />} />
         <ViewRouterRoute path="control" element={<ViewActionControl />} />
         <ViewRouterRoute
           path="/add"
@@ -285,6 +310,12 @@ export const optionsActionTabs = [
     iconName: "eye",
     iconSource: "Feather",
     description: "Change the display mode",
+  },
+  {
+    title: "Types",
+    iconName: "type",
+    iconSource: "Feather",
+    description: "Change the entity type",
   },
   {
     title: "Control",

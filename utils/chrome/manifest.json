@@ -1,0 +1,11 @@
+{
+    "manifest_version": 2,
+    "name": "Last 10 URLs",
+    "version": "1.0",
+    "browser_action": {
+      "default_popup": "popup.html"
+    },
+    "permissions": [
+      "history"
+    ]
+  }

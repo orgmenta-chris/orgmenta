@@ -78,21 +78,32 @@ export const ViewButtonLink = ({
   isLoading,
   button_name,
   button_source,
+  buttonStyle,
+  iconStyle,
+  numberOfLines,
   ...rest
 }: any) => {
   const [shadowState, shadowSet] = useReactState(false);
   return (
-    <ViewRouterLinkthemed to={to} style={{ flex: 1 }}>
-      <ViewButtonCore
+    <ViewButtonCore
+      style={{
+        ...styleButtonMain,
+        flex: 1,
+        flexDirection: "row",
+        shadowOffset: { width: 0, height: shadowState ? 5 : 0 },
+        shadowOpacity: shadowState ? 0.4 : 0,
+        elevation: shadowState ? 2 : 10,
+        ...buttonStyle,
+        // flexShrink: 1,
+      }}
+      onHoverIn={() => shadowSet(true)}
+      onHoverOut={() => shadowSet(false)}
+      {...rest}
+    >
+      <ViewRouterLinkthemed
+        to={to}
         style={{
-          ...styleButtonMain,
-          flexDirection: "row",
-          shadowOffset: { width: 0, height: shadowState ? 5 : 0 },
-          shadowOpacity: shadowState ? 0.4 : 0,
-          elevation: shadowState ? 2 : 10,
-        }}
-        onHoverIn={() => shadowSet(true)}
-        onHoverOut={() => shadowSet(false)}
+          flex: 1,}}
       >
         {button_name && (
           <ViewIconMain
@@ -113,15 +124,23 @@ export const ViewButtonLink = ({
             {buttonSubtext}
           </ViewTypographySubsubheading>
         </ViewContainerColumn>
-      </ViewButtonCore>
-    </ViewRouterLinkthemed>
+      </ViewRouterLinkthemed>
+    </ViewButtonCore>
   );
 };
 
 // ICON
 
 export const ViewButtonIcon = (props: any) => {
-  const { iconSource, iconName, iconColor, iconSize, ...rest } = props;
+  const {
+    iconSource,
+    iconName,
+    iconColor,
+    buttonColor,
+    iconSize,
+    iconStyle,
+    ...rest
+  } = props;
   const [shadowState, shadowSet] = useReactState(false);
   return (
     <ViewButtonCore
@@ -131,6 +150,7 @@ export const ViewButtonIcon = (props: any) => {
         shadowOffset: { width: 0, height: shadowState ? 5 : 0 },
         shadowOpacity: shadowState ? 0.4 : 0,
         elevation: shadowState ? 2 : 10,
+        backgroundColor: buttonColor && buttonColor,
       }}
       onHoverIn={() => shadowSet(true)}
       onHoverOut={() => shadowSet(false)}
@@ -140,7 +160,8 @@ export const ViewButtonIcon = (props: any) => {
         source={iconSource}
         name={iconName}
         color={iconColor}
-        size={iconSize}
+        size={iconSize || 20}
+        style={iconStyle}
       />
     </ViewButtonCore>
   );

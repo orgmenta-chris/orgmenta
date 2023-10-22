@@ -3,11 +3,10 @@ import { ViewButtonPressable } from "./button";
 import { ViewIconMain } from "./icon";
 import { ViewModalContainer, useModalVisibility } from "./modal";
 import { ViewTypographyText } from "./typography";
-import { useQueryerQuery } from "./queryer";
-import { ViewInputText } from "./input";
 import { ViewSearchInput, ViewSearchResults } from "./search";
 
-// full Header component (currently hardcoded, no props)
+// MODAL
+
 export const ViewRelationshipsModal = (props: any) => {
   return (
     <ViewModalContainer
@@ -45,6 +44,7 @@ export const ViewRelationshipsModal = (props: any) => {
 };
 
 // WIDGET
+
 export const ViewRelationshipsWidget = (props: any) => {
   // A component with relationships info, that when clicked shows a popup with more information.
   // Used by Displays to show relationship information for focuses (entities and their relationships)

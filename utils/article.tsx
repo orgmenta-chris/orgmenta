@@ -1,6 +1,6 @@
 // Placeholder
 
-export const arrayArticleSectons = [
+export const arrayArticleSections = [
   'Contents (table of contents)',
   'Abstract / Hypothesis',
   'Relevant/related terms / Glossary / Relevant links to Data dictionary (see dictionary.tsx)',

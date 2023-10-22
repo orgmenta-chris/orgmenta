@@ -6,7 +6,7 @@ import { ViewInfoButton, ViewInfoPopup } from "./info";
 import { ViewPreferenceButton, ViewPreferencePopup } from "./preference";
 import { ViewHelpButton } from "./help";
 import { useReactState } from "./react";
-import { ViewButtonPressable } from "./button";
+import { ViewButtonIcon, ViewButtonPressable } from "./button";
 import { ViewIconMain } from "./icon";
 
 // CONTAINER
@@ -17,8 +17,8 @@ export const ViewContextContainer = ({ children, to, infoText, expandSet, expand
   return (
     <ViewContainerRow
       style={{
-        height: 35,
-        margin:5
+        // height: 40,
+        // margin:5
       }}
     >
       {/* Buttons */}
@@ -38,20 +38,17 @@ export const ViewContextContainer = ({ children, to, infoText, expandSet, expand
 // BUTTON
 
 export const ViewContextButton = ({ showSet }: any) => {
-  // Toggles whether you can see the buttons
   return (
-    <ViewButtonPressable
-      style={{ 
-        justifyContent:'center',
-      }}
+    <ViewButtonIcon
+      id={'toggle_other_context_buttons'}
       onPress={() => showSet((old: boolean) => !old)}
-    >
-      <ViewIconMain
-        name={"dots-three-vertical"}
-        source={"Entypo"}
-        color={"rgba(80,80,80,1)"}
-      />
-    </ViewButtonPressable>
+      iconStyle={{paddingTop: 2}}
+      buttonColor={'transparent'}
+      iconSource={`Entypo`}
+      iconName={"dots-three-vertical"}
+      iconColor={`rgb(80,80,80)`}
+      iconSize={20}
+    />
   );
 };
 

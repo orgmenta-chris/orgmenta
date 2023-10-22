@@ -56,10 +56,10 @@ export const ViewDisplayDynamic = WrapperReactMemo(
     // The main display component that switches between different components
     const Component = objectDisplayComponents[display || "list"]; // may need to memoize/useCallback this
     return (
-      <>
+      <ViewContainerStatic style={{ flex: 1 }}>
         <Component auxiliary={auxiliary} schema={schema} focus={focus} />
         <ViewRelationshipsModal/>
-      </>
+      </ViewContainerStatic>
     );
   }
 );
@@ -243,7 +243,7 @@ export const ViewDisplayGantt = (props: any) => {
 export const ViewDisplayThreads = (props: any) => {
   return (
     <ViewContainerStatic>
-      <ViewThreadComponent/>
+      {/* <ViewThreadComponent/> */}
     </ViewContainerStatic>
   );
 };

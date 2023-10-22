@@ -1,5 +1,8 @@
 import { useWindowDimensions } from "./window";
 import { ViewContainerStatic } from "./container";
+import { useReactEffect } from "./react";
+
+// MAIN
 
 export const ViewPageMain = ({ children, marginEnabled = true }: any) => {
   // const windowDimensions = useWindowDimensions();
@@ -19,6 +22,8 @@ export const ViewPageMain = ({ children, marginEnabled = true }: any) => {
   );
 };
 
+// SECTION
+
 export const ViewPageSection = ({ children }: any) => {
   // Placeholder.
   // const windowDimensions = useWindowDimensions();
@@ -27,10 +32,20 @@ export const ViewPageSection = ({ children }: any) => {
       style={{
         margin: 10,
         flex: 1,
-        backgroundColor:'white'
+        backgroundColor: "white",
       }}
     >
       {children}
     </ViewContainerStatic>
   );
+};
+
+// TITLE
+
+export const usePageTitle = (pageTitle: string) => {
+  return useReactEffect(() => {
+    if (pageTitle) {
+      document.title = pageTitle;
+    }
+  }, [pageTitle]);
 };

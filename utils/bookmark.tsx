@@ -17,25 +17,25 @@ import { useReactState } from "./react";
 import { useWindowDimensions } from "./window";
 import { useModalVisibility } from "./modal";
 import { useQueryerQuery, TypeQueryerOptions } from "./queryer";
-import { data } from "./framework";
+import { arrayFrameworkBusiness } from "./framework";
 
 // MODULES
 
-const ViewBookmarkModules = ({ filterState }: any) => {
+export const ViewBookmarkModules = ({ filterState }: any) => {
   // temporary array+components that contains all the business framework modules (will be changed to using supabase entities later)
-  return data 
+  return arrayFrameworkBusiness 
     .filter((x) => (x.status === "3. Active" || __DEV__) && x.parent === 1) // if in production, only show active modules
     .map((x, i) => (
       <ViewCardExpandable
         key={x.id || i}
         header={x.display_singular}
         headerlink={"entity/" + x.nickname}
-        body={data
+        body={arrayFrameworkBusiness
           .filter(
             (y) =>
               (y.status === "3. Active" || __DEV__) &&
               y.parent === x.id &&
-              y.name_singular?.includes(filterState.toLowerCase())
+              y.name_singular?.includes(filterState?.toLowerCase())
           )
           .map((y, i) => (
             <ViewRouterLinkthemed

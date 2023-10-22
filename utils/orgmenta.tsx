@@ -30,7 +30,7 @@ import { ViewSvgMain, ViewSvgPath, ViewSvgGroup } from "./svg";
 import { mapTypeMain } from "./type";
 import { useModalVisibility } from "./modal";
 import { useWindowDimensions } from "./window";
-import { data } from "./framework";
+import { arrayFrameworkBusiness } from "./framework";
 import { articlesTemp } from "../articles/_general";
 import {
   features,
@@ -1186,7 +1186,7 @@ export const ViewOrgmentaFrameworkoverview = () => {
         Click on a module to see the demo and features overview
       </ViewTypographySubsubheading>
       <ViewContainerStatic style={{ width: 400 }}>
-        {data
+        {arrayFrameworkBusiness
           ?.filter((x) => x.parent === 1)
           ?.map((x: any, i: number) => (
             <ViewButtonLink

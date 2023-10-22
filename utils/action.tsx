@@ -26,6 +26,29 @@ import {
 } from "./router";
 import { useReactState } from "./react";
 
+// CONTAINER
+
+export const ViewActionContainer = (props:any) => {
+  /* View for Actions tabs and panels */
+  return (
+    <ViewContainerStatic
+      style={{
+        borderTopWidth: 1,
+        padding: 5,
+        borderColor: "rgba(180,180,180,1)",
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        flexDirection: "column",
+        backgroundColor: "lightgray",
+        minHeight: 40,
+      }}
+    >
+      <ViewActionPanels auxiliary={props.auxiliary} schema={props.schema} focus={props.focus} />
+      <ViewActionTabs />
+    </ViewContainerStatic>
+  );
+};
+
 // DISPLAY
 
 export const metaActionDisplay = () => {
@@ -458,7 +481,7 @@ export const ViewActionHeader = ({
   return (
     <ViewContainerRow>
       <ViewTypographySubheading
-        style={{ margin: 10, textAlignVertical: "bottom" }}
+        style={{ margin: 10, verticalAlign: "bottom" }}
       >
         {title}
       </ViewTypographySubheading>
@@ -466,7 +489,7 @@ export const ViewActionHeader = ({
         style={{
           flex: 1,
           margin: 10,
-          textAlignVertical: "bottom",
+          verticalAlign: "bottom",
           fontStyle: "italic",
         }}
       >

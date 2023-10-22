@@ -23,7 +23,7 @@ import {
 } from "./typography";
 import { useAuxiliaryArray } from "./auxiliary";
 import { useSpaceState, TypeSpaceState } from "./space";
-import { data } from "./framework";
+import { arrayFrameworkBusiness } from "./framework";
 import { useAuthSession } from "./auth";
 import { ViewContextContainer, useContextState } from "./context";
 import { useHelpState } from "./help";
@@ -88,7 +88,7 @@ export const ViewPodExample = () => {
 export const ViewPodInfo = () => {
   // At the moment, this shows static submodules for categories (e.g. governance > model > plan) from static.js. But it will eventually be able to display subentities for any entity from the database.
   const path = useRouterLocation()?.paths;
-  const process = data?.find((x) => x.nickname === path[2]);
+  const process = arrayFrameworkBusiness?.find((x) => x.nickname === path[2]);
   const isGuest = useAuthSession()?.data?.currentUser === "Guest";
   const helpEnabled = useContextState()?.data?.enabled;
   const salesEnabled = true; // to do
@@ -105,11 +105,11 @@ export const ViewPodInfo = () => {
     >
       <ViewContainerColumn style={{ flex: 1 }}>
         <ViewContainerStatic style={{}}>
-          <ViewTypographySubheading>
-            {process?.description}
-          </ViewTypographySubheading>
-          <ViewTypographySubsubheading>
+          <ViewTypographySubheading numberOfLines={1}>
             {process?.summary}
+          </ViewTypographySubheading>
+          <ViewTypographySubsubheading numberOfLines={1}>
+            {process?.description}
           </ViewTypographySubsubheading>
         </ViewContainerStatic>
       </ViewContainerColumn>
@@ -135,8 +135,9 @@ export const ViewPodTabs = () => {
   const windowHeight = useWindowDimensions().height;
   const [expandState, expandSet] = useReactState(true);
   const path = useRouterLocation()?.paths;
-  const process = data?.find((x) => x.nickname === path[2]);
-  const subprocesses = process && data.filter((x) => x.parent === process.id);
+  const process = arrayFrameworkBusiness?.find((x) => x.nickname === path[2]);
+  const subprocesses =
+    process && arrayFrameworkBusiness.filter((x) => x.parent === process.id);
   return (
     <ViewContainerColumn
       style={{
@@ -149,8 +150,7 @@ export const ViewPodTabs = () => {
         maxHeight: expandState ? windowHeight - 400 : 60,
       }}
     >
-      {/* Tabs for each submodule */}
-      <ViewContainerRow style={{ height: 40 }}>
+      <ViewContainerRow id={"submodule_header"} style={{ height: 40 }}>
         {!expandState ? (
           subprocesses?.map((x, i) => (
             <ViewButtonLink
@@ -165,27 +165,35 @@ export const ViewPodTabs = () => {
           </ViewTypographySubheading>
         )}
         <ViewContextContainer
+          id={"submodule_contextbuttons"}
           expandSet={expandSet}
           expandState={expandState}
           infoText={metaPodTabs().description}
         />
       </ViewContainerRow>
       {expandState && (
-        <ViewContainerStatic style={{ flex: 1}}>
+        <ViewContainerStatic
+          id={"submodule_body_when_expanded"}
+          style={{ flex: 1 }}
+        >
           {subprocesses?.map((x, i) => (
-            <ViewContainerRow key={i}>
-              <ViewContainerColumn style={{flex: 1}}>
-                <ViewButtonLink
-                  to={`/entity/${x.nickname}`}
-                  buttonText={x.display_singular}
-                  buttonSubtext={x.summary}
-                />
-              </ViewContainerColumn>
-              <ViewContainerColumn style={{flex: 1}}>
-                <ViewTypographyText>
-                  (todo: add summary of submodule entities here)
-                </ViewTypographyText>
-              </ViewContainerColumn>
+            <ViewContainerRow key={i} style={{ flexShrink: 1, flexGrow: 1 }}>
+              <ViewButtonLink
+                numberOfLines={2}
+                to={`/entity/${x.nickname}/pods/display`}
+                buttonText={x.display_singular}
+                buttonSubtext={x.summary}
+              />
+{/*               
+              <ViewRouterLinkthemed
+                // numberOfLines={2}
+                to={`/entity/${x.nickname}/pods/display`}
+                // to={'test'}
+                // buttonText={x.display_singular}
+                // buttonSubtext={x.summary}
+              >
+                <ViewTypographyText>{x.summary}</ViewTypographyText>
+              </ViewRouterLinkthemed> */}
             </ViewContainerRow>
           ))}
         </ViewContainerStatic>
@@ -236,8 +244,12 @@ export const ViewPodCategoryrelated = (props: any) => {
 export const ViewPodSalespitch = (props: any) => {
   const windowHeight = useWindowDimensions().height;
   const categoryPath = useRouterLocation().paths[2];
-  const categoryInfo = data?.find((x) => x?.nickname === categoryPath)!;
-  const categoryChildren = data?.filter((x) => x?.parent === categoryInfo?.id);
+  const categoryInfo = arrayFrameworkBusiness?.find(
+    (x) => x?.nickname === categoryPath
+  )!;
+  const categoryChildren = arrayFrameworkBusiness?.filter(
+    (x) => x?.parent === categoryInfo?.id
+  );
   // A pod for the sales pitch to each specific module.
   // SHOW THIS IF USER IS NOT LOGGED IN.
   return (
@@ -295,8 +307,12 @@ export const ViewPodSalespitch = (props: any) => {
 export const ViewPodIntegrations = (props: any) => {
   const windowHeight = useWindowDimensions().height;
   const categoryPath = useRouterLocation().paths[2];
-  const categoryInfo = data?.find((x) => x?.nickname === categoryPath)!;
-  const categoryChildren = data?.filter((x) => x?.parent === categoryInfo?.id);
+  const categoryInfo = arrayFrameworkBusiness?.find(
+    (x) => x?.nickname === categoryPath
+  )!;
+  const categoryChildren = arrayFrameworkBusiness?.filter(
+    (x) => x?.parent === categoryInfo?.id
+  );
   // A pod for the sales pitch to each specific module.
   // SHOW THIS IF USER IS NOT LOGGED IN.
   return (
@@ -332,8 +348,12 @@ export const metaPodIntegrations = () => {
 export const ViewPodGuides = (props: any) => {
   const windowHeight = useWindowDimensions().height;
   const categoryPath = useRouterLocation().paths[2];
-  const categoryInfo = data?.find((x) => x?.nickname === categoryPath)!;
-  const categoryChildren = data?.filter((x) => x?.parent === categoryInfo?.id);
+  const categoryInfo = arrayFrameworkBusiness?.find(
+    (x) => x?.nickname === categoryPath
+  )!;
+  const categoryChildren = arrayFrameworkBusiness?.filter(
+    (x) => x?.parent === categoryInfo?.id
+  );
   // A pod for the sales pitch to each specific module.
   // SHOW THIS IF USER IS NOT LOGGED IN.
   return (
@@ -370,8 +390,12 @@ export const ViewPodPresets = (props: any) => {
   // Buttons to run templates/blueprints in order to quickly create items (e.g. 'Create invoice', 'Raise ticket for this issue')
   const windowHeight = useWindowDimensions().height;
   const categoryPath = useRouterLocation().paths[2];
-  const categoryInfo = data?.find((x) => x?.nickname === categoryPath)!;
-  const categoryChildren = data?.filter((x) => x?.parent === categoryInfo?.id);
+  const categoryInfo = arrayFrameworkBusiness?.find(
+    (x) => x?.nickname === categoryPath
+  )!;
+  const categoryChildren = arrayFrameworkBusiness?.filter(
+    (x) => x?.parent === categoryInfo?.id
+  );
   // A pod for the sales pitch to each specific module.
   // SHOW THIS IF USER IS NOT LOGGED IN.
   return (

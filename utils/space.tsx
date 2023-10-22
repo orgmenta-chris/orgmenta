@@ -12,6 +12,7 @@ import { ViewIconMain } from "./icon";
 import { ViewButtonPressable } from "./button";
 import { ViewIntegrationSection } from "./integration";
 import {
+  ViewRouterLinktext,
   ViewRouterLinkthemed,
   ViewRouterRoute,
   ViewRouterRoutes,
@@ -56,36 +57,41 @@ export const ViewSpacePage = () => {
     <ViewPageMain>
       <ViewTypographyHeading>Spaces</ViewTypographyHeading>
       <ViewContainerRow>
-        <ViewRouterLinkthemed to={"notifications"}>
-          <ViewTypographySubsubheading style={{ padding: 5 }}>
-            Notifications
-          </ViewTypographySubsubheading>
-        </ViewRouterLinkthemed>
-        <ViewRouterLinkthemed to={"integrations"}>
-          <ViewTypographySubsubheading style={{ padding: 5 }}>
-            Integrations
-          </ViewTypographySubsubheading>
-        </ViewRouterLinkthemed>
-        <ViewRouterLinkthemed to={"data"}>
-          <ViewTypographySubsubheading style={{ padding: 5 }}>
-            Data
-          </ViewTypographySubsubheading>
-        </ViewRouterLinkthemed>
-        <ViewRouterLinkthemed to={"members"}>
-          <ViewTypographySubsubheading style={{ padding: 5 }}>
-            Members
-          </ViewTypographySubsubheading>
-        </ViewRouterLinkthemed>
-        <ViewRouterLinkthemed to={"billing"}>
-          <ViewTypographySubsubheading style={{ padding: 5 }}>
-            Billing
-          </ViewTypographySubsubheading>
-        </ViewRouterLinkthemed>
-        <ViewRouterLinkthemed to={"attributes"}>
-          <ViewTypographySubsubheading style={{ padding: 5 }}>
-            Attributes
-          </ViewTypographySubsubheading>
-        </ViewRouterLinkthemed>
+        <ViewRouterLinktext
+          to={"profile"}
+          style={{ padding: 5 }}
+          textString={`Profile`}
+        />
+        <ViewRouterLinktext
+          to={"notifications"}
+          style={{ padding: 5 }}
+          textString={`Notifications`}
+        />
+        <ViewRouterLinktext
+          to={"integrations"}
+          style={{ padding: 5 }}
+          textString={`Integrations`}
+        />
+        <ViewRouterLinktext
+          to={"data"}
+          style={{ padding: 5 }}
+          textString={`Data`}
+        />
+        <ViewRouterLinktext
+          to={"members"}
+          style={{ padding: 5 }}
+          textString={`Members`}
+        />
+        <ViewRouterLinktext
+          to={"billing"}
+          style={{ padding: 5 }}
+          textString={`Billing`}
+        />
+        <ViewRouterLinktext
+          to={"attributes"}
+          style={{ padding: 5 }}
+          textString={`Attributes`}
+        />
       </ViewContainerRow>
       {/* <ViewContainerScroll>
         <ViewSpaceSwitch />
@@ -100,10 +106,7 @@ export const ViewSpacePage = () => {
           path="integrations"
           element={<ViewSpaceIntegrations />}
         />
-        <ViewRouterRoute
-          path="data"
-          element={<ViewSpaceData />}
-        />
+        <ViewRouterRoute path="data" element={<ViewSpaceData />} />
         <ViewRouterRoute path="members" element={<ViewSpaceMembers />} />
         <ViewRouterRoute path="billing" element={<ViewSpaceBilling />} />
         <ViewRouterRoute path="attributes" element={<ViewSpaceAttributes />} />
@@ -161,7 +164,7 @@ export interface interfaceSpaceSetup {
 
 export async function requestSpaceSetup(space: interfaceSpaceSetup) {
   //todo. rcps created, call them in individual mutations in useSpaceSetup
-};
+}
 
 export const useSpaceSetup = (props: interfaceSpaceSetup) => {
   //todo
@@ -293,7 +296,7 @@ export const ViewSpaceArray = () => {
         ViewSpaceArray
       </ViewTypographyText>
       {/* <ViewTypographyText style={{}}>{JSON.stringify(array,null,2)}</ViewTypographyText> */}
-      <ViewSpaceTable data={array.data} columns={columns} />
+      <ViewSpaceTable data={array?.data} columns={columns} />
     </ViewContainerStatic>
   );
 };
@@ -384,6 +387,7 @@ export const ViewSpaceTable = ({ ...Input }) => {
     //   debugHeaders: true, // logs to console
     //   debugColumns: true, // logs to console
   } as any);
+  // console.log('table',table.getHeaderGroups())
   return (
     <ViewContainerStatic style={{ flex: 1 }}>
       <ViewContainerStatic style={{ flex: 1 }}>
@@ -392,9 +396,10 @@ export const ViewSpaceTable = ({ ...Input }) => {
           stickyHeaderIndices={[0]}
         >
           <ViewContainerStatic>
-            {table.getHeaderGroups().map((headerGroup, hgroupIndex) => (
+            <></>
+            {/* {table?.getHeaderGroups()?.map((headerGroup, hgroupIndex) => (
               <ViewContainerRow key={headerGroup.id}>
-                {headerGroup.headers.map((header, headerIndex) => (
+                {headerGroup?.headers?.map((header, headerIndex) => (
                   <ViewContainerStatic key={headerIndex}>
                     <ViewTypographyText
                       key={header.id}
@@ -414,11 +419,11 @@ export const ViewSpaceTable = ({ ...Input }) => {
                   </ViewContainerStatic>
                 ))}
               </ViewContainerRow>
-            ))}
+            ))} */}
           </ViewContainerStatic>
-          {table.getRowModel().rows.map((row) => (
+          {table?.getRowModel()?.rows?.map((row) => (
             <ViewContainerRow key={row.id} style={{ width: 100 }}>
-              {row.getVisibleCells().map((cell, cellIndex) => (
+              {row?.getVisibleCells()?.map((cell, cellIndex) => (
                 <ViewTypographyText
                   key={cell.id}
                   style={{ minWidth: 200, borderWidth: 1 }}
@@ -490,70 +495,54 @@ export const ViewSpaceCurrent = (props: any) => {
         body={
           spaceActive?.data?.title && (
             <>
-              <ViewRouterLinkthemed
+              <ViewRouterLinktext
                 style={{ margin: 5 }}
                 to={`/spaces/${spaceActive.data.selected}`}
-              >
-                <ViewTypographySubsubheading selectable={false}>
-                  Go to Space
-                </ViewTypographySubsubheading>
-              </ViewRouterLinkthemed>
-              <ViewRouterLinkthemed
+                textString={`Go to Space`}
+                textSelectable={false}
+              />
+              <ViewRouterLinktext
                 style={{ margin: 5 }}
                 to={`/spaces/${spaceActive.data.selected}/attributes`}
-              >
-                <ViewTypographySubsubheading selectable={false}>
-                  Attributes
-                </ViewTypographySubsubheading>
-              </ViewRouterLinkthemed>
-              <ViewRouterLinkthemed
+                textString={`Attributes`}
+                textSelectable={false}
+              />
+              <ViewRouterLinktext
                 style={{ margin: 5 }}
                 to={`/spaces/${spaceActive.data.selected}/files`}
-              >
-                <ViewTypographySubsubheading selectable={false}>
-                  Files
-                </ViewTypographySubsubheading>
-              </ViewRouterLinkthemed>
-              <ViewRouterLinkthemed
+                textString={`Files`}
+                textSelectable={false}
+              />
+              <ViewRouterLinktext
                 style={{ margin: 5 }}
                 to={`/spaces/${spaceActive.data.selected}/settings`}
-              >
-                <ViewTypographySubsubheading selectable={false}>
-                  Settings
-                </ViewTypographySubsubheading>
-              </ViewRouterLinkthemed>
-              <ViewRouterLinkthemed
+                textString={`Settings`}
+                textSelectable={false}
+              />
+              <ViewRouterLinktext
                 style={{ margin: 5 }}
                 to={`/spaces/${spaceActive.data.selected}/billing`}
-              >
-                <ViewTypographySubsubheading selectable={false}>
-                  Billing
-                </ViewTypographySubsubheading>
-              </ViewRouterLinkthemed>
-              <ViewRouterLinkthemed
+                textString={`Billing`}
+                textSelectable={false}
+              />
+              <ViewRouterLinktext
                 style={{ margin: 5 }}
                 to={`/spaces/${spaceActive.data.selected}/members`}
-              >
-                <ViewTypographySubsubheading selectable={false}>
-                  Members
-                </ViewTypographySubsubheading>
-              </ViewRouterLinkthemed>
-              <ViewRouterLinkthemed
+                textString={`Members`}
+                textSelectable={false}
+              />
+              <ViewRouterLinktext
                 style={{ margin: 5 }}
                 to={`/spaces/all/notifications`}
-              >
-                <ViewTypographySubsubheading selectable={false}>
-                  Notifications
-                </ViewTypographySubsubheading>
-              </ViewRouterLinkthemed>
-              <ViewRouterLinkthemed
+                textString={`Notifications`}
+                textSelectable={false}
+              />
+              <ViewRouterLinktext
                 style={{ margin: 5 }}
                 to={`/spaces/all/integrations`}
-              >
-                <ViewTypographySubsubheading selectable={false}>
-                  Integrations
-                </ViewTypographySubsubheading>
-              </ViewRouterLinkthemed>
+                textString={`Integrations`}
+                textSelectable={false}
+              />
             </>
           )
         }

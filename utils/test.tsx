@@ -2,43 +2,48 @@ import { ViewPageMain } from "./page";
 import { ViewTypographyHeading, ViewTypographyText } from "./typography";
 import { ViewInputRichmain } from "./input";
 import { useAuxiliaryArray } from "./auxiliary";
-import { ViewCryptoExample } from "./crypto";
+// import { ViewCryptoExample } from "./crypto";
 import { ViewVaultExample } from "./vault";
 import { ViewSvgArrowmain, ViewSvgArrowhead } from "./svg";
 import { ViewBarcodeReader, ViewCameraMain } from "./camera";
 import { ViewClipboardCopy } from "./clipboard";
-import { ViewSoundPlayer, ViewSoundRecorder } from "./audio";
+import { ViewAudioPlayer, ViewAudioRecorder } from "./audio";
 import { ViewVideoPlayer } from "./video";
 import { ViewScreenRecorder } from "./recorder";
 import { ViewContextContainer } from "./context";
 import { deleteQueryerQuery, useQueryerClient } from "./queryer";
-import { ViewContainerRow, ViewContainerScroll } from "./container";
+import {
+  ViewContainerColumn,
+  ViewContainerRow,
+  ViewContainerScroll,
+} from "./container";
 import { ViewShieldButton, ViewShieldUniversal } from "./shield";
 import { TypeNotificationBody, ViewNotificationExample } from "./notification"; // C to check naming conventions. Also need to check how to use this?
 import { ViewAttributeCreate } from "./attribute";
 import { ViewFrameworkPage } from "./module";
 import { doObjectNesting } from "./object";
-import { data } from "./framework";
+import { arrayFrameworkBusiness } from "./framework";
 import { useBrowseArray } from "./browse";
-import {
-  ViewPackageItem,
-  UtilityPackageList,
-  filterPackageList,
-} from "./package";
 import { ViewKanbanContainer } from "./kanban";
-import { ViewThreadComponent } from "./thread";
-import { Example } from "./richtext";
+// import { ViewThreadComponent } from "./thread";
+// import { Example } from "./richtext";
+import { ViewZustandExample } from "./zustand";
+import { ViewDraggableModal } from "./draggable";
 
 export const ViewTestPage = () => {
   return __DEV__ ? (
     <ViewPageMain>
       <ViewContainerScroll>
-        <Example/>
-      <ViewKanbanContainer/>
+        {/* <ViewContainerColumn style={{ height: 1000, width: 1000 }}> */}
+          <ViewDraggableModal />
+        {/* </ViewContainerColumn> */}
+        {/* <Example/> */}
+        <ViewZustandExample />
+        <ViewKanbanContainer />
         <ViewFrameworkPage
           data={
             doObjectNesting(
-              (data as any)?.filter(
+              (arrayFrameworkBusiness as any)?.filter(
                 (x: any) => x.id > 9 || x.nickname === "business"
               )
             )?.[0]
@@ -60,10 +65,10 @@ export const ViewTestPage = () => {
         />
         {/* <ViewAttributeCreate /> */}
         {/* <ViewTypographyText>Example Sound Player:</ViewTypographyText>
-        <ViewSoundPlayer /> */}
+        <ViewAudioPlayer /> */}
 
         {/* <ViewTypographyText>Example Sound Recorder:</ViewTypographyText>
-        <ViewSoundRecorder /> */}
+        <ViewAudioRecorder /> */}
 
         {/* Play video (working) */}
         {/* <ViewVideoPlayer /> */}

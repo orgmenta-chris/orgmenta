@@ -1,4 +1,4 @@
-import { UtilityLocalAsyncstorage } from './local'
+import { UtilityLocalAsyncstorage } from "./local";
 import {
   QueryClient,
   useMutation,
@@ -6,6 +6,7 @@ import {
   useQueryClient,
   UseQueryResult,
   UseQueryOptions,
+  useQueries,
 } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
@@ -51,23 +52,28 @@ export const useQueryerMutation = useMutation;
 
 export const useQueryerQuery = useQuery;
 
-export const deleteQueryerQuery = (queryKeys?:any) => {
-  const queryerClient = new ClassQueryerClient();
-  if(queryKeys){
-    queryerClient.removeQueries(queryKeys) // delete specified cached queries (not tested)
-  }else{
+export const deleteQueryerQuery = (queryKeys?: any) => {
+  const queryerClient = useQueryClient();
+  if (queryKeys) {
+    queryerClient.removeQueries(queryKeys); // delete specified cached queries (not tested)
+  } else {
     queryerClient.clear();
     queryerClient.invalidateQueries();
   }
 };
 
-
-
 // RESULTS
 
-export type TypeQueryerResult = UseQueryResult
+export type TypeQueryerResult = UseQueryResult;
 
 // OPTIONS
 
-export type TypeQueryerOptions<TData = unknown, TError = unknown> = UseQueryOptions<TData, TError>;
+export type TypeQueryerOptions<
+  TData = unknown,
+  TError = unknown
+> = UseQueryOptions<TData, TError>;
 
+
+// QUERIES
+
+export const useQueryerQueries = useQueries;

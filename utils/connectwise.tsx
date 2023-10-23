@@ -7,3 +7,6 @@
 //https://developer.connectwise.com/
 // https://developer.connectwise.com/Products
 // https://developer.connectwise.com/Best_Practices/Getting_Started
+
+// ScreenConnect API:
+// https://docs.connectwise.com/ConnectWise_ScreenConnect_Documentation/Developers/Integration_guide

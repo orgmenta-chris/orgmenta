@@ -4,23 +4,20 @@
 import { ViewContainerStatic } from "./container";
 import { ViewTypographyText } from "./typography";
 
-export const defaultPricingTiers = [
-  {
-    title: "Copper",
-  },
-  {
-    title: "Bronze",
-  },
-  {
-    title: "Silver",
-  },
-  {
-    title: "Gold",
-  },
-  {
-    title: "Platinum",
-  },
-];
+
+// CONTAINER
+
+// Component to show information for a price
+export const ViewPricingContainer = (props: any) => {
+  return (
+    <ViewContainerStatic>
+      <ViewTypographyText>ViewPricingInfo placeholder</ViewTypographyText>
+      <ViewPricingInfo/>
+      <ViewPricingIncluded/>
+    </ViewContainerStatic>
+  );
+};
+
 
 // INFO
 
@@ -46,3 +43,23 @@ export const ViewPricingIncluded = (props: any) => {
     </ViewContainerStatic>
   );
 };
+
+// TIERS
+
+export const defaultPricingTiers = [
+  {
+    title: "Copper",
+  },
+  {
+    title: "Bronze",
+  },
+  {
+    title: "Silver",
+  },
+  {
+    title: "Gold",
+  },
+  {
+    title: "Platinum",
+  },
+];

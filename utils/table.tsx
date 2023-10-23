@@ -1,7 +1,12 @@
-import { ViewContainerStatic, ViewContainerRow } from "./container";
+import {
+  ViewContainerStatic,
+  ViewContainerRow,
+  ViewContainerColumn,
+  ViewContainerScroll,
+} from "./container";
 import { ViewTypographyText } from "./typography";
 import { ViewButtonPressable } from "./button";
-import { ViewInputText, TypeInputText } from "./input";
+import { ViewInputText, TypeInputText, ViewInputInteger } from "./input";
 import { UtilityPlatformMain } from "./platform";
 import {
   InputHTMLAttributes,
@@ -111,7 +116,7 @@ export const ViewTableContainer = (props: any) => {
     refreshData,
   };
   return (
-    <ViewContainerStatic style={{ maxHeight: 400 }}>
+    <ViewContainerStatic style={{flex: 1 }}>
       <UseDisplayTable tableData={tableData} />
     </ViewContainerStatic>
   );
@@ -221,7 +226,7 @@ export const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
 
 // A debounced input react component
 
-export const DebouncedInput = ({
+export const ViewTableInputdebounced = ({
   value: initialValue,
   onChange,
   debounce = 500,
@@ -264,7 +269,7 @@ export const DebouncedInput = ({
   }
 };
 
-export const Filter = ({
+export const ViewTableFilter = ({
   column,
   table,
 }: {
@@ -287,47 +292,38 @@ export const Filter = ({
 
   if (UtilityPlatformMain.OS === "web") {
     return typeof firstValue === "number" ? (
-      <div>
-        <div className="flex space-x-2">
-          <DebouncedInput
-            type="number"
-            min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
-            max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
-            value={(columnFilterValue as [number, number])?.[0] ?? ""}
-            onChange={(value) =>
-              column.setFilterValue((old: [number, number]) => [
-                value,
-                old?.[1],
-              ])
-            }
-            placeholder={`Min ${
-              column.getFacetedMinMaxValues()?.[0]
-                ? `(${column.getFacetedMinMaxValues()?.[0]})`
-                : ""
-            }`}
-            className="w-24 border shadow rounded"
-          />
-          <DebouncedInput
-            type="number"
-            min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
-            max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
-            value={(columnFilterValue as [number, number])?.[1] ?? ""}
-            onChange={(value) =>
-              column.setFilterValue((old: [number, number]) => [
-                old?.[0],
-                value,
-              ])
-            }
-            placeholder={`Max ${
-              column.getFacetedMinMaxValues()?.[1]
-                ? `(${column.getFacetedMinMaxValues()?.[1]})`
-                : ""
-            }`}
-            className="w-24 border shadow rounded"
-          />
-        </div>
-        <div className="h-1" />
-      </div>
+      <ViewContainerStatic>
+        <ViewTableInputdebounced
+          type="number"
+          min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+          max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+          value={(columnFilterValue as [number, number])?.[0] ?? ""}
+          onChange={(value) =>
+            column.setFilterValue((old: [number, number]) => [value, old?.[1]])
+          }
+          placeholder={`Min ${
+            column.getFacetedMinMaxValues()?.[0]
+              ? `(${column.getFacetedMinMaxValues()?.[0]})`
+              : ""
+          }`}
+          className="w-24 border shadow rounded"
+        />
+        <ViewTableInputdebounced
+          type="number"
+          min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+          max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+          value={(columnFilterValue as [number, number])?.[1] ?? ""}
+          onChange={(value) =>
+            column.setFilterValue((old: [number, number]) => [old?.[0], value])
+          }
+          placeholder={`Max ${
+            column.getFacetedMinMaxValues()?.[1]
+              ? `(${column.getFacetedMinMaxValues()?.[1]})`
+              : ""
+          }`}
+          className="w-24 border shadow rounded"
+        />
+      </ViewContainerStatic>
     ) : (
       <>
         <datalist id={column.id + "list"}>
@@ -335,7 +331,7 @@ export const Filter = ({
             <option value={value} key={value} />
           ))}
         </datalist>
-        <DebouncedInput
+        <ViewTableInputdebounced
           type="text"
           value={(columnFilterValue ?? "") as string}
           onChange={(value) => column.setFilterValue(value)}
@@ -343,14 +339,13 @@ export const Filter = ({
           className="w-36 border shadow rounded"
           list={column.id + "list"}
         />
-        <div className="h-1" />
       </>
     );
   } else {
     return typeof firstValue === "number" ? (
       <ViewContainerStatic>
         <ViewContainerRow style={{ justifyContent: "space-between" }}>
-          <DebouncedInput
+          <ViewTableInputdebounced
             type="numeric" // Set type for numeric input
             value={(columnFilterValue as [number, number])?.[0] ?? ""}
             onChange={(value) =>
@@ -366,7 +361,7 @@ export const Filter = ({
             }`}
             style={{ width: 80, borderWidth: 1, borderRadius: 5, padding: 5 }}
           />
-          <DebouncedInput
+          <ViewTableInputdebounced
             type="numeric" // Set type for numeric input
             value={(columnFilterValue as [number, number])?.[1] ?? ""}
             onChange={(value) =>
@@ -402,7 +397,7 @@ export const Filter = ({
 
 // Need to use the same code for web and mobile.
 // The tables will need to be changed to retain web styling but be using Views etc. as the mobile one is.
-const TableViewWeb = (props: any) => {
+const ViewTableMain = (props: any) => {
   const { columns, data, refreshData } = props;
 
   const rerender = useReducer(() => ({}), {})[1];
@@ -444,123 +439,111 @@ const TableViewWeb = (props: any) => {
   }, [table.getState().columnFilters[0]?.id]);
 
   return (
-    <div className="p-2">
-      <ViewContainerStatic>
-        <DebouncedInput
+    <ViewContainerStatic style={{flex:1}}>
+      <ViewContainerStatic id={"table_universalfilter"}>
+        <ViewTableInputdebounced
           value={globalFilter ?? ""}
           onChange={(value) => setGlobalFilter(String(value))}
           className="p-2 font-lg shadow border border-block"
           placeholder="Search all columns..."
         />
       </ViewContainerStatic>
-      <div className="h-2" />
-      <table>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
+      <ViewContainerColumn id={"table_headers"}>
+        {table.getHeaderGroups().map((headerGroup) => (
+          <ViewContainerRow key={headerGroup.id}>
+            {headerGroup.headers.map((header) => {
+              return (
+                <ViewContainerColumn style={{ width: 200 }} key={header.id}>
+                  {header.isPlaceholder ? null : (
+                    <>
+                      <ViewTypographyText
+                        {...{
+                          className: header.column.getCanSort()
+                            ? "cursor-pointer select-none"
+                            : "",
+                          onClick: header.column.getToggleSortingHandler(),
+                        }}
+                      >
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                        {{
+                          asc: " 🔼",
+                          desc: " 🔽",
+                        }[header.column.getIsSorted() as string] ?? null}
+                      </ViewTypographyText>
+                      {header.column.getCanFilter() ? (
+                        <ViewContainerColumn>
+                          <ViewTableFilter
+                            column={header.column}
+                            table={table}
+                          />
+                        </ViewContainerColumn>
+                      ) : null}
+                    </>
+                  )}
+                </ViewContainerColumn>
+              );
+            })}
+          </ViewContainerRow>
+        ))}
+      </ViewContainerColumn>
+      <ViewContainerScroll id={"table_data"} style={{ flex: 1 }}>
+        {table.getRowModel().rows.map((row) => {
+          return (
+            <ViewContainerRow key={row.id}>
+              {row.getVisibleCells().map((cell) => {
                 return (
-                  <th key={header.id} colSpan={header.colSpan}>
-                    {header.isPlaceholder ? null : (
-                      <>
-                        <div
-                          {...{
-                            className: header.column.getCanSort()
-                              ? "cursor-pointer select-none"
-                              : "",
-                            onClick: header.column.getToggleSortingHandler(),
-                          }}
-                        >
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                          {{
-                            asc: " 🔼",
-                            desc: " 🔽",
-                          }[header.column.getIsSorted() as string] ?? null}
-                        </div>
-                        {header.column.getCanFilter() ? (
-                          <div>
-                            <Filter column={header.column} table={table} />
-                          </div>
-                        ) : null}
-                      </>
-                    )}
-                  </th>
+                  <ViewContainerStatic style={{ width: 200 }} key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </ViewContainerStatic>
                 );
               })}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => {
-            return (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => {
-                  return (
-                    <td key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <div className="h-2" />
-      <div className="flex items-center gap-2">
-        <button
-          className="border rounded p-1"
-          onClick={() => table.setPageIndex(0)}
+            </ViewContainerRow>
+          );
+        })}
+      </ViewContainerScroll>
+      <ViewContainerRow id={"table_controls"}>
+        <ViewButtonPressable
+          onPress={() => table.setPageIndex(0)}
           disabled={!table.getCanPreviousPage()}
         >
-          {"<<"}
-        </button>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.previousPage()}
+          <ViewTypographyText>{"<<"}</ViewTypographyText>
+        </ViewButtonPressable>
+        <ViewButtonPressable
+          onPress={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          {"<"}
-        </button>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.nextPage()}
+          <ViewTypographyText>{"<"}</ViewTypographyText>
+        </ViewButtonPressable>
+        <ViewButtonPressable
+          onPress={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          {">"}
-        </button>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+          <ViewTypographyText>{">"}</ViewTypographyText>
+        </ViewButtonPressable>
+        <ViewButtonPressable
+          onPress={() => table.setPageIndex(table.getPageCount() - 1)}
           disabled={!table.getCanNextPage()}
         >
-          {">>"}
-        </button>
-        <span className="flex items-center gap-1">
-          <div>Page</div>
-          <strong>
-            {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
-          </strong>
-        </span>
-        <span className="flex items-center gap-1">
-          | Go to page:
-          <input
-            type="number"
-            defaultValue={table.getState().pagination.pageIndex + 1}
-            onChange={(e) => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0;
-              table.setPageIndex(page);
-            }}
-            className="border p-1 rounded w-16"
-          />
-        </span>
+          <ViewTypographyText>{">>"}</ViewTypographyText>
+        </ViewButtonPressable>
+        <ViewTypographyText style={{ borderWidth: 1 }}>
+          {`Page `}
+        </ViewTypographyText>
+        <ViewInputInteger
+          style={{ borderWidth: 1 }}
+          value={table.getState().pagination.pageIndex + 1}
+          onChange={(e: any) => {
+            const page = e.target.value ? Number(e.target.value) - 1 : 0;
+            table.setPageIndex(page);
+          }}
+        />
+        <ViewTypographyText style={{ borderWidth: 1 }}>
+          {` of `}
+          {table.getPageCount()}
+        </ViewTypographyText>
         <select
           value={table.getState().pagination.pageSize}
           onChange={(e) => {
@@ -573,16 +556,18 @@ const TableViewWeb = (props: any) => {
             </option>
           ))}
         </select>
-      </div>
-      <div>{table.getPrePaginationRowModel().rows.length} Rows</div>
-      <div>
-        <button onClick={() => rerender()}>Force Rerender</button>
-      </div>
-      <div>
-        <button onClick={() => refreshData()}>Refresh Data</button>
-      </div>
+        <ViewTypographyText>
+          {table.getPrePaginationRowModel().rows.length} Rows
+        </ViewTypographyText>
+        <ViewButtonPressable onPress={() => rerender()}>
+          <ViewTypographyText>Rerender Table</ViewTypographyText>
+        </ViewButtonPressable>
+        <ViewButtonPressable onPress={() => refreshData()}>
+          <ViewTypographyText>Refresh Data</ViewTypographyText>
+        </ViewButtonPressable>
+      </ViewContainerRow>
       {/* <pre>{JSON.stringify(table.getState(), null, 2)}</pre> */}
-    </div>
+    </ViewContainerStatic>
   );
 };
 
@@ -628,9 +613,9 @@ const TableViewMobile = (props: any) => {
   }, [table.getState().columnFilters[0]?.id]);
 
   return (
-    <ViewContainerStatic style={{ padding: 2 }}>
+    <ViewContainerStatic style={{ padding: 2, flex: 1 }}>
       <ViewContainerStatic>
-        <DebouncedInput
+        <ViewTableInputdebounced
           value={globalFilter ?? ""}
           onChange={(value) => setGlobalFilter(String(value))}
           style={{
@@ -665,7 +650,7 @@ const TableViewMobile = (props: any) => {
         }}
       >
         <ViewButtonPressable
-          style={({ pressed }) => ({
+          style={({ pressed }: any) => ({
             borderColor: pressed ? "gray" : "black",
             borderWidth: 1,
             borderRadius: 5,
@@ -677,7 +662,7 @@ const TableViewMobile = (props: any) => {
           <ViewTypographyText>{"<<"}</ViewTypographyText>
         </ViewButtonPressable>
         <ViewButtonPressable
-          style={({ pressed }) => ({
+          style={({ pressed }: any) => ({
             borderColor: pressed ? "gray" : "black",
             borderWidth: 1,
             borderRadius: 5,
@@ -689,7 +674,7 @@ const TableViewMobile = (props: any) => {
           <ViewTypographyText>{"<"}</ViewTypographyText>
         </ViewButtonPressable>
         <ViewButtonPressable
-          style={({ pressed }) => ({
+          style={({ pressed }: any) => ({
             borderColor: pressed ? "gray" : "black",
             borderWidth: 1,
             borderRadius: 5,
@@ -701,7 +686,7 @@ const TableViewMobile = (props: any) => {
           <ViewTypographyText>{">"}</ViewTypographyText>
         </ViewButtonPressable>
         <ViewButtonPressable
-          style={({ pressed }) => ({
+          style={({ pressed }: any) => ({
             borderColor: pressed ? "gray" : "black",
             borderWidth: 1,
             borderRadius: 5,
@@ -716,9 +701,7 @@ const TableViewMobile = (props: any) => {
           Page {table.getState().pagination.pageIndex + 1} of{" "}
           {table.getPageCount()} |
         </ViewTypographyText>
-        <ViewContainerRow
-          style={{ alignItems: "center" }}
-        >
+        <ViewContainerRow style={{ alignItems: "center" }}>
           <ViewTypographyText> Go to page:</ViewTypographyText>
           <ViewInputText
             value={(table.getState().pagination.pageIndex + 1).toString()}
@@ -741,7 +724,7 @@ const TableViewMobile = (props: any) => {
         {table.getPrePaginationRowModel().rows.length} Rows
       </ViewTypographyText>
       <ViewButtonPressable
-        style={({ pressed }) => ({
+        style={({ pressed }: any) => ({
           borderColor: pressed ? "gray" : "black",
           borderWidth: 1,
           borderRadius: 5,
@@ -752,7 +735,7 @@ const TableViewMobile = (props: any) => {
         <ViewTypographyText>Force Rerender</ViewTypographyText>
       </ViewButtonPressable>
       <ViewButtonPressable
-        style={({ pressed }) => ({
+        style={({ pressed }: any) => ({
           borderColor: pressed ? "gray" : "black",
           borderWidth: 1,
           borderRadius: 5,
@@ -773,7 +756,7 @@ const TableViewMobile = (props: any) => {
 export const UseDisplayTable =
   UtilityPlatformMain.OS === "web"
     ? ({ tableData }: any) => {
-        return <TableViewWeb {...tableData} />;
+        return <ViewTableMain {...tableData} />;
       }
     : ({ tableData }: any) => {
         return <TableViewMobile {...tableData} />;

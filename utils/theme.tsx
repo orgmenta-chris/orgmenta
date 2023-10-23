@@ -19,17 +19,22 @@ export type TypeThemeMain = Record<string, any>;
 
 export const useThemeToken = (component_name: string) => {
   const theme: TypeThemeMain = {
-    text: { style: { color: `white` } },
+    // text: { style: { color: `white` } },
+    text: { style: { color: "rgba(100,100,100,1)" } },
     heading: {
-      style: { color: `white`, fontSize: 30, alignSelf: "center" },
+      // style: { color: `white`, fontSize: 30, alignSelf: "center" },
+      style: { color: "rgba(80,80,80,1)", fontSize: 30, alignSelf: "center" },
     },
     subheading: {
-      style: { color: "#176596", fontWeight: "700", fontSize: 17 },
+      // style: { color: "#176596", fontWeight: "700", fontSize: 17 },
+      style: { color: "rgba(60,60,60,1)", fontWeight: "700", fontSize: 17 },
     },
     subsubheading: {
-      style: { fontWeight: "500", fontSize: 16, color: "#0c4a73" },
+      // style: { fontWeight: "500", fontSize: 16, color: "#0c4a73" },
+      style: { fontWeight: "500", fontSize: 16, color: "rgba(60,60,60,1)" },
     },
-    link: { style: { textDecoration: `none`, color: `white` } },
+    // link: { style: { textDecoration: `none`, color: `white` } },
+    link: { style: { textDecoration: `none`, color: `rgba(60,60,60,1)` } },
     default: { style: {} },
   };
   if (theme[component_name]) {
@@ -43,11 +48,38 @@ export const useThemeToken = (component_name: string) => {
 
 export const objectThemeDefault = {
   colors: [
+    // WHITES & GRAYS
     {
-      hex: `#FFFFFF`, // WHITE
+      hex: `#FFFFFF`,
       hsl: `(0, 0%, 100%)`,
       rgb: `(255, 255, 255)`,
+      name: "White"
     },
+    {
+      rgb: `(245,245,245)`,
+      name: 'WhiteSmoke'
+    },
+    {
+      rgb: `(232,232,232)`,// white/gray
+    },
+    {
+      rgb: `(200,200,200)`,// white/gray
+    },
+    // GRAYS
+    {
+      rgb: "(48,48,48)",
+    },
+    {
+      rgb: "(60,60,60)",
+    },
+    {
+      rgb: "(80,80,80)",
+    },
+    {
+      rgb: "(105,105,105)",
+      name: "DimGray",
+    },
+    // BLUES
     {
       hex: "#9cd7f2",
       hsl: "(199,77%,78%)",

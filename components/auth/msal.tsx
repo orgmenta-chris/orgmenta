@@ -8,6 +8,7 @@ import type {
 import { Pressable, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { scopes, publicClientApplication } from "../../api/authConfig";
 import useTokenStore from "../../states/api/storeToken";
+import { requestAuthSession } from "../../utils/auth";
 
 const MSAL = () => {
   const params: MSALInteractiveParams = { scopes };
@@ -27,14 +28,35 @@ const MSAL = () => {
     }
   };
 
-  // useEffect(() => {
-  //   initPublicApp();
-  // });
+  const getUserSession = async () => {
+    const session = await requestAuthSession();
+    console.log(session);
+  };
 
   return (
     <>
       {token ? (
-        <Text>Microsoft Account Connected</Text>
+        <>
+          <Text>Microsoft Account Connected</Text>
+          <Pressable
+            style={{
+              borderWidth: 1,
+              borderRadius: 5,
+              paddingHorizontal: 15,
+              paddingVertical: 10,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 4,
+            }}
+            onPress={() => getUserSession()}
+          >
+            <Text>Get User Session</Text>
+          </Pressable>
+        </>
       ) : (
         <Pressable
           style={{

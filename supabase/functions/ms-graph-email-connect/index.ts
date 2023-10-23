@@ -24,12 +24,14 @@ serve(async (req: Request) => {
 
     // Extract the validationToken from the URL
     const url = new URL(req.url);
-    const validationToken = url.searchParams.get("validationToken");
+    const encodedValidationToken = url.searchParams.get("validationToken");
 
     // Check if this is a validation request
-    if (validationToken) {
-      // This is a validation request, respond with 200 OK
+    if (encodedValidationToken) {
+      // This is a validation request, decode the validationToken
+      const validationToken = decodeURIComponent(encodedValidationToken);
       console.log(validationToken);
+
       return new Response(`${validationToken}`, {
         headers: { "Content-Type": "text/plain" },
         status: 200,

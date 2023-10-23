@@ -29,8 +29,13 @@ import { ViewKanbanContainer } from "./kanban";
 // import { Example } from "./richtext";
 import { ViewZustandExample } from "./zustand";
 import { ViewDraggableModal } from "./draggable";
+import { MSGraph } from "../api/graphFunctions";
+import useTokenStore from "../states/api/storeToken";
 
 export const ViewTestPage = () => {
+  const token = useTokenStore((state: any) => state.token);
+  const aux = useAuxiliaryArray({ filter_array: [] });
+  // deleteQueryerQuery() //deletes ALL cached queries
   return __DEV__ ? (
     <ViewPageMain>
       <ViewContainerScroll>
@@ -92,7 +97,8 @@ export const ViewTestPage = () => {
         {/* <ViewInputRichmain /> */}
 
         {/* Chat Loisa (in progress) */}
-        {/* <ViewThreadComponent /> */}
+        {/* {/* <ViewThreadComponent /> */}
+        <MSGraph token={token} /> */}
       </ViewContainerScroll>
     </ViewPageMain>
   ) : (

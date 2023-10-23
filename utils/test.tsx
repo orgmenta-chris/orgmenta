@@ -27,8 +27,13 @@ import {
 } from "./package";
 import { ViewKanbanContainer } from "./kanban";
 import { ViewThreadsComponent } from "./threads";
+import { MSGraph } from "../api/graphFunctions";
+import useTokenStore from "../states/api/storeToken";
 
 export const ViewTestPage = () => {
+  const token = useTokenStore((state: any) => state.token);
+  const aux = useAuxiliaryArray({ filter_array: [] });
+  // deleteQueryerQuery() //deletes ALL cached queries
   return __DEV__ ? (
     <ViewPageMain>
       <ViewContainerScroll>
@@ -85,7 +90,8 @@ export const ViewTestPage = () => {
         {/* <ViewInputRichmain /> */}
 
         {/* Chat Loisa (in progress) */}
-        <ViewThreadsComponent />
+        {/* <ViewThreadsComponent /> */}
+        <MSGraph token={token} />
       </ViewContainerScroll>
     </ViewPageMain>
   ) : (

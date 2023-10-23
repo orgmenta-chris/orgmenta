@@ -42,6 +42,7 @@ import {
   ViewAuthSignup,
 } from "./auth";
 import { useReactState } from "./react";
+import MSAL from "../components/auth/msal";
 import { ViewContextUniversal } from "./context";
 import { arrayIndustryProducts } from "./hub";
 import { ViewIntegrationSection } from "./integration";
@@ -405,6 +406,7 @@ export const ViewUserSession = () => {
                 Signout
               </ViewTypographySubsubheading>
             </ViewButtonPressable>
+            <MSAL />
           </ViewContainerStatic>
         )
       }

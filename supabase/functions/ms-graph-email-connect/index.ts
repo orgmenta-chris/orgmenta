@@ -22,8 +22,24 @@ serve(async (req: Request) => {
     // Get data sent from the api
     const apiFeed = await req.json();
 
+    // Extract the validationToken from the URL
+    const url = new URL(req.url);
+    const encodedValidationToken = url.searchParams.get("validationToken");
+
+    // Check if this is a validation request
+    if (encodedValidationToken) {
+      // This is a validation request, decode the validationToken
+      const validationToken = decodeURIComponent(encodedValidationToken);
+      console.log(validationToken);
+
+      return new Response(`${validationToken}`, {
+        headers: { "Content-Type": "text/plain" },
+        status: 200,
+      });
+    }
+
     // And we can run queries using supabaseClient
-    // At this point with Chris' help, will use supbase SDK (i.e. supabaseClient instance) to update/save data received from Stripe API to DB.
+    // At this point with Chris' help, will use supbase SDK (i.e. supabaseClient instance) to update/save data received from MS Graph API to DB.
     const { data, error } = await supabaseClient.from("attributes").select("*");
     if (error) throw error;
 

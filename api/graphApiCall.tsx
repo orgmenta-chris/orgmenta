@@ -1,20 +1,25 @@
-import { msalInstance, loginRequest } from "./authConfig";
+import { MSALAccount, MSALResult } from "react-native-msal";
+import { publicClientApplication /* msalSilentConfig */ } from "./authConfig";
+import useTokenStore from "../states/api/storeToken";
+
+// const getToken = useTokenStore((state: any) => state.token) || undefined;
 
 export const callMsGraphGET = async (accessToken: string, endpoint: string) => {
-  if (!accessToken) {
-    const account = msalInstance.getActiveAccount();
-    if (!account) {
-      throw Error(
-        "No active account! Verify a user has been signed in and setActiveAccount has been called."
-      );
-    }
+  // if (!accessToken) {
+  //   const account: MSALAccount | undefined =
+  //     await publicClientApplication.getAccount(getToken!.account.identifier);
+  //   if (!account) {
+  //     throw Error(
+  //       "No active account! Verify a user has been signed in and setActiveAccount has been called."
+  //     );
+  //   }
 
-    const response = await msalInstance.acquireTokenSilent({
-      ...loginRequest,
-      account: account,
-    });
-    accessToken = response.accessToken;
-  }
+  //   const result: MSALResult | undefined =
+  //     await publicClientApplication.acquireTokenSilent(msalSilentConfig);
+
+  //   // @ts-ignore
+  //   accessToken = result?.accessToken;
+  // }
 
   const headers = new Headers();
   const bearer = `Bearer ${accessToken}`;
@@ -36,20 +41,21 @@ export const callMsGraphPOST = async (
   endpoint: string,
   requestBody: any
 ) => {
-  if (!accessToken) {
-    const account = msalInstance.getActiveAccount();
-    if (!account) {
-      throw Error(
-        "No active account! Verify a user has been signed in and setActiveAccount has been called."
-      );
-    }
+  // if (!accessToken) {
+  //   const account: MSALAccount | undefined =
+  //     await publicClientApplication.getAccount(getToken!.account.identifier);
+  //   if (!account) {
+  //     throw Error(
+  //       "No active account! Verify a user has been signed in and setActiveAccount has been called."
+  //     );
+  //   }
 
-    const response = await msalInstance.acquireTokenSilent({
-      ...loginRequest,
-      account: account,
-    });
-    accessToken = response.accessToken;
-  }
+  //   const result: MSALResult | undefined =
+  //     await publicClientApplication.acquireTokenSilent(msalSilentConfig);
+
+  //   // @ts-ignore
+  //   accessToken = result?.accessToken;
+  // }
 
   const headers = new Headers();
   const bearer = `Bearer ${accessToken}`;
@@ -64,7 +70,7 @@ export const callMsGraphPOST = async (
 
   return fetch(endpoint, options)
     .then((response) => response.json())
-    .catch((error) => console.error(error));
+    .catch((error) => console.log(error));
 };
 
 export const callMsGraphPATCH = async (
@@ -72,20 +78,21 @@ export const callMsGraphPATCH = async (
   endpoint: string,
   requestBody: any
 ) => {
-  if (!accessToken) {
-    const account = msalInstance.getActiveAccount();
-    if (!account) {
-      throw Error(
-        "No active account! Verify a user has been signed in and setActiveAccount has been called."
-      );
-    }
+  // if (!accessToken) {
+  //   const account: MSALAccount | undefined =
+  //     await publicClientApplication.getAccount(getToken!.account.identifier);
+  //   if (!account) {
+  //     throw Error(
+  //       "No active account! Verify a user has been signed in and setActiveAccount has been called."
+  //     );
+  //   }
 
-    const response = await msalInstance.acquireTokenSilent({
-      ...loginRequest,
-      account: account,
-    });
-    accessToken = response.accessToken;
-  }
+  //   const result: MSALResult | undefined =
+  //     await publicClientApplication.acquireTokenSilent(msalSilentConfig);
+
+  //   // @ts-ignore
+  //   accessToken = result?.accessToken;
+  // }
 
   const headers = new Headers();
   const bearer = `Bearer ${accessToken}`;
@@ -107,20 +114,21 @@ export const callMsGraphDELETE = async (
   accessToken: string,
   endpoint: string
 ) => {
-  if (!accessToken) {
-    const account = msalInstance.getActiveAccount();
-    if (!account) {
-      throw Error(
-        "No active account! Verify a user has been signed in and setActiveAccount has been called."
-      );
-    }
+  // if (!accessToken) {
+  //   const account: MSALAccount | undefined =
+  //     await publicClientApplication.getAccount(getToken!.account.identifier);
+  //   if (!account) {
+  //     throw Error(
+  //       "No active account! Verify a user has been signed in and setActiveAccount has been called."
+  //     );
+  //   }
 
-    const response = await msalInstance.acquireTokenSilent({
-      ...loginRequest,
-      account: account,
-    });
-    accessToken = response.accessToken;
-  }
+  //   const result: MSALResult | undefined =
+  //     await publicClientApplication.acquireTokenSilent(msalSilentConfig);
+
+  //   // @ts-ignore
+  //   accessToken = result?.accessToken;
+  // }
 
   const headers = new Headers();
   const bearer = `Bearer ${accessToken}`;
@@ -134,5 +142,5 @@ export const callMsGraphDELETE = async (
 
   return fetch(endpoint, options)
     .then((response) => response.json())
-    .catch((error) => console.error(error));
+    .catch((error) => console.log(error));
 };

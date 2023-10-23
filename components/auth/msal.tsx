@@ -1,65 +1,84 @@
-import React from "react";
-import { useMsal } from "@azure/msal-react";
+import React, { useEffect, useState } from "react";
+import PublicClientApplication from "react-native-msal";
+import type {
+  MSALConfiguration /*, etc */,
+  MSALInteractiveParams,
+  MSALResult,
+} from "react-native-msal";
 import { Pressable, Text, StyleSheet, ActivityIndicator } from "react-native";
-import AccessToken from "../../api/accessToken";
+import { scopes, publicClientApplication } from "../../api/authConfig";
+import useTokenStore from "../../states/api/storeToken";
+import { requestAuthSession } from "../../utils/auth";
 
 const MSAL = () => {
-  const { instance, accounts, inProgress } = useMsal();
+  const params: MSALInteractiveParams = { scopes };
+  const setToken = useTokenStore((state: any) => state.setToken);
+  const token = useTokenStore((state: any) => state.token);
 
-  if (accounts.length > 0) {
-    return (
-      <>
-        <Pressable style={styles.links} onPress={() => instance.logoutPopup()}>
-          <Text
+  const acquireAccessToken = async () => {
+    try {
+      const result: MSALResult | undefined =
+        await publicClientApplication.acquireToken(params);
+
+      setToken(result);
+
+      console.log("Access token acquired!");
+    } catch (error) {
+      console.error("Error getting access token, check your config.", error);
+    }
+  };
+
+  const getUserSession = async () => {
+    const session = await requestAuthSession();
+    console.log(session);
+  };
+
+  return (
+    <>
+      {token ? (
+        <>
+          <Text>Microsoft Account Connected</Text>
+          <Pressable
             style={{
-              color: "blue",
-              textDecorationStyle: "solid",
-              textAlign: "center",
+              borderWidth: 1,
+              borderRadius: 5,
+              paddingHorizontal: 15,
+              paddingVertical: 10,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 4,
             }}
+            onPress={() => getUserSession()}
           >
-            Disconnect MS Account
-          </Text>
-        </Pressable>
-        <AccessToken />
-      </>
-    );
-  } else if (inProgress === "login") {
-    return (
-      <Text style={{ textAlign: "center" }}>
-        <ActivityIndicator />
-      </Text>
-    );
-  } else {
-    return (
-      <Pressable style={styles.links} onPress={() => instance.loginPopup()}>
-        <Text
+            <Text>Get User Session</Text>
+          </Pressable>
+        </>
+      ) : (
+        <Pressable
           style={{
-            color: "blue",
-            textDecorationStyle: "solid",
-            textAlign: "center",
+            borderWidth: 1,
+            borderRadius: 5,
+            paddingHorizontal: 15,
+            paddingVertical: 10,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
           }}
+          onPress={() => acquireAccessToken()}
         >
-          Connect MS Account
-        </Text>
-      </Pressable>
-    );
-  }
+          <Text>Connect Ms Account</Text>
+        </Pressable>
+      )}
+    </>
+  );
 };
-
-const styles = StyleSheet.create({
-  links: {
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-  },
-});
 
 export default MSAL;

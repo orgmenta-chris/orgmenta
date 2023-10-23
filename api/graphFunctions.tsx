@@ -306,7 +306,37 @@ export const deleteEvent = async (token: string, id: string) => {
   // Do something with the data
 };
 
-export const MSGraph = ({ token }) => {
+export const createSubscription = async (token: string) => {
+  const endpoint = "https://graph.microsoft.com/v1.0/subscriptions";
+
+  const expirationDate = new Date();
+
+  // Set the expiration date to 7 days from the current date and time
+  expirationDate.setDate(expirationDate.getDate() + 7);
+
+  const requestBody = {
+    changeType: "created",
+    notificationUrl:
+      "https://qfiulevnnvsptiwtwvuz.supabase.co/functions/v1/ms-graph-email-connect",
+    resource: "me/mailFolders('Inbox')/messages",
+    expirationDateTime: expirationDate.toISOString(),
+  };
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(requestBody),
+  };
+
+  return fetch(endpoint, options)
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
+};
+
+export const MSGraph = ({ token }: any) => {
   const functionList = [
     {
       name: "Me",
@@ -515,6 +545,11 @@ export const MSGraph = ({ token }) => {
       name: "Delete Event",
       func: deleteEvent,
       args: [token?.accessToken, "EventId"],
+    },
+    {
+      name: "Create Subscription",
+      func: createSubscription,
+      args: [token?.accessToken],
     },
   ];
 

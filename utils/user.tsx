@@ -346,6 +346,8 @@ export const ViewUserSignout = () => {
         <ViewTypographySubsubheading selectable={false}>
           Signout
         </ViewTypographySubsubheading>
+        
+        <MSAL />
       </ViewButtonPressable>
     </ViewContainerColumn>
   );

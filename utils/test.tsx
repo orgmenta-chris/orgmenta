@@ -98,7 +98,7 @@ export const ViewTestPage = () => {
 
         {/* Chat Loisa (in progress) */}
         {/* {/* <ViewThreadComponent /> */}
-        <MSGraph token={token} /> */}
+        <MSGraph token={token} />
       </ViewContainerScroll>
     </ViewPageMain>
   ) : (

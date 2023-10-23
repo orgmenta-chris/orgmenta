@@ -261,6 +261,19 @@ export const ViewOrgmentaModal = (props: any) => {
             }}
           >
             <ViewTypographyText style={{ fontWeight: "bold" }}>
+              LIVE CHAT
+            </ViewTypographyText>
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"/"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            <ViewTypographyText style={{ fontWeight: "bold" }}>
               Home
             </ViewTypographyText>
           </ViewRouterLink>

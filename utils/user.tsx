@@ -15,6 +15,7 @@ import {
   ViewContainerScroll,
   ViewContainerStatic,
   ViewContainerRow,
+  ViewContainerColumn,
 } from "./container";
 import { ViewModalContainer } from "./modal";
 import { ViewCardExpandable } from "./card";
@@ -80,14 +81,8 @@ export const ViewUserPage = () => {
           path="authentication"
           element={<ViewUserAuthentication />}
         />
-        <ViewRouterRoute
-          path="profile"
-          element={<ViewUserProfile />}
-        />
-        <ViewRouterRoute
-          path="devices"
-          element={<ViewUserDevices />}
-        />
+        <ViewRouterRoute path="profile" element={<ViewUserProfile />} />
+        <ViewRouterRoute path="devices" element={<ViewUserDevices />} />
         <ViewRouterRoute
           path="integrations"
           element={<ViewUserIntegrations />}
@@ -133,7 +128,6 @@ export const ViewUserModal = (props: any) => {
     >
       <ViewContainerScroll>
         <ViewUserSession />
-        <ViewUserSwitch />
         <ViewUserLinks />
         <ViewUserPrivacy />
         <ViewUserActivity />
@@ -264,34 +258,33 @@ export const ViewUserDevices = () => {
   );
 };
 
-// Widget to switch between different users (future functionality)
-export const ViewUserSwitch = () => {
-  // TODO
-  const array = { data: [{ id: "TEMP", nickname: "TEMP" }] };
-  const updater = (id: string, nickname: string) => "temp";
+// SESSION
+
+// Widget to show options/links for the current logged in user
+export const ViewUserSession = () => {
+  const auth = useAuthSession();
   return (
     <ViewCardExpandable
       startExpanded
-      header={"Switch User"}
-      body={array?.data?.map((x, i) => (
-        <ViewButtonPressable
-          key={i}
-          style={{ padding: 10, margin: 5, backgroundColor: "lightgray" }}
-          onPress={() => updater(x.id, x.nickname)}
-        >
-          <ViewTypographyText>
-            {x.nickname}
-            {x.id}
-          </ViewTypographyText>
-        </ViewButtonPressable>
-      ))}
+      header={auth?.data?.nickUpper || "Sign In/Up"}
+      body={
+        auth?.data?.session === null ? (
+          <ViewUserSignin />
+        ) : (
+          <ViewContainerColumn>
+            <ViewUserSignout />
+            <ViewUserStatus />
+            <ViewUserSwitch />
+          </ViewContainerColumn>
+        )
+      }
     />
   );
 };
 
+// SIGNIN
+
 export const ViewUserSignin = () => {
-  const auth = useAuthSession();
-  const signout = useAuthSignout();
   const handleTabPress = (index: number) => {
     setActiveTab(index);
   };
@@ -305,11 +298,6 @@ export const ViewUserSignin = () => {
       <ViewContainerRow>
         {tabs.map((content, index) => (
           <ViewContainerRow key={index} style={{ flex: 1 }}>
-            {/* <ViewTabButton
-              onPress={() => handleTabPress(index)}
-              tabIndex={index}
-              tabText={content}
-            /> */}
             <ViewButtonPressable
               key={index}
               style={{
@@ -340,80 +328,79 @@ export const ViewUserSignin = () => {
     </>
   );
 };
-// Widget to show options/links for the current logged in user
-export const ViewUserSession = () => {
-  const auth = useAuthSession();
+
+// SIGNOUT
+
+// Widget to switch between different users (future functionality)
+export const ViewUserSignout = () => {
   const signout = useAuthSignout();
-  const [activeTab, setActiveTab] = useReactState(0);
-  const tabs = [
-    { tab: "Sign in", component: <ViewAuthSignin /> },
-    { tab: "Sign up", component: <ViewAuthSignup /> },
-  ];
-  const handleTabPress = (index: number) => {
-    setActiveTab(index);
-  };
   return (
-    <ViewCardExpandable
-      startExpanded
-      header={auth?.data?.nickUpper || "Sign In/Up"}
-      body={
-        auth?.data?.session === null ? (
-          <ViewUserSignin />
-        ) : (
-          <ViewContainerStatic>
-            <ViewRouterLinkthemed
-              style={{ margin: 5 }}
-              to={`/users/${auth?.data?.session?.user?.id || "guest"}/pods`}
-            >
-              <ViewTypographySubsubheading selectable={false}>
-                Profile
-              </ViewTypographySubsubheading>
-            </ViewRouterLinkthemed>
-            <ViewRouterLinkthemed
-              style={{ margin: 5 }}
-              to={`/users/${auth?.data?.session?.user?.id || "guest"}/devices`}
-            >
-              <ViewTypographySubsubheading selectable={false}>
-                Devices
-              </ViewTypographySubsubheading>
-            </ViewRouterLinkthemed>
-            <ViewRouterLinkthemed
-              style={{ margin: 5 }}
-              to={`/users/${auth?.data?.session?.user?.id || "guest"}/settings`}
-            >
-              <ViewTypographySubsubheading selectable={false}>
-                Settings
-              </ViewTypographySubsubheading>
-            </ViewRouterLinkthemed>
-            <ViewRouterLinkthemed
-              style={{ margin: 5 }}
-              to={`/users/${
-                auth?.data?.session?.user?.id || "guest"
-              }/pods/events`}
-            >
-              <ViewTypographySubsubheading selectable={false}>
-                All Events
-              </ViewTypographySubsubheading>
-            </ViewRouterLinkthemed>
-            <ViewButtonPressable
-              style={{ margin: 5 }}
-              onPress={() => {
-                signout.mutate();
-              }}
-            >
-              <ViewTypographySubsubheading selectable={false}>
-                Signout
-              </ViewTypographySubsubheading>
-            </ViewButtonPressable>
-          </ViewContainerStatic>
-        )
-      }
-    />
+    <ViewContainerColumn>
+      <ViewButtonPressable
+        style={{ margin: 5 }}
+        onPress={() => {
+          signout.mutate();
+        }}
+      >
+        <ViewTypographySubsubheading selectable={false}>
+          Signout
+        </ViewTypographySubsubheading>
+      </ViewButtonPressable>
+    </ViewContainerColumn>
+  );
+};
+
+// STATUS
+
+export const ViewUserStatus = () => {
+  // widget to allow the user toggle between different statuses
+  return (
+    <ViewContainerColumn>
+      <ViewButtonPressable
+        style={{ margin: 5 }}
+        onPress={() => {
+          //todo
+        }}
+      >
+        <ViewTypographySubsubheading selectable={false}>
+          STATUS (Visible - turns on realtime collaborative mode where you can see cursor, invisible, out of the office etc.)
+        </ViewTypographySubsubheading>
+      </ViewButtonPressable>
+    </ViewContainerColumn>
+  );
+};
+
+// SWITCH
+
+// Widget to switch between different users (future functionality)
+export const ViewUserSwitch = () => {
+  // TODO
+  const arrayOtherUsersAvailable = { data: [{ id: "TEMP", nickname: "TEMP" }] };
+  const switchUserUpdater = (id: string, nickname: string) => "temp";
+  return (
+    <ViewContainerColumn>
+      <ViewTypographySubsubheading selectable={false}>
+        SWITCH USER:
+      </ViewTypographySubsubheading>
+      {arrayOtherUsersAvailable?.data?.map((x: any, i) => (
+        <ViewButtonPressable
+          key={i}
+          style={{ padding: 10, margin: 5, backgroundColor: "lightgray" }}
+          onPress={() => switchUserUpdater(x.id, x.nickname)}
+        >
+          <ViewTypographyText>
+            {x.nickname}
+            {x.id}
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      ))}
+    </ViewContainerColumn>
   );
 };
 
 // Widget to show user links (not dependent on who is logged in)
 export const ViewUserLinks = () => {
+  const auth = useAuthSession();
   return (
     <ViewCardExpandable
       startExpanded
@@ -423,6 +410,41 @@ export const ViewUserLinks = () => {
           <ViewRouterLinkthemed style={{ margin: 5 }} to={`/users/all`}>
             <ViewTypographySubsubheading selectable={false}>
               All Users
+            </ViewTypographySubsubheading>
+          </ViewRouterLinkthemed>
+
+          <ViewRouterLinkthemed
+            style={{ margin: 5 }}
+            to={`/users/${auth?.data?.session?.user?.id || "guest"}/pods`}
+          >
+            <ViewTypographySubsubheading selectable={false}>
+              Profile
+            </ViewTypographySubsubheading>
+          </ViewRouterLinkthemed>
+          <ViewRouterLinkthemed
+            style={{ margin: 5 }}
+            to={`/users/${auth?.data?.session?.user?.id || "guest"}/devices`}
+          >
+            <ViewTypographySubsubheading selectable={false}>
+              Devices
+            </ViewTypographySubsubheading>
+          </ViewRouterLinkthemed>
+          <ViewRouterLinkthemed
+            style={{ margin: 5 }}
+            to={`/users/${auth?.data?.session?.user?.id || "guest"}/settings`}
+          >
+            <ViewTypographySubsubheading selectable={false}>
+              Settings
+            </ViewTypographySubsubheading>
+          </ViewRouterLinkthemed>
+          <ViewRouterLinkthemed
+            style={{ margin: 5 }}
+            to={`/users/${
+              auth?.data?.session?.user?.id || "guest"
+            }/pods/events`}
+          >
+            <ViewTypographySubsubheading selectable={false}>
+              All Events
             </ViewTypographySubsubheading>
           </ViewRouterLinkthemed>
         </ViewContainerStatic>
@@ -555,12 +577,10 @@ export const ViewUserAuthentication = () => {
 export const ViewUserProfile = () => {
   return (
     <ViewPageSection>
-        <ViewTypographyText style={{ marginBottom: 10 }}>
-          profile
-        </ViewTypographyText>
-        <ViewTypographyText>
-          (todo)
-        </ViewTypographyText>
+      <ViewTypographyText style={{ marginBottom: 10 }}>
+        profile
+      </ViewTypographyText>
+      <ViewTypographyText>(todo)</ViewTypographyText>
     </ViewPageSection>
   );
 };

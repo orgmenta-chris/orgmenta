@@ -365,69 +365,6 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     nickname: "governance-model-growth-penetration",
   },
   {
-    id: 111,
-    parent: 11,
-    status: "5. Hold",
-    name_singular: "counsel",
-    display_singular: "Counsel",
-    description:
-      "Obtain relevant input from inside and/or outside the business",
-    summary: "Advice and consultation from specialist areas",
-    nickname: "governance-counsel",
-  },
-  {
-    id: 1110,
-    parent: 111,
-    status: "5. Hold",
-    name_singular: "legal",
-    display_singular: "Legal",
-    description: "Obtain legal advice & consultation",
-    summary: "The CLO role (Chief Legal Officer)",
-    nickname: "governance-counsel-legal",
-  },
-  {
-    id: 1111,
-    parent: 111,
-    status: "5. Hold",
-    name_singular: "financial",
-    display_singular: "Financial",
-    description: "Obtain finance advice & consultation",
-    summary: "The CFO role (Chief Financial Officer)",
-    nickname: "governance-counsel-financial",
-  },
-  {
-    id: 1112,
-    parent: 111,
-    status: "5. Hold",
-    name_singular: "technological",
-    display_singular: "Technological",
-    description: "Obtain technical advice & consultation",
-    summary: "The CIO/CTO role (Chief Information/Technology Officer)",
-    nickname: "governance-counsel-technological",
-  },
-  {
-    id: 1113,
-    parent: 111,
-    status: "5. Hold",
-    name_singular: "niche",
-    display_singular: "Niche",
-    description:
-      "Consultation with industry experts / Knowledge in specific domains",
-    summary: "Bring in expert consultation for specialist advice",
-    notes: `(e.g. data center employees for a server move project)`,
-    nickname: "governance-counsel-niche",
-  },
-  {
-    id: 1114,
-    parent: 111,
-    status: "5. Hold",
-    name_singular: "strategy",
-    display_singular: "Strategy",
-    description: "Industry, business and marketing experts",
-    summary: "Consultation with business & strategic experts",
-    nickname: "governance-counsel-strategy",
-  },
-  {
     id: 112,
     parent: 11,
     status: "5. Hold",
@@ -656,62 +593,72 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     id: 113,
     parent: 11,
     status: "5. Hold",
-    name_singular: "metrics",
-    display_singular: "Metrics",
-    description: null,
-    summary: "Your company roadmap and timeline",
-    nickname: "governance-metrics-scorecards",
+    name_singular: "reporting",
+    display_singular: "Reporting",
+    description: "Your hub for automated & manual reports",
+    summary: "Custom reports, metrics and information usage",
+    nickname: "governance-reporting",
   },
   {
     id: 1130,
     parent: 113,
     status: "5. Hold",
+    name_singular: "metrics",
+    display_singular: "Metrics",
+    description: null,
+    summary: null,
+    nickname: "governance-reporting-metrics",
+  },
+  {
+    id: 11300,
+    parent: 1130,
+    status: "5. Hold",
     name_singular: "targets",
     display_singular: "Targets",
     description: "The OKRs/KPIs",
     summary: "The OKRs/KPIs",
-    nickname: "governance-metrics-targets",
+    nickname: "governance-reporting-metrics-targets",
   },
   {
-    id: 1131,
-    parent: 113,
+    id: 11301,
+    parent: 1130,
     status: "5. Hold",
     name_singular: "benchmarks",
     display_singular: "Benchmarks",
     description: null,
     summary: "The thresholds you want to reach with your metrics",
-    nickname: "governance-metrics-benchmarks",
+    nickname: "governance-reporting-metrics-benchmarks",
   },
   {
-    id: 1132,
-    parent: 113,
+    id: 11302,
+    parent: 1130,
     status: "5. Hold",
     name_singular: "measurements",
     display_singular: "Measurements",
     description: null,
     summary: "Recording of actual business data against metrics",
-    nickname: "governance-metrics-measurements",
+    nickname: "governance-reporting-metrics-measurements",
   },
   {
-    id: 1133,
-    parent: 113,
+    id: 11303,
+    parent: 1130,
     status: "5. Hold",
     name_singular: "scorecards",
     display_singular: "Scorecards",
     description: null,
     summary: "Scorecards from different areas of the business",
-    nickname: "governance-metrics-scorecards",
+    nickname: "governance-reporting-metrics-scorecards",
   },
   {
-    id: 1134,
-    parent: 113,
+    id: 11304,
+    parent: 1130,
     status: "5. Hold",
     name_singular: "inspection",
     display_singular: "Inspection",
     description:
       "Review and derive actions from metrics that will improve future achievement of metrics",
     summary: "Review of metrics & measurements",
-    nickname: "governance-metrics-inspection",
+    nickname: "governance-reporting-metrics-inspection",
   },
   {
     id: 114,
@@ -759,15 +706,15 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     nickname: "governance-executive-management-stakeholder_management",
   },
   {
-    id: 1142,
-    parent: 114,
+    id: 11411,
+    parent: 1141,
     status: "5. Hold",
     name_singular: "accountability",
     display_singular: "Accountability",
     summary: "Mechanisms for assigning and tracking responsibilities",
     description:
       "Ensure everything has an owner: Assign responsibilities to managers and other employees",
-    nickname: "governance-executive-accountability",
+    nickname: "governance-executive-management-accountability",
   },
   {
     id: 1143,
@@ -776,7 +723,7 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     name_singular: "reports",
     display_singular: "Reports",
     description: "Report creations for the business's decision making",
-    summary: "Your hub for automated & manual reports",
+    summary: "Use reports to assist with management and decision making",
     nickname: "governance-executive-reports",
   },
   {
@@ -788,6 +735,69 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     description: null,
     summary: "Coordination & tools for decision making",
     nickname: "governance-executive-decisions",
+  },
+  {
+    id: 1145,
+    parent: 114,
+    status: "5. Hold",
+    name_singular: "counsel",
+    display_singular: "Counsel",
+    description:
+      "Obtain relevant input from inside and/or outside the business",
+    summary: "Advice and consultation from specialist areas",
+    nickname: "governance-counsel",
+  },
+  {
+    id: 11450,
+    parent: 1145,
+    status: "5. Hold",
+    name_singular: "legal",
+    display_singular: "Legal",
+    description: "Obtain legal advice & consultation",
+    summary: "The CLO role (Chief Legal Officer)",
+    nickname: "governance-counsel-legal",
+  },
+  {
+    id: 11451,
+    parent: 1145,
+    status: "5. Hold",
+    name_singular: "financial",
+    display_singular: "Financial",
+    description: "Obtain finance advice & consultation",
+    summary: "The CFO role (Chief Financial Officer)",
+    nickname: "governance-counsel-financial",
+  },
+  {
+    id: 11452,
+    parent: 1145,
+    status: "5. Hold",
+    name_singular: "technological",
+    display_singular: "Technological",
+    description: "Obtain technical advice & consultation",
+    summary: "The CIO/CTO role (Chief Information/Technology Officer)",
+    nickname: "governance-counsel-technological",
+  },
+  {
+    id: 11453,
+    parent: 1145,
+    status: "5. Hold",
+    name_singular: "niche",
+    display_singular: "Niche",
+    description:
+      "Consultation with industry experts / Knowledge in specific domains",
+    summary: "Bring in expert consultation for specialist advice",
+    notes: `(e.g. data center employees for a server move project)`,
+    nickname: "governance-counsel-niche",
+  },
+  {
+    id: 11454,
+    parent: 1145,
+    status: "5. Hold",
+    name_singular: "strategy",
+    display_singular: "Strategy",
+    description: "Industry, business and marketing experts",
+    summary: "Consultation with business & strategic experts",
+    nickname: "governance-counsel-strategy",
   },
   {
     id: 12,
@@ -1019,8 +1029,8 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     status: "0. New",
     name_singular: "receivables",
     display_singular: "Receivables",
-    summary: "Get your invoices issued and paid on time.",
-    description: "End-to-end revenue operations",
+    summary: "Invoices to customers and End-to-end revenue operations",
+    description: "Get your invoices issued and paid on time, stress free.",
     notes: `
     benefits:
       "Save $1,000s on missed revenue. Have an expert on hand to manage everything for you. Avoid costly in house staff",
@@ -1621,8 +1631,8 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     status: "0. New",
     name_singular: "payables",
     display_singular: "Payables",
-    description: "Bills from your suppliers",
-    summary: "Get your bills entered and paid on time. Stress Free.",
+    description: "Get your bills entered and paid on time, stress free.",
+    summary: "Bills from your suppliers and End-to-end expense operations",
     notes: `
       "Orgmenta handles your supplier billing, repeating bills, bill entering and payment preparation.",
     process: [
@@ -2446,7 +2456,7 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     name_singular: "procurement",
     display_singular: "Procurement",
     description: "Purchase requests & Purchase orders",
-    summary: "Procure products from suppliers",
+    summary: "Obtaining products from suppliers",
     nickname: "product-procurement",
   },
   {
@@ -3031,7 +3041,7 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     description:
       "Manage customer relationships through onboarding to offboarding",
     summary:
-      "Prospective, Onboarding, Active, Watchlist and Offboarding client relationships",
+      "Prospective, Onboarding, Active, Watchlist and Offboarding clients",
     nickname: "customer-lifecycle",
   },
   {
@@ -3063,6 +3073,8 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
       "Move Prospective customers into Onboarding status as soon as proposals are successfully signed off",
       "Capture all necessary customer information",
       "Liaise with customers for any needed onboarding assistance",
+      "Fill and return 'new supplier forms' to the customer if they issued one to you",
+      "Ensure billing processes and information gathering is triggered for Invoicing to the customer (see Debtors)
       "https://www.zendesk.com/au/blog/customer-onboarding/#:~:text=is%20customer%20onboarding%3F-,Customer%20onboarding%20is%20the%20process%20of%20teaching%20new%20customers%20the,looks%20different%20for%20each%20customer.",
       "https://blog.hubspot.com/service/customer-onboarding",
       "https://www.helpscout.com/blog/customer-onboarding/",
@@ -3280,9 +3292,21 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     description:
       "Process potential customer deals and derive quotes/proposals from them",
     nickname: "customer-sales-leads",
+    notes: `Get leads from marketing, tender databases/portals, word of mouth, existing customers, referrals, outreach, introductions etc.`,
   },
   {
     id: 1411,
+    parent: 141,
+    status: "0. New",
+    name_singular: "proposals",
+    display_singular: "Proposals",
+    description: "Manage solution proposals with the customer",
+    summary:
+      "Bids for tenders, sales scoping, needs assessments, presentations and proposal submissions",
+    nickname: "customer-sales-proposals",
+  },
+  {
+    id: 1412,
     parent: 141,
     status: "0. New",
     name_singular: "quotes",
@@ -3290,16 +3314,6 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     summary: "Manage offers to the customer",
     description: "Issue price & scope quotes to customers",
     nickname: "customer-sales-quotes",
-  },
-  {
-    id: 1412,
-    parent: 141,
-    status: "0. New",
-    name_singular: "proposals",
-    display_singular: "Proposals",
-    description: "Manage solution proposals with the customer",
-    summary: null,
-    nickname: "customer-sales-proposals",
   },
   {
     id: 1413,
@@ -3312,15 +3326,26 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     nickname: "customer-sales-commitment",
   },
   {
+    id: 1414,
+    parent: 141,
+    status: "0. New",
+    name_singular: "order",
+    display_singular: "Order",
+    description:
+      "Trigger sales orders, go-ahead on projects, and other triggers for the fulfilment of the customer's commitment",
+    summary: "Sales Orders, Project Go-aheads and other fulfilment triggers",
+    nickname: "customer-sales-order",
+  },
+  {
     id: 142,
     parent: 14,
     status: "0. New",
-    name_singular: "relationships",
-    display_singular: "Relationships",
+    name_singular: "relationship",
+    display_singular: "Relationship",
     summary: "Delivery, Support, Service, Disputes and Help",
     description:
       "Manage customer relationships, agreements/contracts and services rendered",
-    nickname: "customer-relationships",
+    nickname: "customer-relationship",
   },
   {
     id: 1420,
@@ -3331,7 +3356,7 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     summary: "Customer contracts",
     description:
       "Manage agreements, agreement items and other commitments to the customer",
-    nickname: "customer-relationships",
+    nickname: "customer-relationship-agreements",
   },
   {
     id: 1421,
@@ -3341,7 +3366,7 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     display_singular: "Support",
     summary: "Customer support assistance",
     description: "Provide services and support to your customers",
-    nickname: "customer-relationships-support",
+    nickname: "customer-relationship-support",
   },
   {
     id: 1422,
@@ -3357,7 +3382,7 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
       "preferences management (notes, instructions and special information)",
       "agreements (service level agreements, KPIs and rules)",
     ]`,
-    nickname: "customer-relationships-information",
+    nickname: "customer-relationship-information",
   },
   {
     id: 1423,
@@ -3366,10 +3391,22 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     name_singular: "disputes",
     display_singular: "Disputes",
     summary:
-      "Pre-empting, Avoiding, Acknowledging and Mitigating disagreements with the customer",
+      "Pre-empting, Avoiding, Acknowledging & Mitigating disagreements with the customer",
     description:
       "managing customer queries and issues. This may trigger the customer being moved to the 'watchlist' queue.",
-    nickname: "customer-relationships-disputes",
+    nickname: "customer-relationship-disputes",
+  },
+  {
+    id: 1424,
+    parent: 142,
+    status: "0. New",
+    name_singular: "portal",
+    display_singular: "Portal",
+    summary:
+      "A customer portal for transparency, reporting and support requests",
+    description:
+      "Provide a secure and personalized hub for customers to submit and manage their support requests, contribute to a community forum, and access up-to-date knowledge base articles",
+    nickname: "customer-relationship-portal",
   },
   {
     id: 143,
@@ -3379,8 +3416,12 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     display_singular: "Success",
     description:
       "Making sure that your services are adding appropriate value and enabling the customer",
-    summary: "Customer Experience, Pulse and Development",
+    summary: "vCIO, Customer Experience, Pulse and Development",
     nickname: "customer-success",
+    notes: `
+    https://narmada.cloud/
+    https://www.invarosoft.com/teamlogicit/#:~:text=Client%20Portal%20The%20TeamLogic%20IT,Knowledgebase%20Training%20Staff%20Directory%20CSAT
+    `,
   },
   {
     id: 1430,
@@ -3390,18 +3431,52 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     display_singular: "Reviews",
     description:
       "Undertake reviews of the customer and your relationshp with them",
-    summary: "QBRs (Quarterly business reviews), and other assessments",
-    nickname: "customer-success",
+    summary:
+      "Compliance reviews, Audits, QBRs (Quarterly business reviews), and other assessments",
+    nickname: "customer-success-reviews",
   },
   {
     id: 1431,
     parent: 143,
     status: "5. Hold",
+    name_singular: "success_planning",
+    display_singular: "Success Planning",
+    description: null,
+    summary:
+      "Working with the customer to ensure the product value is maximised.",
+    nickname: "customer-success-success_planning",
+  },
+  {
+    id: 1432,
+    parent: 143,
+    status: "5. Hold",
+    name_singular: "user_groups",
+    display_singular: "User Groups",
+    description: null,
+    summary: "Customer training and coaching groups",
+    nickname: "customer-success-user_groups",
+  },
+  {
+    id: 1433,
+    parent: 143,
+    status: "5. Hold",
+    name_singular: "value_realization",
+    display_singular: "Value Realization",
+    description:
+      "Ensure your customers are maximising value from your services",
+    summary: "ROI Tracking, value analysis and other methods to ensure ROI.",
+    nickname: "customer-success-value_realization",
+  },
+  {
+    id: 1434,
+    parent: 143,
+    status: "5. Hold",
     name_singular: "satisfaction",
     display_singular: "Satisfaction",
-    description:null,
-    summary: "CSAT, NPS, PMF, CES and other surveys",
+    description: null,
+    summary: "Customer Feedback, CSAT, NPS, PMF, CES and other surveys",
     nickname: "customer-success-satisfaction",
+    notes: `Link testimonials from here (customer-success-satisfaction) to the corporate website (Market)`,
   },
   {
     id: 144,
@@ -3589,6 +3664,7 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     display_singular: "Personnel",
     summary: "Timesheets, HR & Payroll",
     description: "Employee tools & Human Resources",
+    notes: `https://www.bamboohr.com/resources/hr-glossary/`,
     nickname: "personnel",
     icon_name: "people",
     icon_source: "OctIcons",
@@ -3922,7 +3998,8 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     status: "5. Hold",
     name_singular: "skills",
     display_singular: "Skills",
-    description:  "Foster personnel skills and maintain a directory for resource planning",
+    description:
+      "Foster personnel skills and maintain a directory for resource planning",
     summary: "Skills & Certifications Management",
     nickname: "personnel-employment-progression-skills",
   },
@@ -4092,32 +4169,85 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     status: "5. Hold",
     name_singular: "compensation",
     display_singular: "Compensation",
-    summary: null,
-    description:
-      "Employee packages. Wages, salary, allowances, commissions, bonuses and other (performance based or otherwise) compensation",
+    description: "Handle different types of compensation (performance based or otherwise) like salaries, hourly wages, commissions, bonuses, and other forms of incentive pay.",
+    summary:
+      "Employee packages. Wages, salary, allowances, commissions, bonuses and other compensation",
     nickname: "personnel-payroll-compensation",
   },
   {
     id: 1621,
     parent: 162,
     status: "5. Hold",
-    name_singular: "annuities",
-    display_singular: "Annuities",
-    summary: null,
-    description:
-      "Employee retirement and investment plans/contributions (Workplace Pension Plan: Pensions / 401ks / Superannuation), Personal Pension Plans: 403(b) and other employee investments, etc.",
-    nickname: "personnel-payroll-annuities",
+    name_singular: "accumulations",
+    display_singular: "Accumulations",
+    description: null,
+    summary:"Management of leave and time-off balances",
+    nickname: "personnel-payroll-accumulations",
   },
   {
     id: 1622,
     parent: 162,
     status: "5. Hold",
+    name_singular: "withholdings",
+    display_singular: "Withholdings",
+    description: null,
+    summary: "Income tax, Employee loan repayments, child support, income taxes, retirement and investment plans/contributions",
+    nickname: "personnel-payroll-withholdings",
+  },
+  {
+    id: 16220,
+    parent: 1622,
+    status: "5. Hold",
+    name_singular: "pensions",
+    display_singular: "Pensions",
+    description: null,
+    summary:
+      "Employee retirement and investment plans/contributions (Workplace Pension Plan: Pensions / 401ks / Superannuation), Personal Pension Plans: 403(b) and other employee investments, etc.",
+    nickname: "personnel-payroll-withholdings-pensions",
+    notes: `https://www.bamboohr.com/resources/hr-glossary/annuity`
+  },
+  {
+    id: 16221,
+    parent: 1622,
+    status: "5. Hold",
+    name_singular: "annuities",
+    display_singular: "Annuities",
+    description: null,
+    summary:
+      "A long-term contract with an insurance company that guarantees the employee a steady stream of income at a future date, most frequently after retirement",
+    nickname: "personnel-payroll-withholdings-annuities",
+    notes: `https://www.bamboohr.com/resources/hr-glossary/annuity`
+  },
+  {
+    id: 16222,
+    parent: 1622,
+    status: "5. Hold",
+    name_singular: "investments",
+    display_singular: "Investments",
+    description: null,
+    summary:
+      "pensions & retirement plans, personal tax repayments, levies, liens, loan repayments and other garnishments",
+    nickname: "personnel-payroll-withholdings-investments",
+  },
+  {
+    id: 16223,
+    parent: 1622,
+    status: "5. Hold",
     name_singular: "garnishments",
     display_singular: "Garnishments",
+    description: null,
+    summary: "Employee loan repayments, child support and other garnishments",
+    nickname: "personnel-payroll-withholdings-garnishments",
+  },
+  {
+    id: 16224,
+    parent: 1622,
+    status: "5. Hold",
+    name_singular: "income_tax",
+    display_singular: "Income Tax",
+    description: null,
     summary: null,
-    description:
-      "personal tax repayments, levies, liens, loan repayments and other garnishments",
-    nickname: "personnel-payroll-garnishments",
+    nickname: "personnel-payroll-withholdings-income_tax",
   },
   {
     id: 1623,
@@ -4125,9 +4255,8 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     status: "5. Hold",
     name_singular: "taxes",
     display_singular: "Taxes",
-    summary: "Personnel Taxation",
-    description:
-      "Deductions that are made from an employee's pay to fund federal, state, and local government programs. These deductions include income tax, FICA (Social Security and Medicare) taxes, and any other taxes required by law.",
+    summary: "Payroll tax calculations, Managing tax deductions, filings, and ensuring compliance with local, state, and federal payroll tax laws.",
+    description: null,
     nickname: "personnel-payroll-taxes",
   },
   {
@@ -4193,35 +4322,57 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     id: 16240,
     parent: 1624,
     status: "5. Hold",
+    name_singular: "earnings",
+    display_singular: "Earnings",
+    description: null,
+    summary:
+      "Calculation of gross pay, including benefits, hourly/time based wages, salary, salary packaging, overtime wages and on-call fees",
+    nickname: "payroll-payrun-earnings",
+  },
+  {
+    id: 162400,
+    parent: 16240,
+    status: "5. Hold",
     name_singular: "wages",
     display_singular: "Wages",
-    summary: null,
-    description:
-      "Calculation of gross pay, including hourly/time based wages, salary, salary packaging, overtime wages, on-call fees",
-    nickname: "payroll-payrun-wages",
+    description: null,
+    summary:
+      "Calculation of gross pay, including hourly/time based wages, salary, salary packaging, overtime wages and on-call fees",
+    nickname: "payroll-payrun-earnings-wages",
+  },
+  {
+    id: 162401,
+    parent: 16240,
+    status: "5. Hold",
+    name_singular: "benefits",
+    display_singular: "Benefits",
+    description: null,
+    summary:
+      "Any non-wage form of compensation and expense reimbursements that an employer provides to its employees, in addition to their base salary",
+    notes:
+      "Any non-wage form of compensation that an employer provides to its employees, in addition to their base salary.\nThese can include things like health insurance, retirement plans, vacation time, transportation allowances, and reimbursements for certain expenses, such as continuing education or business travel.\nBenefits packages can also include things such as Performance bonus, Stock options, and other incentives that are intended to attract and retain employees by providing a comprehensive set of benefits and compensation that meets their financial and non-financial needs.\nBenefits can be an important part of an employee's overall compensation package and can help to attract and retain top talent. Employers typically offer a variety of benefits to appeal to different employee needs, and to stay competitive in the job market.",
+    nickname: "payroll-payrun-earnings-benefits",
   },
   {
     id: 16241,
     parent: 1624,
     status: "5. Hold",
-    name_singular: "benefits",
-    display_singular: "Benefits",
-    summary: null,
-    description:
-      "Any non-wage form of compensation that an employer provides to its employees, in addition to their base salary",
-    notes:
-      "Any non-wage form of compensation that an employer provides to its employees, in addition to their base salary.\nThese can include things like health insurance, retirement plans, vacation time, transportation allowances, and reimbursements for certain expenses, such as continuing education or business travel.\nBenefits packages can also include things such as Performance bonus, Stock options, and other incentives that are intended to attract and retain employees by providing a comprehensive set of benefits and compensation that meets their financial and non-financial needs.\nBenefits can be an important part of an employee's overall compensation package and can help to attract and retain top talent. Employers typically offer a variety of benefits to appeal to different employee needs, and to stay competitive in the job market.",
-    nickname: "payroll-payrun-benefits",
+    name_singular: "deductions",
+    display_singular: "Deductions",
+    description: null,
+    summary:
+      "Deductions for taxes, benefits, and other items are subtracted from gross pay",
+    nickname: "payroll-payrun-deductions",
   },
   {
     id: 16242,
     parent: 1624,
     status: "5. Hold",
-    name_singular: "deductions",
-    display_singular: "Deductions",
-    summary: null,
-    description:
-      "Deductions for taxes, benefits, and other items are subtracted from gross pay",
+    name_singular: "balances",
+    display_singular: "Balances",
+    description: null,
+    summary:
+      "Calculate leave and other time-off additions/deductions/accumulations",
     nickname: "payroll-payrun-deductions",
   },
   {
@@ -4444,18 +4595,20 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     name_singular: "brands",
     display_singular: "Brands",
     description: null,
-    summary: "Your company brand, USP, image, logo and design guidelines",
+    summary:
+      "Your company brand, reputation, USP, image, logo and design guidelines",
     nickname: "market-brands",
   },
   {
     id: 1700,
     parent: 170,
     status: "0. New",
-    name_singular: "graphics",
-    display_singular: "Graphics",
-    summary: "Logos and other design assets",
+    name_singular: "guidelines",
+    display_singular: "Guidelines",
+    summary:
+      "Design Specs, Design documents, Color Palettes, Typography, Imagery & Logo Usage",
     description: null,
-    nickname: "market-brands-graphics",
+    nickname: "market-brands-guidelines",
   },
   {
     id: 1701,
@@ -4463,22 +4616,54 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     status: "0. New",
     name_singular: "assets",
     display_singular: "Assets",
-    summary: "Domains and other assets",
-    description: null,
+    summary: "Trademarks, Domains, Logos and other brand assets",
+    description:
+      "Manage your assets, Digital Asset Management Systems and Asset Update & Refresh Cycle",
     nickname: "market-brands-assets",
   },
   {
-    id: 170,
-    parent: 17,
+    id: 17010,
+    parent: 1701,
+    status: "0. New",
+    name_singular: "graphics",
+    display_singular: "Graphics",
+    summary: "Logos and other design assets",
+    description: null,
+    nickname: "market-brands-assets-graphics",
+  },
+  {
+    id: 1702,
+    parent: 170,
+    status: "0. New",
+    name_singular: "perception",
+    display_singular: "Perception",
+    description: null,
+    summary:
+      "Brand recognition, loyality and other measures of brand perception",
+    nickname: "market-brands-perception",
+  },
+  {
+    id: 17020,
+    parent: 1702,
     status: "0. New",
     name_singular: "reputation",
     display_singular: "Reputation",
     description: null,
     summary: null,
-    nickname: "market-brands-reputation",
+    nickname: "market-brands-perception-reputation",
   },
   {
-    id: 1702,
+    id: 17021,
+    parent: 1702,
+    status: "0. New",
+    name_singular: "loyality",
+    display_singular: "Loyality",
+    description: null,
+    summary: null,
+    nickname: "market-brands-perception-loyality",
+  },
+  {
+    id: 1703,
     parent: 170,
     status: "0. New",
     name_singular: "usp",
@@ -4486,6 +4671,16 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     summary: "Unique Selling Points",
     description: null,
     nickname: "market-brands-usp",
+  },
+  {
+    id: 1704,
+    parent: 170,
+    status: "0. New",
+    name_singular: "identity",
+    display_singular: "Identity",
+    summary: "Your company identity, brand messaging, voice & tone",
+    description: null,
+    nickname: "market-brands-recognition",
   },
   {
     id: 171,
@@ -4505,10 +4700,55 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     name_singular: "landscape",
     display_singular: "Landscape",
     description: null,
-    summary:
-      "A map/list of the competitors and other industry players to be aware of",
-    references: ["link to governance > model", "link to market > research"],
+    summary: "The lay of the land - A map of the space in which you operate",
+    notes: ` ["link to governance > model", "link to market > research"]`,
     nickname: "market-industry-landscape",
+  },
+  {
+    id: 1711,
+    parent: 171,
+    status: "5. Hold",
+    name_singular: "peers",
+    display_singular: "Peers",
+    description:
+      "Maintain a map/list of the competitors and other industry players to be aware of",
+    summary: "Awareness of your competitors, associates and other players in your area",
+    notes: ` ["link to governance > model", "link to market > research"]`,
+    nickname: "market-industry-peers",
+  },
+  {
+    id: 1712,
+    parent: 171,
+    status: "5. Hold",
+    name_singular: "verticals",
+    display_singular: "Verticals",
+    description: null,
+    summary: "Upstream and downstream markets and services",
+    notes: ` ["link to governance > model", "link to market > research"]`,
+    nickname: "market-industry-verticals",
+  },
+  {
+    id: 1713,
+    parent: 171,
+    status: "5. Hold",
+    name_singular: "horizontals",
+    display_singular: "Horizontals",
+    description: null,
+    summary: "Adjacent markets and services",
+    notes: ` ["link to governance > model", "link to market > research"]`,
+    nickname: "market-industry-horizontals",
+  },
+  {
+    id: 1714,
+    parent: 171,
+    status: "5. Hold",
+    name_singular: "depths",
+    display_singular: "Depths",
+    description:
+      "Map and manage the extent and detail to which you can serve your industry space",
+    summary: "Granularity or broadness to which you can serve your industry space",
+    notes: ` ["link to governance > model", "link to market > research"]`,
+    nickname: "market-industry-depths",
   },
   {
     id: 172,
@@ -4519,8 +4759,115 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     description: null,
     summary: "Market campaign management, advertising and lead funnelling",
     nickname: "market-promotions",
-    notes:
+    notes:`
       "Leads generated here will link to the Customer > Sales > Lead process",
+
+      Promotional Planning:
+      Scheduling
+      Budget Allocation
+      Target Audience Identification
+      Goal Setting
+      Promotional Analysis:
+      Effectiveness Measurement
+      Sales Impact Analysis
+      Customer Response Evaluation
+      Promotion Optimization:
+      Performance Improvement
+      Cost Efficiency Analysis
+      Promotional Partnerships:
+      Co-Promotion Agreements
+      Sponsorship Management
+      Promotional Compliance:
+      Legal Compliance
+      Ethical Guidelines Adherence
+      Technology Utilization:
+      Promotion Management Systems
+      Data Analysis Tools
+      Cross-Promotions:
+      Strategy Development
+      Partner Identification and Coordination
+      Public Relations:
+      Press Releases
+      Event Sponsorships
+      Promotional Training:
+      Staff Training for Promotional Activities
+      Vendor Engagement Training
+      Point of Sale Promotions:
+      In-Store Displays
+      Checkout Promotions
+      Analytics:
+      Performance Metrics
+      ROI Analysis
+      Customer Segmentation and Targeting
+      Predictive Analytics
+      A/B Testing
+      Conversion Tracking
+      Click-Through Rate Analysis
+      Content Management:
+      Content Creation
+      Content Scheduling
+      Content Distribution
+      SEO Optimization
+      Multimedia Management
+      Social Media Management:
+      Profile Management
+      Social Listening and Monitoring
+      Social Advertising
+      Engagement Analytics
+      Influencer Collaborations
+      Email Marketing:
+      Template Design
+      List Management
+      Campaign Tracking
+      Automated Responses
+      Segmentation and Personalization
+      Loyalty Programs:
+      Reward Systems
+      Customer Retention Analytics
+      Loyalty Program Management
+      Customer Relationship Management (CRM):
+      Contact Management
+      Interaction Tracking
+      Customer Feedback
+      Customer Support and Services
+      Market Research:
+      Consumer Behavior Analysis
+      Competitor Analysis
+      Trend Analysis
+      Product/Market Fit
+      Automation:
+      Marketing Automation
+      Lead Scoring and Qualification
+      Drip Campaigns
+      Event Marketing:
+      Event Planning and Management
+      Promotion and Advertising for Events
+      Post-Event Analysis
+      Regulatory Compliance:
+      Data Privacy Compliance
+      Ad Compliance
+      Anti-Spam Compliance
+      Budget Management:
+      Budget Planning
+      Expense Tracking
+      Financial Forecasting
+      Vendor Management:
+      Vendor Selection
+      Contract Negotiation and Management
+      Performance Evaluation
+      Community Management:
+      Community Engagement
+      Forum Moderation
+      User Generated Content Moderation
+      Affiliate Marketing:
+      Affiliate Recruitment
+      Commission Management
+      Performance Monitoring
+      Mobile Marketing:
+      App Store Optimization
+      Mobile Advertising
+      SMS Marketing
+    `,
   },
   {
     id: 1720,
@@ -4533,6 +4880,67 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     nickname: "market-promotions-campaigns",
   },
   {
+    id: 1721,
+    parent: 172,
+    status: "5. Hold",
+    name_singular: "channels",
+    display_singular: "Channels",
+    summary: null,
+    description: null,
+    nickname: "market-promotions-channels",
+  },
+  {
+    id: 17210,
+    parent: 1721,
+    status: "5. Hold",
+    name_singular: "referrals",
+    display_singular: "Referrals",
+    summary:
+      "Word of mouth and other referrals from partners, industry peers, customers and other stakeholders",
+    description: null,
+    nickname: "market-promotions-channels-referrals",
+  },
+  {
+    id: 17210,
+    parent: 1721,
+    status: "5. Hold",
+    name_singular: "social_networks",
+    display_singular: "Social Networks",
+    summary: null,
+    description: null,
+    nickname: "market-promotions-channels-social_networks",
+  },
+  {
+    id: 1722,
+    parent: 172,
+    status: "5. Hold",
+    name_singular: "segmentations",
+    display_singular: "Segmentations",
+    summary: "Customer / Lead groups and targeting",
+    description: null,
+    nickname: "market-promotions-segmentations",
+  },
+  {
+    id: 1723,
+    parent: 172,
+    status: "5. Hold",
+    name_singular: "advertising",
+    display_singular: "Advertising",
+    summary: null,
+    description: null,
+    nickname: "market-promotions-advertising",
+  },
+  {
+    id: 1724,
+    parent: 172,
+    status: "5. Hold",
+    name_singular: "funnel",
+    display_singular: "Funnel",
+    summary: "Managing incoming leads and linking them to the Customer Sales module",
+    description: null,
+    nickname: "market-promotions-funnel",
+  },
+  {
     id: 173,
     parent: 17,
     status: "5. Hold",
@@ -4542,6 +4950,65 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     summary:
       "Data collection and analysis of your company reputation, markets and competitors",
     nickname: "market-research",
+    notes: `
+    Data Collection:
+    Surveys and Questionnaires
+    Interviews
+    Focus Groups
+    Observational Research
+    Data Analysis:
+    Statistical Analysis
+    Predictive Modeling
+    Trend Analysis
+    Comparative Analysis
+    Market Segmentation:
+    Demographic Segmentation
+    Psychographic Segmentation
+    Behavioral Segmentation
+    Geographic Segmentation
+    Competitor Analysis:
+    Competitor Profiling
+    Market Share Analysis
+    Competitive Benchmarking
+    Consumer Behavior Analysis:
+    Purchase Behavior
+    Usage Analysis
+    Attitude and Satisfaction Studies
+    Industry Analysis:
+    Industry Trends
+    Growth Analysis
+    Regulatory Environment Analysis
+    Product Research:
+    Concept Testing
+    Product Usability Testing
+    Pricing Research
+    Brand Research:
+    Brand Awareness
+    Brand Perception
+    Brand Loyalty
+    Ethnographic Research:
+    Cultural Analysis
+    Social Impact Analysis
+    Market Entry and Expansion:
+    Market Opportunity Assessment
+    Risk Assessment
+    Channel Analysis
+    Technology and Innovation Research:
+    Emerging Technologies
+    Innovation Landscape Analysis
+    Advertising and Promotion Research:
+    Advertising Effectiveness
+    Promotion Evaluation
+    Economic Analysis:
+    Economic Trends
+    Impact Analysis
+    Supply Chain & Distribution Research:
+    Distribution Channels Analysis
+    Supply Chain Efficiency
+    Legal and Regulatory Compliance Research:
+    Compliance Assessment
+    Policy Impact Analysis
+    `
   },
   {
     id: 174,
@@ -4630,7 +5097,7 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     name_singular: "control",
     display_singular: "Control",
     description: null,
-    summary: "Project control, quality and change management",
+    summary: "Project management, project control, quality and change management",
     nickname: "operations-control",
   },
   {
@@ -4647,21 +5114,21 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     id: 18000,
     parent: 1800,
     status: "0. New",
-    name_singular: "qualitycontrol",
+    name_singular: "quality_control",
     display_singular: "Quality Control",
     description: null,
     summary: null,
-    nickname: "operations-control-quality-qualitycontrol",
+    nickname: "operations-control-quality-quality_control",
   },
   {
     id: 18001,
     parent: 1800,
     status: "0. New",
-    name_singular: "qualityassurance",
+    name_singular: "quality_assurance",
     display_singular: "Quality Assurance",
     description: null,
     summary: null,
-    nickname: "operations-control-quality-qualityassurance",
+    nickname: "operations-control-quality-quality_assurance",
   },
   {
     id: 1801,
@@ -4672,6 +5139,56 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     description: null,
     summary: "Change Requests and Management",
     nickname: "operations-control-changes",
+  },
+  {
+    id: 18010,
+    parent: 1801,
+    status: "0. New",
+    name_singular: "requests",
+    display_singular: "Requests",
+    description: null,
+    summary: "Creation and submission of Change Requests",
+    nickname: "operations-control-changes-requests",
+  },
+  {
+    id: 18011,
+    parent: 1801,
+    status: "0. New",
+    name_singular: "reviews",
+    display_singular: "Reviews",
+    description: null,
+    summary: "Reviews and approvals of change requests",
+    nickname: "operations-control-changes-revies",
+  },
+  {
+    id: 18012,
+    parent: 1801,
+    status: "0. New",
+    name_singular: "resourcing",
+    display_singular: "Resourcing",
+    description: null,
+    summary: "Resourcing of approved change requests",
+    nickname: "operations-control-changes-schedules",
+  },
+  {
+    id: 18013,
+    parent: 1801,
+    status: "0. New",
+    name_singular: "schedules",
+    display_singular: "Schedules",
+    description: null,
+    summary: "Scheduling of approved change requests and outage & work windows",
+    nickname: "operations-control-changes-schedules",
+  },
+  {
+    id: 18014,
+    parent: 1801,
+    status: "0. New",
+    name_singular: "notifications",
+    display_singular: "Notifications",
+    description: null,
+    summary: "Raising awareness to stakeholders of scheduled changes",
+    nickname: "operations-control-changes-notifications",
   },
   {
     id: 1802,
@@ -5320,8 +5837,8 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     status: "5. Hold",
     name_singular: "offerings",
     display_singular: "Offerings",
-    description: "Management of your company offerings (products / services)",
-    summary: null,
+    summary: "Management of your company offerings (products / services)",
+    description: null,
     notes: `[
       "Work with you to establish and maintain core offerings (products & services)",
       "Set and maintain rates, and schedule pricing reviews annually or more frequently",

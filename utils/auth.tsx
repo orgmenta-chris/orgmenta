@@ -13,6 +13,7 @@ import {
   useQueryerQuery,
   useQueryerClient,
 } from "./queryer";
+import { useAzureSSOStore } from "../states/auth/storeSSO";
 
 // STYLES (to be moved to theme once developed)
 
@@ -32,7 +33,7 @@ export type TypeAuthSignup = {
   email: string;
   password: string;
   confirmPassword: string;
-}
+};
 
 export interface interfaceSuperbaseSignup {
   email: string;
@@ -53,6 +54,19 @@ export const requestAuthSignup = async ({
   return data;
 };
 
+export const requestSignInWithAzure = async () => {
+  const { data, error } = await instanceSupabaseClient.auth.signInWithOAuth({
+    provider: "azure",
+    options: {
+      scopes: "email",
+    },
+  });
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
+
 // hook to wrap requestAuthSignup
 export const useAuthSignup = ({
   email,
@@ -66,6 +80,19 @@ export const useAuthSignup = ({
   return useQueryerMutation(
     ["auth", "signup"],
     () => requestAuthSignup({ email, password }),
+    {
+      onSuccess: () => {
+        queryerClient.invalidateQueries(["auth", "session"]);
+      },
+    }
+  );
+};
+
+export const useAzureSignin = () => {
+  const queryerClient = useQueryerClient();
+  return useQueryerMutation(
+    ["auth", "signup"],
+    () => requestSignInWithAzure(),
     {
       onSuccess: () => {
         queryerClient.invalidateQueries(["auth", "session"]);
@@ -180,6 +207,10 @@ export const requestAuthSignout = async () => {
   await instanceSupabaseClient.auth.signOut();
 };
 
+export const requestSSOAuthSignout = async () => {
+  await instanceSupabaseClient.auth.signOut();
+};
+
 // hook to wrap requestAuthSignout
 export const useAuthSignout = () => {
   const queryerClient = useQueryerClient();
@@ -188,6 +219,19 @@ export const useAuthSignout = () => {
       queryerClient.invalidateQueries(["auth", "session"]);
     },
   });
+};
+
+export const useAzureSignout = () => {
+  const queryerClient = useQueryerClient();
+  return useQueryerMutation(
+    ["auth", "signout"],
+    () => requestSSOAuthSignout(),
+    {
+      onSuccess: () => {
+        queryerClient.invalidateQueries(["auth", "session"]);
+      },
+    }
+  );
 };
 
 // SIGNIN (The View is complete, the others are placeholders that are no longer up to date. abstract out of the view into them)
@@ -203,14 +247,18 @@ export const ViewAuthSignin = () => {
 
   return (
     <ViewContainerStatic>
-      <ViewTypographyText style={{ marginHorizontal: 12 }}>Email</ViewTypographyText>
+      <ViewTypographyText style={{ marginHorizontal: 12 }}>
+        Email
+      </ViewTypographyText>
       <ViewInputText
         style={styles.input}
         autoComplete="username"
         placeholder="Email"
         onChangeText={(value) => usernameUpdate(value)}
       />
-      <ViewTypographyText style={{ marginHorizontal: 12 }}>Password</ViewTypographyText>
+      <ViewTypographyText style={{ marginHorizontal: 12 }}>
+        Password
+      </ViewTypographyText>
       <ViewInputText
         style={styles.input}
         secureTextEntry={true}
@@ -239,7 +287,9 @@ export const ViewAuthSignin = () => {
         }}
         onPress={() => signin.mutate()}
       >
-        <ViewTypographyText style={{ textAlign: "center" }}>Sign In</ViewTypographyText>
+        <ViewTypographyText style={{ textAlign: "center" }}>
+          Sign In
+        </ViewTypographyText>
         <ViewTypographyText>
           {signin.isLoading ? <ViewIndicatorSpinner /> : null}
         </ViewTypographyText>
@@ -269,6 +319,77 @@ export const ViewAuthSignin = () => {
           }}
         >
           Logged in successfully!
+        </ViewTypographyText>
+      ) : null}
+    </ViewContainerStatic>
+  );
+};
+
+export const ViewAzureSignin = () => {
+  const signin = useAzureSignin();
+  const ssoSession = useAzureSSOStore((state: any) => state.userSession);
+
+  return (
+    <ViewContainerStatic>
+      {ssoSession ? (
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            backgroundColor: "lightblue",
+            gap: 5,
+            marginHorizontal: 12,
+            marginTop: 5,
+            padding: 10,
+            borderRadius: 5,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
+          }}
+          onPress={() => signin.mutate()}
+        >
+          <ViewTypographyText style={{ textAlign: "center" }}>
+            Sign In With MS Account
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      ) : (
+        <ViewTypographyText>
+          {/* {signin.isLoading ? <ViewIndicatorSpinner /> : null} */}
+          Successfully Logged in to Supabase
+        </ViewTypographyText>
+      )}
+
+      {signin.isError ? (
+        <ViewTypographyText
+          style={{
+            textAlign: "center",
+            marginTop: 20,
+            marginHorizontal: 12,
+            padding: 10,
+            borderRadius: 5,
+            backgroundColor: "#d15953",
+          }}
+        >
+          An error occurred: {(signin.error as any)?.message}
+        </ViewTypographyText>
+      ) : signin.isSuccess ? (
+        <ViewTypographyText
+          style={{
+            textAlign: "center",
+            marginTop: 20,
+            marginHorizontal: 12,
+            padding: 10,
+            borderRadius: 5,
+            backgroundColor: "#53d17b",
+          }}
+        >
+          Signing you in!
         </ViewTypographyText>
       ) : null}
     </ViewContainerStatic>
@@ -313,7 +434,7 @@ export const useAuthSignin = ({ email, password }: TypeAuthSignin) => {
 
 export type TypeAuthReset = {
   email: string;
-}
+};
 
 // request a password reset
 export const requestAuthReset = async (props: TypeAuthReset) => {

@@ -32,12 +32,18 @@ import { useModalVisibility } from "./modal";
 import {
   useAuthSession,
   useAuthSignout,
+  useAzureSignout,
   ViewAuthSignin,
   ViewAuthSignup,
+  ViewAzureSignin,
 } from "./auth";
 import { useReactState } from "./react";
 import MSAL from "../components/auth/msal";
+import { useEffect, useState } from "react";
+import useTokenStore from "../states/api/storeToken";
+import { useAzureSSOStore } from "../states/auth/storeSSO";
 // import MSAL from "../../../auth/msal";
+import { Text } from "react-native";
 
 // PAGE
 
@@ -237,6 +243,43 @@ export const ViewUserSwitch = () => {
   );
 };
 
+export const ViewAdminAuth = () => {
+  const [authState, setAuthState] = useState(true);
+
+  const toggleAuthState = () => {
+    setAuthState(!authState);
+  };
+
+  return (
+    <ViewContainerScroll>
+      <ViewContainerStatic>
+        {authState ? <ViewAzureSignin /> : <ViewUserSignin />}
+      </ViewContainerStatic>
+      <ViewContainerStatic>
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            padding: 5,
+            margin: 10,
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "black",
+            backgroundColor: "lightblue",
+          }}
+          onPress={toggleAuthState}
+        >
+          <ViewTypographyText
+            selectable={false}
+            style={{ fontWeight: "bold", textAlign: "center" }}
+          >
+            {authState ? "Password Login" : "Social Login"}
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      </ViewContainerStatic>
+    </ViewContainerScroll>
+  );
+};
+
 export const ViewUserSignin = () => {
   const auth = useAuthSession();
   const signout = useAuthSignout();
@@ -246,6 +289,7 @@ export const ViewUserSignin = () => {
   const tabs = [
     { tab: "Sign in", component: <ViewAuthSignin /> },
     { tab: "Sign up", component: <ViewAuthSignup /> },
+    // { tab: "Sign in using MS account", component: <ViewAzureSignin /> },
   ];
   const [activeTab, setActiveTab] = useReactState(0);
   return (
@@ -286,23 +330,48 @@ export const ViewUserSignin = () => {
 // Widget to show options/links for the current logged in user
 export const ViewUserSession = () => {
   const auth = useAuthSession();
-  const signout = useAuthSignout();
-  const [activeTab, setActiveTab] = useReactState(0);
-  const tabs = [
-    { tab: "Sign in", component: <ViewAuthSignin /> },
-    { tab: "Sign up", component: <ViewAuthSignup /> },
-  ];
-  const handleTabPress = (index: number) => {
-    setActiveTab(index);
+  const signoutRegular = useAuthSignout();
+  const signoutAzure = useAzureSignout();
+  // const [activeTab, setActiveTab] = useReactState(0);
+  // const tabs = [
+  //   { tab: "Sign in", component: <ViewAuthSignin /> },
+  //   { tab: "Sign up", component: <ViewAuthSignup /> },
+  // ];
+  // const handleTabPress = (index: number) => {
+  //   setActiveTab(index);
+  // };
+  // const [parameters, setParameters] = useState(null);
+  // const setToken = useTokenStore((state: any) => state.setToken);
+  const setSSOSession = useAzureSSOStore((state: any) => state.setSession);
+  const ssoSession = useAzureSSOStore((state: any) => state.userSession);
+
+  const getURLParameters = (url: any) => {
+    const searchParams = new URLSearchParams(url.split("#")[1]);
+
+    const parameters = Object.fromEntries(searchParams.entries());
+
+    // @ts-ignore
+    setSSOSession(parameters);
   };
+
+  useEffect(() => {
+    const currentURL = window.location.href;
+
+    getURLParameters(currentURL);
+
+    console.log("parameters:", ssoSession);
+  }, []);
+
   return (
     <ViewCardExpandable
       startExpanded
       header={auth?.data?.nickUpper || "Sign In/Up"}
       body={
-        auth?.data?.session === null ? (
-          <ViewUserSignin />
+        // @ts-ignore
+        !auth?.data?.session && !ssoSession.access_token ? (
+          <ViewAdminAuth />
         ) : (
+          // <Text>{JSON.stringify(ssoSession, null, 2)}</Text>
           <ViewContainerStatic>
             <ViewRouterLinkthemed
               style={{ margin: 5 }}
@@ -341,7 +410,8 @@ export const ViewUserSession = () => {
             <ViewButtonPressable
               style={{ margin: 5 }}
               onPress={() => {
-                signout.mutate();
+                ssoSession ? signoutRegular.mutate(): signoutAzure.mutate();
+                
               }}
             >
               <ViewTypographySubsubheading selectable={false}>

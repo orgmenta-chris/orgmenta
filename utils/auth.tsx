@@ -13,6 +13,7 @@ import {
   useQueryerQuery,
   useQueryerClient,
 } from "./queryer";
+import { useAzureSSOStore } from "../states/auth/storeSSO";
 
 // STYLES (to be moved to theme once developed)
 
@@ -220,7 +221,7 @@ export const useAuthSignout = () => {
   });
 };
 
-export const useAzureSignout = async () => {
+export const useAzureSignout = () => {
   const queryerClient = useQueryerClient();
   return useQueryerMutation(
     ["auth", "signout"],
@@ -326,38 +327,44 @@ export const ViewAuthSignin = () => {
 
 export const ViewAzureSignin = () => {
   const signin = useAzureSignin();
+  const ssoSession = useAzureSSOStore((state: any) => state.userSession);
 
   return (
     <ViewContainerStatic>
-      <ViewButtonPressable
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "row",
-          backgroundColor: "lightblue",
-          gap: 5,
-          marginHorizontal: 12,
-          marginTop: 5,
-          padding: 10,
-          borderRadius: 5,
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 4,
-        }}
-        onPress={() => signin.mutate()}
-      >
-        <ViewTypographyText style={{ textAlign: "center" }}>
-          Sign In
-        </ViewTypographyText>
+      {ssoSession ? (
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            backgroundColor: "lightblue",
+            gap: 5,
+            marginHorizontal: 12,
+            marginTop: 5,
+            padding: 10,
+            borderRadius: 5,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
+          }}
+          onPress={() => signin.mutate()}
+        >
+          <ViewTypographyText style={{ textAlign: "center" }}>
+            Sign In With MS Account
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      ) : (
         <ViewTypographyText>
-          {signin.isLoading ? <ViewIndicatorSpinner /> : null}
+          {/* {signin.isLoading ? <ViewIndicatorSpinner /> : null} */}
+          Successfully Logged in to Supabase
         </ViewTypographyText>
-      </ViewButtonPressable>
+      )}
+
       {signin.isError ? (
         <ViewTypographyText
           style={{
@@ -382,7 +389,7 @@ export const ViewAzureSignin = () => {
             backgroundColor: "#53d17b",
           }}
         >
-          Logged in successfully!
+          Signing you in!
         </ViewTypographyText>
       ) : null}
     </ViewContainerStatic>

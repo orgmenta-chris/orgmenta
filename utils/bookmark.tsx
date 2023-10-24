@@ -1,21 +1,61 @@
 // 'Bookmarks' are links to categories, pinned or other saved entity views.
 
+import {
+  ViewContainerStatic,
+  ViewContainerScroll,
+  ViewContainerRow,
+} from "./container";
 import { ViewTypographySubsubheading, ViewTypographyLabel } from "./typography";
 import { ViewModalContainer } from "./modal";
 import { ViewCardExpandable } from "./card";
 import { ViewIconMain } from "./icon";
+import { ViewContextContainer } from "./context";
 import { ViewRouterLinkthemed } from "./router";
-import { ViewContainerStatic, ViewContainerScroll } from "./container";
 import { ViewButtonPressable } from "./button";
+import { ViewInputText } from "./input";
 import { useReactState } from "./react";
 import { useWindowDimensions } from "./window";
 import { useModalVisibility } from "./modal";
 import { useQueryerQuery, TypeQueryerOptions } from "./queryer";
-import { data } from "./static";
+import { data } from "./framework";
 
-// Modal
+// MODULES
+
+const ViewBookmarkModules = ({ filterState }: any) => {
+  // temporary array+components that contains all the business framework modules (will be changed to using supabase entities later)
+  return data 
+    .filter((x) => (x.status === "3. Active" || __DEV__) && x.parent === 1) // if in production, only show active modules
+    .map((x, i) => (
+      <ViewCardExpandable
+        key={x.id || i}
+        header={x.display_singular}
+        headerlink={"entity/" + x.nickname}
+        body={data
+          .filter(
+            (y) =>
+              (y.status === "3. Active" || __DEV__) &&
+              y.parent === x.id &&
+              y.name_singular?.includes(filterState.toLowerCase())
+          )
+          .map((y, i) => (
+            <ViewRouterLinkthemed
+              style={{ textDecoration: "none", margin: 5 }}
+              to={"entity/" + y.nickname}
+              key={"a" + y.id + i}
+            >
+              <ViewTypographySubsubheading>
+                {y.display_singular}
+              </ViewTypographySubsubheading>
+            </ViewRouterLinkthemed>
+          ))}
+      />
+    ));
+};
+
+// MODAL
 
 export const ViewBookmarkModal = (props: any) => {
+  const [filterState, filterSet] = useReactState("");
   return (
     <ViewModalContainer
       modalName={"bookmark"}
@@ -30,38 +70,26 @@ export const ViewBookmarkModal = (props: any) => {
           marginBottom: 5,
         }}
       >
-        {
-          data // temporary array that contains all the navigation objects (will be changed to using supabase entities later)
-            .filter(
-              (x) => (x.status === "3. Active" || __DEV__) && x.parent === 1
-            ) // if in production, only show active modules
-            .map((x, i) => (
-              <ViewCardExpandable
-                key={x.id || i}
-                header={x.display_singular}
-                headerlink={"entity/" + x.nickname}
-                body={data
-                  .filter(
-                    (y) =>
-                      (y.status === "3. Active" || __DEV__) && y.parent === x.id
-                  )
-                  .map((y, i) => (
-                    <ViewRouterLinkthemed
-                      style={{ textDecoration: "none", margin: 5 }}
-                      to={"entity/" + y.nickname}
-                      key={"a" + y.id + i}
-                    >
-                      <ViewTypographySubsubheading>
-                        {y.display_singular}
-                      </ViewTypographySubsubheading>
-                    </ViewRouterLinkthemed>
-                  ))}
-              />
-            )) // display the name only (temporary, to be replaced with link)
-        }
+        <ViewBookmarkModules filterState={filterState} />
       </ViewContainerScroll>
       <ViewContainerStatic>
         <ViewBookmarkTabs />
+        <ViewContainerRow>
+          <ViewTypographyLabel style={{ fontSize: 11 }}>
+            Filter:
+          </ViewTypographyLabel>
+          <ViewInputText
+            autoFocus
+            onChangeText={(text: string) => filterSet(text)}
+            style={{ borderWidth: 1, flex:1}}
+          />
+          <ViewIconMain
+            name={"undo-variant"}
+            source={"MaterialCommunityIcons"}
+            color={"black"}
+          />
+        </ViewContainerRow>
+        <ViewContextContainer />
       </ViewContainerStatic>
     </ViewModalContainer>
   );
@@ -138,6 +166,40 @@ export const ViewBookmarkTabs = ({}: any) => {
           </ViewTypographyLabel>
         </ViewContainerStatic>
       </ViewButtonPressable>
+      <ViewButtonPressable
+        style={{
+          padding: 5,
+          flex: 1,
+          width: 50,
+          height: 50,
+          backgroundColor: state === "tools" ? "gray" : "lightgray",
+        }}
+        onPress={() => set("tools")}
+      >
+        <ViewContainerStatic style={{ alignItems: "center", flex: 1 }}>
+          <ViewIconMain name={"tool"} source={"Feather"} color={"white"} />
+          <ViewTypographyLabel style={{ fontSize: 11 }}>
+            Tools
+          </ViewTypographyLabel>
+        </ViewContainerStatic>
+      </ViewButtonPressable>
+      {/* <ViewButtonPressable
+        style={{
+          padding: 5,
+          flex: 1,
+          width: 50,
+          height: 50,
+          backgroundColor: state === "tools" ? "gray" : "lightgray",
+        }}
+        onPress={() => set("tools")}
+      >
+        <ViewContainerStatic style={{ alignItems: "center", flex: 1 }}>
+          <ViewIconMain name={"view-column"} source={"MaterialIcons"} color={"white"} />
+          <ViewTypographyLabel style={{ fontSize: 11 }}>
+            Boards
+          </ViewTypographyLabel>
+        </ViewContainerStatic>
+      </ViewButtonPressable> */}
     </ViewContainerScroll>
   );
 };

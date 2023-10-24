@@ -18,10 +18,15 @@ import {
 } from "./container";
 import { ViewModalContainer } from "./modal";
 import { ViewCardExpandable } from "./card";
-import { ViewRouterLinkthemed } from "./router";
+import {
+  ViewRouterLink,
+  ViewRouterLinkthemed,
+  ViewRouterRoute,
+  ViewRouterRoutes,
+} from "./router";
 import { ViewButtonPressable } from "./button";
 import { ViewIconMain } from "./icon";
-import { ViewPageMain } from "./page";
+import { ViewPageMain, ViewPageSection } from "./page";
 import { ViewDisplayDynamic } from "./display";
 import { ViewShieldUniversal } from "./shield";
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
@@ -29,6 +34,7 @@ import { useAttributeUnioned } from "./attribute";
 import { useQueryerQuery } from "./queryer";
 import { useWindowDimensions } from "./window";
 import { useModalVisibility } from "./modal";
+import { ViewTabButton } from "./tab";
 import {
   useAuthSession,
   useAuthSignout,
@@ -42,29 +48,58 @@ import MSAL from "../components/auth/msal";
 import { useEffect, useState } from "react";
 import useTokenStore from "../states/api/storeToken";
 import { useAzureSSOStore } from "../states/auth/storeSSO";
+import { ViewContextUniversal } from "./context";
+import { arrayIndustryProducts } from "./hub";
+import { ViewIntegrationSection } from "./integration";
 // import MSAL from "../../../auth/msal";
 import { Text } from "react-native";
 
 // PAGE
 
 export const ViewUserPage = () => {
-  const auth = useAuthSession();
-  const user = useUserSingle(auth?.data?.session?.id);
   return (
     <ViewPageMain>
       <ViewTypographyHeading>User</ViewTypographyHeading>
-      <ViewContainerStatic style={{ maxWidth: 500 }}>
-        <ViewTypographyText style={{ marginBottom: 10 }}>
-          ViewAuthDetails
-        </ViewTypographyText>
-        {auth.data && (
-          <ViewTypographyText>
-            Logged in as: {auth?.data?.session?.user?.email}
-          </ViewTypographyText>
-        )}
-      </ViewContainerStatic>
-      <ViewUserAttributes />
-      <ViewDisplayDynamic />
+      <ViewContainerRow>
+        <ViewRouterLinkthemed to={"authentication"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Authentication
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"profile"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Profile
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"devices"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Devices
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"integrations"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Integrations
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+      </ViewContainerRow>
+      <ViewRouterRoutes>
+        <ViewRouterRoute
+          path="authentication"
+          element={<ViewUserAuthentication />}
+        />
+        <ViewRouterRoute
+          path="profile"
+          element={<ViewUserProfile />}
+        />
+        <ViewRouterRoute
+          path="devices"
+          element={<ViewUserDevices />}
+        />
+        <ViewRouterRoute
+          path="integrations"
+          element={<ViewUserIntegrations />}
+        />
+      </ViewRouterRoutes>
     </ViewPageMain>
   );
 };
@@ -111,7 +146,8 @@ export const ViewUserModal = (props: any) => {
         <ViewUserActivity />
         <ViewUserNotifications />
         <ViewUserComms />
-        <ViewUserDevice />
+        <ViewUserContext />
+        <ViewUserDevices />
       </ViewContainerScroll>
     </ViewModalContainer>
   );
@@ -196,10 +232,27 @@ export const ViewUserComms = () => {
   );
 };
 
+// CONTEXT
+
+export const ViewUserContext = () => {
+  // A component to set the help/info/preferences universally across the app.
+  return (
+    <ViewCardExpandable
+      startExpanded
+      header={"Context"}
+      body={
+        <>
+          <ViewContextUniversal />
+        </>
+      }
+    />
+  );
+};
+
 // DEVICE
 
 // Widget to show the devices that the user has logged in with / has preferences shieldSet for.
-export const ViewUserDevice = () => {
+export const ViewUserDevices = () => {
   return (
     <ViewCardExpandable
       startExpanded
@@ -297,6 +350,11 @@ export const ViewUserSignin = () => {
       <ViewContainerRow>
         {tabs.map((content, index) => (
           <ViewContainerRow key={index} style={{ flex: 1 }}>
+            {/* <ViewTabButton
+              onPress={() => handleTabPress(index)}
+              tabIndex={index}
+              tabText={content}
+            /> */}
             <ViewButtonPressable
               key={index}
               style={{
@@ -521,5 +579,60 @@ export const ViewUserWidget = () => {
         }}
       />
     </ViewButtonPressable>
+  );
+};
+
+export const ViewUserIntegrations = () => {
+  // Placeholder component, todo.
+  const integrationsTemp = arrayIndustryProducts.filter(
+    (x) => x.integrations?.length > 0
+  );
+  const windowDimensions = useWindowDimensions();
+  return (
+    <ViewPageSection>
+      <ViewContainerScroll>
+        <ViewIntegrationSection />
+        <ViewTypographyText>
+          {JSON.stringify(integrationsTemp, null, 2)}
+        </ViewTypographyText>
+      </ViewContainerScroll>
+    </ViewPageSection>
+  );
+};
+
+export const ViewUserAuthentication = () => {
+  // Placeholder component, todo.
+  const windowDimensions = useWindowDimensions();
+  const auth = useAuthSession();
+  return (
+    <ViewPageSection>
+      <ViewContainerStatic style={{ maxWidth: 500 }}>
+        <ViewTypographyText style={{ marginBottom: 10 }}>
+          Authentication
+        </ViewTypographyText>
+        {auth.data && (
+          <ViewTypographyText>
+            Logged in as: {auth?.data?.session?.user?.email}
+          </ViewTypographyText>
+        )}
+      </ViewContainerStatic>
+      <ViewUserAttributes />
+      <ViewDisplayDynamic />
+    </ViewPageSection>
+  );
+};
+
+// PROFILE
+
+export const ViewUserProfile = () => {
+  return (
+    <ViewPageSection>
+        <ViewTypographyText style={{ marginBottom: 10 }}>
+          profile
+        </ViewTypographyText>
+        <ViewTypographyText>
+          (todo)
+        </ViewTypographyText>
+    </ViewPageSection>
   );
 };

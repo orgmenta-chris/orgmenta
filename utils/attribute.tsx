@@ -182,7 +182,7 @@ export const attributeColumnNames = [
 ];
 
 export const ViewAttributeMain = WrapperReactMemo(() => {
-  // Chris is going to enhance this placeholder component
+  // C is going to enhance this placeholder component
   const array = useAttributeMain({});
   const columns = useTableColumns(attributeColumnNames);
   return (
@@ -236,7 +236,7 @@ export const useAttributeUnioned = (classArray: any) => {
   const query = useQueryerQuery<any, Error>(queryKey, queryFn, {
     enabled: true,
   });
-  console.log(query?.data?.length);
+  // console.log(query?.data?.length);
   return query;
 };
 
@@ -337,6 +337,15 @@ export const ViewAttributeTable = ({ ...Input }) => {
         </ViewContainerScroll>
       </ViewContainerStatic>
       <ViewContainerStatic />
+    </ViewContainerStatic>
+  );
+};
+
+export const ViewAttributeSection = ({}) => {
+  return (
+    <ViewContainerStatic>
+      <ViewTypographyText style={{ fontWeight: "700" }}>Attributes</ViewTypographyText>
+      <ViewTypographyText>todo</ViewTypographyText>
     </ViewContainerStatic>
   );
 };

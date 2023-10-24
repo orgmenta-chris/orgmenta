@@ -6,13 +6,19 @@ import {
 import { ViewTypographyText } from "./typography";
 import { ViewButtonPressable } from "./button";
 import { ViewFieldDynamic, TypeFieldDynamic } from "./field";
+import { TypeReactNode, useReactEffect, useReactMemo } from "./react";
 import { isArrayNonempty } from "./array";
-import { TypeReactNode } from "./react";
+import { createUuid4 } from "./uuid";
+import { useRouterLocation } from "./router";
 import {
   useQueryerClient,
   useQueryerQuery,
   TypeQueryerResult,
+  useQueryerQueries,
 } from "./queryer";
+import { doObjectMerge } from "./object";
+import { useEntityCreate } from "./entity";
+import { useSpaceState } from "./space";
 
 // CONTAINER
 
@@ -28,14 +34,14 @@ export interface interfaceFormContainer {
 export const ViewFormDynamic = ({ data, formname }: TypeFormDynamic) => {
   const formState = useFormState([formname]);
   return (
-    <ViewContainerStatic>
+    <ViewContainerStatic style={{ flex: 1 }}>
       <ViewContainerStatic>
         {!data ? (
           <ViewTypographyText>
             -- No data has been passed to this form component --
           </ViewTypographyText>
         ) : (
-          <ViewFormButtons formState={formState} />
+          <ViewFormButtons formName={formname} />
         )}
       </ViewContainerStatic>
       <ViewContainerScroll style={{ height: 350 }}>
@@ -63,88 +69,106 @@ export type TypeFormDynamic = {
 };
 
 // BUTTONS (TODO)
-// Make a button set (clear/reset, cancel, save) for the forms
-export const ViewFormButtons = ({ data, title, formState }: any) => {
-  console.log('formState',formState)
-  //(move these into separate function(s) when done)
-  let relationships = [];
-  let entities = [];
-  const buttonsEnabled =
-    formState?.length === 0 &&
-    Object.keys(formState).includes("title") &&
-    "etc";
-  const validateEntries = (data: any) => {};
-  const databaseEntries = formState.map((x: any) => {
-    const todo =
-      "use this map to process formState results and put them into the relationships and entities arrays ready for upsert";
-    // Chris to get proof of concept entity creation logic from test codebase and put it here.
-    relationships.push(todo);
-    entities.push(todo);
-  });
-  const submit = "mutationgoeshere";
-  const clear = "mutationgoeshere";
+export const ViewFormButtons = ({ data, title, formName }: any) => {
+  const spaceSelected = useSpaceState(["space", "selected"]);
+  const spaceName = (spaceSelected?.data as any)?.spacename;
+  const formState = useFormState([formName]);
+  const filteredObj = formState?.data && Object.fromEntries(
+    Object.entries(
+      formState?.data as unknown as Record<
+        string,
+        { value?: any; valueDefault?: any }
+      >
+    )
+      .filter(
+        ([_key, subObj]) =>
+          subObj.value !== undefined || subObj.valueDefault !== undefined
+      )
+      .map(([key, subObj]) => [key, subObj.value ?? subObj.valueDefault])
+  );
+  const transformedObj = filteredObj ? {
+    title: filteredObj.title,
+    class: filteredObj.class,
+    alias: filteredObj.alias,
+    status: filteredObj.status,
+    type: filteredObj.type,
+    categories:
+      typeof filteredObj.category === "string" ?
+      filteredObj.category.split(",") : filteredObj.category,
+  } : {}
+  const submitEntity = useEntityCreate(transformedObj, spaceName);
   return (
-    <ViewContainerRow>
-      <ViewButtonPressable
-        disabled={formState?.length === 0}
-        onPress={() => ""}
-        style={{
-          margin: 5,
-          padding: 5,
-          backgroundColor: formState?.length > 0 ? "lightblue" : "gray",
-        }}
-      >
-        <ViewTypographyText>Clear/Reset</ViewTypographyText>
-      </ViewButtonPressable>
-      <ViewButtonPressable
-        disabled={formState?.length === 0}
-        onPress={() => ""}
-        style={{
-          margin: 5,
-          padding: 5,
-          backgroundColor: formState?.length > 0 ? "lightblue" : "gray",
-        }}
-      >
-        <ViewTypographyText>SaveWithoutReview</ViewTypographyText>
-      </ViewButtonPressable>
-      <ViewButtonPressable
-        disabled={formState?.length === 0}
-        onPress={() => ""}
-        style={{
-          margin: 5,
-          padding: 5,
-          backgroundColor: formState?.length > 0 ? "lightblue" : "gray",
-        }}
-      >
-        <ViewTypographyText>SaveWithReview</ViewTypographyText>
-      </ViewButtonPressable>
-      <ViewButtonPressable
-        disabled={formState?.length === 0}
-        onPress={() => ""}
-        style={{
-          margin: 5,
-          padding: 5,
-          backgroundColor: formState?.length > 0 ? "lightblue" : "gray",
-        }}
-      >
-        <ViewTypographyText>TOGGLE:_CLEAR_FORM_ON_SUBMIT</ViewTypographyText>
-      </ViewButtonPressable>
-    </ViewContainerRow>
+    <>
+      <ViewContainerRow>
+        <ViewButtonPressable
+          disabled={Object.keys(transformedObj).length===0}
+          onPress={() => ""}
+          style={{
+            margin: 5,
+            padding: 5,
+            backgroundColor: 'gray'
+            // (Object.keys(transformedObj))?.length > 0 ? "lightblue" : "gray",
+          }}
+        >
+          <ViewTypographyText>Clear/Reset</ViewTypographyText>
+        </ViewButtonPressable>
+        <ViewButtonPressable
+          disabled={Object.keys(transformedObj).length===0}
+          onPress={() => {
+            submitEntity.mutate();
+          }}
+          style={{
+            margin: 5,
+            padding: 5,
+            backgroundColor: 
+            (Object.keys(transformedObj))?.length > 0 ? "lightblue" : "gray",
+          }}
+        >
+          <ViewTypographyText>SaveWithoutReview</ViewTypographyText>
+        </ViewButtonPressable>
+        <ViewButtonPressable
+          disabled={Object.keys(transformedObj).length===0}
+          // onPress={() => {
+          //   submitEntity.mutate();
+          // }}
+          style={{
+            margin: 5,
+            padding: 5,
+            backgroundColor: 'gray'
+            // (Object.keys(transformedObj))?.length > 0 ? "lightblue" : "gray",
+          }}
+        >
+          <ViewTypographyText>SaveWithReview</ViewTypographyText>
+        </ViewButtonPressable>
+        <ViewButtonPressable
+          disabled={Object.keys(transformedObj).length===0}
+          onPress={() => ""}
+          style={{
+            margin: 5,
+            padding: 5,
+            backgroundColor: 'gray'
+            // (Object.keys(transformedObj))?.length > 0 ? "lightblue" : "gray",
+          }}
+        >
+          <ViewTypographyText>TOGGLE:_CLEAR_FORM_ON_SUBMIT</ViewTypographyText>
+        </ViewButtonPressable>
+      </ViewContainerRow>
+      <ViewContainerRow>
+        <ViewTypographyText>
+          {JSON.stringify(transformedObj)}
+        </ViewTypographyText>
+      </ViewContainerRow>
+    </>
   );
 };
 
 // STATE
 
-// gets all of the field states.
 export const useFormState = (id: string[]) => {
-  const queryerClient = useQueryerClient();
-  const formState = queryerClient
-    .getQueryCache()
-    .findAll(["field"].concat(id))
-    .filter((query) => !!(query.state.data as any)?.value || !!(query.state.data as any)?.valueDefault)
-    .map((query) => {
-      return { [query.queryKey[3] as string]: (query.state.data as any).value }; // only return the attribute name and value (for now. may need other things like validation later.)
-    });
-  // console.log("formState", formState);
-  return formState;
+  return useQueryerQuery({
+    queryKey: ["form"].concat(id), // construct the queryKey
+    queryFn: () => null, // No function necessary (as we just want an empty state/cache to use)
+    staleTime: Infinity, // This means the data will never become stale automatically
+    refetchOnWindowFocus: false, // Make sure the state won't reset when tabbing in and out of the app
+  });
 };

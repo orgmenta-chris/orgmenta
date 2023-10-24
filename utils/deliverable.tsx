@@ -1,4 +1,4 @@
-// Placeholder / in development by Chris
+// Placeholder / in development by C
 
 
 // STEP
@@ -44,7 +44,7 @@ export const mapDeliverableStep: Record<string, TypeDeliverableStep> = {
     description: "",
   },
   "Testing": {
-    description: "(Chris) - part2 testing (functionality testing)",
+    description: "(C) - part2 testing (functionality testing)",
   },
 };
 

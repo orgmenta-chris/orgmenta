@@ -20,7 +20,7 @@ export const ViewInputInteger = (props: any) => {
       returnKeyType="done"
       value={state}
       onChangeText={(old) => {
-        console.log(old);
+        // console.log(old);
         set(old.replace(/[^0-9]/g, ""));
       }}
       {...props}
@@ -39,7 +39,7 @@ export const ViewInputDecimal = (props: any) => {
       defaultValue={state}
       // maxLength={10} // optional, limit to 10 characters
       onChangeText={(old) => {
-        console.log(old);
+        // console.log(old);
         set(old.replace(/[^0-9.]/g, ""));
       }}
       // onChangeText={(text) => {

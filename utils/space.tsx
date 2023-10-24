@@ -6,11 +6,16 @@ import { useModalVisibility } from "./modal";
 import { createMetaInfo } from "./meta";
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { ViewModalContainer } from "./modal";
-import { ViewPageMain } from "./page";
-import { ViewRouterLinkthemed } from "./router";
+import { ViewPageMain, ViewPageSection } from "./page";
 import { ViewCardExpandable } from "./card";
 import { ViewIconMain } from "./icon";
 import { ViewButtonPressable } from "./button";
+import { ViewIntegrationSection } from "./integration";
+import {
+  ViewRouterLinkthemed,
+  ViewRouterRoute,
+  ViewRouterRoutes,
+} from "./router";
 import {
   ViewContainerStatic,
   ViewContainerScroll,
@@ -21,6 +26,7 @@ import {
   ViewTypographyHeading,
   ViewTypographyTextthemed,
   ViewTypographySubsubheading,
+  ViewTypographySubheading,
 } from "./typography";
 import {
   useQueryerQuery,
@@ -38,19 +44,70 @@ import {
   ColumnDef,
   TableOptions,
 } from "@tanstack/react-table";
+import { ViewMemberSection } from "./member";
+import { ViewBillingSection } from "./billing";
+import { ViewAttributeSection } from "./attribute";
+import { arrayIndustryProducts } from "./hub";
 
 // PAGE
 
 export const ViewSpacePage = () => {
   return (
     <ViewPageMain>
-      <ViewContainerScroll>
-        <ViewTypographyHeading>Spaces</ViewTypographyHeading>
-        <ViewSpaceLinks />
-        <ViewSpaceCurrent />
+      <ViewTypographyHeading>Spaces</ViewTypographyHeading>
+      <ViewContainerRow>
+        <ViewRouterLinkthemed to={"notifications"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Notifications
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"integrations"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Integrations
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"data"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Data
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"members"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Members
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"billing"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Billing
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"attributes"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Attributes
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+      </ViewContainerRow>
+      {/* <ViewContainerScroll>
         <ViewSpaceSwitch />
         <ViewSpaceArray />
-      </ViewContainerScroll>
+      </ViewContainerScroll> */}
+      <ViewRouterRoutes>
+        <ViewRouterRoute
+          path="notifications"
+          element={<ViewSpaceNotifications />}
+        />
+        <ViewRouterRoute
+          path="integrations"
+          element={<ViewSpaceIntegrations />}
+        />
+        <ViewRouterRoute
+          path="data"
+          element={<ViewSpaceData />}
+        />
+        <ViewRouterRoute path="members" element={<ViewSpaceMembers />} />
+        <ViewRouterRoute path="billing" element={<ViewSpaceBilling />} />
+        <ViewRouterRoute path="attributes" element={<ViewSpaceAttributes />} />
+      </ViewRouterRoutes>
     </ViewPageMain>
   );
 };
@@ -103,8 +160,8 @@ export interface interfaceSpaceSetup {
 }
 
 export async function requestSpaceSetup(space: interfaceSpaceSetup) {
-  //todo
-}
+  //todo. rcps created, call them in individual mutations in useSpaceSetup
+};
 
 export const useSpaceSetup = (props: interfaceSpaceSetup) => {
   //todo
@@ -336,9 +393,7 @@ export const ViewSpaceTable = ({ ...Input }) => {
         >
           <ViewContainerStatic>
             {table.getHeaderGroups().map((headerGroup, hgroupIndex) => (
-              <ViewContainerRow
-                key={headerGroup.id}
-              >
+              <ViewContainerRow key={headerGroup.id}>
                 {headerGroup.headers.map((header, headerIndex) => (
                   <ViewContainerStatic key={headerIndex}>
                     <ViewTypographyText
@@ -472,7 +527,7 @@ export const ViewSpaceCurrent = (props: any) => {
                 to={`/spaces/${spaceActive.data.selected}/billing`}
               >
                 <ViewTypographySubsubheading selectable={false}>
-                  Subscription & Billing
+                  Billing
                 </ViewTypographySubsubheading>
               </ViewRouterLinkthemed>
               <ViewRouterLinkthemed
@@ -481,6 +536,22 @@ export const ViewSpaceCurrent = (props: any) => {
               >
                 <ViewTypographySubsubheading selectable={false}>
                   Members
+                </ViewTypographySubsubheading>
+              </ViewRouterLinkthemed>
+              <ViewRouterLinkthemed
+                style={{ margin: 5 }}
+                to={`/spaces/all/notifications`}
+              >
+                <ViewTypographySubsubheading selectable={false}>
+                  Notifications
+                </ViewTypographySubsubheading>
+              </ViewRouterLinkthemed>
+              <ViewRouterLinkthemed
+                style={{ margin: 5 }}
+                to={`/spaces/all/integrations`}
+              >
+                <ViewTypographySubsubheading selectable={false}>
+                  Integrations
                 </ViewTypographySubsubheading>
               </ViewRouterLinkthemed>
             </>
@@ -574,6 +645,71 @@ export const ViewSpaceNotifications = () => {
         </>
       }
     />
+  );
+};
+
+// INTEGRATIONS
+
+export const ViewSpaceIntegrations = () => {
+  const integrationsTemp = arrayIndustryProducts.filter(
+    (x) => x.integrations?.length > 0
+  );
+  return (
+    <ViewPageSection>
+      <ViewIntegrationSection />
+      <ViewContainerScroll>
+        <ViewTypographyText>
+          {JSON.stringify(integrationsTemp, null, 2)}
+        </ViewTypographyText>
+      </ViewContainerScroll>
+    </ViewPageSection>
+  );
+};
+
+// ATTRIBUTES
+
+export const ViewSpaceAttributes = () => {
+  return (
+    <ViewPageSection>
+      <ViewAttributeSection />
+    </ViewPageSection>
+  );
+};
+
+// DATA
+
+export const ViewSpaceData = () => {
+  return (
+    <ViewPageSection>
+      <ViewTypographySubheading>
+        Backups, imports and exports
+      </ViewTypographySubheading>
+      <ViewTypographySubheading>(todo)</ViewTypographySubheading>
+    </ViewPageSection>
+  );
+};
+
+// MEMBERS
+
+export const ViewSpaceMembers = () => {
+  return (
+    <ViewPageSection>
+      <ViewMemberSection />
+    </ViewPageSection>
+  );
+};
+
+// BILLING
+
+// Widget to show the recent notifications/logs for that user (e.g system alerts, logs for changes to entities that the user is 'following'/assinged to, etc.
+export const ViewSpaceBilling = () => {
+  return (
+    <ViewPageSection>
+      <ViewTypographySubheading>
+        Orgmenta subscriptions & billing to go here
+      </ViewTypographySubheading>
+      <ViewBillingSection />
+    </ViewPageSection>
   );
 };
 

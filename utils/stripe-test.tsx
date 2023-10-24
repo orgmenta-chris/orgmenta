@@ -39,7 +39,7 @@ export const ViewStripeWrappermain = Platform.OS === 'web' ? ViewStripeWrapperwe
 export const arrayStripeFeatures = [
   // Loisa: Please take any mentioned webhooks with a pinch of salt - Both I and ChatGPT are ignorant :)
   {
-    feature: "OrgmentaStripeTable - OrgmentaEntitiesTables sync (ON HOLD? else Chris needs to draft entity-relationship object asap)",
+    feature: "OrgmentaStripeTable - OrgmentaEntitiesTables sync (ON HOLD? else C needs to draft entity-relationship object asap)",
     priority: 1,
     userStory: "Sync between stripe tables and entity 'Items' (and related relationships)",
     workflow: ["todo"]

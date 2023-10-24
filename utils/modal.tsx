@@ -218,7 +218,7 @@ export const ViewModalToggle = ({ modalName }: any) => {
 
 // META /INFO
 
-// Temp (Chris experimental)
+// Temp (C experimental)
 const metaModalInfo = {
   description:
     "A UI widget to appear floating on a different surface to other components",

@@ -1,2 +1,0 @@
-// 'Features' are attributes of products that are sold by a company.
-// Placeholder file (to provide easy components etc. to quickly create cards that display feature information, link to deliverables/roadmap etc.)

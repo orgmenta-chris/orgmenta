@@ -9,89 +9,31 @@ import { ViewButtonPressable } from "./button";
 import { ViewRouterLinkthemed } from "./router";
 import { ViewIconMain } from "./icon";
 
-// POPUP
-
-export const ViewHelpPopup = ({ children, state }: any) => {
-  return (
-    <ViewContainerStatic>
-      <ViewTypographyText>
-        Maybe just use a UI library's tooltip for this rather than spinning own
-      </ViewTypographyText>
-      <ViewTypographyText>{children}</ViewTypographyText>
-    </ViewContainerStatic>
-  );
-};
-
 // ICONS
 
-export const ViewHelpIcons = ({ children, set, to }: any) => {
+export const ViewHelpButton = ({ children, set, to }: any) => {
   return (
-    <ViewContainerStatic
+    <ViewButtonPressable
       style={{
-        backgroundColor: "white",
-        flexDirection: "row",
-        // flex: 1,
-        // gap: 5,
-        // justifyContent: "space-around",
+        margin: 5,
       }}
+      // NOT YET IMPLEMENTED (need to abstract this out and get the tooltip outside of the parent component)
+      // onPress={() => set((old: boolean) => !old)}
+      // onHoverIn={() => set(true)}
+      // onHoverOut={() => set(false)}
     >
-      <ViewButtonPressable
-        style={{
-          margin: 5,
-        }}
-        // NOT YET IMPLEMENTED (need to abstract this out and get the tooltip outside of the parent component)
-        // onPress={() => set((old: any) => !old)}
-        // onHoverIn={() => set(true)}
-        // onHoverOut={() => set(false)}
-      >
-        <ViewIconMain
-          name={"info-with-circle"}
-          source={"Entypo"}
-          color={"gray"}
-        />
-      </ViewButtonPressable>
-      <ViewRouterLinkthemed
-        style={{
-          margin: 5,
-        }}
-        to={to}
-      >
-        <ViewIconMain
-          name={"help-with-circle"}
-          source={"Entypo"}
-          color={"gray"}
-        />
-      </ViewRouterLinkthemed>
-      <ViewButtonPressable
-        style={{
-          margin: 5,
-        }}
-        // NOT YET IMPLEMENTED (need to abstract this out and need to get the 'more'/settings widget outside of the parent component)
-        // onPress={() => set((old: any) => !old)}
-        // onHoverIn={() => set(true)}
-        // onHoverOut={() => set(false)}
-      >
-        <ViewIconMain
-          name={"ellipsis-horizontal-circle-sharp"}
-          source={"Ionicons"}
-          color={"gray"}
-          size={26}
-          style={{ top: -2 }}
-        />
-      </ViewButtonPressable>
-    </ViewContainerStatic>
+      <ViewIconMain
+        name={"help-with-circle"}
+        source={"Entypo"}
+        color={"rgba(80,80,80,1)"}
+      />
+    </ViewButtonPressable>
   );
 };
 
-// CONTAINER
+// STATE
 
-export const ViewHelpContainer = ({ children, to }: any) => {
-  const [state, set] = useReactState(false);
-  return (
-    <ViewContainerStatic>
-      <ViewHelpIcons set={set} to={to} />
-      {state && <ViewHelpPopup children={children} state={state} />}
-      {state && <ViewHelpPopup children={children} state={state} />}
-    </ViewContainerStatic>
-  );
+export const useHelpState = () => {
+  //TODO (just return true for now)
+  return { data: { enabled: true } };
 };

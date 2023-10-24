@@ -13,14 +13,83 @@
 //https://news.ycombinator.com/item?id=37749608 	Project Management Software Can't Save You (wired.com) (https://www.wired.com/story/project-management-software-productivity/)
 // Address those concerns in the article - how orgmenta solves this, how orgmenta does NOT solve it.
 
-
 export const articlesTemp: {
   // id: number;
   topic: string;
   notes: string;
 }[] = [
   {
-    topic: "We aren't 'IT Providers', and we don't offer 'IT'. We are 'Systems Providers', and we offer 'Systems' / The state and future of our industry's solutions",
+    topic:`Evolutionary vs revolutionary tech / "only incremental innovation needed"`,
+    notes: `
+    examples of what i note are 'done techs', where we're just waiting for things to improve but dont need *new* tech.
+    Google Maps, Project Starline, Photogrammetry: We dont need new tech before we can just zoom aound google maps from any angle (and thus create games etc. in google maps).
+      (The underlying technology for creating 3D, explorable spaces from images (photogrammetry) exists. The limitations are primarily computational power, data storage, and data transfer speeds. As those continue to improve, the experience will become more seamless and widespread.)
+    Drones: We aren't far away from human flight with ducted fans, just waiting for battery-energy-density to go up.
+      (The basic tech for human flight with ducted fans exists (e.g., jetpacks, drone-like personal air vehicles). The primary limitations are battery density, safety measures, and regulatory approvals.)
+    Databases/apps: We don't need any new tech, in fact we don't really need many improvements. We just need the apps to actually be created.
+      `
+  },
+  {
+    topic:`Colors`,
+    notes: `
+    In light mode, nothing is pure white (255,255,255) - Largely 1) as white on black is not the best contrast for reading (citation), and 2) because backlit screens are getting more powerful, and white screens are practically lights.
+    Thing that are not interactable are grey.
+    `
+  },
+  {
+    topic:`Flat design, skeumorphism and the future of UI/UX design`,
+    notes: `
+    We (developers in general) still use skeumorphism, we just have toned it down. But 'elevation', 'layers' and button hovers etc. still use this to some extent.
+    Flat design has been overused in the last 5 years, and we (Orgmenta) expect a slight adjustment in the following 5 years in order to bring back some indication of what can be interacted with.
+    `
+  },
+  {
+    topic:`Contextual help and preferences on all relevant components`,
+    notes: `
+    (i.e. the context container buttons)
+    `
+  },
+  {
+    topic:`Scrollbar design and usability`,
+    notes: `
+      https://news.ycombinator.com/item?id=37864867
+      https://artemis.sh/2023/10/12/scrollbars.html
+    `
+  },
+  {
+    topic:`Reducing clicks in an Enterprise size ERP`,
+    notes: `
+      How do you keep clicks down in such a broad scope application?
+      Nav bar that can be pinned
+      Able to save custom bookmarks+bookmark groups
+      All functionality designed to be at your fingertips
+      // EXAMPLES
+      - 2 clicks to viewing a live demo. Bookmark > click a bookmark.
+      - 1 click+type to start searching all entities. Browse > start typing (QUERY BUG TO RESOLVE, CLEAR X BUTTON TO ADD)
+      - 1 click to filter modules. Bookmark > start typing (FUNCTIONALITY TO ADD: AUTO EXPAND ITEMS IF THERE ARE RESULTS, CLEAR X BUTTON )
+      - 1 click to switch display mode. From entities page: click display. (or if viewing a different action panel, 2 clicks.)
+      - 1 click+type to filter. From entities page: click controls > start typing.
+      - 1 click+type+returnkey+returnkey to create item. From entities page: click + > start typing title (AUTOFOCUS TODO) > click return to view summary (FOCUS TODO), then return again submit (TODO)
+      - 2 clicks to go into private mode (privacy shield). UserWidget>Click privacy shield.
+      - 2 clicks to sign out. UserWidget>Click signout.
+      - X clicks to create time entry. Click bookmarks>tools>time entry>start typing (autofocus todo)> press return for summary (todo), press return again to submit (todo)
+    `,
+  },
+  {
+    topic:`How to create your own bookmark groups, e.g. create 'service boards' as a group.`,
+    notes: `
+      
+    `,
+  },
+  {
+    topic:`How to connect an integration/api`,
+    notes: `
+      
+    `,
+  },
+  {
+    topic:
+      "We aren't 'IT Providers', and we don't offer 'IT'. We are 'Systems Providers', and we offer 'Systems' / The state and future of our industry's solutions",
     notes: `
     - 'Systems' is an entire division of the business. It is bigger than IT. It is the exoskeleton for the business. It is the system that allows the business to run. 
     - We as an industry are on the right track by moving from break-fix to MSP, vCIO etc.. But we need to zoom out, see the bigger picture, and jump ahead to the logical, correct position. We're running a little behind (and our customers are even further behind, still seeing us as a cost center)
@@ -45,7 +114,8 @@ export const articlesTemp: {
     `,
   },
   {
-    topic: "(...and one article per page/screen of the app, with justifications)",
+    topic:
+      "(...and one article per page/screen of the app, with justifications)",
     notes: `
     `,
   },
@@ -56,13 +126,15 @@ export const articlesTemp: {
     `,
   },
   {
-    topic: "'Holistic design' (/ Top-Down Design / Systemic Design / Systems Thinking / Architectural Design / High-Level Design / Integrated Design)",
+    topic:
+      "'Holistic design' (/ Top-Down Design / Systemic Design / Systems Thinking / Architectural Design / High-Level Design / Integrated Design)",
     notes: `
     See business framework (articles), the idea of a central business framework, the Database design article and paradigms regarding 'customer','supplier' incorrect silo-ing, etc.
     `,
   },
   {
-    topic: "Consistent, always-available 'action panels' for creating, editing, syncing, filtering etc.",
+    topic:
+      "Consistent, always-available 'action panels' for creating, editing, syncing, filtering etc.",
     notes: `(add this to features too)`,
   },
   {
@@ -121,7 +193,8 @@ export const articlesTemp: {
     `,
   },
   {
-    topic: "useQuery for state, cache, db management - a holistic, performent, clean, intuitive paradigm/system compared to propdrilling/",
+    topic:
+      "useQuery for state, cache, db management - a holistic, performent, clean, intuitive paradigm/system compared to propdrilling/",
     notes: `
       
     `,
@@ -521,7 +594,34 @@ export const articlesTemp: {
     notes: `See the notes in updates.tsx`,
   },
   {
-    topic: "We need a long-term guarantee mediator / long term escrow to hold companies accountable to promises",
+    topic:
+      "We need a long-term guarantee mediator / long term escrow to hold companies accountable to promises",
     notes: `e.g. google pixel`,
+  },
+  {
+    topic: "How to use the codebase",
+    notes: `
+    //IMPORTING
+    - Show how to import declarations with autocomplete if you know where you are importing from.
+    - Or, you can just write the code, hover over the declaration tag in the function you wrote (where it is underlined red), and click 'quick-fix'> import missing...
+    `,
+  },
+  {
+    topic: "Codebase structures - 'Think in Modules'",
+    notes: `
+    (To be proven/disproven)
+    // Notes
+    (Should mention MVC and other methodologies)
+    (Perhaps make the case that we have lost the benefits of structure that things like MVC previously brought)
+    //HYPOTHESIS
+    The environment of online tutorials is biased towards smaller/starter projects.
+    These tutorials deal with scaling issues 'too early'.
+    Due to this, they split out codebases into components, utils etc.
+    However, this doesn't scale to enterprise level.
+    If you have components/pricing, utils/pricing etc. you end up with folders with identical filenames but with functionality split.
+    Instead, we should 'think in modules'
+    Each file/folder at the top level, each with a module per function. 
+    Each module has utils, components etc. See article naming conventions for declarations, on how to then keep that clean
+    `,
   },
 ];

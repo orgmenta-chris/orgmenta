@@ -1404,7 +1404,7 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     nickname: "accounts-receivables-invoicing",
   },
   {
-    id: 12121,
+    id: 12120,
     parent: 1212,
     status: "0. New",
     name_singular: "template",
@@ -1415,7 +1415,7 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     nickname: "receivables-invoicing-template",
   },
   {
-    id: 12122,
+    id: 12121,
     parent: 1212,
     status: "0. New",
     name_singular: "generate",
@@ -1425,18 +1425,7 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     nickname: "receivables-invoicing-generate",
   },
   {
-    id: 12123,
-    parent: 1212,
-    status: "0. New",
-    name_singular: "verify",
-    display_singular: "Verify",
-    summary: "Invoice approvals",
-    description:
-      "Match the invoice against quotes (and other X-way matches), to validate it as correct",
-    nickname: "receivables-invoicing-verify",
-  },
-  {
-    id: 12124,
+    id: 12122,
     parent: 1212,
     status: "0. New",
     name_singular: "ammendment",
@@ -1453,7 +1442,18 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     nickname: "receivables-invoicing-ammendment",
   },
   {
-    id: 12125,
+    id: 12123,
+    parent: 1212,
+    status: "0. New",
+    name_singular: "verify",
+    display_singular: "Verify",
+    summary: "Invoice approvals",
+    description:
+      "Match the invoice against quotes (and other X-way matches), to validate it as correct",
+    nickname: "receivables-invoicing-verify",
+  },
+  {
+    id: 12124,
     parent: 1212,
     status: "0. New",
     name_singular: "issue",
@@ -4204,7 +4204,6 @@ export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
     summary:
       "Employee retirement and investment plans/contributions (Workplace Pension Plan: Pensions / 401ks / Superannuation), Personal Pension Plans: 403(b) and other employee investments, etc.",
     nickname: "personnel-payroll-withholdings-pensions",
-    notes: `https://www.bamboohr.com/resources/hr-glossary/annuity`
   },
   {
     id: 16221,

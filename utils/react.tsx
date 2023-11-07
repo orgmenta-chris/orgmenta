@@ -15,6 +15,7 @@ import {
   useReducer,
   isValidElement,
   createElement,
+  useLayoutEffect,
 } from "react";
 
 // NODE
@@ -52,3 +53,7 @@ export type TypeReactComponent = ComponentType;
 // REDUCER
 
 export const useReactReducer = useReducer;
+
+// LAYOUT
+
+export const useReactLayout = useLayoutEffect;

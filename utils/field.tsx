@@ -20,7 +20,7 @@ import {
   ViewContainerColumn,
 } from "./container";
 import {
-  ViewInputRichmain,
+  // ViewInputRichmain,
   ViewInputText,
   ViewInputDecimal,
   ViewInputInteger,
@@ -244,23 +244,23 @@ export const ViewFieldPicker = ({
 };
 
 // A non-editable text field
-export const ViewFieldRichtext = ({
-  valueDefault,
-  secure,
-  state,
-  set,attributename
-}: any) => {
-  return (
-    <ViewInputRichmain
-      style={{ flex: 1 }}
-      onChangeText={(value: string) => {
-        set("value", () => value, attributename);
-        // set("value", () => value);
-      }}
-      defaultValue={valueDefault}
-    />
-  );
-};
+// export const ViewFieldRichtext = ({
+//   valueDefault,
+//   secure,
+//   state,
+//   set,attributename
+// }: any) => {
+//   return (
+//     <ViewInputRichmain
+//       style={{ flex: 1 }}
+//       onChangeText={(value: string) => {
+//         set("value", () => value, attributename);
+//         // set("value", () => value);
+//       }}
+//       defaultValue={valueDefault}
+//     />
+//   );
+// };
 
 // Decimal
 export const ViewFieldDecimal = ({ valueDefault, secure, state, set, attributename}: any) => {
@@ -408,8 +408,8 @@ export const mapFieldComponents: any = {
   files: ViewFieldFilepickerandlist,
   input: ViewFieldInput,
   relationship: ViewFieldRelationship,
-  richtext: ViewFieldRichtext, // todo
-  // richtext: ViewFieldInvalid,
+  // richtext: ViewFieldRichtext, // todo
+  richtext: ViewFieldText,
   picker: ViewFieldPicker,
   numeric: ViewFieldDecimal, // change all relevant values in attributes table to 'decimal' then change the name here too.
   integer: ViewFieldInteger,

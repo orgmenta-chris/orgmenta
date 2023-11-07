@@ -29,7 +29,7 @@ import { useReactState } from "./react";
 // CONTAINER
 
 export const ViewActionContainer = (props:any) => {
-  /* View for Actions tabs and panels */
+  /* View for Actions tabs and panels, used by entity.tsx */
   return (
     <ViewContainerStatic
       style={{

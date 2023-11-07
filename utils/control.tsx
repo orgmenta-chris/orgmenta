@@ -7,7 +7,6 @@ import { ViewContainerStatic, ViewContainerColumn } from "./container";
 import { ViewTypographySubheading, ViewTypographySubsubheading, ViewTypographyText } from "./typography";
 import { ViewPresetOptions } from "./preset";
 import { useRouterLocation } from "./router";
-import { useEntitySingle, useEntitySchema } from "./entity";
 import { useSpaceState } from "./space";
 
 // Main

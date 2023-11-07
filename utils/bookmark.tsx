@@ -5,25 +5,72 @@ import {
   ViewContainerScroll,
   ViewContainerRow,
 } from "./container";
-import { ViewTypographySubsubheading, ViewTypographyLabel } from "./typography";
+import {
+  ViewTypographySubsubheading,
+  ViewTypographyLabel,
+  ViewTypographyHeading,
+} from "./typography";
 import { ViewModalContainer } from "./modal";
 import { ViewCardExpandable } from "./card";
 import { ViewIconMain } from "./icon";
 import { ViewContextContainer } from "./context";
-import { ViewRouterLinkthemed } from "./router";
-import { ViewButtonPressable } from "./button";
+import {
+  ViewRouterLinkthemed,
+  ViewRouterRoute,
+  ViewRouterRoutes,
+} from "./router";
+import { ViewButtonIcon, ViewButtonLink, ViewButtonPressable } from "./button";
 import { ViewInputText } from "./input";
 import { useReactState } from "./react";
 import { useWindowDimensions } from "./window";
 import { useModalVisibility } from "./modal";
 import { useQueryerQuery, TypeQueryerOptions } from "./queryer";
 import { arrayFrameworkBusiness } from "./framework";
+import { ViewPageMain } from "./page";
+import {
+  ViewUserAuthentication,
+  ViewUserProfile,
+  ViewUserDevices,
+  ViewUserIntegrations,
+} from "./user";
+
+// PAGE
+
+export const ViewBookmarkPage = () => {
+  return (
+    <ViewPageMain>
+      <ViewTypographyHeading>Bookmarks</ViewTypographyHeading>
+      <ViewContainerRow>
+        <ViewRouterLinkthemed to={"modules"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Modules
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"pinned"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Pinned
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"recent"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Recent
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+        <ViewRouterLinkthemed to={"tools"}>
+          <ViewTypographySubsubheading style={{ padding: 5 }}>
+            Tools
+          </ViewTypographySubsubheading>
+        </ViewRouterLinkthemed>
+      </ViewContainerRow>
+    </ViewPageMain>
+  );
+};
 
 // MODULES
 
 export const ViewBookmarkModules = ({ filterState }: any) => {
   // temporary array+components that contains all the business framework modules (will be changed to using supabase entities later)
-  return arrayFrameworkBusiness 
+  return arrayFrameworkBusiness
     .filter((x) => (x.status === "3. Active" || __DEV__) && x.parent === 1) // if in production, only show active modules
     .map((x, i) => (
       <ViewCardExpandable
@@ -81,7 +128,7 @@ export const ViewBookmarkModal = (props: any) => {
           <ViewInputText
             autoFocus
             onChangeText={(text: string) => filterSet(text)}
-            style={{ borderWidth: 1, flex:1}}
+            style={{ borderWidth: 1, flex: 1 }}
           />
           <ViewIconMain
             name={"undo-variant"}
@@ -89,6 +136,11 @@ export const ViewBookmarkModal = (props: any) => {
             color={"black"}
           />
         </ViewContainerRow>
+        <ViewButtonLink
+          button_name={`open-outline`}
+          button_source={`Ionicons`}
+          to={`bookmark`}
+        />
         <ViewContextContainer />
       </ViewContainerStatic>
     </ViewModalContainer>

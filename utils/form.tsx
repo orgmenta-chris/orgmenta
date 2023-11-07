@@ -58,6 +58,19 @@ export const ViewFormDynamic = ({ data, formname }: TypeFormDynamic) => {
               }}
             />
           ))}
+          {/* {isArrayNonempty(data) &&
+            data?.map((item: any, i: number) => (
+              <ViewFieldDynamic
+                key={i}
+                componentType={} // from schema
+                valuesDefault={} // from schema. to use if no valuesActual or if user wants to reset to default.
+                valuesActual={} // from database usequery
+                valuesEdited={} // from state
+                valuesPlaceholder={} // will store this in schema
+                isValid={} // will store this in schema (what is valid for a certain attribute)
+                onChange={} // what function to run when changed (i.e. store in the form state that has valuesActual in it)
+              />
+            ))} */}
       </ViewContainerScroll>
     </ViewContainerStatic>
   );

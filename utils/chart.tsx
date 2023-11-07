@@ -1,4 +1,5 @@
 // https://github.com/JesperLekland/react-native-svg-charts/blob/dev/README.md#areachart
+// (If further functionality is needed that this library can't provide, see https://blog.logrocket.com/top-8-react-native-chart-libraries-2023/)
 // Todo: xaxis, yaxis
 // Todo: progressline
 // Todo: pass in data dynamically instead of static/hardcoded
@@ -63,7 +64,7 @@ export const ViewChartMain = (props: any) => {
           panel)
         </ViewTypographyText>
       </ViewContainerRow>
-      <ViewContainerColumn>
+      <ViewContainerColumn style={{margin: 20}}>
         <ViewTypographySubheading>Area Standard</ViewTypographySubheading>
         <ViewChartAreastandard />
         <ViewTypographySubheading>Area Stacked</ViewTypographySubheading>
@@ -129,7 +130,7 @@ const arrayChartOptions = [
 export const ViewChartAreastandard = () => {
   return (
     <AreaChart
-      style={{ height: 200, width: "100%" }}
+      style={{ height: "100%", maxHeight: 200, width: "100%" }}
       data={[50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]}
       contentInset={{ top: 30, bottom: 30 }}
       curve={shape.curveNatural}
@@ -181,7 +182,7 @@ export const ViewChartAreastacked = () => {
   ];
   return (
     <StackedAreaChart
-      style={{ height: 200, width: "100%", paddingVertical: 16 }}
+      style={{ height: "100%", maxHeight: 200, width: "100%", paddingVertical: 16 }}
       data={data}
       keys={keys}
       colors={colors}
@@ -217,7 +218,7 @@ export const ViewChartBarstandard = () => {
   ];
   return (
     <BarChart
-      style={{ height: 200 }}
+      style={{ height: "100%", maxHeight: 200 }}
       data={data}
       svg={{ fill }}
       contentInset={{ top: 30, bottom: 30 }}
@@ -261,10 +262,10 @@ export const ViewChartBarstacked = () => {
     },
   ];
   const colors = ["#7b4173", "#a55194", "#ce6dbd", "#de9ed6"];
-  const keys = ["apples", "bananas", "cherries", "dates"];
+  const keys = ["apples", "bananas", "cherries", "dates"] as const;
   return (
     <StackedBarChart
-      style={{ height: 200 }}
+      style={{ height: "100%", maxHeight: 200, width:"100%" }}
       keys={keys}
       colors={colors}
       data={data}
@@ -280,7 +281,7 @@ export const ViewChartLinestandard = () => {
   const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
   return (
     <LineChart
-      style={{ height: 200 }}
+      style={{ height: "100%", maxHeight: 200 }}
       data={data}
       svg={{ stroke: "rgb(134, 65, 244)" }}
       contentInset={{ top: 20, bottom: 20 }}
@@ -311,7 +312,7 @@ export const ViewChartPiestandard = () => {
       },
       key: `pie-${index}`,
     }));
-  return <PieChart style={{ height: 200 }} data={pieData} />;
+  return <PieChart style={{ height: "100%", maxHeight: 200 }} data={pieData} />;
 };
 
 // PROGRESSCIRCLE
@@ -319,7 +320,7 @@ export const ViewChartPiestandard = () => {
 export const ViewChartProgresscircle = () => {
   return (
     <ProgressCircle
-      style={{ height: 200 }}
+      style={{ height: "100%", maxHeight: 200 }}
       progress={0.7}
       progressColor={"rgb(134, 65, 244)"}
     />
@@ -337,13 +338,27 @@ export const ViewChartProgressline = () => {
 export const ViewChartHeatmapcalendar = () => {
   return (
     <ViewHeatmapCalendar
-      endDate={new Date("2016-04-01")}
+      endDate={new Date("2023-02-01")}
       numDays={100}
       values={[
-        { date: "2016-01-01" },
-        { date: "2016-01-22" },
-        { date: "2016-01-30" },
-        // ...and so on
+        { date: "2023-01-01" },
+        { date: "2023-01-22" },
+        { date: "2023-01-22" },
+        { date: "2023-01-22" },
+        { date: "2023-01-22" },
+        { date: "2023-01-30" },
+        { date: "2023-01-30" },
+        { date: "2023-01-30" },
+        { date: "2023-01-30" },
+        { date: "2023-01-30" },
+        { date: "2023-01-30" },
+        { date: "2023-01-30" },
+        { date: "2023-01-30" },
+        { date: "2023-01-30" },
+        { date: "2023-01-30" },
+        { date: "2023-01-30" },
+        { date: "2023-01-30" },
+        { date: "2023-01-30" },
       ]}
     />
   );

@@ -52,6 +52,7 @@ import { ViewShareContainer } from "./share";
 import { ViewPricingContainer } from "./pricing";
 import { useThemeToken } from "./theme";
 import { ViewIntegrationSection } from "./integration";
+import { ViewBlogMain } from "./blog";
 
 // HEADER
 
@@ -592,7 +593,7 @@ export const ViewOrgmentaPartner = ({}: any) => {
   );
 };
 
-export const ViewOrgmentaHome = ({}: any) => {
+export const ViewOrgmentaHome = () => {
   return (
     <ViewOrgmentaBackground>
       <ViewContainerScroll
@@ -633,12 +634,14 @@ export const ViewOrgmentaHome = ({}: any) => {
 
 // COMMNUNITY PAGES
 
-export const ViewOrgmentaNews = ({}: any) => {
+export const ViewOrgmentaNews = () => {
   return (
     <ViewPageMain>
       <ViewContainerScroll>
         <ViewTypographyHeading>News</ViewTypographyHeading>
-        <ViewTypographyText>ViewOrgmentaNews placeholder</ViewTypographyText>
+        <ViewBlogMain
+          posts={'todo'}
+        />
       </ViewContainerScroll>
     </ViewPageMain>
   );

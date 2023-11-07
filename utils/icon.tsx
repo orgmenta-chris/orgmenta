@@ -78,7 +78,7 @@ export const ViewIconMain: React.FC<interfaceIconMain> = WrapperReactMemo(
         name={name}
         size={size}
         color={color}
-        style={{ padding, ...style }}
+        style={{ padding, ...style}}
       />
     );
   }

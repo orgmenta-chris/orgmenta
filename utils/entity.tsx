@@ -13,6 +13,29 @@ import {
 } from "./queryer";
 import { arrayFrameworkBusiness } from "./framework";
 import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
+import {
+  ViewRelationshipAttribute,
+  ViewRelationshipEntity,
+  ViewRelationshipModal,
+  ViewRelationshipRelationships,
+  useRelationshipArray,
+} from "./relationship";
+import {
+  ViewContainerColumn,
+  ViewContainerRow,
+  ViewContainerStatic,
+} from "./container";
+import {
+  ViewTypographyHeading,
+  ViewTypographySubheading,
+  ViewTypographyText,
+} from "./typography";
+import { ViewFieldDynamic } from "./field";
+import { ViewCardExpandable } from "./card";
+import { ViewButtonIcon, ViewButtonText } from "./button";
+import { arrayTypeMain } from "./type";
+import { ViewModalContainer } from "./modal";
+import { useZustandStore } from "./zustand";
 
 // PAGE
 
@@ -45,6 +68,11 @@ export const ViewEntityPage = () => {
         auxiliary={auxiliary}
         schema={schema}
         focus={focus}
+      />
+      <ViewEntityProperty />
+      <ViewRelationshipModal
+        spacename={(spaceSelected as TypeSpaceState)?.data?.spacename}
+        entityid={"97f48d4d-d38b-4ed1-afd4-e477839f3247"}
       />
     </ViewPageMain>
   );
@@ -123,6 +151,90 @@ export const useEntitySingle = (props: any) => {
   return query;
 };
 
+// ITEM (will replace 'SINGLE')
+
+export async function requestEntityValues(spacename: string, entityid: string) {
+  return await instanceSupabaseClient
+    .from(spacename && `entities_${spacename}`)
+    .select()
+    .eq(`id`, entityid)
+    .range(0, 9) //temp arbitrary limit of 10 (todo: pass variables in here to get proper pagination)
+    .then(handleSupabaseResponse as any);
+}
+
+export const useEntityValues = (entityid: string, spacename: string) => {
+  const queryKey: (string | number)[] = ["entities", spacename, entityid];
+  const query = useQueryerQuery(
+    queryKey,
+    () => requestEntityValues(spacename, entityid),
+    {
+      enabled: !!spacename && !!entityid,
+    }
+  );
+  return query;
+};
+
+
+
+// CARD
+
+export const ViewEntityCard = ({ entityid, spacename }: any) => {
+  // Display a single entity
+  return (
+    <ViewCardExpandable
+      header={<ViewEntityHeading entityid={entityid} spacename={spacename} />}
+      body={<ViewEntityBody entityid={entityid} spacename={spacename} />}
+    />
+  );
+};
+
+// HEADING
+
+export const ViewEntityHeading = ({ entityid, spacename }: any) => {
+  const entity = useEntityValues(entityid, spacename);
+  return (
+    <ViewContainerRow>
+      <ViewEntityType entityid={entityid} spacename={spacename}/>
+      <ViewTypographyText>{entity?.data?.[0]?.title}</ViewTypographyText>
+    </ViewContainerRow>
+  );
+};
+
+// TYPE
+
+export const ViewEntityType = ({ entityid, spacename }: any) => {
+  const entity = useEntityValues(entityid, spacename);
+  const type = arrayTypeMain.find((x) => x.title === entity?.data?.type);
+  // console.log('entity',entity.data)
+  // console.log('type',type)
+  return (
+    <ViewContainerRow>
+      <ViewButtonIcon iconSource={type?.iconSource} iconName={type?.iconName} />
+      <ViewTypographyText>{entity?.data?.[0]?.type+` | `}</ViewTypographyText>
+    </ViewContainerRow>
+  );
+};
+
+// BODY
+
+export const ViewEntityBody = ({ entityid, spacename }: any) => {
+  const entity = useEntityValues(entityid, spacename);
+  return Object.keys(entity.data as any).map((x, i) => (
+    <ViewFieldDynamic
+      formname={""}
+      queryId={""}
+      item={{
+        label: "",
+        value: undefined,
+        valueDefault: undefined,
+        placeholder: undefined,
+        options: undefined,
+        component: undefined,
+      }}
+    />
+  ));
+};
+
 // COUNT
 
 export const useEntityCount = ({ filter_array }: any) => {
@@ -164,7 +276,7 @@ export async function requestEntityCreate(
   entity: interfaceEntityCreate,
   spacename: string
 ) {
-  console.log("entity", entity, spacename);
+  // console.log("entity", entity, spacename);
   return await instanceSupabaseClient
     // .from("entities")
     .from(spacename && `entities_${spacename}`)
@@ -240,3 +352,51 @@ export const useEntitySchema = () => {
 //     </ViewContainerStatic>
 //   );
 // };
+
+export const useEntityProperty = (entityId: string, propertyId: string) => {
+  const store = useZustandStore(`entity-${entityId}-${propertyId}`);
+  const value = store((state: any) => state.value);
+  const update = store((state: any) => state.update);
+  return { value, update };
+};
+
+export const useEntityModal = () => {
+  const store = useZustandStore(`entity-property-modal`);
+  const value = store((state: any) => state.value);
+  const update = store((state: any) => state.update);
+  return { value: value, update };
+};
+
+export const ViewEntityProperty = ({
+  spacename,
+  entityid1,
+  entityid2,
+  attributename,
+}: any) => {
+  const modal = useEntityModal();
+  const spaceSelected = useSpaceState(["space", "selected"]);
+  const entity = useEntityValues(
+    modal.value.entityId,
+    spaceSelected?.data?.spacename
+  );
+  // const property = useEntityProperty();
+  return (
+    <ViewModalContainer
+      modalName={"entity-property"}
+      height={500}
+      backdrop
+      width={1000}
+    >
+      {/* {JSON.stringify(modal,null,2)} */}
+      <ViewContainerRow>
+        {/* <ViewTypographyText>{JSON.stringify(modal,null,2)}</ViewTypographyText> */}
+        {/* <ViewTypographyText>{JSON.stringify(modal?.value)}</ViewTypographyText> */}
+        <ViewTypographyText>{JSON.stringify(entity,null,2)}</ViewTypographyText>
+        <ViewTypographyText>
+          {/* {JSON.stringify(spaceSelected?.data?.spacename, null, 2)} */}
+        </ViewTypographyText>
+        {/* <ViewTypographyText>{JSON.stringify(entity,null,2)}</ViewTypographyText> */}
+      </ViewContainerRow>
+    </ViewModalContainer>
+  );
+};

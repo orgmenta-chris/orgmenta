@@ -1,6 +1,7 @@
 import { useWindowDimensions } from "./window";
 import { ViewContainerStatic } from "./container";
 import { useReactEffect } from "./react";
+import { UtilityPlatformMain } from "./platform";
 
 // MAIN
 
@@ -44,7 +45,7 @@ export const ViewPageSection = ({ children }: any) => {
 
 export const usePageTitle = (pageTitle: string) => {
   return useReactEffect(() => {
-    if (pageTitle) {
+    if (pageTitle && UtilityPlatformMain.OS==='web') {
       document.title = pageTitle;
     }
   }, [pageTitle]);

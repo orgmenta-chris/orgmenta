@@ -5,7 +5,7 @@ import { ViewCardExpandable } from "./card";
 import { ViewPageMain, usePageTitle } from "./page";
 import { ViewRouterLinktext, useRouterLocation } from "./router";
 import {
-  DynamicPackageModule,
+  // DynamicPackageModule,
   mapPackagesList,
   splitPackageName,
 } from "./package";
@@ -36,7 +36,7 @@ export const ViewLibraryPage = () => {
     packageName: routerPaths[3],
     splitBy: routerPaths[2],
   });
-  const Example = DynamicPackageModule(routerPaths[2])[routerPaths[3]];
+  // const Example = DynamicPackageModule(routerPaths[2])[routerPaths[3]];
   usePageTitle(`Orgmenta | Library - ${routerPaths[2]} - ${routerPaths[3]} `);
   return (
     <ViewPageMain>
@@ -47,9 +47,9 @@ export const ViewLibraryPage = () => {
           <ViewContextContainer />
         </ViewContainerColumn>
         <ViewContainerColumn id={"library_panel"} style={{ flex: 4 }}>
-          <ViewLibraryCode Example={Example} />
+          {/* <ViewLibraryCode Example={Example} />
           <ViewLibraryConstruct Example={Example} />
-          <ViewLibraryRendered Example={Example} declarationType={declarationType} />
+          <ViewLibraryRendered Example={Example} declarationType={declarationType} /> */}
         </ViewContainerColumn>
       </ViewContainerRow>
     </ViewPageMain>

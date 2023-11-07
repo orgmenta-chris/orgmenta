@@ -14,6 +14,7 @@ export const ViewTypographyText = Text;
 export type TypeTypographyTextthemed = TypeTypographyText & {
   children?: React.ReactNode;
   theme_token?: string;
+  textString?:String;
   style?: StyleProp<TextStyle> & { [key: string]: any };
 };
 
@@ -21,6 +22,7 @@ export const ViewTypographyTextthemed = ({
   children,
   theme_token,
   style,
+  textString,
   ...rest
 }: TypeTypographyTextthemed) => {
   const theme = useThemeToken(theme_token || "text") as TypeThemeMain;
@@ -33,7 +35,7 @@ export const ViewTypographyTextthemed = ({
   return (
     <Text {...propsMerged}>
       {/* Text passed through as children must be within a text element.*/}
-      {children}
+      {textString}{children}
     </Text>
   );
 };
@@ -42,6 +44,7 @@ export const ViewTypographyHeading = ({
   children,
   theme_token,
   style,
+  textString,
   ...rest
 }: TypeTypographyTextthemed) => {
   const theme = useThemeToken(theme_token || "heading") as TypeThemeMain;
@@ -54,7 +57,7 @@ export const ViewTypographyHeading = ({
   return (
     <Text {...propsMerged}>
       {/* Text passed through as children must be within a text element.*/}
-      {children}
+      {textString}{children}
     </Text>
   );
 };

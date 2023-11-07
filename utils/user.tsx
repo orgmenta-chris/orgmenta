@@ -8,6 +8,7 @@
 
 import {
   ViewTypographyHeading,
+  ViewTypographySubheading,
   ViewTypographySubsubheading,
   ViewTypographyText,
 } from "./typography";
@@ -21,9 +22,11 @@ import { ViewModalContainer } from "./modal";
 import { ViewCardExpandable } from "./card";
 import {
   ViewRouterLink,
+  ViewRouterLinktext,
   ViewRouterLinkthemed,
   ViewRouterRoute,
   ViewRouterRoutes,
+  useRouterLocation,
 } from "./router";
 import { ViewButtonPressable } from "./button";
 import { ViewIconMain } from "./icon";
@@ -47,47 +50,101 @@ import MSAL from "../components/auth/msal";
 import { ViewContextUniversal } from "./context";
 import { arrayIndustryProducts } from "./hub";
 import { ViewIntegrationSection } from "./integration";
+import { ViewMemberSection } from "./member";
+import { ViewEntityPage, ViewEntityProperty, useEntitySchema, useEntitySingle } from "./entity";
+import { ViewFocusHeader } from "./focus";
+import { ViewActionContainer } from "./action";
+import { ViewRelationshipModal } from "./relationship";
+import { TypeSpaceState, useSpaceState } from "./space";
+import { useAuxiliaryArray } from "./auxiliary";
 // import MSAL from "../../../auth/msal";
 
 // PAGE
 
 export const ViewUserPage = () => {
+  const routerPaths = useRouterLocation().paths;
   return (
     <ViewPageMain>
       <ViewTypographyHeading>User</ViewTypographyHeading>
       <ViewContainerRow>
-        <ViewRouterLinkthemed to={"authentication"}>
-          <ViewTypographySubsubheading style={{ padding: 5 }}>
-            Authentication
-          </ViewTypographySubsubheading>
-        </ViewRouterLinkthemed>
-        <ViewRouterLinkthemed to={"profile"}>
-          <ViewTypographySubsubheading style={{ padding: 5 }}>
-            Profile
-          </ViewTypographySubsubheading>
-        </ViewRouterLinkthemed>
-        <ViewRouterLinkthemed to={"devices"}>
-          <ViewTypographySubsubheading style={{ padding: 5 }}>
-            Devices
-          </ViewTypographySubsubheading>
-        </ViewRouterLinkthemed>
-        <ViewRouterLinkthemed to={"integrations"}>
-          <ViewTypographySubsubheading style={{ padding: 5 }}>
-            Integrations
-          </ViewTypographySubsubheading>
-        </ViewRouterLinkthemed>
+        <ViewRouterLinktext
+          to={"users"}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "users" && "gray",
+          }}
+          textString={`Users`}
+        />
+        <ViewRouterLinktext
+          to={"profile"}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "profile" && "gray",
+          }}
+          textString={`Profile`}
+        />
+        <ViewRouterLinktext
+          to={"authentication"}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "authentication" && "gray",
+          }}
+          textString={`Authentication`}
+        />
+        <ViewRouterLinktext
+          to={"data"}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "data" && "gray",
+          }}
+          textString={`Data`}
+        />
+        <ViewRouterLinktext
+          to={"devices"}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "devices" && "gray",
+          }}
+          textString={`Devices`}
+        />
+        <ViewRouterLinktext
+          to={"memberships"}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "memberships" && "gray",
+          }}
+          textString={`Memberships`}
+        />
+        <ViewRouterLinktext
+          to={"integrations"}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "integrations" && "gray",
+          }}
+          textString={`Integrations`}
+        />
+        <ViewRouterLinktext
+          to={"entities"}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "entities" && "gray",
+          }}
+          textString={`Entities`}
+        />
       </ViewContainerRow>
       <ViewRouterRoutes>
         <ViewRouterRoute
           path="authentication"
           element={<ViewUserAuthentication />}
         />
+        <ViewRouterRoute path="users" element={<ViewUserUsers />} />
         <ViewRouterRoute path="profile" element={<ViewUserProfile />} />
+        <ViewRouterRoute path="authentication" element={<ViewUserProfile />} />
+        <ViewRouterRoute path="data" element={<ViewUserData />} />
         <ViewRouterRoute path="devices" element={<ViewUserDevices />} />
-        <ViewRouterRoute
-          path="integrations"
-          element={<ViewUserIntegrations />}
-        />
+        <ViewRouterRoute path="memberships" element={<ViewUserMembers />} />
+        <ViewRouterRoute path="integrations" element={<ViewUserDevices />} />
+        <ViewRouterRoute path="entities" element={<ViewUserEntities />} />
       </ViewRouterRoutes>
     </ViewPageMain>
   );
@@ -100,7 +157,6 @@ export const useUserAttributes = () => {
   return attributes;
 };
 
-// Placeholder - CG working on this.
 export const ViewUserAttributes = () => {
   const attributes = useUserAttributes();
   return (
@@ -259,6 +315,7 @@ export const ViewUserDevices = () => {
   );
 };
 
+
 // SESSION
 
 // Widget to show options/links for the current logged in user
@@ -346,7 +403,7 @@ export const ViewUserSignout = () => {
         <ViewTypographySubsubheading selectable={false}>
           Signout
         </ViewTypographySubsubheading>
-        
+
         <MSAL />
       </ViewButtonPressable>
     </ViewContainerColumn>
@@ -366,7 +423,8 @@ export const ViewUserStatus = () => {
         }}
       >
         <ViewTypographySubsubheading selectable={false}>
-          STATUS (Visible - turns on realtime collaborative mode where you can see cursor, invisible, out of the office etc.)
+          STATUS (Visible - turns on realtime collaborative mode where you can
+          see cursor, invisible, out of the office etc.)
         </ViewTypographySubsubheading>
       </ViewButtonPressable>
     </ViewContainerColumn>
@@ -575,6 +633,17 @@ export const ViewUserAuthentication = () => {
   );
 };
 
+export const ViewUserUsers = () => {
+  // const userArray = useUserArray();
+  const userArray = { data: [{ title: "exampleuser" }] } as any;
+  return (
+    <ViewPageSection>
+      {userArray?.data?.map((x: any, i: string) => {
+        <ViewCardExpandable key={i} {...x} />;
+      })}
+    </ViewPageSection>
+  );
+};
 // PROFILE
 
 export const ViewUserProfile = () => {
@@ -584,6 +653,68 @@ export const ViewUserProfile = () => {
         profile
       </ViewTypographyText>
       <ViewTypographyText>(todo)</ViewTypographyText>
+    </ViewPageSection>
+  );
+};
+
+// DATA
+
+export const ViewUserData = () => {
+  return (
+    <ViewPageSection>
+      <ViewTypographySubheading>
+        Backups, imports and exports
+      </ViewTypographySubheading>
+      <ViewTypographySubheading>(todo)</ViewTypographySubheading>
+    </ViewPageSection>
+  );
+};
+
+// MEMBERS
+
+export const ViewUserMembers = () => {
+  return (
+    <ViewPageSection>
+      <ViewMemberSection userName={"userName todo"} />
+    </ViewPageSection>
+  );
+};
+
+// ENTITIES
+
+export const ViewUserEntities = () => {
+  const routerPaths = useRouterLocation()?.paths;
+  const spaceSelected = useSpaceState(["space", "selected"]);
+  const focus = useEntitySingle({ entityFocus: routerPaths?.[2] });
+  const auxiliary = useAuxiliaryArray({
+    space_name: (spaceSelected as TypeSpaceState)?.data?.spacename,
+    filters_array: [], //todo
+    column_names: [], //todo
+  });
+  const schema = useEntitySchema();
+  return (
+    <ViewPageSection>
+      <ViewTypographyText>entities todo</ViewTypographyText>
+      {/* Header for the primary entity being viewed */}
+      <ViewFocusHeader />
+      {/* Display data depending on which display mode is selected (e.g. 'Table', 'Calendar') */}
+      <ViewDisplayDynamic
+        auxiliary={auxiliary}
+        schema={schema}
+        focus={focus}
+        display={routerPaths?.[3]}
+      />
+      {/* Action tabs and panels for manipulating data */}
+      <ViewActionContainer
+        auxiliary={auxiliary}
+        schema={schema}
+        focus={focus}
+      />
+      <ViewEntityProperty />
+      <ViewRelationshipModal
+        spacename={(spaceSelected as TypeSpaceState)?.data?.spacename}
+        entityid={"97f48d4d-d38b-4ed1-afd4-e477839f3247"}
+      />
     </ViewPageSection>
   );
 };

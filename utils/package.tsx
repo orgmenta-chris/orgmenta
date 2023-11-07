@@ -387,8 +387,8 @@ export const splitPackageName = ({packageName, splitBy}:any) => {
 
 // MODULE
 
-export const DynamicPackageModule = (packageName: any) =>
-  require(`./${packageName}`);
+// export const DynamicPackageModule = (packageName: any) =>
+//   require(`./${packageName}`);
 
 // export const UtilityPackageList2: { [key: string]: any } =
 //   arrayPackagesList.map((packageName: string) => [

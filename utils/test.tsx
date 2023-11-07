@@ -1,51 +1,45 @@
 import { ViewPageMain } from "./page";
 import { ViewTypographyHeading, ViewTypographyText } from "./typography";
-import { ViewInputRichmain } from "./input";
+// import { ViewInputRichmain } from "./input";
 import { useAuxiliaryArray } from "./auxiliary";
 // import { ViewCryptoExample } from "./crypto";
-import { ViewVaultExample } from "./vault";
-import { ViewSvgArrowmain, ViewSvgArrowhead } from "./svg";
-import { ViewBarcodeReader, ViewCameraMain } from "./camera";
-import { ViewClipboardCopy } from "./clipboard";
-import { ViewAudioPlayer, ViewAudioRecorder } from "./audio";
-import { ViewVideoPlayer } from "./video";
-import { ViewScreenRecorder } from "./recorder";
-import { ViewContextContainer } from "./context";
-import { deleteQueryerQuery, useQueryerClient } from "./queryer";
+// import { ViewVaultExample } from "./vault";
+// import { ViewSvgArrowmain, ViewSvgArrowhead } from "./svg";
+// import { ViewBarcodeReader, ViewCameraMain } from "./camera";
+// import { ViewClipboardCopy } from "./clipboard";
+// import { ViewAudioPlayer, ViewAudioRecorder } from "./audio";
+// import { ViewVideoPlayer } from "./video";
+// import { ViewScreenRecorder } from "./recorder";
+// import { ViewContextContainer } from "./context";
+// import { deleteQueryerQuery, useQueryerClient } from "./queryer";
 import {
   ViewContainerColumn,
   ViewContainerRow,
   ViewContainerScroll,
 } from "./container";
-import { ViewShieldButton, ViewShieldUniversal } from "./shield";
+// import { ViewShieldButton, ViewShieldUniversal } from "./shield";
 import { TypeNotificationBody, ViewNotificationExample } from "./notification"; // C to check naming conventions. Also need to check how to use this?
-import { ViewAttributeCreate } from "./attribute";
-import { ViewFrameworkPage } from "./module";
-import { doObjectNesting } from "./object";
-import { arrayFrameworkBusiness } from "./framework";
-import { useBrowseArray } from "./browse";
-import { ViewKanbanContainer } from "./kanban";
+// import { ViewAttributeCreate } from "./attribute";
+// import { ViewFrameworkPage } from "./module";
+// import { doObjectNesting } from "./object";
+// import { arrayFrameworkBusiness } from "./framework";
+// import { useBrowseArray } from "./browse";
+// import { ViewKanbanContainer } from "./kanban";
 // import { ViewThreadComponent } from "./thread";
 // import { Example } from "./richtext";
 import { ViewZustandExample } from "./zustand";
-import { ViewDraggableModal } from "./draggable";
+// import { ViewSignatureCanvas } from "./signature";
+import { ViewDraggableBox } from "./draggable";
 import { MSGraph } from "../api/graphFunctions";
 import useTokenStore from "../states/api/storeToken";
 
 export const ViewTestPage = () => {
   const token = useTokenStore((state: any) => state.token);
   const aux = useAuxiliaryArray({ filter_array: [] });
-  // deleteQueryerQuery() //deletes ALL cached queries
   return __DEV__ ? (
     <ViewPageMain>
       <ViewContainerScroll>
-        {/* <ViewContainerColumn style={{ height: 1000, width: 1000 }}> */}
-          <ViewDraggableModal />
-        {/* </ViewContainerColumn> */}
-        {/* <Example/> */}
-        <ViewZustandExample />
-        <ViewKanbanContainer />
-        <ViewFrameworkPage
+        {/* <ViewFrameworkPage
           data={
             doObjectNesting(
               (arrayFrameworkBusiness as any)?.filter(
@@ -53,7 +47,7 @@ export const ViewTestPage = () => {
               )
             )?.[0]
           }
-        />
+        /> */}
         {/* Barcode Scanner (working) */}
         {/* <ViewBarcodeReader /> */}
 

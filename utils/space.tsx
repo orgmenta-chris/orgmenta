@@ -9,13 +9,14 @@ import { ViewModalContainer } from "./modal";
 import { ViewPageMain, ViewPageSection } from "./page";
 import { ViewCardExpandable } from "./card";
 import { ViewIconMain } from "./icon";
-import { ViewButtonPressable } from "./button";
+import { ViewButtonPressable, ViewButtonText } from "./button";
 import { ViewIntegrationSection } from "./integration";
 import {
   ViewRouterLinktext,
   ViewRouterLinkthemed,
   ViewRouterRoute,
   ViewRouterRoutes,
+  useRouterLocation,
 } from "./router";
 import {
   ViewContainerStatic,
@@ -53,44 +54,90 @@ import { arrayIndustryProducts } from "./hub";
 // PAGE
 
 export const ViewSpacePage = () => {
+  const routerPaths = useRouterLocation().paths;
   return (
     <ViewPageMain>
       <ViewTypographyHeading>Spaces</ViewTypographyHeading>
       <ViewContainerRow>
         <ViewRouterLinktext
+          to={"spaces"}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "spaces" && "gray",
+          }}
+          textString={`Spaces`}
+        />
+        <ViewRouterLinktext
           to={"profile"}
-          style={{ padding: 5 }}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "profile" && "gray",
+          }}
           textString={`Profile`}
         />
         <ViewRouterLinktext
           to={"notifications"}
-          style={{ padding: 5 }}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "notifications" && "gray",
+          }}
           textString={`Notifications`}
         />
         <ViewRouterLinktext
           to={"integrations"}
-          style={{ padding: 5 }}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "integrations" && "gray",
+          }}
           textString={`Integrations`}
         />
         <ViewRouterLinktext
           to={"data"}
-          style={{ padding: 5 }}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "data" && "gray",
+          }}
           textString={`Data`}
         />
         <ViewRouterLinktext
           to={"members"}
-          style={{ padding: 5 }}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "members" && "gray",
+          }}
           textString={`Members`}
         />
         <ViewRouterLinktext
+          to={"roles"}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "roles" && "gray",
+          }}
+          textString={`Roles`}
+        />
+        <ViewRouterLinktext
           to={"billing"}
-          style={{ padding: 5 }}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "billing" && "gray",
+          }}
           textString={`Billing`}
         />
         <ViewRouterLinktext
           to={"attributes"}
-          style={{ padding: 5 }}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "attributes" && "gray",
+          }}
           textString={`Attributes`}
+        />
+        <ViewRouterLinktext
+          to={"entities"}
+          style={{
+            padding: 5,
+            backgroundColor: routerPaths[3] === "entities" && "gray",
+          }}
+          textString={`Entities`}
         />
       </ViewContainerRow>
       {/* <ViewContainerScroll>
@@ -106,10 +153,14 @@ export const ViewSpacePage = () => {
           path="integrations"
           element={<ViewSpaceIntegrations />}
         />
+        <ViewRouterRoute path="spaces" element={<ViewSpaceSpaces />} />
+        <ViewRouterRoute path="profile" element={<ViewSpaceProfile />} />
         <ViewRouterRoute path="data" element={<ViewSpaceData />} />
         <ViewRouterRoute path="members" element={<ViewSpaceMembers />} />
         <ViewRouterRoute path="billing" element={<ViewSpaceBilling />} />
+        <ViewRouterRoute path="roles" element={<ViewSpaceRoles />} />
         <ViewRouterRoute path="attributes" element={<ViewSpaceAttributes />} />
+        <ViewRouterRoute path="entities" element={<ViewSpaceEntities />} />
       </ViewRouterRoutes>
     </ViewPageMain>
   );
@@ -487,6 +538,7 @@ export const useSpaceState = (id: any) => {
 // Currently selected space links/options
 export const ViewSpaceCurrent = (props: any) => {
   const spaceActive: any = useSpaceState(["space", "selected"]);
+  // console.log(spaceActive);
   return (
     spaceActive?.data?.title && (
       <ViewCardExpandable
@@ -497,37 +549,43 @@ export const ViewSpaceCurrent = (props: any) => {
             <>
               <ViewRouterLinktext
                 style={{ margin: 5 }}
-                to={`/spaces/${spaceActive.data.selected}`}
-                textString={`Go to Space`}
+                to={`/spaces/${spaceActive.data.spacename}/spaces`}
+                textString={`Spaces`}
                 textSelectable={false}
               />
               <ViewRouterLinktext
                 style={{ margin: 5 }}
-                to={`/spaces/${spaceActive.data.selected}/attributes`}
+                to={`/spaces/${spaceActive.data.spacename}/profile`}
+                textString={`Profile`}
+                textSelectable={false}
+              />
+              <ViewRouterLinktext
+                style={{ margin: 5 }}
+                to={`/spaces/${spaceActive.data.spacename}/attributes`}
                 textString={`Attributes`}
                 textSelectable={false}
               />
               <ViewRouterLinktext
                 style={{ margin: 5 }}
-                to={`/spaces/${spaceActive.data.selected}/files`}
+                to={`/spaces/${spaceActive.data.spacename}/files`}
                 textString={`Files`}
                 textSelectable={false}
               />
               <ViewRouterLinktext
                 style={{ margin: 5 }}
-                to={`/spaces/${spaceActive.data.selected}/settings`}
+                to={`/spaces/${spaceActive.data.spacename}/settings`}
                 textString={`Settings`}
                 textSelectable={false}
               />
               <ViewRouterLinktext
                 style={{ margin: 5 }}
-                to={`/spaces/${spaceActive.data.selected}/billing`}
+                to={`/spaces/${spaceActive.data.spacename}/billing`}
                 textString={`Billing`}
                 textSelectable={false}
               />
               <ViewRouterLinktext
                 style={{ margin: 5 }}
-                to={`/spaces/${spaceActive.data.selected}/members`}
+                to={`/spaces/${spaceActive.data.spacename}/members`}
                 textString={`Members`}
                 textSelectable={false}
               />
@@ -643,24 +701,57 @@ export const ViewSpaceIntegrations = () => {
   const integrationsTemp = arrayIndustryProducts.filter(
     (x) => x.integrations?.length > 0
   );
+  const integrationsActive = useSpaceIntegrations({spacename:'orgmenta'});
   return (
     <ViewPageSection>
-      <ViewIntegrationSection />
+      <ViewTypographySubheading>Active Integrations:</ViewTypographySubheading>
+        {(integrationsActive?.data as any)?.map((x:any, i:string) => (
+            <ViewButtonText key={i} textString={x.title} onPress={()=>console.log('loisa todo')}/>
+        ))}
+      <ViewTypographySubheading>Available Integrations:</ViewTypographySubheading>
+        {['Microsoft','Zapier','Quickbooks','Xero']
+          .map((x, i) => (
+            <ViewButtonText key={i} textString={x} onPress={()=>console.log('loisa todo')}/>
+          ))}
+      <ViewTypographySubheading>Future Integrations:</ViewTypographySubheading>
       <ViewContainerScroll>
-        <ViewTypographyText>
-          {JSON.stringify(integrationsTemp, null, 2)}
-        </ViewTypographyText>
+        {integrationsTemp
+          .filter((x: any) => x.status === "0. New")
+          .map((x, i) => (
+            <ViewButtonText key={i} textString={x.title}/>
+          ))}
       </ViewContainerScroll>
+      {/* <ViewIntegrationSection 
+        // placeholder - to abstract the above out to this component in the future
+      /> */}
     </ViewPageSection>
   );
 };
+
+
+export const useSpaceIntegrations = ({ spacename }: any) => {
+  const query = useQueryerQuery({
+    queryKey: ["spaces", spacename,"integrations"],
+    queryFn: async () => {
+      const response = await instanceSupabaseClient
+        .from(`entities_${spacename}`)
+        .select()
+        .eq('class','integration')
+      return response.data;
+    },
+    enabled: !!spacename,
+    // ...props
+  } as TypeQueryerOptions);
+  return query;
+};
+
 
 // ATTRIBUTES
 
 export const ViewSpaceAttributes = () => {
   return (
     <ViewPageSection>
-      <ViewAttributeSection />
+      <ViewAttributeSection spaceName={"todo"} />
     </ViewPageSection>
   );
 };
@@ -681,9 +772,10 @@ export const ViewSpaceData = () => {
 // MEMBERS
 
 export const ViewSpaceMembers = () => {
+  const spaceName = useRouterLocation().paths?.[2];
   return (
     <ViewPageSection>
-      <ViewMemberSection />
+      <ViewMemberSection spaceName={spaceName} />
     </ViewPageSection>
   );
 };
@@ -695,7 +787,7 @@ export const ViewSpaceBilling = () => {
   return (
     <ViewPageSection>
       <ViewTypographySubheading>
-        Orgmenta subscriptions & billing to go here
+        Orgmenta subscriptions & billing
       </ViewTypographySubheading>
       <ViewBillingSection />
     </ViewPageSection>
@@ -795,5 +887,70 @@ export const ViewSpaceWidget = () => {
         </ViewTypographyText>
       )}
     </ViewButtonPressable>
+  );
+};
+
+// SPACES
+
+export const ViewSpaceSpaces = () => {
+  const spaceArray = useSpaceArray();
+  const spaceActive = useSpaceState(["space", "selected"]);
+  return (
+    <ViewContainerScroll>
+      <ViewTypographyText>
+        List of spaces available to the user.
+      </ViewTypographyText>
+      <ViewTypographyText>
+        Todo: put into hierarchy form, allow switching, allow reconfiguring of
+        space hierarchies.
+      </ViewTypographyText>
+      {/* <ViewTypographyText>{JSON.stringify(spaceArray.data,null,2)}</ViewTypographyText> */}
+      {(spaceArray?.data as any)?.map((x:any,i:string) => (
+        <ViewTypographyText key={i}>{x.name_display_singular}</ViewTypographyText>
+      ))}
+    </ViewContainerScroll>
+  );
+};
+// SPACES
+
+export const ViewSpaceRoles = () => {
+  return (
+    <ViewContainerScroll>
+      <ViewTypographyText>
+        List of roles that you can assign members to.
+      </ViewTypographyText>
+    </ViewContainerScroll>
+  );
+};
+
+// PROFILE
+
+export const ViewSpaceProfile = () => {
+  const spaceActive = useSpaceState(["space", "selected"]);
+  return (
+    <ViewContainerScroll>
+    <ViewTypographyText>-----</ViewTypographyText>
+      <ViewTypographyText>{`Set primary email send-from: <--Loisa todo`}</ViewTypographyText>
+      <ViewTypographyText>-----</ViewTypographyText>
+      <ViewTypographyText>{`Force 2FA for all users: <--ON HOLD`} </ViewTypographyText>
+      <ViewTypographyText>{`Force 2FA type for all users: <--ON HOLD`}</ViewTypographyText>
+      <ViewTypographyText>-----</ViewTypographyText>
+      <ViewTypographyText>{`Create a subspace: <--ON HOLD`}</ViewTypographyText>
+      <ViewTypographyText>{`Delete Space: <--ON HOLD`}</ViewTypographyText>
+      <ViewTypographyText>-----</ViewTypographyText>
+      {/* <ViewTypographyText>
+        {JSON.stringify(spaceActive, null, 2)}
+      </ViewTypographyText> */}
+    </ViewContainerScroll>
+  );
+};
+
+// ENTITIES
+
+export const ViewSpaceEntities = () => {
+  return (
+    <ViewPageSection>
+      <ViewTypographyText>entities todo</ViewTypographyText>
+    </ViewPageSection>
   );
 };

@@ -177,47 +177,47 @@ export const metaFocusHeader = () => {
 //   );
 // };
 
-// Tabs
+// // Tabs
 
-// A temporary component to show focus entity tabs (e.g. Accounts > Payables > Bills/Payments/etc)
-// This is using static data at the moment, but will eventually be a dynamic component using  db data.
-export const ViewFocusTabs = () => {
-  // At the moment, this shows breadcrumbs for categories (e.g. governance > model > plan) from static.js
-  // But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
-  const path = useRouterLocation()?.paths;
-  const process = arrayFrameworkBusiness?.find((x) => x.nickname === path[2]);
-  const subprocesses =
-    process && arrayFrameworkBusiness.filter((x) => x.parent === process.id);
-  const parent = arrayFrameworkBusiness?.find((y) => y.id === process?.parent);
-  const grandparent = arrayFrameworkBusiness?.find(
-    (z) => z.id === parent?.parent
-  );
-  return (
-    <ViewContainerStatic
-      style={{
-        flexDirection: "column",
-        borderWidth: 1,
-        borderColor: "white",
-        margin: 5,
-      }}
-    >
-      {/* Tabs for each subprocess */}
-      <ViewContainerStatic style={{ flexDirection: "row", height: 40 }}>
-        {subprocesses?.map((x, i) => (
-          <ViewRouterLink
-            style={{ flex: 1 }}
-            key={i}
-            to={`/entity/` + x.nickname}
-          >
-            {x.display_singular}
-          </ViewRouterLink>
-        ))}
-      </ViewContainerStatic>
+// // A temporary component to show focus entity tabs (e.g. Accounts > Payables > Bills/Payments/etc)
+// // This is using static data at the moment, but will eventually be a dynamic component using  db data.
+// export const ViewFocusTabs = () => {
+//   // At the moment, this shows breadcrumbs for categories (e.g. governance > model > plan) from static.js
+//   // But it will eventually be able to display a titlebar / breadcrumb bar for any entity from the database.
+//   const path = useRouterLocation()?.paths;
+//   const process = arrayFrameworkBusiness?.find((x) => x.nickname === path[2]);
+//   const subprocesses =
+//     process && arrayFrameworkBusiness.filter((x) => x.parent === process.id);
+//   const parent = arrayFrameworkBusiness?.find((y) => y.id === process?.parent);
+//   const grandparent = arrayFrameworkBusiness?.find(
+//     (z) => z.id === parent?.parent
+//   );
+//   return (
+//     <ViewContainerStatic
+//       style={{
+//         flexDirection: "column",
+//         borderWidth: 1,
+//         borderColor: "white",
+//         margin: 5,
+//       }}
+//     >
+//       {/* Tabs for each subprocess */}
+//       <ViewContainerStatic style={{ flexDirection: "row", height: 40 }}>
+//         {subprocesses?.map((x, i) => (
+//           <ViewRouterLink
+//             style={{ flex: 1 }}
+//             key={i}
+//             to={`/entity/` + x.nickname}
+//           >
+//             {x.display_singular}
+//           </ViewRouterLink>
+//         ))}
+//       </ViewContainerStatic>
 
-      {/* Info on the current process (move this into pods*/}
-      {/* <ViewTypographyText style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}> */}
-      {/* {JSON.stringify({division,department,process},null,2)} */}
-      {/* </ViewTypographyText> */}
-    </ViewContainerStatic>
-  );
-};
+//       {/* Info on the current process (move this into pods*/}
+//       {/* <ViewTypographyText style={{fontSize:12, height: 200, backgroundColor:'lightgray',overflow:'scroll'}}> */}
+//       {/* {JSON.stringify({division,department,process},null,2)} */}
+//       {/* </ViewTypographyText> */}
+//     </ViewContainerStatic>
+//   );
+// };

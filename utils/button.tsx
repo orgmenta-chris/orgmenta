@@ -202,6 +202,9 @@ export const styleButtonMain = {
   // General style. Question: (Why/Why not) should this use StyleSheet?
   // flex: 1,
   margin: 5,
+  minWidth: 30,
+  // alignItems: 'center',
+  // alignContent: 'center',
   borderRadius: 5,
   backgroundColor: "#F8F8F8",
   padding: 5,

@@ -1,10 +1,16 @@
 import { create, createStore, useStore } from "zustand";
-import { StateStorage } from "zustand/middleware";
+import { StateStorage, persist  } from "zustand/middleware";
 import { ViewContainerColumn } from "./container";
 import { ViewTypographyText } from "./typography";
 import { ViewButtonText } from "./button";
-import { UtilityMmkvDatabase } from "./mmkv";
+// import { UtilityMmkvDatabase } from "./mmkv";
+import { UtilityLocalAsyncstorage } from './local'
+import { UtilityPlatformMain } from "./platform";
+let UtilityMmkvDatabase: any;
 
+if (UtilityPlatformMain.OS === 'web') {
+  UtilityMmkvDatabase = require("./mmkv").UtilityMmkvDatabase;
+}
 // STORAGE
 
 // move into 'local'/'state'?
@@ -12,14 +18,16 @@ export type TypeZustandStorage = StateStorage;
 
 export const UtilityZustandStorage: TypeZustandStorage = {
   setItem: (name, value) => {
-    return UtilityMmkvDatabase.set(name, value);
+    return UtilityPlatformMain.OS==='web' ? UtilityMmkvDatabase.set(name, value) : UtilityLocalAsyncstorage.setItem(name, value) ;
   },
   getItem: (name) => {
-    const value = UtilityMmkvDatabase.getString(name);
-    return value ?? null;
+    // const value = UtilityMmkvDatabase.getString(name);
+    return UtilityPlatformMain.OS==='web' ? UtilityMmkvDatabase.getString(name): UtilityLocalAsyncstorage.getItem(name) ;
+    // return value ?? null;
   },
   removeItem: (name) => {
-    return UtilityMmkvDatabase.delete(name);
+    return UtilityPlatformMain.OS==='web' ? UtilityMmkvDatabase.delete(name): UtilityLocalAsyncstorage.removeItem(name) ;
+    // return UtilityMmkvDatabase.delete(name);
   },
 };
 
@@ -30,11 +38,12 @@ export type TypeZustandStore = {
 
 // STORE
 
-export function useZustandStore(key: string) {
+export const useZustandStore = (key: string) => {
   return create<TypeZustandStore>((set) => ({
     value: UtilityZustandStorage.getItem(key) ?? null,
     update: (newValue) => {
-      UtilityZustandStorage.setItem(key, newValue.toString());
+      // UtilityZustandStorage.setItem(key, newValue.toString());
+      UtilityZustandStorage.setItem(key, newValue);
       set({ value: newValue });
     },
   }));

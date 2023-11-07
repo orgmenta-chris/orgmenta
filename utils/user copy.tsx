@@ -346,6 +346,42 @@ export const ViewUserSession2 = () => {
   );
 };
 
+export const ViewAdminAuth = () => {
+  const [authState, setAuthState] = useState(true);
+
+  const toggleAuthState = () => {
+    setAuthState(!authState);
+  };
+
+  return (
+    <ViewContainerScroll>
+      <ViewContainerStatic>
+        {authState ? <ViewAzureSignin /> : <ViewUserSignin />}
+      </ViewContainerStatic>
+      <ViewContainerStatic>
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            padding: 5,
+            margin: 10,
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "black",
+            backgroundColor: "lightblue",
+          }}
+          onPress={toggleAuthState}
+        >
+          <ViewTypographyText
+            selectable={false}
+            style={{ fontWeight: "bold", textAlign: "center" }}
+          >
+            {authState ? "Password Login" : "Social Login"}
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      </ViewContainerStatic>
+    </ViewContainerScroll>
+  );
+};
 
 // SIGNOUT
 
@@ -418,44 +454,6 @@ export const ViewUserSwitch = () => {
     </ViewContainerColumn>
 )}
 
-
-export const ViewAdminAuth = () => {
-  const [authState, setAuthState] = useState(true);
-
-  const toggleAuthState = () => {
-    setAuthState(!authState);
-  };
-
-  return (
-    <ViewContainerScroll>
-      <ViewContainerStatic>
-        {authState ? <ViewAzureSignin /> : <ViewUserSignin />}
-      </ViewContainerStatic>
-      <ViewContainerStatic>
-        <ViewButtonPressable
-          style={{
-            flex: 1,
-            padding: 5,
-            margin: 10,
-            borderWidth: 1,
-            borderRadius: 5,
-            borderColor: "black",
-            backgroundColor: "lightblue",
-          }}
-          onPress={toggleAuthState}
-        >
-          <ViewTypographyText
-            selectable={false}
-            style={{ fontWeight: "bold", textAlign: "center" }}
-          >
-            {authState ? "Password Login" : "Social Login"}
-          </ViewTypographyText>
-        </ViewButtonPressable>
-      </ViewContainerStatic>
-    </ViewContainerScroll>
-  );
-};
-
 export const ViewUserSignin = () => {
   const handleTabPress = (index: number) => {
     setActiveTab(index);
@@ -504,48 +502,23 @@ export const ViewUserSignin = () => {
 // Widget to show options/links for the current logged in user
 export const ViewUserSession = () => {
   const auth = useAuthSession();
-  const signoutRegular = useAuthSignout();
-  const signoutAzure = useAzureSignout();
-  // const [activeTab, setActiveTab] = useReactState(0);
-  // const tabs = [
-  //   { tab: "Sign in", component: <ViewAuthSignin /> },
-  //   { tab: "Sign up", component: <ViewAuthSignup /> },
-  // ];
-  // const handleTabPress = (index: number) => {
-  //   setActiveTab(index);
-  // };
-  // const [parameters, setParameters] = useState(null);
-  // const setToken = useTokenStore((state: any) => state.setToken);
-  const setSSOSession = useAzureSSOStore((state: any) => state.setSession);
-  const ssoSession = useAzureSSOStore((state: any) => state.userSession);
-
-  const getURLParameters = (url: any) => {
-    const searchParams = new URLSearchParams(url.split("#")[1]);
-
-    const parameters = Object.fromEntries(searchParams.entries());
-
-    // @ts-ignore
-    setSSOSession(parameters);
+  const signout = useAuthSignout();
+  const [activeTab, setActiveTab] = useReactState(0);
+  const tabs = [
+    { tab: "Sign in", component: <ViewAuthSignin /> },
+    { tab: "Sign up", component: <ViewAuthSignup /> },
+  ];
+  const handleTabPress = (index: number) => {
+    setActiveTab(index);
   };
-
-  useEffect(() => {
-    const currentURL = window.location.href;
-
-    getURLParameters(currentURL);
-
-    console.log("parameters:", ssoSession);
-  }, []);
-
   return (
     <ViewCardExpandable
       startExpanded
       header={"Navigation"}
       body={
-        // @ts-ignore
-        !auth?.data?.session && !ssoSession.access_token ? (
-          <ViewAdminAuth />
+        auth?.data?.session === null ? (
+          <ViewUserSignin />
         ) : (
-          // <Text>{JSON.stringify(ssoSession, null, 2)}</Text>
           <ViewContainerStatic>
             <ViewRouterLinkthemed
               style={{ margin: 5 }}
@@ -584,8 +557,7 @@ export const ViewUserSession = () => {
             <ViewButtonPressable
               style={{ margin: 5 }}
               onPress={() => {
-                ssoSession ? signoutRegular.mutate(): signoutAzure.mutate();
-                
+                signout.mutate();
               }}
             >
               <ViewTypographySubsubheading selectable={false}>

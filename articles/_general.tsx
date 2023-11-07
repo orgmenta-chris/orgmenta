@@ -1,15 +1,3 @@
-// Moved to article.tsx
-// export const arrayArticleSectons = [
-//   'Contents (table of contents)',
-//   'Abstract / Hypothesis',
-//   'Relevant/related terms / Glossary / Relevant links to Data dictionary (see dictionary.tsx)',
-//   '... decide on standard structure for the main body... (split this out into separate sections in this array)',
-//   'Summary / Conclusion',
-//   'Derived stuff',
-//   'Next / next actions',
-//   'See also...'
-// ]
-
 //https://news.ycombinator.com/item?id=37749608 	Project Management Software Can't Save You (wired.com) (https://www.wired.com/story/project-management-software-productivity/)
 // Address those concerns in the article - how orgmenta solves this, how orgmenta does NOT solve it.
 

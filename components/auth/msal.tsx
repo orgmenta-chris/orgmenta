@@ -9,6 +9,8 @@ import { Pressable, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { scopes, publicClientApplication } from "../../api/authConfig";
 import useTokenStore from "../../states/api/storeToken";
 import { requestAuthSession } from "../../utils/auth";
+import { ViewButtonPressable } from "../../utils/button";
+import { ViewTypographyText } from "../../utils/typography";
 
 const MSAL = () => {
   const params: MSALInteractiveParams = { scopes };
@@ -37,45 +39,52 @@ const MSAL = () => {
     <>
       {token ? (
         <>
-          <Text>Microsoft Account Connected</Text>
-          <Pressable
+          <ViewTypographyText
+            selectable={false}
+            style={{ fontWeight: "bold", textAlign: "center" }}
+          >
+            Microsoft Account Connected
+          </ViewTypographyText>
+          <ViewButtonPressable
             style={{
+              flex: 1,
+              padding: 5,
+              margin: 10,
               borderWidth: 1,
               borderRadius: 5,
-              paddingHorizontal: 15,
-              paddingVertical: 10,
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 4,
+              borderColor: "black",
+              backgroundColor: "lightblue",
             }}
             onPress={() => getUserSession()}
           >
-            <Text>Get User Session</Text>
-          </Pressable>
+            <ViewTypographyText
+              selectable={false}
+              style={{ fontWeight: "bold", textAlign: "center" }}
+            >
+              Get User Session
+            </ViewTypographyText>
+          </ViewButtonPressable>
         </>
       ) : (
-        <Pressable
+        <ViewButtonPressable
           style={{
+            flex: 1,
+            padding: 5,
+            margin: 10,
             borderWidth: 1,
             borderRadius: 5,
-            paddingHorizontal: 15,
-            paddingVertical: 10,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 4,
+            borderColor: "black",
+            backgroundColor: "lightblue",
           }}
           onPress={() => acquireAccessToken()}
         >
-          <Text>Connect Ms Account</Text>
-        </Pressable>
+          <ViewTypographyText
+            selectable={false}
+            style={{ fontWeight: "bold", textAlign: "center" }}
+          >
+            Connect Ms Account
+          </ViewTypographyText>
+        </ViewButtonPressable>
       )}
     </>
   );

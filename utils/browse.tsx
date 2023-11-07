@@ -63,7 +63,6 @@ export const useBrowseArray = ({ searchterm }: any) => {
   const queryFn = async () => {
     const query = instanceSupabaseClient.from("entities_orgmenta").select();
     if (searchterm) {
-      console.log("searchterm", searchterm);
       query.ilike("title", `%${searchterm}%`);
     }
     query.range(0, 9); //temp arbitrary limit of 10 (todo: pass variables in here to get proper pagination)
@@ -105,7 +104,7 @@ export const ViewBrowseSearch = (props: any) => {
       startExpanded
       header={"Search"}
       body={
-        <ViewContainerStatic style={{ height: "100%" }}>
+        <ViewContainerStatic style={{ flex: 1  }}>
           <ViewContainerStatic style={{ flex: 1 }}>
             <ViewContainerRow style={{ maxHeight: 40, width: "100%" }}>
               <ViewTypographyText

@@ -30,7 +30,7 @@ import { ViewSvgMain, ViewSvgPath, ViewSvgGroup } from "./svg";
 import { mapTypeMain } from "./type";
 import { useModalVisibility } from "./modal";
 import { useWindowDimensions } from "./window";
-import { data } from "./framework";
+import { arrayFrameworkBusiness } from "./framework";
 import { articlesTemp } from "../articles/_general";
 import {
   features,
@@ -52,6 +52,7 @@ import { ViewShareContainer } from "./share";
 import { ViewPricingContainer } from "./pricing";
 import { useThemeToken } from "./theme";
 import { ViewIntegrationSection } from "./integration";
+import { ViewBlogMain } from "./blog";
 
 // HEADER
 
@@ -250,6 +251,19 @@ export const ViewOrgmentaModal = (props: any) => {
             }}
           >
             Socials
+          </ViewRouterLink>
+          <ViewRouterLink
+            to={"/"}
+            style={{
+              justifyContent: "center",
+              textDecoration: "none",
+              color: "black",
+              padding: 3,
+            }}
+          >
+            <ViewTypographyText style={{ fontWeight: "bold" }}>
+              LIVE CHAT
+            </ViewTypographyText>
           </ViewRouterLink>
           <ViewRouterLink
             to={"/"}
@@ -579,7 +593,7 @@ export const ViewOrgmentaPartner = ({}: any) => {
   );
 };
 
-export const ViewOrgmentaHome = ({}: any) => {
+export const ViewOrgmentaHome = () => {
   return (
     <ViewOrgmentaBackground>
       <ViewContainerScroll
@@ -620,12 +634,14 @@ export const ViewOrgmentaHome = ({}: any) => {
 
 // COMMNUNITY PAGES
 
-export const ViewOrgmentaNews = ({}: any) => {
+export const ViewOrgmentaNews = () => {
   return (
     <ViewPageMain>
       <ViewContainerScroll>
         <ViewTypographyHeading>News</ViewTypographyHeading>
-        <ViewTypographyText>ViewOrgmentaNews placeholder</ViewTypographyText>
+        <ViewBlogMain
+          posts={'todo'}
+        />
       </ViewContainerScroll>
     </ViewPageMain>
   );
@@ -1186,7 +1202,7 @@ export const ViewOrgmentaFrameworkoverview = () => {
         Click on a module to see the demo and features overview
       </ViewTypographySubsubheading>
       <ViewContainerStatic style={{ width: 400 }}>
-        {data
+        {arrayFrameworkBusiness
           ?.filter((x) => x.parent === 1)
           ?.map((x: any, i: number) => (
             <ViewButtonLink

@@ -79,7 +79,11 @@ export const ViewRouterLink: React.FC<any> = ({ children, ...rest }) => {
   const navigate = useRouterNavigate();
   return UtilityPlatformMain.OS === "web" ? (
     <LinkComponent {...rest}>
-      {isString ? <ViewTypographyText>{children}</ViewTypographyText> : children}
+      {isString ? (
+        <ViewTypographyText>{children}</ViewTypographyText>
+      ) : (
+        children
+      )}
     </LinkComponent>
   ) : (
     <ViewButtonPressable
@@ -88,7 +92,11 @@ export const ViewRouterLink: React.FC<any> = ({ children, ...rest }) => {
         navigate(`${rest.to}`);
       }}
     >
-      {isString ? <ViewTypographyText>{children}</ViewTypographyText> : children}
+      {isString ? (
+        <ViewTypographyText>{children}</ViewTypographyText>
+      ) : (
+        children
+      )}
     </ViewButtonPressable>
   );
 };
@@ -121,7 +129,17 @@ export const ViewRouterLinkthemed = ({
   );
 };
 
-// Button (allows us to navigate AND perform functions - but we lose right click ability, so don't use this unless necessary / unless right click isn't needed)
+// TEXT (Just has a nested text, to make files easier and more readable)
+
+export const ViewRouterLinktext = ({ textString, textSelectable, style, ...rest }: any) => {
+  return (
+    <ViewRouterLinkthemed {...rest}>
+      <ViewTypographyText style={style} selectable={textSelectable}>{textString}</ViewTypographyText>
+    </ViewRouterLinkthemed>
+  );
+};
+
+// BUTTON (allows us to navigate AND perform functions - but we lose right click ability, so don't use this unless necessary / unless right click isn't needed)
 
 // TODO (placeholder, not tested)
 export const ViewRouterButton = ({

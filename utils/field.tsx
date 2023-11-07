@@ -20,7 +20,7 @@ import {
   ViewContainerColumn,
 } from "./container";
 import {
-  ViewInputRichmain,
+  // ViewInputRichmain,
   ViewInputText,
   ViewInputDecimal,
   ViewInputInteger,
@@ -244,23 +244,23 @@ export const ViewFieldPicker = ({
 };
 
 // A non-editable text field
-export const ViewFieldRichtext = ({
-  valueDefault,
-  secure,
-  state,
-  set,attributename
-}: any) => {
-  return (
-    <ViewInputRichmain
-      style={{ flex: 1 }}
-      onChangeText={(value: string) => {
-        set("value", () => value, attributename);
-        // set("value", () => value);
-      }}
-      defaultValue={valueDefault}
-    />
-  );
-};
+// export const ViewFieldRichtext = ({
+//   valueDefault,
+//   secure,
+//   state,
+//   set,attributename
+// }: any) => {
+//   return (
+//     <ViewInputRichmain
+//       style={{ flex: 1 }}
+//       onChangeText={(value: string) => {
+//         set("value", () => value, attributename);
+//         // set("value", () => value);
+//       }}
+//       defaultValue={valueDefault}
+//     />
+//   );
+// };
 
 // Decimal
 export const ViewFieldDecimal = ({ valueDefault, secure, state, set, attributename}: any) => {
@@ -409,7 +409,7 @@ export const mapFieldComponents: any = {
   input: ViewFieldInput,
   relationship: ViewFieldRelationship,
   // richtext: ViewFieldRichtext, // todo
-  richtext: ViewFieldInvalid,
+  richtext: ViewFieldText,
   picker: ViewFieldPicker,
   numeric: ViewFieldDecimal, // change all relevant values in attributes table to 'decimal' then change the name here too.
   integer: ViewFieldInteger,
@@ -501,20 +501,21 @@ export const useFormSet = (id: string[]) => {
   const queryerClient = useQueryerClient();
   return (keyName: string, setValueFunction: () => any, attributeName:any) => {
     const value = setValueFunction();
-    // console.log('useFormSet called',keyName,value)
-    // The INDIVIDUAL FIELD
-    /* put through valiudation here */
-    // queryerClient.setQueryData(
-    //   ["field"].concat(id),
-    //   (oldData: Record<string, any>) => {
-    //     return {
-    //       ...oldData,
-    //       [keyName]: value,
-    //     };
-    //   }
-    // );
-    // console.log('id',id)
-    // The FORM (All the fields, for submission)
+    /* This is a state for each field (currently disabled, just creating a single form state for now) */
+      // console.log('useFormSet called',keyName,value)
+      // The INDIVIDUAL FIELD
+      /* put through validation here */
+      // queryerClient.setQueryData(
+      //   ["field"].concat(id),
+      //   (oldData: Record<string, any>) => {
+      //     return {
+      //       ...oldData,
+      //       [keyName]: value,
+      //     };
+      //   }
+      // );
+      // console.log('id',id)
+    /* This is a state for the entire form (rather than one per field) */
     queryerClient.setQueryData(
       ["form",id[0]],
       (oldData: Record<string, any>) => {

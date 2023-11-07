@@ -6,52 +6,74 @@ import { ViewInfoButton, ViewInfoPopup } from "./info";
 import { ViewPreferenceButton, ViewPreferencePopup } from "./preference";
 import { ViewHelpButton } from "./help";
 import { useReactState } from "./react";
-import { ViewButtonPressable } from "./button";
+import { ViewButtonIcon, ViewButtonPressable } from "./button";
 import { ViewIconMain } from "./icon";
 
 // CONTAINER
 
-export const ViewContextContainer = ({ children, to, infoText, expandSet, expandState }: any) => {
+export const ViewContextContainer = ({
+  closeEnabled,
+  children,
+  to,
+  infoText,
+  expandSet,
+  expandState,
+}: any) => {
   const [showState, showSet] = useReactState(false);
   const [infoState, infoSet] = useReactState(false);
   return (
     <ViewContainerRow
-      style={{
-        height: 35,
-        margin:5
-      }}
+      style={
+        {
+          // height: 40,
+          // margin:5
+        }
+      }
     >
       {/* Buttons */}
-      {showState && <ViewInfoButton set={()=>infoSet((old) => !old)} />}
-      {showState && <ViewHelpButton to={to} />}
-      {showState && expandSet && <ViewContextExpand expandState={expandState} expandSet={expandSet}/>}
+      {showState && <ViewInfoButton set={() => infoSet((old) => !old)} />}
+      {showState && <ViewHelpButton />}
+      {showState && expandSet && (
+        <ViewContextExpand expandState={expandState} expandSet={expandSet} />
+      )}
       {showState && <ViewPreferenceButton />}
       {/* Popups */}
       {infoState && <ViewInfoPopup infoText={infoText} children={children} />}
       {/* <ViewPreferencePopup children={children} /> */}
       {/* Toggle */}
+      {showState && closeEnabled && <ViewContextClose />}
       <ViewContextButton showSet={showSet} />
     </ViewContainerRow>
   );
 };
 
+// CLOSE
+export const ViewContextClose = ({ onClose }: any) => {
+  return (
+    <ViewButtonIcon
+      onPress={onClose}
+      iconName="x"
+      iconSource={"Feather"}
+      iconSize={24}
+      buttonColor={"transparent"}
+      iconColor={`rgb(80,80,80)`}
+    />
+  );
+};
 // BUTTON
 
 export const ViewContextButton = ({ showSet }: any) => {
-  // Toggles whether you can see the buttons
   return (
-    <ViewButtonPressable
-      style={{ 
-        justifyContent:'center',
-      }}
+    <ViewButtonIcon
+      id={"toggle_other_context_buttons"}
       onPress={() => showSet((old: boolean) => !old)}
-    >
-      <ViewIconMain
-        name={"dots-three-vertical"}
-        source={"Entypo"}
-        color={"rgba(80,80,80,1)"}
-      />
-    </ViewButtonPressable>
+      iconStyle={{ paddingTop: 2 }}
+      buttonColor={"transparent"}
+      iconSource={`Entypo`}
+      iconName={"dots-three-vertical"}
+      iconColor={`rgb(80,80,80)`}
+      iconSize={20}
+    />
   );
 };
 
@@ -61,13 +83,13 @@ export const ViewContextExpand = ({ expandSet, expandState }: any) => {
   // Expand/Collapse the current View.
   return (
     <ViewButtonPressable
-      style={{ 
-        justifyContent:'center',
+      style={{
+        justifyContent: "center",
       }}
       onPress={() => expandSet((old: boolean) => !old)}
     >
       <ViewIconMain
-        name={expandState ? "md-caret-up-circle" : "md-caret-down-circle" }
+        name={expandState ? "md-caret-up-circle" : "md-caret-down-circle"}
         source={"Ionicons"}
         color={"rgba(80,80,80,1)"}
         size={27}

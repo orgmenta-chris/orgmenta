@@ -36,8 +36,7 @@ import {
 import { ColumnDef } from "@tanstack/react-table";
 import { Type } from "@stripe/stripe-react-native/lib/typescript/src/types/Token";
 import { ViewKanbanContainer } from "./kanban";
-import { ViewRelationshipsModal } from "./relationships";
-import { ViewThreadsComponent } from "./threads";
+// import { ViewThreadComponent } from "./thread";
 // import { Map as ImmutableMap } from "immutable";
 
 // MAIN
@@ -56,10 +55,9 @@ export const ViewDisplayDynamic = WrapperReactMemo(
     // The main display component that switches between different components
     const Component = objectDisplayComponents[display || "list"]; // may need to memoize/useCallback this
     return (
-      <>
+      <ViewContainerStatic style={{ flex: 1 }}>
         <Component auxiliary={auxiliary} schema={schema} focus={focus} />
-        <ViewRelationshipsModal/>
-      </>
+      </ViewContainerStatic>
     );
   }
 );
@@ -100,13 +98,6 @@ export const ViewDisplayPods = (props: any) => {
   );
 };
 
-//todo
-// export const metaDisplayPods = () =>{
-//   return {
-//     description: "The 'Pod' container holds custom widgets for the current Focus/Entity-Relationships."
-//   }
-// }
-
 // FORM
 
 export const ViewDisplayForm = (props: TypeDisplayForm) => {
@@ -146,9 +137,7 @@ export type TypeDisplayForm = TypeDisplayMain;
 // TABLE
 
 export const ViewDisplayTable = (props: any) => {
-  return (
-    <ViewTableContainer />
-  );
+  return <ViewTableContainer />;
 };
 
 // CALENDAR
@@ -228,9 +217,21 @@ export const ViewDisplayMaps = (props: any) => {
 // KANBAN
 
 export const ViewDisplayKanban = (props: any) => {
+  const boardAttribute = "status";
+  const groupedEntities = props.auxiliary.reduce(
+    (acc: { [key: string]: any[] }, entity: any) => {
+      const key = entity[boardAttribute];
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(entity);
+      return acc;
+    },
+    {}
+  );
   return (
     <ViewContainerStatic>
-      <ViewKanbanContainer />
+      <ViewKanbanContainer data={groupedEntities} />
     </ViewContainerStatic>
   );
 };
@@ -249,9 +250,7 @@ export const ViewDisplayGantt = (props: any) => {
 
 export const ViewDisplayThreads = (props: any) => {
   return (
-    <ViewContainerStatic>
-      <ViewThreadsComponent/>
-    </ViewContainerStatic>
+    <ViewContainerStatic>{/* <ViewThreadComponent/> */}</ViewContainerStatic>
   );
 };
 

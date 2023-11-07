@@ -5,7 +5,7 @@
 import { useReactState } from "./react";
 import { ViewContainerStatic } from "./container";
 import { ViewTypographyText } from "./typography";
-import { ViewButtonPressable } from "./button";
+import { ViewButtonIcon, ViewButtonPressable } from "./button";
 import { ViewRouterLinkthemed } from "./router";
 import { ViewIconMain } from "./icon";
 
@@ -14,18 +14,16 @@ import { ViewIconMain } from "./icon";
 export const ViewInfoButton = ({ children, set, to }: any) => {
   // Change to router link? (and link to relevant guide?)
   return (
-      <ViewButtonPressable
-        style={{
-          margin: 5,
-        }}
-        onPress={()=>set()}
-      >
-        <ViewIconMain
-          name={"info-with-circle"}
-          source={"Entypo"}
-          color={"rgba(80,80,80,1)"}
-        />
-      </ViewButtonPressable>
+    <ViewButtonIcon
+      id={'toggle_other_context_buttons'}
+      onPress={()=>set()}
+      iconStyle={{paddingTop: 2}}
+      buttonColor={'transparent'}
+      iconSource={`Entypo`}
+      iconName={"info"}
+      iconColor={`rgb(80,80,80)`}
+      iconSize={20}
+    />
   );
 };
 

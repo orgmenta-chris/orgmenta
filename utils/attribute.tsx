@@ -197,12 +197,12 @@ export const ViewAttributeMain = WrapperReactMemo(() => {
 
 export const useAttributeUnioned = (classArray: any) => {
   const queryKey: (string | number)[] = ["attributes", "unioned", classArray];
-  const searchArray = ["All", "Entity", "value"].concat(classArray).join(",");
+  const searchArray = ["All", "Entity", "value","Feature"].concat(classArray).join(",");
   const queryFn = async () => {
     const response = await instanceSupabaseClient
       .from("attributes_unioned")
       .select()
-      .filter("class", "cd", `{${searchArray}}`); // get any attribute that shares at least one class with this searchArray
+      // .filter("class", "cd", `{${searchArray}}`); // get any attribute that shares at least one class with this searchArray
     // Testing
     // .or(`class.cd.['Entity'],class.cd.["${attribute_class}"]`);
     // .or(`class.cd.{'${classValue}'}`); // match at least one value from the search array (or if null, assume that it is a universal attribute )
@@ -236,7 +236,8 @@ export const useAttributeUnioned = (classArray: any) => {
   const query = useQueryerQuery<any, Error>(queryKey, queryFn, {
     enabled: true,
   });
-  // console.log(query?.data?.length);
+  // console.log(query?.data);
+  // console.log(query?.data?.find(x=>x.id==='d0205b0b-3d78-4e77-8071-a53b65e7aa3a'));
   return query;
 };
 
@@ -341,11 +342,12 @@ export const ViewAttributeTable = ({ ...Input }) => {
   );
 };
 
-export const ViewAttributeSection = ({}) => {
+export const ViewAttributeSection = ({spaceName}:any) => {
+  const attributeArray = useAttributeUnioned({spaceName:spaceName})
   return (
     <ViewContainerStatic>
       <ViewTypographyText style={{ fontWeight: "700" }}>Attributes</ViewTypographyText>
-      <ViewTypographyText>todo</ViewTypographyText>
+      <ViewTypographyText>{JSON.stringify(attributeArray,null,2)}</ViewTypographyText>
     </ViewContainerStatic>
   );
 };

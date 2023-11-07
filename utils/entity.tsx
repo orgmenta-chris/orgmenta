@@ -1,26 +1,47 @@
-import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
+import { ViewDisplayDynamic } from "./display";
+import { ViewActionContainer } from "./action";
+import { ViewFocusHeader } from "./focus";
+import { ViewPageMain, usePageTitle } from "./page";
+import { useSpaceState, TypeSpaceState } from "./space";
 import { useRouterLocation } from "./router";
 import { useAttributeUnioned } from "./attribute";
-import { ViewContainerStatic } from "./container";
-import { ViewTypographyText } from "./typography";
-import { ViewPageMain } from "./page";
-import { ViewDisplayDynamic } from "./display";
-import { ViewActionTabs, ViewActionPanels } from "./action";
-import { ViewFocusMain } from "./focus";
 import { useAuxiliaryArray } from "./auxiliary";
-import { useSpaceState, TypeSpaceState } from "./space";
 import {
   useQueryerQuery,
   useQueryerMutation,
   useQueryerClient,
 } from "./queryer";
-import { data } from "./framework";
+import { arrayFrameworkBusiness } from "./framework";
+import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
+import {
+  ViewRelationshipAttribute,
+  ViewRelationshipEntity,
+  ViewRelationshipModal,
+  ViewRelationshipRelationships,
+  useRelationshipArray,
+} from "./relationship";
+import {
+  ViewContainerColumn,
+  ViewContainerRow,
+  ViewContainerStatic,
+} from "./container";
+import {
+  ViewTypographyHeading,
+  ViewTypographySubheading,
+  ViewTypographyText,
+} from "./typography";
+import { ViewFieldDynamic } from "./field";
+import { ViewCardExpandable } from "./card";
+import { ViewButtonIcon, ViewButtonText } from "./button";
+import { arrayTypeMain } from "./type";
+import { ViewModalContainer } from "./modal";
+import { useZustandStore } from "./zustand";
 
 // PAGE
 
 export const ViewEntityPage = () => {
-  const spaceSelected = useSpaceState(["space", "selected"]);
   const routerPaths = useRouterLocation()?.paths;
+  const spaceSelected = useSpaceState(["space", "selected"]);
   const focus = useEntitySingle({ entityFocus: routerPaths?.[2] });
   const auxiliary = useAuxiliaryArray({
     space_name: (spaceSelected as TypeSpaceState)?.data?.spacename,
@@ -28,50 +49,43 @@ export const ViewEntityPage = () => {
     column_names: [], //todo
   });
   const schema = useEntitySchema();
+  usePageTitle(
+    `Orgmenta | Entities - ${routerPaths?.[2]} - ${routerPaths?.[3]}`
+  );
   return (
     <ViewPageMain>
-      {/* Show the 'focus' entity (the primary record being viewed) */}
-      <ViewFocusMain />
-      {/* View for Focus Entities (Flex View to keep Action tabs at the bottom of the screen) */}
-      <ViewContainerStatic style={{ flex: 1 }}>
-        {/* Show the 'auxiliary' entities (secondary records being viewed, possibly related to the focus) in whichever mode is selected, e.g. Calendar, Table etc. */}
-        <ViewDisplayDynamic
-          auxiliary={auxiliary}
-          schema={schema}
-          focus={focus}
-          display={routerPaths?.[3]}
-        />
-      </ViewContainerStatic>
-      {/* View for Actions */}
-      <ViewContainerStatic
-        style={{
-          borderTopWidth: 1,
-          padding: 5,
-          borderColor: "rgba(180,180,180,1)",
-          borderTopLeftRadius: 10,
-          borderTopRightRadius: 10,
-          flexDirection: "column",
-          backgroundColor: "lightgray",
-          minHeight: 40,
-        }}
-      >
-        <ViewActionPanels auxiliary={auxiliary} schema={schema} focus={focus} />
-        {/* Show the actions tabs/links (e.g. add,edit,copy,delete,share etc.*/}
-        <ViewActionTabs auxiliary={auxiliary} schema={schema} focus={focus} />
-      </ViewContainerStatic>
+      {/* Header for the primary entity being viewed */}
+      <ViewFocusHeader />
+      {/* Display data depending on which display mode is selected (e.g. 'Table', 'Calendar') */}
+      <ViewDisplayDynamic
+        auxiliary={auxiliary}
+        schema={schema}
+        focus={focus}
+        display={routerPaths?.[3]}
+      />
+      {/* Action tabs and panels for manipulating data */}
+      <ViewActionContainer
+        auxiliary={auxiliary}
+        schema={schema}
+        focus={focus}
+      />
+      <ViewEntityProperty />
+      <ViewRelationshipModal
+        spacename={(spaceSelected as TypeSpaceState)?.data?.spacename}
+        entityid={"97f48d4d-d38b-4ed1-afd4-e477839f3247"}
+      />
     </ViewPageMain>
   );
 };
 
 // ARRAY
 
-export async function requestEntityArray(spacename?: any, categories?: any) {
-  categories = categories || []; // prevent .join error
+export async function requestEntityArray(spacename?: any, categories = []) {
   return await instanceSupabaseClient
     .from(spacename && `entities_${spacename}`)
     .select()
     .filter(
-      // This will only return entities that have ALL of the items in the array. If we want to change it to 'any in search array' we need to use an rpc instead, or do an 'or' method and go through every category array item.
+      // This will currently only return entities that have ALL of the items in the array. If we want to change it to 'any in search array' we need to use an rpc instead, or do an 'or' method and go through every category array item.
       "categories",
       "cs",
       `{${categories.join(",")}}` // e.g. `{"product-catalog-solutions-usecases","product-catalog-solutions-features","product-catalog-solutions-requirements"}`
@@ -118,7 +132,7 @@ export const useEntitySingle = (props: any) => {
   // At the moment, this just uses the categories array (e.g. Accounts > Receivables > Invoices).
   // But once the categories are in supabase (C is working on this), this will be changed to use the useQueryerQuery function.
   const query = {
-    data: data
+    data: arrayFrameworkBusiness
       .filter((x) => x.nickname === props.id)
       ?.map((x) => (x = { ...x, title: x.display_singular } as any)),
   };
@@ -135,6 +149,90 @@ export const useEntitySingle = (props: any) => {
   //     enabled: true
   // });
   return query;
+};
+
+// ITEM (will replace 'SINGLE')
+
+export async function requestEntityValues(spacename: string, entityid: string) {
+  return await instanceSupabaseClient
+    .from(spacename && `entities_${spacename}`)
+    .select()
+    .eq(`id`, entityid)
+    .range(0, 9) //temp arbitrary limit of 10 (todo: pass variables in here to get proper pagination)
+    .then(handleSupabaseResponse as any);
+}
+
+export const useEntityValues = (entityid: string, spacename: string) => {
+  const queryKey: (string | number)[] = ["entities", spacename, entityid];
+  const query = useQueryerQuery(
+    queryKey,
+    () => requestEntityValues(spacename, entityid),
+    {
+      enabled: !!spacename && !!entityid,
+    }
+  );
+  return query;
+};
+
+
+
+// CARD
+
+export const ViewEntityCard = ({ entityid, spacename }: any) => {
+  // Display a single entity
+  return (
+    <ViewCardExpandable
+      header={<ViewEntityHeading entityid={entityid} spacename={spacename} />}
+      body={<ViewEntityBody entityid={entityid} spacename={spacename} />}
+    />
+  );
+};
+
+// HEADING
+
+export const ViewEntityHeading = ({ entityid, spacename }: any) => {
+  const entity = useEntityValues(entityid, spacename);
+  return (
+    <ViewContainerRow>
+      <ViewEntityType entityid={entityid} spacename={spacename}/>
+      <ViewTypographyText>{entity?.data?.[0]?.title}</ViewTypographyText>
+    </ViewContainerRow>
+  );
+};
+
+// TYPE
+
+export const ViewEntityType = ({ entityid, spacename }: any) => {
+  const entity = useEntityValues(entityid, spacename);
+  const type = arrayTypeMain.find((x) => x.title === entity?.data?.type);
+  // console.log('entity',entity.data)
+  // console.log('type',type)
+  return (
+    <ViewContainerRow>
+      <ViewButtonIcon iconSource={type?.iconSource} iconName={type?.iconName} />
+      <ViewTypographyText>{entity?.data?.[0]?.type+` | `}</ViewTypographyText>
+    </ViewContainerRow>
+  );
+};
+
+// BODY
+
+export const ViewEntityBody = ({ entityid, spacename }: any) => {
+  const entity = useEntityValues(entityid, spacename);
+  return Object.keys(entity.data as any).map((x, i) => (
+    <ViewFieldDynamic
+      formname={""}
+      queryId={""}
+      item={{
+        label: "",
+        value: undefined,
+        valueDefault: undefined,
+        placeholder: undefined,
+        options: undefined,
+        component: undefined,
+      }}
+    />
+  ));
 };
 
 // COUNT
@@ -174,8 +272,11 @@ export async function validateEntityCreate(entity: interfaceEntityCreate) {
   //todo
 }
 
-export async function requestEntityCreate(entity: interfaceEntityCreate, spacename:string) {
-  console.log('entity',entity, spacename)
+export async function requestEntityCreate(
+  entity: interfaceEntityCreate,
+  spacename: string
+) {
+  // console.log("entity", entity, spacename);
   return await instanceSupabaseClient
     // .from("entities")
     .from(spacename && `entities_${spacename}`)
@@ -183,7 +284,10 @@ export async function requestEntityCreate(entity: interfaceEntityCreate, spacena
     .then(handleSupabaseResponse as any);
 }
 
-export const useEntityCreate = (entity: interfaceEntityCreate, spacename:string) => {
+export const useEntityCreate = (
+  entity: interfaceEntityCreate,
+  spacename: string
+) => {
   const queryClient = useQueryerClient();
   // const { refetch } = useEntityArray();
   return useQueryerMutation(
@@ -248,3 +352,51 @@ export const useEntitySchema = () => {
 //     </ViewContainerStatic>
 //   );
 // };
+
+export const useEntityProperty = (entityId: string, propertyId: string) => {
+  const store = useZustandStore(`entity-${entityId}-${propertyId}`);
+  const value = store((state: any) => state.value);
+  const update = store((state: any) => state.update);
+  return { value, update };
+};
+
+export const useEntityModal = () => {
+  const store = useZustandStore(`entity-property-modal`);
+  const value = store((state: any) => state.value);
+  const update = store((state: any) => state.update);
+  return { value: value, update };
+};
+
+export const ViewEntityProperty = ({
+  spacename,
+  entityid1,
+  entityid2,
+  attributename,
+}: any) => {
+  const modal = useEntityModal();
+  const spaceSelected = useSpaceState(["space", "selected"]);
+  const entity = useEntityValues(
+    modal.value.entityId,
+    spaceSelected?.data?.spacename
+  );
+  // const property = useEntityProperty();
+  return (
+    <ViewModalContainer
+      modalName={"entity-property"}
+      height={500}
+      backdrop
+      width={1000}
+    >
+      {/* {JSON.stringify(modal,null,2)} */}
+      <ViewContainerRow>
+        {/* <ViewTypographyText>{JSON.stringify(modal,null,2)}</ViewTypographyText> */}
+        {/* <ViewTypographyText>{JSON.stringify(modal?.value)}</ViewTypographyText> */}
+        <ViewTypographyText>{JSON.stringify(entity,null,2)}</ViewTypographyText>
+        <ViewTypographyText>
+          {/* {JSON.stringify(spaceSelected?.data?.spacename, null, 2)} */}
+        </ViewTypographyText>
+        {/* <ViewTypographyText>{JSON.stringify(entity,null,2)}</ViewTypographyText> */}
+      </ViewContainerRow>
+    </ViewModalContainer>
+  );
+};

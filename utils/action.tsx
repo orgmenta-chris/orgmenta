@@ -3,10 +3,11 @@
 import { ViewControlMain } from "./control";
 import { ViewFormDynamic } from "./form";
 import { ViewDisplayTabs } from "./display";
-import { ViewButtonPressable } from "./button";
 import { ViewIconMain } from "./icon";
 import { ViewFileModal } from "./pdf";
 import { ViewContextContainer } from "./context";
+import { ViewTypeTabs } from "./type";
+import { ViewButtonIcon, ViewButtonText } from "./button";
 import {
   ViewTypographyText,
   ViewTypographySubheading,
@@ -24,57 +25,84 @@ import {
   useRouterLocation,
 } from "./router";
 import { useReactState } from "./react";
-import { ViewTypeTabs } from "./type";
+
+// CONTAINER
+
+export const ViewActionContainer = (props:any) => {
+  /* View for Actions tabs and panels, used by entity.tsx */
+  return (
+    <ViewContainerStatic
+      style={{
+        borderTopWidth: 1,
+        padding: 5,
+        borderColor: "rgba(180,180,180,1)",
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        flexDirection: "column",
+        backgroundColor: "lightgray",
+        minHeight: 40,
+      }}
+    >
+      <ViewActionPanels auxiliary={props.auxiliary} schema={props.schema} focus={props.focus} />
+      <ViewActionTabs />
+    </ViewContainerStatic>
+  );
+};
 
 // DISPLAY
 
-// An action component to show the 'display modes' (Pods, form, table etc.)
-export const ViewActionDisplay = ({}: any) => {
-  return (
-    <ViewContainerStatic>
-        <ViewActionHeader
-          title={"Displays"}
-          subtitle={"Switch Display Modes"}
-          infoText={metaActionDisplay().description}
-        />
-      <ViewDisplayTabs />
-    </ViewContainerStatic>
-  );
+export const metaActionDisplay = () => {
+  return {
+    description:
+      "The 'Display' Action Panel allows you to switch between different modes, in order to view your Entity/Module in different data displays",
+  };
 };
 
-export const metaActionDisplay = () =>{
-  return {
-    description: "The 'Display' Action Panel allows you to switch between different modes, in order to view your Entity/Module in different data displays"
-  }
-}
-
+export const ViewActionDisplay = () => {
+  return (
+    <ViewContainerColumn>
+      <ViewActionHeader
+        title={"Displays"}
+        subtitle={"Switch Display Modes"}
+        infoText={metaActionDisplay().description}
+      />
+      <ViewDisplayTabs />
+    </ViewContainerColumn>
+  );
+};
 
 // TYPES
 
-// An action component to show the 'display modes' (Pods, form, table etc.)
+export const metaActionTypes = () => {
+  return {
+    description:
+      "The 'Types' Action Panel allows you to switch between entity types (Events, Items, Locations etc.) and classes (Subtypes)",
+  };
+};
+
 export const ViewActionTypes = ({}: any) => {
   return (
-    <ViewContainerStatic>
-        <ViewActionHeader
-          title={"Types"}
-          subtitle={"Switch between Entity Types"}
-          infoText={metaActionTypes().description}
-        />
+    <ViewContainerColumn>
+      <ViewActionHeader
+        title={"Types"}
+        subtitle={"Switch between Entity Types"}
+        infoText={metaActionTypes().description}
+      />
       <ViewTypeTabs />
-    </ViewContainerStatic>
+    </ViewContainerColumn>
   );
 };
 
-export const metaActionTypes = () =>{
-  return {
-    description: "The 'Types' Action Panel allows you to switch between entity types (Events, Items, Locations etc.) and classes (Subtypes)"
-  }
-}
-
 // CONTROL
 
-// A component for sorting, filtering, grouping (or applying presets that automatically do this)
-export const ViewActionControl = ({}: any) => {
+export const metaActionControl = () => {
+  return {
+    description:
+      "The 'Control' Action Panel allows you to apply presets, filter, group and sort the Module/Entity data",
+  };
+};
+
+export const ViewActionControl = () => {
   return (
     <ViewContainerColumn>
       <ViewActionHeader
@@ -87,18 +115,18 @@ export const ViewActionControl = ({}: any) => {
   );
 };
 
-export const metaActionControl = () =>{
-  return {
-    description: "The 'Control' Action Panel allows you to apply presets, filter, group and sort the Module/Entity data"
-  }
-}
-
 // ADD
 
-// A component for creating new entity-relationships
-export const ViewActionAdd = ({ schema, focus }: any) => {
+export const metaActionAdd = () => {
+  return {
+    description:
+      "The 'Add' Action Panel allows you to create new entities & relationships",
+  };
+};
+
+export const ViewActionAdd = (props: any) => {
   const paths = useRouterLocation().paths;
-  schema = schema?.data
+  const schema = props.schema?.data
     ?.filter(
       (x: any) => x.form_field !== "hidden" // Remove 'hidden' fields (fields that are not meant to be shown on the form view)
     )
@@ -113,7 +141,11 @@ export const ViewActionAdd = ({ schema, focus }: any) => {
     });
   return (
     <ViewContainerColumn>
-      <ViewActionHeader title={"Add"} subtitle={"Create entities"} />
+      <ViewActionHeader
+        title={"Add"}
+        subtitle={"Create entities"}
+        infoText={metaActionAdd().description}
+      />
       <ViewFormDynamic data={schema} formname={"add"} />
     </ViewContainerColumn>
   );
@@ -121,30 +153,59 @@ export const ViewActionAdd = ({ schema, focus }: any) => {
 
 // EDIT
 
+export const metaActionEdit = () => {
+  return {
+    description:
+      "The 'Edit' Action Panel allows you to edit entities & their relationships",
+  };
+};
+
 export const ViewActionEdit = ({ schema, focus }: any) => {
   schema = schema?.data?.filter(
     (x: any) => x.form_field !== "hidden" // remove 'hidden' fields (fields that are not meant to be shown on the form view)
   );
   return (
-    <ViewContainerStatic style={{ flexDirection: "column", maxHeight: 300 }}>
-      <ViewActionHeader title={"Edit"} subtitle={"Update entities"} />
+    <ViewContainerColumn style={{ flexDirection: "column", maxHeight: 300 }}>
+      <ViewActionHeader
+        title={"Edit"}
+        subtitle={"Update entities"}
+        infoText={metaActionEdit().description}
+      />
       <ViewFormDynamic data={schema} formname={"add"} />
-    </ViewContainerStatic>
+    </ViewContainerColumn>
   );
 };
 
 // SYNC
 
+export const metaActionSync = () => {
+  return {
+    description:
+      "The 'Sync' Action Panel allows you to view sync statuses of entities",
+  };
+};
+
 export const ViewActionSync = ({}: any) => {
   return (
     <ViewContainerColumn>
-      <ViewActionHeader title={"Sync"} subtitle={"Sync and Backup Entities"} />
+      <ViewActionHeader
+        title={"Sync"}
+        subtitle={"Sync and Backup Entities"}
+        infoText={metaActionSync().description}
+      />
       <ViewTypographyText>ViewActionSync placeholder</ViewTypographyText>
     </ViewContainerColumn>
   );
 };
 
-// Share
+// SHARE
+
+export const metaActionShare = () => {
+  return {
+    description:
+      "The 'Share' Action Panel allows you to share, forward and provide member access to entities",
+  };
+};
 
 export const ViewActionShare = ({}: any) => {
   return (
@@ -152,6 +213,7 @@ export const ViewActionShare = ({}: any) => {
       <ViewActionHeader
         title={"Share"}
         subtitle={"Share, Forward, or Update Member Access"}
+        infoText={metaActionShare().description}
       />
       <ViewTypographyText>ViewActionShare placeholder</ViewTypographyText>
     </ViewContainerColumn>
@@ -160,12 +222,20 @@ export const ViewActionShare = ({}: any) => {
 
 // TEMPLATE
 
+export const metaActionTemplate = () => {
+  return {
+    description:
+      "The 'Template' Action Panel allows you to apply rules/blueprints/templates to entities",
+  };
+};
+
 export const ViewActionTemplate = ({}: any) => {
   return (
     <ViewContainerColumn>
       <ViewActionHeader
         title={"Templates"}
         subtitle={"Run rules, import blueprints, or apply other templates"}
+        infoText={metaActionTemplate().description}
       />
       <ViewTypographyText>ViewActionTemplate placeholder</ViewTypographyText>
     </ViewContainerColumn>
@@ -173,6 +243,13 @@ export const ViewActionTemplate = ({}: any) => {
 };
 
 // LINK
+
+export const metaActionLink = () => {
+  return {
+    description:
+      "The 'Template' Action Panel  allows you to relate entities to one another with 'Relationships'",
+  };
+};
 
 export const ViewActionLink = ({}: any) => {
   return (
@@ -187,13 +264,13 @@ export const ViewActionLink = ({}: any) => {
   );
 };
 
-export const metaActionLink = () =>{
-  return {
-    description: "Relate entities to one another with Relationships"
-  }
-}
-
 // EXPORT
+
+export const metaActionExport = () => {
+  return {
+    description: "Download, export and backup entities",
+  };
+};
 
 export const ViewActionExport = ({}: any) => {
   const [statePdfModal, setPdfModal] = useReactState(false);
@@ -202,70 +279,49 @@ export const ViewActionExport = ({}: any) => {
       <ViewActionHeader
         title={"Export"}
         subtitle={"Download, export and backup entities"}
+        infoText={metaActionExport().description}
       />
       <ViewContainerRow style={{ flex: 1 }}>
-        <ViewContainerStatic style={{ flexDirection: "row", margin: 10 }}>
-          <ViewButtonPressable
-            onPress={() => console.log("ViewActionExport print button: todo")}
-            style={{ margin: 5 }}
-          >
-            <ViewIconMain
-              name={"ios-print-outline"}
-              source={"Ionicons"}
-              color={"black"}
-              size={24}
-            />
-          </ViewButtonPressable>
-          <ViewButtonPressable
-            onPress={() => setPdfModal((old) => !old)}
-            style={{ margin: 5 }}
-          >
-            <ViewIconMain
-              name={"pdffile1"}
-              source={"AntDesign"}
-              color={"black"}
-              size={24}
-            />
-          </ViewButtonPressable>
-          <ViewFileModal
-            statePdfModal={statePdfModal}
-            setPdfModal={() => setPdfModal((old) => !old)}
-          />
-        </ViewContainerStatic>
-        <ViewContainerRow>
-          <ViewButtonPressable
-            onPress={() => ""}
-            style={{ margin: 5, backgroundColor: "lightblue" }}
-          >
-            <ViewTypographyText>
-              Webonly:Toggle-PageHeaders(defaultFalse)
-            </ViewTypographyText>
-          </ViewButtonPressable>
-          <ViewButtonPressable
-            onPress={() => ""}
-            style={{ margin: 5, backgroundColor: "lightblue" }}
-          >
-            <ViewTypographyText>
-              Toggle-IncludeFrameOrJustTheDisplayView
-            </ViewTypographyText>
-          </ViewButtonPressable>
-        </ViewContainerRow>
-        <ViewContainerRow />
+        <ViewButtonIcon
+          onPress={() => console.log("ViewActionExport print button: todo")}
+          iconName={"ios-print-outline"}
+          iconSource={"Ionicons"}
+          iconColor={"black"}
+        />
+        <ViewButtonIcon
+          onPress={() => setPdfModal((old) => !old)}
+          iconName={"pdffile1"}
+          iconSource={"AntDesign"}
+          iconColor={"black"}
+        />
+        <ViewButtonText
+          onPress={() => ""}
+          textString={`Webonly:Toggle-PageHeaders(defaultFalse)`}
+        />
+        <ViewButtonText
+          onPress={() => ""}
+          textString={`Toggle-IncludeFrameOrJustTheDisplayView`}
+        />
       </ViewContainerRow>
       <ViewContainerRow>
         <ViewTypographyText>Preview will go here.</ViewTypographyText>
       </ViewContainerRow>
+      <ViewFileModal
+        statePdfModal={statePdfModal}
+        setPdfModal={() => setPdfModal((old) => !old)}
+      />
     </ViewContainerColumn>
   );
 };
 
-export const metaActionExport = () =>{
-  return {
-    description: "Download, export and backup entities"
-  }
-}
-
 // PANELS
+
+export const metaActionPanels = () => {
+  return {
+    description:
+      "The routes for the different panels (switches panel depending on url)",
+  };
+};
 
 export const ViewActionPanels = ({
   auxiliary,
@@ -274,31 +330,24 @@ export const ViewActionPanels = ({
   display,
 }: any) => {
   return (
-    <ViewContainerStatic
-      style={{
-        padding: 5,
-        minHeight: 40,
-      }}
-    >
-      <ViewRouterRoutes>
-        <ViewRouterRoute path="display" element={<ViewActionDisplay />} />
-        <ViewRouterRoute path="types" element={<ViewActionTypes />} />
-        <ViewRouterRoute path="control" element={<ViewActionControl />} />
-        <ViewRouterRoute
-          path="/add"
-          element={<ViewActionAdd schema={schema} focus={focus} />}
-        />
-        <ViewRouterRoute
-          path="edit"
-          element={<ViewActionEdit schema={schema} focus={focus} />}
-        />
-        <ViewRouterRoute path="sync" element={<ViewActionSync />} />
-        <ViewRouterRoute path="share" element={<ViewActionShare />} />
-        <ViewRouterRoute path="template" element={<ViewActionTemplate />} />
-        <ViewRouterRoute path="link" element={<ViewActionLink />} />
-        <ViewRouterRoute path="export" element={<ViewActionExport />} />
-      </ViewRouterRoutes>
-    </ViewContainerStatic>
+    <ViewRouterRoutes>
+      <ViewRouterRoute path="display" element={<ViewActionDisplay />} />
+      <ViewRouterRoute path="types" element={<ViewActionTypes />} />
+      <ViewRouterRoute path="control" element={<ViewActionControl />} />
+      <ViewRouterRoute
+        path="/add"
+        element={<ViewActionAdd schema={schema} focus={focus} />}
+      />
+      <ViewRouterRoute
+        path="edit"
+        element={<ViewActionEdit schema={schema} focus={focus} />}
+      />
+      <ViewRouterRoute path="sync" element={<ViewActionSync />} />
+      <ViewRouterRoute path="share" element={<ViewActionShare />} />
+      <ViewRouterRoute path="template" element={<ViewActionTemplate />} />
+      <ViewRouterRoute path="link" element={<ViewActionLink />} />
+      <ViewRouterRoute path="export" element={<ViewActionExport />} />
+    </ViewRouterRoutes>
   );
 };
 
@@ -367,12 +416,11 @@ export const optionsActionTabs = [
   },
 ];
 
-export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
+export const ViewActionTabs = () => {
   const paths = useRouterLocation().paths;
   return (
-    <ViewContainerStatic
+    <ViewContainerRow
       style={{
-        flexDirection: "column",
         backgroundColor: "lightgray",
         borderColor: "rgba(180,180,180,1)",
         margin: 5,
@@ -380,55 +428,60 @@ export const ViewActionTabs = ({ auxiliary, schema, focus, display }: any) => {
         borderTopWidth: 1,
       }}
     >
-      <ViewContainerRow style={{ flexDirection: "row" }}>
-        {optionsActionTabs?.map((x, i) => (
-          <ViewRouterLinkthemed
-            to={x.title.toLowerCase()}
+      {optionsActionTabs?.map((x, i) => (
+        <ViewRouterLinkthemed
+          to={x.title.toLowerCase()}
+          style={{
+            flex: 1,
+          }}
+          key={i}
+        >
+          <ViewContainerStatic
             style={{
               flex: 1,
+              padding: 5,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor:
+                paths[4] === x.title.toLocaleLowerCase()
+                  ? "gray"
+                  : "transparent",
             }}
-            key={i}
           >
-            <ViewContainerStatic
-              style={{
-                flex: 1,
-                padding: 5,
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor:
-                  paths[4] === x.title.toLocaleLowerCase()
-                    ? "gray"
-                    : "transparent",
-              }}
-            >
-              <ViewIconMain
-                name={x.iconName}
-                source={x.iconSource}
-                color={"black"}
-                size={24}
-              />
-            </ViewContainerStatic>
-          </ViewRouterLinkthemed>
-        ))}
-        <ViewContextContainer infoText={metaActionTabs()?.description} />
-      </ViewContainerRow>
-    </ViewContainerStatic>
+            <ViewIconMain
+              name={x.iconName}
+              source={x.iconSource}
+              color={"black"}
+              size={24}
+            />
+          </ViewContainerStatic>
+        </ViewRouterLinkthemed>
+      ))}
+      <ViewContextContainer infoText={metaActionTabs()?.description} />
+    </ViewContainerRow>
   );
 };
 
-export const metaActionTabs = () =>{
+export const metaActionTabs = () => {
   return {
-    description: "An 'Action' is an operation that can be done to Entities & Relationships."
-  }
-}
+    description:
+      "An 'Action' is an operation that can be done to Entities & Relationships.",
+  };
+};
 
 // HEADER
 
-export const ViewActionHeader = ({ title, subtitle, children, to, infoText }: any) => {
+export const ViewActionHeader = ({
+  title,
+  subtitle,
+  children,
+  to,
+  infoText,
+}: any) => {
   return (
     <ViewContainerRow>
       <ViewTypographySubheading
-        style={{ margin: 10, textAlignVertical: "bottom" }}
+        style={{ margin: 10, verticalAlign: "bottom" }}
       >
         {title}
       </ViewTypographySubheading>
@@ -436,13 +489,15 @@ export const ViewActionHeader = ({ title, subtitle, children, to, infoText }: an
         style={{
           flex: 1,
           margin: 10,
-          textAlignVertical: "bottom",
+          verticalAlign: "bottom",
           fontStyle: "italic",
         }}
       >
         {subtitle}
       </ViewTypographySubsubheading>
-      <ViewContextContainer infoText={infoText} to={to}>{children}</ViewContextContainer>
+      <ViewContextContainer infoText={infoText} to={to}>
+        {children}
+      </ViewContextContainer>
     </ViewContainerRow>
   );
 };

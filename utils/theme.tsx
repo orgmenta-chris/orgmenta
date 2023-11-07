@@ -1,4 +1,15 @@
 // A 'theme' is the visual style and design configuration that defines the look and feel of a user interface.
+import { useZustandStore } from "./zustand";
+
+// STORE
+
+export const useThemeStore = (themeId:string)=> {
+  const store = useZustandStore(`theme-${themeId}`);
+  const value = store((state: any) => state.value);
+  const update = store((state: any) => state.update);
+  return { value, update };
+}
+
 
 // Meta
 

@@ -1,6 +1,96 @@
 // Scalable Vector Graphics.
-
-import Svg, { SvgProps, Path, PathProps, G, GProps } from "react-native-svg";
+import {
+  Svg,
+  Circle,
+  Ellipse,
+  G,
+  Text,
+  TSpan,
+  TextPath,
+  Path,
+  Polygon,
+  Polyline,
+  Line,
+  Rect,
+  Use,
+  Image,
+  Symbol,
+  Defs,
+  LinearGradient,
+  RadialGradient,
+  Stop,
+  ClipPath,
+  Pattern,
+  Mask,
+  Marker,
+  ForeignObject,
+  parse,
+  SvgAst,
+  SvgFromUri,
+  SvgFromXml,
+  SvgUri,
+  SvgXml,
+  SvgCss,
+  SvgCssUri,
+  SvgWithCss,
+  SvgWithCssUri,
+  inlineStyles,
+  LocalSvg,
+  WithLocalSvg,
+  loadLocalRawResource,
+  Shape,
+  RNSVGMarker,
+  RNSVGMask,
+  RNSVGPattern,
+  RNSVGClipPath,
+  RNSVGRadialGradient,
+  RNSVGLinearGradient,
+  RNSVGDefs,
+  RNSVGSymbol,
+  RNSVGImage,
+  RNSVGUse,
+  RNSVGTextPath,
+  RNSVGTSpan,
+  RNSVGText,
+  RNSVGGroup,
+  RNSVGPath,
+  RNSVGLine,
+  RNSVGEllipse,
+  RNSVGCircle,
+  RNSVGRect,
+  RNSVGSvgAndroid,
+  RNSVGSvgIOS,
+  RNSVGForeignObject,
+} from "react-native-svg"; // Main declarations
+import {
+  RectProps,
+  CircleProps,
+  EllipseProps,
+  PolygonProps,
+  PolylineProps,
+  LineProps,
+  SvgProps,
+  PathProps,
+  GProps,
+  TextProps,
+  TSpanProps,
+  TextPathProps,
+  UseProps,
+  ImageProps,
+  SymbolProps,
+  LinearGradientProps,
+  RadialGradientProps,
+  StopProps,
+  ClipPathProps,
+  PatternProps,
+  MaskProps,
+  MarkerProps,
+  ForeignObjectProps,
+  LocalProps,
+  UriProps,
+  XmlProps,
+  AstProps,
+} from "react-native-svg"; // Types
 
 // Meta
 
@@ -25,6 +115,14 @@ export const ViewSvgPath = Path;
 // Group
 export type TypeSvgGroup = GProps;
 export const ViewSvgGroup = G;
+
+// Rectangle
+export type TypeSvgRectangle = RectProps;
+export const ViewSvgRectangle = Rect;
+
+// Text
+export type TypeSvgText = TextProps;
+export const ViewSvgText = Text;
 
 // Arrow
 export type TypeSvgArrowmain = any; // todo, when props can be passed through

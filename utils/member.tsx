@@ -68,7 +68,7 @@ export const useMemberDelete = (props: interfaceMemberDelete) => {
 
 export async function requestMemberArray() {
   return await instanceSupabaseClient
-    .from("members")
+    .from("members_orgmenta")
     .select()
     .then(handleSupabaseResponse as any);
 }
@@ -135,11 +135,32 @@ export const ViewMemberItem = ({ id }: interfaceMemberItem) => {
   );
 };
 
-export const ViewMemberSection = ({}) => {
+export const ViewMemberSection = ({spaceName}:any) => {
   return (
     <ViewContainerStatic>
-      <ViewTypographySubheading>Billing</ViewTypographySubheading>
+      <ViewTypographySubheading>Members</ViewTypographySubheading>
       <ViewTypographyText>todo</ViewTypographyText>
+      <ViewMemberInvite/>
+      <ViewMemberList spaceName={spaceName}/>
+    </ViewContainerStatic>
+  );
+};
+
+export const ViewMemberInvite = ({}) => {
+  return (
+    <ViewContainerStatic>
+      <ViewTypographySubheading>MemberInvite</ViewTypographySubheading>
+      <ViewTypographyText>{`Invite New Member +<--Loisa todo`}</ViewTypographyText>
+    </ViewContainerStatic>
+  );
+};
+
+export const ViewMemberList = ({spaceName}:any) => {
+  const memberArray = useMemberArray({spaceName: spaceName })
+  return (
+    <ViewContainerStatic>
+      <ViewTypographySubheading>MemberList</ViewTypographySubheading>
+      <ViewTypographyText>{JSON.stringify(memberArray.data)}</ViewTypographyText>
     </ViewContainerStatic>
   );
 };

@@ -10,7 +10,7 @@
 // - Has requirements: "Need to generate invoice from existing charges or add new charges on the fly"
 // - Has constituents "run Template called createInvoice, run Template called assignInvoice"
 
-export const data: {
+export type TypeFrameworkBusiness = {
   id: number;
   parent: number | null;
   status: string;
@@ -23,7 +23,9 @@ export const data: {
   integration?: any;
   icon_name?: string;
   icon_source?: string;
-}[] = [
+};
+
+export const arrayFrameworkBusiness: TypeFrameworkBusiness[] = [
   {
     id: 1,
     parent: null,
@@ -108,9 +110,9 @@ export const data: {
     name_singular: "mission",
     display_singular: "Mission",
     description:
-      "Manage your mission statement / a clear summary of the purpose of the business",
-    summary:
-      "Analygous to a peer reviewed scientific paper having an 'abstract'",
+      "Manage your mission statement by setting a clear summary for the purpose of the business",
+    summary: "Mission statement / Vision",
+    notes: "Analygous to a peer reviewed scientific paper having an 'abstract'",
     nickname: "governance-model-plan-mission",
   },
   {
@@ -119,9 +121,12 @@ export const data: {
     status: "5. Hold",
     name_singular: "values",
     display_singular: "Values",
-    description: "Company/Organizational Values",
-    summary:
+    summary: "Core values / Company principles",
+    description: `Set 'Corporate ethos / guiding principles' for your company, and use them as a compass.`,
+    notes: `
+      https://search.brave.com/search?q=company+values&source=desktop
       "What are your Brand values? Consider these to be products, as you are essentially selling 'trust' or other company values to all of your stakeholders.",
+    `,
     nickname: "governance-model-plan-values",
   },
   {
@@ -130,8 +135,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "goals",
     display_singular: "Goals",
-    description: "Company/Organizational Goals",
-    summary: "Top level objectives / goals",
+    description:
+      "Set organizational goals to ensure all business activity is pointedly targeted",
+    summary: "Top level business objectives",
     nickname: "governance-model-plan-goals",
   },
   {
@@ -142,7 +148,7 @@ export const data: {
     display_singular: "Justification",
     description: "Easily derive research into guidelines for operation",
     summary:
-      "Summary of market research and other proofs of viability/reasons for operating",
+      "Summary of market research and other proofs of business viability",
     nickname: "governance-model-plan-justification",
   },
   {
@@ -151,22 +157,22 @@ export const data: {
     status: "5. Hold",
     name_singular: "capital",
     display_singular: "Capital",
-    description: "Summary of Accounts/Finance and other resources",
-    summary:
-      "Financial resources or assets employed to start, operate, and grow your business.",
+    summary: "Summary of the financial model and other resources",
+    description:
+      "Summarise financial resources or assets employed to start, operate, and grow your business.",
     nickname: "governance-model-plan-justification",
     notes: `
-              Financial Capital: Money used to fund a business, including initial capital, working capital, and growth capital.
-              Human Capital: The skills, knowledge, experience, and abilities of employees.
-              Social Capital: The value derived from an individual's or business's network of relationships, which can be used to gain resources or advantages.
-              Intellectual Capital: Intangible assets like patents, trademarks, and copyrights that contribute to a business's competitive advantage.
-              Natural Capital: Natural resources that can be used to produce goods or services.
-              Physical Capital: Tangible assets like machinery, buildings, and infrastructure used in the production of goods or services.
-              Venture Capital: Funding provided by investors to startups and small businesses expected to have long-term growth potential.
-              Debt Capital: Money borrowed through various means, including loans and bonds, to run the business.
-              Equity Capital: Funds raised by a business in exchange for shares of ownership in the company.
-              Working Capital: Short-term assets minus short-term liabilities, used for day-to-day operations.
-          `,
+      Financial Capital: Money used to fund a business, including initial capital, working capital, and growth capital.
+      Human Capital: The skills, knowledge, experience, and abilities of employees.
+      Social Capital: The value derived from an individual's or business's network of relationships, which can be used to gain resources or advantages.
+      Intellectual Capital: Intangible assets like patents, trademarks, and copyrights that contribute to a business's competitive advantage.
+      Natural Capital: Natural resources that can be used to produce goods or services.
+      Physical Capital: Tangible assets like machinery, buildings, and infrastructure used in the production of goods or services.
+      Venture Capital: Funding provided by investors to startups and small businesses expected to have long-term growth potential.
+      Debt Capital: Money borrowed through various means, including loans and bonds, to run the business.
+      Equity Capital: Funds raised by a business in exchange for shares of ownership in the company.
+      Working Capital: Short-term assets minus short-term liabilities, used for day-to-day operations.
+  `,
   },
   {
     id: 1101,
@@ -174,8 +180,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "structure",
     display_singular: "Structure",
-    description: "Automatically compile your business hierarchy",
-    summary: "Business structure / hierarchy / roles",
+    description: "Automatically map your Business Structure",
+    summary: "Organisational Chart and Structure",
     nickname: "governance-model-structure",
   },
   {
@@ -183,7 +189,7 @@ export const data: {
     parent: 1101,
     status: "5. Hold",
     name_singular: "ownership",
-    display_singular: "ownership",
+    display_singular: "Ownership",
     description: "Business ownership structures",
     summary:
       "C-Corp / LLC / Sole Trader or Proprietorship / Partnership Cooperative / Umbrella & holding corps / Franchise / Non-profit / Charity / etc.",
@@ -213,6 +219,16 @@ export const data: {
     ]`,
   },
   {
+    id: 11011,
+    parent: 1101,
+    status: "5. Hold",
+    name_singular: "orgchart",
+    display_singular: "Org Chart",
+    summary: "Organisational Chart / Business Topology",
+    description: "Automatically compile your Org Chart",
+    nickname: "governance-model-structure-orgchart",
+  },
+  {
     id: 1102,
     parent: 110,
     status: "5. Hold",
@@ -221,6 +237,58 @@ export const data: {
     summary: "Where you are operating",
     description: "Manage countries, states, counties and markets",
     nickname: "governance-model-jurisdictions",
+  },
+  {
+    id: 11020,
+    parent: 1102,
+    status: "5. Hold",
+    name_singular: "locations",
+    display_singular: "Locations",
+    summary: "Physical jurisdictions you are or intend on trading within",
+    description: "",
+    nickname: "governance-model-jurisdictions-locations",
+  },
+  {
+    id: 11021,
+    parent: 1102,
+    status: "5. Hold",
+    name_singular: "regulatory",
+    display_singular: "Regulatory",
+    summary: "Regulatory jurisdictions you are or intend on trading within",
+    description: "Manage your intended verticals & horizontals",
+    nickname: "governance-model-jurisdictions-regulatory",
+  },
+  {
+    id: 11022,
+    parent: 1102,
+    status: "5. Hold",
+    name_singular: "markets",
+    display_singular: "Markets",
+    summary: "Industry jurisdictions you are or intend on trading within",
+    description: "Manage your intended verticals & horizontals",
+    nickname: "governance-model-jurisdictions-markets",
+  },
+  {
+    id: 11023,
+    parent: 1102,
+    status: "5. Hold",
+    name_singular: "cultural",
+    display_singular: "Cultural",
+    summary:
+      "Cultural jurisdictions & languages you are or intend on trading with",
+    description: "Plan the cultures that you intend on trading with.",
+    nickname: "governance-model-jurisdictions-cultural",
+  },
+  {
+    id: 11024,
+    parent: 1102,
+    status: "5. Hold",
+    name_singular: "functional",
+    display_singular: "Functional",
+    summary: "Functional jurisdictions you are or intend on trading within",
+    description:
+      "Plan the functional areas (such as R&D, manufacturing and distribution) that you plan to operate in.",
+    nickname: "governance-model-jurisdictions-functional",
   },
   {
     id: 1103,
@@ -238,72 +306,63 @@ export const data: {
     status: "5. Hold",
     name_singular: "growth",
     display_singular: "Growth",
-    summary: null,
-    description: "Manage your expansation plans",
+    summary: "Organisational expansion strategy",
+    description:
+      "Describe and manage your scaling model, penetration plan and growth tactics",
     nickname: "governance-model-growth",
+    notes: `
+    Market Expansion: Focused on entering new markets or expanding market share in existing ones.
+    Product Development: Centered around the creation of new products or enhancement of existing ones.
+    Mergers and Acquisitions: Strategy for growth through the acquisition of or merger with other companies.
+    Partnership and Alliances: Developing strategic partnerships to accelerate growth.
+    Financial Leveraging: Utilizing various financial instruments to facilitate growth.
+    Talent Acquisition: Plans related to the recruitment and retention of key personnel.
+    Operational Efficiency: Focused on streamlining operations for cost savings that enable growth.
+    Customer Retention: Strategies aimed at maintaining and growing the existing customer base.
+    Digital Transformation: Leveraging technology to improve performance and growth.
+    Sustainability: Growth plans that are economically, socially, and environmentally sustainable.
+    Brand Development: Focused on brand equity and recognition as a medium for growth.
+    Vertical Integration: Acquiring businesses in the same value chain to control more aspects of production and distribution.
+    Horizontal Diversification: Entering adjacent markets or industries with existing competencies.
+    Geographic Diversification: Expanding operations to multiple geographic locations.
+    Competitive Positioning: Strategies to outmaneuver competition, including pricing, service, and differentiation.
+    Risk Management: Developing plans to mitigate risks that could hamper growth.
+    Supply Chain Optimization: Strategies to streamline procurement, manufacturing, and distribution.
+    Innovation Management: Fostering a culture and processes that encourage innovation.
+    Regulatory Compliance: Ensuring the business adapts to new or existing regulations that could influence growth.
+    Exit Strategy: Planning for scenarios where divestment or liquidation facilitates a pivot or other forms of growth.
+    Internationalization: Scaling the business across international borders, considering language, culture, and regulatory factors.
+    Customer Experience: Plans focused on improving customer satisfaction and loyalty.
+    Market Penetration: Deepening market share in existing markets through aggressive marketing or competitive pricing.
+    Organizational Restructuring: Modifying internal structures and hierarchies to facilitate growth.
+    Quality Management: Strategies for maintaining or improving product or service quality.
+    Intellectual Property: Acquiring or licensing patents, trademarks, and copyrights as part of a growth strategy.
+    Technology Adoption: Implementing new technologies that facilitate operational improvement and market reach.
+    Channel Expansion: Growing through new sales channels like online, retail partnerships, or direct-to-consumer models.
+    Capacity Expansion: Scaling the operational capabilities of the business to meet increased demand.
+    Franchising: Licensing the business model to third-party operators as a form of expansion.
+    Social Responsibility: Focused on sustainable and socially responsible growth, which can also improve brand image.
+    Business Intelligence: Leveraging data analytics for informed decision-making in scaling efforts.
+    Talent Development: Investing in the training and development of existing staff to meet the challenges of expansion.
+    Ecosystem Development: Building a network of partners, suppliers, and customers to create a business ecosystem.
+    Business Model Innovation: Reimagining the existing business model to uncover new revenue streams or efficiencies.
+    Government and Public Relations: Strategies for improving relationships with government bodies to facilitate expansion or enter new markets.
+    Community Engagement: Building strong ties with local communities as a part of corporate social responsibility and brand building.
+    Value Proposition Refinement: Fine-tuning the company's unique selling proposition for different markets or customer segments.
+    Funding and Investment: Securing external funding or investment as a means to facilitate growth.
+    Market Research: Ongoing efforts to understand market trends, customer needs, and competitive landscape.
+    Other: Any other specialized or industry-specific approaches
+    `,
   },
   {
-    id: 111,
-    parent: 11,
+    id: 11041,
+    parent: 1104,
     status: "5. Hold",
-    name_singular: "counsel",
-    display_singular: "Counsel",
+    name_singular: "penetration",
+    display_singular: "Penetration",
+    summary: null,
     description: null,
-    summary: "Advice and consultation from specialist areas",
-    nickname: "governance-counsel",
-  },
-  {
-    id: 1110,
-    parent: 111,
-    status: "5. Hold",
-    name_singular: "legal",
-    display_singular: "Legal",
-    description: "Obtain legal advice & consultation",
-    summary: "The CLO role (Chief Legal Officer)",
-    nickname: "governance-counsel-legal",
-  },
-  {
-    id: 1111,
-    parent: 111,
-    status: "5. Hold",
-    name_singular: "finance",
-    display_singular: "Finance",
-    description: "Obtain financial advice & consultation",
-    summary: "The CFO role (Chief Financial Officer)",
-    nickname: "governance-counsel-finance",
-  },
-  {
-    id: 1112,
-    parent: 111,
-    status: "5. Hold",
-    name_singular: "technology",
-    display_singular: "Technology",
-    description: "Obtain technical advice & consultation",
-    summary:
-      "The CIO role (Chief Information Officer) / CTO (Chief Technology Officer)",
-    nickname: "governance-counsel-technology",
-  },
-  {
-    id: 1113,
-    parent: 111,
-    status: "5. Hold",
-    name_singular: "niche",
-    display_singular:
-      "Niche",
-    description: "Consultation with industry experts / Knowledge in specific domains",
-    summary:
-      "Bring expert consultation in for specialist advice (e.g. data center employees for a server move project)",
-    nickname: "governance-counsel-niche",
-  },
-  {
-    id: 1114,
-    parent: 111,
-    status: "5. Hold",
-    name_singular: "strategy",
-    display_singular: "Strategy",
-    description: "Industry, business and marketing experts",
-    summary: "Consultation with business & stragetic experts",
-    nickname: "governance-counsel-strategy",
+    nickname: "governance-model-growth-penetration",
   },
   {
     id: 112,
@@ -312,9 +371,9 @@ export const data: {
     name_singular: "regulation",
     display_singular: "Regulation",
     description:
-      "Permits, Auditing, accreditation, compliance and adhering to regulations",
+      "A central repository for managing Permits, Auditing, Accreditations, Compliance and Regulations",
     summary:
-      "A central repository and manager to simplify all incorporatation, certification and regulation requirements",
+      "Simplify all incorporatation, certification and regulation requirements",
     nickname: "governance-regulation",
   },
   {
@@ -323,7 +382,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "incorporation",
     display_singular: "Incorporation",
-    summary: null,
+    summary:
+      "Forming corporate entities/companies, associated licensing & liability protections",
     description:
       "Incorporation and/or getting permission/permits to operate. Form a business if needed, in order to provide services to a certain jurisdiction.",
     nickname: "governance-regulation-incorporation",
@@ -345,7 +405,8 @@ export const data: {
     name_singular: "license",
     display_singular: "Business License",
     summary: "General business license",
-    description: null,
+    description:
+      "Obtain permission for your company to operate within a country/state",
     nickname: "incorporation-general-licensing-license",
   },
   {
@@ -354,7 +415,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "trading-name-license",
     display_singular: "Trading Name License",
-    summary: null,
+    summary: "Permission to trade as a specific name",
     description: "License to trade as a name other than the legal entity name",
     nickname: "incorporation-general-licensing-trading-name-license",
   },
@@ -364,9 +425,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "employer-identification",
     display_singular: "Employer Identification",
-    summary: null,
+    summary: "Permission to employ personnel",
     description:
-      "E.g. EIN (US) - a number required for businesses with employees, certain types of legal structures, or other specific criteria",
+      "A number (e.g. EIN in the USA) required for businesses with employees, certain types of legal structures, or other specific criteria",
     nickname: "incorporation-general-licensing-employer-identification",
   },
   {
@@ -490,6 +551,16 @@ export const data: {
     id: 1121,
     parent: 112,
     status: "5. Hold",
+    name_singular: "legislation",
+    display_singular: "Legislation",
+    summary: "Rules, information and instruction from regulatory bodies",
+    description: "Receive, collate, review and adhere to regulations",
+    nickname: "governance-regulation-legislation",
+  },
+  {
+    id: 1122,
+    parent: 112,
+    status: "5. Hold",
     name_singular: "auditing",
     display_singular: "Auditing",
     description: null,
@@ -497,55 +568,97 @@ export const data: {
     nickname: "governance-regulation-auditing",
   },
   {
-    id: 1122,
+    id: 1123,
     parent: 112,
     status: "5. Hold",
     name_singular: "accreditation",
     display_singular: "Accreditation",
-    description: null,
+    description:
+      "Obtain proof of adherance for standards, certifications and regulations",
     summary: "Licenses, Awards, Certification and Standards",
     nickname: "governance-regulation-accreditation",
-  },
-  {
-    id: 1123,
-    parent: 112,
-    status: "5. Hold",
-    name_singular: "submissions",
-    display_singular: "Submissions",
-    summary: null,
-    description:
-      "Submitting reports / data as directed by governmental departments and other bodies",
-    nickname: "governance-regulation-submissions",
   },
   {
     id: 1124,
     parent: 112,
     status: "5. Hold",
-    name_singular: "z",
-    display_singular: "z",
-    summary: null,
-    description: null,
-    nickname: "governance-regulation-z",
+    name_singular: "submissions",
+    display_singular: "Submissions",
+    summary: "Filing information to regulatory bodies",
+    description:
+      "Submitting reports / data as directed by governmental departments and other bodies",
+    nickname: "governance-regulation-submissions",
   },
   {
     id: 113,
     parent: 11,
     status: "5. Hold",
-    name_singular: "metrics",
-    display_singular: "Metrics",
-    description: null,
-    summary: "Your company roadmap and timeline",
-    nickname: "governance-metrics",
+    name_singular: "reporting",
+    display_singular: "Reporting",
+    description: "Your hub for automated & manual reports",
+    summary: "Custom reports, metrics and information usage",
+    nickname: "governance-reporting",
   },
   {
     id: 1130,
     parent: 113,
     status: "5. Hold",
+    name_singular: "metrics",
+    display_singular: "Metrics",
+    description: null,
+    summary: null,
+    nickname: "governance-reporting-metrics",
+  },
+  {
+    id: 11300,
+    parent: 1130,
+    status: "5. Hold",
+    name_singular: "targets",
+    display_singular: "Targets",
+    description: "The OKRs/KPIs",
+    summary: "The OKRs/KPIs",
+    nickname: "governance-reporting-metrics-targets",
+  },
+  {
+    id: 11301,
+    parent: 1130,
+    status: "5. Hold",
+    name_singular: "benchmarks",
+    display_singular: "Benchmarks",
+    description: null,
+    summary: "The thresholds you want to reach with your metrics",
+    nickname: "governance-reporting-metrics-benchmarks",
+  },
+  {
+    id: 11302,
+    parent: 1130,
+    status: "5. Hold",
+    name_singular: "measurements",
+    display_singular: "Measurements",
+    description: null,
+    summary: "Recording of actual business data against metrics",
+    nickname: "governance-reporting-metrics-measurements",
+  },
+  {
+    id: 11303,
+    parent: 1130,
+    status: "5. Hold",
     name_singular: "scorecards",
     display_singular: "Scorecards",
-    description: "Scorecards from different areas of the business",
-    summary: null,
-    nickname: "governance-metrics",
+    description: null,
+    summary: "Scorecards from different areas of the business",
+    nickname: "governance-reporting-metrics-scorecards",
+  },
+  {
+    id: 11304,
+    parent: 1130,
+    status: "5. Hold",
+    name_singular: "inspection",
+    display_singular: "Inspection",
+    description:
+      "Review and derive actions from metrics that will improve future achievement of metrics",
+    summary: "Review of metrics & measurements",
+    nickname: "governance-reporting-metrics-inspection",
   },
   {
     id: 114,
@@ -553,8 +666,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "executive",
     display_singular: "Executive",
-    description: "Management and Executive decision making",
-    summary:
+    summary: "Management and Executive decision making",
+    description:
       "Standardise and supercharge your decision making throughout the business",
     notes: ` [
       "Includes executive meeting setup, task management setup (e.g. Traction Tools, L10 meetings, etc.)",
@@ -577,8 +690,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "management",
     display_singular: "Management",
-    summary: null,
-    description: null,
+    summary: "Handling of manager responsibilities",
+    description:
+      "Manage your teams, responsibilities, stakeholders and deliverables",
     nickname: "governance-executive-management",
   },
   {
@@ -592,14 +706,15 @@ export const data: {
     nickname: "governance-executive-management-stakeholder_management",
   },
   {
-    id: 1142,
-    parent: 114,
+    id: 11411,
+    parent: 1141,
     status: "5. Hold",
     name_singular: "accountability",
     display_singular: "Accountability",
-    summary: null,
-    description: "Mechanisms for assigning and tracking responsibilities",
-    nickname: "governance-executive-accountability",
+    summary: "Mechanisms for assigning and tracking responsibilities",
+    description:
+      "Ensure everything has an owner: Assign responsibilities to managers and other employees",
+    nickname: "governance-executive-management-accountability",
   },
   {
     id: 1143,
@@ -608,7 +723,7 @@ export const data: {
     name_singular: "reports",
     display_singular: "Reports",
     description: "Report creations for the business's decision making",
-    summary: "Your hub for automated & manual reports",
+    summary: "Use reports to assist with management and decision making",
     nickname: "governance-executive-reports",
   },
   {
@@ -617,9 +732,72 @@ export const data: {
     status: "5. Hold",
     name_singular: "decisions",
     display_singular: "Decisions",
-    description: "Decision Making",
-    summary: null,
+    description: null,
+    summary: "Coordination & tools for decision making",
     nickname: "governance-executive-decisions",
+  },
+  {
+    id: 1145,
+    parent: 114,
+    status: "5. Hold",
+    name_singular: "counsel",
+    display_singular: "Counsel",
+    description:
+      "Obtain relevant input from inside and/or outside the business",
+    summary: "Advice and consultation from specialist areas",
+    nickname: "governance-counsel",
+  },
+  {
+    id: 11450,
+    parent: 1145,
+    status: "5. Hold",
+    name_singular: "legal",
+    display_singular: "Legal",
+    description: "Obtain legal advice & consultation",
+    summary: "The CLO role (Chief Legal Officer)",
+    nickname: "governance-counsel-legal",
+  },
+  {
+    id: 11451,
+    parent: 1145,
+    status: "5. Hold",
+    name_singular: "financial",
+    display_singular: "Financial",
+    description: "Obtain finance advice & consultation",
+    summary: "The CFO role (Chief Financial Officer)",
+    nickname: "governance-counsel-financial",
+  },
+  {
+    id: 11452,
+    parent: 1145,
+    status: "5. Hold",
+    name_singular: "technological",
+    display_singular: "Technological",
+    description: "Obtain technical advice & consultation",
+    summary: "The CIO/CTO role (Chief Information/Technology Officer)",
+    nickname: "governance-counsel-technological",
+  },
+  {
+    id: 11453,
+    parent: 1145,
+    status: "5. Hold",
+    name_singular: "niche",
+    display_singular: "Niche",
+    description:
+      "Consultation with industry experts / Knowledge in specific domains",
+    summary: "Bring in expert consultation for specialist advice",
+    notes: `(e.g. data center employees for a server move project)`,
+    nickname: "governance-counsel-niche",
+  },
+  {
+    id: 11454,
+    parent: 1145,
+    status: "5. Hold",
+    name_singular: "strategy",
+    display_singular: "Strategy",
+    description: "Industry, business and marketing experts",
+    summary: "Consultation with business & strategic experts",
+    nickname: "governance-counsel-strategy",
   },
   {
     id: 12,
@@ -640,8 +818,7 @@ export const data: {
     name_singular: "ledger",
     display_singular: "Ledger",
     description: "Chart of accounts, bookkeeping and reporting",
-    summary:
-      "Simplify, manage and supercharge your chart of accounts and reporting",
+    summary: "Simplify and supercharge your chart of accounts & reports",
     nickname: "accounts-ledger",
   },
   {
@@ -650,9 +827,9 @@ export const data: {
     status: "0. New",
     name_singular: "chart",
     display_singular: "Chart",
-    summary: null,
-    description:
+    summary:
       "Chart of Accounts, Budgets and other layouts, including the P&L and balance sheet",
+    description: "Manage your general ledger and related reports",
     notes: `
       guides: [
         "Chart of Accounts Setup: COGs & Revenue P&L Accounts",
@@ -733,7 +910,7 @@ export const data: {
     display_singular: "Budgets",
     description:
       "Easily create and assign budgets to departments, people and the business",
-    summary: null,
+    summary: "Creation and allocation of financial resources",
     notes: `
       process: [
         "Set up P&L layout",
@@ -750,8 +927,9 @@ export const data: {
     status: "0. New",
     name_singular: "bookkeeping",
     display_singular: "Bookkeeping",
-    summary: null,
-    description: "Daily accural based bookkeeping",
+    summary: "Daily accural based bookkeeping",
+    description:
+      "Reconciliations, coding and journalling of your accounts & transactions",
     notes: `[
       "Reconciliations & Coding of Transactions, including bank statement reconciliation",
       "Manual & Recurring Journalling to allocate lines between the Balance Sheet and P&L accounts",
@@ -851,8 +1029,8 @@ export const data: {
     status: "0. New",
     name_singular: "receivables",
     display_singular: "Receivables",
-    summary: "Get your invoices issued and paid on time.",
-    description: "End-to-end revenue operations",
+    summary: "Invoices to customers and End-to-end revenue operations",
+    description: "Get your invoices issued and paid on time, stress free.",
     notes: `
     benefits:
       "Save $1,000s on missed revenue. Have an expert on hand to manage everything for you. Avoid costly in house staff",
@@ -1226,7 +1404,7 @@ export const data: {
     nickname: "accounts-receivables-invoicing",
   },
   {
-    id: 12121,
+    id: 12120,
     parent: 1212,
     status: "0. New",
     name_singular: "template",
@@ -1237,7 +1415,7 @@ export const data: {
     nickname: "receivables-invoicing-template",
   },
   {
-    id: 12122,
+    id: 12121,
     parent: 1212,
     status: "0. New",
     name_singular: "generate",
@@ -1247,18 +1425,7 @@ export const data: {
     nickname: "receivables-invoicing-generate",
   },
   {
-    id: 12123,
-    parent: 1212,
-    status: "0. New",
-    name_singular: "verify",
-    display_singular: "Verify",
-    summary: "Invoice approvals",
-    description:
-      "Match the invoice against quotes (and other X-way matches), to validate it as correct",
-    nickname: "receivables-invoicing-verify",
-  },
-  {
-    id: 12124,
+    id: 12122,
     parent: 1212,
     status: "0. New",
     name_singular: "ammendment",
@@ -1275,7 +1442,18 @@ export const data: {
     nickname: "receivables-invoicing-ammendment",
   },
   {
-    id: 12125,
+    id: 12123,
+    parent: 1212,
+    status: "0. New",
+    name_singular: "verify",
+    display_singular: "Verify",
+    summary: "Invoice approvals",
+    description:
+      "Match the invoice against quotes (and other X-way matches), to validate it as correct",
+    nickname: "receivables-invoicing-verify",
+  },
+  {
+    id: 12124,
     parent: 1212,
     status: "0. New",
     name_singular: "issue",
@@ -1453,8 +1631,8 @@ export const data: {
     status: "0. New",
     name_singular: "payables",
     display_singular: "Payables",
-    description: "Bills from your suppliers",
-    summary: "Get your bills entered and paid on time. Stress Free.",
+    description: "Get your bills entered and paid on time, stress free.",
+    summary: "Bills from your suppliers and End-to-end expense operations",
     notes: `
       "Orgmenta handles your supplier billing, repeating bills, bill entering and payment preparation.",
     process: [
@@ -1653,8 +1831,8 @@ export const data: {
     status: "0. New",
     name_singular: "bills",
     display_singular: "Bills",
-    summary: null,
-    description: "Verifying and entering supplier charges",
+    summary: "Bills issued from suppliers to your business",
+    description: "Verify and enter supplier charges",
     notes: `
       price_unit: "line item",
       process: [
@@ -1946,14 +2124,24 @@ export const data: {
     nickname: "accounts-finance-banking",
   },
   {
+    id: 1234,
+    parent: 123,
+    status: "5. Hold",
+    name_singular: "assets_liabilities",
+    display_singular: "Assets & Liabilities",
+    summary: null,
+    description: null,
+    nickname: "accounts-finance-assets_liabilities",
+  },
+  {
     id: 124,
     parent: 12,
     status: "5. Hold",
     name_singular: "compliance",
     display_singular: "Compliance",
-    summary: null,
+    summary: "Conformance to legislation and regulations",
     description:
-      "End of month/year closures, P&L, Balance Sheet, Accounting compliance, tax submissions",
+      "Handle end of month/year rollovers, P&Ls, Balance Sheets, Accounting compliance and tax submissions",
     nickname: "accounts-compliance",
   },
   {
@@ -2030,7 +2218,7 @@ export const data: {
       "Procure components, assemble them and deliver them to your customer",
     nickname: "product",
     icon_name: "package",
-    icon_source: "Feather"
+    icon_source: "Feather",
   },
   {
     id: 130,
@@ -2147,7 +2335,7 @@ export const data: {
     description: "What needs do stakeholders have for the product?",
     summary: "Needs that are required to fulfil use cases appropriately",
     nickname: "product-catalog-solutions-requirements",
-    notes: `Requirements can be determined in a Project>Control>Requirements`
+    notes: `Requirements can be determined in a Project>Control>Requirements`,
   },
   {
     id: 13012,
@@ -2155,7 +2343,8 @@ export const data: {
     status: "0. New",
     name_singular: "features",
     display_singular: "Features",
-    summary: "The features (compilations of constituents) that the product needs/has",
+    summary:
+      "The features (compilations of constituents) that the product needs/has",
     description: "Plan and track features for implementation",
     notes: "Features can be determined in a Project>Planning>Functionality",
     nickname: "product-catalog-solutions-features",
@@ -2169,7 +2358,7 @@ export const data: {
     description: "Define which components make up the product, and how",
     summary: "Which parts fit together to make a feature?",
     nickname: "product-catalog-solutions-constituents",
-    notes: `This maps the Product>Catalog>Components to the end product`
+    notes: `This maps the Product>Catalog>Components to the end product`,
   },
   {
     id: 13014,
@@ -2178,9 +2367,10 @@ export const data: {
     name_singular: "versions",
     display_singular: "Versions",
     description: "Versioning/roadmap/version control of the offering",
-    summary: "What development and new versions/subfeatures are planned for this offering",
+    summary:
+      "What development and new versions/subfeatures are planned for this offering",
     nickname: "product-catalog-solutions-versions",
-    notes: `This links Projects with Product>Catalog>Solutions>Features`
+    notes: `This links Projects with Product>Catalog>Solutions>Features`,
   },
   {
     id: 1302,
@@ -2252,10 +2442,12 @@ export const data: {
     status: "0. New",
     name_singular: "retirals",
     display_singular: "Retirals",
-    description: "Product end of life, obsolescence, unavailability, upgrade paths and deactivation.",
-    summary: "Manage product decommissions, and track the need for catalog products to be cycled/changed",
+    description:
+      "Product end of life, obsolescence, unavailability, upgrade paths and deactivation.",
+    summary:
+      "Manage product decommissions, and track the need for catalog products to be cycled/changed",
     nickname: "product-catalog-retirals",
-    notes: `This may trigger the procuct>decommissioning procedure (e.g. retrievals of deployed customer equipment)`
+    notes: `This may trigger the procuct>decommissioning procedure (e.g. retrievals of deployed customer equipment)`,
   },
   {
     id: 131,
@@ -2264,7 +2456,7 @@ export const data: {
     name_singular: "procurement",
     display_singular: "Procurement",
     description: "Purchase requests & Purchase orders",
-    summary: "Procure products from suppliers",
+    summary: "Obtaining products from suppliers",
     nickname: "product-procurement",
   },
   {
@@ -2377,7 +2569,7 @@ export const data: {
     status: "0. New",
     name_singular: "confirmation",
     display_singular: "Confirmation",
-    summary: "Receiving confirmation of orders fromt the supplier",
+    summary: "Receiving confirmation of orders from the supplier",
     description:
       "Receive Vendor acceptance / rejection / suggested changes to the purchase order",
     notes:
@@ -2398,12 +2590,55 @@ export const data: {
     id: 13114,
     parent: 1311,
     status: "0. New",
-    name_singular: "transit",
-    display_singular: "Transit",
+    name_singular: "dispatch",
+    display_singular: "Dispatch",
+    summary:
+      "Out-for-Delivery Notices / Freight Confirmations from the supplier",
+    description:
+      "Get confirmation from the supplier that items have been dispatched",
+    nickname: "procurement-purchase-dispatch",
+  },
+  {
+    id: 1312,
+    parent: 131,
+    status: "0. New",
+    name_singular: "delivery",
+    display_singular: "Delivery",
     summary: "The items that have been dispatched but have not yet arrived",
     description:
       "Track the items that have been dispatched and are in transit, i.e. on board for delivery. Tracked on a digital map, with audit logs and status updates.",
-    nickname: "procurement-purchase-transit",
+    nickname: "procurement-delivery",
+  },
+  {
+    id: 13120,
+    parent: 1312,
+    status: "0. New",
+    name_singular: "transit",
+    display_singular: "Transit",
+    summary: "Track items that are on their way to you",
+    description:
+      "Track the items that have been dispatched and are in transit, i.e. on board for delivery. Tracked on a digital map, with audit logs and status updates.",
+    nickname: "procurement-delivery-transit",
+  },
+  {
+    id: 13120,
+    parent: 1312,
+    status: "0. New",
+    name_singular: "customs",
+    display_singular: "Customs",
+    summary: "Clearing items through borders & paying customs taxes",
+    description: null,
+    nickname: "procurement-delivery-customs",
+  },
+  {
+    id: 13120,
+    parent: 1312,
+    status: "0. New",
+    name_singular: "arrival_notice",
+    display_singular: "Arrival Notice",
+    summary: "ETA / Schedule for delivery / Estimated Delivery Date (EDD)",
+    description: "Obtain an ETA for when a product will arrive",
+    nickname: "procurement-delivery-arrival_notice",
   },
   {
     id: 1313,
@@ -2478,6 +2713,17 @@ export const data: {
     nickname: "procurement-receiving-stocking",
   },
   {
+    id: 1314,
+    parent: 131,
+    status: "0. New",
+    name_singular: "finalizing",
+    display_singular: "Finalizing",
+    description:
+      "Close off purchase orders, advise all stakeholders and trigger projects & payments",
+    summary: "Purchase order completion and greenlighting next steps",
+    nickname: "procurement-finalizing",
+  },
+  {
     id: 132,
     parent: 13,
     status: "0. New",
@@ -2537,6 +2783,17 @@ export const data: {
     description:
       "Undertake a reconciliation of held stock (compare database against actuals)",
     nickname: "warehousing-stocktake-counts",
+  },
+  {
+    id: 13231,
+    parent: 1323,
+    status: "0. New",
+    name_singular: "inspections",
+    display_singular: "Inspections",
+    summary: "Inspection of stored items",
+    description:
+      "Ensure items are properly stored, not degrading, and are secure.",
+    nickname: "warehousing-stocktake-inspections",
   },
   {
     id: 1324,
@@ -2706,6 +2963,17 @@ export const data: {
     id: 1340,
     parent: 134,
     status: "0. New",
+    name_singular: "returns",
+    display_singular: "Returns",
+    description:
+      "Manage customer returns and link to RMAs if involving the supplier & warranties",
+    summary: "Products returned by the customer to or via your company",
+    nickname: "product-decommission-returns",
+  },
+  {
+    id: 1341,
+    parent: 134,
+    status: "0. New",
     name_singular: "deactivations",
     display_singular: "Deactivations",
     description: "Announcing product end of life, turning off functionality",
@@ -2758,7 +3026,7 @@ export const data: {
     status: "0. New",
     name_singular: "customer",
     display_singular: "Customer",
-    summary: "Onboarding, Sales & Portal",
+    summary: "CRM, Onboarding, Sales & Portal",
     description: "Management of your clients / consumers / users",
     nickname: "customer",
     icon_name: "customerservice",
@@ -2773,7 +3041,7 @@ export const data: {
     description:
       "Manage customer relationships through onboarding to offboarding",
     summary:
-      "Prospective, Onboarding, Active, Watchlist and Offboarding client relationships",
+      "Prospective, Onboarding, Active, Watchlist and Offboarding clients",
     nickname: "customer-lifecycle",
   },
   {
@@ -2805,6 +3073,152 @@ export const data: {
       "Move Prospective customers into Onboarding status as soon as proposals are successfully signed off",
       "Capture all necessary customer information",
       "Liaise with customers for any needed onboarding assistance",
+      "Fill and return 'new supplier forms' to the customer if they issued one to you",
+      "Ensure billing processes and information gathering is triggered for Invoicing to the customer (see Debtors)
+      "https://www.zendesk.com/au/blog/customer-onboarding/#:~:text=is%20customer%20onboarding%3F-,Customer%20onboarding%20is%20the%20process%20of%20teaching%20new%20customers%20the,looks%20different%20for%20each%20customer.",
+      "https://blog.hubspot.com/service/customer-onboarding",
+      "https://www.helpscout.com/blog/customer-onboarding/",
+      "https://www.google.com/search?q=customer+onboarding+process&rlz=1C1CHBF_en-GBAU966AU967&oq=customer+onboarding+process&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDMzNDhqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8",
+      
+      "https://www.reddit.com/r/msp/comments/17awhjw/client_onboarding_do_you_deal_with_outgoing_msp/"
+
+      In a new email (not forwarding an existing email chain) to the client decision makers (not direct to the Outgoing Provider):
+
+      Hi [NewClientName_DecisionMakersEmails],
+      
+      As discussed, attached is the handover request for the outgoing provider [OutgoingProviderName].
+      
+      Please review, and if approved forward to: [OutgoingProviderName_ContactEmails].
+      
+      As agreed, your approval will:
+      1) Grant us permission to [X,Y,Z],
+      and
+      2) Request that the information be provided by [DATE] in order for us to begin [PROJECTS A,B,C] on [DATE].
+      This provides [DURATION] for [OutgoingProviderName] to provide the handover pack, as we appreciate that it could take some time to collate the requested information.
+      
+      [Handover pack request goes here, + stakeholder list, + any other relevant information that all CCed parties are privy to].
+      
+      [Signoff]
+      
+      This way:
+      
+      - You are doing everything you can for the client and avoiding miscommunication, but still getting signoff from them.
+      
+      - The official request is still coming from the client. (If the outgoing provider is security conscious, they will then call the client to verify the email as genuine and not spoofed).
+      
+      - It gives clear but polite deadlines to the outgoing provider, and makes it a little harder for 'dragging feet' (and provides something to hook into later: 'We specifically asked for the information by this date, and gave an extra grace period. We now urgently need this pack before our project is further impacted').
+      
+      - It also does right by the outgoing provider, by giving them an appropriate timeframe (+ buffer) to provide the pack.
+      
+      - It ensures transparency and that all decision makers and key stakeholders have agreed on the plan, necessary information, and the permissions granted.
+
+
+      PROCESS (But see the Operations module for the fundamental structure).
+      "Signup and welcome",
+      "Induction (providing info TO the customer)",
+      "Requirements analysis and compilation of necessary resources. This uses any pre-collected information obtained during the sales process"
+      "Handover (from previous provider and client themselves) and info collation/entering into the system (getting info from the customer). ".
+      "Integrations, invitations, and data imports (part of this is verifying the handover / requirements from the previous step)"
+      "
+
+      https://www.connectwise.com/en-au/blog/managed-services/msp-onboarding-checklist
+      https://www.ninjaone.com/blog/it-client-onboarding-checklist-for-msps/
+      https://www.manageengine.com/products/service-desk-msp/msp-onboarding-checklist.html
+      https://www.zomentum.com/blog/client-onboarding-checklist-for-an-msp
+      https://www.google.com/search?q=msp+onboarding+checklist&rlz=1C1CHBF_en-GBAU966AU967&oq=msp+onboarding+checklist&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDM2NTJqMGo0qAIAsAIA&sourceid=chrome&ie=UTF-8
+
+      MSP Customer Onboarding:
+
+      Closure of Sales Project:
+      (The 'handover' submodule of the Operations module will then handover to the Onboarding project)
+      Onboarding Project setup:
+      (automatically) create a project in Operations module.
+      Customer Information Gathering:
+      Collect essential customer information, including business details, contacts, and existing IT infrastructure.
+      Needs Assessment:
+      Identify the customer's specific IT needs and requirements.
+      Conduct an initial assessment of their current IT environment.
+      Service Selection:
+      Present a catalog of managed services offered by the MSP.
+      Help the customer choose services tailored to their needs.
+      Customized Onboarding Plan:
+      Create a customized onboarding plan based on the selected services and customer requirements.
+      Define milestones and timelines for the onboarding process.
+      Data Migration & Integration:
+      Assist with data migration if necessary, ensuring a seamless transition to the MSP's systems.
+      Integrate the MSP's tools and services with the customer's existing infrastructure.
+      User Training:
+      Provide training sessions or resources to educate the customer's staff on using the MSP's services effectively.
+      Security Assessment:
+      Conduct a security assessment to identify vulnerabilities and establish security protocols.
+      Implement necessary security measures to protect the customer's data.
+      Documentation & SLAs:
+      Provide detailed documentation on service agreements, SLAs, and support processes.
+      Ensure that the customer is aware of service level commitments.
+      Monitoring & Reporting:
+      Set up monitoring tools to continuously track the performance and health of the customer's IT systems.
+      Generate regular reports for the customer to review.
+      Support & Escalation:
+      Establish a support mechanism with defined escalation procedures.
+      Offer a helpdesk or support portal for issue reporting and resolution.
+      Billing & Invoicing:
+      Set up billing processes and invoicing for the services rendered.
+      Ensure transparency in billing practices.
+      Feedback & Review:
+      Gather feedback from the customer on the onboarding experience and service quality.
+      Conduct regular reviews to assess the effectiveness of the services.
+      Compliance & Documentation:
+      Ensure that all regulatory and compliance requirements are met, especially in industries with specific regulations (e.g., healthcare, finance).
+      Maintain thorough documentation for audit purposes.
+      Scalability Planning:
+      Discuss future growth plans with the customer and prepare for scalability.
+      Ensure that the MSP's services can accommodate the customer's evolving needs.
+      Communication & Relationship Management:
+      Maintain open and transparent communication with the customer.
+      Assign an account manager or customer success manager to foster a strong relationship.
+      Disaster Recovery & Business Continuity:
+      Develop a disaster recovery and business continuity plan to minimize downtime in case of disruptions.
+      Service Level Agreements (SLAs):
+      Clearly define SLAs that specify the expected response times, resolution times, and service availability.
+      Ensure SLAs align with the customer's business objectives.
+      Data Backup & Recovery:
+      Implement robust data backup solutions to protect the customer's data.
+      Create data recovery procedures in case of data loss or disasters.
+      Asset Inventory:
+      Maintain an accurate inventory of the customer's IT assets, including hardware and software.
+      Use asset management tools to track and manage assets efficiently.
+      Network Assessment:
+      Conduct a comprehensive assessment of the customer's network infrastructure to identify potential vulnerabilities and performance bottlenecks.
+      Make necessary improvements or recommendations.
+      Change Management:
+      Establish a change management process to ensure that any modifications to the IT environment are well-planned, documented, and communicated to the customer.
+      Security Awareness Training:
+      Offer security awareness training to the customer's employees to reduce the risk of security breaches.
+      Educate users about best practices for maintaining a secure IT environment.
+      Disaster Recovery Testing:
+      Regularly test the disaster recovery and business continuity plan to verify its effectiveness.
+      Conduct mock drills to prepare for potential disruptions.
+      Vendor Management:
+      If the MSP relies on third-party vendors or suppliers for services or components, manage vendor relationships effectively to ensure service continuity.
+      Documentation Repository:
+      Maintain a centralized repository for all documentation, including configurations, policies, and procedures.
+      Ensure easy access for both the MSP and the customer.
+      Continuous Improvement:
+      Continuously assess and improve the quality of services provided.
+      Proactively identify areas for optimization and innovation.
+      Compliance Audits:
+      Regularly conduct compliance audits to ensure adherence to industry-specific regulations and standards.
+      Address any compliance issues promptly.
+      Client Education Hub:
+      Create a client education hub or portal where customers can access resources, articles, and training materials related to their managed services.
+      Regular Health Checks:
+      Periodically perform health checks on the customer's IT systems to identify potential issues and address them proactively.
+      Cost Optimization:
+      Assist the customer in optimizing their IT costs, ensuring that they get the best value from their investments in managed services.
+     
+      Performance Monitoring & Reporting:
+      Implement continuous performance monitoring of the customer's IT systems and services.
+      Provide regular performance reports that highlight areas of improvement and optimization.
     ]`,
     nickname: "customer-lifecycle-onboarding",
   },
@@ -2878,9 +3292,21 @@ export const data: {
     description:
       "Process potential customer deals and derive quotes/proposals from them",
     nickname: "customer-sales-leads",
+    notes: `Get leads from marketing, tender databases/portals, word of mouth, existing customers, referrals, outreach, introductions etc.`,
   },
   {
     id: 1411,
+    parent: 141,
+    status: "0. New",
+    name_singular: "proposals",
+    display_singular: "Proposals",
+    description: "Manage solution proposals with the customer",
+    summary:
+      "Bids for tenders, sales scoping, needs assessments, presentations and proposal submissions",
+    nickname: "customer-sales-proposals",
+  },
+  {
+    id: 1412,
     parent: 141,
     status: "0. New",
     name_singular: "quotes",
@@ -2888,16 +3314,6 @@ export const data: {
     summary: "Manage offers to the customer",
     description: "Issue price & scope quotes to customers",
     nickname: "customer-sales-quotes",
-  },
-  {
-    id: 1412,
-    parent: 141,
-    status: "0. New",
-    name_singular: "proposals",
-    display_singular: "Proposals",
-    description: "Manage solution proposals with the customer",
-    summary: null,
-    nickname: "customer-sales-proposals",
   },
   {
     id: 1413,
@@ -2910,15 +3326,26 @@ export const data: {
     nickname: "customer-sales-commitment",
   },
   {
+    id: 1414,
+    parent: 141,
+    status: "0. New",
+    name_singular: "order",
+    display_singular: "Order",
+    description:
+      "Trigger sales orders, go-ahead on projects, and other triggers for the fulfilment of the customer's commitment",
+    summary: "Sales Orders, Project Go-aheads and other fulfilment triggers",
+    nickname: "customer-sales-order",
+  },
+  {
     id: 142,
     parent: 14,
     status: "0. New",
-    name_singular: "relationships",
-    display_singular: "Relationships",
+    name_singular: "relationship",
+    display_singular: "Relationship",
     summary: "Delivery, Support, Service, Disputes and Help",
     description:
       "Manage customer relationships, agreements/contracts and services rendered",
-    nickname: "customer-relationships",
+    nickname: "customer-relationship",
   },
   {
     id: 1420,
@@ -2929,7 +3356,7 @@ export const data: {
     summary: "Customer contracts",
     description:
       "Manage agreements, agreement items and other commitments to the customer",
-    nickname: "customer-relationships",
+    nickname: "customer-relationship-agreements",
   },
   {
     id: 1421,
@@ -2939,7 +3366,7 @@ export const data: {
     display_singular: "Support",
     summary: "Customer support assistance",
     description: "Provide services and support to your customers",
-    nickname: "customer-relationships-support",
+    nickname: "customer-relationship-support",
   },
   {
     id: 1422,
@@ -2955,7 +3382,7 @@ export const data: {
       "preferences management (notes, instructions and special information)",
       "agreements (service level agreements, KPIs and rules)",
     ]`,
-    nickname: "customer-relationships-information",
+    nickname: "customer-relationship-information",
   },
   {
     id: 1423,
@@ -2964,10 +3391,22 @@ export const data: {
     name_singular: "disputes",
     display_singular: "Disputes",
     summary:
-      "Pre-empting, Avoiding, Acknowledging and Mitigating disagreements with the customer",
+      "Pre-empting, Avoiding, Acknowledging & Mitigating disagreements with the customer",
     description:
       "managing customer queries and issues. This may trigger the customer being moved to the 'watchlist' queue.",
-    nickname: "customer-relationships-disputes",
+    nickname: "customer-relationship-disputes",
+  },
+  {
+    id: 1424,
+    parent: 142,
+    status: "0. New",
+    name_singular: "portal",
+    display_singular: "Portal",
+    summary:
+      "A customer portal for transparency, reporting and support requests",
+    description:
+      "Provide a secure and personalized hub for customers to submit and manage their support requests, contribute to a community forum, and access up-to-date knowledge base articles",
+    nickname: "customer-relationship-portal",
   },
   {
     id: 143,
@@ -2977,8 +3416,12 @@ export const data: {
     display_singular: "Success",
     description:
       "Making sure that your services are adding appropriate value and enabling the customer",
-    summary: "Customer Experience, Pulse and Development",
+    summary: "vCIO, Customer Experience, Pulse and Development",
     nickname: "customer-success",
+    notes: `
+    https://narmada.cloud/
+    https://www.invarosoft.com/teamlogicit/#:~:text=Client%20Portal%20The%20TeamLogic%20IT,Knowledgebase%20Training%20Staff%20Directory%20CSAT
+    `,
   },
   {
     id: 1430,
@@ -2988,8 +3431,52 @@ export const data: {
     display_singular: "Reviews",
     description:
       "Undertake reviews of the customer and your relationshp with them",
-    summary: "QBRs (Quarterly business reviews), and other assessments",
-    nickname: "customer-success",
+    summary:
+      "Compliance reviews, Audits, QBRs (Quarterly business reviews), and other assessments",
+    nickname: "customer-success-reviews",
+  },
+  {
+    id: 1431,
+    parent: 143,
+    status: "5. Hold",
+    name_singular: "success_planning",
+    display_singular: "Success Planning",
+    description: null,
+    summary:
+      "Working with the customer to ensure the product value is maximised.",
+    nickname: "customer-success-success_planning",
+  },
+  {
+    id: 1432,
+    parent: 143,
+    status: "5. Hold",
+    name_singular: "user_groups",
+    display_singular: "User Groups",
+    description: null,
+    summary: "Customer training and coaching groups",
+    nickname: "customer-success-user_groups",
+  },
+  {
+    id: 1433,
+    parent: 143,
+    status: "5. Hold",
+    name_singular: "value_realization",
+    display_singular: "Value Realization",
+    description:
+      "Ensure your customers are maximising value from your services",
+    summary: "ROI Tracking, value analysis and other methods to ensure ROI.",
+    nickname: "customer-success-value_realization",
+  },
+  {
+    id: 1434,
+    parent: 143,
+    status: "5. Hold",
+    name_singular: "satisfaction",
+    display_singular: "Satisfaction",
+    description: null,
+    summary: "Customer Feedback, CSAT, NPS, PMF, CES and other surveys",
+    nickname: "customer-success-satisfaction",
+    notes: `Link testimonials from here (customer-success-satisfaction) to the corporate website (Market)`,
   },
   {
     id: 144,
@@ -2997,9 +3484,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "programs",
     display_singular: "Programs",
-    summary: null,
-    description: 
+    summary:
       "Loyalty, Rewards and Incentives for sales, referrals and other customer interactions",
+    description: "Manage customer programs, incentives and initiatives",
     nickname: "customer-programs",
   },
   {
@@ -3141,11 +3628,12 @@ export const data: {
     id: 1532,
     parent: 153,
     status: "5. Hold",
-    name_singular: "returns",
-    display_singular: "Returns",
-    summary: "Return of products to suppliers",
+    name_singular: "rmas",
+    display_singular: "RMAs",
+    summary:
+      "Return Merchandise Authorization (Return of products to suppliers)",
     description: "Organise and track product returns",
-    nickname: "supplier-support-returns",
+    nickname: "supplier-support-rmas",
   },
   {
     id: 1533,
@@ -3176,9 +3664,10 @@ export const data: {
     display_singular: "Personnel",
     summary: "Timesheets, HR & Payroll",
     description: "Employee tools & Human Resources",
+    notes: `https://www.bamboohr.com/resources/hr-glossary/`,
     nickname: "personnel",
     icon_name: "people",
-    icon_source: "OctIcons"
+    icon_source: "OctIcons",
   },
   {
     id: 160,
@@ -3237,11 +3726,11 @@ export const data: {
     id: 16003,
     parent: 1600,
     status: "0. New",
-    name_singular: "structure",
-    display_singular: "Structure",
-    summary: "Organizational Structure",
+    name_singular: "linemanagers",
+    display_singular: "Line Managers",
+    summary: "Line Managers / Reports-To",
     description: "Company hierarchy / chain of command / report-to",
-    nickname: "employment-roles-structure",
+    nickname: "employment-roles-structure-linemanager",
   },
   {
     id: 1601,
@@ -3254,89 +3743,55 @@ export const data: {
     nickname: "personnel-employment-recruitment",
   },
   {
-    id: 16012,
-    parent: 160,
+    id: 16010,
+    parent: 1601,
     status: "0. New",
-    name_singular: "backgroundchecks",
-    display_singular: "Background Checks",
+    name_singular: "joblisting",
+    display_singular: "Joblisting",
     description: null,
-    summary: "Advertise, shortlist and hire for roles",
-    nickname: "personnel-employment-recruitment-backgroundchecks",
+    summary: "Advertising for the position",
+    nickname: "personnel-employment-recruitment-joblisting",
+  },
+  {
+    id: 16011,
+    parent: 1601,
+    status: "0. New",
+    name_singular: "shortlisting",
+    display_singular: "Shortlisting",
+    description: "Review resumes/CVs for appropriate candidates",
+    summary: null,
+    nickname: "personnel-employment-recruitment-shortlisting",
+  },
+  {
+    id: 16012,
+    parent: 1601,
+    status: "0. New",
+    name_singular: "interviews",
+    display_singular: "Interviews",
+    description: null,
+    summary: "Conducting interview rounds",
+    nickname: "personnel-employment-recruitment-interviews",
   },
   {
     id: 16013,
-    parent: 160,
+    parent: 1601,
     status: "0. New",
-    name_singular: "make_offer",
-    display_singular: "Make Offer",
+    name_singular: "background_checks",
+    display_singular: "Background Checks",
     description: null,
     summary: null,
-    nickname: "personnel-employment-recruitment-make_offer",
+    nickname: "personnel-employment-recruitment-background_checks",
   },
   {
     id: 16014,
     parent: 1601,
     status: "0. New",
-    name_singular: "onboard_personnel",
-    display_singular: "Onboard Personnel",
-    description: null,
-    summary: null,
-    nickname: "personnel-employment-recruitment-onboard_personnel",
-    notes: `
-      https://www.blaze.tech/post/unraveling-the-true-cost-of-onboarding-a-new-employee
-    `,
-  },
-  {
-    id: 160140,
-    parent: 16014,
-    status: "0. New",
-    name_singular: "orientation",
-    display_singular: "Orientation",
-    description: null,
-    summary: null,
-    nickname: "personnel-employment-recruitment-onboard_personnel-orientation",
-  },
-  {
-    id: 160141,
-    parent: 16014,
-    status: "0. New",
-    name_singular: "induction",
-    display_singular: "Induction",
-    description: null,
-    summary: null,
-    nickname: "personnel-employment-recruitment-onboard_personnel-induction",
-  },
-  {
-    id: 160142,
-    parent: 16014,
-    status: "0. New",
-    name_singular: "systemsaccess",
-    display_singular: "Systems Access",
-    description: null,
-    summary: null,
-    nickname:
-      "personnel-employment-recruitment-onboard_personnel-systemsaccess",
-  },
-  {
-    id: 160143,
-    parent: 16014,
-    status: "0. New",
-    name_singular: "assigntraining",
-    display_singular: "Assign Training",
-    description: null,
-    summary: null,
-    nickname:
-      "personnel-employment-recruitment-onboard_personnel-assigntraining",
-  },
-  {
-    id: 160144,
-    parent: 16014,
-    status: "0. New",
-    name_singular: "shadowing",
-    display_singular: "shadowing",
-    description: null,
-    summary: "Shadow other roles/personnel",
-    nickname: "personnel-employment-recruitment-onboard_personnel-shadowing",
+    name_singular: "offers",
+    display_singular: "Offers",
+    description:
+      "Manage letters of offer and acceptance/counter-offers from prospective candidates",
+    summary: "Letters of Offer & Negotiation",
+    nickname: "personnel-employment-recruitment-make_offer",
   },
   {
     id: 1602,
@@ -3379,14 +3834,77 @@ export const data: {
     nickname: "employment-placements-secondments",
   },
   {
+    id: 16023,
+    parent: 1602,
+    status: "0. New",
+    name_singular: "onboard",
+    display_singular: "Onboard",
+    description: null,
+    summary: "Personnel onboarding & induction",
+    nickname: "personnel-employment-placements-onboard",
+    notes: `
+      https://www.blaze.tech/post/unraveling-the-true-cost-of-onboarding-a-new-employee
+    `,
+  },
+  {
+    id: 160230,
+    parent: 16023,
+    status: "0. New",
+    name_singular: "orientation",
+    display_singular: "Orientation",
+    description: null,
+    summary: null,
+    nickname: "personnel-employment-placements-onboard-orientation",
+  },
+  {
+    id: 160231,
+    parent: 16023,
+    status: "0. New",
+    name_singular: "induction",
+    display_singular: "Induction",
+    description: null,
+    summary: null,
+    nickname: "personnel-employment-placements-onboard-induction",
+  },
+  {
+    id: 160232,
+    parent: 16023,
+    status: "0. New",
+    name_singular: "systemsaccess",
+    display_singular: "Systems Access",
+    description: null,
+    summary: null,
+    nickname: "personnel-employment-placements-onboard-systemsaccess",
+  },
+  {
+    id: 160233,
+    parent: 16023,
+    status: "0. New",
+    name_singular: "assigntraining",
+    display_singular: "Assign Training",
+    description: null,
+    summary: null,
+    nickname: "personnel-employment-placements-onboard-assigntraining",
+  },
+  {
+    id: 160234,
+    parent: 16023,
+    status: "0. New",
+    name_singular: "shadowing",
+    display_singular: "Shadowing",
+    description: null,
+    summary: "Shadow other roles/personnel",
+    nickname: "personnel-employment-placements-onboard-shadowing",
+  },
+  {
     id: 1603,
     parent: 160,
     status: "5. Hold",
-    name_singular: "development",
-    display_singular: "Development",
+    name_singular: "progression",
+    display_singular: "Progression",
     description: null,
     summary: "Employee training, development and progression opportunities",
-    nickname: "personnel-development",
+    nickname: "personnel-employment-progression",
   },
   {
     id: 16030,
@@ -3397,7 +3915,7 @@ export const data: {
     description: "Performance management",
     summary:
       "performance tracking, management and reviews (both ways, not just employer->employee",
-    nickname: "personnel-development-performance",
+    nickname: "personnel-employment-progression-performance",
   },
   {
     id: 160300,
@@ -3407,17 +3925,18 @@ export const data: {
     display_singular: "Tracking",
     description: null,
     summary: "Performance tracking",
-    nickname: "personnel-development-performance-tracking",
+    nickname: "personnel-employment-progression-performance-tracking",
   },
   {
     id: 160301,
     parent: 16030,
     status: "5. Hold",
-    name_singular: "management",
-    display_singular: "Management",
-    description: null,
+    name_singular: "coaching",
+    display_singular: "Coaching",
+    description:
+      "Ethical, helpful performance management and mentorship to assist employees' performance",
     summary: "Performance management and improvement",
-    nickname: "personnel-development-performance-management",
+    nickname: "personnel-employment-progression-performance-coaching",
   },
   {
     id: 160302,
@@ -3427,7 +3946,7 @@ export const data: {
     display_singular: "Reviews",
     description: null,
     summary: "Performance reviews",
-    nickname: "personnel-development-performance-reviews",
+    nickname: "personnel-employment-progression-performance-reviews",
   },
   {
     id: 160303,
@@ -3439,7 +3958,7 @@ export const data: {
       "Two way feedback (the employee should also be able to openly provide feedback to the company",
     summary:
       "To be ethical, there must be an option for the feedback to be anonymous - Else data should be considered inaccurate and compromised.",
-    nickname: "personnel-development-performance-x",
+    nickname: "personnel-employment-progression-performance-x",
   },
   {
     id: 160304,
@@ -3449,7 +3968,7 @@ export const data: {
     display_singular: "y",
     summary: null,
     description: null,
-    nickname: "personnel-development-performance-y",
+    nickname: "personnel-employment-progression-performance-y",
   },
   {
     id: 16031,
@@ -3460,7 +3979,7 @@ export const data: {
     summary: "Training & Development",
     description:
       "Setting goals, assessing performance, and providing feedback to employees to improve their productivity and contributions to the organization.",
-    nickname: "personnel-development-training",
+    nickname: "personnel-employment-progression-training",
   },
   {
     id: 16032,
@@ -3471,28 +3990,28 @@ export const data: {
     description: "Employee engagement",
     summary:
       "Strategies and initiatives aimed at promoting a positive workplace culture and improving employee satisfaction, motivation, and commitment.",
-    nickname: "personnel-development-engagement",
+    nickname: "personnel-employment-progression-engagement",
   },
   {
-    id: 16030,
+    id: 16033,
     parent: 1603,
     status: "5. Hold",
     name_singular: "skills",
     display_singular: "Skills",
-    description: "Career Pathways",
-    summary: "A module to explore and outline potential career progressions.",
-    nickname: "personnel-development-skills",
+    description:
+      "Foster personnel skills and maintain a directory for resource planning",
+    summary: "Skills & Certifications Management",
+    nickname: "personnel-employment-progression-skills",
   },
   {
-    id: 16030,
+    id: 16034,
     parent: 1603,
     status: "5. Hold",
     name_singular: "pathways",
     display_singular: "Pathways",
-    description:
-      "Foster personnel skills and maintain a directory for resource planning",
-    summary: "Skills & Certifications",
-    nickname: "personnel-development-skills",
+    description: "A module to manage Career Pathways",
+    summary: "Explore and outline potential career progressions",
+    nickname: "personnel-employment-progression-skills",
   },
   {
     id: 1604,
@@ -3571,6 +4090,45 @@ export const data: {
     summary: "Logs of undertaken work",
     description: "Enter records of work done by personnel",
     nickname: "personnel-attendance-timesheets-timeentries",
+    notes: `
+    We see this (and other complaints) often, and deal with it via:
+      Adjusting their Process:
+
+      - You can write more succinctly if you wish, don't worry. Time entries aren't micro managing, we aren't challenging you on your time spent.
+
+      - Feel free to use the '1 line per 15 minutes' rule of thumb.
+
+      - Do it live as-you-go, not at the end of a ticket/workday. It should be a running commentary for yourself.
+
+      - It only takes 20 seconds to alt-tab to your time entry screen and add in a line, which should be open while you are working on the ticket.
+
+      - You can use this template / standard note which will save you time (i.e., writing your notes against a pasted-in troubleshooting checklist)
+
+      - Etc.
+
+
+      Justifying the Process:
+
+      They are doing all of the following, all at once (it's actually very efficient):
+
+      - A journal for you to refer back to
+
+      - A journal for others to refer to.
+
+      - Billing to the customer
+
+      - Justifying time spent to the customer
+
+      - Reducing invoice query overhead. 1 minute here is saving 5 minutes later.
+
+      - A list to cross-check against your troubleshooting/resolution checklist before closing a ticket
+
+      - Communication to stakeholders (assuming you are using a combined time entry screen as per CWM/Autotask/etc.)
+
+      - Rubber-ducking.
+
+      - CYA / A way for us to reduce likelihood of our company being scapegoated.
+      `,
   },
   {
     id: 16131,
@@ -3611,32 +4169,84 @@ export const data: {
     status: "5. Hold",
     name_singular: "compensation",
     display_singular: "Compensation",
-    summary: null,
-    description:
-      "Employee packages. Wages, salary, allowances, commissions, bonuses and other (performance based or otherwise) compensation",
+    description: "Handle different types of compensation (performance based or otherwise) like salaries, hourly wages, commissions, bonuses, and other forms of incentive pay.",
+    summary:
+      "Employee packages. Wages, salary, allowances, commissions, bonuses and other compensation",
     nickname: "personnel-payroll-compensation",
   },
   {
     id: 1621,
     parent: 162,
     status: "5. Hold",
-    name_singular: "annuities",
-    display_singular: "Annuities",
-    summary: null,
-    description:
-      "Employee retirement and investment plans/contributions (Workplace Pension Plan: Pensions / 401ks / Superannuation), Personal Pension Plans: 403(b) and other employee investments, etc.",
-    nickname: "personnel-payroll-annuities",
+    name_singular: "accumulations",
+    display_singular: "Accumulations",
+    description: null,
+    summary:"Management of leave and time-off balances",
+    nickname: "personnel-payroll-accumulations",
   },
   {
     id: 1622,
     parent: 162,
     status: "5. Hold",
+    name_singular: "withholdings",
+    display_singular: "Withholdings",
+    description: null,
+    summary: "Income tax, Employee loan repayments, child support, income taxes, retirement and investment plans/contributions",
+    nickname: "personnel-payroll-withholdings",
+  },
+  {
+    id: 16220,
+    parent: 1622,
+    status: "5. Hold",
+    name_singular: "pensions",
+    display_singular: "Pensions",
+    description: null,
+    summary:
+      "Employee retirement and investment plans/contributions (Workplace Pension Plan: Pensions / 401ks / Superannuation), Personal Pension Plans: 403(b) and other employee investments, etc.",
+    nickname: "personnel-payroll-withholdings-pensions",
+  },
+  {
+    id: 16221,
+    parent: 1622,
+    status: "5. Hold",
+    name_singular: "annuities",
+    display_singular: "Annuities",
+    description: null,
+    summary:
+      "A long-term contract with an insurance company that guarantees the employee a steady stream of income at a future date, most frequently after retirement",
+    nickname: "personnel-payroll-withholdings-annuities",
+    notes: `https://www.bamboohr.com/resources/hr-glossary/annuity`
+  },
+  {
+    id: 16222,
+    parent: 1622,
+    status: "5. Hold",
+    name_singular: "investments",
+    display_singular: "Investments",
+    description: null,
+    summary:
+      "pensions & retirement plans, personal tax repayments, levies, liens, loan repayments and other garnishments",
+    nickname: "personnel-payroll-withholdings-investments",
+  },
+  {
+    id: 16223,
+    parent: 1622,
+    status: "5. Hold",
     name_singular: "garnishments",
     display_singular: "Garnishments",
+    description: null,
+    summary: "Employee loan repayments, child support and other garnishments",
+    nickname: "personnel-payroll-withholdings-garnishments",
+  },
+  {
+    id: 16224,
+    parent: 1622,
+    status: "5. Hold",
+    name_singular: "income_tax",
+    display_singular: "Income Tax",
+    description: null,
     summary: null,
-    description:
-      "personal tax repayments, levies, liens, loan repayments and other garnishments",
-    nickname: "personnel-payroll-garnishments",
+    nickname: "personnel-payroll-withholdings-income_tax",
   },
   {
     id: 1623,
@@ -3644,9 +4254,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "taxes",
     display_singular: "Taxes",
-    summary: "Personnel Taxation",
-    description:
-      "Deductions that are made from an employee's pay to fund federal, state, and local government programs. These deductions include income tax, FICA (Social Security and Medicare) taxes, and any other taxes required by law.",
+    summary: "Payroll tax calculations, Managing tax deductions, filings, and ensuring compliance with local, state, and federal payroll tax laws.",
+    description: null,
     nickname: "personnel-payroll-taxes",
   },
   {
@@ -3712,35 +4321,57 @@ export const data: {
     id: 16240,
     parent: 1624,
     status: "5. Hold",
+    name_singular: "earnings",
+    display_singular: "Earnings",
+    description: null,
+    summary:
+      "Calculation of gross pay, including benefits, hourly/time based wages, salary, salary packaging, overtime wages and on-call fees",
+    nickname: "payroll-payrun-earnings",
+  },
+  {
+    id: 162400,
+    parent: 16240,
+    status: "5. Hold",
     name_singular: "wages",
     display_singular: "Wages",
-    summary: null,
-    description:
-      "Calculation of gross pay, including hourly/time based wages, salary, salary packaging, overtime wages, on-call fees",
-    nickname: "payroll-payrun-wages",
+    description: null,
+    summary:
+      "Calculation of gross pay, including hourly/time based wages, salary, salary packaging, overtime wages and on-call fees",
+    nickname: "payroll-payrun-earnings-wages",
+  },
+  {
+    id: 162401,
+    parent: 16240,
+    status: "5. Hold",
+    name_singular: "benefits",
+    display_singular: "Benefits",
+    description: null,
+    summary:
+      "Any non-wage form of compensation and expense reimbursements that an employer provides to its employees, in addition to their base salary",
+    notes:
+      "Any non-wage form of compensation that an employer provides to its employees, in addition to their base salary.\nThese can include things like health insurance, retirement plans, vacation time, transportation allowances, and reimbursements for certain expenses, such as continuing education or business travel.\nBenefits packages can also include things such as Performance bonus, Stock options, and other incentives that are intended to attract and retain employees by providing a comprehensive set of benefits and compensation that meets their financial and non-financial needs.\nBenefits can be an important part of an employee's overall compensation package and can help to attract and retain top talent. Employers typically offer a variety of benefits to appeal to different employee needs, and to stay competitive in the job market.",
+    nickname: "payroll-payrun-earnings-benefits",
   },
   {
     id: 16241,
     parent: 1624,
     status: "5. Hold",
-    name_singular: "benefits",
-    display_singular: "Benefits",
-    summary: null,
-    description:
-      "Any non-wage form of compensation that an employer provides to its employees, in addition to their base salary",
-    notes:
-      "Any non-wage form of compensation that an employer provides to its employees, in addition to their base salary.\nThese can include things like health insurance, retirement plans, vacation time, transportation allowances, and reimbursements for certain expenses, such as continuing education or business travel.\nBenefits packages can also include things such as Performance bonus, Stock options, and other incentives that are intended to attract and retain employees by providing a comprehensive set of benefits and compensation that meets their financial and non-financial needs.\nBenefits can be an important part of an employee's overall compensation package and can help to attract and retain top talent. Employers typically offer a variety of benefits to appeal to different employee needs, and to stay competitive in the job market.",
-    nickname: "payroll-payrun-benefits",
+    name_singular: "deductions",
+    display_singular: "Deductions",
+    description: null,
+    summary:
+      "Deductions for taxes, benefits, and other items are subtracted from gross pay",
+    nickname: "payroll-payrun-deductions",
   },
   {
     id: 16242,
     parent: 1624,
     status: "5. Hold",
-    name_singular: "deductions",
-    display_singular: "Deductions",
-    summary: null,
-    description:
-      "Deductions for taxes, benefits, and other items are subtracted from gross pay",
+    name_singular: "balances",
+    display_singular: "Balances",
+    description: null,
+    summary:
+      "Calculate leave and other time-off additions/deductions/accumulations",
     nickname: "payroll-payrun-deductions",
   },
   {
@@ -3783,8 +4414,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "assignments",
     display_singular: "Assignments",
-    description: null,
-    summary: null,
+    description: "Manage team and individual assignments",
+    summary: "Employee responsibilities and deliverables",
     nickname: "personnel-assignments",
   },
   {
@@ -3798,7 +4429,17 @@ export const data: {
     nickname: "personnel-assignments-teams",
   },
   {
-    id: 1641,
+    id: 1640,
+    parent: 164,
+    status: "5. Hold",
+    name_singular: "managers",
+    display_singular: "Managers",
+    description: null,
+    summary: "Mentors, function-managers and line-managers",
+    nickname: "personnel-assignments-managers",
+  },
+  {
+    id: 1642,
     parent: 164,
     status: "5. Hold",
     name_singular: "meetings",
@@ -3808,7 +4449,7 @@ export const data: {
     nickname: "personnel-assignments-meetings",
   },
   {
-    id: 1642,
+    id: 1643,
     parent: 164,
     status: "5. Hold",
     name_singular: "deliverables",
@@ -3818,14 +4459,14 @@ export const data: {
     nickname: "personnel-assignments-deliverables",
   },
   {
-    id: 1643,
+    id: 1644,
     parent: 164,
     status: "5. Hold",
     name_singular: "functions",
     display_singular: "Functions",
     description: "responsibilities and jobs to fulfil",
     summary:
-      "track and manage the things that make one successful in their role",
+      "Track and manage the things that make one successful in their role",
     nickname: "personnel-assignments-functions",
   },
   {
@@ -3952,19 +4593,21 @@ export const data: {
     status: "0. New",
     name_singular: "brands",
     display_singular: "Brands",
-    summary: null,
-    description: "Your company brand, USP, image, logo and design guidelines",
+    description: null,
+    summary:
+      "Your company brand, reputation, USP, image, logo and design guidelines",
     nickname: "market-brands",
   },
   {
     id: 1700,
     parent: 170,
     status: "0. New",
-    name_singular: "graphics",
-    display_singular: "Graphics",
-    summary: "Logos and other design assets",
+    name_singular: "guidelines",
+    display_singular: "Guidelines",
+    summary:
+      "Design Specs, Design documents, Color Palettes, Typography, Imagery & Logo Usage",
     description: null,
-    nickname: "market-brands-graphics",
+    nickname: "market-brands-guidelines",
   },
   {
     id: 1701,
@@ -3972,12 +4615,54 @@ export const data: {
     status: "0. New",
     name_singular: "assets",
     display_singular: "Assets",
-    summary: "Domains and other assets",
-    description: null,
+    summary: "Trademarks, Domains, Logos and other brand assets",
+    description:
+      "Manage your assets, Digital Asset Management Systems and Asset Update & Refresh Cycle",
     nickname: "market-brands-assets",
   },
   {
+    id: 17010,
+    parent: 1701,
+    status: "0. New",
+    name_singular: "graphics",
+    display_singular: "Graphics",
+    summary: "Logos and other design assets",
+    description: null,
+    nickname: "market-brands-assets-graphics",
+  },
+  {
     id: 1702,
+    parent: 170,
+    status: "0. New",
+    name_singular: "perception",
+    display_singular: "Perception",
+    description: null,
+    summary:
+      "Brand recognition, loyality and other measures of brand perception",
+    nickname: "market-brands-perception",
+  },
+  {
+    id: 17020,
+    parent: 1702,
+    status: "0. New",
+    name_singular: "reputation",
+    display_singular: "Reputation",
+    description: null,
+    summary: null,
+    nickname: "market-brands-perception-reputation",
+  },
+  {
+    id: 17021,
+    parent: 1702,
+    status: "0. New",
+    name_singular: "loyality",
+    display_singular: "Loyality",
+    description: null,
+    summary: null,
+    nickname: "market-brands-perception-loyality",
+  },
+  {
+    id: 1703,
     parent: 170,
     status: "0. New",
     name_singular: "usp",
@@ -3987,12 +4672,22 @@ export const data: {
     nickname: "market-brands-usp",
   },
   {
+    id: 1704,
+    parent: 170,
+    status: "0. New",
+    name_singular: "identity",
+    display_singular: "Identity",
+    summary: "Your company identity, brand messaging, voice & tone",
+    description: null,
+    nickname: "market-brands-recognition",
+  },
+  {
     id: 171,
     parent: 17,
     status: "5. Hold",
     name_singular: "industry",
     display_singular: "Industry",
-    summary: null,
+    summary: "Partner, competitor and other industry analysis",
     description:
       "Manage and research relevant entities and stakeholders within the market",
     nickname: "market-industry",
@@ -4004,10 +4699,55 @@ export const data: {
     name_singular: "landscape",
     display_singular: "Landscape",
     description: null,
-    summary:
-      "A map/list of the competitors and other industry players to be aware of",
-    references: ["link to governance > model", "link to market > research"],
+    summary: "The lay of the land - A map of the space in which you operate",
+    notes: ` ["link to governance > model", "link to market > research"]`,
     nickname: "market-industry-landscape",
+  },
+  {
+    id: 1711,
+    parent: 171,
+    status: "5. Hold",
+    name_singular: "peers",
+    display_singular: "Peers",
+    description:
+      "Maintain a map/list of the competitors and other industry players to be aware of",
+    summary: "Awareness of your competitors, associates and other players in your area",
+    notes: ` ["link to governance > model", "link to market > research"]`,
+    nickname: "market-industry-peers",
+  },
+  {
+    id: 1712,
+    parent: 171,
+    status: "5. Hold",
+    name_singular: "verticals",
+    display_singular: "Verticals",
+    description: null,
+    summary: "Upstream and downstream markets and services",
+    notes: ` ["link to governance > model", "link to market > research"]`,
+    nickname: "market-industry-verticals",
+  },
+  {
+    id: 1713,
+    parent: 171,
+    status: "5. Hold",
+    name_singular: "horizontals",
+    display_singular: "Horizontals",
+    description: null,
+    summary: "Adjacent markets and services",
+    notes: ` ["link to governance > model", "link to market > research"]`,
+    nickname: "market-industry-horizontals",
+  },
+  {
+    id: 1714,
+    parent: 171,
+    status: "5. Hold",
+    name_singular: "depths",
+    display_singular: "Depths",
+    description:
+      "Map and manage the extent and detail to which you can serve your industry space",
+    summary: "Granularity or broadness to which you can serve your industry space",
+    notes: ` ["link to governance > model", "link to market > research"]`,
+    nickname: "market-industry-depths",
   },
   {
     id: 172,
@@ -4018,8 +4758,115 @@ export const data: {
     description: null,
     summary: "Market campaign management, advertising and lead funnelling",
     nickname: "market-promotions",
-    notes:
+    notes:`
       "Leads generated here will link to the Customer > Sales > Lead process",
+
+      Promotional Planning:
+      Scheduling
+      Budget Allocation
+      Target Audience Identification
+      Goal Setting
+      Promotional Analysis:
+      Effectiveness Measurement
+      Sales Impact Analysis
+      Customer Response Evaluation
+      Promotion Optimization:
+      Performance Improvement
+      Cost Efficiency Analysis
+      Promotional Partnerships:
+      Co-Promotion Agreements
+      Sponsorship Management
+      Promotional Compliance:
+      Legal Compliance
+      Ethical Guidelines Adherence
+      Technology Utilization:
+      Promotion Management Systems
+      Data Analysis Tools
+      Cross-Promotions:
+      Strategy Development
+      Partner Identification and Coordination
+      Public Relations:
+      Press Releases
+      Event Sponsorships
+      Promotional Training:
+      Staff Training for Promotional Activities
+      Vendor Engagement Training
+      Point of Sale Promotions:
+      In-Store Displays
+      Checkout Promotions
+      Analytics:
+      Performance Metrics
+      ROI Analysis
+      Customer Segmentation and Targeting
+      Predictive Analytics
+      A/B Testing
+      Conversion Tracking
+      Click-Through Rate Analysis
+      Content Management:
+      Content Creation
+      Content Scheduling
+      Content Distribution
+      SEO Optimization
+      Multimedia Management
+      Social Media Management:
+      Profile Management
+      Social Listening and Monitoring
+      Social Advertising
+      Engagement Analytics
+      Influencer Collaborations
+      Email Marketing:
+      Template Design
+      List Management
+      Campaign Tracking
+      Automated Responses
+      Segmentation and Personalization
+      Loyalty Programs:
+      Reward Systems
+      Customer Retention Analytics
+      Loyalty Program Management
+      Customer Relationship Management (CRM):
+      Contact Management
+      Interaction Tracking
+      Customer Feedback
+      Customer Support and Services
+      Market Research:
+      Consumer Behavior Analysis
+      Competitor Analysis
+      Trend Analysis
+      Product/Market Fit
+      Automation:
+      Marketing Automation
+      Lead Scoring and Qualification
+      Drip Campaigns
+      Event Marketing:
+      Event Planning and Management
+      Promotion and Advertising for Events
+      Post-Event Analysis
+      Regulatory Compliance:
+      Data Privacy Compliance
+      Ad Compliance
+      Anti-Spam Compliance
+      Budget Management:
+      Budget Planning
+      Expense Tracking
+      Financial Forecasting
+      Vendor Management:
+      Vendor Selection
+      Contract Negotiation and Management
+      Performance Evaluation
+      Community Management:
+      Community Engagement
+      Forum Moderation
+      User Generated Content Moderation
+      Affiliate Marketing:
+      Affiliate Recruitment
+      Commission Management
+      Performance Monitoring
+      Mobile Marketing:
+      App Store Optimization
+      Mobile Advertising
+      SMS Marketing
+    `,
   },
   {
     id: 1720,
@@ -4032,6 +4879,67 @@ export const data: {
     nickname: "market-promotions-campaigns",
   },
   {
+    id: 1721,
+    parent: 172,
+    status: "5. Hold",
+    name_singular: "channels",
+    display_singular: "Channels",
+    summary: null,
+    description: null,
+    nickname: "market-promotions-channels",
+  },
+  {
+    id: 17210,
+    parent: 1721,
+    status: "5. Hold",
+    name_singular: "referrals",
+    display_singular: "Referrals",
+    summary:
+      "Word of mouth and other referrals from partners, industry peers, customers and other stakeholders",
+    description: null,
+    nickname: "market-promotions-channels-referrals",
+  },
+  {
+    id: 17210,
+    parent: 1721,
+    status: "5. Hold",
+    name_singular: "social_networks",
+    display_singular: "Social Networks",
+    summary: null,
+    description: null,
+    nickname: "market-promotions-channels-social_networks",
+  },
+  {
+    id: 1722,
+    parent: 172,
+    status: "5. Hold",
+    name_singular: "segmentations",
+    display_singular: "Segmentations",
+    summary: "Customer / Lead groups and targeting",
+    description: null,
+    nickname: "market-promotions-segmentations",
+  },
+  {
+    id: 1723,
+    parent: 172,
+    status: "5. Hold",
+    name_singular: "advertising",
+    display_singular: "Advertising",
+    summary: null,
+    description: null,
+    nickname: "market-promotions-advertising",
+  },
+  {
+    id: 1724,
+    parent: 172,
+    status: "5. Hold",
+    name_singular: "funnel",
+    display_singular: "Funnel",
+    summary: "Managing incoming leads and linking them to the Customer Sales module",
+    description: null,
+    nickname: "market-promotions-funnel",
+  },
+  {
     id: 173,
     parent: 17,
     status: "5. Hold",
@@ -4041,6 +4949,65 @@ export const data: {
     summary:
       "Data collection and analysis of your company reputation, markets and competitors",
     nickname: "market-research",
+    notes: `
+    Data Collection:
+    Surveys and Questionnaires
+    Interviews
+    Focus Groups
+    Observational Research
+    Data Analysis:
+    Statistical Analysis
+    Predictive Modeling
+    Trend Analysis
+    Comparative Analysis
+    Market Segmentation:
+    Demographic Segmentation
+    Psychographic Segmentation
+    Behavioral Segmentation
+    Geographic Segmentation
+    Competitor Analysis:
+    Competitor Profiling
+    Market Share Analysis
+    Competitive Benchmarking
+    Consumer Behavior Analysis:
+    Purchase Behavior
+    Usage Analysis
+    Attitude and Satisfaction Studies
+    Industry Analysis:
+    Industry Trends
+    Growth Analysis
+    Regulatory Environment Analysis
+    Product Research:
+    Concept Testing
+    Product Usability Testing
+    Pricing Research
+    Brand Research:
+    Brand Awareness
+    Brand Perception
+    Brand Loyalty
+    Ethnographic Research:
+    Cultural Analysis
+    Social Impact Analysis
+    Market Entry and Expansion:
+    Market Opportunity Assessment
+    Risk Assessment
+    Channel Analysis
+    Technology and Innovation Research:
+    Emerging Technologies
+    Innovation Landscape Analysis
+    Advertising and Promotion Research:
+    Advertising Effectiveness
+    Promotion Evaluation
+    Economic Analysis:
+    Economic Trends
+    Impact Analysis
+    Supply Chain & Distribution Research:
+    Distribution Channels Analysis
+    Supply Chain Efficiency
+    Legal and Regulatory Compliance Research:
+    Compliance Assessment
+    Policy Impact Analysis
+    `
   },
   {
     id: 174,
@@ -4119,8 +5086,8 @@ export const data: {
     description:
       "Management of all the production (all work/tasks) that is undertaken in the business.\nTrack all of your projects & service tickets, with optional best practice libraries (ITIL, PMBOK, Prince2, ISO:9001, etc.)",
     nickname: "operations",
-    icon_name: 'ticket',
-    icon_source: 'Entypo'
+    icon_name: "ticket",
+    icon_source: "Entypo",
   },
   {
     id: 180,
@@ -4129,7 +5096,7 @@ export const data: {
     name_singular: "control",
     display_singular: "Control",
     description: null,
-    summary: "Project control, quality and change management",
+    summary: "Project management, project control, quality and change management",
     nickname: "operations-control",
   },
   {
@@ -4146,21 +5113,21 @@ export const data: {
     id: 18000,
     parent: 1800,
     status: "0. New",
-    name_singular: "qualitycontrol",
+    name_singular: "quality_control",
     display_singular: "Quality Control",
     description: null,
     summary: null,
-    nickname: "operations-control-quality-qualitycontrol",
+    nickname: "operations-control-quality-quality_control",
   },
   {
     id: 18001,
     parent: 1800,
     status: "0. New",
-    name_singular: "qualityassurance",
+    name_singular: "quality_assurance",
     display_singular: "Quality Assurance",
     description: null,
     summary: null,
-    nickname: "operations-control-quality-qualityassurance",
+    nickname: "operations-control-quality-quality_assurance",
   },
   {
     id: 1801,
@@ -4171,6 +5138,56 @@ export const data: {
     description: null,
     summary: "Change Requests and Management",
     nickname: "operations-control-changes",
+  },
+  {
+    id: 18010,
+    parent: 1801,
+    status: "0. New",
+    name_singular: "requests",
+    display_singular: "Requests",
+    description: null,
+    summary: "Creation and submission of Change Requests",
+    nickname: "operations-control-changes-requests",
+  },
+  {
+    id: 18011,
+    parent: 1801,
+    status: "0. New",
+    name_singular: "reviews",
+    display_singular: "Reviews",
+    description: null,
+    summary: "Reviews and approvals of change requests",
+    nickname: "operations-control-changes-revies",
+  },
+  {
+    id: 18012,
+    parent: 1801,
+    status: "0. New",
+    name_singular: "resourcing",
+    display_singular: "Resourcing",
+    description: null,
+    summary: "Resourcing of approved change requests",
+    nickname: "operations-control-changes-schedules",
+  },
+  {
+    id: 18013,
+    parent: 1801,
+    status: "0. New",
+    name_singular: "schedules",
+    display_singular: "Schedules",
+    description: null,
+    summary: "Scheduling of approved change requests and outage & work windows",
+    nickname: "operations-control-changes-schedules",
+  },
+  {
+    id: 18014,
+    parent: 1801,
+    status: "0. New",
+    name_singular: "notifications",
+    display_singular: "Notifications",
+    description: null,
+    summary: "Raising awareness to stakeholders of scheduled changes",
+    nickname: "operations-control-changes-notifications",
   },
   {
     id: 1802,
@@ -4213,9 +5230,9 @@ export const data: {
     status: "0. New",
     name_singular: "response",
     display_singular: "Response",
-    description: null,
+    description: "Log and process incoming tickets / tasks",
     summary:
-      "Stakeholder management, requirements analysis and communications",
+      "Triage, stakeholder management, requirements analysis and communications",
     notes: ` [
       "Triage requests (internally or externally created), set up projects and bundle tasks",
       "Process incoming communications and reply to stakeholders",
@@ -4521,11 +5538,11 @@ export const data: {
     id: 1824,
     parent: 182,
     status: "0. New",
-    name_singular: "schedule",
-    display_singular: "Schedule",
+    name_singular: "scheduling",
+    display_singular: "Scheduling",
     description: "Calendaring all resources (Plotting resources against time)",
     summary: "Allocate resources in order to schedule the Project>Execution",
-    nickname: "operations-planning-schedule",
+    nickname: "operations-planning-scheduling",
   },
   {
     id: 183,
@@ -4544,42 +5561,43 @@ export const data: {
     name_singular: "fulfilment",
     display_singular: "Fulfilment",
     description: null,
-    summary: "delivering the resources as stated in the design phase",
+    summary: "Delivering the resources as stated in the design phase",
     nickname: "operations-execution-fulfilment",
   },
   {
     id: 1831,
     parent: 183,
     status: "0. New",
-    name_singular: "x",
-    display_singular: "x",
-    description: null,
-    summary: null,
-    nickname: "operations-execution-x",
+    name_singular: "implementation",
+    display_singular: "Implementation",
+    description: "Undertake any approved change requests",
+    summary: "Implementation & installation of the deliverable",
+    notes:
+      "With change approval where necessary (Project>Control>Change), undertake the installation/deployment of the product.",
+    nickname: "operations-execution-implementation",
   },
   {
     id: 1832,
     parent: 183,
     status: "0. New",
     description: null,
-    summary: null,
+    summary: "Deployment, transfer and integration into the new system",
+    name_singular: "migration",
+    display_singular: "Migration",
+    nickname: "operations-execution-documentation-integration",
+  },
+  {
+    id: 1833,
+    parent: 183,
+    status: "0. New",
+    description: null,
+    summary: "Instructions, Specifications and Handbooks for the new system",
     name_singular: "documentation",
     display_singular: "Documentation",
     nickname: "operations-execution-documentation",
   },
   {
     id: 1833,
-    parent: 183,
-    status: "0. New",
-    name_singular: "implementation",
-    display_singular: "Implementation",
-    description: "Implement the deliverable",
-    summary:
-      "With change approval where necessary (Project>Control>Change), undertake the installation/deployment of the product.",
-    nickname: "operations-execution-implementation",
-  },
-  {
-    id: 1834,
     parent: 183,
     status: "0. New",
     name_singular: "testing",
@@ -4596,58 +5614,59 @@ export const data: {
     name_singular: "tests",
     display_singular: "Tests",
     description: "Undertake testing and validation",
-    summary: `
-    Performance Testing
-      Stress Testing: This aims to evaluate how a system performs under extreme conditions. The system is pushed beyond its normal operational capacity to see how it handles high or peak loads. The goal is to identify the breaking point of the system.
-      Load Testing: This is more focused on simulating real-world load conditions for the system. It aims to determine how the system behaves under expected load conditions and to identify bottlenecks that could affect its performance.
-    Functional Testing
-      Unit Testing: Validates individual components or units of a software.
-      Integration Testing: Validates interactions between integrated components.
-      System Testing: Validates the entire system as a whole.
-      Regression Testing: Ensures that new changes don't break existing functionalities.
-      Smoke Testing: Quick, preliminary tests to show that the critical functionalities work.
-      Sanity Testing: Narrow scope testing, conducted when a minor change occurs in the code.
-      Acceptance Testing: Validates that the system meets business requirements.
-    Non-Functional Testing
-      Performance Testing: Assesses system performance under various conditions.
+    summary: ``,
+    notes: `
+      Performance Testing
         Stress Testing: This aims to evaluate how a system performs under extreme conditions. The system is pushed beyond its normal operational capacity to see how it handles high or peak loads. The goal is to identify the breaking point of the system.
         Load Testing: This is more focused on simulating real-world load conditions for the system. It aims to determine how the system behaves under expected load conditions and to identify bottlenecks that could affect its performance.
-      Usability Testing: Evaluates the user interface and overall user experience.
-      Security Testing: Checks for vulnerabilities, risks, and threats in the application.
-      Compatibility Testing: Ensures that the software runs on different combinations of hardware, OS, and networks.
-      Reliability Testing: Assesses how fault-tolerant a system is.
-      Scalability Testing: Determines if the system can handle increased load.
-    Specialized Testing
-      Exploratory Testing: Unscripted testing to explore the application's functionality.
-      End-to-End Testing: Validates the flow of an application from start to finish.
-      Beta Testing: Performed by real users of the software application in a real environment.
-      Database Testing: Validates databases and their data integrity.
-      Localization Testing: Checks the quality of a product's localization for a particular culture/locale.
-      Accessibility Testing: Ensures that the application can be used by people with disabilities.
-    Automated Testing
-      API Testing: Validates the application programming interfaces (APIs).
-      GUI Testing: Tests the graphical user interface of the application.
-    Platform Testing
-      Installation Testing: Validates the installation process and behavior of the application.
-      Operational Testing: Validates backup and recovery procedures.
-      Hardware-Software Integration Testing
-    Lifecycle and Methodology Testing
-      Continuous Testing: Ongoing testing in a CI/CD environment.
-      A/B Testing: Compares two versions of a webpage or app against each other.
-      Agile Testing: Testing practices designed to fit Agile development methodologies.
-        Iterative Testing
-        User Story Validation
-      DevOps Testing: Testing integrated into the DevOps pipeline.
-        Continuous Testing
-        Infrastructure as Code Testing
-      Waterfall Testing: Traditional testing in a sequential development environment.
-        Phase-specific Testing (e.g., Requirements, Design, Implementation)
-      TDD/BDD: Test-Driven Development and Behavior-Driven Development.
-        Red-Green-Refactor
-        Scenario Testing
-      V-Model Testing: Validation and Verification model.
-        Parallel Development and Testing Phases
-    `,
+      Functional Testing
+        Unit Testing: Validates individual components or units of a software.
+        Integration Testing: Validates interactions between integrated components.
+        System Testing: Validates the entire system as a whole.
+        Regression Testing: Ensures that new changes don't break existing functionalities.
+        Smoke Testing: Quick, preliminary tests to show that the critical functionalities work.
+        Sanity Testing: Narrow scope testing, conducted when a minor change occurs in the code.
+        Acceptance Testing: Validates that the system meets business requirements.
+      Non-Functional Testing
+        Performance Testing: Assesses system performance under various conditions.
+          Stress Testing: This aims to evaluate how a system performs under extreme conditions. The system is pushed beyond its normal operational capacity to see how it handles high or peak loads. The goal is to identify the breaking point of the system.
+          Load Testing: This is more focused on simulating real-world load conditions for the system. It aims to determine how the system behaves under expected load conditions and to identify bottlenecks that could affect its performance.
+        Usability Testing: Evaluates the user interface and overall user experience.
+        Security Testing: Checks for vulnerabilities, risks, and threats in the application.
+        Compatibility Testing: Ensures that the software runs on different combinations of hardware, OS, and networks.
+        Reliability Testing: Assesses how fault-tolerant a system is.
+        Scalability Testing: Determines if the system can handle increased load.
+      Specialized Testing
+        Exploratory Testing: Unscripted testing to explore the application's functionality.
+        End-to-End Testing: Validates the flow of an application from start to finish.
+        Beta Testing: Performed by real users of the software application in a real environment.
+        Database Testing: Validates databases and their data integrity.
+        Localization Testing: Checks the quality of a product's localization for a particular culture/locale.
+        Accessibility Testing: Ensures that the application can be used by people with disabilities.
+      Automated Testing
+        API Testing: Validates the application programming interfaces (APIs).
+        GUI Testing: Tests the graphical user interface of the application.
+      Platform Testing
+        Installation Testing: Validates the installation process and behavior of the application.
+        Operational Testing: Validates backup and recovery procedures.
+        Hardware-Software Integration Testing
+      Lifecycle and Methodology Testing
+        Continuous Testing: Ongoing testing in a CI/CD environment.
+        A/B Testing: Compares two versions of a webpage or app against each other.
+        Agile Testing: Testing practices designed to fit Agile development methodologies.
+          Iterative Testing
+          User Story Validation
+        DevOps Testing: Testing integrated into the DevOps pipeline.
+          Continuous Testing
+          Infrastructure as Code Testing
+        Waterfall Testing: Traditional testing in a sequential development environment.
+          Phase-specific Testing (e.g., Requirements, Design, Implementation)
+        TDD/BDD: Test-Driven Development and Behavior-Driven Development.
+          Red-Green-Refactor
+          Scenario Testing
+        V-Model Testing: Validation and Verification model.
+          Parallel Development and Testing Phases
+      `,
     nickname: "operations-execution-testing-tests",
   },
   {
@@ -4667,7 +5686,7 @@ export const data: {
     name_singular: "evaluation",
     display_singular: "Evaluation",
     description: null,
-    summary: "Reporting, Analysis, Handover, Documentation, Training",
+    summary: "Reporting, Analysis, Handover, Documentation, Training, Closure",
     references: ["See pmbok project closure (and other libraries)"],
     nickname: "operations-evaluation",
   },
@@ -4677,9 +5696,9 @@ export const data: {
     status: "0. New",
     name_singular: "handover",
     display_singular: "Handover",
-    summary: null,
-    description:
-      "Project documentation, training, handover, acceptance, evaluation and closure",
+    description: null,
+    summary:
+      "Transfer of responsibility to new teams / companies / the end user",
     nickname: "operations-evaluation-handover",
   },
   {
@@ -4718,21 +5737,21 @@ export const data: {
     id: 1842,
     parent: 184,
     status: "0. New",
-    name_singular: "x",
-    display_singular: "x",
+    name_singular: "documentation",
+    display_singular: "Documentation",
     summary: null,
     description: null,
-    nickname: "operations-evaluation-x",
+    nickname: "operations-evaluation-documentation",
   },
   {
     id: 1843,
     parent: 184,
     status: "0. New",
-    name_singular: "y",
-    display_singular: "y",
+    name_singular: "training",
+    display_singular: "Training",
     summary: null,
     description: null,
-    nickname: "operations-evaluation-y",
+    nickname: "operations-evaluation-training",
   },
   {
     id: 1844,
@@ -4812,52 +5831,42 @@ export const data: {
     icon_source: "FontAwesome",
   },
   {
-    id: 190,
-    parent: 19,
+    id: 115,
+    parent: 11,
     status: "5. Hold",
-    name_singular: "AUTOMATION+WORKFLOWS",
-    display_singular: "AUTOMATION+WORKFLOWS",
-    summary: null,
-    description: "Add in automation and workflows (to be confirmed where)",
-    nickname: "system-AUTOMATION+WORKFLOWS",
-  },
-  {
-    id: 190,
-    parent: 19,
-    status: "5. Hold",
-    name_singular: "OFFERINGS-MOVETOGOVERNANCEORACCOUNTS?",
-    display_singular: "OFFERINGS-MOVETOGOVERNANCEORACCOUNTS?",
-    description: "Management of your company offerings (products / services)",
-    summary: null,
+    name_singular: "offerings",
+    display_singular: "Offerings",
+    summary: "Management of your company offerings (products / services)",
+    description: null,
     notes: `[
       "Work with you to establish and maintain core offerings (products & services)",
       "Set and maintain rates, and schedule pricing reviews annually or more frequently",
       "Maintain customer/marketing facing offerings & pricing materials",
       "Provide reporting on core offerings and their successes/issues",
     ]`,
-    nickname: "system-offerings",
+    nickname: "governance-offerings",
   },
   {
     id: 1900,
-    parent: 190,
+    parent: 115,
     status: "5. Hold",
     name_singular: "products_and_services",
     display_singular: "Products & Services",
     description: "Determine what your company offers",
     summary:
       "Compilation of the Product > Catalog (and dictates what products/components are designed and obtained in Product>Catalog",
-    nickname: "system-offerings-products_and_services",
+    nickname: "governance-offerings-products_and_services",
   },
   {
-    id: 1901,
-    parent: 190,
+    id: 1150,
+    parent: 115,
     status: "5. Hold",
     name_singular: "prices",
     display_singular: "Prices",
     description: "Set prices for products and services you are selling",
     summary:
       "Either manual price changes or automatic contract increases (e.g. contracts that stipulate that prices will be increased by inflation+3% YoY.)",
-    nickname: "system-offerings-prices",
+    nickname: "governance-offerings-prices",
     notes: `Factors that should be catered for in pricing:
       Inflation. 5-10% YoY is common. For 22/23/24 10% should be considered due to unprescedented inflation. Some other countries with runaway inflation need to cater for this more often.
 
@@ -4905,7 +5914,7 @@ export const data: {
   },
   {
     id: 19010,
-    parent: 1901,
+    parent: 1150,
     status: "5. Hold",
     name_singular: "elasticity",
     display_singular: "Elasticity",
@@ -4913,22 +5922,22 @@ export const data: {
       "Price Elasticity Modeling / Revenue Optimization - planning for how changes in price will impact demand (and consequently, revenue)",
     summary:
       "The act of planning for prices and how they will relate to revenue (e.g. if we raise prices from x to y what will the impact on demand be?). In economics and business, this is often related to the concept of 'price elasticity of demand', which quantifies how sensitive the quantity demanded of a good is to a change in price",
-    nickname: "system-offerings-prices-elasticity",
+    nickname: "governance-offerings-prices-elasticity",
   },
   {
     id: 19011,
-    parent: 1901,
+    parent: 1150,
     status: "5. Hold",
     name_singular: "discretion",
     display_singular: "Discretion",
     description: "Discount Strategy",
     summary:
       "Leeway and allowed fluctuations on RRP/ Gross Profit. For example, a salesperson might be allowed to reduce GP to 10% to get a deal over the line",
-    nickname: "system-offerings-prices-discretion",
+    nickname: "governance-offerings-prices-discretion",
   },
   {
     id: 19012,
-    parent: 1901,
+    parent: 1150,
     status: "5. Hold",
     name_singular: "banding",
     display_singular: "Banding",
@@ -4944,11 +5953,11 @@ export const data: {
               Car Dealership: Used cars could be grouped into bands like $5000-$10000, $10001-$15000, and $15001-$20000.
               Online Marketplace: On platforms like eBay or Amazon, sellers might use price banding to categorize products by price range to help buyers quickly find what they're looking for.
           `,
-    nickname: "system-offerings-prices-banding",
+    nickname: "governance-offerings-prices-banding",
   },
   {
     id: 19013,
-    parent: 1901,
+    parent: 1150,
     status: "5. Hold",
     name_singular: "modifications",
     display_singular: "Modifications",
@@ -4961,11 +5970,11 @@ export const data: {
         Currency of Major Expenditure: If the majority of expenses are in one currency, companies may use the inflation rate of that currency as the basis for price adjustments.
         Peg to a third party (unrelated) currency, e.g. USD.
         `,
-    nickname: "system-offerings-prices-modifications",
+    nickname: "governance-offerings-prices-modifications",
   },
   {
     id: 19014,
-    parent: 1901,
+    parent: 1150,
     status: "5. Hold",
     name_singular: "awareness",
     display_singular: "Awareness OR DATE OF EFFECT",
@@ -4980,7 +5989,90 @@ export const data: {
         Add Value
         When you increase your prices, impart the value / justify the increase. think of a free gift or service you can add to increase the value. Clients will be less likely to feel uneasy about the increase in price.
      `,
-    nickname: "system-offerings-prices-awareness",
+    nickname: "governance-offerings-prices-awareness",
+  },
+  {
+    id: 190,
+    parent: 19,
+    status: "5. Hold",
+    name_singular: "facilities",
+    display_singular: "Facilities",
+    description: null,
+    summary: "Management of all sites and infrastructure",
+    nickname: "system-resources-facilities",
+  },
+  {
+    id: 1900,
+    parent: 190,
+    status: "5. Hold",
+    name_singular: "sites",
+    display_singular: "Sites",
+    summary: "Manage all of your sites/addresses/locations",
+    description: null,
+    nickname: "system-resources-facilities-sites",
+  },
+  {
+    id: 19010,
+    parent: 1900,
+    status: "5. Hold",
+    name_singular: "furnishings",
+    display_singular: "Furnishings",
+    summary: null,
+    description: null,
+    nickname: "system-resources-facilities-furnishings",
+  },
+  {
+    id: 19011,
+    parent: 1900,
+    status: "5. Hold",
+    name_singular: "features",
+    display_singular: "Features",
+    summary: null,
+    description:
+      "Manage the features available to your sites (e.g conference rooms)",
+    nickname: "system-resources-facilities-features",
+  },
+  {
+    id: 1901,
+    parent: 190,
+    status: "5. Hold",
+    name_singular: "office",
+    display_singular: "Office",
+    summary: "Office management & office admin",
+    description: null,
+    nickname: "system-resources-facilities-office",
+  },
+  {
+    id: 1902,
+    parent: 190,
+    status: "5. Hold",
+    name_singular: "vehicles",
+    display_singular: "Vehicles",
+    summary: "Transport and vehicles",
+    description: "Manage availability of transport for people and items",
+    nickname: "system-resources-facilities-vehicles",
+  },
+  {
+    id: 1903,
+    parent: 190,
+    status: "5. Hold",
+    name_singular: "utilities",
+    display_singular: "Utilities",
+    summary:
+      "Energy, Gas, Internet, Electricity, Water and any other utility services",
+    description: null,
+    nickname: "system-resources-facilities-utilities",
+  },
+  {
+    id: 1904,
+    parent: 190,
+    status: "5. Hold",
+    name_singular: "maintenance",
+    display_singular: "Maintenance",
+    summary:
+      "Cleaning, Maintenance, Refurbishment, Waste management and other facility management services",
+    description: null,
+    nickname: "system-resources-facilities-maintenance",
   },
   {
     id: 191,
@@ -4990,7 +6082,8 @@ export const data: {
     display_singular: "Process",
     description:
       "Your business manual and official source of truth for all operations",
-    summary: null,
+    summary:
+      "Data, Processes, the Business Manual, and associated automation & improvements",
     notes: `
       summary: [
         "Create and maintain a company manual, compiling all business processes into a single source of truth",
@@ -5004,52 +6097,216 @@ export const data: {
     id: 1910,
     parent: 191,
     status: "5. Hold",
-    name_singular: "instructions",
-    display_singular: "Instructions",
+    name_singular: "data",
+    display_singular: "Data",
+    summary: "Data, information, knowledge and wisdom",
     description: null,
-    summary: "Work instructions for step by step guides",
-    nickname: "system-process-instructions",
+    nickname: "system-process-data",
+    notes: `[
+      "sync (ensure data is synchronising between applications / repositories)",
+      "audit (data should be reviewed annually - Items not used in the last FY can be archived. Items not used within 7/10/as-per-legislation years can be destroyed)",
+      "maintenance (BAU process of updating items as the need becomes known. includes tagging/categorising where useful",
+    ]`,
+  },
+  {
+    id: 19100,
+    parent: 1910,
+    status: "5. Hold",
+    name_singular: "records",
+    display_singular: "Records",
+    summary: "Raw data - Facts and figures without context",
+    description: null,
+    nickname: "system-process-data-records",
+    notes: `
+    https://mitpress.mit.edu/9780262040631/ - Knowledge and the Flow of Information
+    https://philpapers.org/rec/FLOIAV - Information: a very short introduction
+    https://onlinelibrary.wiley.com/doi/abs/10.1002/asi.20369 - Fundamental forms of information
+    `,
+  },
+  {
+    id: 19101,
+    parent: 1910,
+    status: "5. Hold",
+    name_singular: "information",
+    display_singular: "Information",
+    summary: "Processed or organized data that holds meaning or value",
+    description: null,
+    nickname: "system-process-data-information",
+  },
+  {
+    id: 19102,
+    parent: 1910,
+    status: "5. Hold",
+    name_singular: "knowledge",
+    display_singular: "Knowledge",
+    summary: "Understanding and awareness derived from Information",
+    description: null,
+    nickname: "system-process-data-knowledge",
+  },
+  {
+    id: 19103,
+    parent: 1910,
+    status: "5. Hold",
+    name_singular: "wisdom",
+    display_singular: "Wisdom",
+    summary: "Ability to make and decisions derived from knowledge",
+    description: "Make sound judgments and decisions based on knowledge",
+    nickname: "system-process-data-wisdom",
+  },
+  {
+    id: 19104,
+    parent: 1910,
+    status: "5. Hold",
+    name_singular: "insight",
+    display_singular: "Insight",
+    summary: "Insight derived from data/information/knowledge/wisdom",
+    description: null,
+    nickname: "system-process-data-insight",
   },
   {
     id: 1911,
     parent: 191,
     status: "5. Hold",
+    name_singular: "manual",
+    display_singular: "Manual",
+    description:
+      "The collation of all your company processes into a single reference point for all stakeholders",
+    summary: "The Business Manual: Guides, Processes, Policies, Instructions",
+    nickname: "system-process-manual",
+    notes: `(stakeholder types are authorised to view specific docs or parts of the business manual. e.g. a customer would not be privy to the same information that your software developers do)`,
+  },
+  {
+    id: 19110,
+    parent: 1911,
+    status: "5. Hold",
+    name_singular: "steps",
+    display_singular: "Steps",
+    description: null,
+    summary: "Individual actions that can be taken",
+    nickname: "system-process-manual-steps",
+  },
+  {
+    id: 19111,
+    parent: 1911,
+    status: "5. Hold",
+    name_singular: "instructions",
+    display_singular: "Instructions",
+    description:
+      "Collate and apply conditional logic to steps, into step-by-step guides",
+    summary: "Compilations of Steps into 'Work instructions'",
+    nickname: "system-process-manual-instructions",
+  },
+  {
+    id: 19112,
+    parent: 1911,
+    status: "5. Hold",
     name_singular: "procedures",
     display_singular: "Procedures",
-    summary: null,
+    summary: "Compilations of work instructions",
     description: null,
-    nickname: "system-process-procedures",
+    nickname: "system-process-manual-procedures",
+  },
+  {
+    id: 19113,
+    parent: 1911,
+    status: "5. Hold",
+    name_singular: "processes",
+    display_singular: "Processes",
+    summary: "Compilations of procedures",
+    description: null,
+    nickname: "system-process-manual-processes",
+  },
+  {
+    id: 19114,
+    parent: 1911,
+    status: "5. Hold",
+    name_singular: "policies",
+    display_singular: "Policies",
+    summary: "Overarching summaries of processes and what must be followed",
+    description: null,
+    nickname: "system-process-manual-policies",
   },
   {
     id: 1912,
     parent: 191,
     status: "5. Hold",
-    name_singular: "procedures",
-    display_singular: "Procedures",
-    summary: null,
+    name_singular: "automation",
+    display_singular: "Automation",
+    summary: "Workflow rules, integrations and automation of steps",
     description: null,
-    nickname: "system-process-processes",
+    nickname: "system-process-automation",
   },
   {
     id: 1913,
     parent: 191,
     status: "5. Hold",
-    name_singular: "policies",
-    display_singular: "Policies",
-    summary: null,
+    name_singular: "execution",
+    display_singular: "Execution",
+    summary: "Actual usage of processes in business operations",
     description: null,
-    nickname: "system-process-policies",
+    nickname: "system-process-execution",
+  },
+  {
+    id: 19130,
+    parent: 1913,
+    status: "5. Hold",
+    name_singular: "permissions",
+    display_singular: "Permissions",
+    summary: "Access Control over system processes and data",
+    description: null,
+    nickname: "system-process-execution-permissions",
+  },
+  {
+    id: 19131,
+    parent: 1913,
+    status: "5. Hold",
+    name_singular: "queue",
+    display_singular: "Queue",
+    summary: "Queued up processes that require execution",
+    description: null,
+    nickname: "system-process-execution-queue",
+  },
+  {
+    id: 19132,
+    parent: 1913,
+    status: "5. Hold",
+    name_singular: "undertaking",
+    display_singular: "Undertaking",
+    summary: "Usage of the business's processes",
+    description: null,
+    nickname: "system-process-execution-undertaking",
+  },
+  {
+    id: 19133,
+    parent: 1913,
+    status: "5. Hold",
+    name_singular: "logging",
+    display_singular: "Logging",
+    summary: "Audit trail of processes undertaken",
+    description: null,
+    nickname: "system-process-execution-logging",
+  },
+  {
+    id: 19134,
+    parent: 1913,
+    status: "5. Hold",
+    name_singular: "errors",
+    display_singular: "Errors",
+    summary:
+      "Execution error handling for interuption to normal processes & reliability",
+    description: null,
+    nickname: "system-process-execution-logging",
   },
   {
     id: 1914,
     parent: 191,
     status: "5. Hold",
-    name_singular: "manual",
-    display_singular: "Manual",
-    description:
-      "the collation of all processes into a single reference point for all stakeholders (stakeholder types are authorised to view specific docs or parts of docs)",
-    summary: null,
-    nickname: "system-process-manual",
+    name_singular: "improvement",
+    display_singular: "Improvement",
+    summary:
+      "Continuous Improvement - Analysis of the current system and associated changes",
+    description: null,
+    nickname: "system-process-improvement",
   },
   {
     id: 192,
@@ -5057,7 +6314,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "technology",
     display_singular: "Technology",
-    summary: null,
+    summary: "Your business software, hardware and infrastructure stack",
     description: null,
     notes: `Your business software, hardware and infrastructure stack. 
     ADD 'DOWNTIME' TO A SUBMODULE HERE OR IN PRODUCT:
@@ -5073,8 +6330,8 @@ export const data: {
     status: "5. Hold",
     name_singular: "applications",
     display_singular: "Applications",
-    summary: null,
     description: null,
+    summary: "Programs, apps and other tools",
     nickname: "system-technology-applications",
   },
   {
@@ -5094,8 +6351,8 @@ export const data: {
     name_singular: "utility",
     display_singular: "Utility",
     nickname: "system-technology-applications-utility",
-    description: "System and Performance Tools",
-    summary: null,
+    summary: "System and Performance Tools",
+    description: null,
   },
   {
     id: 19202,
@@ -5123,7 +6380,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "hosting",
     display_singular: "Hosting",
-    summary: null,
+    summary: "Storage of and access to computing resources",
     description: null,
     nickname: "system-technology-hosting",
   },
@@ -5224,8 +6481,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "network",
     display_singular: "Network",
+    summary:
+      "Linked Systems for sharing resources, exchanging files and allowing electronic communications",
     description: null,
-    summary: null,
     nickname: "system-technology-network",
   },
   {
@@ -5321,49 +6579,71 @@ export const data: {
     name_singular: "resources",
     display_singular: "Resources",
     description: null,
-    summary: "Facilities, consumables, roles and other resources",
+    summary: "Tools, consumables, roles and other resources",
     nickname: "system-resources",
   },
   {
     id: 1930,
     parent: 193,
     status: "5. Hold",
-    name_singular: "facilities",
-    display_singular: "Facilities",
+    name_singular: "packages",
+    display_singular: "Packages",
+    summary:
+      "Components, functions and other atomic declarations that you can compile into tools",
     description: null,
-    summary: "Management of all sites, infrastructure and internal tools",
-    nickname: "system-resources-facilities",
-  },
-  {
-    id: 19300,
-    parent: 1930,
-    status: "5. Hold",
-    name_singular: "sites",
-    display_singular: "Sites",
-    summary: null,
-    description: "Manage all of your sites/addresses",
-    nickname: "system-resources-facilities-sites",
+    nickname: "system-resources-packages",
   },
   {
     id: 19301,
     parent: 1930,
     status: "5. Hold",
-    name_singular: "furnishings",
-    display_singular: "Furnishings",
-    summary: null,
+    name_singular: "importer",
+    display_singular: "Importer",
+    summary: "Finding and importing packages for use by the business",
     description: null,
-    nickname: "system-resources-facilities-furnishings",
+    nickname: "system-resources-packages-importer",
+  },
+  {
+    id: 19301,
+    parent: 1930,
+    status: "5. Hold",
+    name_singular: "library",
+    display_singular: "Library",
+    summary: "View and manage existing package declarations",
+    description: null,
+    nickname: "system-resources-packages-library",
   },
   {
     id: 19302,
     parent: 1930,
     status: "5. Hold",
-    name_singular: "features",
-    display_singular: "Features",
-    summary: null,
+    name_singular: "builder",
+    display_singular: "Builder",
+    summary:
+      "Configuration of declarations into new package components and other declarations",
     description:
-      "Manage the features available to your sites (e.g conference rooms)",
-    nickname: "system-resources-facilities-features",
+      "Pass config settings / props / arguments into package declarations to create custom components",
+    nickname: "system-resources-packages-builder",
+  },
+  {
+    id: 19303,
+    parent: 1930,
+    status: "5. Hold",
+    name_singular: "compiler",
+    display_singular: "Compiler",
+    summary: "Compile package declarations into tools, apps and websites",
+    description: null,
+    nickname: "system-resources-packages-compiler",
+  },
+  {
+    id: 19304,
+    parent: 1930,
+    status: "5. Hold",
+    name_singular: "publisher",
+    display_singular: "Publisher",
+    summary: "Launching of compiled tools",
+    description: "Publish your compilations to System-Technology-Applications",
+    nickname: "system-resources-packages-publisher",
   },
   {
     id: 1931,
@@ -5371,7 +6651,7 @@ export const data: {
     status: "5. Hold",
     name_singular: "consumables",
     display_singular: "Consumables",
-    summary: null,
+    summary: "Commodities that you obtain and use up",
     description: null,
     nickname: "system-resources-consumables",
   },
@@ -5381,9 +6661,9 @@ export const data: {
     status: "5. Hold",
     name_singular: "tools",
     display_singular: "Tools",
-    description: "Tools & equipment",
-    summary: "hardware",
-    nickname: "system-resources-consumables",
+    description: "Compile tools & equipment into your systems",
+    summary: "Hardware, Software and other equipment",
+    nickname: "system-resources-tools",
   },
   {
     id: 1933,
@@ -5391,558 +6671,22 @@ export const data: {
     status: "5. Hold",
     name_singular: "functions",
     display_singular: "Functions",
-    description: "Management of all the jobs/roles that your business requires",
-    summary: "The skills and roles that you have at your disposal",
-    nickname: "system-functions",
+    description:
+      "Use & compile atomic skills/certifications needed to construct your systems",
+    summary:
+      "Management and usage of the skills and roles that you have at your disposal",
+    nickname: "system-functions-functions",
   },
   {
     id: 194,
     parent: 19,
     status: "5. Hold",
-    name_singular: "data",
-    display_singular: "DATA_MOVEINTOPROCESS?",
-    summary: null,
-    description: null,
-    nickname: "system-data",
-    notes: `[
-      "sync (ensure data is synchronising between applications / repositories)",
-      "audit (data should be reviewed annually - Items not used in the last FY can be archived. Items not used within 7/10/as-per-legislation years can be destroyed)",
-      "maintenance (BAU process of updating items as the need becomes known. includes tagging/categorising where useful",
-    ]`,
-  },
-  {
-    id: 1940,
-    parent: 194,
-    status: "5. Hold",
-    name_singular: "data",
-    display_singular: "Data",
-    summary: null,
-    description: null,
-    nickname: "system-data-data",
-  },
-  {
-    id: 1941,
-    parent: 194,
-    status: "5. Hold",
-    name_singular: "information",
-    display_singular: "Information",
-    summary: null,
-    description: null,
-    nickname: "system-data-information",
-  },
-  {
-    id: 1942,
-    parent: 194,
-    status: "5. Hold",
-    name_singular: "knowledge",
-    display_singular: "Knowledge",
-    summary: null,
-    description: null,
-    nickname: "system-data-knowledge",
-  },
-  {
-    id: 1943,
-    parent: 194,
-    status: "5. Hold",
-    name_singular: "wisdom",
-    display_singular: "Wisdom",
-    summary: null,
-    description: null,
-    nickname: "system-data-wisdom",
-  },
-  {
-    id: 2,
-    parent: null,
-    status: "3. Active",
-    name_singular: "personal",
-    display_singular: "Personal",
-    summary: "Yourself",
-    description: "Manage personal items & coordination",
-    nickname: "personal",
-  },
-  {
-    id: 20,
-    parent: 2,
-    status: "3. Active",
-    name_singular: "wellbeing",
-    display_singular: "Wellbeing",
-    summary: "Self / Personal welfare and care",
-    description: null,
-    nickname: "wellbeing",
-  },
-  {
-    id: 200,
-    parent: 20,
-    status: "3. Active",
-    name_singular: "health",
-    display_singular: "Health",
-    summary: "Healthcare & Medical",
-    description: null,
-    nickname: "wellbeing-health",
-  },
-  {
-    id: 2000,
-    parent: 200,
-    status: "3. Active",
-    name_singular: "hygiene",
-    display_singular: "Hygiene",
-    summary: "Personal care",
-    description: null,
-    nickname: "wellbeing-health-hygiene",
-  },
-  {
-    id: 2001,
-    parent: 200,
-    status: "3. Active",
-    name_singular: "medical",
-    display_singular: "Medical",
-    summary: null,
-    description: null,
-    nickname: "wellbeing-health-medical",
-  },
-  {
-    id: 2002,
-    parent: 200,
-    status: "3. Active",
-    name_singular: "rest",
-    display_singular: "Rest",
-    summary: null,
-    description: null,
-    nickname: "wellbeing-health-rest",
-  },
-  {
-    id: 2003,
-    parent: 200,
-    status: "3. Active",
-    name_singular: "sexual",
-    display_singular: "Sexual",
-    summary: null,
-    description: null,
-    nickname: "wellbeing-health-sexual",
-  },
-  {
-    id: 2004,
-    parent: 200,
-    status: "3. Active",
-    name_singular: "vices",
-    display_singular: "Vices",
-    summary: null,
-    description: null,
-    nickname: "wellbeing-health-vices",
-  },
-  {
-    id: 201,
-    parent: 20,
-    status: "3. Active",
-    name_singular: "fitness",
-    display_singular: "Fitness",
-    summary: "Personal training, body fitness, exercise",
-    description: null,
-    nickname: "wellbeing-fitness",
-  },
-  {
-    id: 202,
-    parent: 20,
-    status: "3. Active",
-    name_singular: "mental",
-    display_singular: "Mental",
-    summary: "mind",
-    description: null,
-    nickname: "wellbeing-mental",
-  },
-  {
-    id: 203,
-    parent: 20,
-    status: "3. Active",
-    name_singular: "nutrition",
-    display_singular: "Nutrition",
-    description: "Food & Drink",
-    summary: null,
-    nickname: "wellbeing-nutrition",
-  },
-  {
-    id: 204,
-    parent: 20,
-    status: "3. Active",
-    name_singular: "style",
-    display_singular: "Style",
-    summary: null,
-    description: "Fashion, clothing and accessories",
-    nickname: "wellbeing-style",
-  },
-  {
-    id: 21,
-    parent: 2,
-    status: "3. Active",
-    name_singular: "estate",
-    display_singular: "Estate",
-    summary: null,
-    description: "Property & Inventory",
-    nickname: "estate",
-  },
-  {
-    id: 210,
-    parent: 21,
-    status: "3. Active",
-    name_singular: "possessions",
-    display_singular: "Possessions",
-    summary: null,
-    description: null,
-    nickname: "estate-possessions",
-  },
-  {
-    id: 211,
-    parent: 21,
-    status: "3. Active",
-    name_singular: "finance",
-    display_singular: "Finance",
-    summary: null,
-    description: null,
-    nickname: "estate-finance",
-  },
-  {
-    id: 22,
-    parent: 2,
-    status: "3. Active",
-    name_singular: "organisation",
-    display_singular: "Organisation",
-    summary: null,
-    description:
-      "Administration, planning, structure, data processing and other coordination",
-    nickname: "organisation",
-  },
-  {
-    id: 220,
-    parent: 22,
-    status: "3. Active",
-    name_singular: "system",
-    display_singular: "System",
-    summary: null,
-    description: null,
-    nickname: "organisation-system",
-  },
-  {
-    id: 221,
-    parent: 22,
-    status: "3. Active",
-    name_singular: "tax",
-    display_singular: "Tax",
-    summary: null,
-    description: null,
-    nickname: "organisation-tax",
-  },
-  {
-    id: 222,
-    parent: 22,
-    status: "3. Active",
-    name_singular: "livingadmin",
-    display_singular: "livingadmin",
-    summary: null,
-    description: null,
-    nickname: "organisation-livingadmin",
-  },
-  {
-    id: 2220,
-    parent: 222,
-    status: "3. Active",
-    name_singular: "acommodation",
-    display_singular: "Acommodation",
-    summary: null,
-    description: null,
-    nickname: "organisation-acommodation",
-  },
-  {
-    id: 2221,
-    parent: 222,
-    status: "3. Active",
-    name_singular: "travel",
-    display_singular: "Travel",
-    summary: null,
-    description: null,
-    nickname: "organisation-travel",
-  },
-  {
-    id: 223,
-    parent: 22,
-    status: "3. Active",
-    name_singular: "admin",
-    display_singular: "Admin",
-    summary: null,
-    description: null,
-    nickname: "organisation-admin",
-  },
-  {
-    id: 224,
-    parent: 22,
-    status: "3. Active",
-    name_singular: "journal",
-    display_singular: "Journal",
-    summary: null,
-    description: null,
-    nickname: "organisation-journal",
-  },
-  {
-    id: 23,
-    parent: 2,
-    status: "3. Active",
-    name_singular: "relationships",
-    display_singular: "Relationships",
-    summary: "Social",
-    description: null,
-    nickname: "relationships",
-  },
-  {
-    id: 230,
-    parent: 23,
-    status: "3. Active",
-    name_singular: "communications",
-    display_singular: "Communications",
-    summary: null,
-    description: null,
-    nickname: "relationships-communications",
-  },
-  {
-    id: 24,
-    parent: 2,
-    status: "3. Active",
-    name_singular: "world",
-    display_singular: "World",
-    description: null,
-    summary: "Community, charity, government",
-    nickname: "world",
-  },
-  {
-    id: 25,
-    parent: 2,
-    status: "3. Active",
-    name_singular: "leisure",
-    display_singular: "Leisure",
-    description: null,
-    summary: "Recreation, hobbies, interests, pastimes, activites",
-    nickname: "leisure",
-  },
-  {
-    id: 251,
-    parent: 25,
-    status: "3. Active",
-    name_singular: "media",
-    display_singular: "Media",
-    summary: "Music, film etc.",
-    description: null,
-    nickname: "leisure-media",
-  },
-  {
-    id: 252,
-    parent: 25,
-    status: "3. Active",
-    name_singular: "activities",
-    display_singular: "Activities",
-    summary: "Sport and activities",
-    description: null,
-    nickname: "leisure-activities",
-  },
-  {
-    id: 26,
-    parent: 2,
-    status: "3. Active",
-    name_singular: "learning",
-    display_singular: "Learning",
-    summary: "Education",
-    description: null,
-    nickname: "learning",
-  },
-  {
-    id: 27,
-    parent: 2,
-    status: "3. Active",
-    name_singular: "work",
-    display_singular: "Work",
-    description: null,
-    summary: "Business & Income",
-    nickname: "work",
-  },
-  {
-    id: 270,
-    parent: 27,
-    status: "3. Active",
-    name_singular: "jobseeking",
-    display_singular: "Jobseeking",
-    summary: null,
-    description: null,
-    nickname: "work-jobseeking",
-  },
-  {
-    id: 2700,
-    parent: 270,
-    status: "3. Active",
-    name_singular: "resume",
-    display_singular: "Resume",
-    summary: null,
-    description: null,
-    nickname: "work-jobseeking-resume",
-  },
-  {
-    id: 27000,
-    parent: 2700,
-    status: "3. Active",
-    name_singular: "referees",
-    display_singular: "Referees",
-    summary: null,
-    description: null,
-    nickname: "work-jobseeking-resume-referees",
-  },
-  {
-    id: 2701,
-    parent: 270,
-    status: "3. Active",
-    name_singular: "submissions",
-    display_singular: "Submissions",
-    summary: null,
-    description: null,
-    nickname: "work-jobseeking-submissions",
-  },
-  {
-    id: 2702,
-    parent: 270,
-    status: "3. Active",
-    name_singular: "interviews",
-    display_singular: "Interviews",
-    summary: null,
-    description: null,
-    nickname: "work-jobseeking-interviews",
-  },
-  {
-    id: 2703,
-    parent: 270,
-    status: "3. Active",
-    name_singular: "offers",
-    display_singular: "Offers",
-    summary: null,
-    description:
-      "Employment contract offered, reviewed and accepted/rejected/negotiated",
-    nickname: "work-jobseeking-offers",
-  },
-  {
-    id: 271,
-    parent: 27,
-    status: "3. Active",
-    name_singular: "employers",
-    display_singular: "Employers",
-    summary: null,
-    description: null,
-    nickname: "work-employers",
-  },
-  {
-    id: 272,
-    parent: 27,
-    status: "3. Active",
-    name_singular: "jobs",
-    display_singular: "Jobs",
-    summary: null,
-    description: null,
-    nickname: "work-jobs",
-  },
-  {
-    id: 273,
-    parent: 27,
-    status: "3. Active",
-    name_singular: "income",
-    display_singular: "Income",
-    summary: null,
-    description: null,
-    nickname: "work-income",
-  },
-  {
-    id: 274,
-    parent: 27,
-    status: "3. Hold",
-    name_singular: "progression",
-    display_singular: "Progression",
-    description: null,
-    summary: "career opportuniies and development",
-    nickname: "work-progression",
-  },
-  {
-    id: 28,
-    parent: 2,
-    status: "3. Active",
-    name_singular: "objectives",
-    display_singular: "Objectives",
-    description: null,
-    summary: "Goals/Aims/Targets and their substeps",
-    nickname: "objectives",
-  },
-  {
-    id: 280,
-    parent: 28,
-    status: "3. Active",
-    name_singular: "purpose",
-    display_singular: "Purpose",
-    description: null,
-    summary: "Spirituality, purpose, desires",
-    nickname: "objectives-purpose",
-  },
-  {
-    id: 281,
-    parent: 28,
-    status: "3. Active",
-    name_singular: "aims",
-    display_singular: "Aims",
-    summary: "How to achieve purposes",
-    description: null,
-    nickname: "objectives-aims",
-  },
-  {
-    id: 282,
-    parent: 28,
-    status: "3. Active",
-    name_singular: "projects",
-    display_singular: "Projects",
-    summary: "how to achieve aims",
-    description: null,
-    nickname: "objectives-projects",
-  },
-  {
-    id: 283,
-    parent: 28,
-    status: "3. Active",
-    name_singular: "assessment",
-    display_singular: "Assessment",
+    name_singular: "develop",
+    display_singular: "Develop",
     description: null,
     summary:
-      "how to reflect on / interpret projects and how successful / on track they are",
-    nickname: "objectives-assessment",
-  },
-  {
-    id: 0,
-    parent: 3,
-    status: "3. Active",
-    name_singular: "overview",
-    display_singular: "Overview",
-    description: null,
-    summary:
-      "how to reflect on / interpret projects and how successful / on track they are",
-    nickname: "overview",
-  },
-  {
-    id: 3,
-    parent: null,
-    status: "3. Active",
-    name_singular: "world",
-    display_singular: "World",
-    summary: "World, environment and universe",
-    description: "Manage interaction with the earth & environment",
-    nickname: "world",
-  },
-  {
-    id: 4,
-    parent: null,
-    status: "3. Active",
-    name_singular: "state",
-    display_singular: "State",
-    summary: "Goverment and the commons",
-    description: "Manage Governmental and Community issues & interactions",
-    nickname: "state",
+      "Digital transformation, site setups, technology deployments, software development and other systems creations",
+    nickname: "system-functions-develop",
   },
 ];
 
@@ -6198,3 +6942,207 @@ export const data: {
 //         // return nicknames
 // }
 // console.info(nicknamed())
+
+// console.log(arrayFrameworkBusiness.filter(x=>x.id.toString().charAt(0)==='1'))
+
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+
+// MISSING OR NEEDING CLARIFICATION/EXPLICT WORDING:
+// Legal Compliance: Although governance is included, specific modules for different types of legal compliance (e.g., GDPR, HIPAA) are not present.
+// Disaster Recovery: There is no mention of a plan or module to handle disasters, either natural or man-made.
+// Sustainability: No module for sustainability and corporate social responsibility (CSR).
+// Mergers & Acquisitions: Strategy and integration planning for mergers and acquisitions.
+// Supply Chain: Detailed modules for managing the supply chain are not visible.
+// Quality Assurance: Not just in software but in all business processes.
+// Ethics: A module focusing on ethical considerations in various business aspects.
+// Corporate Social Responsibility (CSR): Ethical and societal responsibilities of the business.
+// Intellectual Property Management: Handling patents, trademarks, and copyrights.
+// Business Continuity Planning: Ensuring that business processes can continue during a time of emergency or disaster.
+// Sustainability Initiatives: Detailed modules for environmental sustainability could be added.
+// Global Expansion Strategy: If applicable, strategies and considerations for global market expansion.
+// Internal Communications: While "communications" might cover external communications, an internal focus could be beneficial.
+// Data Governance: Management and security of company data.
+// Employee Wellness Programs: Beyond just benefits and HR considerations.
+// Cybersecurity: Specifics on threat detection, mitigation, and response strategies.
+// Investor Relations: Managing and communicating with the shareholder community.
+// Ethics and Compliance Training: Specific training modules for employees on ethical behavior and compliance.
+// Market Research: Explicit modules for conducting and analyzing market research.
+// Customer Experience Management: Beyond customer service, a focus on the entire customer journey.
+// Digital Transformation: Strategy and execution of digitizing traditional business operations.
+// Competitive Analysis: Detailed analysis of competitors, their products, and market positioning.
+// Crisis Management
+// Digital Transformation: Strategy and execution for digitizing traditional business aspects.
+// R&D Management: Management of research and development activities.
+// Government Relations: Managing interactions with government
+// Mergers & Acquisitions Strategy: Planning and execution of M&As.
+// Social Media Management: A separate module dedicated to handling various social media channels.
+// Crisis Communications: Detailed procedures for external and internal communication during a crisis.
+// Lobbying Activities: For businesses that require influencing public policy.
+// Whistleblower Policies: Processes for safely reporting unethical or illegal activities.
+// Sustainable Sourcing: For businesses focusing on sustainable or ethical sourcing.
+// Knowledge Management: Systems to maintain and utilize institutional knowledge.
+// AI and Automation Strategy: Given the increasing role of AI, a focused module may be necessary.
+// Change Management: Detailed strategies for managing organizational change.
+// Fraud Detection and Prevention: Procedures to detect and prevent fraudulent activities.
+// Multi-Channel Marketing: Strategies for managing various marketing channels in unison.
+// Export and Import Compliance: Necessary if business involves international trade.
+// Fraud Detection and Prevention: Specifics on identifying and combating fraudulent activities.
+// Multi-Channel Marketing: Comprehensive strategies for utilizing various marketing channels.
+// Export and Import Compliance: If the business engages in international trade, compliance aspects could be detailed.
+// Cross-Departmental Collaboration
+// Export and Import Compliance: Regulations and requirements for international trade.
+// Cross-Departmental Collaboration: Mechanisms to enhance inter-departmental collaboration.
+// Public Relations Strategy: More focused than general communications, specifically for public image.
+// Conflict Resolution Mechanisms: Internal procedures to resolve conflicts between staff or departments.
+// Remote Work Policies: Guidelines and strategies for remote work.
+// Data Privacy: Specific focus on customer and employee data privacy issues.
+// Community Engagement: How the business interacts with the local or global community.
+// Language and Localization Strategy: Guidelines for localizing products/services in different regions.
+// Intellectual Property Audits: Regular assessments of intellectual property assets.
+// Geo-Political Risk Assessment: Evaluating risks associated with operating in specific geographic or political areas.
+// Economic Forecasting: Projections and preparatory actions based on economic indicators.
+// Accessibility Standards: Ensuring all products or services meet accessibility guidelines.
+// Patent Strategy: Specific focus on the strategy for obtaining and maintaining patents.
+// Talent Pipelining: Proactive strategy for future hiring needs.
+// Cultural Sensitivity Training: Specific training modules for global business dealings.
+// Zero-Based Budgeting: A budgeting method that starts from zero each period.
+// Influencer Partnerships: Strategies for collaborating with social media influencers.
+// Carbon Footprint Reduction: Specific plans and goals for reducing the company's carbon footprint.
+// Open Source Compliance: Guidelines for using and contributing to open source software.
+// Anti-Corruption Policies: Detailed internal policies to prevent corruption and bribery.
+// Scenario Planning: Comprehensive planning for different future business scenarios.
+// Sovereign and Political Risks: Considerations for international businesses.
+// Workplace Safety Guidelines: Beyond insurance and legal requirement
+// Energy Management: Strategies for energy usage and efficiency.
+// Post-Merger Integration: Strategies for the period following a merger or acquisition.
+
+// CORRECTIONS
+// OFFERINGS-MOVETOGOVERNANCEORACCOUNTS?: The name itself suggests it might be in the wrong place.
+// Modules under personnel-employment-progression-skills and personnel-employment-progression-pathways appear twice. These could be a data issue, but if not, they should be consolidated.
+// procurement-delivery-customs and procurement-delivery-arrival_notice appear to be duplicates and might need consolidation.
+
+// SYSTEM STRUCTURE
+// sites
+// -sites/locations/renting/space planning/layouts/rooms/subletting/addresses
+// -access, security, people.
+// -furnishing
+// -maintenance , cleaning & waste management
+// -energy usage, utilities
+// tools&consumables
+// technology
+// process&data&automation
+
+// sites
+// tools&consumables
+// technology
+// process&data&automation
+
+// sites/space planning/layouts/rooms/subletting/addresses
+// access, security
+// furnishing
+// maintenance , cleaning & waste management
+// energy usage, utilities'
+
+// Sites
+// Security/Privacy/Safety
+// - OHS, safety checklists, fire etc., emergencies
+// - Access
+// - Privacy
+// - Security
+// - CCTV/Montioring
+// - Disaster Recovery, Safety plans
+// Applications
+// -
+// Communications
+// Resources
+// - vehicles and transport.
+// - furnishings
+// - tools & equipment
+// -- Office Supplies
+// -- Specialized Equipment
+// -- Computing equipment, workstations, servers, disks, peripherals, etc.
+// - consumables
+// Utilities
+// - Energy/Gas/Power/Electricity
+// -- generators, transformers, power,
+// - Water
+// - internet
+// -
+// Productivity
+// - LOB softwrae
+// - Office software
+// -
+// Information
+// - data, info, knowledge, wisdom
+// - manuals, policies, process, procedures, instructions
+// - automation and workflows
+
+// FACILITIES
+// Facilities refer to the physical spaces, amenities, and services that support the operations and activities of an organization. This includes buildings, equipment, utilities, infrastructure, and various other tangible assets and resources that enable an organization to function effectively. Facilities are often managed to ensure they meet the requirements for maintenance, safety, and operations.
+
+// Consult
+// Quarterly Business Review (inc. ‘Quarterly network health review’) and Roadmap
+// Project Management*
+// Network Design (‘Plan, design and implement computer networks’)*
+// Site establishment and relocations*
+// Website Development* and Website maintenance
+// Support
+// Phone, Email and Chat availability with response times as per your SOW
+// Remote Monitoring & Management using N-central suite
+// Network & Firewalling management (proactive and on demand)
+// Rapid Remote Support through Solarwinds RMM
+// Onsite Support* as per MSA
+// After Hours Support* as per MSA
+// Training services*
+// Technical Advice for end users
+// Vendor management
+// Continue
+// Integrated Backup Deployment of a Best Practice Solution & Process
+// Round-the-clock Backup Management and Monitoring
+// Business Continuity Reports (Capacity / Status / Trajectory)
+// Disaster Recovery Testing (Qtrly/Monthly backup test restores)
+// Verification Testing (e.g. daily integrity checks of the data)
+// Offsite / Onsite storage mirroring to Secure Data Centre
+// Rapid high priority restoration for minimal downtime in the event of an emergency
+// Protect
+// Round-the-clock AntiVirus & Malware Monitoring (‘Cyber Security Solution’)
+// Patch Management and scheduled / priority based security updates
+// Scheduled security reports
+// Managed Audit (Monthly Vulnerability and PCI/Compliance Scans & Report)
+// Security Process/Policy (Including Data Breach Process)
+// Pen testing, external auditing
+// Host
+// Colocation*
+// Cloud Hosting*
+// Website Hosting*
+// Email Hosting*
+// Domain Name Services*
+// Connect
+// Communications & Internet Links
+// Telephony, VOIP & Unified Communications solutions
+// Exchange / O365 mail / Gmail for Business
+// Email encryption
+// Slack / MS Teams / other synchronous chat
+// Videoconferencing, Skype et al
+// Create
+// Office Suite
+// O365 Suite (Word, Excel) [or Google Suite?]
+// LOB (Line of Business) Applications / Industry Specific Applications*
+// Business Operations Applications (Accounts, Personnel, Product/Inventory/Procurement etc.)
+// Equip
+// Internal Network
+// Printing and consumables
+// Refurbishment and enhancement of your existing hardware fleet*
+// Competitive purchase and rental of new hardware using official partnerships*
+// Mobile and Workstation monitoring and proactive maintenance (mobile / workstation / updates etc.)
+// Licensing*
+
+// HOSTING AS A TOP/2ND LEVEL SYSTEM MODULE
+
+// SOLUTIONS INTO GOVERNANCE, MOVE OTHER INTO SUBMODULE

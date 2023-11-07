@@ -3,7 +3,7 @@
 import { useReactState } from "./react";
 import { ViewContainerStatic } from "./container";
 import { ViewTypographyText } from "./typography";
-import { ViewButtonPressable } from "./button";
+import { ViewButtonIcon, ViewButtonPressable } from "./button";
 import { ViewRouterLinkthemed } from "./router";
 import { ViewIconMain } from "./icon";
 
@@ -22,23 +22,15 @@ export const ViewPreferencePopup = ({ children, state }: any) => {
 
 export const ViewPreferenceButton = ({ children, set, to }: any) => {
   return (
-    <ViewButtonPressable
-      style={{
-        margin: 5,
-      }}
-      // NOT YET IMPLEMENTED (need to abstract this out and get the tooltip outside of the parent component)
-      // onPress={() => set((old: boolean) => !old)}
-      // onHoverIn={() => set(true)}
-      // onHoverOut={() => set(false)}
-    >
-      <ViewIconMain
-        name={"ellipsis-horizontal-circle-sharp"}
-        source={"Ionicons"}
-        color={"rgba(80,80,80,1)"}
-        size={26}
-        style={{ top: -2 }}
-      />
-    </ViewButtonPressable>
+    <ViewButtonIcon
+      id={'toggle_other_context_buttons'}
+      iconStyle={{paddingTop: 2}}
+      buttonColor={'transparent'}
+      iconSource={`Entypo`}
+      iconName={"cog"}
+      iconColor={`rgb(80,80,80)`}
+      iconSize={20}
+    />
   );
 };
 

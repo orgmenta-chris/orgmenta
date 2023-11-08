@@ -13,6 +13,7 @@ import {
   STAGING_SUPABASE_PUBLIC_KEY,
   PRODUCTION_SUPABASE_URL,
   PRODUCTION_SUPABASE_PUBLIC_KEY,
+  // @ts-ignore
 } from "@env";
 
 // (Mobile Only) Secure Store.

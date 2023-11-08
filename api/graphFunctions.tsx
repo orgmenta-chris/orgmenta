@@ -234,8 +234,6 @@ export const sendMessage = async (token: string, requestBody: SendMail) => {
 
   console.log(JSON.stringify(data, null, 2));
 
-  return data;
-
   // Do something with the data
 };
 

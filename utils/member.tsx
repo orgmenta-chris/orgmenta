@@ -13,6 +13,7 @@ import { ViewInputText } from "./input";
 import { SendMail, sendMessage } from "../api/graphFunctions";
 import useTokenStore from "../states/api/storeToken";
 import { Base64 } from "js-base64";
+import { ViewIndicatorSpinner } from "./indicator";
 
 // Create
 
@@ -208,17 +209,24 @@ export const ViewMemberList = ({ spaceName }: any) => {
 export const MembersModal = ({ isVisible, closeModal }: any) => {
   const [email, onChangeEmail] = useState("");
   const [message, onChangeMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const getToken = useTokenStore((state: any) => state.token) || undefined;
 
   const sendInvite = async () => {
+    setIsLoading(true);
+
     const emailBody: SendMail = {
       message: {
         subject: "Test Email",
         body: {
           contentType: "Text",
           // content: Base64.encode(message),
-          content: message,
+          content: `You have received this email as an invitation to be a member of Orgmenta.
+          
+          click this link to accept http://localhost:19006/spaces/orgmenta/members, otherwise ignore.
+          
+          ${message}`,
         },
         toRecipients: [
           {
@@ -231,12 +239,20 @@ export const MembersModal = ({ isVisible, closeModal }: any) => {
       saveToSentItems: true,
     };
 
-    const graphData = await sendMessage(getToken.accessToken, emailBody);
+    await sendMessage(getToken.accessToken, emailBody);
 
     const { data, error } = await instanceSupabaseClient
       .from("members_orgmenta")
-      .insert([{ email_address: email, status: "active" }])
+      .insert([{ email_address: email, status: "invited" }])
       .select();
+
+    if (data)
+      console.log(
+        "Invite sent successfully, and added to supabase - members_orgmenta table"
+      );
+    if (error) console.log("Something went wrong");
+
+    setIsLoading(false);
   };
 
   return (
@@ -267,7 +283,7 @@ export const MembersModal = ({ isVisible, closeModal }: any) => {
         <ViewInputText
           style={{ height: 40, margin: 12, borderWidth: 1, padding: 10 }}
           onChangeText={onChangeMessage}
-          placeholder="Enter message"
+          placeholder="Enter additional/custom message"
           value={message}
         />
         <ViewButtonPressable
@@ -286,7 +302,7 @@ export const MembersModal = ({ isVisible, closeModal }: any) => {
             selectable={false}
             style={{ fontWeight: "bold", textAlign: "center" }}
           >
-            Send Invite
+            Send Invite {isLoading && <ViewIndicatorSpinner />}
           </ViewTypographyText>
         </ViewButtonPressable>
         <ViewButtonPressable

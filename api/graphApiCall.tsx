@@ -61,6 +61,7 @@ export const callMsGraphPOST = async (
   const bearer = `Bearer ${accessToken}`;
 
   headers.append("Authorization", bearer);
+  // headers.append("Content-Type", "application/json");
 
   const options = {
     method: "POST",

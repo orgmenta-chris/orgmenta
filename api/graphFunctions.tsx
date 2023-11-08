@@ -223,7 +223,7 @@ export const forwardMessage = async (
   // Do something with the data
 };
 
-interface SendMail {
+export interface SendMail {
   message: any;
   saveToSentItems: boolean;
 }
@@ -233,6 +233,8 @@ export const sendMessage = async (token: string, requestBody: SendMail) => {
   const data = await callMsGraphPOST(token, endpoint, requestBody);
 
   console.log(JSON.stringify(data, null, 2));
+
+  return data;
 
   // Do something with the data
 };

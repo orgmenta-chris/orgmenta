@@ -56,7 +56,12 @@ import { ViewContextUniversal } from "./context";
 import { arrayIndustryProducts } from "./hub";
 import { ViewIntegrationSection } from "./integration";
 import { ViewMemberSection } from "./member";
-import { ViewEntityPage, ViewEntityProperty, useEntitySchema, useEntitySingle } from "./entity";
+import {
+  ViewEntityPage,
+  ViewEntityProperty,
+  useEntitySchema,
+  useEntitySingle,
+} from "./entity";
 import { ViewFocusHeader } from "./focus";
 import { ViewActionContainer } from "./action";
 import { ViewRelationshipModal } from "./relationship";
@@ -321,7 +326,6 @@ export const ViewUserDevices = () => {
   );
 };
 
-
 // SESSION
 
 // Widget to show options/links for the current logged in user
@@ -346,7 +350,6 @@ export const ViewUserSession2 = () => {
   );
 };
 
-
 // SIGNOUT
 
 // Widget to switch between different users (future functionality)
@@ -364,7 +367,7 @@ export const ViewUserSignout = () => {
           Signout
         </ViewTypographySubsubheading>
 
-        <MSAL />
+        {/* <MSAL /> */}
       </ViewButtonPressable>
     </ViewContainerColumn>
   );
@@ -416,8 +419,8 @@ export const ViewUserSwitch = () => {
         </ViewButtonPressable>
       ))}
     </ViewContainerColumn>
-)}
-
+  );
+};
 
 export const ViewAdminAuth = () => {
   const [authState, setAuthState] = useState(true);
@@ -584,15 +587,14 @@ export const ViewUserSession = () => {
             <ViewButtonPressable
               style={{ margin: 5 }}
               onPress={() => {
-                ssoSession ? signoutRegular.mutate(): signoutAzure.mutate();
-                
+                ssoSession ? signoutRegular.mutate() : signoutAzure.mutate();
               }}
             >
               <ViewTypographySubsubheading selectable={false}>
                 Signout
               </ViewTypographySubsubheading>
             </ViewButtonPressable>
-            <MSAL />
+            {/* <MSAL /> */}
           </ViewContainerStatic>
         )
       }

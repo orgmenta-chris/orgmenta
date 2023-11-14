@@ -54,6 +54,7 @@ import useTokenStore from "../states/api/storeToken";
 import { ViewInputText } from "./input";
 import { useEffect, useState } from "react";
 import { ViewIndicatorSpinner } from "./indicator";
+import MSAL from "../components/auth/msal";
 
 // PAGE
 
@@ -705,7 +706,85 @@ export const ViewSpaceIntegrations = () => {
   const integrationsTemp = arrayIndustryProducts.filter(
     (x) => x.integrations?.length > 0
   );
+
   const integrationsActive = useSpaceIntegrations({ spacename: "orgmenta" });
+
+  const appIntegrations = [
+    { tab: "Microsoft", component: <MSAL /> },
+    {
+      tab: "Zapier",
+      component: (
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            padding: 5,
+            margin: 10,
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "black",
+            backgroundColor: "lightblue",
+          }}
+          onPress={() => console.log("Loisa todo")}
+        >
+          <ViewTypographyText
+            selectable={false}
+            style={{ fontWeight: "bold", textAlign: "center" }}
+          >
+            Zapier
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      ),
+    },
+    {
+      tab: "Quickbooks",
+      component: (
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            padding: 5,
+            margin: 10,
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "black",
+            backgroundColor: "lightblue",
+          }}
+          onPress={() => console.log("Loisa todo")}
+        >
+          <ViewTypographyText
+            selectable={false}
+            style={{ fontWeight: "bold", textAlign: "center" }}
+          >
+            Quickbooks
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      ),
+    },
+    {
+      tab: "Xero",
+      component: (
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            padding: 5,
+            margin: 10,
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "black",
+            backgroundColor: "lightblue",
+          }}
+          onPress={() => console.log("Loisa todo")}
+        >
+          <ViewTypographyText
+            selectable={false}
+            style={{ fontWeight: "bold", textAlign: "center" }}
+          >
+            Xero
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      ),
+    },
+  ];
+
   return (
     <ViewPageSection>
       <ViewTypographySubheading>Active Integrations:</ViewTypographySubheading>
@@ -719,12 +798,8 @@ export const ViewSpaceIntegrations = () => {
       <ViewTypographySubheading>
         Available Integrations:
       </ViewTypographySubheading>
-      {["Microsoft", "Zapier", "Quickbooks", "Xero"].map((x, i) => (
-        <ViewButtonText
-          key={i}
-          textString={x}
-          onPress={() => console.log("loisa todo")}
-        />
+      {appIntegrations.map((item, i) => (
+        <ViewContainerStatic key={i}>{item.component}</ViewContainerStatic>
       ))}
       <ViewTypographySubheading>Future Integrations:</ViewTypographySubheading>
       <ViewContainerScroll>

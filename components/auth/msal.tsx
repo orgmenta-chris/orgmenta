@@ -54,8 +54,25 @@ const MSAL = () => {
       }
     };
 
+    const removeConnection = async () => {
+      try {
+        const { error } = await instanceSupabaseClient
+          .from("entities_orgmenta")
+          .delete()
+          .eq("type", "item");
+
+        if (error) console.log(error);
+      } catch (error) {
+        console.log(error);
+
+        throw error;
+      }
+    };
+
     if (token) {
       makeConnection(token.account.username);
+    } else {
+      removeConnection();
     }
   }, [token]);
 
@@ -67,7 +84,25 @@ const MSAL = () => {
             selectable={false}
             style={{ fontWeight: "bold", textAlign: "center" }}
           >
-            Microsoft Account Connected
+            <ViewButtonPressable
+              style={{
+                flex: 1,
+                padding: 5,
+                margin: 10,
+                borderWidth: 1,
+                borderRadius: 5,
+                borderColor: "black",
+                backgroundColor: "lightblue",
+              }}
+              onPress={() => setToken("")}
+            >
+              <ViewTypographyText
+                selectable={false}
+                style={{ fontWeight: "bold", textAlign: "center" }}
+              >
+                Disconnect Ms Account
+              </ViewTypographyText>
+            </ViewButtonPressable>
           </ViewTypographyText>
         </>
       ) : (

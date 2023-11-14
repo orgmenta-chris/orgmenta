@@ -223,7 +223,7 @@ export const forwardMessage = async (
   // Do something with the data
 };
 
-interface SendMail {
+export interface SendMail {
   message: any;
   saveToSentItems: boolean;
 }

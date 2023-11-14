@@ -6,6 +6,14 @@ import { instanceSupabaseClient, handleSupabaseResponse } from "./supabase";
 import { useQueryerQuery, useQueryerMutation } from "./queryer";
 import { ViewContainerStatic } from "./container";
 import { ViewTypographySubheading, ViewTypographyText } from "./typography";
+import { ViewButtonPressable } from "./button";
+import { Modal } from "react-native";
+import { useState } from "react";
+import { ViewInputText } from "./input";
+import { SendMail, sendMessage } from "../api/graphFunctions";
+import useTokenStore from "../states/api/storeToken";
+import { Base64 } from "js-base64";
+import { ViewIndicatorSpinner } from "./indicator";
 
 // Create
 
@@ -135,32 +143,188 @@ export const ViewMemberItem = ({ id }: interfaceMemberItem) => {
   );
 };
 
-export const ViewMemberSection = ({spaceName}:any) => {
+export const ViewMemberSection = ({ spaceName }: any) => {
   return (
     <ViewContainerStatic>
       <ViewTypographySubheading>Members</ViewTypographySubheading>
       <ViewTypographyText>todo</ViewTypographyText>
-      <ViewMemberInvite/>
-      <ViewMemberList spaceName={spaceName}/>
+      <ViewMemberInvite />
+      <ViewMemberList spaceName={spaceName} />
     </ViewContainerStatic>
   );
 };
 
 export const ViewMemberInvite = ({}) => {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const showModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
   return (
     <ViewContainerStatic>
       <ViewTypographySubheading>MemberInvite</ViewTypographySubheading>
-      <ViewTypographyText>{`Invite New Member +<--Loisa todo`}</ViewTypographyText>
+      <ViewButtonPressable
+        style={{
+          flex: 1,
+          padding: 5,
+          margin: 10,
+          borderWidth: 1,
+          borderRadius: 5,
+          borderColor: "black",
+          backgroundColor: "lightblue",
+        }}
+        onPress={showModal}
+      >
+        <ViewTypographyText
+          selectable={false}
+          style={{ fontWeight: "bold", textAlign: "center" }}
+        >
+          Add Member
+        </ViewTypographyText>
+      </ViewButtonPressable>
+      <MembersModal isVisible={isModalVisible} closeModal={closeModal} />
     </ViewContainerStatic>
   );
 };
 
-export const ViewMemberList = ({spaceName}:any) => {
-  const memberArray = useMemberArray({spaceName: spaceName })
+export const ViewMemberList = ({ spaceName }: any) => {
+  const memberArray = useMemberArray({ spaceName: spaceName });
   return (
     <ViewContainerStatic>
       <ViewTypographySubheading>MemberList</ViewTypographySubheading>
-      <ViewTypographyText>{JSON.stringify(memberArray.data)}</ViewTypographyText>
+      <ViewTypographyText>
+        {JSON.stringify(memberArray.data)}
+      </ViewTypographyText>
     </ViewContainerStatic>
+  );
+};
+
+// member modal
+
+export const MembersModal = ({ isVisible, closeModal }: any) => {
+  const [email, onChangeEmail] = useState("");
+  const [message, onChangeMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getToken = useTokenStore((state: any) => state.token) || undefined;
+
+  const sendInvite = async () => {
+    setIsLoading(true);
+
+    const emailBody: SendMail = {
+      message: {
+        subject: "Test Email",
+        body: {
+          contentType: "Text",
+          // content: Base64.encode(message),
+          content: `You have received this email as an invitation to be a member of Orgmenta.
+          
+          click this link to accept https://qfiulevnnvsptiwtwvuz.supabase.co/functions/v1/accept-member?username=${email}, otherwise ignore.
+          
+          ${message}`,
+        },
+        toRecipients: [
+          {
+            emailAddress: {
+              address: email,
+            },
+          },
+        ],
+      },
+      saveToSentItems: true,
+    };
+
+    await sendMessage(getToken.accessToken, emailBody);
+
+    const { data, error } = await instanceSupabaseClient
+      .from("members_orgmenta")
+      .insert([{ email_address: email, status: "invited" }])
+      .select();
+
+    if (data)
+      console.log(
+        "Invite sent successfully, and added to supabase - members_orgmenta table"
+      );
+    if (error) console.log("Something went wrong");
+
+    setIsLoading(false);
+  };
+
+  return (
+    <Modal
+      animationType="slide" // You can choose different animation types
+      // transparent={true}
+      visible={isVisible}
+    >
+      <ViewContainerStatic>
+        <ViewTypographyText
+          selectable={false}
+          style={{ fontWeight: "bold", padding: 5, marginVertical: 10 }}
+        >
+          Email
+        </ViewTypographyText>
+        <ViewInputText
+          style={{ height: 40, margin: 12, borderWidth: 1, padding: 10 }}
+          onChangeText={onChangeEmail}
+          placeholder="Enter email"
+          value={email}
+        />
+        <ViewTypographyText
+          selectable={false}
+          style={{ fontWeight: "bold", padding: 5, marginVertical: 10 }}
+        >
+          Invitation Message
+        </ViewTypographyText>
+        <ViewInputText
+          style={{ height: 40, margin: 12, borderWidth: 1, padding: 10 }}
+          onChangeText={onChangeMessage}
+          placeholder="Enter additional/custom message"
+          value={message}
+        />
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            padding: 5,
+            margin: 10,
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "black",
+            backgroundColor: "lightblue",
+          }}
+          onPress={sendInvite}
+        >
+          <ViewTypographyText
+            selectable={false}
+            style={{ fontWeight: "bold", textAlign: "center" }}
+          >
+            Send Invite {isLoading && <ViewIndicatorSpinner />}
+          </ViewTypographyText>
+        </ViewButtonPressable>
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            padding: 5,
+            margin: 10,
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "black",
+            backgroundColor: "lightblue",
+          }}
+          onPress={closeModal}
+        >
+          <ViewTypographyText
+            selectable={false}
+            style={{ fontWeight: "bold", textAlign: "center" }}
+          >
+            Close
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      </ViewContainerStatic>
+    </Modal>
   );
 };

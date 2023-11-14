@@ -11,6 +11,8 @@ import useTokenStore from "../../states/api/storeToken";
 import { requestAuthSession } from "../../utils/auth";
 import { ViewButtonPressable } from "../../utils/button";
 import { ViewTypographyText } from "../../utils/typography";
+import { instanceSupabaseClient } from "../../utils/supabase";
+import { activateConnection } from "../../utils/integration";
 
 const MSAL = () => {
   const params: MSALInteractiveParams = { scopes };
@@ -30,10 +32,49 @@ const MSAL = () => {
     }
   };
 
-  const getUserSession = async () => {
-    const session = await requestAuthSession();
-    console.log(session);
-  };
+  useEffect(() => {
+    const makeConnection = async (account: string) => {
+      try {
+        const { data, error } = await instanceSupabaseClient
+          .from("entities_orgmenta")
+          .insert([{ type: "item", class: "integration", title: account }])
+          .select();
+
+        if (error) console.log(error);
+
+        if (data) {
+          console.log(data);
+
+          return data;
+        }
+      } catch (error) {
+        console.log(error);
+
+        throw error;
+      }
+    };
+
+    const removeConnection = async () => {
+      try {
+        const { error } = await instanceSupabaseClient
+          .from("entities_orgmenta")
+          .delete()
+          .eq("type", "item");
+
+        if (error) console.log(error);
+      } catch (error) {
+        console.log(error);
+
+        throw error;
+      }
+    };
+
+    if (token) {
+      makeConnection(token.account.username);
+    } else {
+      removeConnection();
+    }
+  }, [token]);
 
   return (
     <>
@@ -43,27 +84,26 @@ const MSAL = () => {
             selectable={false}
             style={{ fontWeight: "bold", textAlign: "center" }}
           >
-            Microsoft Account Connected
-          </ViewTypographyText>
-          <ViewButtonPressable
-            style={{
-              flex: 1,
-              padding: 5,
-              margin: 10,
-              borderWidth: 1,
-              borderRadius: 5,
-              borderColor: "black",
-              backgroundColor: "lightblue",
-            }}
-            onPress={() => getUserSession()}
-          >
-            <ViewTypographyText
-              selectable={false}
-              style={{ fontWeight: "bold", textAlign: "center" }}
+            <ViewButtonPressable
+              style={{
+                flex: 1,
+                padding: 5,
+                margin: 10,
+                borderWidth: 1,
+                borderRadius: 5,
+                borderColor: "black",
+                backgroundColor: "lightblue",
+              }}
+              onPress={() => setToken("")}
             >
-              Get User Session
-            </ViewTypographyText>
-          </ViewButtonPressable>
+              <ViewTypographyText
+                selectable={false}
+                style={{ fontWeight: "bold", textAlign: "center" }}
+              >
+                Disconnect Ms Account
+              </ViewTypographyText>
+            </ViewButtonPressable>
+          </ViewTypographyText>
         </>
       ) : (
         <ViewButtonPressable

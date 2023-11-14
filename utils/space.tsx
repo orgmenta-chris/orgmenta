@@ -50,6 +50,11 @@ import { ViewMemberSection } from "./member";
 import { ViewBillingSection } from "./billing";
 import { ViewAttributeSection } from "./attribute";
 import { arrayIndustryProducts } from "./hub";
+import useTokenStore from "../states/api/storeToken";
+import { ViewInputText } from "./input";
+import { useEffect, useState } from "react";
+import { ViewIndicatorSpinner } from "./indicator";
+import MSAL from "../components/auth/msal";
 
 // PAGE
 
@@ -701,24 +706,107 @@ export const ViewSpaceIntegrations = () => {
   const integrationsTemp = arrayIndustryProducts.filter(
     (x) => x.integrations?.length > 0
   );
-  const integrationsActive = useSpaceIntegrations({spacename:'orgmenta'});
+
+  const integrationsActive = useSpaceIntegrations({ spacename: "orgmenta" });
+
+  const appIntegrations = [
+    { tab: "Microsoft", component: <MSAL /> },
+    {
+      tab: "Zapier",
+      component: (
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            padding: 5,
+            margin: 10,
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "black",
+            backgroundColor: "lightblue",
+          }}
+          onPress={() => console.log("Loisa todo")}
+        >
+          <ViewTypographyText
+            selectable={false}
+            style={{ fontWeight: "bold", textAlign: "center" }}
+          >
+            Zapier
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      ),
+    },
+    {
+      tab: "Quickbooks",
+      component: (
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            padding: 5,
+            margin: 10,
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "black",
+            backgroundColor: "lightblue",
+          }}
+          onPress={() => console.log("Loisa todo")}
+        >
+          <ViewTypographyText
+            selectable={false}
+            style={{ fontWeight: "bold", textAlign: "center" }}
+          >
+            Quickbooks
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      ),
+    },
+    {
+      tab: "Xero",
+      component: (
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            padding: 5,
+            margin: 10,
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "black",
+            backgroundColor: "lightblue",
+          }}
+          onPress={() => console.log("Loisa todo")}
+        >
+          <ViewTypographyText
+            selectable={false}
+            style={{ fontWeight: "bold", textAlign: "center" }}
+          >
+            Xero
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      ),
+    },
+  ];
+
   return (
     <ViewPageSection>
       <ViewTypographySubheading>Active Integrations:</ViewTypographySubheading>
-        {(integrationsActive?.data as any)?.map((x:any, i:string) => (
-            <ViewButtonText key={i} textString={x.title} onPress={()=>console.log('loisa todo')}/>
-        ))}
-      <ViewTypographySubheading>Available Integrations:</ViewTypographySubheading>
-        {['Microsoft','Zapier','Quickbooks','Xero']
-          .map((x, i) => (
-            <ViewButtonText key={i} textString={x} onPress={()=>console.log('loisa todo')}/>
-          ))}
+      {(integrationsActive?.data as any)?.map((x: any, i: string) => (
+        <ViewButtonText
+          key={i}
+          textString={x.title}
+          onPress={() => console.log("loisa todo")}
+        />
+      ))}
+      <ViewTypographySubheading>
+        Available Integrations:
+      </ViewTypographySubheading>
+      {appIntegrations.map((item, i) => (
+        <ViewContainerStatic key={i}>{item.component}</ViewContainerStatic>
+      ))}
       <ViewTypographySubheading>Future Integrations:</ViewTypographySubheading>
       <ViewContainerScroll>
         {integrationsTemp
           .filter((x: any) => x.status === "0. New")
           .map((x, i) => (
-            <ViewButtonText key={i} textString={x.title}/>
+            <ViewButtonText key={i} textString={x.title} />
           ))}
       </ViewContainerScroll>
       {/* <ViewIntegrationSection 
@@ -728,15 +816,14 @@ export const ViewSpaceIntegrations = () => {
   );
 };
 
-
 export const useSpaceIntegrations = ({ spacename }: any) => {
   const query = useQueryerQuery({
-    queryKey: ["spaces", spacename,"integrations"],
+    queryKey: ["spaces", spacename, "integrations"],
     queryFn: async () => {
       const response = await instanceSupabaseClient
         .from(`entities_${spacename}`)
         .select()
-        .eq('class','integration')
+        .eq("class", "integration");
       return response.data;
     },
     enabled: !!spacename,
@@ -744,7 +831,6 @@ export const useSpaceIntegrations = ({ spacename }: any) => {
   } as TypeQueryerOptions);
   return query;
 };
-
 
 // ATTRIBUTES
 
@@ -905,8 +991,10 @@ export const ViewSpaceSpaces = () => {
         space hierarchies.
       </ViewTypographyText>
       {/* <ViewTypographyText>{JSON.stringify(spaceArray.data,null,2)}</ViewTypographyText> */}
-      {(spaceArray?.data as any)?.map((x:any,i:string) => (
-        <ViewTypographyText key={i}>{x.name_display_singular}</ViewTypographyText>
+      {(spaceArray?.data as any)?.map((x: any, i: string) => (
+        <ViewTypographyText key={i}>
+          {x.name_display_singular}
+        </ViewTypographyText>
       ))}
     </ViewContainerScroll>
   );
@@ -923,16 +1011,221 @@ export const ViewSpaceRoles = () => {
   );
 };
 
+// set primary email send-from
+
+const ViewPrimarySendFrom = () => {
+  const getToken = useTokenStore((state: any) => state.token) || undefined;
+
+  const [email, onChangeEmail] = useState("");
+  const [existingData, setExistingData] = useState();
+  const [activeTab, setActiveTab] = useReactState(0);
+  const [isLoading, setIsLoading] = useReactState(false);
+
+  const findItemByTitle = (data: any, targetTitle: any) => {
+    for (const item of data) {
+      if (item.title === targetTitle) {
+        console.log(item);
+
+        setExistingData(item);
+      }
+    }
+
+    console.log("title is not found");
+  };
+
+  const checkSendFromEmail = async () => {
+    try {
+      const { data, error } = await instanceSupabaseClient
+        .from("entities_orgmenta")
+        .select("*");
+
+      if (error) console.log(error);
+
+      if (data) {
+        // console.log(data);
+
+        return data;
+      }
+    } catch (error) {
+      console.log(error);
+
+      throw error;
+    }
+  };
+
+  const insertSendFromEmail = async () => {
+    setIsLoading(true);
+
+    try {
+      const { data, error } = await instanceSupabaseClient
+        .from("entities_orgmenta")
+        .insert([{ type: "item", class: "send-from", title: email }])
+        .select();
+
+      if (error) console.log(error);
+
+      if (data) {
+        console.log(data);
+
+        return data;
+      }
+    } catch (error) {
+      console.log(error);
+
+      throw error;
+    }
+
+    setIsLoading(false);
+  };
+
+  const updateSendFromEmail = async () => {
+    try {
+      const { data, error } = await instanceSupabaseClient
+        .from("entities_orgmenta")
+        .update({ other_column: "otherValue" })
+        .eq("some_column", "someValue")
+        .select();
+
+      if (error) console.log(error);
+
+      if (data) {
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
+
+      throw error;
+    }
+  };
+
+  const handleTabPress = (index: number) => {
+    setActiveTab(index);
+  };
+
+  const tabs = [
+    {
+      tab: "Check email",
+      component: (
+        <ViewContainerStatic>
+          {/* search if 'send-from-email' exists */}
+          <ViewInputText
+            style={{ height: 40, margin: 12, borderWidth: 1, padding: 10 }}
+            onChangeText={onChangeEmail}
+            placeholder="Search if email exists"
+            value={email}
+          />
+          <ViewTypographyText
+            selectable={false}
+            style={{ padding: 5, marginVertical: 10 }}
+          >
+            {JSON.stringify(existingData, null, 2)}
+          </ViewTypographyText>
+        </ViewContainerStatic>
+      ),
+    },
+    {
+      tab: "Insert email",
+      component: (
+        <ViewContainerStatic>
+          {/* search if 'send-from-email' exists */}
+          <ViewInputText
+            style={{ height: 40, margin: 12, borderWidth: 1, padding: 10 }}
+            onChangeText={onChangeEmail}
+            placeholder="Insert email"
+            value={email}
+          />
+          <ViewButtonPressable
+            style={{
+              flex: 1,
+              padding: 5,
+              margin: 10,
+              borderWidth: 1,
+              borderRadius: 5,
+              borderColor: "black",
+              backgroundColor: "lightblue",
+            }}
+            onPress={insertSendFromEmail}
+          >
+            <ViewTypographyText
+              selectable={false}
+              style={{ fontWeight: "bold", textAlign: "center" }}
+            >
+              Insert email {isLoading && <ViewIndicatorSpinner />}
+            </ViewTypographyText>
+          </ViewButtonPressable>
+        </ViewContainerStatic>
+      ),
+    },
+    // { tab: "Sign in using MS account", component: <ViewAzureSignin /> },
+  ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const doesExist = await checkSendFromEmail();
+        findItemByTitle(doesExist, email);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [email]);
+
+  return (
+    <ViewContainerStatic>
+      {getToken ? (
+        <ViewContainerStatic>
+          <ViewContainerRow>
+            {tabs.map((content, index) => (
+              <ViewContainerRow key={index} style={{ flex: 1 }}>
+                <ViewButtonPressable
+                  key={index}
+                  style={{
+                    flex: 1,
+                    padding: 10,
+                    borderTopWidth: 1,
+                    borderRightWidth: 1,
+                    borderLeftWidth: 1,
+                    borderTopRightRadius: 5,
+                    borderTopLeftRadius: 5,
+                    borderColor: activeTab === index ? "black" : "transparent",
+                    backgroundColor:
+                      activeTab === index ? "lightblue" : "transparent",
+                  }}
+                  onPress={() => handleTabPress(index)}
+                >
+                  <ViewTypographyText
+                    selectable={false}
+                    style={{ fontWeight: "bold" }}
+                  >
+                    {content.tab}
+                  </ViewTypographyText>
+                </ViewButtonPressable>
+              </ViewContainerRow>
+            ))}
+          </ViewContainerRow>
+          <ViewContainerStatic>{tabs[activeTab].component}</ViewContainerStatic>
+        </ViewContainerStatic>
+      ) : (
+        <ViewTypographyText>{`No Account Connected`}</ViewTypographyText>
+      )}
+    </ViewContainerStatic>
+  );
+};
+
 // PROFILE
 
 export const ViewSpaceProfile = () => {
   const spaceActive = useSpaceState(["space", "selected"]);
   return (
     <ViewContainerScroll>
-    <ViewTypographyText>-----</ViewTypographyText>
-      <ViewTypographyText>{`Set primary email send-from: <--Loisa todo`}</ViewTypographyText>
       <ViewTypographyText>-----</ViewTypographyText>
-      <ViewTypographyText>{`Force 2FA for all users: <--ON HOLD`} </ViewTypographyText>
+      <ViewPrimarySendFrom />
+      <ViewTypographyText>-----</ViewTypographyText>
+      <ViewTypographyText>
+        {`Force 2FA for all users: <--ON HOLD`}{" "}
+      </ViewTypographyText>
       <ViewTypographyText>{`Force 2FA type for all users: <--ON HOLD`}</ViewTypographyText>
       <ViewTypographyText>-----</ViewTypographyText>
       <ViewTypographyText>{`Create a subspace: <--ON HOLD`}</ViewTypographyText>

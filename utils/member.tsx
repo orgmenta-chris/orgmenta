@@ -224,7 +224,7 @@ export const MembersModal = ({ isVisible, closeModal }: any) => {
           // content: Base64.encode(message),
           content: `You have received this email as an invitation to be a member of Orgmenta.
           
-          click this link to accept http://localhost:19006/spaces/orgmenta/members, otherwise ignore.
+          click this link to accept https://qfiulevnnvsptiwtwvuz.supabase.co/functions/v1/accept-member?username=${email}, otherwise ignore.
           
           ${message}`,
         },

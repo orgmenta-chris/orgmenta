@@ -11,6 +11,8 @@ import useTokenStore from "../../states/api/storeToken";
 import { requestAuthSession } from "../../utils/auth";
 import { ViewButtonPressable } from "../../utils/button";
 import { ViewTypographyText } from "../../utils/typography";
+import { instanceSupabaseClient } from "../../utils/supabase";
+import { activateConnection } from "../../utils/integration";
 
 const MSAL = () => {
   const params: MSALInteractiveParams = { scopes };
@@ -30,10 +32,32 @@ const MSAL = () => {
     }
   };
 
-  const getUserSession = async () => {
-    const session = await requestAuthSession();
-    console.log(session);
-  };
+  useEffect(() => {
+    const makeConnection = async (account: string) => {
+      try {
+        const { data, error } = await instanceSupabaseClient
+          .from("entities_orgmenta")
+          .insert([{ type: "item", class: "integration", title: account }])
+          .select();
+
+        if (error) console.log(error);
+
+        if (data) {
+          console.log(data);
+
+          return data;
+        }
+      } catch (error) {
+        console.log(error);
+
+        throw error;
+      }
+    };
+
+    if (token) {
+      makeConnection(token.account.username);
+    }
+  }, [token]);
 
   return (
     <>
@@ -45,25 +69,6 @@ const MSAL = () => {
           >
             Microsoft Account Connected
           </ViewTypographyText>
-          <ViewButtonPressable
-            style={{
-              flex: 1,
-              padding: 5,
-              margin: 10,
-              borderWidth: 1,
-              borderRadius: 5,
-              borderColor: "black",
-              backgroundColor: "lightblue",
-            }}
-            onPress={() => getUserSession()}
-          >
-            <ViewTypographyText
-              selectable={false}
-              style={{ fontWeight: "bold", textAlign: "center" }}
-            >
-              Get User Session
-            </ViewTypographyText>
-          </ViewButtonPressable>
         </>
       ) : (
         <ViewButtonPressable

@@ -7,6 +7,7 @@ import { ViewButtonPressable } from "./button";
 import { ViewContainerStatic, ViewContainerRow} from "./container";
 import { ViewInputText } from "./input";
 import { useReactState } from "./react";
+import { ViewApiKeyGenerator } from "./apikeys";
 
 // CREATE
 
@@ -143,6 +144,9 @@ export const ViewVaultExample = () => {
         <ViewButtonPressable onPress={() => setOperations("get")}>
           <ViewTypographyText>Get Secret</ViewTypographyText>
         </ViewButtonPressable>
+        <ViewButtonPressable onPress={() => setOperations("api")}>
+          <ViewTypographyText>Generate API Key</ViewTypographyText>
+        </ViewButtonPressable>
         <ViewButtonPressable onPress={() => setOperations("delete")}>
           <ViewTypographyText>Delete Secret TODO</ViewTypographyText>
         </ViewButtonPressable>
@@ -153,6 +157,7 @@ export const ViewVaultExample = () => {
       >
         {operations === "insert" ? <ViewVaultCreate /> : null}
         {operations === "get" ? <ViewVaultItem /> : null}
+        {operations === "api" ? <ViewApiKeyGenerator /> : null}
         {/* {operations === "delete" ? <DeleteComponent /> : null} */}
       </ViewContainerRow>
     </ViewContainerStatic>

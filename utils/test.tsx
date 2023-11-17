@@ -32,6 +32,7 @@ import { ViewZustandExample } from "./zustand";
 import { ViewDraggableBox } from "./draggable";
 import { MSGraph } from "../api/graphFunctions";
 import useTokenStore from "../states/api/storeToken";
+import { ViewVaultExample } from "./vault";
 
 export const ViewTestPage = () => {
   const token = useTokenStore((state: any) => state.token);
@@ -58,10 +59,10 @@ export const ViewTestPage = () => {
         {/* <ViewClipboardCopy /> */}
 
         {/* Notification component (working) */}
-        <ViewNotificationExample
+        {/* <ViewNotificationExample
           testMode
           // {...notificationBody}
-        />
+        /> */}
         {/* <ViewAttributeCreate /> */}
         {/* <ViewTypographyText>Example Sound Player:</ViewTypographyText>
         <ViewAudioPlayer /> */}
@@ -92,7 +93,8 @@ export const ViewTestPage = () => {
 
         {/* Chat Loisa (in progress) */}
         {/* {/* <ViewThreadComponent /> */}
-        <MSGraph token={token} />
+        {/* <MSGraph token={token} /> */}
+        <ViewVaultExample />
       </ViewContainerScroll>
     </ViewPageMain>
   ) : (

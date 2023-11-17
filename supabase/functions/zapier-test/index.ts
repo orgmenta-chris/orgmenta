@@ -7,6 +7,11 @@ import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 // @ts-ignore
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
+const confirmApiKey = (vaultApiKey: any, providedApiKey: any) => {
+  if (vaultApiKey !== providedApiKey)
+    throw new Error("Access denied! Wrong API key: " + providedApiKey);
+};
+
 serve(async (req: Request) => {
   try {
     // Create a Supabase client with the Auth context of the logged in user.
@@ -16,31 +21,27 @@ serve(async (req: Request) => {
       Deno.env.get("SUPABASE_URL") ?? "",
       // Supabase API ANON KEY - env var exported by default.
       // @ts-ignore
-      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
-      // Create client with Auth context of the user that called the function.
-      // This way your row-level-security (RLS) policies are applied.
-      {
-        global: {
-          headers: { Authorization: req.headers.get("Authorization")! },
-        },
-      }
+      Deno.env.get("SUPABASE_ANON_KEY") ?? ""
     );
 
     // Now we can get the session or user object
-    const {
-      data: { user },
-    } = await supabaseClient.auth.getUser();
+    const url = new URL(req.url);
 
-    const zapierFeed = await req.json();
+    const identifier = url.searchParams.get("identifier");
+    const apiKey = url.searchParams.get("api_key");
 
     // And we can run queries in the context of our authenticated user
-    const { data, error } = await supabaseClient
-      .from("attributes")
-      .select(zapierFeed.query);
+    const { data, error } = await supabaseClient.rpc("read_secret", {
+      secret_name: identifier,
+    });
 
     if (error) throw error;
 
-    return new Response(JSON.stringify({ user, data }), {
+    confirmApiKey(data, apiKey);
+
+    let successMessage = "Successfully authenticated!"
+
+    return new Response(JSON.stringify({ successMessage }), {
       headers: { "Content-Type": "application/json" },
       status: 200,
     });

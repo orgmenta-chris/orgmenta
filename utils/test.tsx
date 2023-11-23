@@ -33,6 +33,8 @@ import { ViewDraggableBox } from "./draggable";
 import { MSGraph } from "../api/graphFunctions";
 import useTokenStore from "../states/api/storeToken";
 import { ViewVaultExample } from "./vault";
+import {ViewSignatureCanvas} from "./signature";
+import { ViewRichText } from "./richtext";
 
 export const ViewTestPage = () => {
   const token = useTokenStore((state: any) => state.token);
@@ -94,7 +96,9 @@ export const ViewTestPage = () => {
         {/* Chat Loisa (in progress) */}
         {/* {/* <ViewThreadComponent /> */}
         {/* <MSGraph token={token} /> */}
-        <ViewVaultExample />
+        {/* <ViewVaultExample /> */}
+        {/* <ViewSignatureCanvas /> */}
+        <ViewRichText />
       </ViewContainerScroll>
     </ViewPageMain>
   ) : (

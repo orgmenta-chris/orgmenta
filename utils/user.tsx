@@ -46,6 +46,9 @@ import {
   ViewAuthSignin,
   ViewAuthSignup,
   ViewAzureSignin,
+  ViewPasswordReset,
+  ViewResetPasswordPrompt,
+  ViewResetPasswordRequest,
 } from "./auth";
 import { useReactState } from "./react";
 import MSAL from "../components/auth/msal";
@@ -521,6 +524,8 @@ export const ViewUserSession = () => {
   // const setToken = useTokenStore((state: any) => state.setToken);
   const setSSOSession = useAzureSSOStore((state: any) => state.setSession);
   const ssoSession = useAzureSSOStore((state: any) => state.userSession);
+  const [isResetPasswordModalVisible, setIsResetPasswordModalVisible] =
+    useState(false);
 
   const getURLParameters = (url: any) => {
     const searchParams = new URLSearchParams(url.split("#")[1]);
@@ -536,7 +541,7 @@ export const ViewUserSession = () => {
 
     getURLParameters(currentURL);
 
-    console.log("parameters:", ssoSession);
+    // console.log("parameters:", ssoSession);
   }, []);
 
   return (
@@ -594,6 +599,18 @@ export const ViewUserSession = () => {
                 Signout
               </ViewTypographySubsubheading>
             </ViewButtonPressable>
+            <ViewButtonPressable
+              style={{ margin: 5 }}
+              onPress={() => setIsResetPasswordModalVisible(true)}
+            >
+              <ViewTypographySubsubheading selectable={false}>
+                Reset Password
+              </ViewTypographySubsubheading>
+            </ViewButtonPressable>
+            <ViewResetPasswordRequest
+              isVisible={isResetPasswordModalVisible}
+              onClose={() => setIsResetPasswordModalVisible(false)}
+            />
             {/* <MSAL /> */}
           </ViewContainerStatic>
         )
@@ -760,6 +777,7 @@ export const ViewUserProfile = () => {
         profile
       </ViewTypographyText>
       <ViewTypographyText>(todo)</ViewTypographyText>
+      <ViewPasswordReset />
     </ViewPageSection>
   );
 };

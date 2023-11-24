@@ -14,6 +14,15 @@ import {
   useQueryerClient,
 } from "./queryer";
 import { useAzureSSOStore } from "../states/auth/storeSSO";
+import { useEffect, useState } from "react";
+import {
+  Modal,
+  View,
+  TouchableOpacity,
+  TextInput,
+  Button,
+  Linking,
+} from "react-native";
 
 // STYLES (to be moved to theme once developed)
 
@@ -26,6 +35,320 @@ const styles = UtilityStylesheetMain.create({
     borderRadius: 5,
   },
 });
+
+// password reset
+
+export const ViewResetPasswordPrompt = ({ isVisible, onClose }: any) => {
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [currentUrl, setCurrentUrl] = useState(null);
+
+  const handleResetPassword = async () => {
+    /*
+    - get current time and 1hr from current time
+    - encrypt it to a an access token
+    - decrypt the access token after redirection to get the time
+    - check if the the time has expired
+    - if not, user will be prompted to set the new password
+    */
+    setIsLoading(true);
+
+    try {
+      const { data, error } = await instanceSupabaseClient.auth.updateUser({
+        password: newPassword,
+      });
+
+      if (error) throw error;
+
+      if (data) {
+        console.log(data);
+
+        setIsSuccess(true);
+      }
+    } catch (error) {
+      console.error("Password reset failed:", error);
+
+      throw error;
+    }
+
+    setIsLoading(false);
+  };
+
+  const resetModal = () => {
+    setOldPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+    setIsSuccess(false);
+    onClose();
+  };
+
+  return (
+    <Modal visible={isVisible} onRequestClose={resetModal}>
+      <ViewContainerStatic
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      >
+        {isSuccess ? (
+          <ViewContainerStatic>
+            <ViewTypographyText
+              style={{ fontWeight: "bold", textAlign: "center", padding: 10 }}
+            >
+              Password reset successfully!
+            </ViewTypographyText>
+            <ViewButtonPressable
+              style={{
+                flex: 1,
+                padding: 5,
+                margin: 10,
+                borderWidth: 1,
+                borderRadius: 5,
+                borderColor: "black",
+                backgroundColor: "lightblue",
+              }}
+              onPress={resetModal}
+            >
+              <ViewTypographyText
+                selectable={false}
+                style={{ fontWeight: "bold", textAlign: "center" }}
+              >
+                Close
+              </ViewTypographyText>
+            </ViewButtonPressable>
+          </ViewContainerStatic>
+        ) : (
+          <View>
+            <ViewTypographyText
+              style={{ fontWeight: "bold", textAlign: "center", padding: 10 }}
+            >
+              Enter your old and new passwords
+            </ViewTypographyText>
+            <ViewInputText
+              placeholder="Old Password"
+              value={oldPassword}
+              onChangeText={setOldPassword}
+              secureTextEntry={true}
+              style={{
+                height: 40,
+                margin: 12,
+                borderWidth: 1,
+                padding: 10,
+              }}
+            />
+            <ViewInputText
+              placeholder="New Password"
+              value={newPassword}
+              onChangeText={setNewPassword}
+              secureTextEntry={true}
+              style={{
+                height: 40,
+                margin: 12,
+                borderWidth: 1,
+                padding: 10,
+              }}
+            />
+            <ViewInputText
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              secureTextEntry={true}
+              style={{
+                height: 40,
+                margin: 12,
+                borderWidth: 1,
+                padding: 10,
+              }}
+            />
+            <ViewButtonPressable
+              style={{
+                flex: 1,
+                padding: 5,
+                margin: 10,
+                borderWidth: 1,
+                borderRadius: 5,
+                borderColor: "black",
+                backgroundColor: "lightblue",
+              }}
+              onPress={handleResetPassword}
+            >
+              <ViewTypographyText
+                selectable={false}
+                style={{ fontWeight: "bold", textAlign: "center" }}
+              >
+                Reset Password
+              </ViewTypographyText>
+              <ViewTypographyText>
+                {isLoading ? <ViewIndicatorSpinner /> : null}
+              </ViewTypographyText>
+            </ViewButtonPressable>
+          </View>
+        )}
+      </ViewContainerStatic>
+    </Modal>
+  );
+};
+
+export const ViewResetPasswordRequest = ({ isVisible, onClose }: any) => {
+  const [email, setEmail] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleResetPassword = async () => {
+    /*
+    - get current time and 1hr from current time
+    - encrypt it to a an access token
+    - decrypt the access token after redirection to get the time
+    - check if the the time has expired
+    - if not, user will be prompted to set the new password
+    */
+    setIsLoading(true);
+
+    try {
+      const { data, error } =
+        await instanceSupabaseClient.auth.resetPasswordForEmail(email, {
+          redirectTo:
+            "http://localhost:19006/users/b9795166-24ae-482c-a645-2e51713f00b8/profile",
+        });
+
+      if (error) throw error;
+
+      if (data) {
+        console.log(data);
+
+        setIsSuccess(true);
+      }
+    } catch (error) {
+      console.error("Password reset failed:", error);
+
+      throw error;
+    }
+
+    setIsLoading(false);
+  };
+
+  const resetModal = () => {
+    setEmail("");
+    setIsSuccess(false);
+    onClose();
+  };
+
+  return (
+    <Modal visible={isVisible} onRequestClose={resetModal}>
+      <ViewContainerStatic
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      >
+        {isSuccess ? (
+          <ViewContainerStatic>
+            <ViewTypographyText
+              style={{ fontWeight: "bold", textAlign: "center", padding: 10 }}
+            >
+              Password reset link sent successfully!
+            </ViewTypographyText>
+            <ViewButtonPressable
+              style={{
+                flex: 1,
+                padding: 5,
+                margin: 10,
+                borderWidth: 1,
+                borderRadius: 5,
+                borderColor: "black",
+                backgroundColor: "lightblue",
+              }}
+              onPress={resetModal}
+            >
+              <ViewTypographyText
+                selectable={false}
+                style={{ fontWeight: "bold", textAlign: "center" }}
+              >
+                Close
+              </ViewTypographyText>
+            </ViewButtonPressable>
+          </ViewContainerStatic>
+        ) : (
+          <View>
+            <ViewTypographyText
+              style={{ fontWeight: "bold", textAlign: "center", padding: 10 }}
+            >
+              Enter your email to reset your password
+            </ViewTypographyText>
+            <ViewInputText
+              placeholder="Email"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              style={{
+                height: 40,
+                margin: 12,
+                borderWidth: 1,
+                padding: 10,
+              }}
+            />
+            <ViewButtonPressable
+              style={{
+                flex: 1,
+                padding: 5,
+                margin: 10,
+                borderWidth: 1,
+                borderRadius: 5,
+                borderColor: "black",
+                backgroundColor: "lightblue",
+              }}
+              onPress={handleResetPassword}
+            >
+              <ViewTypographyText
+                selectable={false}
+                style={{ fontWeight: "bold", textAlign: "center" }}
+              >
+                Request Password Reset
+              </ViewTypographyText>
+              <ViewTypographyText>
+                {isLoading ? <ViewIndicatorSpinner /> : null}
+              </ViewTypographyText>
+            </ViewButtonPressable>
+          </View>
+        )}
+      </ViewContainerStatic>
+    </Modal>
+  );
+};
+
+export const ViewPasswordReset = () => {
+  const [isResetPasswordModalVisible, setIsResetPasswordModalVisible] =
+    useState(false);
+
+  const listenToAuthEvent = () => {
+    instanceSupabaseClient.auth.onAuthStateChange((event, session) => {
+      if (event == "INITIAL_SESSION") {
+        console.log(`${event}`, JSON.stringify(session));
+
+        // show screen to update user's password
+        setIsResetPasswordModalVisible(true);
+      } else {
+        console.log("Nothing to see here.");
+      }
+      // console.log(
+      //   `event: ${JSON.stringify(event)}` +
+      //     "\n" +
+      //     `session: ${JSON.stringify(session)}`
+      // );
+    });
+  };
+
+  useEffect(() => {
+    listenToAuthEvent();
+  }, []);
+
+  return (
+    <ViewContainerStatic>
+      <ViewResetPasswordPrompt
+        isVisible={isResetPasswordModalVisible}
+        onClose={() => setIsResetPasswordModalVisible(false)}
+      />
+    </ViewContainerStatic>
+  );
+};
 
 // SIGNUP (Todo / The View is complete, the others are placeholders that are no longer up to date. abstract out of the view into them)
 

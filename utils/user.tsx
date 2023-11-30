@@ -46,9 +46,12 @@ import {
   ViewAuthSignin,
   ViewAuthSignup,
   ViewAzureSignin,
+  ViewGitHubSignin,
+  // ViewGoogleSignIn,
   ViewPasswordReset,
   ViewResetPasswordPrompt,
   ViewResetPasswordRequest,
+  ViewTwitterSignin,
 } from "./auth";
 import { useReactState } from "./react";
 import MSAL from "../components/auth/msal";
@@ -435,7 +438,16 @@ export const ViewAdminAuth = () => {
   return (
     <ViewContainerScroll>
       <ViewContainerStatic>
-        {authState ? <ViewAzureSignin /> : <ViewUserSignin />}
+        {authState ? (
+          <ViewContainerStatic>
+            <ViewAzureSignin />
+            <ViewTwitterSignin />
+            <ViewGitHubSignin />
+            {/* <ViewGoogleSignIn /> */}
+          </ViewContainerStatic>
+        ) : (
+          <ViewUserSignin />
+        )}
       </ViewContainerStatic>
       <ViewContainerStatic>
         <ViewButtonPressable

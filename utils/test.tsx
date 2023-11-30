@@ -35,6 +35,7 @@ import useTokenStore from "../states/api/storeToken";
 import { ViewVaultExample } from "./vault";
 import {ViewSignatureCanvas} from "./signature";
 import { ViewRichText } from "./richtext";
+import { ViewPasswordReset } from "./auth";
 
 export const ViewTestPage = () => {
   const token = useTokenStore((state: any) => state.token);

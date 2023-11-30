@@ -15,14 +15,12 @@ import {
 } from "./queryer";
 import { useAzureSSOStore } from "../states/auth/storeSSO";
 import { useEffect, useState } from "react";
+import { Modal, View } from "react-native";
 import {
-  Modal,
-  View,
-  TouchableOpacity,
-  TextInput,
-  Button,
-  Linking,
-} from "react-native";
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from "@react-native-google-signin/google-signin";
 
 // STYLES (to be moved to theme once developed)
 
@@ -384,11 +382,58 @@ export const requestSignInWithAzure = async () => {
       scopes: "email",
     },
   });
-  if (error) {
-    throw new Error(error.message);
-  }
+
+  if (error) throw new Error(error.message);
+
   return data;
 };
+
+export const requestSignInWithTwitter = async () => {
+  const { data, error } = await instanceSupabaseClient.auth.signInWithOAuth({
+    provider: "twitter",
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+};
+
+export const requestSignInWithGitHub = async () => {
+  const { data, error } = await instanceSupabaseClient.auth.signInWithOAuth({
+    provider: "github",
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+};
+
+// export const requestSignInWithGoogle = async () => {
+//   try {
+//     await GoogleSignin.hasPlayServices();
+//     const userInfo = await GoogleSignin.signIn();
+//     if (userInfo.idToken) {
+//       const { data, error } =
+//         await instanceSupabaseClient.auth.signInWithIdToken({
+//           provider: "google",
+//           token: userInfo.idToken,
+//         });
+//       console.log(error, data);
+//     } else {
+//       throw new Error("no ID token present!");
+//     }
+//   } catch (error: any) {
+//     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+//       console.log("user cancelled the login flow");
+//     } else if (error.code === statusCodes.IN_PROGRESS) {
+//       console.log("operation (e.g. sign in) is in progress already");
+//     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+//       console.log("play services not available or outdated");
+//     } else {
+//       console.log("some other error happened");
+//     }
+//   }
+// };
 
 // hook to wrap requestAuthSignup
 export const useAuthSignup = ({
@@ -423,6 +468,45 @@ export const useAzureSignin = () => {
     }
   );
 };
+
+export const useTwitterSignin = () => {
+  const queryerClient = useQueryerClient();
+  return useQueryerMutation(
+    ["auth", "signup"],
+    () => requestSignInWithTwitter(),
+    {
+      onSuccess: () => {
+        queryerClient.invalidateQueries(["auth", "session"]);
+      },
+    }
+  );
+};
+
+export const useGitHubSignin = () => {
+  const queryerClient = useQueryerClient();
+  return useQueryerMutation(
+    ["auth", "signup"],
+    () => requestSignInWithGitHub(),
+    {
+      onSuccess: () => {
+        queryerClient.invalidateQueries(["auth", "session"]);
+      },
+    }
+  );
+};
+
+// export const useGoogleSignin = () => {
+//   const queryerClient = useQueryerClient();
+//   return useQueryerMutation(
+//     ["auth", "signup"],
+//     () => requestSignInWithGoogle(),
+//     {
+//       onSuccess: () => {
+//         queryerClient.invalidateQueries(["auth", "session"]);
+//       },
+//     }
+//   );
+// };
 
 export const ViewAuthSignup = () => {
   const [usernameState, usernameUpdate] = useReactState("");
@@ -718,6 +802,203 @@ export const ViewAzureSignin = () => {
     </ViewContainerStatic>
   );
 };
+
+export const ViewTwitterSignin = () => {
+  const signin = useTwitterSignin();
+  const ssoSession = useAzureSSOStore((state: any) => state.userSession);
+
+  return (
+    <ViewContainerStatic>
+      {ssoSession ? (
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            backgroundColor: "lightblue",
+            gap: 5,
+            marginHorizontal: 12,
+            marginTop: 5,
+            padding: 10,
+            borderRadius: 5,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
+          }}
+          onPress={() => signin.mutate()}
+        >
+          <ViewTypographyText style={{ textAlign: "center" }}>
+            Sign In With X Account
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      ) : (
+        <ViewTypographyText>
+          {/* {signin.isLoading ? <ViewIndicatorSpinner /> : null} */}
+          Successfully Logged in to Supabase
+        </ViewTypographyText>
+      )}
+
+      {signin.isError ? (
+        <ViewTypographyText
+          style={{
+            textAlign: "center",
+            marginTop: 20,
+            marginHorizontal: 12,
+            padding: 10,
+            borderRadius: 5,
+            backgroundColor: "#d15953",
+          }}
+        >
+          An error occurred: {(signin.error as any)?.message}
+        </ViewTypographyText>
+      ) : signin.isSuccess ? (
+        <ViewTypographyText
+          style={{
+            textAlign: "center",
+            marginTop: 20,
+            marginHorizontal: 12,
+            padding: 10,
+            borderRadius: 5,
+            backgroundColor: "#53d17b",
+          }}
+        >
+          Signing you in!
+        </ViewTypographyText>
+      ) : null}
+    </ViewContainerStatic>
+  );
+};
+
+export const ViewGitHubSignin = () => {
+  const signin = useGitHubSignin();
+  const ssoSession = useAzureSSOStore((state: any) => state.userSession);
+
+  return (
+    <ViewContainerStatic>
+      {ssoSession ? (
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            backgroundColor: "lightblue",
+            gap: 5,
+            marginHorizontal: 12,
+            marginTop: 5,
+            padding: 10,
+            borderRadius: 5,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
+          }}
+          onPress={() => signin.mutate()}
+        >
+          <ViewTypographyText style={{ textAlign: "center" }}>
+            Sign In With GitHub Account
+          </ViewTypographyText>
+        </ViewButtonPressable>
+      ) : (
+        <ViewTypographyText>
+          {/* {signin.isLoading ? <ViewIndicatorSpinner /> : null} */}
+          Successfully Logged in to Supabase
+        </ViewTypographyText>
+      )}
+
+      {signin.isError ? (
+        <ViewTypographyText
+          style={{
+            textAlign: "center",
+            marginTop: 20,
+            marginHorizontal: 12,
+            padding: 10,
+            borderRadius: 5,
+            backgroundColor: "#d15953",
+          }}
+        >
+          An error occurred: {(signin.error as any)?.message}
+        </ViewTypographyText>
+      ) : signin.isSuccess ? (
+        <ViewTypographyText
+          style={{
+            textAlign: "center",
+            marginTop: 20,
+            marginHorizontal: 12,
+            padding: 10,
+            borderRadius: 5,
+            backgroundColor: "#53d17b",
+          }}
+        >
+          Signing you in!
+        </ViewTypographyText>
+      ) : null}
+    </ViewContainerStatic>
+  );
+};
+
+// export const ViewGoogleSignIn = () => {
+//   const signin = useGoogleSignin();
+//   const ssoSession = useAzureSSOStore((state: any) => state.userSession);
+
+//   GoogleSignin.configure({
+//     scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+//     webClientId: "YOUR CLIENT ID FROM GOOGLE CONSOLE",
+//   });
+
+//   return (
+//     <ViewContainerStatic>
+//       {ssoSession ? (
+//         <GoogleSigninButton
+//           size={GoogleSigninButton.Size.Wide}
+//           color={GoogleSigninButton.Color.Dark}
+//           onPress={() => signin.mutate()}
+//         />
+//       ) : (
+//         <ViewTypographyText>
+//           {/* {signin.isLoading ? <ViewIndicatorSpinner /> : null} */}
+//           Successfully Logged in to Supabase
+//         </ViewTypographyText>
+//       )}
+
+//       {signin.isError ? (
+//         <ViewTypographyText
+//           style={{
+//             textAlign: "center",
+//             marginTop: 20,
+//             marginHorizontal: 12,
+//             padding: 10,
+//             borderRadius: 5,
+//             backgroundColor: "#d15953",
+//           }}
+//         >
+//           An error occurred: {(signin.error as any)?.message}
+//         </ViewTypographyText>
+//       ) : signin.isSuccess ? (
+//         <ViewTypographyText
+//           style={{
+//             textAlign: "center",
+//             marginTop: 20,
+//             marginHorizontal: 12,
+//             padding: 10,
+//             borderRadius: 5,
+//             backgroundColor: "#53d17b",
+//           }}
+//         >
+//           Signing you in!
+//         </ViewTypographyText>
+//       ) : null}
+//     </ViewContainerStatic>
+//   );
+// };
 
 export type TypeAuthSignin = {
   email: string;

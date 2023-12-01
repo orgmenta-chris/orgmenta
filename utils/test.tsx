@@ -36,6 +36,7 @@ import { ViewVaultExample } from "./vault";
 import {ViewSignatureCanvas} from "./signature";
 import { ViewRichText } from "./richtext";
 import { ViewPasswordReset } from "./auth";
+import { DatetimePickerModal } from "./calendar";
 
 export const ViewTestPage = () => {
   const token = useTokenStore((state: any) => state.token);
@@ -99,7 +100,8 @@ export const ViewTestPage = () => {
         {/* <MSGraph token={token} /> */}
         {/* <ViewVaultExample /> */}
         {/* <ViewSignatureCanvas /> */}
-        <ViewRichText />
+        {/* <ViewRichText /> */}
+        <DatetimePickerModal />
       </ViewContainerScroll>
     </ViewPageMain>
   ) : (

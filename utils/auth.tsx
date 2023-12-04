@@ -1060,6 +1060,25 @@ export const requestAuthSession = async () => {
   return await instanceSupabaseClient.auth.getSession();
 };
 
+export const refreshAuthSession = async () => {
+  const { data: sessionData, error: sessionError } =
+    await instanceSupabaseClient.auth.getSession();
+
+  // @ts-ignore
+  if (sessionData && sessionData?.expires_at * 1000 < Date.now()) {
+    // console.log(sessionData);
+
+    const { data: refreshData, error: refreshError } =
+      await instanceSupabaseClient.auth.refreshSession();
+
+    if (refreshData) console.log(refreshData);
+
+    if (refreshError) throw refreshError;
+  } else console.log("session not expired");
+
+  if (sessionError) throw sessionError;
+};
+
 // hook to wrap requestAuthSession
 export const useAuthSession = () => {
   const query = useQueryerQuery({

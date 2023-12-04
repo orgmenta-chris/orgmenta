@@ -46,6 +46,8 @@ import Markdown, { getUniqueID } from "react-native-markdown-renderer";
 import { ViewButtonPressable } from "./button";
 import { ViewTypographyText } from "./typography";
 import { instanceSupabaseClient } from "./supabase";
+import { pickImageAsync } from "./imagepicker";
+import * as ImagePicker from "expo-image-picker";
 
 export type IconRecord = {
   selected: boolean;
@@ -853,6 +855,7 @@ export const handleHead = ({ tintColor }: any) => (
 export const ViewRichText = () => {
   const richText = useRef();
   const [description, setDescription] = useState();
+  const [selectedImage, setSelectedImage] = useState();
 
   const richTextData = {
     title: "Test case",
@@ -873,6 +876,28 @@ export const ViewRichText = () => {
     if (data) console.log(data);
   };
 
+  const onPressAddImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      console.log(result);
+      // @ts-ignore
+      richText.current?.insertImage(result.assets[0].uri);
+    } else {
+      alert("You did not select any image.");
+    }
+  };
+
+  // const onPressAddImage = () => {
+  //   // @ts-ignore
+  //   richText.current?.insertImage(
+  //     "https://images.pexels.com/photos/19143646/pexels-photo-19143646/free-photo-of-red-flag-on-lifeguard-tower-on-beach.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  //   );
+  // };
+
   return (
     <SafeAreaView>
       <ViewContainerScroll>
@@ -891,7 +916,9 @@ export const ViewRichText = () => {
 
       <RichToolbar
         editor={richText}
+        onPressAddImage={onPressAddImage}
         actions={[
+          actions.insertImage,
           actions.setBold,
           actions.setItalic,
           actions.setUnderline,

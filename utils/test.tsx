@@ -100,8 +100,8 @@ export const ViewTestPage = () => {
         {/* <MSGraph token={token} /> */}
         {/* <ViewVaultExample /> */}
         {/* <ViewSignatureCanvas /> */}
-        {/* <ViewRichText /> */}
-        <DatetimePickerModal />
+        <ViewRichText />
+        {/* <DatetimePickerModal /> */}
       </ViewContainerScroll>
     </ViewPageMain>
   ) : (

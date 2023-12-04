@@ -53,17 +53,13 @@ interface ViewSignatureCanvasProps {
   onSignatureComplete: (signature: string) => void;
 }
 
-export const ViewSignatureCanvas = ({
-  // onSignatureComplete,
-  // text,
-  // onOK,
-}: any) => {
-  const ref = useRef(null);
+export const ViewSignatureCanvas = ({ text, onOK }: any) => {
+  const ref = useRef();
 
   // Called after ref.current.readSignature() reads a non-empty base64 string
   const handleOK = (signature: any) => {
     console.log(signature);
-    // onOK(signature); // Callback from Component props
+    onOK(signature); // Callback from Component props
   };
 
   // Called after ref.current.readSignature() reads an empty string
@@ -78,8 +74,9 @@ export const ViewSignatureCanvas = ({
 
   // Called after end of stroke
   const handleEnd = () => {
-    // @ts-ignore
-    ref.current.readSignature();
+    const obj = ref.current;
+    
+    obj.readSignature();
   };
 
   // Called after ref.current.getData()
@@ -87,21 +84,8 @@ export const ViewSignatureCanvas = ({
     console.log(data);
   };
 
-  const [text, setText] = useState("")
-
   return (
     <ViewContainerStatic>
-      <ViewInputText
-        style={{
-          height: 40,
-          margin: 12,
-          borderWidth: 1,
-          padding: 10,
-        }}
-        onChangeText={setText}
-        value={text}
-        placeholder="Signature"
-      />
       <SignatureScreen
         ref={ref}
         onEnd={handleEnd}

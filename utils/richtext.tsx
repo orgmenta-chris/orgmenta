@@ -918,14 +918,20 @@ export const ViewRichText = () => {
         editor={richText}
         onPressAddImage={onPressAddImage}
         actions={[
+          actions.undo,
+          actions.redo,
           actions.insertImage,
+          actions.insertLink,
+          actions.checkboxList,
+          actions.heading1,
+          actions.insertBulletsList,
+          actions.insertOrderedList,
           actions.setBold,
           actions.setItalic,
           actions.setUnderline,
           actions.setStrikethrough,
           actions.setSubscript,
           actions.setSuperscript,
-          actions.heading1,
         ]}
         iconMap={{
           [actions.heading1]: handleHead,

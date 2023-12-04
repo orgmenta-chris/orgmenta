@@ -33,14 +33,23 @@ import { ViewDraggableBox } from "./draggable";
 import { MSGraph } from "../api/graphFunctions";
 import useTokenStore from "../states/api/storeToken";
 import { ViewVaultExample } from "./vault";
-import {ViewSignatureCanvas} from "./signature";
+import { ViewSignatureCanvas } from "./signature";
 import { ViewRichText } from "./richtext";
-import { ViewPasswordReset } from "./auth";
+import { ViewPasswordReset, refreshAuthSession } from "./auth";
 import { DatetimePickerModal } from "./calendar";
+import { useEffect } from "react";
+import { ViewAddressPicker } from "./map";
 
 export const ViewTestPage = () => {
   const token = useTokenStore((state: any) => state.token);
   const aux = useAuxiliaryArray({ filter_array: [] });
+
+  useEffect(() => {
+    const refreshToken = async () => refreshAuthSession();
+
+    refreshToken();
+  });
+
   return __DEV__ ? (
     <ViewPageMain>
       <ViewContainerScroll>
@@ -100,8 +109,9 @@ export const ViewTestPage = () => {
         {/* <MSGraph token={token} /> */}
         {/* <ViewVaultExample /> */}
         {/* <ViewSignatureCanvas /> */}
-        <ViewRichText />
+        {/* <ViewRichText /> */}
         {/* <DatetimePickerModal /> */}
+        <ViewAddressPicker />
       </ViewContainerScroll>
     </ViewPageMain>
   ) : (

@@ -38,7 +38,7 @@ import { ViewRichText } from "./richtext";
 import { ViewPasswordReset, refreshAuthSession } from "./auth";
 import { DatetimePickerModal } from "./calendar";
 import { useEffect } from "react";
-import { ViewAddressPicker } from "./map";
+import { ViewAddressPicker, ViewMapMobile } from "./map";
 
 export const ViewTestPage = () => {
   const token = useTokenStore((state: any) => state.token);
@@ -112,6 +112,7 @@ export const ViewTestPage = () => {
         {/* <ViewRichText /> */}
         {/* <DatetimePickerModal /> */}
         <ViewAddressPicker />
+        {/* <ViewMapMobile /> */}
       </ViewContainerScroll>
     </ViewPageMain>
   ) : (

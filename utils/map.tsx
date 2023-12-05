@@ -1,8 +1,10 @@
 import MapView from "react-native-maps";
 import { View } from "react-native";
-import { ViewContainerScroll } from "./container";
+import { ViewContainerScroll, ViewContainerStatic } from "./container";
 import { useEffect, useState } from "react";
 import { ViewInputText } from "./input";
+import { Map, Marker, ZoomControl } from "pigeon-maps";
+import { osm } from "pigeon-maps/providers";
 
 export const ViewMapMobile = () => {
   const location = { latitude: 37.78825, longitude: -122.4324 };
@@ -38,13 +40,38 @@ export const geoCodeAddress = async (address: any) => {
   return res.json();
 };
 
+export const WebMapView = ({ latitude, longitude }: any) => {
+  const [hue, setHue] = useState(0);
+
+  const color = `hsl(${hue % 360}deg 39% 70%)`;
+
+  return (
+    <ViewContainerStatic>
+      <Map
+        provider={osm}
+        height={550}
+        defaultCenter={[latitude, longitude]}
+        defaultZoom={11}
+      >
+        <ZoomControl />
+        <Marker
+          width={50}
+          anchor={[latitude, longitude]}
+          color={color}
+          onClick={() => setHue(hue + 20)}
+        />
+      </Map>
+    </ViewContainerStatic>
+  );
+};
+
 export const ViewAddressPicker = () => {
   const [address, setAddress] = useState(
     "1600 Pennsylvania Ave NW, Washington DC"
   );
 
-  const [latitude, setLatitude] = useState();
-  const [longitude, setLongitude] = useState();
+  const [latitude, setLatitude] = useState(37.78825);
+  const [longitude, setLongitude] = useState(-122.4324);
 
   const location: coordinates = { latitude: 37.78825, longitude: -122.4324 };
 
@@ -52,7 +79,16 @@ export const ViewAddressPicker = () => {
     const getAddressOnMap = async () => {
       const newAddress = await geoCodeAddress(address);
 
-      console.log(newAddress);
+      // console.log(newAddress);
+
+      const newLatitude = newAddress.data[0].latitude;
+      const newLongitude = newAddress.data[0].longitude;
+      
+      setLatitude(newLatitude);
+      setLongitude(newLongitude);
+
+      console.log(latitude);
+      console.log(longitude);
     };
 
     getAddressOnMap();
@@ -72,19 +108,8 @@ export const ViewAddressPicker = () => {
         placeholder="Enter address"
       />
 
-      <MapView
-        provider="google"
-        initialRegion={{
-          latitude: location.latitude,
-          longitude: location.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-        style={{
-          width: "100%",
-          height: "100%",
-        }}
-      />
+      <WebMapView latitude={latitude} longitude={longitude} />
+      
     </ViewContainerScroll>
   );
 };

@@ -108,9 +108,9 @@ export const ViewTestPage = () => {
         {/* {/* <ViewThreadComponent /> */}
         {/* <MSGraph token={token} /> */}
         {/* <ViewVaultExample /> */}
-        <ViewSignatureCanvas />
+        {/* <ViewSignatureCanvas /> */}
         {/* <ViewRichText /> */}
-        {/* <DatetimePickerModal /> */}
+        <DatetimePickerModal />
         {/* <ViewAddressPicker /> */}
         {/* <ViewMapMobile /> */}
       </ViewContainerScroll>

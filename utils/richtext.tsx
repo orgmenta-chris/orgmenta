@@ -14,6 +14,7 @@ import React, {
   useMemo,
   useRef,
   useState,
+  createRef,
 } from "react";
 
 import {
@@ -40,6 +41,7 @@ import {
   RichEditor,
   RichToolbar,
 } from "react-native-pell-rich-editor";
+import QuillEditor, { QuillToolbar } from "react-native-cn-quill";
 import Modal from "react-native";
 import { ViewContainerScroll, ViewContainerStatic } from "./container";
 import Markdown, { getUniqueID } from "react-native-markdown-renderer";
@@ -469,6 +471,25 @@ export function Example(props: any) {
 }
 
 const styles = StyleSheet.create({
+  title: {
+    fontWeight: "bold",
+    alignSelf: "center",
+    paddingVertical: 10,
+  },
+  root: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
+    backgroundColor: "#eaeaea",
+  },
+  editor: {
+    flex: 1,
+    padding: 0,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginHorizontal: 30,
+    marginVertical: 5,
+    backgroundColor: "white",
+  },
   view: {
     alignSelf: "center",
     flexWrap: "wrap",
@@ -852,91 +873,81 @@ export const handleHead = ({ tintColor }: any) => (
   <Text style={{ color: tintColor }}>H1</Text>
 );
 
-export const ViewRichText = () => {
-  const richText = useRef();
-  const [description, setDescription] = useState();
-  const [selectedImage, setSelectedImage] = useState();
+export const ViewNewRichText = () => {
+  const _editor = createRef();
 
-  const richTextData = {
-    title: "Test case",
-    status: "0. New",
-    type: "Item",
-  };
+  const customHandler = async (name: string, value: any) => {
+    if (name === "image") {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        quality: 1,
+      });
 
-  const saveToSupabase = async (description: any) => {
-    const { title, status, type } = richTextData;
-
-    const { data, error } = await instanceSupabaseClient
-      .from("entities_orgmenta")
-      .insert([{ title, status, type, description }])
-      .select();
-
-    if (error) throw error;
-
-    if (data) console.log(data);
-  };
-
-  const onPressAddImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      console.log(result);
-      // @ts-ignore
-      richText.current?.insertImage(result.assets[0].uri);
-    } else {
-      alert("You did not select any image.");
+      if (!result.canceled) {
+        console.log({ result });
+        // @ts-ignore
+        _editor.current?.insertEmbed(
+          // @ts-ignore
+          _editor.current?.getLength(),
+          "image",
+          result.assets[0].uri
+        );
+      } else {
+        alert("You did not select any image.");
+      }
     }
   };
 
-  // const onPressAddImage = () => {
-  //   // @ts-ignore
-  //   richText.current?.insertImage(
-  //     "https://images.pexels.com/photos/19143646/pexels-photo-19143646/free-photo-of-red-flag-on-lifeguard-tower-on-beach.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  //   );
-  // };
+  const saveToSupabase = async () => {
+    if (_editor && _editor.current) {
+      const title = "This is a test title";
+      const status = "New";
+      const type = "Document";
+
+      // @ts-ignore
+      const descriptionPromise = _editor.current?.getContents();
+      const description = await descriptionPromise;
+
+      console.log({ title, status, type, description });
+
+      // const { data, error } = await instanceSupabaseClient
+      //   .from("entities_orgmenta")
+      //   .insert([{ title, status, type, description }])
+      //   .select();
+
+      // if (error) throw error;
+
+      // if (data) console.log(data);
+    }
+  };
 
   return (
-    <SafeAreaView>
-      <ViewContainerScroll>
-        <ViewTypographyText
-          style={{ paddingHorizontal: 5, marginVertical: 10 }}
-        >
-          Rich Text:
-        </ViewTypographyText>
-        <RichEditor
+    <SafeAreaView style={styles.root}>
+      {
+        // @ts-ignore
+        <StatusBar style="auto" />
+      }
+      {
+        <QuillEditor
+          // autoSize
+          style={styles.editor}
           // @ts-ignore
-          ref={richText}
-          // @ts-ignore
-          onChange={(descriptionText) => setDescription(descriptionText)}
+          ref={_editor}
+          initialHtml="<h1>Quill Editor for react-native</h1>"
         />
-      </ViewContainerScroll>
-
-      <RichToolbar
-        editor={richText}
-        onPressAddImage={onPressAddImage}
-        actions={[
-          actions.undo,
-          actions.redo,
-          actions.insertImage,
-          actions.insertLink,
-          actions.checkboxList,
-          actions.heading1,
-          actions.insertBulletsList,
-          actions.insertOrderedList,
-          actions.setBold,
-          actions.setItalic,
-          actions.setUnderline,
-          actions.setStrikethrough,
-          actions.setSubscript,
-          actions.setSuperscript,
-        ]}
-        iconMap={{
-          [actions.heading1]: handleHead,
-        }}
-      />
+      }
+      {
+        <QuillToolbar
+          // @ts-ignore
+          editor={_editor}
+          custom={{
+            handler: customHandler,
+            actions: ["image"],
+          }}
+          options="full"
+          theme="light"
+        />
+      }
 
       <ViewButtonPressable
         style={{
@@ -948,8 +959,7 @@ export const ViewRichText = () => {
           borderColor: "black",
           backgroundColor: "lightblue",
         }}
-        // onPress={() => console.log(description, typeof(description))}
-        onPress={() => saveToSupabase(description)}
+        onPress={saveToSupabase}
       >
         <ViewTypographyText
           selectable={false}

@@ -34,7 +34,8 @@ import { MSGraph } from "../api/graphFunctions";
 import useTokenStore from "../states/api/storeToken";
 import { ViewVaultExample } from "./vault";
 import { ViewSignatureCanvas } from "./signature";
-import { ViewRichText } from "./richtext";
+// @ts-ignore
+import { ViewNewRichText, ViewRichText } from "./richtext";
 import { ViewPasswordReset, refreshAuthSession } from "./auth";
 import { DatetimePickerModal } from "./calendar";
 import { useEffect } from "react";
@@ -109,8 +110,8 @@ export const ViewTestPage = () => {
         {/* <MSGraph token={token} /> */}
         {/* <ViewVaultExample /> */}
         {/* <ViewSignatureCanvas /> */}
-        {/* <ViewRichText /> */}
-        <DatetimePickerModal />
+        <ViewNewRichText />
+        {/* <DatetimePickerModal /> */}
         {/* <ViewAddressPicker /> */}
         {/* <ViewMapMobile /> */}
       </ViewContainerScroll>

@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "notification": {
       "vapidPublicKey": "BN2qxlZHDCKUSyn1H11NC5KY66AZXH9f2TJubseCl05P-VftBO1t3phXc6AGJ1LrL5pHEBMNKVx-6KRNHZ4nkq0"
     },
@@ -56,7 +58,8 @@
         {
           "enableGooglePay": true
         }
-      ]
+      ],
+      "expo-localization"
     ]
   }
 }

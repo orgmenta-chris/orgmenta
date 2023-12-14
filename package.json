@@ -72,6 +72,7 @@
     "react-native": "0.72.5",
     "react-native-app-auth": "^7.0.0",
     "react-native-big-calendar": "^4.2.0",
+    "react-native-cn-quill": "^0.7.18",
     "react-native-collapsible": "^1.6.1",
     "react-native-date-picker": "^4.3.4",
     "react-native-drax": "^0.10.3",

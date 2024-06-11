@@ -21,9 +21,19 @@ import {
   LayoutChangeEvent,
   Modal,
   ViewStyle,
+  Platform,
   Button,
 } from "react-native";
-import { useState, ReactElement } from "react";
+import { useState, ReactElement, useCallback } from "react";
+// import DatePicker from "react-native-date-picker";
+import { ViewContainerStatic } from "./container";
+import { ViewButtonPressable } from "./button";
+import { ViewTypographyText } from "./typography";
+// import DateTimePicker from "@react-native-community/datetimepicker";
+// import DatePicker from "react-native-date-picker";
+import { TimePickerModal, DatePickerModal } from "react-native-paper-dates";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { ViewInputText } from "./input";
 
 // CONTAINER
 
@@ -241,6 +251,266 @@ export const ViewCalendarButtons = ({ onChangeDate }: any) => {
 };
 
 // PICKER
+
+export const DatetimePickerModal = () => {
+  // const [date, setDate] = useState(new Date());
+
+  // const onChange = (event: any, selectedDate: any) => {
+  //   setDate(selectedDate);
+  //   // setOpen(false);
+
+  //   console.log(event, selectedDate);
+  // };
+
+  // const [open, setOpen] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [hours, setHours] = useState(0);
+  const [timeHours, setTimeHours] = useState(0);
+  const [timeMinutes, setTimeMinutes] = useState(0);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
+  const [step, setStep] = useState(0.25);
+
+  const onDateDismiss = useCallback(() => {
+    setShowDatePicker(false);
+  }, [setShowDatePicker]);
+
+  const onDateConfirm = useCallback(
+    ({ date }: any) => {
+      setShowDatePicker(false);
+
+      setDate(date);
+
+      console.log({date});
+    },
+    [setShowDatePicker, setDate]
+  );
+
+  const onTimeDismiss = useCallback(() => {
+    setShowTimePicker(false);
+  }, [setShowTimePicker]);
+
+  const onTimeConfirm = useCallback(
+    ({ hours, minutes }: any) => {
+      setShowTimePicker(false);
+
+      setTimeHours(hours);
+      setTimeMinutes(minutes);
+
+      console.log({ hours, minutes });
+    },
+    [setShowTimePicker]
+  );
+
+  const onChange = (event: any, selectedDate: any) => {
+    setDate(selectedDate);
+    setShowDatePicker(false);
+    console.log(event, selectedDate);
+  };
+
+  const addHours = () => {
+    const newHour = hours + step;
+    setHours(newHour);
+  };
+
+  const reduceHours = () => {
+    const newHour = hours - step;
+    setHours(newHour);
+  };
+
+  const changeStep = (newStep: any) => {
+    if (newStep) {
+      const step = parseFloat(newStep);
+      setStep(step);
+    } else setStep(0);
+  };
+
+  return (
+    <SafeAreaProvider>
+      <ViewContainerStatic>
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            padding: 10,
+            margin: 10,
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "black",
+            backgroundColor: "lightblue",
+          }}
+          onPress={() => setShowTimePicker(true)}
+        >
+          <ViewTypographyText
+            selectable={false}
+            style={{
+              fontWeight: "bold",
+              textAlign: "center",
+              paddingBottom: 10,
+            }}
+          >
+            Time Picker
+          </ViewTypographyText>
+        </ViewButtonPressable>
+
+        <ViewButtonPressable
+          style={{
+            flex: 1,
+            padding: 10,
+            margin: 10,
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "black",
+            backgroundColor: "lightblue",
+          }}
+          onPress={() => setShowDatePicker(true)}
+        >
+          <ViewTypographyText
+            selectable={false}
+            style={{
+              fontWeight: "bold",
+              textAlign: "center",
+              paddingBottom: 10,
+            }}
+          >
+            Date Picker
+          </ViewTypographyText>
+        </ViewButtonPressable>
+
+        {/* Display Selected Date */}
+        {/* <View style={styles.container}> */}
+        <ViewTypographyText
+          selectable={false}
+          style={{ textAlign: "center", paddingBottom: 10 }}
+        >
+          {date.toLocaleString()}
+        </ViewTypographyText>
+        {/* </View> */}
+
+        {/* Add Hours Component */}
+        {/* <View style={styles.container}> */}
+        {/* <Button title="Add Hours" onPress={addHours} /> */}
+        <ViewButtonPressable
+          style={{
+            padding: 5,
+            margin: 5,
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "black",
+            backgroundColor: "lightblue",
+          }}
+          onPress={reduceHours}
+        >
+          <ViewTypographyText
+            selectable={false}
+            style={{
+              fontWeight: "bold",
+              textAlign: "center",
+              paddingBottom: 10,
+            }}
+          >
+            -
+          </ViewTypographyText>
+        </ViewButtonPressable>
+
+        <ViewInputText
+          placeholder="Enter hours"
+          keyboardType="numeric"
+          value={hours.toString()}
+          // onChangeText={(text) => setHoursToAdd(text)}
+        />
+
+        <ViewButtonPressable
+          style={{
+            padding: 5,
+            margin: 5,
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: "black",
+            backgroundColor: "lightblue",
+          }}
+          onPress={addHours}
+        >
+          <ViewTypographyText
+            selectable={false}
+            style={{
+              fontWeight: "bold",
+              textAlign: "center",
+              paddingBottom: 10,
+            }}
+          >
+            +
+          </ViewTypographyText>
+        </ViewButtonPressable>
+
+        {/* Display and Change Step Component */}
+        <ViewContainerStatic>
+          <ViewTypographyText
+            selectable={false}
+            style={{
+              fontWeight: "bold",
+              textAlign: "center",
+              paddingBottom: 10,
+            }}
+          >
+            Step: {step}
+          </ViewTypographyText>
+          <ViewInputText
+            placeholder="Enter step"
+            keyboardType="numeric"
+            value={step.toString()}
+            onChangeText={(text) => changeStep(text)}
+          />
+        </ViewContainerStatic>
+
+        <TimePickerModal
+          visible={showTimePicker}
+          onDismiss={onTimeDismiss}
+          onConfirm={onTimeConfirm}
+          hours={12}
+          minutes={14}
+        />
+        <DatePickerModal
+          locale="en-GB"
+          mode="single"
+          visible={showDatePicker}
+          onDismiss={onDateDismiss}
+          date={date}
+          onConfirm={onDateConfirm}
+        />
+
+        {/* Date Picker */}
+        {/* <Modal
+          animationType="slide"
+          transparent={false}
+          visible={showDatePicker}
+          onRequestClose={() => setShowDatePicker}
+        >
+          <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode="date"
+          is24Hour={true}
+          display="default"
+          onChange={(event, date) => onChange(event, date)}
+        />
+          <DatePicker
+          modal
+          open={showDatePicker}
+          date={date}
+          onConfirm={(date) => {
+            setShowDatePicker(false);
+            setDate(date);
+          }}
+          onCancel={() => {
+            setShowDatePicker(false);
+          }}
+        />
+          
+        </Modal> */}
+      </ViewContainerStatic>
+    </SafeAreaProvider>
+  );
+};
 
 // A month picker to select a date
 export const ViewCalendarPicker = () => {

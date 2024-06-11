@@ -13,6 +13,7 @@ import { ViewSpaceModal } from "./utils/space";
 import { ViewUserPage, ViewUserModal } from "./utils/user";
 import { ViewLandingPage } from "./utils/landing";
 import { ViewTestPage } from "./utils/test";
+import { enGB, registerTranslation } from "react-native-paper-dates";
 import {
   // ViewRouterProvider,
   ViewRouterRoutes,
@@ -49,6 +50,8 @@ import { ViewTypographyText } from "./utils/typography";
 // export default function App() {
 // return <ViewTypographyText>test</ViewTypographyText>
 // }
+
+registerTranslation("en-GB", enGB);
 
 export default function App() {
   return (

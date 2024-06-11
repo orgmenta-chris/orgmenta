@@ -33,10 +33,24 @@ import { ViewDraggableBox } from "./draggable";
 import { MSGraph } from "../api/graphFunctions";
 import useTokenStore from "../states/api/storeToken";
 import { ViewVaultExample } from "./vault";
+import { ViewSignatureCanvas } from "./signature";
+// @ts-ignore
+import { ViewNewRichText, ViewRichText } from "./richtext";
+import { ViewPasswordReset, refreshAuthSession } from "./auth";
+import { DatetimePickerModal } from "./calendar";
+import { useEffect } from "react";
+import { ViewAddressPicker, ViewMapMobile } from "./map";
 
 export const ViewTestPage = () => {
   const token = useTokenStore((state: any) => state.token);
   const aux = useAuxiliaryArray({ filter_array: [] });
+
+  useEffect(() => {
+    const refreshToken = async () => refreshAuthSession();
+
+    refreshToken();
+  });
+
   return __DEV__ ? (
     <ViewPageMain>
       <ViewContainerScroll>
@@ -94,7 +108,12 @@ export const ViewTestPage = () => {
         {/* Chat Loisa (in progress) */}
         {/* {/* <ViewThreadComponent /> */}
         {/* <MSGraph token={token} /> */}
-        <ViewVaultExample />
+        {/* <ViewVaultExample /> */}
+        {/* <ViewSignatureCanvas /> */}
+        <ViewNewRichText />
+        {/* <DatetimePickerModal /> */}
+        {/* <ViewAddressPicker /> */}
+        {/* <ViewMapMobile /> */}
       </ViewContainerScroll>
     </ViewPageMain>
   ) : (

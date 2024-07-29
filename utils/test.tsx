@@ -54,7 +54,7 @@ export const ViewTestPage = () => {
   return __DEV__ ? (
     <ViewPageMain>
       <ViewContainerScroll>
-        <ViewTypographyHeading>Test</ViewTypographyHeading>
+        <ViewTypographyHeading>Test2</ViewTypographyHeading>
         {/* <ViewFrameworkPage
           data={
             doObjectNesting(
